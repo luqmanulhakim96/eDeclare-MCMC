@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_auth')
 
 @section('content')
     <div class="login-page d-flex flex-row justify-content-center align-items-center">

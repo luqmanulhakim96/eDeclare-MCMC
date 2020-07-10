@@ -17,11 +17,8 @@
     <link rel="stylesheet" href="{{ asset('qbadminui/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('qbadminui/css/vendor/bootstrap-4.3.1/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ mix('qbadminui/css/main.css') }}">
+
     <link rel="stylesheet" href="{{ asset('qbadminui/css/vendor/DataTable-1.10.20/datatables.min.css') }}"></link>
-
-    <!-- TinyMCE script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.4.0/tinymce.min.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <style>
@@ -37,15 +34,15 @@
         <div class="side-bar side-bar-lg-active" data-theme="purple">
             <!-- Brand details -->
             <div class="side-menu-brand d-flex flex-column justify-content-center align-items-center clear mt-3">
-                <img src="{{ asset('https://www.atvadventurepark.com/images/hutan.png') }}" alt="bran_name" class="brand-img">
-                <a href="{{ route('menu-utama') }}" class="brand-name mt-2 ml-2 font-weight-bold">e-Spatial</a>
+                <img src="{{ asset('https://upload.wikimedia.org/wikipedia/commons/f/fc/SKMM-MCMC-2014.png') }}" alt="bran_name" class="brand-img" style="width:100px;height:100px;">
+                <a href="{{ route('menu-utama') }}" class="brand-name mt-2 ml-2 font-weight-bold">Asset & Gift System</a>
             </div>
             @if(Auth::user())
             <!-- Side bar menu -->
             <div class="the_menu mt-5">
                 <!-- Heading -->
                 <div class="side-menu-heading d-flex">
-                    <h6 class=" font-weight-bold pb-2 mx-3"> {{Auth::user()->name}} </h6>
+                    <h6 class=" font-weight-bold pb-2 mx-3"> {{Auth::user()->name }} </h6>
                     <a  class="font-weight-bold ml-auto px-3"
                         href="{{ route('logout') }}"
                         onclick="event.preventDefault();
@@ -58,12 +55,14 @@
                 <!-- Menu item -->
                 <div id="accordion">
                     <ul class="side-menu p-0 m-0 mt-3">
-                        
+
+                        <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4" >Senarai Permohonan Lalu</a></li>
+
                     </ul>
                 </div>
             </div>
-
             @endif
+
         </div>
 
         <!-- Main section -->
@@ -202,7 +201,7 @@
                         <!-- Dropdown Menu -->
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-max-height">
                             <!-- Menu items -->
-                            <a href="#" class="dropdown-item disabled small"><i class="far fa-user mr-1"></i> Md.Maruf Ahmed</a>
+                            <a href="#" class="dropdown-item disabled small"><i class="far fa-user mr-1"></i> {{$short_name}} </a>
                             <a href="#" class="dropdown-item text-secondary-light">Account setting</a>
                             <a href="#" class="dropdown-item text-secondary-light">Billing history</a>
                             <a  class="dropdown-item text-secondary-light"
@@ -222,7 +221,7 @@
 
     <!-- Footer section -->
     <footer class="footer-full-body p-4 d-flex flex-row justify-content-between text-secondary">
-        <p>&copy; Copyright. <a href="https://www.forestry.gov.my/my/" target="_Blank">Jabatan Perhutanan Semenanjung Malaysia</a></p>
+        <p>&copy; Copyright. <a href="https://www.forestry.gov.my/my/" target="_Blank"><font color="black">Jabatan Perhutanan Semenanjung Malaysia</font></a></p>
         <p>Version 1.0.0</p>
     </footer>
   </div>
@@ -244,6 +243,5 @@
     <script src="{{ asset('qbadminui/js/vendor/DataTable-1.10.20/datatables.min.js') }}"></script>
     <!-- Data Table script -->
     <script src="{{ asset('qbadminui/js/plugins/dataTable_script.js') }}"></script>
-
 </body>
 </html>
