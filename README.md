@@ -14,9 +14,14 @@ QBAdminUI is a free html template.Here this is a laravel broilerplate to start w
 
 ## Installation
 
-1. Install NPM
+1. Install
 
 ``` bash
+$ composer Install
+$ composer require doctrine/dbal
+$ composer require owen-it/laravel-auditing
+$ composer require barryvdh/laravel-dompdf
+$ composer require protoqol/prequel  
 $ npm install
 ```
 2. Build with NPM
@@ -49,5 +54,3 @@ It's Done
 ## License
 
 The QBAdminUI Laravel Broilerplate is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-
