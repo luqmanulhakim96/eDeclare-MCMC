@@ -40,7 +40,10 @@ $ 'providers' => [
     // ...
 ],
 ```
-6. php artisan vendor:publish --provider "OwenIt\Auditing\AuditingServiceProvider" --tag="config"
+6.  Use the following command to publish the configuration settings:
+``` bash
+$ php artisan vendor:publish --provider "OwenIt\Auditing\AuditingServiceProvider" --tag="config"
+```
 
 7. Publish the audits table migration to the database/ directory with the following command:
 ``` bash
