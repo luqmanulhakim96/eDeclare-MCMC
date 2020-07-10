@@ -30,6 +30,22 @@ $ npm run dev
 ```
 3. Create a .env file
 4. Setup Database Name
+5. Edit the config/app.php file and add the following line to register the service provider:
+``` bash
+$ 'providers' => [
+    // ...
+
+    OwenIt\Auditing\AuditingServiceProvider::class,
+
+    // ...
+],
+```
+6. php artisan vendor:publish --provider "OwenIt\Auditing\AuditingServiceProvider" --tag="config"
+
+7. Publish the audits table migration to the database/ directory with the following command:
+``` bash
+$ php artisan vendor:publish --provider "OwenIt\Auditing\AuditingServiceProvider" --tag="migrations"
+```
 5. Migrate the tables
 ``` bash
 $ php artisan key:generate
