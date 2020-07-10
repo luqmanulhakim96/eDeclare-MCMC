@@ -1,10 +1,10 @@
-<h1 align="center">QBAdminUI Laravel Broilerplate</h1>
+<h1 align="center">MCMC Asset & Gift System</h1>
 
 
 
-## About QBAdminUI
+## About MCMC Asset & Gift System
 
-QBAdminUI is a free html template.Here this is a laravel broilerplate to start with this admin dashboard.We use the Laravel Framework default authentication system.
+MCMC Asset & Gift System use the QBAdminUI template. QBAdminUI is a free html template. Here this is a laravel broilerplate to start with this admin dashboard. We use the Laravel Framework default authentication system.
 
 - [HTML Demo](https://qbytesoft-com.github.io/qbadminui/).
 - [Laravel Demo](https://qbadminui.qbytesoft.com).
