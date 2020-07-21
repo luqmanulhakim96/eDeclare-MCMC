@@ -49899,9 +49899,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\mcmc\mcmc\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\xampp\htdocs\mcmc\mcmc\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\mcmc\mcmc\public\qbadminui\sass\main.scss */"./public/qbadminui/sass/main.scss");
+__webpack_require__(/*! C:\xampp\htdocs\MCMC-Gift-Asset-System\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\xampp\htdocs\MCMC-Gift-Asset-System\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\MCMC-Gift-Asset-System\public\qbadminui\sass\main.scss */"./public/qbadminui/sass/main.scss");
 
 
 /***/ })

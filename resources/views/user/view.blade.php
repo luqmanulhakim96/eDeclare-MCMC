@@ -7,7 +7,7 @@
                 <!-- Small card component -->
                 <div class="card rounded-lg">
                 <div class="card-body">
-                      <div class="card-titleuser"><b>Selamat Datang Ke Portal Perhutanan Semenanjung Malaysia</b></div>
+                      <div class="card-titleuser"><b>Selamat Datang Ke Portal Perisytiharan Harta dan Pemberian Hadiah Suruhanjaya Komunikasi dan Multimedia Malaysia (MCMC)</b></div>
                 </div>
                 </div><br><br>
 
@@ -15,10 +15,11 @@
                 <div class="card rounded-lg">
             <div class="card-body">
                       <div class="card-title"><b>Tatacara Penggunaan Untuk Mengisi Permohonan.</b></div>
-                      <div class="card-title">1. Mendaftar masuk di Portal e-Spatial.</div>
-                      <div class="card-title">2. Klik Permohonan Baru untuk memohon data hutan.</div>
-                      <div class="card-title">3. Masukkan jenis data, jenis hutan, negeri, tahun dan memuatnaik lampiran yang berkaitan.</div>
-                      <div class="card-title">4. Klik Mohon untuk menghantar kepada JPSM untuk diproses.</div>
+                      <div class="card-title">1. Mendaftar masuk di Portal Perisytiharan Harta dan Pemberian Hadiah Suruhanjaya Komunikasi dan Multimedia Malaysia (MCMC).</div>
+                      <div class="card-title">2. Klik Perakuan Tiada Penambahan Harta  untuk mengisi Borang Lampiran A: Borang Pengakuan Tiada Perubahan ke atas Pemilikan Harta.</div>
+                      <div class="card-title">3. Klik Perisytiharan Harta Baharu untuk mengisi Borang Lampiran B, C dan D.</div>
+                      <div class="card-title">4. Klik Penerimaan Hadiah Baharu untuk mengisi Borang Lampiran A: Borang Penerimaan Hadiah.</div>
+                      <div class="card-title">5. Klik butang "Hantar" untuk mengahntar permohonan.</div>
                 </div>
             </div><br><br>
 
@@ -31,14 +32,20 @@
                         <thead>
                             <tr>
                               <th class="all">ID</th>
-                              <th class="all">JENIS DATA</th>
-                              <th class="all">NEGERI</th>
-                              <th class="all">TAHUN</th>
+                              <th class="all">STATUS PERISYTIHARAN HARTA</th>
+                              <th class="all">TARIKH PERISYTIHARAN HARTA</th>
+                              <th class="all">TARIKH PERAKUAN PEMBERIAN HADIAH </th>
                             </tr>
                         </thead>
                         <!-- Table body -->
                         <tbody>
+                          <tr>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->email}}</td>
+                            <td>{{$user->created_at}}</td>
+                            <td>{{$user->created_at}}</td>
 
+                          </tr>
                         </tbody>
                       </table>
                   </div>

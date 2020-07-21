@@ -23,6 +23,7 @@ class AddAdditionalDataInUsersTable extends Migration
             $table->string('pekerjaan_pasangan')->nullable();
             $table->decimal('gaji',10,2)->nullable();
             $table->decimal('lain_lain_pendapatan_bulanan',10,2)->nullable();
+            $table->integer('role')->nullable();
         });
     }
 

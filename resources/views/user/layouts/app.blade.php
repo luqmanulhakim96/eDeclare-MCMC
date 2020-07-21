@@ -37,8 +37,11 @@
                 <img src="{{ asset('https://upload.wikimedia.org/wikipedia/commons/f/fc/SKMM-MCMC-2014.png') }}" alt="bran_name" class="brand-img" style="width:100px;height:100px;">
                 <a href="{{ route('menu-utama') }}" class="brand-name mt-2 ml-2 font-weight-bold">Asset & Gift System</a>
             </div>
+
             @if(Auth::user())
+
             <!-- Side bar menu -->
+
             <div class="the_menu mt-5">
                 <!-- Heading -->
                 <div class="side-menu-heading d-flex">
@@ -52,17 +55,147 @@
                     </a>
                 </div>
 
+
+
                 <!-- Menu item -->
                 <div id="accordion">
                     <ul class="side-menu p-0 m-0 mt-3">
+                      @if(Auth::user()->role == 5)
+                        <li class="side-menu-item px-3"><a href="{{ route('user.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+                        <!-- Sub menu parent -->
+                        <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Perisytiharan Harta Pegawai</a></li>
+                        <!-- Sub menu -->
+                        <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <ul class="side-sub-menu p-0">
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Lalu</a></li>
 
-                        <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4" >Senarai Permohonan Lalu</a></li>
+                            </ul>
+                        </div>
+                        <!-- Sub menu parent -->
+                        <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu" aria-expanded="false" aria-controls="table-sub-menu">Penerimaan Hadiah Pegawai</a></li>
+                        <!-- Sub menu -->
+                        <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <ul class="side-sub-menu p-0">
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
+                            </ul>
+                        </div>
+                        @endif
+                        <!--admin-->
+                        @if(Auth::user()->role == 1)
+                          <li class="side-menu-item px-3"><a href="{{ route('user.admin.view') }}" class="w-100 py-3 pl-4">Dashboard</a></li>
+                          <!-- Sub menu parent -->
+                          <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Perisytiharan Peribadi </a></li>
+                          <!-- Sub menu -->
+                          <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                              <ul class="side-sub-menu p-0">
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
+                              </ul>
+                          </div>
+                          <!-- Sub menu parent -->
+                          <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu" aria-expanded="false" aria-controls="table-sub-menu">Senarai Perisytiharan</a></li>
 
-                    </ul>
-                </div>
+                          <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                              <ul class="side-sub-menu p-0">
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.listGift') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.listAsset') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                              </ul>
+                          </div>
+
+                          <!-- Sub menu parent -->
+                        <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#form-sub-menu" aria-expanded="false" aria-controls="form-sub-menu">Konfigurasi Sistem</a></li>
+                        <!-- Sub menu -->
+                        <div id="form-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <ul class="side-sub-menu p-0">
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.systemconfig') }}" class="w-100 pl-4 small">Pengurusan Pengguna</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.notification') }}" class="w-100 pl-4 small">Sistem Notifikasi</a></li>
+                            </ul>
+                        </div>
+                          @endif
+                          <!--Integrity HOD-->
+                          @if(Auth::user()->role == 2)
+                          <li class="side-menu-item px-3"><a href="{{ route('user.integrityHOD.view') }}" class="w-100 py-3 pl-4">Dashboard</a></li>
+                          <!-- Sub menu parent -->
+                          <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Perisytiharan Peribadi </a></li>
+                          <!-- Sub menu -->
+                          <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                              <ul class="side-sub-menu p-0">
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
+                              </ul>
+                          </div>
+                          <!-- Sub menu parent -->
+                          <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu" aria-expanded="false" aria-controls="table-sub-menu">Senarai Perisytiharan</a></li>
+                          <!-- Sub menu -->
+                          <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                              <ul class="side-sub-menu p-0">
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.integrityHOD.listGift') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.integrityHOD.listAsset') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                              </ul>
+                          </div>
+                          @endif
+                          <!--HoDIV-->
+                          @if(Auth::user()->role == 3)
+                          <li class="side-menu-item px-3"><a href="{{ route('user.hodiv.view') }}" class="w-100 py-3 pl-4">Dashboard</a></li>
+                          <!-- Sub menu parent -->
+                          <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Perisytiharan Peribadi </a></li>
+                          <!-- Sub menu -->
+                          <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                              <ul class="side-sub-menu p-0">
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
+                              </ul>
+                          </div>
+                          <!-- Sub menu parent -->
+                          <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu" aria-expanded="false" aria-controls="table-sub-menu">Senarai Perisytiharan</a></li>
+                          <!-- Sub menu -->
+                          <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                              <ul class="side-sub-menu p-0">
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hodiv.listGift') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hodiv.listAsset') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                              </ul>
+                          </div>
+                          @endif
+                          <!--ITadmin-->
+                          @if(Auth::user()->role == 4)
+                          <li class="side-menu-item px-3"><a href="{{ route('user.admin.view') }}" class="w-100 py-3 pl-4">Dashboard</a></li>
+                          <!-- Sub menu parent -->
+                          <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Perisytiharan Peribadi </a></li>
+                          <!-- Sub menu -->
+                          <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                              <ul class="side-sub-menu p-0">
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
+                              </ul>
+                          </div>
+                          <!-- Sub menu parent -->
+                          <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu" aria-expanded="false" aria-controls="table-sub-menu">Senarai Perisytiharan</a></li>
+                          <!-- Sub menu -->
+                          <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                              <ul class="side-sub-menu p-0">
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.listGift') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.listAsset') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                              </ul>
+                          </div>
+                          @endif
             </div>
             @endif
 
+        </div>
         </div>
 
         <!-- Main section -->
@@ -201,8 +334,8 @@
                         <!-- Dropdown Menu -->
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-max-height">
                             <!-- Menu items -->
-                            <a href="#" class="dropdown-item disabled small"><i class="far fa-user mr-1"></i> {{$short_name}} </a>
-                            <a href="#" class="dropdown-item text-secondary-light">Account setting</a>
+                            <a href="#" class="dropdown-item disabled small"><i class="far fa-user mr-1"></i> {{Auth::user()->name}} </a>
+                            <a href="{{ route('user.profile') }}" class="dropdown-item text-secondary-light">Edit Profil</a>
                             <a href="#" class="dropdown-item text-secondary-light">Billing history</a>
                             <a  class="dropdown-item text-secondary-light"
                                 href="{{ route('logout') }}"
@@ -221,7 +354,7 @@
 
     <!-- Footer section -->
     <footer class="footer-full-body p-4 d-flex flex-row justify-content-between text-secondary">
-        <p>&copy; Copyright. <a href="https://www.forestry.gov.my/my/" target="_Blank"><font color="black">Jabatan Perhutanan Semenanjung Malaysia</font></a></p>
+        <p>&copy; Copyright. <a href="https://www.forestry.gov.my/my/" target="_Blank"><font color="black">Malaysian Communications and Multimedia Commission</font></a></p>
         <p>Version 1.0.0</p>
     </footer>
   </div>
