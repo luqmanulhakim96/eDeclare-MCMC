@@ -16,18 +16,40 @@
                         <table class="table table-responsive text-dark">
                             <thead class="thead-light">
                                 <tr class="text-center">
-                                    <th width="10%"><p class="mb-0">Bil</p></th>
-                                    <th width="50%"><p class="mb-0">Nama</p></th>
-                                    <th width="50"><p class="mb-0">No Kad Pengenalan</p></th>
-                                    <th width="20%"><p class="mb-0">Lampiran A</p></th>
-                                    <th width="50%"><p class="mb-0">Tarikh</p></th>
-                                    <th width="30%"><p class="mb-0">Status</p></th>
-                                    <th width="30%"><p class="mb-0">Tindakan</p></th>
+                                    <th width="10%"><p class="all">ID</p></th>
+                                    <th width="30%"><p class="all">Jenis Hadiah</p></th>
+                                    <th width="30"><p class="all">Nilai Hadiah (RM)</p></th>
+                                    <th width="15%"><p class="all">Tarikh Diterima</p></th>
+                                    <th width="30%"><p class="all">Nama Pemberi</p></th>
+                                    <th width="30%"><p class="all">Alamat Pemberi</p></th>
+                                    <th width="30%"><p class="all">Hubungan Pemberi</p></th>
+                                    <th width="70%"><p class="all">Gambar Hadiah</p></th>
+                                    <th width="30%"><p class="all">Status Penerimaan Hadiah</p></th>
+                                    <th width="30%"><p class="all">Edit/Padam</p></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody align="center">
+                              @foreach($listHadiah as $data)
+                              <tr>
+                                  <td>{{ $data ->id }}</td>
+                                  <td>{{ $data ->jenis_gift }}</td>
+                                  <td>{{ $data ->nilai_gift  }}</td>
+                                  <td>{{ $data ->tarikh_diterima }}</td>
+                                  <td>{{ $data ->nama_pemberi  }}</td>
+                                  <td>{{ $data ->alamat_pemberi  }}</td>
+                                  <td>{{ $data ->hubungan_pemberi  }}</td>
+                                  <td>{{ $data ->gambar_gift  }}</td>
+                                  <td><span class="badge badge-success badge-pill">Selesai</span></td>
+                                  <td class="p-3">
+                                  <div class="d-flex flex-row justify-content-around align-items-center">
+                                      <a href="{{ route('user.hadiah.editgift', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                      <a href="{{ route('gift.delete', $data->id) }}" class="btn btn-danger"><i class="fas fa-times-circle"></i></a>
+                                  </div>
+                            </td>
+                                </tr>
+                               @endforeach
                                 <!-- Table data -->
-                                <tr class="text-center">
+                                <!-- <tr class="text-center">
                                     <td><p class="mb-0 font-weight-bold">1</p></td>
                                     <td><p class="mb-0 font-weight-bold">{{Auth::user()->name }}</p></td>
                                     <td><p class="mb-0 font-weight-bold">971112065055</p></td>
@@ -45,8 +67,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <!-- Table data -->
-                                <tr class="text-center">
+                                <!-- <tr class="text-center">
                                     <td><p class="mb-0 font-weight-bold">2</p></td>
                                     <td><p class="mb-0 font-weight-bold">{{Auth::user()->name }}</p></td>
                                     <td><p class="mb-0 font-weight-bold">971112065055</p></td>
@@ -82,10 +103,10 @@
                                             <a href="#"><i class="fa fa-print text-info" aria-hidden="true"></i></a>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <!-- Table data -->
 
-                            </tbody>
+                            <!-- </tbody> -->
                         </table>
                     </div>
 

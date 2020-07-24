@@ -9,8 +9,8 @@ class Gift extends Model
     //
     protected $fillable = [
       'jenis_gift', 'nilai_gift', 'tarikh_diterima', 'nama_pemberi', 'alamat_pemberi',
-      'hubungan_pemberi', 'sebab_gift', 'ulasan_jabatan',
-      'keputusan_gift', 'user_id'
+      'hubungan_pemberi', 'sebab_gift', 'ulasan_jabatan', 'gambar_gift',
+      'status_gift', 'user_id'
     ];
 
     public function gifts(){

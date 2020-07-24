@@ -15,16 +15,16 @@ class CreateGiftsTable extends Migration
     {
         Schema::create('gifts', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_gift');
-            $table->decimal('nilai_gift',10,2);
-            $table->date('tarikh_diterima');
-            $table->string('nama_pemberi');
-            $table->string('alamat_pemberi');
-            $table->string('hubungan_pemberi');
-            $table->string('sebab_gift');
-            $table->string('ulasan_jabatan');
-            $table->string('keputusan_gift');
-            $table->string('status_gift');
+            $table->string('jenis_gift')->nullable();
+            $table->string('nilai_gift')->nullable();
+            $table->date('tarikh_diterima')->nullable();
+            $table->string('nama_pemberi')->nullable();
+            $table->string('alamat_pemberi')->nullable();
+            $table->string('hubungan_pemberi')->nullable();
+            $table->string('sebab_gift')->nullable();
+            $table->string('ulasan_jabatan')->nullable();
+            $table->string('gambar_gift')->nullable();
+            $table->string('status_gift')->nullable();
             $table->timestamps();
         });
     }

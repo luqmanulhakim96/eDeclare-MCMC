@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Asset;
 use App\User;
+use App\Gift;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -68,7 +69,9 @@ class UserController extends Controller
 
   public function senaraiHadiah()
   {
-    return view('user.senaraihadiah');
+    $listHadiah = Gift::get();
+    // dd($listHadiah);
+    return view('user.hadiah.senaraihadiah', compact('listHadiah'));
   }
 
   public function editProfile()

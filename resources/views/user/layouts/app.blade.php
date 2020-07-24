@@ -24,6 +24,9 @@
     <style>
     </style>
     <meta name="theme-color" content="#fafafa">
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/> -->
 </head>
 <body class="position-relative">
     <!--[if IE]>
@@ -61,14 +64,14 @@
                 <div id="accordion">
                     <ul class="side-menu p-0 m-0 mt-3">
                       @if(Auth::user()->role == 5)
-                        <li class="side-menu-item px-3"><a href="{{ route('user.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+                        <li class="side-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
                         <!-- Sub menu parent -->
                         <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Perisytiharan Harta Pegawai</a></li>
                         <!-- Sub menu -->
                         <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
                                 <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Lalu</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
 
                             </ul>
                         </div>
@@ -77,8 +80,8 @@
                         <!-- Sub menu -->
                         <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
                             </ul>
                         </div>
                         @endif
@@ -90,11 +93,11 @@
                           <!-- Sub menu -->
                           <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Lalu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
                               </ul>
                           </div>
                           <!-- Sub menu parent -->
@@ -113,7 +116,7 @@
                         <div id="form-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
                                 <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.systemconfig') }}" class="w-100 pl-4 small">Pengurusan Pengguna</a></li>
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.notification') }}" class="w-100 pl-4 small">Sistem Notifikasi</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('fullcalendar') }}" class="w-100 pl-4 small">Sistem Notifikasi</a></li>
                             </ul>
                         </div>
                           @endif
@@ -125,11 +128,11 @@
                           <!-- Sub menu -->
                           <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Lalu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
                               </ul>
                           </div>
                           <!-- Sub menu parent -->
@@ -150,11 +153,11 @@
                           <!-- Sub menu -->
                           <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Lalu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
                               </ul>
                           </div>
                           <!-- Sub menu parent -->
@@ -169,26 +172,30 @@
                           @endif
                           <!--ITadmin-->
                           @if(Auth::user()->role == 4)
-                          <li class="side-menu-item px-3"><a href="{{ route('user.admin.view') }}" class="w-100 py-3 pl-4">Dashboard</a></li>
+                          <li class="side-menu-item px-3"><a href="{{ route('user.it.view') }}" class="w-100 py-3 pl-4">Dashboard</a></li>
                           <!-- Sub menu parent -->
                           <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Perisytiharan Peribadi </a></li>
                           <!-- Sub menu -->
                           <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Lalu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
                               </ul>
                           </div>
+
+                          <li class="side-menu-item px-3"><a href="{{ route('user.it.audit') }}" class="w-100 py-3 pl-4">Bahagian Audit</a></li>
+                          <li class="side-menu-item px-3"><a href="{{ route('user.it.users') }}" class="w-100 py-3 pl-4">Pengurusan Pengguna</a></li>
                           <!-- Sub menu parent -->
-                          <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu" aria-expanded="false" aria-controls="table-sub-menu">Senarai Perisytiharan</a></li>
+                          <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu" aria-expanded="false" aria-controls="table-sub-menu">Kawalan Sistem</a></li>
                           <!-- Sub menu -->
                           <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.listGift') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.listAsset') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.it.backup') }}" class="w-100 pl-4">Pemulihan dan Sokongan Sistem </a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.it.errorlog') }}" class="w-100 pl-4">Ralat dan Sistem Log</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.it.backgroundqueues') }}" class="w-100 pl-4">Memantau Latar Belakang Sistem </a></li>
                               </ul>
                           </div>
                           @endif
@@ -358,7 +365,8 @@
         <p>Version 1.0.0</p>
     </footer>
   </div>
-
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script> -->
 
     <script src="{{ asset('qbadminui/js/vendor/bootstrap-4.3.1/modernizr-3.7.1.min.js') }}"></script>
     <script src="{{ asset('qbadminui/js/vendor/jquery-3.3.1/jquery-3.3.1.min.js') }}"></script>
@@ -376,5 +384,6 @@
     <script src="{{ asset('qbadminui/js/vendor/DataTable-1.10.20/datatables.min.js') }}"></script>
     <!-- Data Table script -->
     <script src="{{ asset('qbadminui/js/plugins/dataTable_script.js') }}"></script>
+
 </body>
 </html>

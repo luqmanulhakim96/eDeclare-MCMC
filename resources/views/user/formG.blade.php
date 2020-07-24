@@ -12,6 +12,7 @@
                       <div class="card rounded-lg">
                           <div class="card-body">
                               <form action="#">
+                                @csrf
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
                                       <div class="col-md-4">
@@ -845,7 +846,7 @@
                                       <div class="col-md-8">
                                       </div>
                                       <div class="col-md-2">
-                                        <a class="btn btn-primary mt-4"href="{{ route('menu-utama') }}">Hantar</a>
+                                        <a class="btn btn-primary mt-4"href="{{ route('user.senaraiharta') }}">Hantar</a>
                                     <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
                                       </div>
                                 </div>

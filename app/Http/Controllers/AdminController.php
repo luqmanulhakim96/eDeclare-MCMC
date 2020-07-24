@@ -32,4 +32,6 @@ class AdminController extends Controller
     return view('user.admin.listGift');
   }
 
+
+
 }

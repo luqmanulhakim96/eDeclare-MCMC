@@ -15,24 +15,26 @@ class CreateAssetsTable extends Migration
     {
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_harta');
-            $table->string('pemilik_harta');
-            $table->string('alamat_harta');
-            $table->date('tarikh_pemilikan');
-            $table->integer('no_sijil_pendaftaran');
-            $table->integer('bilangan');
-            $table->decimal('nilai_perolehan',10,2);
-            $table->string('cara_perolehan');
+            $table->string('perakuan')->nullable();
+            $table->date('tarikh_perakuan')->nullable();
+            $table->string('jenis_harta')->nullable();
+            $table->string('pemilik_harta')->nullable();
+            $table->string('hubungan_pemilik')->nullable();
+            $table->string('maklumat_harta')->nullable();
+            $table->date('tarikh_pemilikan')->nullable();
+            $table->integer('bilangan')->nullable();
+            $table->decimal('nilai_perolehan',10,2)->nullable();
+            $table->string('cara_perolehan')->nullable();
             $table->decimal('jumlah_pinjaman',10,2)->nullable();
             $table->string('institusi_pinjaman')->nullable();
             $table->integer('tempoh_bayar_balik')->nullable();
             $table->decimal('ansuran_bulanan',10,2)->nullable();
             $table->date('tarikh_ansuran_pertama')->nullable();
             $table->string('additional_statement')->nullable();
-            $table->boolean('pengakuan_admin');
-            $table->string('keputusan_urusetia');
-            $table->string('keputusan_ketua_bahagian');
-            $table->string('status_asset');
+            $table->boolean('pengakuan_admin')->nullable();
+            $table->string('keputusan_urusetia')->nullable();
+            $table->string('keputusan_ketua_bahagian')->nullable();
+            $table->string('status_asset')->nullable();
 
 
             $table->timestamps();

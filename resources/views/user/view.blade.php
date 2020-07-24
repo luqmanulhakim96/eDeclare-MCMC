@@ -19,7 +19,7 @@
                       <div class="card-title">2. Klik Perakuan Tiada Penambahan Harta  untuk mengisi Borang Lampiran A: Borang Pengakuan Tiada Perubahan ke atas Pemilikan Harta.</div>
                       <div class="card-title">3. Klik Perisytiharan Harta Baharu untuk mengisi Borang Lampiran B, C dan D.</div>
                       <div class="card-title">4. Klik Penerimaan Hadiah Baharu untuk mengisi Borang Lampiran A: Borang Penerimaan Hadiah.</div>
-                      <div class="card-title">5. Klik butang "Hantar" untuk mengahntar permohonan.</div>
+                      <div class="card-title">5. Klik butang "Hantar" untuk menghantar permohonan.</div>
                 </div>
             </div><br><br>
 

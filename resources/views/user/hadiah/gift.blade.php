@@ -4,8 +4,7 @@
            <div class="page-body p-4 text-dark">
                <div class="page-heading border-bottom d-flex flex-row">
                    <p class="font-weight-normal">Lampiran A: PERMOHONAN BAGI MENDAPATKAN KEBENARAN PENERIMAAN HADIAH DI BAWAH PERATURAN 10, PERATURAN-PERATURAN TATATERTIB SKMM 2007 DAN SURAT PEKELILING PERKHIDMATAN DAN SOKONGAN
-BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
-</p>
+                                                BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100</p>
                </div>
 
                <!-- All Basic Form elements -->
@@ -13,7 +12,8 @@ BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-                              <form action="#">
+                              <form action="{{route('gift.submit')}}" method="post" id="gift.submit">
+                                @csrf
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
                                       <div class="col-md-4">
@@ -21,7 +21,7 @@ BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Nama">
+                                              <b>{{Auth::user()->name }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -31,7 +31,7 @@ BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="No. Kad Pengenalan">
+                                              <b>{{Auth::user()->kad_pengenalan }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -41,20 +41,20 @@ BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Jawatan / Gred">
+                                          <b>{{Auth::user()->jawatan }}</b>
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="row">
+                                  <!-- <div class="row">
                                       <div class="col-md-4">
                                           <p>Jabatan/ Bahagian</p>
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Jabatan/ Bahagian">
+                                              <input type="text" class="form-control bg-light" placeholder="Jabatan / Bahagian">
                                           </div>
                                       </div>
-                                  </div>
+                                  </div> -->
                                   <br>
                                   <div class="row">
                                       <div class="col-md-6">
@@ -66,8 +66,13 @@ BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
                                         <p>i) Jenis</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="jenis_hadiah" placeholder="Jenis Hadiah">
+                                        <input class="form-control bg-light" type="text" name="jenis_hadiah" id="jenis_hadiah" placeholder="Jenis Hadiah">
                                       </div>
+                                      @error('jenis_hadiah')
+                                      <div class="alert alert-danger">
+                                        <strong>{{ $message }}</strong>
+                                      </div>
+                                      @enderror
                                   </div>
                                       <br>
                                   <div class="row">
@@ -75,8 +80,13 @@ BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
                                           <p>ii) Nilai/ Anggaran Nilai</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="nilai_hadiah" placeholder="Nilai Hadiah/ Anggaran Nilai">
+                                          <input class="form-control bg-light" type="text" name="nilai_hadiah" id="nilai_hadiah" placeholder="Nilai Hadiah/ Anggaran Nilai">
                                       </div>
+                                      @error('nilai_hadiah')
+                                      <div class="alert alert-danger">
+                                        <strong>{{ $message }}</strong>
+                                      </div>
+                                      @enderror
                                   </div>
                                   <br>
                                     <div class="row">
@@ -84,8 +94,13 @@ BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
                                           <p>iii) Tarikh diterima</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_diterima" placeholder="Tarikh Hadiah Diterima">
+                                          <input class="form-control bg-light" type="date" name="tarikh_diterima" id="tarikh_diterima" placeholder="Tarikh Hadiah Diterima">
                                       </div>
+                                      @error('tarikh_diterima')
+                                      <div class="alert alert-danger">
+                                        <strong>{{ $message }}</strong>
+                                      </div>
+                                      @enderror
                                   </div>
                                   <br>
                                   <div class="row">
@@ -93,8 +108,13 @@ BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
                                         <p>iv) Nama Pemberi</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="nama_pemberi" placeholder="Nama Pemberi Hadiah">
+                                        <input class="form-control bg-light" type="text" name="nama_pemberi" id="nama_pemberi" placeholder="Nama Pemberi Hadiah">
                                     </div>
+                                    @error('nama_pemberi')
+                                    <div class="alert alert-danger">
+                                      <strong>{{ $message }}</strong>
+                                    </div>
+                                    @enderror
                                   </div>
                                   <br>
                                   <div class="row">
@@ -102,17 +122,41 @@ BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
                                         <p>v) Alamat Pemberi</p>
                                     </div>
                                     <div class="col-md-8">
-                                       <input class="form-control bg-light" type="text" name="alamat_pemberi" placeholder="Alamat Pemberi">
+                                       <input class="form-control bg-light" type="text" name="alamat_pemberi" id="alamat_pemberi" placeholder="Alamat Pemberi">
                                     </div>
+                                    @error('alamat_pemberi')
+                                    <div class="alert alert-danger">
+                                      <strong>{{ $message }}</strong>
+                                    </div>
+                                    @enderror
                                  </div>
+                                 <br>
+                                 <div class="row">
+                                   <div class="col-md-4">
+                                       <p>v) Hubungan Pemberi</p>
+                                   </div>
+                                   <div class="col-md-8">
+                                      <input class="form-control bg-light" type="text" name="hubungan_pemberi" id="hubungan_pemberi" placeholder="Hubungan Pemberi">
+                                   </div>
+                                   @error('hubungan_pemberi')
+                                   <div class="alert alert-danger">
+                                     <strong>{{ $message }}</strong>
+                                   </div>
+                                   @enderror
+                                </div>
                                  <br>
                                  <div class="row">
                                     <div class="col-md-4">
                                         <p>vi)Sebab Diberi</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="sebab_diberi" placeholder="Sebab Diberi">
+                                        <input class="form-control bg-light" type="text" name="sebab_diberi" id="sebab_diberi" placeholder="Sebab Diberi">
                                     </div>
+                                    @error('sebab_diberi')
+                                    <div class="alert alert-danger">
+                                      <strong>{{ $message }}</strong>
+                                    </div>
+                                    @enderror
                                 </div>
                                 <br>
                               <!--upload gambar hadiah-->
@@ -124,9 +168,14 @@ BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM 100
                               <div class="row">
                                  <div class="col-md-4">
                                    <label for="dokumen_syarikat">Sila lampirkan gambar hadiah yang diterima:</label>
-                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat" aria-describedby="dokumen_syarikat">
+                                      <input type="file" class="form-control bg-light" id="gambar_hadiah" name="gambar_hadiah" aria-describedby="dokumen_syarikat">
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
                                  </div>
+                                 @error('gambar_hadiah')
+                                 <div class="alert alert-danger">
+                                   <strong>{{ $message }}</strong>
+                                 </div>
+                                 @enderror
                              </div>
                              <br>
                              <br>

@@ -11,7 +11,8 @@
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-                              <form action="#">
+                              <form action="{{route('perakuan.submit')}}" method="post" id="perakuan.submit">
+                                @csrf
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
                                       <div class="col-md-4">
@@ -19,7 +20,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Nama">
+                                              {{Auth::user()->name }}
                                           </div>
                                       </div>
                                   </div>
@@ -29,7 +30,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="No. Kad Pengenalan">
+                                            {{Auth::user()->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -39,7 +40,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Jawatan / Gred">
+                                              {{Auth::user()->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -49,7 +50,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Alamat Tempat Bertugas">
+                                              {{Auth::user()->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>
@@ -59,8 +60,8 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                      <input type="checkbox" name="pengakuan" value="pengakuan_pegawai" required>
-                                      <label for="pengakuan"> Dengan ini saya mengaku bahawa tiada perubahan ke atas pemilikan harta saya seperti yang telah di isytiharkan pada.  </label><input class="form-control bg-light" type="date" name="tarikh_pemilikan"><br>
+                                      <input type="checkbox" name="perakuan" value="pengakuan pegawai" id="perakuan" required>
+                                      <label for="pengakuan"> Dengan ini saya mengaku bahawa tiada perubahan ke atas pemilikan harta saya seperti yang telah di isytiharkan pada.  </label><input class="form-control bg-light" type="date" name="tarikh_perakuan" id="tarikh_perakuan" required><br>
                                     </div>
                                     <div class="col-md-10">
                                       <p> Saya membuat pengakuan ini selaras dengan kehendak perenggan 6, Pekeliling Perkhidmatan Bil. 3 Tahun 2002</p>
@@ -68,13 +69,10 @@
                                 </div>
                                     <!-- button -->
                                    <div class="row">
-                                    <div class="col-md-2">
-                                      <button type="submit" class="btn btn-primary mt-4">Kembali</button>
-                                    </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-10">
                                     </div>
                                     <div class="col-md-2">
-                                      <button type="submit" class="btn btn-primary mt-4">Seterusnya</button>
+                                      <button type="submit" class="btn btn-primary mt-4">Hantar</button>
                                     </div>
                                   </div>
                               </form>

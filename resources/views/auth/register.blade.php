@@ -36,6 +36,16 @@
                                     </span>
                                 @enderror
                             </div>
+                            <!-- Roles -->
+                            <div class="form-group mb-2">
+                                <label for="role" class="text-muted">Roles</label>
+                                <input id="role" type="text" class="form-control badge-pill bg-light @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required autocomplete="role">
+                                @error('role')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                             <!-- password -->
                             <div class="form-group mb-2">
                                 <label for="password" class="text-muted">Password</label>

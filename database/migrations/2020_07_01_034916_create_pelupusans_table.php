@@ -15,11 +15,12 @@ class CreatePelupusansTable extends Migration
     {
         Schema::create('pelupusans', function (Blueprint $table) {
             $table->id();
-            $table->date('tarikh_pemilikan');
-            $table->date('tarikh_pelupusan');
-            $table->string('status_pelupusan');
-            $table->decimal('nilai_pelupusan',10,2);
-            $table->string('keputusan_pelupusan');
+            $table->date('tarikh_pemilikan')->nullable();
+            $table->date('tarikh_pelupusan')->nullable();
+            $table->string('status_pelupusan')->nullable();
+            $table->string('cara_pelupusan')->nullable();
+            $table->decimal('nilai_pelupusan',10,2)->nullable();
+            $table->string('keputusan_pelupusan')->nullable();
             $table->timestamps();
         });
     }

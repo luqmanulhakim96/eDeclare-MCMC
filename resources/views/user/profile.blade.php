@@ -12,6 +12,7 @@
                       <div class="card rounded-lg">
                           <div class="card-body">
                               <form action="#">
+                                @csrf
                                 <p><b>1.MAKLUMAT PEGAWAI</b></p>
                                   <div class="row">
                                       <div class="col-md-4">
