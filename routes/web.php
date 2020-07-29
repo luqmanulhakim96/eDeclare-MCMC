@@ -98,3 +98,21 @@ Route::get('/itadmin/backup', 'ItAdminController@backup')->name('user.it.backup'
 Route::get('/itadmin/audit', 'ItAdminController@audit')->name('user.it.audit');
 
 Route::get('/itadmin/users', 'ItAdminController@users')->name('user.it.users');
+
+
+
+Route::get('/formBs', 'AssetController@createStep1')->name('asset.create');
+
+Route::post('/formB', 'AssetController@PostcreateStep1')->name('asset.post');
+
+Route::get('/formCs', 'AssetController@createStep2')->name('asset.create2');
+
+Route::post('/formC', 'AssetController@PostcreateStep2')->name('asset.post2');
+
+Route::get('/formDs', 'AssetController@createStep3')->name('asset.create3');
+
+Route::post('/formD', 'AssetController@PostcreateStep3')->name('asset.post3');
+
+Route::get('/formGs', 'AssetController@createStep4')->name('asset.create4');
+
+Route::post('/formG', 'AssetController@PostcreateStep4')->name('asset.post4');

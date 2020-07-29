@@ -8,7 +8,7 @@ class Pelupusan extends Model
 {
     //
     protected $fillable = [
-      'tarikh_pemilikan', 'tarikh_pelupusan', 'status_pelupusan', 'nilai_pelupusan', 'keputusan_pelupusan', 'user_id', 'assets_id'
+      'tarikh_pemilikan', 'tarikh_pelupusan', 'status_pelupusan', 'cara_pelupusan', 'nilai_pelupusan', 'keputusan_pelupusan', 'user_id', 'assets_id'
     ];
 
     public function pelupusans(){

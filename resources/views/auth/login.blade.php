@@ -7,14 +7,14 @@
         <div class="card mx-3 mx-md-0 border-0 rounded-lg">
             <div class="card-body">
                 <!-- Row -->
-                <div class="row">
+                <div class="row d-flex justify-content-center align-items-center">
                     <!-- Left side -->
-                    <div class="col-md-6 border-0 border-md-right">
+                    <div class="col-md-6 border-0">
                         <!-- Brand -->
                         <div class="login-brand m-3 m-md-0 d-flex justify-content-center align-items-center">
-                            <img src="{{ asset('qbadminui/img/QbyteIcon.png') }}" alt="image" class="w-25">
+                            <img src="{{ asset('https://upload.wikimedia.org/wikipedia/commons/f/fc/SKMM-MCMC-2014.png') }}" alt="image" class="w-25">
                         </div>
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('login') }}" >
                             @csrf
                             <h5 class="text-dark my-3">Sign In</h5>
                             <!-- Email -->
@@ -54,11 +54,11 @@
                         </form>
                     </div>
                     <!-- Right side -->
-                    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center pt-3 pt-md-0">
+                    <!-- <div class="col-md-6 d-flex flex-column justify-content-center align-items-center pt-3 pt-md-0">
                         <button class="btn btn-raised btn-google btn-icon m-2 badge-pill btn-block w-75"><i class="fab fa-google"></i> <p class="d-inline">Sign up with Google</p></button>
                         <button class="btn btn-raised btn-facebook btn-icon m-2 badge-pill btn-block w-75"><i class="fab fa-facebook-f"></i> <p class="d-inline">Sign up with Facebook</p></button>
                         <a href="{{ route('register') }}" class="w-75"><button class="btn btn-primary btn-outline-primary badge-pill btn-block"><p class="d-inline">Sign Up</p></button></a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

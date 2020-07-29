@@ -290,7 +290,7 @@
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="content" role="tabpanel" aria-labelledby="content-tab">
-                                                <p class="mt-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda, libero culpa! Voluptas, veniam tenetur. Consequuntur dicta esse perspiciatis qui? Repellat ducimus aliquam doloribus saepe natus modi a nihil perferendis praesentium!</p>
+                                                <p class="mt-3">Laporan</p>
                                             </div>
                                         </div>
                                     </div>

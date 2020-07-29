@@ -19,7 +19,7 @@ class User extends Authenticatable implements Auditable
      */
      protected $fillable = [
          'name', 'email', 'password', 'kad_pengenalan', 'jawatan', 'alamat_tempat_bertugas', 'nama_pasangan',
-         'kad_pengenalan_pasangan', 'pekerjaan_pasangan', 'gaji', 'lain_lain_pendapatan_bulanan', 'role'
+         'kad_pengenalan_pasangan', 'pekerjaan_pasangan', 'gaji', 'nama_anak', 'umur_anak', 'no_kad_pengenalan_anak', 'lain_lain_pendapatan_bulanan', 'role'
      ];
 
     /**
@@ -45,6 +45,14 @@ class User extends Authenticatable implements Auditable
 
     public function asset(){
       return $this->hasMany('App\Asset');
+    }
+
+    public function formb(){
+      return $this->hasMany('App\FormB');
+    }
+
+    public function formc(){
+      return $this->hasMany('App\FormC');
     }
 
     public function keluarga(){
