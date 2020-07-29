@@ -211,6 +211,7 @@
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="content" role="tabpanel" aria-labelledby="content-tab">
+                                              <p class="mt-3">Laporan</p>
                                             </div>
                                         </div>
                                     </div>

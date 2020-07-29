@@ -21,13 +21,13 @@ class CreateAssetsTable extends Migration
             $table->string('pemilik_harta')->nullable();
             $table->string('hubungan_pemilik')->nullable();
             $table->string('maklumat_harta')->nullable();
-            $table->date('tarikh_pemilikan')->nullable();
+            $table->date('tarikh_pemilikan_harta')->nullable();
             $table->integer('bilangan')->nullable();
             $table->decimal('nilai_perolehan',10,2)->nullable();
             $table->string('cara_perolehan')->nullable();
             $table->decimal('jumlah_pinjaman',10,2)->nullable();
             $table->string('institusi_pinjaman')->nullable();
-            $table->integer('tempoh_bayar_balik')->nullable();
+            $table->string('tempoh_bayar_balik')->nullable();
             $table->decimal('ansuran_bulanan',10,2)->nullable();
             $table->date('tarikh_ansuran_pertama')->nullable();
             $table->string('additional_statement')->nullable();

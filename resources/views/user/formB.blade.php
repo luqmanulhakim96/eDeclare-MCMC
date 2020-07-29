@@ -10,12 +10,22 @@
                    <h5 class="font-weight-normal">Lampiran B: Borang Perisytiharan Harta</h5>
                </div>
 
+               @if ($errors->any())
+              <div class="alert alert-danger">
+                  <ul>
+                      @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                  </ul>
+              </div>
+              @endif
+
                <!-- All Basic Form elements -->
                <div class="row">
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-                              <form action="#">
+                              <form action="{{route('asset.post')}}" method="POST">
                                 @csrf
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
@@ -24,7 +34,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Name">
+                                              {{Auth::user()->name }}
                                           </div>
                                       </div>
                                   </div>
@@ -34,7 +44,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="No. Kad Pengenalan">
+                                              {{Auth::user()->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -44,7 +54,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Jawatan / Gred">
+                                            {{Auth::user()->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -54,7 +64,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Alamat Tempat Bertugas">
+                                              {{Auth::user()->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>
@@ -71,7 +81,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Nama Pasangan">
+                                              {{Auth::user()->nama_pasangan }}
                                           </div>
                                       </div>
                                   </div>
@@ -81,7 +91,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="No. Kad Pengenalan Pasangan">
+                                              {{Auth::user()->kad_pengenalan_pasangan }}
                                           </div>
                                       </div>
                                   </div>
@@ -91,7 +101,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Pekerjaan Pasangan">
+                                              {{Auth::user()->pekerjaan_pasangan }}
                                           </div>
                                       </div>
                                     </div>
@@ -101,7 +111,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" placeholder="Nama Anak/ Tanggungan">
+                                                {{Auth::user()->pekerjaan_pasangan }}
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +121,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" placeholder="Umur Anak/ Tanggungan">
+                                                {{Auth::user()->pekerjaan_pasangan }}
                                             </div>
                                         </div>
                                     </div>
@@ -121,7 +131,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" placeholder="No.Kad Pengenalan Anak/ Tanggungan">
+                                                {{Auth::user()->pekerjaan_pasangan }}
                                             </div>
                                         </div>
                                       </div>
@@ -149,11 +159,11 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="gaji_pegawai" placeholder="Gaji Pegawai">
+                                                {{Auth::user()->gaji }}
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" type="text" name="gaji_pasangan" placeholder="Gaji Pasangan">
+                                            <input class="form-control bg-light" type="text" name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ session()->get('asset.gaji_pasangan') }}">
                                         </div>
                                       </div>
                                     </br>
@@ -164,11 +174,11 @@
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="imbuhan_pegawai" placeholder="Imbuhan Pegawai">
+                                                <input class="form-control bg-light" type="text" name="jumlah_imbuhan" placeholder="Imbuhan Pegawai" value="{{ session()->get('asset.jumlah_imbuhan') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" type="text" name="imbuhan_pasangan" placeholder="Imbuhan Pasangan">
+                                            <input class="form-control bg-light" type="text" name="jumlah_imbuhan_pasangan" placeholder="Imbuhan Pasangan" value="{{ session()->get('asset.jumlah_imbuhan_pasangan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -179,11 +189,11 @@
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="sewa_pegawai" placeholder="Sewa Pegawai">
+                                                <input class="form-control bg-light" type="text" name="sewa" placeholder="Sewa Pegawai" value="{{ session()->get('asset.sewa') }}" >
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" type="text" name="sewa_pasangan" placeholder="Sewa Pasangan">
+                                            <input class="form-control bg-light" type="text" name="sewa_pasangan" placeholder="Sewa Pasangan" value="{{ session()->get('asset.sewa_pasangan') }}" >
                                         </div>
                                       </div>
                                       <!-- dividen -->
@@ -197,16 +207,16 @@
                                       <div class="row">
                                         <div class="col-md-3 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="dividen_1" placeholder="Nyatakan Dividen">
+                                                <input class="form-control bg-light" type="text" name="jenis_dividen" placeholder="Nyatakan Dividen" value="{{ session()->get('asset.jenis_dividen') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="dividen_1_pegawai" placeholder="Dividen Pegawai">
+                                                <input class="form-control bg-light" type="text" name="dividen" placeholder="Dividen Pegawai" value="{{ session()->get('asset.dividen') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" type="text" name="dividen_1_pasangan" placeholder="Dividen Pasangan">
+                                            <input class="form-control bg-light" type="text" name="dividen_pasangan" placeholder="Dividen Pasangan" value="{{ session()->get('asset.dividen_pasangan') }}">
                                         </div>
                                         <div class="col-md-1">
                                           <button class="add_field_button" id="add_dividen_button">Add</button>
@@ -265,16 +275,16 @@
                                       <div class="row">
                                         <div class="col-md-3 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="lain3[]" placeholder="Nyatakan Lain-Lain">
+                                                <input class="form-control bg-light" type="text" name="lain3[]" placeholder="Nyatakan Lain-Lain" value="{{ session()->get('asset.lain3[]') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="lain3_pegawai[]">
+                                                <input class="form-control bg-light" type="text" name="lain3_pegawai[]" value="{{ session()->get('asset.lain3_pegawai[]') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" type="text" name="lain3_pasangan[]">
+                                            <input class="form-control bg-light" type="text" name="lain3_pasangan[]" value="{{ session()->get('asset.lain3_pasangan[]') }}">
                                         </div>
                                         <div class="col-md-1">
                                           <button class="add_field_button" id="add_pendapatan_button">Add</button>
@@ -329,11 +339,11 @@
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="pendapatan_pegawai">
+                                                <input class="form-control bg-light" type="text" name="pendapatan_pegawai" value="{{ session()->get('asset.pendapatan_pegawai') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" type="text" name="pendapatan_pasangan">
+                                            <input class="form-control bg-light" type="text" name="pendapatan_pasangan" value="{{ session()->get('asset.pendapatan_pasangan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -377,16 +387,16 @@
                                           <p>i) Jumlah Pinjaman Perumahan</p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pegawai">
+                                          <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pegawai" value="{{ session()->get('asset.pinjaman_perumahan_pegawai') }}">
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="bulanan_perumahan_pegawai">
+                                          <input class="form-control bg-light" type="text" name="bulanan_perumahan_pegawai" value="{{ session()->get('asset.bulanan_perumahan_pegawai') }}">
                                         </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pasangan">
+                                            <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pasangan" value="{{ session()->get('asset.pinjaman_perumahan_pasangan') }}">
                                           </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="bulanan_perumahan_pasangan">
+                                            <input class="form-control bg-light" type="text" name="bulanan_perumahan_pasangan" value="{{ session()->get('asset.bulanan_perumahan_pasangan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -396,16 +406,16 @@
                                           <p>ii) Jumlah Pinjaman Kenderaan</p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pegawai">
+                                          <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pegawai" value="{{ session()->get('asset.pinjaman_kenderaan_pegawai') }}">
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pegawai">
+                                          <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pegawai" value="{{ session()->get('asset.bulanan_kenderaan_pegawai') }}">
                                         </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pasangan">
+                                            <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pasangan" value="{{ session()->get('asset.pinjaman_kenderaan_pasangan') }}">
                                           </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pasangan">
+                                            <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pasangan" value="{{ session()->get('asset.bulanan_kenderaan_pasangan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -415,16 +425,16 @@
                                           <p>iii) Cukai Pendapatan</p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="jumlah_cukai_pegawai">
+                                          <input class="form-control bg-light" type="text" name="jumlah_cukai_pegawai" value="{{ session()->get('asset.jumlah_cukai_pegawai') }}">
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="bulanan_cukai_pegawai">
+                                          <input class="form-control bg-light" type="text" name="bulanan_cukai_pegawai" value="{{ session()->get('asset.bulanan_cukai_pegawai') }}">
                                         </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="jumlah_cukai_pasangan">
+                                            <input class="form-control bg-light" type="text" name="jumlah_cukai_pasangan" value="{{ session()->get('asset.jumlah_cukai_pasangan') }}">
                                           </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="bulanan_cukai_pasangan">
+                                            <input class="form-control bg-light" type="text" name="bulanan_cukai_pasangan" value="{{ session()->get('asset.bulanan_cukai_pasangan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -434,16 +444,16 @@
                                           <p>iv) Pinjaman Koperasi</p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="jumlah_koperasi_pegawai">
+                                          <input class="form-control bg-light" type="text" name="jumlah_koperasi_pegawai" value="{{ session()->get('asset.jumlah_koperasi_pegawai') }}">
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="bulanan_koperasi_pegawai">
+                                          <input class="form-control bg-light" type="text" name="bulanan_koperasi_pegawai" value="{{ session()->get('asset.bulanan_koperasi_pegawai') }}">
                                         </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="jumlah_koperasi_pasangan">
+                                            <input class="form-control bg-light" type="text" name="jumlah_koperasi_pasangan" value="{{ session()->get('asset.jumlah_koperasi_pasangan') }}">
                                           </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="bulanan_koperasi_pasangan">
+                                            <input class="form-control bg-light" type="text" name="bulanan_koperasi_pasangan" value="{{ session()->get('asset.bulanan_koperasi_pasangan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -458,19 +468,19 @@
                                       <div class="table_lain" id="table_lain">
                                       <div class="row">
                                         <div class="col-md-3">
-                                          <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman">
+                                          <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman" value="{{ session()->get('asset.lain_lain_pinjaman[]') }}">
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="pinjaman_pegawai[]">
+                                          <input class="form-control bg-light" type="text" name="pinjaman_pegawai[]" value="{{ session()->get('asset.pinjaman_pegawai[]') }}">
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="bulanan_pegawai[]">
+                                          <input class="form-control bg-light" type="text" name="bulanan_pegawai[]" value="{{ session()->get('asset.bulanan_pegawai[]') }}">
                                         </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="pinjaman_pasangan[]">
+                                            <input class="form-control bg-light" type="text" name="pinjaman_pasangan[]" value="{{ session()->get('asset.pinjaman_pasangan[]') }}">
                                           </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="bulanan_pasangan[]">
+                                            <input class="form-control bg-light" type="text" name="bulanan_pasangan[]" value="{{ session()->get('asset.bulanan_pasangan[]') }}">
                                         </div>
                                         <div class="col-md-1">
                                           <button class="add_field_button" id="add_pinjaman_button">Add</button>
@@ -525,16 +535,16 @@
                                           <p><b>JUMLAH</b></p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pegawai">
+                                          <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pegawai" value="{{ session()->get('asset.jumlah_pinjaman_pegawai') }}">
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="jumlah_bulanan_pegawai">
+                                          <input class="form-control bg-light" type="text" name="jumlah_bulanan_pegawai" value="{{ session()->get('asset.jumlah_bulanan_pegawai') }}">
                                         </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pasangan">
+                                            <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pasangan" value="{{ session()->get('asset.jumlah_pinjaman_pasangan')}}">
                                           </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="jumlah_bulanan_pasangan">
+                                            <input class="form-control bg-light" type="text" name="jumlah_bulanan_pasangan" value="{{ session()->get('asset.jumlah_bulanan_pasangan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -548,7 +558,7 @@
                                           <p>Jenis Harta</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="jenis_harta">
+                                          <input class="form-control bg-light" type="text" name="jenis_harta"  placeholder="Jenis Harta" value="{{ session()->get('asset.jenis_harta') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -557,10 +567,17 @@
                                           <p>Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
                                         </div>
                                         <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="pemilik_harta" placeholder="Nama Pemilik Sebelum">
+                                          <input class="form-control bg-light" type="text" name="pemilik_harta" placeholder="Nama Pemilik Sebelum" value="{{ session()->get('asset.pemilik_harta') }}">
                                         </div>
                                         <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="pemilik_harta" placeholder="Hubungan dengan Pemilik">
+                                            <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik" value="{{ session()->get('asset.hubungan_pemilik') }}">
+                                                <option value="" selected disabled hidden>Hubungan dengan Pemilik</option>
+                                                <option value="Sendiri" {{ old('hubungan_pemilik') == "Sendiri" ? 'selected' : '' }}>Sendiri</option>
+                                                <option value="Anak" {{ old('hubungan_pemilik') == "Anak" ? 'selected' : '' }}>Anak</option>
+                                                <option value="Isteri/Suami" {{ old('hubungan_pemilik') == "Isteri/Suami" ? 'selected' : '' }}>Isteri/Suami</option>
+                                                <option value="Ibu/Ayah" {{ old('hubungan_pemilik') == "Ibu/Ayah" ? 'selected' : '' }}>Ibu/Ayah</option>
+                                                <option value="Lain-lain" {{ old('hubungan_pemilik') == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
+                                            </select>
                                         </div>
                                       </div>
                                       <div class="row">
@@ -568,7 +585,7 @@
                                           <p>Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya">
+                                          <input class="form-control bg-light" type="text" name="maklumat_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ session()->get('asset.maklumat_harta') }}" >
                                         </div>
                                       </div>
                                       <br>
@@ -577,7 +594,7 @@
                                           <p>Tarikh Pemilikan Harta</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_pemilikan">
+                                          <input class="form-control bg-light" type="date" name="tarikh_pemilikan_harta"  value="{{ session()->get('asset.tarikh_pemilikan_harta') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -586,7 +603,7 @@
                                           <p>Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="kuantiti_harta">
+                                          <input class="form-control bg-light" type="text" name="bilangan" placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ session()->get('asset.bilangan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -595,7 +612,7 @@
                                           <p>Nilai Perolehan Harta (RM)</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="nilai_harta">
+                                          <input class="form-control bg-light" type="text" name="nilai_perolehan" value="{{ session()->get('asset.nilai_perolehan') }}" placeholder="Nilai Perolehan Harta (RM)">
                                         </div>
                                       </div>
                                       <br>
@@ -604,10 +621,19 @@
                                           <p>Cara Dan Dari Siapa Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
                                         </div>
                                         <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="cara_peroleh">
+                                            <select id="cara_perolehan" class="custom-select  bg-light" name="cara_perolehan" value="{{ session()->get('asset.cara_perolehan') }}">
+                                                <option value="" selected disabled hidden>Cara Perolehan</option>
+                                                <option value="Dipusakai" {{ old('cara_perolehan') == "Dipusakai" ? 'selected' : '' }}>Dipusakai</option>
+                                                <option value="Dibeli" {{ old('cara_perolehan') == "Dibeli" ? 'selected' : '' }}>Dibeli</option>
+                                                <option value="Dihadiahkan" {{ old('cara_perolehan') == "Dihadiahkan" ? 'selected' : '' }}>Dihadiahkan</option>
+                                                <option value="Lain-lain" {{ old('cara_perolehan') == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
+                                            </select>
                                         </div>
+                                        <!-- <div class="col-md-4">
+                                          <input class="form-control bg-light" type="text" name="cara_perolehan" value="{{ session()->get('asset.cara_perolehan') }}">
+                                        </div> -->
                                         <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="nama_pemilikan_asal">
+                                          <input class="form-control bg-light" type="text" name="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum" value="{{ session()->get('asset.nama_pemilikan_asal') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -627,7 +653,7 @@
                                           <p>i) Jumlah Pinjaman</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="jumlah_pinjaman">
+                                          <input class="form-control bg-light" type="text" name="jumlah_pinjaman" value="{{ session()->get('asset.jumlah_pinjaman') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -636,7 +662,7 @@
                                           <p>ii)	Institusi memberi pinjaman</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="institusi_pinjaman">
+                                          <input class="form-control bg-light" type="text" name="institusi_pinjaman" value="{{ session()->get('asset.institusi_pinjaman') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -645,7 +671,7 @@
                                           <p>iii)	Tempoh bayaran balik</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="tempoh_bayaran">
+                                          <input class="form-control bg-light" type="text" name="tempoh_bayar_balik" value="{{ session()->get('asset.tempoh_bayar_balik') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -654,7 +680,7 @@
                                           <p>iv) Ansuran bulanan </p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="ansuran_bulanan">
+                                          <input class="form-control bg-light" type="text" name="ansuran_bulanan" value="{{ session()->get('asset.ansuran_bulanan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -663,7 +689,7 @@
                                           <p>v)	Tarikh ansuran pertama</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_ansuran_pertama">
+                                          <input class="form-control bg-light" type="date" name="tarikh_ansuran_pertama" value="{{ session()->get('asset.tarikh_ansuran_pertama') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -677,7 +703,7 @@
                                           <p>i)	Jenis Harta</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="jenis_harta">
+                                          <input class="form-control bg-light" type="text" name="jenis_harta_pelupusan" value="{{ session()->get('asset.jenis_harta_pelupusan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -686,7 +712,7 @@
                                           <p>ii) Alamat</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="alamat_asset">
+                                          <input class="form-control bg-light" type="text" name="alamat_asset" value="{{ session()->get('asset.alamat_asset') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -695,7 +721,7 @@
                                           <p>iii) No Pendaftaran Harta</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="no_pendaftaran">
+                                          <input class="form-control bg-light" type="text" name="no_pendaftaran" value="{{ session()->get('asset.no_pendaftaran') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -704,7 +730,7 @@
                                           <p>iv) Harga Jualan</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="harga_jualan">
+                                          <input class="form-control bg-light" type="text" name="harga_jualan" value="{{ session()->get('asset.harga_jualan') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -713,7 +739,7 @@
                                           <p>v)	Tarikh lupus</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_lupus">
+                                          <input class="form-control bg-light" type="date" name="tarikh_lupus" value="{{ session()->get('asset.tarikh_lupus') }}">
                                         </div>
                                       </div>
                                       <br>
@@ -724,7 +750,8 @@
                                     <div class="col-md-10">
                                     </div>
                                     <div class="col-md-2">
-                                      <a class="btn btn-primary mt-4"href="{{ route('user.formC') }}">Seterusnya</a>
+                                      <button type="submit" class="btn btn-primary mt-4">Seterusnya</button>
+                                      <!-- <a class="btn btn-primary mt-4"href="{{ route('user.formC') }}">Seterusnya</a> -->
                                       <!-- <button type="button" class="btn btn-primary mt-4" a href="{{ route('user.formC') }}">Seterusnya</button> -->
                                     </div>
                               </form>

@@ -52,7 +52,7 @@
                     <a  class="font-weight-bold ml-auto px-3"
                         href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"
+                        document.getElementById('logout-form').submit();"
                     >
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
@@ -116,7 +116,7 @@
                         <div id="form-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
                                 <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.systemconfig') }}" class="w-100 pl-4 small">Pengurusan Pengguna</a></li>
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('fullcalendar') }}" class="w-100 pl-4 small">Sistem Notifikasi</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.notification') }}" class="w-100 pl-4 small">Sistem Notifikasi</a></li>
                             </ul>
                         </div>
                           @endif
@@ -186,7 +186,7 @@
                               </ul>
                           </div>
 
-                          <li class="side-menu-item px-3"><a href="{{ route('user.it.audit') }}" class="w-100 py-3 pl-4">Bahagian Audit</a></li>
+                          <li class="side-menu-item px-3"><a href="{{ route('user.it.audit') }}" class="w-100 py-3 pl-4">Audit Trail</a></li>
                           <li class="side-menu-item px-3"><a href="{{ route('user.it.users') }}" class="w-100 py-3 pl-4">Pengurusan Pengguna</a></li>
                           <!-- Sub menu parent -->
                           <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu" aria-expanded="false" aria-controls="table-sub-menu">Kawalan Sistem</a></li>
@@ -337,7 +337,7 @@
                     <!-- Profile action dropdown -->
                     <div class="dropdown dropdown-arow-none d-contents text-center mx-2">
                         <!-- Icon -->
-                        <a href="#" class="w-100 dropdown-toggle text-muted" data-toggle="dropdown"><img src="{{ asset('qbadminui/img/profile.jpg') }}" alt="profile" class="profile-avatar"></a>
+                        <a href="#" class="w-100 dropdown-toggle text-muted" data-toggle="dropdown"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcScbyaC694UuDqfOSQEwPZrKBXESLtdOn74Iw&usqp=CAU" alt="profile" class="profile-avatar"></a>
                         <!-- Dropdown Menu -->
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-max-height">
                             <!-- Menu items -->
