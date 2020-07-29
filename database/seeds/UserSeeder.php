@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -11,11 +12,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+      $hashed_password = Hash::make("1234567890");
       DB::table('users')-> insert(
       [
         'name' => 'Muhammad Syahdan',
         'email' => 'adan@artanis.com',
-        'password' => '1234567890',
+        'password' => $hashed_password,
         'kad_pengenalan' => '900102034567',
         'jawatan' => 'Pentadbir Sistem',
         'alamat_tempat_bertugas' => 'Cyberjaya',
@@ -33,7 +35,7 @@ class UserSeeder extends Seeder
       [
         'name' => 'Amirul Amsyar',
         'email' => 'amirul@artanis.com',
-        'password' => '1234567890',
+        'password' => $hashed_password,
         'kad_pengenalan' => '900102034568',
         'jawatan' => 'Integrity HOD',
         'alamat_tempat_bertugas' => 'Cyberjaya',
@@ -52,7 +54,7 @@ class UserSeeder extends Seeder
       [
         'name' => 'Muhammad Hafiz',
         'email' => 'hafiz@artanis.com',
-        'password' => '1234567890',
+        'password' => $hashed_password,
         'kad_pengenalan' => '900102034569',
         'jawatan' => 'Pegawai HR',
         'alamat_tempat_bertugas' => 'Cyberjaya',
@@ -70,7 +72,7 @@ class UserSeeder extends Seeder
       [
         'name' => 'Muhammad Shahid',
         'email' => 'shahid@artanis.com',
-        'password' => '1234567890',
+        'password' => $hashed_password,
         'kad_pengenalan' => '900102034560',
         'jawatan' => 'Pegawai Admin',
         'alamat_tempat_bertugas' => 'Cyberjaya',
@@ -88,7 +90,7 @@ class UserSeeder extends Seeder
       [
         'name' => 'Muhammad Luqman',
         'email' => 'luqman@artanis.com',
-        'password' => '1234567890',
+        'password' => $hashed_password,
         'kad_pengenalan' => '900102034561',
         'jawatan' => 'Pegawai HR',
         'alamat_tempat_bertugas' => 'Cyberjaya',
