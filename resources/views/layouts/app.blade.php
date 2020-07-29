@@ -16,7 +16,7 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ asset('qbadminui/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('qbadminui/css/vendor/bootstrap-4.3.1/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ mix('qbadminui/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('qbadminui/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('qbadminui/css/vendor/DataTable-1.10.20/datatables.min.css') }}"></link>
 
     <!-- TinyMCE script -->
@@ -58,7 +58,7 @@
                 <!-- Menu item -->
                 <div id="accordion">
                     <ul class="side-menu p-0 m-0 mt-3">
-                        
+
                     </ul>
                 </div>
             </div>
