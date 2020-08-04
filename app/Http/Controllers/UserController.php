@@ -8,6 +8,7 @@ use App\Asset;
 use App\User;
 use App\Gift;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -70,7 +71,9 @@ class UserController extends Controller
   public function senaraiHadiah()
   {
     $listHadiah = Gift::get();
-    // dd($listHadiah);
+    //dd($listHadiah[0]->gambar_gift);
+    //$file = Storage::disk('gambar_hadiah')->get($listHadiah[0]->gambar_gift);
+
     return view('user.hadiah.senaraihadiah', compact('listHadiah'));
   }
 
