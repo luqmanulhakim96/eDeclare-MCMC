@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIdInKeluargasTable extends Migration
+class AddFormbsIdToDividenBsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AddUserIdInKeluargasTable extends Migration
      */
     public function up()
     {
-        Schema::table('keluargas', function (Blueprint $table) {
+        Schema::table('dividen_bs', function (Blueprint $table) {
             //
-            $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('formbs_id')->unsigned()->nullable();
+            $table->foreign('formbs_id')->references('id')->on('formbs');
         });
     }
 
@@ -27,9 +27,9 @@ class AddUserIdInKeluargasTable extends Migration
      */
     public function down()
     {
-        Schema::table('keluargas', function (Blueprint $table) {
+        Schema::table('dividen_bs', function (Blueprint $table) {
             //
-            $table->dropColumn('user_id');
+            $table->dropColumn('formbs_id');
         });
     }
 }

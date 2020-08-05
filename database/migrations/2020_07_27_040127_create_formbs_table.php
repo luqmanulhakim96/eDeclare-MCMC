@@ -20,9 +20,6 @@ class CreateFormbsTable extends Migration
             $table->decimal('jumlah_imbuhan_pasangan',10,2)->nullable();
             $table->decimal('sewa',10,2)->nullable();
             $table->decimal('sewa_pasangan',10,2)->nullable();
-            $table->string('jenis_dividen')->nullable();
-            $table->decimal('dividen',10,2)->nullable();
-            $table->decimal('dividen_pasangan',10,2)->nullable();
             $table->decimal('pinjaman_perumahan_pegawai',10,2)->nullable();
             $table->decimal('bulanan_perumahan_pegawai',10,2)->nullable();
             $table->decimal('pinjaman_perumahan_pasangan',10,2)->nullable();

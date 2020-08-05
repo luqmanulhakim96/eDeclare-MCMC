@@ -23,7 +23,7 @@
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-                              <form action="{{route('asset.post3')}}" method="POST">
+                              <form action="{{route('d.submit')}}" method="POST">
                                 @csrf
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
@@ -77,7 +77,7 @@
                                         <p>i) Nama Syarikat / Perniagaan</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="nama_syarikat" placeholder="Nama Syarikat/Perniagaan" value="{{ session()->get('asset.nama_syarikat') }}">
+                                        <input class="form-control bg-light" type="text" name="nama_syarikat" placeholder="Nama Syarikat/Perniagaan" value="{{ old('nama_syarikat')}}">
                                       </div>
                                   </div>
                                       <br>
@@ -86,7 +86,7 @@
                                           <p>ii) No. Pendaftaran</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_syarikat" placeholder="No Pendaftaran Syarikat/Perniagaan" value="{{ session()->get('asset.no_pendaftaran_syarikat') }}">
+                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_syarikat" placeholder="No Pendaftaran Syarikat/Perniagaan" value="{{ old('no_pendaftaran_syarikat')}}">
                                       </div>
                                   </div>
                                   <br>
@@ -95,7 +95,7 @@
                                           <p>iii) Alamat Syarikat / Perniagaan</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="alamat_syarikat" placeholder="Alamat Syarikat / Perniagaan" value="{{ session()->get('asset.alamat_syarikat') }}">
+                                          <input class="form-control bg-light" type="text" name="alamat_syarikat" placeholder="Alamat Syarikat / Perniagaan" value="{{ old('alamat_syarikat')}}">
                                       </div>
                                   </div>
                                   <br>
@@ -104,7 +104,7 @@
                                         <p>iv) Jenis Syarikat / Perniagaan</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="jenis_syarikat" placeholder="Jenis Syarikat / Perniagaan" value="{{ session()->get('asset.jenis_syarikat') }}">
+                                        <input class="form-control bg-light" type="text" name="jenis_syarikat" placeholder="Jenis Syarikat / Perniagaan" value="{{ old('jenis_syarikat')}}">
                                     </div>
                                   </div>
                                   <br>
@@ -113,7 +113,7 @@
                                         <p>v) Pulangan Perniagaan Tahunan</p>
                                     </div>
                                     <div class="col-md-8">
-                                       <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ session()->get('asset.pulangan_tahunan') }}">
+                                       <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ old('pulangan_tahunan')}}">
                                     </div>
                                  </div>
                                  <br>
@@ -122,7 +122,7 @@
                                         <p>vi) Modal Dibenarkan</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ session()->get('asset.modal_syarikat') }}">
+                                        <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ old('modal_syarikat')}}">
                                     </div>
                                 </div>
                                 <br>
@@ -131,7 +131,7 @@
                                       <p>vii) Modal Berbayar (Paid Up Capital)</p>
                                   </div>
                                   <div class="col-md-8">
-                                      <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ session()->get('asset.modal_dibayar') }}">
+                                      <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ old('modal_dibayar')}}">
                                   </div>
                                </div>
                                <br>
@@ -140,7 +140,7 @@
                                      <p>viii) Punca Kewangan Syarikat / Perniagaan</p>
                                  </div>
                                  <div class="col-md-8">
-                                     <input class="form-control bg-light" type="text" name="punca_kewangan" placeholder=" "  value="{{ session()->get('asset.punca_kewangan') }}">
+                                     <input class="form-control bg-light" type="text" name="punca_kewangan" placeholder="Punca Kewangan Syarikat / Perniagaan"  value="{{ old('punca_kewangan')}}">
                                  </div>
                               </div>
                               <br>
@@ -173,18 +173,18 @@
                                 <div class="table_keluarga">
                                 <div class="row">
                                    <div class="col-md-2">
-                                       <input class="form-control bg-light" type="text" name="nama_ahli" placeholder=" "  value="{{ session()->get('asset.nama_ahli') }}">
+                                       <input class="form-control bg-light" type="text" name="nama_ahli[]" value="{{ old('nama_ahli[]')}}">
                                    </div>
                                    <div class="col-md-2">
                                      <div class="dropdown-example d-flex justify-content-betwen">
                                     <!-- Basic one -->
                                      <div class="dropdown">
-                                            <select id="select-1" class="custom-select  bg-light" name="hubungan"  value="{{ session()->get('asset.hubungan') }}">
+                                            <select id="select-1" class="custom-select  bg-light" name="hubungan[]"  value="{{ old('hubungan[]')}}">
                                                 <option value="" selected disabled hidden>Pilih Hubungan</option>
-                                                <option value="Isteri" {{ old('hubungan') == "Isteri" ? 'selected' : '' }}>Isteri</option>
-                                                <option value="Suami" {{ old('hubungan') == "Suami" ? 'selected' : '' }}>Suami</option>
-                                                <option value="Anak" {{ old('hubungan') == "Anak" ? 'selected' : '' }}>Anak</option>
-                                                <option value="Lain-lain" {{ old('hubungan') == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
+                                                <option value="Isteri" {{ old('hubungan[]') == "Isteri" ? 'selected' : '' }}>Isteri</option>
+                                                <option value="Suami" {{ old('hubungan[]') == "Suami" ? 'selected' : '' }}>Suami</option>
+                                                <option value="Anak" {{ old('hubungan[]') == "Anak" ? 'selected' : '' }}>Anak</option>
+                                                <option value="Lain-lain" {{ old('hubungan[]') == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
                                             </select>
                                     </div>
                                    </div>
@@ -193,19 +193,19 @@
                                      <div class="dropdown-example d-flex justify-content-betwen">
                                     <!-- Basic one -->
                                      <div class="dropdown">
-                                          <select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat"  value="{{ session()->get('asset.jawatan_syarikat') }}">
+                                          <select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat[]"  value="{{ old('jawatan_syarikat[]')}}">
                                               <option value="" selected disabled hidden>Pilih Jawatan</option>
-                                              <option value="Pemilik Saham" {{ old('jawatan_syarikat') == "Pemilik Saham" ? 'selected' : '' }}>Pemilik Saham</option>
-                                              <option value="Pengarah/ Lembaga Pengarah" {{ old('jawatan_syarikat') == "Pengarah/ Lembaga Pengarah" ? 'selected' : '' }}>Pengarah/ Lembaga Pengarah</option>
+                                              <option value="Pemilik Saham" {{ old('jawatan_syarikat[]') == "Pemilik Saham" ? 'selected' : '' }}>Pemilik Saham</option>
+                                              <option value="Pengarah/ Lembaga Pengarah" {{ old('jawatan_syarikat[]') == "Pengarah/ Lembaga Pengarah" ? 'selected' : '' }}>Pengarah/ Lembaga Pengarah</option>
                                           </select>
                                     </div>
                                    </div>
                                    </div>
                                    <div class="col-md-2">
-                                       <input class="form-control bg-light" type="text" name="jumlah_saham" placeholder=" "  value="{{ session()->get('asset.jumlah_saham') }}">
+                                       <input class="form-control bg-light" type="text" name="jumlah_saham[]"value="{{ old('jumlah_saham[]')}}">
                                    </div>
                                    <div class="col-md-2">
-                                       <input class="form-control bg-light" type="text" name="nilai_saham" placeholder=" "  value="{{ session()->get('asset.nilai_saham') }}">
+                                       <input class="form-control bg-light" type="text" name="nilai_saham[]" value="{{ old('nilai_saham[]')}}">
                                    </div>
                                    <button class="add_field_button" >Add More Fields</button>
                                    </div>
@@ -230,7 +230,7 @@
                             		e.preventDefault();
                                   counter++;
 
-                            			$(wrapper).append('<div id="div'+counter+'" class="row"><div class="col-md-2"><input class="form-control bg-light" type="text" name="punca_kewangan['+
+                            			$(wrapper).append('<div id="div'+counter+'" class="row"><div class="col-md-2"><input class="form-control bg-light" type="text" name="nama_ahli['+
                                   counter+
                                   ']" placeholder=" "></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="hubungan['+
                                   counter+
@@ -276,7 +276,7 @@
                               <div class="row">
                                  <div class="col-md-4">
                                    <label for="dokumen_syarikat">Muatnaik Dokumen Syarikat:</label>
-                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat" aria-describedby="dokumen_syarikat">
+                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat" aria-describedby="dokumen_syarikat" required>
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
                                  </div>
                              </div>
@@ -284,20 +284,20 @@
                              <br>
                               <div class="row">
                                   <div class="col-md-12">
-                                    <input type="checkbox" name="pengakuan" value="pengakuan_pegawai" required>
+                                    <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
                                     <label for="pengakuan"> Saya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah lengkap dan benar.</label><br>
                                   </div>
                               </div>
                                   <!-- button -->
                                  <div class="row">
                                   <div class="col-md-2">
-                                    <a class="btn btn-primary mt-4"href="{{ route('user.formC') }}">Kembali</a>
+                                    <!-- <a class="btn btn-primary mt-4"href="">Kembali</a> -->
                                     <!-- <button type="submit" class="btn btn-primary mt-4">Kembali</button> -->
                                   </div>
                                   <div class="col-md-8">
                                   </div>
                                   <div class="col-md-2">
-                                    <button type="submit" class="btn btn-primary mt-4">Seterusnya</button>
+                                    <button type="submit" class="btn btn-primary mt-4">Hantar</button>
                                     <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
                                   </div>
                                 </div>

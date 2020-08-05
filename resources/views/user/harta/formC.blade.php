@@ -21,7 +21,7 @@
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-                              <form action="{{route('asset.post2')}}" method="POST">
+                              <form action="{{route('c.submit')}}" method="POST">
                                 @csrf
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
@@ -75,7 +75,7 @@
                                         <p>Jenis Harta</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="jenis_harta_lupus" value="{{ session()->get('asset.jenis_harta_lupus') }}">
+                                        <input class="form-control bg-light" type="text" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}">
                                       </div>
                                   </div>
                                       <br>
@@ -84,10 +84,10 @@
                                           <p>Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
                                       </div>
                                       <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="pemilik_harta_pelupusan" placeholder="Nama Pemilik Sebelum" value="{{ session()->get('asset.pemilik_harta_pelupusan') }}">
+                                          <input class="form-control bg-light" type="text" name="pemilik_harta_pelupusan" placeholder="Nama Pemilik Sebelum" value="{{ old('pemilik_harta_pelupusan')}}">
                                       </div>
                                       <div class="col-md-4">
-                                          <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik_pelupusan" value="{{ session()->get('asset.hubungan_pemilik_pelupusan') }}">
+                                          <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik_pelupusan" value="{{ old('hubungan_pemilik_pelupusan')}}">
                                             <option value="" selected disabled hidden>Hubungan dengan Pemilik</option>
                                             <option value="Sendiri" {{ old('hubungan_pemilik_pelupusan') == "Sendiri" ? 'selected' : '' }}>Sendiri</option>
                                             <option value="Anak" {{ old('hubungan_pemilik_pelupusan') == "Anak" ? 'selected' : '' }}>Anak</option>
@@ -105,7 +105,7 @@
                                           <p>Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ session()->get('asset.no_pendaftaran_harta') }}">
+                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ old('no_pendaftaran_harta')}}">
                                       </div>
                                   </div>
                                   <br>
@@ -114,7 +114,7 @@
                                           <p>Tarikh Pemilikan Harta</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_pemilikan" value="{{ session()->get('asset.tarikh_pemilikan') }}">
+                                          <input class="form-control bg-light" type="date" name="tarikh_pemilikan" value="{{ old('tarikh_pemilikan')}}">
                                       </div>
                                   </div>
                                   <br>
@@ -123,7 +123,7 @@
                                           <p>Tarikh Pelupusan Harta</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_pelupusan" value="{{ session()->get('asset.tarikh_pelupusan') }}">
+                                          <input class="form-control bg-light" type="date" name="tarikh_pelupusan" value="{{ old('tarikh_pelupusan')}}">
                                       </div>
                                   </div>
                                   <br>
@@ -132,7 +132,7 @@
                                           <p>Cara Pelupusan (sama ada dijual, dihadiahkan dan sebagainya). Jika dijual, Nyatakan nilai jualan.</p>
                                       </div>
                                       <div class="col-md-4">
-                                          <select id="cara_pelupusan" class="custom-select  bg-light" name="cara_pelupusan" value="{{ session()->get('asset.cara_pelupusan') }}">
+                                          <select id="cara_pelupusan" class="custom-select  bg-light" name="cara_pelupusan" value="{{ old('cara_pelupusan')}}">
                                               <option value="" selected disabled hidden>Cara pelupusan</option>
                                               <option value="Dijual" {{ old('cara_pelupusan') == "Dijual" ? 'selected' : '' }}>Dijual</option>
                                               <option value="Dihadiahkan" {{ old('cara_pelupusan') == "Dihadiahkan" ? 'selected' : '' }}>Dihadiahkan</option>
@@ -143,26 +143,26 @@
                                           <input class="form-control bg-light" type="text" name="cara_pelupusan" placeholder="Cara Pelupusan" value="{{ session()->get('asset.cara_pelupusan') }}">
                                       </div> -->
                                       <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="nilai_pelupusan" placeholder="Nilai Jualan" value="{{ session()->get('asset.nilai_pelupusan') }}">
+                                          <input class="form-control bg-light" type="text" name="nilai_pelupusan" placeholder="Nilai Jualan" value="{{ old('nilai_pelupusan')}}">
                                       </div>
                                   </div>
                                   <br>
                                   <div class="row">
                                     <div class="col-md-12">
-                                      <input type="checkbox" name="pengakuan" value="pengakuan_pegawai">
+                                      <input type="checkbox" name="pengakuan" value="pengakuan pegawai">
                                         <label for="pengakuan"> Saya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah lengkap dan benar.</label><br>
                                     </div>
                                   </div>
                                   <!-- button -->
                                   <div class="row">
                                     <div class="col-md-2">
-                                      <a class="btn btn-primary mt-4"href="{{ route('user.formB') }}">Kembali</a>
+                                      <!-- <a class="btn btn-primary mt-4"href=#>Kembali</a> -->
                                       <!-- <button type="submit" class="btn btn-primary mt-4">Kembali</button> -->
                                     </div>
                                     <div class="col-md-8">
                                     </div>
                                     <div class="col-md-2">
-                                      <button type="submit" class="btn btn-primary mt-4">Seterusnya</button>
+                                      <button type="submit" class="btn btn-primary mt-4">Hantar</button>
                                       <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
                                     </div>
 

@@ -42,20 +42,14 @@ class UserController extends Controller
         'password' => Hash::make($data['password']),
     ]);
   }
-
-  public function formB()
-  {
-    return view('user.formB');
-  }
-
-  public function formC()
-  {
-    return view('user.formC');
-  }
-
   public function formD()
   {
     return view('user.formD');
+  }
+
+  public function senaraiborang()
+  {
+    return view('user.form');
   }
 
   public function formG()
@@ -65,7 +59,7 @@ class UserController extends Controller
 
   public function senaraiHarta()
   {
-    return view('user.senaraiharta');
+    return view('user.harta.senaraiharta');
   }
 
   public function senaraiHadiah()
