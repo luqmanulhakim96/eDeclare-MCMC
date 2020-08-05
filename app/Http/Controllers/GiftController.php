@@ -22,7 +22,7 @@ class GiftController extends Controller
       return view('user.hadiah.editgift', compact('info'));
     }
 
-  public function add(array $data){
+  public function add(array $data, $uploaded_gambar_hadiah){
       return Gift::create([
         'jenis_gift' => $data['jenis_hadiah'],
         'nilai_gift' => $data['nilai_hadiah'],
@@ -31,7 +31,7 @@ class GiftController extends Controller
         'alamat_pemberi' => $data['alamat_pemberi'],
         'hubungan_pemberi' => $data['hubungan_pemberi'],
         'sebab_gift' => $data['sebab_diberi'],
-        'gambar_gift' => $data['gambar_hadiah'],
+        'gambar_gift' => $uploaded_gambar_hadiah
 
       ]);
     }
@@ -46,15 +46,17 @@ class GiftController extends Controller
         'alamat_pemberi'=> ['required', 'string'],
         'hubungan_pemberi'=> ['required', 'string'],
         'sebab_diberi'=> ['required', 'string'],
-        'gambar_hadiah'=> ['required', 'string'],
+        'gambar_hadiah'=> ['required','max:100000','mimes:jpeg,jpg,png'],
       ]);
   }
 
     public function submitForm(Request $request){
 
     $this->validator($request->all())->validate();
-// dd($request->all());
-    event($gifts = $this->add($request->all()));
+    // dd($request->all());
+    $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
+
+    event($gifts = $this->add($request->all(),$uploaded_gambar_hadiah));
     return redirect()->route('user.hadiah.senaraihadiah');
 
   }

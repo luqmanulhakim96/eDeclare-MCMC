@@ -30,6 +30,7 @@
                             </thead>
                             <tbody align="center">
                               @foreach($listHadiah as $data)
+
                               <tr>
                                   <td>{{ $data ->id }}</td>
                                   <td>{{ $data ->jenis_gift }}</td>
@@ -38,14 +39,22 @@
                                   <td>{{ $data ->nama_pemberi  }}</td>
                                   <td>{{ $data ->alamat_pemberi  }}</td>
                                   <td>{{ $data ->hubungan_pemberi  }}</td>
-                                  <td>{{ $data ->gambar_gift  }}</td>
+                                  <!-- <td>{{ $data ->gambar_gift  }}</td> -->
+                                  <!-- <td><img src="{{ asset('qbadminui/img/profile.jpg') }}" alt="profile" class="profile-avatar"></td> -->
+                                  <!-- <td><img src="{{ asset('storage/uploads/gambar_hadiah/0nSg30DXJdzDJf6RCbqmeGjoZb9P45lVlw8DRdIe.png' ) }}"></td> -->
+                                  <td>
+                                    <button type="button" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal2">
+                                      <img src="{{ asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift)) }}"  class="profile-avatar">
+                                        </button>
+                                  </td>
+                                  <!-- <td>$image_path</td> -->
                                   <td><span class="badge badge-success badge-pill">Selesai</span></td>
                                   <td class="p-3">
                                   <div class="d-flex flex-row justify-content-around align-items-center">
                                       <a href="{{ route('user.hadiah.editgift', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="{{ route('gift.delete', $data->id) }}" class="btn btn-danger"><i class="fas fa-times-circle"></i></a>
+                                      <a href="{{ route('gift.delete', $data->id) }}" class="btn btn-danger" onclick=" return confirm('Padam maklumat?');"><i class="fas fa-times-circle"></i></a>
                                   </div>
-                            </td>
+                                  </td>
                                 </tr>
                                @endforeach
                                 <!-- Table data -->
@@ -108,6 +117,24 @@
 
                             <!-- </tbody> -->
                         </table>
+                        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Gambar Hadiah</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                  <img id="imageHadiah" class="img-responsive" src="" alt="Gambar Hadiah" width="50%" height="50%">
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -115,5 +142,12 @@
         </div>
       </div>
   </div>
+  <script type="text/javascript">
+    function passGambarHadiah(path){
+      console.log(path);
+      $(".modal-body #imageHadiah").attr('src', path);
+      $('.modal-body #imageHadiah').show();
+    }
+  </script>
 
 @endsection
