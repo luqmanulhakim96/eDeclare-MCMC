@@ -23,11 +23,6 @@ class CreateFormdsTable extends Migration
             $table->decimal('modal_syarikat',10,2)->nullable();
             $table->decimal('modal_dibayar',10,2)->nullable();
             $table->string('punca_kewangan')->nullable();
-            $table->string('nama_ahli')->nullable();
-            $table->string('hubungan')->nullable();
-            $table->string('jawatan_syarikat')->nullable();
-            $table->decimal('jumlah_saham',10,2)->nullable();
-            $table->decimal('nilai_saham',10,2)->nullable();
             $table->string('dokumen_syarikat')->nullable();
             $table->string('pengakuan')->nullable();
 

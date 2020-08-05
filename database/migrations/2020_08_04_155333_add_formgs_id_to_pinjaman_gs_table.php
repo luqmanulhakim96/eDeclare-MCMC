@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIdInTanggungansTable extends Migration
+class AddFormgsIdToPinjamanGsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AddUserIdInTanggungansTable extends Migration
      */
     public function up()
     {
-        Schema::table('tanggungans', function (Blueprint $table) {
+        Schema::table('pinjaman_gs', function (Blueprint $table) {
             //
-            $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('formgs_id')->unsigned()->nullable();
+            $table->foreign('formgs_id')->references('id')->on('formgs');
         });
     }
 
@@ -27,9 +27,9 @@ class AddUserIdInTanggungansTable extends Migration
      */
     public function down()
     {
-        Schema::table('tanggungans', function (Blueprint $table) {
+        Schema::table('pinjaman_gs', function (Blueprint $table) {
             //
-            $table->dropColumn('user_id');
+            $table->dropColumn('formgs_id');
         });
     }
 }

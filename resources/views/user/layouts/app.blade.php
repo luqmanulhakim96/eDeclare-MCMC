@@ -64,14 +64,20 @@
                 <div id="accordion">
                     <ul class="side-menu p-0 m-0 mt-3">
                       @if(Auth::user()->role == 5)
-                        <li class="side-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
+
+
                         <!-- Sub menu parent -->
                         <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Perisytiharan Harta Pegawai</a></li>
                         <!-- Sub menu -->
                         <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
+                              <li class="side-sub-menu-item px-3"><a href="{{ route('user.form') }}" class="w-100 py-3 pl-4">Senarai Borang</a></li>
+                                <!-- <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Lampiran A:Perakuan Tiada Penambahan Harta</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.harta.formB') }}" class="w-100 pl-4">Lampiran B:Perisytiharan Harta Baharu</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.harta.formC') }}" class="w-100 pl-4">Lampiran C:Pelupusan Harta Baharu</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.harta.formD') }}" class="w-100 pl-4">Lampiran D:Perisytiharan Syarikat dan Perniagaan Sendiri</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.harta.formG') }}" class="w-100 pl-4">Lampiran G:Permohonan Bagi Mendapatkan Kebenaran Untuk Memohon dan Memiliki Saham</a></li> -->
+
 
                             </ul>
                         </div>
@@ -80,7 +86,14 @@
                         <!-- Sub menu -->
                         <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Lampiran A:Penerimaan Hadiah Baharu</a></li>
+                            </ul>
+                        </div>
+                        <!-- Sub menu parent -->
+                        <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu2" aria-expanded="false" aria-controls="table-sub-menu">Senarai Perisytiharan</a></li>
+                        <div id="table-sub-menu2" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <ul class="side-sub-menu p-0">
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.harta.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
                                 <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
                             </ul>
                         </div>
@@ -93,8 +106,8 @@
                           <!-- Sub menu -->
                           <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Lampiran A:Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Lampiran A:Perisytiharan Harta Baharu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
@@ -128,8 +141,8 @@
                           <!-- Sub menu -->
                           <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Lampiran A:Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Lampiran A:Perisytiharan Harta Baharu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
@@ -153,8 +166,8 @@
                           <!-- Sub menu -->
                           <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Lampiran A:Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Lampiran A:Perisytiharan Harta Baharu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>
@@ -178,8 +191,8 @@
                           <!-- Sub menu -->
                           <div id="sub_menu_1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Perakuan Tiada Penambahan Harta</a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Perisytiharan Harta Baharu</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.perakuanharta.formA') }}" class="w-100 py-3 pl-4">Lampiran A:Perakuan Tiada Penambahan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.formB') }}" class="w-100 pl-4">Lampiran A:Perisytiharan Harta Baharu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta Lalu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.gift') }}" class="w-100 pl-4">Penerimaan Hadiah Baharu</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Lalu</a></li>

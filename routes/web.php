@@ -23,17 +23,19 @@ Auth::routes();
 
 Route::get('/menu-utama', 'UserController@index')->name('menu-utama');
 
-Route::get('/permohonan/form/B', 'UserController@formB')->name('user.formB');
+Route::get('/permohonan/senaraiborang', 'UserController@senaraiborang')->name('user.form');
 
-Route::get('/permohonan/form/C', 'UserController@formC')->name('user.formC');
+Route::get('/permohonan/form/B', 'FormBController@formB')->name('user.harta.formB');
 
-Route::get('/permohonan/form/D', 'UserController@formD')->name('user.formD');
+Route::get('/permohonan/form/C', 'FormCController@formC')->name('user.harta.formC');
 
-Route::get('/permohonan/form/G', 'UserController@formG')->name('user.formG');
+Route::get('/permohonan/form/D', 'FormDController@formD')->name('user.harta.formD');
+
+Route::get('/permohonan/form/G', 'FormGController@formG')->name('user.harta.formG');
 
 Route::get('/permohonan/hadiah', 'GiftController@giftBaru')->name('user.hadiah.gift');
 
-Route::get('/permohonan/senarai/harta', 'UserController@senaraiHarta')->name('user.senaraiharta');
+Route::get('/permohonan/senarai/harta', 'UserController@senaraiHarta')->name('user.harta.senaraiharta');
 
 Route::get('/permohonan/senarai/hadiah', 'UserController@senaraiHadiah')->name('user.hadiah.senaraihadiah');
 
@@ -53,6 +55,30 @@ Route::get('/hadiah/edit/{id}', 'GiftController@editHadiah')->name('user.hadiah.
 Route::get('/hadiah/delete/{id}','GiftController@deleteHadiah')->name('gift.delete');
 
 Route::post('/perakuan-harta', 'PerakuanController@submitForm')->name('perakuan.submit');
+
+Route::post('/formB/submit', 'FormBController@submitForm')->name('b.submit');
+
+Route::get('/formB/edit/{id}', 'FormBController@editformB')->name('user.harta.editformB');
+
+Route::post('/formB/update/{id}', 'FormBController@updateformB')->name('b.update');
+
+Route::post('/formC/submit', 'FormCController@submitForm')->name('c.submit');
+
+Route::get('/formC/edit/{id}', 'FormCController@editformB')->name('user.harta.editformC');
+
+Route::post('/formC/update/{id}', 'FormCController@updateformB')->name('c.update');
+
+Route::post('/formD/submit', 'FormDController@submitForm')->name('d.submit');
+
+Route::get('/formD/edit/{id}', 'FormDController@editformB')->name('user.harta.editformD');
+
+Route::post('/formD/update/{id}', 'FormDController@updateformB')->name('d.update');
+
+Route::post('/formG/submit', 'FormGController@submitForm')->name('g.submit');
+
+Route::get('/formG/edit/{id}', 'FormGController@editformG')->name('user.harta.editformG');
+
+Route::post('/formG/update/{id}', 'FormGController@updateformG')->name('g.update');
 
 
 

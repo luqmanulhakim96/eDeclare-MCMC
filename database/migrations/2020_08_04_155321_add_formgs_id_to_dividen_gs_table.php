@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAssetIdInPelupusansTable extends Migration
+class AddFormgsIdToDividenGsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AddAssetIdInPelupusansTable extends Migration
      */
     public function up()
     {
-        Schema::table('pelupusans', function (Blueprint $table) {
+        Schema::table('dividen_gs', function (Blueprint $table) {
             //
-            $table->bigInteger('asset_id')->unsigned()->nullable();
-            $table->foreign('asset_id')->references('id')->on('assets');
+            $table->bigInteger('formgs_id')->unsigned()->nullable();
+            $table->foreign('formgs_id')->references('id')->on('formgs');
         });
     }
 
@@ -27,9 +27,9 @@ class AddAssetIdInPelupusansTable extends Migration
      */
     public function down()
     {
-        Schema::table('pelupusans', function (Blueprint $table) {
+        Schema::table('dividen_gs', function (Blueprint $table) {
             //
-            $table->dropColumn('asset_id');
+            $table->dropColumn('formgs_id');
         });
     }
 }

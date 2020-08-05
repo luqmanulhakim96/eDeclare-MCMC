@@ -20,7 +20,7 @@
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-                               <form action="{{route('asset.post4')}}" method="post" enctype="multipart/form-data">
+                               <form action="{{route('d.update', $info->id)}}" method="post">
                                 @csrf
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
@@ -220,16 +220,16 @@
                                       <div class="row">
                                         <div class="col-md-3 mt-2 mt-md-0">
                                             <div class="input-group">
-                                              <input class="form-control bg-light" type="text" name="jenis_dividen" placeholder="Nyatakan Dividen" value="{{ session()->get('asset.jenis_dividen') }}">
+                                              <input class="form-control bg-light" type="text" name="dividen_1[]"" placeholder="Nyatakan Dividen" value="{{ session()->get('asset.jenis_dividen') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                              <input class="form-control bg-light" type="text" name="dividen" placeholder="Dividen Pegawai" value="{{ session()->get('asset.dividen') }}">
+                                              <input class="form-control bg-light" type="text" name="dividen_1_pegawai[]" placeholder="Dividen Pegawai" value="{{ session()->get('asset.dividen') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                          <input class="form-control bg-light" type="text" name="dividen_pasangan" placeholder="Dividen Pasangan" value="{{ session()->get('asset.dividen_pasangan') }}">
+                                          <input class="form-control bg-light" type="text" name="dividen_1_pasangan[]" placeholder="Dividen Pasangan" value="{{ session()->get('asset.dividen_pasangan') }}">
                                         </div>
                                         <div class="col-md-1">
                                           <button class="add_field_button" id="add_dividen_button">Add</button>
@@ -278,7 +278,7 @@
                                       </script>
 
                                       <!-- lain-lain -->
-                                      <input type="hidden" name="counter_pndptn" value="0" id="counter_pndptn">
+                                      <!-- <input type="hidden" name="counter_pndptn" value="0" id="counter_pndptn">
                                       <div class="lain_pendapatan" id="lain_pendapatan">
                                       <div class="row">
                                         <div class="col-md-3 mt-2 mt-md-0">
@@ -343,7 +343,7 @@
                                       // doctype.getElementById("counter").value = counter;
                                       }
 
-                                      </script>
+                                      </script> -->
 
                                       <!-- jumlah pendapatan -->
                                       <div class="row">
@@ -815,19 +815,19 @@
                                   <div class="saham" id="saham">
                                     <div class="row">
                                       <div class="col-md-2">
-                                        <input type="text" class="form-control bg-light" name="institusi" placeholder="Nama Institusi" value="{{ session()->get('asset.institusi') }}">
+                                        <input type="text" class="form-control bg-light" name="institusi[]" placeholder="Nama Institusi" value="{{ session()->get('asset.institusi') }}">
                                       </div>
                                       <div class="col-md-2">
-                                        <input type="text" class="form-control bg-light" name="alamat_institusi" placeholder="Alamat Institusi" value="{{ session()->get('asset.alamat_institusi') }}">
+                                        <input type="text" class="form-control bg-light" name="alamat_institusi[]" placeholder="Alamat Institusi" value="{{ session()->get('asset.alamat_institusi') }}">
                                       </div>
                                       <div class="col-md-2">
-                                        <input type="text" class="form-control bg-light" name="ansuran_bulanan" placeholder="Ansuran Bulanan" value="{{ session()->get('asset.ansuran_bulanan') }}">
+                                        <input type="text" class="form-control bg-light" name="ansuran_bulanan[]" placeholder="Ansuran Bulanan" value="{{ session()->get('asset.ansuran_bulanan') }}">
                                       </div>
                                       <div class="col-md-2">
-                                        <input type="date" class="form-control bg-light" name="tarikh_ansuran" placeholder="Tarikh Ansuran Pertama" value="{{ session()->get('asset.tarikh_ansuran') }}">
+                                        <input type="date" class="form-control bg-light" name="tarikh_ansuran[]" placeholder="Tarikh Ansuran Pertama" value="{{ session()->get('asset.tarikh_ansuran') }}">
                                       </div>
                                       <div class="col-md-2">
-                                        <input type="text" class="form-control bg-light" name="tempoh_pinjaman" placeholder="Tempoh Pinjaman" value="{{ session()->get('asset.tempoh_pinjaman') }}">
+                                        <input type="text" class="form-control bg-light" name="tempoh_pinjaman[]" placeholder="Tempoh Pinjaman" value="{{ session()->get('asset.tempoh_pinjaman') }}">
                                       </div>
                                       <div class="col-md-1">
                                         <button class="add_field_button" id="add_saham_button">Add</button>
@@ -850,7 +850,7 @@
                                   <!-- button -->
                                      <div class="row">
                                       <div class="col-md-2">
-                                        <a class="btn btn-primary mt-4" href="{{ route('user.formD') }}">Kembali</a>
+                                        <a class="btn btn-primary mt-4" href="">Kembali</a>
                                         <!-- <button type="submit" class="btn btn-primary mt-4">Kembali</button> -->
                                       </div>
                                       <div class="col-md-8">

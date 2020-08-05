@@ -15,9 +15,11 @@ class CreateKeluargasTable extends Migration
     {
         Schema::create('keluargas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->nullable();
-            $table->string('umur')->nullable();
-            $table->integer('ic')->nullable();
+            $table->string('nama_ahli')->nullable();
+            $table->string('hubungan')->nullable();
+            $table->string('jawatan_syarikat')->nullable();
+            $table->decimal('jumlah_saham',10,2)->nullable();
+            $table->decimal('nilai_saham',10,2)->nullable();
             $table->timestamps();
         });
     }
