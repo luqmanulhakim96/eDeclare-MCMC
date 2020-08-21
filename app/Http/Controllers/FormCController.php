@@ -62,48 +62,11 @@ public function add(array $data){
   public function submitForm(Request $request){
 
   $this->validator($request->all())->validate();
- // dd($request->all());
   event($formcs = $this->add($request->all()));
-   //dd($request->all());
-   // dd($request->dividen_1);
-
-   // $count = count($request->dividen_1);
-   // // dd($request->dividen_1);
-   //
-   //  for ($i=0; $i < $count; $i++) {
-	 //  $dividen_bs = new DividenB();
-	 //  $dividen_bs->dividen_1 = $request->dividen_1[$i];
-	 //  $dividen_bs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
-   //  $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
-   //  //dd($request->all());
-   //  $dividen_bs->save();
-return redirect()->route('user.harta.FormC.senaraihartaC');
-    }
-
-    // $count = count($request->lain_lain_pinjaman);
-    // // dd($request->dividen_1);
-    //
-    //  for ($i=0; $i < $count; $i++) {
- 	  // $pinjaman_bs = new PinjamanB();
- 	  // $pinjaman_bs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
- 	  // $pinjaman_bs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
-    // $pinjaman_bs->bulanan_pegawai = $request->bulanan_pegawai[$i];
-    // $pinjaman_bs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
-    // $pinjaman_bs->bulanan_pasangan = $request->bulanan_pasangan[$i];
-    //  //dd($request->all());
-    //  $pinjaman_bs->save();
-    //
-    //  }
-
-
-
-
-
-// public function deleteHadiah($id){
-//     $gifts = Gift::find($id);
-//     $gifts-> delete();
-//     return redirect()->route('user.hadiah.senaraihadiah');
-// }
+  
+  //send notification to admin (noti yang dia dah berjaya declare)
+  return redirect()->route('user.harta.FormC.senaraihartaC');
+  }
 
 public function update($id){
   $formcs = FormC::find($id);

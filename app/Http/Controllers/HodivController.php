@@ -165,6 +165,8 @@ class HodivController extends Controller
      $formbs->ulasan_hodiv = $request->ulasan_hodiv;
      $formbs->save();
 
+     //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
+
      return redirect()->route('user.hodiv.harta.senaraiformB');
    }
 
@@ -174,6 +176,8 @@ class HodivController extends Controller
      $formbs->status = $request->status;
      $formbs->ulasan_hodiv = $request->ulasan_hodiv;
      $formbs->save();
+
+     //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
 
      return redirect()->route('user.hodiv.harta.senaraiformC');
    }
@@ -185,6 +189,8 @@ class HodivController extends Controller
      $formbs->ulasan_hodiv = $request->ulasan_hodiv;
      $formbs->save();
 
+     //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
+
      return redirect()->route('user.hodiv.harta.senaraiformD');
    }
 
@@ -195,6 +201,8 @@ class HodivController extends Controller
      $formbs->ulasan_hodiv = $request->ulasan_hodiv;
      $formbs->save();
 
+     //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
+
      return redirect()->route('user.hodiv.harta.senaraiformG');
    }
 
@@ -204,6 +212,8 @@ class HodivController extends Controller
      $gifts->status = $request->status;
      $gifts->ulasan_hodiv = $request->ulasan_hodiv;
      $gifts->save();
+
+     //send notification to hod (ulasan hodiv)
 
      return redirect()->route('user.hodiv.hadiah.listGift');
    }

@@ -97,10 +97,10 @@ public function add(array $data){
     $keluargas->nilai_saham = $request->nilai_saham[$i];
     $keluargas->formds_id = $formds-> id;
     $keluargas->keluarga_id = $count_id;
-    //dd($request->all());
     $keluargas->save();
 
     }
+    //send notification to admin (noti yang dia dah berjaya declare)
 
     return redirect()->route('user.harta.FormD.senaraihartaD');
      }
