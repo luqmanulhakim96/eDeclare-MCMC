@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class FormG extends Model
+class FormG extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     //
     protected $table = 'formgs';
     protected $fillable = [

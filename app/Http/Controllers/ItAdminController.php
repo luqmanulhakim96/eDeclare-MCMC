@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Audit;
 
 class ItAdminController extends Controller
 {
@@ -28,7 +29,16 @@ class ItAdminController extends Controller
 
       public function audit(){
 
-        return view('user.it.audit');
+        // $data = Audit::with('user')->get();
+        // $data = User::where('role','!=','5')->get();
+        // $all = $user->audits;
+        // $data = Audit::whereHas('user', function($q) {
+        //   $q->where('role','!=','5');
+        // })->get();
+        $data = Audit::get();
+        // dd($data);
+
+        return view('user.it.audit', compact('data'));
       }
 
       public function users(){

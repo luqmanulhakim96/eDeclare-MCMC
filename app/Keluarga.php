@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Keluarga extends Model
+class Keluarga extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     //
     protected $guarded = [];
     protected $table = 'keluargas';
