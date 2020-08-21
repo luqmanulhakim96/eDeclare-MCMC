@@ -22,11 +22,13 @@ class GiftController extends Controller
       //dd($info);
       return view('user.hadiah.editgift', compact('info'));
     }
-    
+
   public function add(array $data, $uploaded_gambar_hadiah){
       $userid = Auth::user()->id;
       $sedang_proses= "Sedang Diproses";
 
+
+  public function add(array $data, $uploaded_gambar_hadiah){
       return Gift::create([
         'jabatan' => $data['jabatan'],
         'jenis_gift' => $data['jenis_hadiah'],
@@ -61,10 +63,10 @@ class GiftController extends Controller
     public function submitForm(Request $request){
 
     $this->validator($request->all())->validate();
-// dd($request->all());
     $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
-
     event($gifts = $this->add($request->all(),$uploaded_gambar_hadiah));
+
+    //send notification to hodiv (user declare)
     return redirect()->route('user.hadiah.senaraihadiah');
 
   }

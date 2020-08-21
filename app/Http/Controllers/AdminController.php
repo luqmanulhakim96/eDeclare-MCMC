@@ -197,6 +197,8 @@ class AdminController extends Controller
      $formbs->ulasan_admin = $request->ulasan_admin;
      $formbs->save();
 
+     //send notification to HOD (noti ulasan admin dah check)
+
      return redirect()->route('user.admin.harta.senaraiformB');
    }
 
@@ -206,6 +208,7 @@ class AdminController extends Controller
      $formbs->status = $request->status;
      $formbs->ulasan_admin = $request->ulasan_admin;
      $formbs->save();
+     //send notification to HOD (noti ulasan admin dah check)
 
      return redirect()->route('user.admin.harta.senaraiformC');
    }
@@ -216,6 +219,7 @@ class AdminController extends Controller
      $formbs->status = $request->status;
      $formbs->ulasan_admin = $request->ulasan_admin;
      $formbs->save();
+     //send notification to HOD (noti ulasan admin dah check)
 
      return redirect()->route('user.admin.harta.senaraiformD');
    }
@@ -226,6 +230,7 @@ class AdminController extends Controller
      $formbs->status = $request->status;
      $formbs->ulasan_admin = $request->ulasan_admin;
      $formbs->save();
+     //send notification to HOD (noti ulasan admin dah check)
 
      return redirect()->route('user.admin.harta.senaraiformG');
    }
@@ -237,6 +242,8 @@ class AdminController extends Controller
      $gifts->ulasan_admin = $request->ulasan_admin;
      $gifts->save();
 
+     //send notification to users (status="Diterima" && status="Tidak Diterima" && status="Tidak Lengkap")
+
      return redirect()->route('user.admin.hadiah.listGift');
    }
 
@@ -246,6 +253,8 @@ class AdminController extends Controller
      $giftbs->status = $request->status;
      $giftbs->ulasan_admin = $request->ulasan_admin;
      $giftbs->save();
+
+     //send notification to users (status="Diterima" && status="Tidak Diterima" && status="Tidak Lengkap")
 
      return redirect()->route('user.admin.hadiah.listGiftB');
    }

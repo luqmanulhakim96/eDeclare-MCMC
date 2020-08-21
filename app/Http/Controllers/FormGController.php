@@ -238,16 +238,11 @@ public function add(array $data){
 
       }
 
+      //send notification to admin (noti yang dia dah berjaya declare)
+
   return redirect()->route('user.harta.FormG.senaraihartaG');
 
 }
-
-// public function deleteHadiah($id){
-//     $gifts = Gift::find($id);
-//     $gifts-> delete();
-//     return redirect()->route('user.hadiah.senaraihadiah');
-// }
-//
 public function update($id){
   $formgs = FormG::find($id);
   $formgs->nama_perkhidmatan  = request()->nama_perkhidmatan;

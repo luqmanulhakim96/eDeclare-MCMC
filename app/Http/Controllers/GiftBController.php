@@ -23,7 +23,7 @@ class GiftBController extends Controller
       return view('user.hadiah.editgiftB', compact('info'));
     }
 
-    
+
 
   public function add(array $data, $uploaded_gambar_hadiah){
       $userid = Auth::user()->id;
@@ -63,10 +63,11 @@ class GiftBController extends Controller
     public function submitForm(Request $request){
 
     $this->validator($request->all())->validate();
-     // dd($request->all());
     $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
-
     event($giftbs = $this->add($request->all(),$uploaded_gambar_hadiah));
+
+    //send notification to hodiv (user declare)
+
     return redirect()->route('user.hadiah.senaraihadiahB');
 
   }

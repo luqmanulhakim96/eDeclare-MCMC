@@ -165,8 +165,12 @@ class IntegrityHodController extends Controller
        $formbs->ulasan_hod = $request->ulasan_hod;
        $formbs->save();
 
+       //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
+       //send notification to users (status="Diterima" && status="Tidak Diterima")
+
        return redirect()->route('user.integrityHOD.harta.senaraiformB');
      }
+
 
      public function updateStatusUlasanHODC(Request $request,$id){
 
@@ -174,6 +178,9 @@ class IntegrityHodController extends Controller
        $formbs->status = $request->status;
        $formbs->ulasan_hod = $request->ulasan_hod;
        $formbs->save();
+
+       //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
+       //send notification to users (status="Diterima" && status="Tidak Diterima")
 
        return redirect()->route('user.integrityHOD.harta.senaraiformC');
      }
@@ -185,6 +192,9 @@ class IntegrityHodController extends Controller
        $formbs->ulasan_hod = $request->ulasan_hod;
        $formbs->save();
 
+       //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
+       //send notification to users (status="Diterima" && status="Tidak Diterima")
+
        return redirect()->route('user.integrityHOD.harta.senaraiformD');
      }
 
@@ -195,6 +205,9 @@ class IntegrityHodController extends Controller
        $formbs->ulasan_hod = $request->ulasan_hod;
        $formbs->save();
 
+       //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
+       //send notification to users (status="Diterima" && status="Tidak Diterima")
+
        return redirect()->route('user.integrityHOD.harta.senaraiformG');
      }
 
@@ -204,6 +217,8 @@ class IntegrityHodController extends Controller
        $gifts->status = $request->status;
        $gifts->ulasan_hod = $request->ulasan_hod;
        $gifts->save();
+
+       //send notification to admin (ulasan hodiv)
 
        return redirect()->route('user.integrityHOD.hadiah.listGift');
      }

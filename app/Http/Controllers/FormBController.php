@@ -96,6 +96,7 @@ public function add(array $data){
 
 
     ]);
+
   }
 
   protected function validator(array $data)
@@ -161,8 +162,6 @@ public function add(array $data){
   $this->validator($request->all())->validate();
  // dd($request->all());
   event($formbs = $this->add($request->all()));
-   //dd($request->all());
-   // dd($request->dividen_1);
 
    $count = count($request->dividen_1);
 
@@ -176,8 +175,6 @@ public function add(array $data){
     $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
     $dividen_bs->formbs_id = $formbs-> id;
     $dividen_bs->dividen_id = $count_id;
-
-    //dd($request->all());
     $dividen_bs->save();
 
     }
@@ -200,6 +197,8 @@ public function add(array $data){
      $pinjaman_bs->save();
 
      }
+
+     //send notification to admin (noti yang dia dah berjaya declare)
 
   return redirect()->route('user.harta.FormB.senaraihartaB');
 
