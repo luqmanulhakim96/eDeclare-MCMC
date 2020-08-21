@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Validator;
 use App\FormB;
 use App\DividenB;
 use App\PinjamanB;
+use App\User;
 use DB;
 use Auth;
+
+use App\Notifications\Form\UserFormAdminB;
 
 class FormBController extends Controller
 {
@@ -159,175 +162,177 @@ public function add(array $data){
 
   public function submitForm(Request $request){
 
-  $this->validator($request->all())->validate();
- // dd($request->all());
-  event($formbs = $this->add($request->all()));
+    $this->validator($request->all())->validate();
+    // dd($request->all());
+    event($formbs = $this->add($request->all()));
 
-   $count = count($request->dividen_1);
+    $count = count($request->dividen_1);
 
     $count_id = 0;
 
     for ($i=0; $i < $count; $i++) {
-    $count_id++;
-	  $dividen_bs = new DividenB();
-	  $dividen_bs->dividen_1 = $request->dividen_1[$i];
-	  $dividen_bs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
-    $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
-    $dividen_bs->formbs_id = $formbs-> id;
-    $dividen_bs->dividen_id = $count_id;
-    $dividen_bs->save();
-
+      $count_id++;
+  	  $dividen_bs = new DividenB();
+  	  $dividen_bs->dividen_1 = $request->dividen_1[$i];
+  	  $dividen_bs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
+      $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+      $dividen_bs->formbs_id = $formbs-> id;
+      $dividen_bs->dividen_id = $count_id;
+      $dividen_bs->save();
     }
 
     $count1 = count($request->lain_lain_pinjaman);
     $count_id_pinjaman = 0;
 
-
     for ($i=0; $i < $count1; $i++) {
-    $count_id_pinjaman++;
- 	  $pinjaman_bs = new PinjamanB();
- 	  $pinjaman_bs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
- 	  $pinjaman_bs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
-    $pinjaman_bs->bulanan_pegawai = $request->bulanan_pegawai[$i];
-    $pinjaman_bs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
-    $pinjaman_bs->bulanan_pasangan = $request->bulanan_pasangan[$i];
-    $pinjaman_bs->formbs_id = $formbs-> id;
-    $pinjaman_bs->pinjaman_id = $count_id_pinjaman;
-     //dd($request->all());
-     $pinjaman_bs->save();
-
+        $count_id_pinjaman++;
+     	  $pinjaman_bs = new PinjamanB();
+     	  $pinjaman_bs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
+     	  $pinjaman_bs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
+        $pinjaman_bs->bulanan_pegawai = $request->bulanan_pegawai[$i];
+        $pinjaman_bs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
+        $pinjaman_bs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+        $pinjaman_bs->formbs_id = $formbs-> id;
+        $pinjaman_bs->pinjaman_id = $count_id_pinjaman;
+         //dd($request->all());
+        $pinjaman_bs->save();
      }
 
      //send notification to admin (noti yang dia dah berjaya declare)
+     // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
+     $email = null;
+     $admin_available = User::where('role','=','1')->get();
+     if ($email) {
+       foreach ($admin_available as $data) {
+         $formbs->notify(new UserFormAdminB($data, $email));
+       }
+     }
+     return redirect()->route('user.harta.FormB.senaraihartaB');
+   }
 
-  return redirect()->route('user.harta.FormB.senaraihartaB');
+    public function update($id){
+      $formbs = FormB::find($id);
+      $formbs->gaji_pasangan  = request()->gaji_pasangan;
+      $formbs->jumlah_imbuhan  = request()->jumlah_imbuhan;
+      $formbs->jumlah_imbuhan_pasangan = request()->jumlah_imbuhan_pasangan;
+      $formbs->sewa = request()->sewa;
+      $formbs->sewa_pasangan = request()->sewa_pasangan;
+      $formbs->pinjaman_perumahan_pegawai  = request()->pinjaman_perumahan_pegawai;
+      $formbs->bulanan_perumahan_pegawai = request()->bulanan_perumahan_pegawai;
+      $formbs->pinjaman_perumahan_pasangan = request()->pinjaman_perumahan_pasangan;
+      $formbs->bulanan_perumahan_pasangan = request()->bulanan_perumahan_pasangan;
+      $formbs->pinjaman_kenderaan_pegawai = request()->pinjaman_kenderaan_pegawai;
+      $formbs->bulanan_kenderaan_pegawai= request()->bulanan_kenderaan_pegawai;
+      $formbs->pinjaman_kenderaan_pasangan = request()->pinjaman_kenderaan_pasangan;
+      $formbs->bulanan_kenderaan_pasangan  = request()->bulanan_kenderaan_pasangan;
+      $formbs->jumlah_cukai_pegawai  = request()->jumlah_cukai_pegawai;
+      $formbs->bulanan_cukai_pegawai = request()->bulanan_cukai_pegawai;
+      $formbs->jumlah_cukai_pasangan = request()->jumlah_cukai_pasangan;
+      $formbs->bulanan_cukai_pasangan = request()->bulanan_cukai_pasangan;
+      $formbs->jumlah_koperasi_pegawai = request()->jumlah_koperasi_pegawai;
+      $formbs->bulanan_koperasi_pegawai = request()->bulanan_koperasi_pegawai;
+      $formbs->jumlah_koperasi_pasangan = request()->jumlah_koperasi_pasangan;
+      $formbs->bulanan_koperasi_pasangan  = request()->bulanan_koperasi_pasangan;
+      $formbs->jumlah_pinjaman_pegawai = request()->jumlah_pinjaman_pegawai;
+      $formbs->jumlah_bulanan_pegawai = request()->jumlah_bulanan_pegawai;
+      $formbs->jumlah_pinjaman_pasangan  = request()->jumlah_pinjaman_pasangan;
+      $formbs->jumlah_bulanan_pasangan = request()->jumlah_bulanan_pasangan;
+      $formbs->jenis_harta = request()->jenis_harta;
+      $formbs->pemilik_harta = request()->pemilik_harta;
+      $formbs->hubungan_pemilik = request()->hubungan_pemilik;
+      $formbs->maklumat_harta= request()->maklumat_harta;
+      $formbs->tarikh_pemilikan_harta = request()->tarikh_pemilikan_harta;
+      $formbs->bilangan  = request()->bilangan;
+      $formbs->nilai_perolehan  = request()->nilai_perolehan;
+      $formbs->cara_perolehan = request()->cara_perolehan;
+      $formbs->nama_pemilikan_asal = request()->nama_pemilikan_asal;
+      $formbs->jumlah_pinjaman = request()->jumlah_pinjaman;
+      $formbs->institusi_pinjaman = request()->institusi_pinjaman;
+      $formbs->tempoh_bayar_balik = request()->tempoh_bayar_balik;
+      $formbs->ansuran_bulanan = request()->ansuran_bulanan;
+      $formbs->tarikh_ansuran_pertama  = request()->tarikh_ansuran_pertama;
+      $formbs->jenis_harta_pelupusan = request()->jenis_harta_pelupusan;
+      $formbs->alamat_asset = request()->alamat_asset;
+      $formbs->no_pendaftaran = request()->no_pendaftaran;
+      $formbs->harga_jualan = request()->harga_jualan;
+      $formbs->tarikh_lupus= request()->tarikh_lupus;
+      $formbs->save();
+     }
 
-}
+     public function updateFormB(Request $request,$id){
+       // dd(request()->all());
+        $this->validator(request()->all())->validate();
 
-public function update($id){
-  $formbs = FormB::find($id);
-  $formbs->gaji_pasangan  = request()->gaji_pasangan;
-  $formbs->jumlah_imbuhan  = request()->jumlah_imbuhan;
-  $formbs->jumlah_imbuhan_pasangan = request()->jumlah_imbuhan_pasangan;
-  $formbs->sewa = request()->sewa;
-  $formbs->sewa_pasangan = request()->sewa_pasangan;
-  $formbs->pinjaman_perumahan_pegawai  = request()->pinjaman_perumahan_pegawai;
-  $formbs->bulanan_perumahan_pegawai = request()->bulanan_perumahan_pegawai;
-  $formbs->pinjaman_perumahan_pasangan = request()->pinjaman_perumahan_pasangan;
-  $formbs->bulanan_perumahan_pasangan = request()->bulanan_perumahan_pasangan;
-  $formbs->pinjaman_kenderaan_pegawai = request()->pinjaman_kenderaan_pegawai;
-  $formbs->bulanan_kenderaan_pegawai= request()->bulanan_kenderaan_pegawai;
-  $formbs->pinjaman_kenderaan_pasangan = request()->pinjaman_kenderaan_pasangan;
-  $formbs->bulanan_kenderaan_pasangan  = request()->bulanan_kenderaan_pasangan;
-  $formbs->jumlah_cukai_pegawai  = request()->jumlah_cukai_pegawai;
-  $formbs->bulanan_cukai_pegawai = request()->bulanan_cukai_pegawai;
-  $formbs->jumlah_cukai_pasangan = request()->jumlah_cukai_pasangan;
-  $formbs->bulanan_cukai_pasangan = request()->bulanan_cukai_pasangan;
-  $formbs->jumlah_koperasi_pegawai = request()->jumlah_koperasi_pegawai;
-  $formbs->bulanan_koperasi_pegawai = request()->bulanan_koperasi_pegawai;
-  $formbs->jumlah_koperasi_pasangan = request()->jumlah_koperasi_pasangan;
-  $formbs->bulanan_koperasi_pasangan  = request()->bulanan_koperasi_pasangan;
-  $formbs->jumlah_pinjaman_pegawai = request()->jumlah_pinjaman_pegawai;
-  $formbs->jumlah_bulanan_pegawai = request()->jumlah_bulanan_pegawai;
-  $formbs->jumlah_pinjaman_pasangan  = request()->jumlah_pinjaman_pasangan;
-  $formbs->jumlah_bulanan_pasangan = request()->jumlah_bulanan_pasangan;
-  $formbs->jenis_harta = request()->jenis_harta;
-  $formbs->pemilik_harta = request()->pemilik_harta;
-  $formbs->hubungan_pemilik = request()->hubungan_pemilik;
-  $formbs->maklumat_harta= request()->maklumat_harta;
-  $formbs->tarikh_pemilikan_harta = request()->tarikh_pemilikan_harta;
-  $formbs->bilangan  = request()->bilangan;
-  $formbs->nilai_perolehan  = request()->nilai_perolehan;
-  $formbs->cara_perolehan = request()->cara_perolehan;
-  $formbs->nama_pemilikan_asal = request()->nama_pemilikan_asal;
-  $formbs->jumlah_pinjaman = request()->jumlah_pinjaman;
-  $formbs->institusi_pinjaman = request()->institusi_pinjaman;
-  $formbs->tempoh_bayar_balik = request()->tempoh_bayar_balik;
-  $formbs->ansuran_bulanan = request()->ansuran_bulanan;
-  $formbs->tarikh_ansuran_pertama  = request()->tarikh_ansuran_pertama;
-  $formbs->jenis_harta_pelupusan = request()->jenis_harta_pelupusan;
-  $formbs->alamat_asset = request()->alamat_asset;
-  $formbs->no_pendaftaran = request()->no_pendaftaran;
-  $formbs->harga_jualan = request()->harga_jualan;
-  $formbs->tarikh_lupus= request()->tarikh_lupus;
-  $formbs->save();
+        $formbs = FormB::find($id);
 
- }
+        $count_div = DividenB::where('formbs_id', $formbs->id)->get();
+        $count = count($count_div);
 
-public function updateFormB(Request $request,$id){
- // dd(request()->all());
-  $this->validator(request()->all())->validate();
+        for ($i=0; $i < $count; $i++) {
+        $id_dividen = DividenB::where('formbs_id', $formbs->id)->get();
+        // dd(count($id_dividen));
+        for ($i=0; $i < count($id_dividen) ; $i++) {
+          // dd($id_dividen[$i]->id);
+          $dividen_b = DividenB::findOrFail($id_dividen[$i]->id);
+          // dd($dividen_b);
+          $dividen_b->delete();
+        }
+      }
 
-  $formbs = FormB::find($id);
+        // $formbs = FormB::find($id);
+        $count_pinjaman = PinjamanB::where('formbs_id', $formbs->id)->get();
+        $count_loan = count($count_pinjaman);
 
-  $count_div = DividenB::where('formbs_id', $formbs->id)->get();
-  $count = count($count_div);
-
-  for ($i=0; $i < $count; $i++) {
-  $id_dividen = DividenB::where('formbs_id', $formbs->id)->get();
-  // dd(count($id_dividen));
-  for ($i=0; $i < count($id_dividen) ; $i++) {
-    // dd($id_dividen[$i]->id);
-    $dividen_b = DividenB::findOrFail($id_dividen[$i]->id);
-    // dd($dividen_b);
-    $dividen_b->delete();
-  }
-}
-
-  // $formbs = FormB::find($id);
-  $count_pinjaman = PinjamanB::where('formbs_id', $formbs->id)->get();
-  $count_loan = count($count_pinjaman);
-
-  for ($i=0; $i < $count_loan; $i++) {
-  $id_pinjaman = PinjamanB::where('formbs_id', $formbs->id)->get();
-  // dd(count($id_dividen));
-  for ($i=0; $i < count($id_pinjaman) ; $i++) {
-    // dd($id_dividen[$i]->id);
-    $pinjaman_b = PinjamanB::findOrFail($id_pinjaman[$i]->id);
-     // dd($pinjaman_b);
-    $pinjaman_b->delete();
-  }
-}
-
-
-  $count1 = count($request->dividen_1);
-  // dd($request->dividen_1);
-  // dd($count1);
-  $count = 0;
-  for ($i=0; $i < $count1; $i++) {
-  $count++;
-  $dividen_bs = new DividenB();
-  $dividen_bs->dividen_1 = $request->dividen_1[$i];
-  $dividen_bs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
-  $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
-  $dividen_bs->formbs_id = $formbs-> id;
-  $dividen_bs->dividen_id = $count;
-  //dd($request->all());
-  $dividen_bs->save();
-
-}
-
-$count2 = count($request->lain_lain_pinjaman);
-$count = 0;
-for ($i=0; $i < $count2; $i++) {
-$count++;
-$pinjaman_bs = new PinjamanB();
-$pinjaman_bs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
-$pinjaman_bs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
-$pinjaman_bs->bulanan_pegawai = $request->bulanan_pegawai[$i];
-$pinjaman_bs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
-$pinjaman_bs->bulanan_pasangan = $request->bulanan_pasangan[$i];
-$pinjaman_bs->formbs_id = $formbs-> id;
-$pinjaman_bs->pinjaman_id = $count;
-$pinjaman_bs->save();
-  // dd($this->all());
-}
+        for ($i=0; $i < $count_loan; $i++) {
+        $id_pinjaman = PinjamanB::where('formbs_id', $formbs->id)->get();
+        // dd(count($id_dividen));
+        for ($i=0; $i < count($id_pinjaman) ; $i++) {
+          // dd($id_dividen[$i]->id);
+          $pinjaman_b = PinjamanB::findOrFail($id_pinjaman[$i]->id);
+           // dd($pinjaman_b);
+          $pinjaman_b->delete();
+        }
+      }
 
 
+        $count1 = count($request->dividen_1);
+        // dd($request->dividen_1);
+        // dd($count1);
+        $count = 0;
+        for ($i=0; $i < $count1; $i++) {
+        $count++;
+        $dividen_bs = new DividenB();
+        $dividen_bs->dividen_1 = $request->dividen_1[$i];
+        $dividen_bs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
+        $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+        $dividen_bs->formbs_id = $formbs-> id;
+        $dividen_bs->dividen_id = $count;
+        //dd($request->all());
+        $dividen_bs->save();
 
-  $this->update($id);
-  return redirect()->route('user.harta.FormB.senaraihartaB');
-}
+      }
+
+      $count2 = count($request->lain_lain_pinjaman);
+      $count = 0;
+      for ($i=0; $i < $count2; $i++) {
+      $count++;
+      $pinjaman_bs = new PinjamanB();
+      $pinjaman_bs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
+      $pinjaman_bs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
+      $pinjaman_bs->bulanan_pegawai = $request->bulanan_pegawai[$i];
+      $pinjaman_bs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
+      $pinjaman_bs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+      $pinjaman_bs->formbs_id = $formbs-> id;
+      $pinjaman_bs->pinjaman_id = $count;
+      $pinjaman_bs->save();
+        // dd($this->all());
+      }
+
+
+
+      $this->update($id);
+      return redirect()->route('user.harta.FormB.senaraihartaB');
+    }
 
 
 

@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Notifications\Notifiable;
 
 class FormG extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
+    use Notifiable;
+
     //
     protected $table = 'formgs';
     protected $fillable = [
