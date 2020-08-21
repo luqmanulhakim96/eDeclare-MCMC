@@ -88,7 +88,61 @@ class AdminController extends Controller
     $listHadiah = Gift::get();
     $attendance = Gift::with('gifts')->get();
 
-    return view('user.admin.hadiah.listDiterima', compact('listHadiah'));
+    return view('user.admin.hadiah.HadiahA.listDiterima', compact('listHadiah'));
+
+  }
+
+  public function listTidakDiterima(){
+
+    $listHadiah = Gift::get();
+    $attendance = Gift::with('gifts')->get();
+
+    return view('user.admin.hadiah.HadiahA.listTidakDiterima', compact('listHadiah'));
+
+  }
+
+  public function listTidakLengkap(){
+
+    $listHadiah = Gift::get();
+    $attendance = Gift::with('gifts')->get();
+
+    return view('user.admin.hadiah.HadiahA.listTidakLengkap', compact('listHadiah'));
+
+  }
+
+  public function listDiterimaB(){
+
+    $listHadiah = GiftB::get();
+    $attendance = GiftB::with('giftbs')->get();
+
+    return view('user.admin.hadiah.HadiahB.listDiterima', compact('listHadiah'));
+
+  }
+
+  public function listTidakDiterimaB(){
+
+    $listHadiah = GiftB::get();
+    $attendance = GiftB::with('giftbs')->get();
+
+    return view('user.admin.hadiah.HadiahB.listTidakDiterima', compact('listHadiah'));
+
+  }
+
+  public function listTidakLengkapB(){
+
+    $listHadiah = GiftB::get();
+    $attendance = GiftB::with('giftbs')->get();
+
+    return view('user.admin.hadiah.HadiahB.listTidakLengkap', compact('listHadiah'));
+
+  }
+
+  public function diprosesHODIV(){
+
+    $listHadiah = Gift::get();
+    $attendance = Gift::with('gifts')->get();
+
+    return view('user.admin.hadiah.HadiahA.diprosesHODIV', compact('listHadiah'));
 
   }
 
