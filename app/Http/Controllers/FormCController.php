@@ -7,21 +7,25 @@ use Illuminate\Support\Facades\Validator;
 use App\FormC;
 use App\PinjamanB;
 use DB;
+use Auth;
 
 class FormCController extends Controller
 {
   public function formC()
   {
-    return view('user.harta.formC');
+    return view('user.harta.FormC.formC');
   }
 public function editformC($id){
     //$info = SenaraiHarga::find(1);
     $info = FormC::findOrFail($id);
     //dd($info);
-    return view('user.harta.formC', compact('info'));
+    return view('user.harta.FormC.editformC', compact('info'));
   }
 
 public function add(array $data){
+  $userid = Auth::user()->id;
+  $sedang_proses= "Sedang Diproses";
+
     return FormC::create([
       'jenis_harta_lupus' => $data['jenis_harta_lupus'],
       'pemilik_harta_pelupusan' => $data['pemilik_harta_pelupusan'],
@@ -32,6 +36,9 @@ public function add(array $data){
       'cara_pelupusan' => $data['cara_pelupusan'],
       'nilai_pelupusan' => $data['nilai_pelupusan'],
       'pengakuan' => $data['pengakuan'],
+      'user_id' => $userid,
+      'status' => $sedang_proses,
+
 
     ]);
   }
@@ -70,7 +77,7 @@ public function add(array $data){
    //  $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
    //  //dd($request->all());
    //  $dividen_bs->save();
-return redirect()->route('user.harta.senaraiharta');
+return redirect()->route('user.harta.FormC.senaraihartaC');
     }
 
     // $count = count($request->lain_lain_pinjaman);
@@ -90,30 +97,32 @@ return redirect()->route('user.harta.senaraiharta');
 
 
 
-}
+
 
 // public function deleteHadiah($id){
 //     $gifts = Gift::find($id);
 //     $gifts-> delete();
 //     return redirect()->route('user.hadiah.senaraihadiah');
 // }
-//
-// public function update($id){
-//   $gifts = Gift::find($id);
-//   $gifts->jenis_gift = request()->jenis_hadiah;
-//   $gifts->nilai_gift = request()->nilai_hadiah;
-//   $gifts->tarikh_diterima = request()->tarikh_diterima;
-//   $gifts->alamat_pemberi = request()->alamat_pemberi;
-//   $gifts->hubungan_pemberi = request()->hubungan_pemberi;
-//   $gifts->sebab_gift = request()->sebab_hadiah;
-//   $gifts->gambar_gift = request()->gambar_hadiah;
-//   $gifts->save();
-// }
-//
-// public function updateHadiah($id){
-//   $this->validator(request()->all())->validate();
-//   //dd($request->all());
-//
-//   $this->update($id);
-//   return redirect()->route('user.hadiah.senaraihadiah');
-// }
+
+public function update($id){
+  $formcs = FormC::find($id);
+  $formcs->jenis_harta_lupus = request()->jenis_harta_lupus;
+  $formcs->pemilik_harta_pelupusan = request()->pemilik_harta_pelupusan;
+  $formcs->hubungan_pemilik_pelupusan = request()->hubungan_pemilik_pelupusan;
+  $formcs->no_pendaftaran_harta = request()->no_pendaftaran_harta;
+  $formcs->tarikh_pemilikan = request()->tarikh_pemilikan;
+  $formcs->tarikh_pelupusan = request()->tarikh_pelupusan;
+  $formcs->nilai_pelupusan = request()->nilai_pelupusan;
+  $formcs->pengakuan = request()->pengakuan;
+  $formcs->save();
+}
+
+public function updateformC($id){
+  $this->validator(request()->all())->validate();
+  //dd($request->all());
+
+  $this->update($id);
+  return redirect()->route('user.harta.FormC.senaraihartaC');
+}
+}

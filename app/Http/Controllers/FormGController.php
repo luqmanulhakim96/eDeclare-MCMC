@@ -9,21 +9,37 @@ use App\DividenG;
 use App\PinjamanG;
 use App\Pinjaman;
 use DB;
+use Auth;
 
 class FormGController extends Controller
 {
   public function formG()
   {
-    return view('user.harta.formG');
+    return view('user.harta.FormG.formG');
   }
 public function editformG($id){
     //$info = SenaraiHarga::find(1);
     $info = FormG::findOrFail($id);
+
+    $listDividenG = DividenG::where('formgs_id', $info->id) ->get();
+
+    $listPinjamanG = PinjamanG::where('formgs_id', $info->id) ->get();
+
+    $listPinjaman = Pinjaman::where('formgs_id', $info->id) ->get();
+
+    $count_div = DividenG::where('formgs_id', $info->id)->count();
+
+    $count_pinjaman = PinjamanG::where('formgs_id', $info->id)->count();
+
+    $count_pinjam = Pinjaman::where('formgs_id', $info->id)->count();
     //dd($info);
-    return view('user.harta.formG', compact('info'));
+    return view('user.harta.FormG.editformG', compact('info','listDividenG','listPinjamanG','listPinjaman','count_pinjaman','count_div','count_pinjam'));
   }
 
 public function add(array $data){
+  $userid = Auth::user()->id;
+  $sedang_proses= "Sedang Diproses";
+
     return FormG::create([
       'tarikh_lantikan' => $data['tarikh_lantikan'],
       'nama_perkhidmatan' => $data['nama_perkhidmatan'],
@@ -86,6 +102,8 @@ public function add(array $data){
       'tarikh_ansuran' => $data['tarikh_ansuran'],
       'tempoh_pinjaman' => $data['tempoh_pinjaman'],
       'pengakuan' => $data['pengakuan'],
+      'user_id' => $userid,
+      'status' => $sedang_proses,
 
 
 
@@ -168,12 +186,16 @@ public function add(array $data){
 
    $count = count($request->dividen_1);
    // dd($request->dividen_1);
+   $count_id = 0;
 
     for ($i=0; $i < $count; $i++) {
+    $count_id++;
 	  $dividen_gs = new DividenG();
 	  $dividen_gs->dividen_1 = $request->dividen_1[$i];
 	  $dividen_gs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
     $dividen_gs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+    $dividen_gs->formgs_id = $formgs-> id;
+    $dividen_gs->dividen_id = $count_id;
     //dd($request->all());
     $dividen_gs->save();
 
@@ -181,14 +203,18 @@ public function add(array $data){
 
     $count = count($request->lain_lain_pinjaman);
     // dd($request->dividen_1);
+    $count_id_pinjaman = 0;
 
      for ($i=0; $i < $count; $i++) {
+      $count_id_pinjaman++;
    	  $pinjaman_gs = new PinjamanG();
    	  $pinjaman_gs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
    	  $pinjaman_gs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
       $pinjaman_gs->bulanan_pegawai = $request->bulanan_pegawai[$i];
       $pinjaman_gs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
       $pinjaman_gs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+      $pinjaman_gs->formgs_id = $formgs-> id;
+      $pinjaman_gs->pinjaman_id = $count_id_pinjaman;
        //dd($request->all());
        $pinjaman_gs->save();
 
@@ -196,20 +222,23 @@ public function add(array $data){
 
      $count = count($request->institusi);
      // dd($request->dividen_1);
+     $count_id_pinjam = 0;
 
       for ($i=0; $i < $count; $i++) {
-  	 $pinjaman = new Pinjaman();
-  	 $pinjaman->institusi = $request->institusi[$i];
-  	 $pinjaman->alamat_institusi = $request->alamat_institusi[$i];
-     $pinjaman->ansuran_bulanan = $request->ansuran_bulanan[$i];
-     $pinjaman->tarikh_ansuran = $request->tarikh_ansuran[$i];
-     $pinjaman->tempoh_pinjaman = $request->tempoh_pinjaman[$i];
-      //dd($request->all());
-      $pinjaman->save();
+      $count_id_pinjam++;
+    	 $pinjaman = new Pinjaman();
+    	 $pinjaman->institusi = $request->institusi[$i];
+    	 $pinjaman->alamat_institusi = $request->alamat_institusi[$i];
+       $pinjaman->ansuran_bulanan = $request->ansuran_bulanan[$i];
+       $pinjaman->tarikh_ansuran = $request->tarikh_ansuran[$i];
+       $pinjaman->tempoh_pinjaman = $request->tempoh_pinjaman[$i];
+       $pinjaman->formgs_id = $formgs-> id;
+       $pinjaman->pinjaman_id = $count_id_pinjam;
+       $pinjaman->save();
 
       }
 
-  return redirect()->route('user.harta.senaraiharta');
+  return redirect()->route('user.harta.FormG.senaraihartaG');
 
 }
 
@@ -219,25 +248,155 @@ public function add(array $data){
 //     return redirect()->route('user.hadiah.senaraihadiah');
 // }
 //
-// public function update($id){
-//   $gifts = Gift::find($id);
-//   $gifts->jenis_gift = request()->jenis_hadiah;
-//   $gifts->nilai_gift = request()->nilai_hadiah;
-//   $gifts->tarikh_diterima = request()->tarikh_diterima;
-//   $gifts->alamat_pemberi = request()->alamat_pemberi;
-//   $gifts->hubungan_pemberi = request()->hubungan_pemberi;
-//   $gifts->sebab_gift = request()->sebab_hadiah;
-//   $gifts->gambar_gift = request()->gambar_hadiah;
-//   $gifts->save();
-// }
-//
-// public function updateHadiah($id){
-//   $this->validator(request()->all())->validate();
-//   //dd($request->all());
-//
-//   $this->update($id);
-//   return redirect()->route('user.hadiah.senaraihadiah');
-// }
+public function update($id){
+  $formgs = FormG::find($id);
+  $formgs->nama_perkhidmatan  = request()->nama_perkhidmatan;
+  $formgs->gelaran  = request()->gelaran;
+  $formgs->gaji_pasangan  = request()->gaji_pasangan;
+  $formgs->jumlah_imbuhan  = request()->jumlah_imbuhan;
+  $formgs->jumlah_imbuhan_pasangan = request()->jumlah_imbuhan_pasangan;
+  $formgs->sewa = request()->sewa;
+  $formgs->sewa_pasangan = request()->sewa_pasangan;
+  $formgs->pinjaman_perumahan_pegawai  = request()->pinjaman_perumahan_pegawai;
+  $formgs->bulanan_perumahan_pegawai = request()->bulanan_perumahan_pegawai;
+  $formgs->pinjaman_perumahan_pasangan = request()->pinjaman_perumahan_pasangan;
+  $formgs->bulanan_perumahan_pasangan = request()->bulanan_perumahan_pasangan;
+  $formgs->pinjaman_kenderaan_pegawai = request()->pinjaman_kenderaan_pegawai;
+  $formgs->bulanan_kenderaan_pegawai= request()->bulanan_kenderaan_pegawai;
+  $formgs->pinjaman_kenderaan_pasangan = request()->pinjaman_kenderaan_pasangan;
+  $formgs->bulanan_kenderaan_pasangan  = request()->bulanan_kenderaan_pasangan;
+  $formgs->jumlah_cukai_pegawai  = request()->jumlah_cukai_pegawai;
+  $formgs->bulanan_cukai_pegawai = request()->bulanan_cukai_pegawai;
+  $formgs->jumlah_cukai_pasangan = request()->jumlah_cukai_pasangan;
+  $formgs->bulanan_cukai_pasangan = request()->bulanan_cukai_pasangan;
+  $formgs->jumlah_koperasi_pegawai = request()->jumlah_koperasi_pegawai;
+  $formgs->bulanan_koperasi_pegawai = request()->bulanan_koperasi_pegawai;
+  $formgs->jumlah_koperasi_pasangan = request()->jumlah_koperasi_pasangan;
+  $formgs->bulanan_koperasi_pasangan  = request()->bulanan_koperasi_pasangan;
+  $formgs->jumlah_pinjaman_pegawai = request()->jumlah_pinjaman_pegawai;
+  $formgs->jumlah_bulanan_pegawai = request()->jumlah_bulanan_pegawai;
+  $formgs->jumlah_pinjaman_pasangan  = request()->jumlah_pinjaman_pasangan;
+  $formgs->jumlah_bulanan_pasangan = request()->jumlah_bulanan_pasangan;
+  $formgs->luas_pertanian = request()->luas_pertanian;
+  $formgs->lot_pertanian = request()->lot_pertanian;
+  $formgs->mukim_pertanian = request()->mukim_pertanian;
+  $formgs->luas_perumahan= request()->luas_perumahan;
+  $formgs->lot_perumahan = request()->lot_perumahan;
+  $formgs->mukim_perumahan  = request()->mukim_perumahan;
+  $formgs->negeri_perumahan  = request()->negeri_perumahan;
+  $formgs->tarikh_diperolehi = request()->tarikh_diperolehi;
+  $formgs->luas = request()->luas;
+  $formgs->lot = request()->lot;
+  $formgs->mukim = request()->mukim;
+  $formgs->negeri = request()->negeri;
+  $formgs->jenis_tanah = request()->jenis_tanah;
+  $formgs->nama_syarikat  = request()->nama_syarikat;
+  $formgs->modal_berbayar = request()->modal_berbayar;
+  $formgs->jumlah_unit_saham = request()->jumlah_unit_saham;
+  $formgs->nilai_saham = request()->nilai_saham;
+  $formgs->sumber_kewangan = request()->sumber_kewangan;
+  $formgs->pengakuan= request()->pengakuan;
+  $formgs->save();
+}
+
+public function updateFormG(Request $request,$id){
+  $this->validator(request()->all())->validate();
+
+  $formgs = FormG::find($id);
+
+  $count_div = DividenG::where('formgs_id', $formgs->id)->get();
+  $count = count($count_div);
+
+  for ($i=0; $i < $count; $i++) {
+  $id_dividen = DividenG::where('formgs_id', $formgs->id)->get();
+   // dd($id_dividen);
+   for ($i=0; $i < count($id_dividen) ; $i++) {
+     // dd($id_dividen[$i]->id);
+     $dividen_g = DividenG::findOrFail($id_dividen[$i]->id);
+     // dd($dividen_b);
+     $dividen_g->delete();
+   }
+}
+
+  $count_pinjaman = PinjamanG::where('formgs_id', $formgs->id)->get();
+  $count_loan = count($count_pinjaman);
+
+  for ($i=0; $i < $count_loan; $i++) {
+  $id_pinjaman = PinjamanG::where('formgs_id', $formgs->id)->get();
+  // dd(count($id_dividen));
+  for ($i=0; $i < count($id_pinjaman) ; $i++) {
+    // dd($id_dividen[$i]->id);
+    $pinjaman_g = PinjamanG::findOrFail($id_pinjaman[$i]->id);
+     // dd($pinjaman_b);
+    $pinjaman_g->delete();
+  }
+}
+
+  $count_pinjam = Pinjaman::where('formgs_id', $formgs->id)->get();
+  $count_loan1 = count($count_pinjam);
+
+  for ($i=0; $i < $count_loan1; $i++) {
+  $id_pinjam = Pinjaman::where('formgs_id', $formgs->id)->get();
+  // dd(count($id_dividen));
+  for ($i=0; $i < count($id_pinjam) ; $i++) {
+    // dd($id_dividen[$i]->id);
+    $pinjaman = Pinjaman::findOrFail($id_pinjam[$i]->id);
+     // dd($pinjaman_b);
+    $pinjaman->delete();
+  }
+}
+
+$count1 = count($request->dividen_1);
+// dd($request->dividen_1);
+// dd($count1);
+$count = 0;
+for ($i=0; $i < $count1; $i++) {
+$count++;
+$dividen_gs = new DividenG();
+$dividen_gs->dividen_1 = $request->dividen_1[$i];
+$dividen_gs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
+$dividen_gs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+$dividen_gs->formgs_id = $formgs-> id;
+$dividen_gs->dividen_id = $count;
+$dividen_gs->save();
+
+}
+
+$count2 = count($request->lain_lain_pinjaman);
+$count = 0;
+for ($i=0; $i < $count2; $i++) {
+$count++;
+$pinjaman_gs = new PinjamanG();
+$pinjaman_gs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
+$pinjaman_gs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
+$pinjaman_gs->bulanan_pegawai = $request->bulanan_pegawai[$i];
+$pinjaman_gs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
+$pinjaman_gs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+$pinjaman_gs->formgs_id = $formgs-> id;
+$pinjaman_gs->pinjaman_id = $count;
+$pinjaman_gs->save();
+// dd($this->all());
+}
+
+$count3 = count($request->institusi);
+$count = 0;
+for ($i=0; $i < $count3; $i++) {
+$count++;
+$pinjaman = new Pinjaman();
+$pinjaman->institusi = $request->institusi[$i];
+$pinjaman->alamat_institusi = $request->alamat_institusi[$i];
+$pinjaman->ansuran_bulanan = $request->ansuran_bulanan[$i];
+$pinjaman->tarikh_ansuran = $request->tarikh_ansuran[$i];
+$pinjaman->tempoh_pinjaman = $request->tempoh_pinjaman[$i];
+$pinjaman->formgs_id = $formgs-> id;
+$pinjaman->pinjaman_id = $count;
+$pinjaman->save();
+// dd($this->all());
+}
+
+  $this->update($id);
+  return redirect()->route('user.harta.FormG.senaraihartaG');
+}
 
 
 
