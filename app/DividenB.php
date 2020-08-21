@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class DividenB extends Model
+class DividenB extends Model implements Auditable
 {
+  use \OwenIt\Auditing\Auditable;
   protected $guarded = [];
   protected $table = 'dividen_bs';
   protected $fillable = [

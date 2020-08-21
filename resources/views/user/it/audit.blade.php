@@ -1,75 +1,83 @@
 @extends('user.layouts.app')
 @section('content')
-<div class="col-md-12 mt-4">
-      <!-- Light Bordered Table card -->
-      <div class="card rounded-lg">
-              <!-- Table -->
-              <div class="table-responsive">
-                  <table class="table table-bordered">
-                      <thead>
-                          <tr class="text-center">
-                              <th width="10%"><p class="mb-0">#</p></th>
-                              <th width="50%"><p class="mb-0">Nama</p></th>
-                              <th width="55%"><p class="mb-0">No Kad Pengenalan</p></th>
-                              <th width="30%"><p class="mb-0">Jabatan</p></th>
-                              <th width="30%"><p class="mb-0">Jawatan</p></th>
-                              <th width="30%"><p class="mb-0">Status</p></th>
-                              <th width="50%"><p class="mb-0">Edit</p></th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <!-- Table data -->
-                          <tr class="text-center">
-                              <td><p class="mb-0 font-weight-bold">1</p></td>
-                              <td><p class="mb-0 font-weight-normal">Muhammad Syahdan</p></td>
-                              <td><p class="mb-0 font-weight-normal">971112065055</p></td>
-                              <td><p class="mb-0 font-weight-normal">IT</p></td>
-                              <td><p class="mb-0 font-weight-normal">Admin</p></td>
-                              <td><span class="badge badge-success badge-pill">Aktif</span></td>
-                              <td class="p-3">
-                                  <div class="d-flex flex-row justify-content-around align-items-center">
-                                      <a href="#" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                  </div>
-                              </td>
-                          </tr>
+            <!--Page Body part -->
+            <div class="page-body p-4 text-dark">
+                <div class="page-heading border-bottom d-flex flex-row">
+                    <!-- <h5 class="font-weight-normal">Version 1</h5>
+                    <small class="mt-2 ml-2">Dashboard</small> -->
+                </div>
+                <!-- Small card component -->
+                <div class="card rounded-lg">
+                  <div class="card-body">
+                      <div class="card-title">Audit Trail</div>
+                      <div class="table-responsive">
 
-                          <!-- Table data -->
-                          <tr class="text-center">
-                              <td><p class="mb-0 font-weight-bold">2</p></td>
-                              <td><p class="mb-0 font-weight-normal">Muhammad Hafiz</p></td>
-                              <td><p class="mb-0 font-weight-normal">971112065055</p></td>
-                              <td><p class="mb-0 font-weight-normal">HR</p></td>
-                              <td><p class="mb-0 font-weight-normal">User</p></td>
-                              <td><span class="badge badge-success badge-pill">Aktif</span></td>
-                              <td class="p-3">
-                                  <div class="d-flex flex-row justify-content-around align-items-center">
-                                      <a href="#" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                  </div>
-                              </td>
+                      <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                        <!-- Table head -->
+                        <thead>
+                            <tr>
+                              <th class="all">Nama Pengguna</th>
+                              <th class="all">IP Address</th>
+                              <th class="all">Timestamp</th>
+                              <th class="all">Role</th>
+                              <th class="all">Event</th>
+                              <th class="all">Database</th>
+                              <th class="all">Data Lama</th>
+                              <th class="all">Data Baharu</th>
+                            </tr>
+                        </thead>
+                        <!-- Table body -->
+                        <tbody>
+                          @foreach($data as $datas)
+                            @if( $datas->user_id != NULL)
+                            <tr>
+                            @if($datas->user->name == NULL)
+                            <td>Tiada</td>
+                            @else
+                            <td>{{  ucfirst($datas->user->name) }}</td>
+                            @endif
+                            <td>{{ $datas->ip_address }}</td>
+                            <td>{{  Carbon\Carbon::parse($datas->updated_at)->format('d-m-Y h:i:s')  }}</td>
+                            @if($datas->user->role == 0)
+                            <td> Pentadbir Sistem (Admin) </td>
+                            @elseif($datas->user->role == 1)
+                            <td> Penyokong 1 </td>
+                            @elseif($datas->user->role == 2)
+                            <td> Penyokong 2 </td>
+                            @elseif($datas->user->role == 3)
+                            <td> Ketua Pengarah </td>
+                            @elseif($datas->user->role == 4)
+                            <td> Superadmin </td>
+                            @endif
+                            <td>{{  ucfirst($datas->event) }}</td>
+                            <td>{{ substr($datas->auditable_type, strpos($datas->auditable_type, "/") + 4) }}</td>
+                            @if( $datas->old_values == "[]")
+                            <td>-</td>
+                            @else
+                              @if( $datas->auditable_type == "App\SenaraiSurat")
+                              <td>Data Surat</td>
+                              @else
+                              <td>{{ $datas->old_values }}</td>
+                              @endif
+                            @endif
+                            @if( $datas->new_values == "[]")
+                            <td>-</td>
+                            @else
+                              @if( $datas->auditable_type == "App\SenaraiSurat")
+                              <td>{{ $datas->new_values }}</td>
+                              @else
+                              <td>{{ $datas->new_values }}</td>
+                              @endif
+                            @endif
                           </tr>
+                            @endif
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
 
-                          <!-- Table data -->
-                          <tr class="text-center">
-                              <td><p class="mb-0 font-weight-bold">3</p></td>
-                              <td><p class="mb-0 font-weight-normal">Muhammad Amirul</p></td>
-                              <td><p class="mb-0 font-weight-normal">971112065055</p></td>
-                              <td><p class="mb-0 font-weight-normal">IT</p></td>
-                              <td><p class="mb-0 font-weight-normal">Integrity HOD</p></td>
-                              <td><span class="badge badge-danger badge-pill">Tidak Aktif</span></td>
-                              <td class="p-3">
-                                  <div class="d-flex flex-row justify-content-around align-items-center">
-                                      <a href="#" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                  </div>
-                              </td>
-                          </tr>
-
-                      </tbody>
-                  </table>
-              </div>
-
-          </div>
-      </div>
+                  </div>
+                </div>
+            </div>
+        </main>
 @endsection

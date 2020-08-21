@@ -4,9 +4,11 @@ namespace App;
 use App\User;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class GiftB extends Model
+class GiftB extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     //
     protected $table = 'giftbs';
     protected $fillable = [

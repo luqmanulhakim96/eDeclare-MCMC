@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class PinjamanG extends Model
+class PinjamanG extends Model implements Auditable
 {
+  use \OwenIt\Auditing\Auditable;
+
   protected $guarded = [];
   protected $table = 'pinjaman_gs';
   protected $fillable = [
