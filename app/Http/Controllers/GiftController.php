@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Gift;
 use DB;
+use Auth;
 
 
 class GiftController extends Controller
@@ -21,9 +22,15 @@ class GiftController extends Controller
       //dd($info);
       return view('user.hadiah.editgift', compact('info'));
     }
+    
+  public function add(array $data, $uploaded_gambar_hadiah){
+      $userid = Auth::user()->id;
+      $sedang_proses= "Sedang Diproses";
+
 
   public function add(array $data, $uploaded_gambar_hadiah){
       return Gift::create([
+        'jabatan' => $data['jabatan'],
         'jenis_gift' => $data['jenis_hadiah'],
         'nilai_gift' => $data['nilai_hadiah'],
         'tarikh_diterima' => $data['tarikh_diterima'],
@@ -31,7 +38,9 @@ class GiftController extends Controller
         'alamat_pemberi' => $data['alamat_pemberi'],
         'hubungan_pemberi' => $data['hubungan_pemberi'],
         'sebab_gift' => $data['sebab_diberi'],
-        'gambar_gift' => $uploaded_gambar_hadiah
+        'gambar_gift' => $uploaded_gambar_hadiah,
+        'user_id' => $userid,
+        'status' => $sedang_proses,
 
       ]);
     }
@@ -39,6 +48,7 @@ class GiftController extends Controller
     protected function validator(array $data)
   {
       return Validator::make($data, [
+        'jabatan' => ['required', 'string'],
         'jenis_hadiah'=> ['required', 'string'],
         'nilai_hadiah'=> ['required', 'string'],
         'tarikh_diterima'=> ['required', 'date'],
@@ -69,6 +79,7 @@ class GiftController extends Controller
 
   public function update($id){
     $gifts = Gift::find($id);
+    $gifts->jabatan = request()->jabatan;
     $gifts->jenis_gift = request()->jenis_hadiah;
     $gifts->nilai_gift = request()->nilai_hadiah;
     $gifts->tarikh_diterima = request()->tarikh_diterima;

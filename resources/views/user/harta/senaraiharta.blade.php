@@ -13,7 +13,7 @@
                                <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
                                <!-- Table -->
                                <div class="table-responsive">
-                                   <table class="table table-responsive text-dark">
+                                   <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <th width="10%"><p class="mb-0">Bil</p></th>

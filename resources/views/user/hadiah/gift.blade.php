@@ -45,16 +45,16 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <!-- <div class="row">
+                                  <div class="row">
                                       <div class="col-md-4">
                                           <p>Jabatan/ Bahagian</p>
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Jabatan / Bahagian">
+                                              <input type="text" class="form-control bg-light" placeholder="Jabatan / Bahagian" name="jabatan">
                                           </div>
                                       </div>
-                                  </div> -->
+                                  </div>
                                   <br>
                                   <div class="row">
                                       <div class="col-md-6">

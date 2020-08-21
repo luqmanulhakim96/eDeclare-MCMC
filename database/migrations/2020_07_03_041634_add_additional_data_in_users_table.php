@@ -19,12 +19,12 @@ class AddAdditionalDataInUsersTable extends Migration
             $table->string('jawatan')->nullable();
             $table->string('alamat_tempat_bertugas')->nullable();
             $table->string('nama_pasangan')->nullable();
-            $table->string('kad_pengenalan_pasangan')->unique()->nullable();
+            $table->string('kad_pengenalan_pasangan')->nullable();
             $table->string('pekerjaan_pasangan')->nullable();
             $table->decimal('gaji',10,2)->nullable();
             $table->string('nama_anak')->nullable();
             $table->string('umur_anak')->nullable();
-            $table->string('no_kad_pengenalan_anak')->unique()->nullable();
+            $table->string('no_kad_pengenalan_anak')->nullable();
             $table->decimal('lain_lain_pendapatan_bulanan',10,2)->nullable();
             $table->integer('role')->nullable();
         });

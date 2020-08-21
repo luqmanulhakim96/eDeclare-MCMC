@@ -6,7 +6,7 @@ Author's custom styles
 
 body {
   font-size: 0.8rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Verdana", serif;
 }
 
 a {
@@ -40,7 +40,7 @@ input::placeholder {
 html {
   font-size: 1em;
   line-height: 1.4;
-  font-family: "Open Sans", sans-serif !important;
+  font-family: "Verdana", serif !important;
 }
 
 ::-moz-selection {
@@ -1327,7 +1327,7 @@ button.close {
 
 .side-bar .side-menu-brand .brand-name {
   color: #ffffff !important;
-  font-size: 1.5rem;
+  font-size: 1.0rem;
 }
 
 .side-bar .side-menu-brand .brand-img {
@@ -1586,4 +1586,3 @@ footer {
   overflow: hidden;
   position: relative;
 }
-

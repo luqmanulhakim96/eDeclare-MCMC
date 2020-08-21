@@ -120,7 +120,11 @@ $(document).ready(function(){
     // Responsive Data Table
     let responsiveDataTable = $("#responsiveDataTable")
     $(responsiveDataTable).DataTable({
-        responsive : true
+        responsive : true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
     });
 
     // Individual column searching  Data Table
@@ -131,16 +135,16 @@ $(document).ready(function(){
         var title = $(this).text();
         $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
     } );
- 
+
     // DataTable
     var table = $(columnSearchDataTable).DataTable({
         ordering : false
     });
- 
+
     // Apply the search
     table.columns().every( function () {
         var that = this;
- 
+
         $( 'input', this.header() ).on( 'keyup change clear', function () {
             if ( that.search() !== this.value ) {
                 that
