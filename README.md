@@ -18,10 +18,6 @@ MCMC Asset & Gift System use the QBAdminUI template. QBAdminUI is a free html te
 
 ``` bash
 $ composer Install
-$ composer require doctrine/dbal
-$ composer require owen-it/laravel-auditing
-$ composer require barryvdh/laravel-dompdf
-$ composer require protoqol/prequel  
 $ npm install
 ```
 2. Build with NPM
