@@ -19,8 +19,7 @@
             <div class="card rounded-lg" >
                 <div class="card-body">
                     <div class="card-title">Senarai Penerimaan Hadiah bernilai lebih dari RM 100</div>
-                    @foreach($listHadiah as $data)
-                    @if($data ->status == "Sedang Diproses")
+
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
                             <thead class="thead-light">
@@ -42,6 +41,7 @@
                                 </tr>
                             </thead>
                             <tbody align="center">
+                              @foreach($listHadiah as $data)
 
                               <tr>
                                   <td>{{ $data ->id }}</td>
@@ -83,6 +83,8 @@
                                   </td>
 
                                 </tr>
+                                @endforeach
+                              </tbody>
 
                         </table>
                         <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -105,8 +107,6 @@
                         </div>
 
                 </div>
-                @endif
-                @endforeach
             </div>
         </div>
       </div>

@@ -68,7 +68,7 @@ class AdminController extends Controller
 //senarai hadiah lebih dari rm 100
   public function listGift(){
 
-    $listHadiah = Gift::get();
+    $listHadiah = Gift::where('status','Sedang Diproses')->get();
     $attendance = Gift::with('gifts')->get();
 
     return view('user.admin.hadiah.listGift', compact('listHadiah'));
@@ -76,7 +76,7 @@ class AdminController extends Controller
   }
   //senarai hadiah bawah rm100
   public function listGiftB(){
-    $listHadiah = GiftB::get();
+    $listHadiah = GiftB::where('status','Sedang Diproses')->get();
     $attendance = GiftB::with('giftbs')->get();
 
     return view('user.admin.hadiah.listGiftB', compact('listHadiah'));
@@ -85,7 +85,7 @@ class AdminController extends Controller
 
   public function listDiterima(){
 
-    $listHadiah = Gift::get();
+    $listHadiah = Gift::where('status','Diterima')->get();
     $attendance = Gift::with('gifts')->get();
 
     return view('user.admin.hadiah.HadiahA.listDiterima', compact('listHadiah'));
@@ -94,7 +94,7 @@ class AdminController extends Controller
 
   public function listTidakDiterima(){
 
-    $listHadiah = Gift::get();
+    $listHadiah = Gift::where('status','Tidak Diterima')->get();
     $attendance = Gift::with('gifts')->get();
 
     return view('user.admin.hadiah.HadiahA.listTidakDiterima', compact('listHadiah'));
@@ -103,7 +103,7 @@ class AdminController extends Controller
 
   public function listTidakLengkap(){
 
-    $listHadiah = Gift::get();
+    $listHadiah = Gift::where('status','Tidak Lengkap')->get();
     $attendance = Gift::with('gifts')->get();
 
     return view('user.admin.hadiah.HadiahA.listTidakLengkap', compact('listHadiah'));
@@ -112,7 +112,7 @@ class AdminController extends Controller
 
   public function listDiterimaB(){
 
-    $listHadiah = GiftB::get();
+    $listHadiah = GiftB::where('status','Diterima')->get();
     $attendance = GiftB::with('giftbs')->get();
 
     return view('user.admin.hadiah.HadiahB.listDiterima', compact('listHadiah'));
@@ -121,7 +121,7 @@ class AdminController extends Controller
 
   public function listTidakDiterimaB(){
 
-    $listHadiah = GiftB::get();
+    $listHadiah = GiftB::where('status','Tidak Diterima')->get();
     $attendance = GiftB::with('giftbs')->get();
 
     return view('user.admin.hadiah.HadiahB.listTidakDiterima', compact('listHadiah'));
@@ -130,7 +130,7 @@ class AdminController extends Controller
 
   public function listTidakLengkapB(){
 
-    $listHadiah = GiftB::get();
+    $listHadiah = GiftB::where('status','Tidak Lengkap')->get();
     $attendance = GiftB::with('giftbs')->get();
 
     return view('user.admin.hadiah.HadiahB.listTidakLengkap', compact('listHadiah'));
@@ -139,7 +139,7 @@ class AdminController extends Controller
 
   public function diprosesHODIV(){
 
-    $listHadiah = Gift::get();
+    $listHadiah = Gift::where('status','Diproses ke Pentadbir Sistem')->get();
     $attendance = Gift::with('gifts')->get();
 
     return view('user.admin.hadiah.HadiahA.diprosesHODIV', compact('listHadiah'));

@@ -19,8 +19,7 @@
             <div class="card rounded-lg" >
                 <div class="card-body">
                     <div class="card-title">Senarai Penerimaan Hadiah bernilai lebih dari RM 100</div>
-                    @foreach($listHadiah as $data)
-                    @if($data ->status == "Tidak Lengkap")
+
                     <!-- Table -->
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
@@ -43,6 +42,7 @@
                                 </tr>
                             </thead>
                             <tbody align="center">
+                              @foreach($listHadiah as $data)
 
                               <tr>
                                   <td>{{ $data ->id }}</td>
@@ -84,6 +84,8 @@
                                   </td> -->
 
                                 </tr>
+                                @endforeach
+                              </tbody>
 
 
                         </table>
@@ -107,8 +109,6 @@
                         </div>
 
                 </div>
-                @endif
-                @endforeach
             </div>
         </div>
       </div>
