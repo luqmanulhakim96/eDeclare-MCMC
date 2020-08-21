@@ -5,10 +5,11 @@
 <div class="page-body p-4 text-dark">
   <!-- <div class="card-body"> -->
         <div class="buttons">
-          <button class="btn btn-success m-2">Diterima</button>
-          <button class="btn btn-warning m-2">Diproses ke Ketua Bahagian</button>
-          <button class="btn btn-danger m-2">Tidak Lengkap</button>
-          <a href="{{route('user.admin.hadiah.listDiterima')}}" class="btn btn-danger m-2" >Tidak Diterima</a>
+          <a href="{{route('user.admin.hadiah.listGift')}}"  class="btn btn-dark m-2">Sedang Diproses</a>
+          <a href="{{route('user.admin.hadiah.HadiahA.diprosesHODIV')}}"class="btn btn-warning m-2">Diproses ke Pentadbir Sistem</a>
+          <a href="{{route('user.admin.hadiah.HadiahA.listDiterima')}}" class="btn btn-success m-2">Diterima</a>
+          <a href="{{route('user.admin.hadiah.HadiahA.listTidakLengkap')}}"class="btn btn-danger m-2">Tidak Lengkap</a>
+          <a href="{{route('user.admin.hadiah.HadiahA.listTidakDiterima')}}" class="btn btn-danger m-2" >Tidak Diterima</a>
         </div>
 
   <!-- </div> -->
@@ -19,9 +20,8 @@
             <div class="card rounded-lg" >
                 <div class="card-body">
                     <div class="card-title">Senarai Penerimaan Hadiah bernilai lebih dari RM 100</div>
-                    <!-- Description -->
-                    <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
-                    <!-- Table -->
+                    @foreach($listHadiah as $data)
+                    @if($data ->status == "Sedang Diproses")
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
                             <thead class="thead-light">
@@ -43,7 +43,6 @@
                                 </tr>
                             </thead>
                             <tbody align="center">
-                              @foreach($listHadiah as $data)
 
                               <tr>
                                   <td>{{ $data ->id }}</td>
@@ -85,7 +84,6 @@
                                   </td> -->
 
                                 </tr>
-                               @endforeach
 
                         </table>
                         <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -108,6 +106,8 @@
                         </div>
 
                 </div>
+                @endif
+                @endforeach
             </div>
         </div>
       </div>

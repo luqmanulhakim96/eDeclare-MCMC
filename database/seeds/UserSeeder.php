@@ -12,6 +12,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+
+      DB::table('nilai_hadiahs')-> insert(
+      [
+        'nilai_hadiah' => '100',
+      ]
+    );
+
       $hashed_password = Hash::make("1234567890");
       DB::table('users')-> insert(
       [

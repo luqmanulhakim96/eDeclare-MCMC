@@ -145,7 +145,19 @@ Route::get('/admin/list/harta', 'AdminController@listAsset')->name('user.admin.l
 
 Route::get('/admin/list/hadiah', 'AdminController@listGift')->name('user.admin.hadiah.listGift');
 
-Route::get('/admin/list/hadiah/diterima', 'AdminController@listDiterima')->name('user.admin.hadiah.listDiterima');
+Route::get('/admin/list/hadiah/diterima', 'AdminController@listDiterima')->name('user.admin.hadiah.HadiahA.listDiterima');
+
+Route::get('/admin/list/hadiah/tidak-diterima', 'AdminController@listTidakDiterima')->name('user.admin.hadiah.HadiahA.listTidakDiterima');
+
+Route::get('/admin/list/hadiah/tidak-lengkap', 'AdminController@listTidakLengkap')->name('user.admin.hadiah.HadiahA.listTidakLengkap');
+
+Route::get('/admin/list/hadiah/Proses-Ketua-Bahagian', 'AdminController@diprosesHODIV')->name('user.admin.hadiah.HadiahA.diprosesHODIV');
+
+Route::get('/admin/list/HadiahB/tidak-lengkap', 'AdminController@listTidakLengkapB')->name('user.admin.hadiah.HadiahB.listTidakLengkap');
+
+Route::get('/admin/list/HadiahB/tidak-diterima', 'AdminController@listTidakDiterimaB')->name('user.admin.hadiah.HadiahB.listTidakDiterima');
+
+Route::get('/admin/list/HadiahB/diterima', 'AdminController@listDiterimaB')->name('user.admin.hadiah.HadiahB.listDiterima');
 
 Route::get('/admin/list/hadiahB', 'AdminController@listGiftB')->name('user.admin.hadiah.listGiftB');
 

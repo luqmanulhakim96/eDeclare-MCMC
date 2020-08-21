@@ -28,7 +28,7 @@ class GiftController extends Controller
       $sedang_proses= "Sedang Diproses";
 
 
-  public function add(array $data, $uploaded_gambar_hadiah){
+  
       return Gift::create([
         'jabatan' => $data['jabatan'],
         'jenis_gift' => $data['jenis_hadiah'],
@@ -44,6 +44,7 @@ class GiftController extends Controller
 
       ]);
     }
+
 
     protected function validator(array $data)
   {
