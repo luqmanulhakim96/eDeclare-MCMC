@@ -19,7 +19,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "owen-it/laravel-auditing": "^10.0",
-        "protoqol/prequel": "^1.22"
+        "protoqol/prequel": "^1.22",
+        "rap2hpoutre/laravel-log-viewer": "^1.6"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
