@@ -40,12 +40,14 @@
                                   <td>{{ $data ->alamat_pemberi  }}</td>
                                   <td>{{ $data ->hubungan_pemberi  }}</td>
 
+
                                   <td>
                                     <button type="button" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal2">
                                       <img src="{{ asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift)) }}"  class="profile-avatar">
                                         </button>
                                   </td>
                                   <!-- <td>$image_path</td> -->
+
                                   <td>
                                     @if($data ->status == "Sedang Diproses")
                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>                                
@@ -59,12 +61,15 @@
                                      <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                      @endif
                                   </td>
+
                                   <td class="p-3">
                                   <div class="d-flex flex-row justify-content-around align-items-center">
                                     @if($data ->status == "Sedang Diproses")
                                       <a href="{{ route('user.hadiah.editgift', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+
                                       @endif
                                       <!-- <a href="{{ route('gift.delete', $data->id) }}" class="btn btn-danger" onclick=" return confirm('Padam maklumat?');"><i class="fas fa-times-circle"></i></a> -->
+
                                   </div>
                                   </td>
                                 </tr>
@@ -80,7 +85,9 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>
+
                                 <div class="modal-body" align="center">
+
                                   <img id="imageHadiah" class="img-responsive" src="" alt="Gambar Hadiah" width="50%" height="50%">
                                 </div>
                                 <div class="modal-footer">
