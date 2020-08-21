@@ -410,8 +410,8 @@
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-max-height">
                             <!-- Menu items -->
                             <a href="#" class="dropdown-item disabled small"><i class="far fa-user mr-1"></i> {{Auth::user()->name}} </a>
-                            <a href="{{ route('user.profile') }}" class="dropdown-item text-secondary-light">Edit Profil</a>
-                            <a href="#" class="dropdown-item text-secondary-light">Billing history</a>
+                            <!-- <a href="{{ route('user.profile') }}" class="dropdown-item text-secondary-light">Edit Profil</a> -->
+                            <!-- <a href="#" class="dropdown-item text-secondary-light">Billing history</a> -->
                             <a  class="dropdown-item text-secondary-light"
                                 href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
