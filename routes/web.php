@@ -272,12 +272,12 @@ Route::get('/integrityHOD/list/harta/d', 'IntegrityHodController@listFormD')->na
 Route::get('/integrityHOD/list/harta/g', 'IntegrityHodController@listFormG')->name('user.integrityHOD.harta.senaraiformG');
 
 
-
+// IT ADMIN ROUTES
 Route::get('/itadmin/homepage', 'ItAdminController@itDashboard')->name('user.it.view');
 
 Route::get('/itadmin/background/queues', 'ItAdminController@backgroundQueues')->name('user.it.backgroundqueues');
 
-Route::get('/itadmin/system/notification', 'ItAdminController@errorLogging')->name('user.it.errorlog');
+// Route::get('/itadmin/system/notification', 'ItAdminController@errorLogging')->name('user.it.errorlog');
 
 Route::get('/itadmin/backup', 'ItAdminController@backup')->name('user.it.backup');
 
@@ -285,6 +285,7 @@ Route::get('/itadmin/audit', 'ItAdminController@audit')->name('user.it.audit');
 
 Route::get('/itadmin/users', 'ItAdminController@users')->name('user.it.users');
 
+Route::get('/itadmin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('user.it.errorlog');
 
 
 Route::get('/formBs', 'AssetController@createStep1')->name('asset.create');
