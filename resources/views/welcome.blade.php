@@ -85,8 +85,8 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://qbytesoft.com">MCMC</a>
-                    <a href="https://github.com/qbytesoft-com/QBAdminUi-Laravel-Broilerplate">GitHub</a>
+                    <!-- <a href="https://qbytesoft.com">MCMC</a>
+                    <a href="https://github.com/qbytesoft-com/QBAdminUi-Laravel-Broilerplate">GitHub</a> -->
                 </div>
             </div>
         </div>
