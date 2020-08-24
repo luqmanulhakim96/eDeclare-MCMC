@@ -11,6 +11,8 @@ use App\Pinjaman;
 use DB;
 use Auth;
 
+use App\Notifications\Form\UserFormAdminG;
+
 class FormGController extends Controller
 {
   public function formG()
@@ -111,7 +113,7 @@ public function add(array $data){
   }
 
   protected function validator(array $data)
-{
+  {
     return Validator::make($data, [
       'tarikh_lantikan'  =>['nullable', 'date'],
       'nama_perkhidmatan' =>['nullable', 'string'],
@@ -174,7 +176,7 @@ public function add(array $data){
       'tempoh_pinjaman[]' => ['nullable', 'string'],
       'pengakuan' => ['nullable', 'string'],
     ]);
-}
+  }
 
   public function submitForm(Request $request){
 
@@ -188,37 +190,35 @@ public function add(array $data){
    // dd($request->dividen_1);
    $count_id = 0;
 
-    for ($i=0; $i < $count; $i++) {
-    $count_id++;
-	  $dividen_gs = new DividenG();
-	  $dividen_gs->dividen_1 = $request->dividen_1[$i];
-	  $dividen_gs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
-    $dividen_gs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
-    $dividen_gs->formgs_id = $formgs-> id;
-    $dividen_gs->dividen_id = $count_id;
-    //dd($request->all());
-    $dividen_gs->save();
-
-    }
+   for ($i=0; $i < $count; $i++) {
+        $count_id++;
+    	  $dividen_gs = new DividenG();
+    	  $dividen_gs->dividen_1 = $request->dividen_1[$i];
+    	  $dividen_gs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
+        $dividen_gs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+        $dividen_gs->formgs_id = $formgs-> id;
+        $dividen_gs->dividen_id = $count_id;
+        //dd($request->all());
+        $dividen_gs->save();
+      }
 
     $count = count($request->lain_lain_pinjaman);
     // dd($request->dividen_1);
     $count_id_pinjaman = 0;
 
      for ($i=0; $i < $count; $i++) {
-      $count_id_pinjaman++;
-   	  $pinjaman_gs = new PinjamanG();
-   	  $pinjaman_gs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
-   	  $pinjaman_gs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
-      $pinjaman_gs->bulanan_pegawai = $request->bulanan_pegawai[$i];
-      $pinjaman_gs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
-      $pinjaman_gs->bulanan_pasangan = $request->bulanan_pasangan[$i];
-      $pinjaman_gs->formgs_id = $formgs-> id;
-      $pinjaman_gs->pinjaman_id = $count_id_pinjaman;
-       //dd($request->all());
-       $pinjaman_gs->save();
-
-     }
+        $count_id_pinjaman++;
+     	  $pinjaman_gs = new PinjamanG();
+     	  $pinjaman_gs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
+     	  $pinjaman_gs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
+        $pinjaman_gs->bulanan_pegawai = $request->bulanan_pegawai[$i];
+        $pinjaman_gs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
+        $pinjaman_gs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+        $pinjaman_gs->formgs_id = $formgs-> id;
+        $pinjaman_gs->pinjaman_id = $count_id_pinjaman;
+         //dd($request->all());
+         $pinjaman_gs->save();
+       }
 
      $count = count($request->institusi);
      // dd($request->dividen_1);
@@ -239,10 +239,18 @@ public function add(array $data){
       }
 
       //send notification to admin (noti yang dia dah berjaya declare)
+      // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
+      $email = null; // for testing
+      $admin_available = User::where('role','=','1')->get(); //get system admin information
+      if ($email) {
+        foreach ($admin_available as $data) {
+          $formbs->notify(new UserFormAdminG($data, $email));
+        }
+      }
 
-  return redirect()->route('user.harta.FormG.senaraihartaG');
+      return redirect()->route('user.harta.FormG.senaraihartaG');
+    }
 
-}
 public function update($id){
   $formgs = FormG::find($id);
   $formgs->nama_perkhidmatan  = request()->nama_perkhidmatan;

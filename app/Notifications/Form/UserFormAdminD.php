@@ -6,19 +6,29 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Mail\Form\EmailUserFormAdminD;
+use App\Mail\Form\EmailUserFormAdminDNull;
+use Illuminate\Support\Facades\Mail;
+use romanzipp\QueueMonitor\Traits\IsMonitored;
 
 class UserFormAdminD extends Notification
 {
     use Queueable;
+    use IsMonitored;
+
+    protected $admin;
+    protected $email;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($admin, $email)
     {
         //
+        $this->admin = $admin;
+        $this->email = $email;
     }
 
     /**
@@ -29,7 +39,7 @@ class UserFormAdminD extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -40,10 +50,25 @@ class UserFormAdminD extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        // dd($this->admin);
+        if($this->email){
+          return Mail::queue(new EmailUserFormAdminD($this->admin, $this->email));
+        }
+        else {
+          return Mail::queue(new EmailUserFormAdminDNull($this->admin));
+        }
+    }
+
+    public function toDatabase($notifiable)
+    {
+        // dd($notifiable);
+        return[
+          'permohonan_id' => $notifiable->id,
+          'tajuk' => 'Terdapat Lampiran D baru yang perlu disemak',
+          'tarikh_dicipta' => $notifiable->created_at,
+          'kepada_email' => $this->admin->email,
+          'kepada_id' => $this->admin->id,
+        ];
     }
 
     /**

@@ -1,75 +1,103 @@
 @extends('user.layouts.app')
 @section('content')
-<div class="col-md-12 mt-4">
-      <!-- Light Bordered Table card -->
-      <div class="card rounded-lg">
-              <!-- Table -->
-              <div class="table-responsive">
-                  <table class="table table-bordered">
-                      <thead>
-                          <tr class="text-center">
-                              <th width="10%"><p class="mb-0">#</p></th>
-                              <th width="50%"><p class="mb-0">Nama</p></th>
-                              <th width="55%"><p class="mb-0">No Kad Pengenalan</p></th>
-                              <th width="30%"><p class="mb-0">Jabatan</p></th>
-                              <th width="30%"><p class="mb-0">Jawatan</p></th>
-                              <th width="30%"><p class="mb-0">Status</p></th>
-                              <th width="50%"><p class="mb-0">Edit</p></th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <!-- Table data -->
-                          <tr class="text-center">
-                              <td><p class="mb-0 font-weight-bold">1</p></td>
-                              <td><p class="mb-0 font-weight-normal">Muhammad Syahdan</p></td>
-                              <td><p class="mb-0 font-weight-normal">971112065055</p></td>
-                              <td><p class="mb-0 font-weight-normal">IT</p></td>
-                              <td><p class="mb-0 font-weight-normal">Admin</p></td>
-                              <td><span class="badge badge-success badge-pill">Aktif</span></td>
-                              <td class="p-3">
-                                  <div class="d-flex flex-row justify-content-around align-items-center">
-                                      <a href="#" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                  </div>
-                              </td>
-                          </tr>
+            <!--Page Body part -->
+            <div class="page-body p-4 text-dark">
+                <div class="page-heading border-bottom d-flex flex-row">
+                    <!-- <h5 class="font-weight-normal">Version 1</h5>
+                    <small class="mt-2 ml-2">Dashboard</small> -->
+                </div>
+                <!-- Small card component -->
+                <div class="card rounded-lg">
+                  <div class="card-body">
+                      <div class="card-title">Background Queue</div>
+                      <div class="table-responsive">
 
-                          <!-- Table data -->
-                          <tr class="text-center">
-                              <td><p class="mb-0 font-weight-bold">2</p></td>
-                              <td><p class="mb-0 font-weight-normal">Muhammad Hafiz</p></td>
-                              <td><p class="mb-0 font-weight-normal">971112065055</p></td>
-                              <td><p class="mb-0 font-weight-normal">HR</p></td>
-                              <td><p class="mb-0 font-weight-normal">User</p></td>
-                              <td><span class="badge badge-success badge-pill">Aktif</span></td>
-                              <td class="p-3">
-                                  <div class="d-flex flex-row justify-content-around align-items-center">
-                                      <a href="#" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                  </div>
-                              </td>
-                          </tr>
+                      <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                        <!-- Table head -->
+                        <thead>
+                            <tr>
+                              <th class="all">Status</th>
+                              <th class="all">Job</th>
+                              <th class="all">Details</th>
+                              <th class="all">Progress</th>
+                              <th class="all">Duration</th>
+                              <th class="all">Started</th>
+                              <th class="all">Error</th>
+                            </tr>
+                        </thead>
+                        <!-- Table body -->
+                        <tbody>
+                          @foreach($jobs as $job)
 
-                          <!-- Table data -->
-                          <tr class="text-center">
-                              <td><p class="mb-0 font-weight-bold">3</p></td>
-                              <td><p class="mb-0 font-weight-normal">Muhammad Amirul</p></td>
-                              <td><p class="mb-0 font-weight-normal">971112065055</p></td>
-                              <td><p class="mb-0 font-weight-normal">IT</p></td>
-                              <td><p class="mb-0 font-weight-normal">Integrity HOD</p></td>
-                              <td><span class="badge badge-danger badge-pill">Tidak Aktif</span></td>
-                              <td class="p-3">
-                                  <div class="d-flex flex-row justify-content-around align-items-center">
-                                      <a href="#" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                  </div>
-                              </td>
-                          </tr>
+                              <tr>
+                                  <td>
+                                      @if(!$job->isFinished())
+                                              Running
+                                      @elseif($job->hasSucceeded())
+                                              Success
+                                      @else
+                                              Failed
+                                      @endif
+                                  </td>
 
-                      </tbody>
-                  </table>
-              </div>
+                                  <td>
+                                      {{ $job->getBaseName() }}
+                                      <span>
+                                          #{{ $job->job_id }}
+                                      </span>
+                                  </td>
 
-          </div>
-      </div>
+                                  <td>
+                                      <div class="text-xs">
+                                          <span>Queue:</span>
+                                          <span>{{ $job->queue }}</span>
+                                      </div>
+
+                                      <div class="text-xs">
+                                          <span>Attempt:</span>
+                                          <span>{{ $job->attempt }}</span>
+                                      </div>
+                                  </td>
+
+                                  <td>
+                                      @if($job->progress !== null)
+                                              <div class="flex items-stretch h-3 rounded-full bg-gray-300 overflow-hidden">
+                                                  <div class="h-full bg-green-500" style="width: {{ $job->progress }}%"></div>
+                                              </div>
+
+                                              <div class="flex justify-center mt-1 text-xs text-gray-800 font-semibold">
+                                                  {{ $job->progress }}%
+                                              </div>
+                                      @else
+                                          -
+                                      @endif
+                                  </td>
+
+                                  <td>
+                                      {{ sprintf('%02.2f', (float) $job->time_elapsed) }} s
+                                  </td>
+
+                                  <td>
+                                      {{ $job->started_at->diffForHumans() }}
+                                  </td>
+
+                                  <td>
+                                      @if($job->hasFailed() && $job->exception_message !== null)
+                                          <textarea rows="4" class="w-64 text-xs p-1 border rounded" readonly>{{ $job->exception_message }}</textarea>
+                                      @else
+                                          -
+                                      @endif
+                                  </td>
+
+                              </tr>
+
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+        </main>
 @endsection

@@ -9,6 +9,8 @@ use App\PinjamanB;
 use DB;
 use Auth;
 
+use App\Notifications\Form\UserFormAdminC;
+
 class FormCController extends Controller
 {
   public function formC()
@@ -63,8 +65,17 @@ public function add(array $data){
 
   $this->validator($request->all())->validate();
   event($formcs = $this->add($request->all()));
-  
+
   //send notification to admin (noti yang dia dah berjaya declare)
+  // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
+  $email = null; // for testing
+  $admin_available = User::where('role','=','1')->get(); //get system admin information
+  if ($email) {
+    foreach ($admin_available as $data) {
+      $formbs->notify(new UserFormAdminC($data, $email));
+    }
+  }
+
   return redirect()->route('user.harta.FormC.senaraihartaC');
   }
 
