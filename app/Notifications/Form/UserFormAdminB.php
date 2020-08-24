@@ -10,10 +10,13 @@ use App\Mail\Form\EmailUserFormAdminB;
 use App\Mail\Form\EmailUserFormAdminBNull;
 use Illuminate\Support\Facades\Mail;
 
+use romanzipp\QueueMonitor\Traits\IsMonitored;
+
 class UserFormAdminB extends Notification
 {
     use Queueable;
-
+    use IsMonitored;
+    
     protected $admin;
     protected $email;
 

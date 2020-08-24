@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Audit;
+use romanzipp\QueueMonitor\Models\Monitor;
 
 class ItAdminController extends Controller
 {
@@ -23,8 +24,27 @@ class ItAdminController extends Controller
       }
 
       public function backgroundQueues(){
-
-        return view('user.it.backgroundqueues');
+        $jobs = Monitor::get();
+        // Check the current state of a job
+        // $job->isFinished();
+        // $job->hasFailed();
+        // $job->hasSucceeded();
+        //
+        // // Exact start & finish dates with milliseconds
+        // $job->getStartedAtExact();
+        // $job->getFinishedAtExact();
+        //
+        // // If the job is still running, get the estimated seconds remaining
+        // // Notice: This requires a progress to be set
+        // $job->getRemainingSeconds();
+        // $job->getRemainingInterval(); // Carbon\CarbonInterval
+        //
+        // // Retrieve any data that has been set while execution
+        // $job->getData();
+        //
+        // // Get the base name of the executed job
+        // $job->getBasename();
+        return view('user.it.backgroundqueues', compact('jobs'));
       }
 
       public function audit(){

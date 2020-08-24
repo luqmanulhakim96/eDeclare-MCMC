@@ -8,6 +8,7 @@ use App\GiftB;
 use DB;
 use Auth;
 
+use App\Notifications\Gift\UserGiftAdminB;
 
 class GiftBController extends Controller
 {
@@ -67,6 +68,14 @@ class GiftBController extends Controller
     event($giftbs = $this->add($request->all(),$uploaded_gambar_hadiah));
 
     //send notification to hodiv (user declare)
+    // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
+    $email = null; // for testing
+    $admin_available = User::where('role','=','2')->get(); //get system hodiv information
+    if ($email) {
+      foreach ($admin_available as $data) {
+        $formbs->notify(new UserGiftAdminB($data, $email));
+      }
+    }
 
     return redirect()->route('user.hadiah.senaraihadiahB');
 

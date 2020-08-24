@@ -168,7 +168,7 @@ return [
          */
         OwenIt\Auditing\AuditingServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
-        
+        romanzipp\QueueMonitor\Providers\QueueMonitorProvider::class,
         /*
          * Application Service Providers...
          */
