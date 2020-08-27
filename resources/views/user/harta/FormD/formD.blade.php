@@ -8,15 +8,6 @@
                <div class="page-heading border-bottom d-flex flex-row">
                    <h5 class="font-weight-normal">Lampiran D: Perisytiharan Syarikat dan Perniagaan Sendiri</h5>
                </div>
-               @if ($errors->any())
-              <div class="alert alert-danger">
-                  <ul>
-                      @foreach ($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                      @endforeach
-                  </ul>
-              </div>
-              @endif
 
              <!-- All Basic Form elements -->
                <div class="row">
@@ -74,73 +65,73 @@
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                        <p>i) Nama Syarikat / Perniagaan</p>
+                                        <p class="required">i) Nama Syarikat / Perniagaan</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="nama_syarikat" placeholder="Nama Syarikat/Perniagaan" value="{{ old('nama_syarikat')}}">
+                                        <input class="form-control bg-light" type="text" name="nama_syarikat" placeholder="Nama Syarikat/Perniagaan" value="{{ old('nama_syarikat')}}" required>
                                       </div>
                                   </div>
                                       <br>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>ii) No. Pendaftaran</p>
+                                          <p class="required">ii) No. Pendaftaran</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_syarikat" placeholder="No Pendaftaran Syarikat/Perniagaan" value="{{ old('no_pendaftaran_syarikat')}}">
+                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_syarikat" placeholder="No Pendaftaran Syarikat/Perniagaan" value="{{ old('no_pendaftaran_syarikat')}}" class="required">
                                       </div>
                                   </div>
                                   <br>
                                     <div class="row">
                                       <div class="col-md-4">
-                                          <p>iii) Alamat Syarikat / Perniagaan</p>
+                                          <p class="required">iii) Alamat Syarikat / Perniagaan</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="alamat_syarikat" placeholder="Alamat Syarikat / Perniagaan" value="{{ old('alamat_syarikat')}}">
+                                          <input class="form-control bg-light" type="text" name="alamat_syarikat" placeholder="Alamat Syarikat / Perniagaan" value="{{ old('alamat_syarikat')}}" class="required">
                                       </div>
                                   </div>
                                   <br>
                                   <div class="row">
                                     <div class="col-md-4">
-                                        <p>iv) Jenis Syarikat / Perniagaan</p>
+                                        <p class="required">iv) Jenis Syarikat / Perniagaan</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="jenis_syarikat" placeholder="Jenis Syarikat / Perniagaan" value="{{ old('jenis_syarikat')}}">
+                                        <input class="form-control bg-light" type="text" name="jenis_syarikat" placeholder="Jenis Syarikat / Perniagaan" value="{{ old('jenis_syarikat')}}" class="required">
                                     </div>
                                   </div>
                                   <br>
                                   <div class="row">
                                     <div class="col-md-4">
-                                        <p>v) Pulangan Perniagaan Tahunan</p>
+                                        <p class="required">v) Pulangan Perniagaan Tahunan</p>
                                     </div>
                                     <div class="col-md-8">
-                                       <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ old('pulangan_tahunan')}}">
+                                       <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ old('pulangan_tahunan')}}" class="required">
                                     </div>
                                  </div>
                                  <br>
                                  <div class="row">
                                     <div class="col-md-4">
-                                        <p>vi) Modal Dibenarkan</p>
+                                        <p class="required">vi) Modal Dibenarkan</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ old('modal_syarikat')}}">
+                                        <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ old('modal_syarikat')}}" class="required">
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row">
                                   <div class="col-md-4">
-                                      <p>vii) Modal Berbayar (Paid Up Capital)</p>
+                                      <p class="required">vii) Modal Berbayar (Paid Up Capital)</p>
                                   </div>
                                   <div class="col-md-8">
-                                      <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ old('modal_dibayar')}}">
+                                      <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ old('modal_dibayar')}}" class="required">
                                   </div>
                                </div>
                                <br>
                                <div class="row">
                                  <div class="col-md-4">
-                                     <p>viii) Punca Kewangan Syarikat / Perniagaan</p>
+                                     <p class="required">viii) Punca Kewangan Syarikat / Perniagaan</p>
                                  </div>
                                  <div class="col-md-8">
-                                     <input class="form-control bg-light" type="text" name="punca_kewangan" placeholder="Punca Kewangan Syarikat / Perniagaan"  value="{{ old('punca_kewangan')}}">
+                                     <input class="form-control bg-light" type="text" name="punca_kewangan" placeholder="Punca Kewangan Syarikat / Perniagaan"  value="{{ old('punca_kewangan')}}" class="required">
                                  </div>
                               </div>
                               <br>
@@ -212,12 +203,6 @@
                                    <br>
                               </div>
 
-
-                              <!-- <div class="input_fields_wrap">
-                                  <button class="add_field_button">Add More Fields</button>
-                                  <div><input type="text" name="mytext[]"></div>
-                              </div> -->
-
                               <!--script-->
                               <script type="text/javascript">
                               $(document).ready(function() {
@@ -265,7 +250,7 @@
                               <!--upload dokumen syarikat-->
                               <div class="row">
                                  <div class="col-md-6">
-                                     <p><b>3. DOKUMEN SYARIKAT</b></p>
+                                     <p class="required"><b>3. DOKUMEN SYARIKAT</b></p>
                                  </div>
                               </div>
                                <div class="row">

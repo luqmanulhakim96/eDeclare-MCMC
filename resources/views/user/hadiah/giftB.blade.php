@@ -3,7 +3,7 @@
            <!--Page Body part -->
            <div class="page-body p-4 text-dark">
                <div class="page-heading border-bottom d-flex flex-row">
-                   <p class="font-weight-normal">Lampiran B: LAPORAN PENERIMAAN HADIAH DIBAWAH SURAT PEKELILING PERKHIDMATAN DAN SOKONGAN BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI RM 100 DAN KE BAWAH</p>
+                   <p class="font-weight-normal">Lampiran B: LAPORAN PENERIMAAN HADIAH DIBAWAH SURAT PEKELILING PERKHIDMATAN DAN SOKONGAN BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI RM {{ $nilaiHadiah ->nilai_hadiah }} DAN KE BAWAH</p>
                </div>
 
                <!-- All Basic Form elements -->
@@ -179,9 +179,11 @@
                              <br>
                              <br>
                               <div class="row">
-                                  <div class="col-md-12">
-                                    <input type="checkbox" name="pengakuan" value="pengakuan_pegawai" required>
-                                    <label for="pengakuan"> Saya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah lengkap dan benar.</label><br>
+                                  <div class="col-md-1" align="right">
+                                    <input type="checkbox" name="pengakuan" value="pengakuan_pegawai" required></div>
+                                    <div class="col-md-11">
+                                    <label for="pengakuan"> Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar.
+                                       Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan dirujuk kepada Jawatankuasa Tatatertib MCMC</label><br>
                                   </div>
                               </div>
                                   <!-- button -->

@@ -26,6 +26,12 @@
 
     <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/> -->
+    <style>
+    .required:after {
+    content:" *";
+    color: red;
+    }
+    </style>
 </head>
 <body class="position-relative">
     <!--[if IE]>
@@ -139,7 +145,7 @@
                         <!-- Sub menu -->
                         <div id="form-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.systemconfig') }}" class="w-100 pl-4 small">Pengurusan Pengguna</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.systemconfig') }}" class="w-100 pl-4 small">Tetapan Sistem</a></li>
                                 <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.notification') }}" class="w-100 pl-4 small">Sistem Notifikasi</a></li>
                             </ul>
                         </div>

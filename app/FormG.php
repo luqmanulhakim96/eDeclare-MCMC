@@ -14,7 +14,7 @@ class FormG extends Model implements Auditable
     //
     protected $table = 'formgs';
     protected $fillable = [
-      'tarikh_lantikan','nama_perkhidmatan','gelaran','gaji_pasangan','jumlah_imbuhan','jumlah_imbuhan_pasangan', 'sewa','sewa_pasangan',
+      'tarikh_lantikan','nama_perkhidmatan','gelaran','gaji_pasangan','jumlah_imbuhan','jumlah_imbuhan_pasangan', 'sewa','sewa_pasangan','pendapatan_pegawai','pendapatan_pasangan',
       'pinjaman_perumahan_pegawai', 'bulanan_perumahan_pegawai','pinjaman_perumahan_pasangan', 'bulanan_perumahan_pasangan',
       'pinjaman_kenderaan_pegawai', 'bulanan_kenderaan_pegawai', 'pinjaman_kenderaan_pasangan', 'bulanan_kenderaan_pasangan',
       'jumlah_cukai_pegawai', 'bulanan_cukai_pegawai', 'jumlah_cukai_pasangan', 'bulanan_cukai_pasangan',

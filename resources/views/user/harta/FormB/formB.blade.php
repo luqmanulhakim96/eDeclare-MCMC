@@ -10,16 +10,6 @@
                    <h5 class="font-weight-normal">Lampiran B: Borang Perisytiharan Harta</h5>
                </div>
 
-               @if ($errors->any())
-              <div class="alert alert-danger">
-                  <ul>
-                      @foreach ($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                      @endforeach
-                  </ul>
-              </div>
-              @endif
-
                <!-- All Basic Form elements -->
                <div class="row">
                  <div class="col-12 mt-4">
@@ -212,11 +202,11 @@
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="dividen_1_pegawai[]" placeholder="Dividen Pegawai" value="{{ old('dividen_1_pegawai[]')}}">
+                                                <input class="form-control bg-light" onkeyup="findTotalDividenPegawai()" name="dividen_1_pegawai[0]" placeholder="Dividen Pegawai" value="{{ old('dividen_1_pegawai[]')}}" id="dividen">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" type="text" name="dividen_1_pasangan[]" placeholder="Dividen Pasangan" value="{{ old('dividen_1_pasangan[]')}}">
+                                            <input class="form-control bg-light" onkeyup="findTotalDividenPasangan()" name="dividen_1_pasangan[0]" placeholder="Dividen Pasangan" value="{{ old('dividen_1_pasangan[]')}}" id="dividen_pasangan">
                                         </div>
                                         <div class="col-md-1">
                                           <button class="add_field_button" id="add_dividen_button">Tambah</button>
@@ -225,47 +215,6 @@
                                       <br>
                                       </div>
 
-
-                                      <script type="text/javascript">
-
-                                        $(document).ready(function() {
-                                      	// var max_fields      = 10; //maximum input boxes allowed
-                                      	var wrapper   		= $("#dividen_field"); //Fields wrapper
-                                      	var add_button      = $("#add_dividen_button"); //Add button ID
-                                        var counter_dividen = document.getElementById("counter_dividen").value;
-
-                                      	$(add_button).click(function(e){ //on add input button click
-                                      		e.preventDefault();
-                                            counter_dividen++;
-                                            console.log(counter_dividen);
-
-                                      			$(wrapper).append('<div id="dividen_add'+counter_dividen+'" class="row"><div class="col-md-3 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" type="text" name="dividen_1['+
-                                            counter_dividen+
-                                            ']" placeholder="Nyatakan Dividen"></div></div><div class="col-md-4 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" type="text" name="dividen_1_pegawai['+
-                                            counter_dividen+
-                                            ']" placeholder="Dividen Pegawai"></div></div><div class="col-md-4 mt-2 mt-md-0"><input class="form-control bg-light" type="text" name="dividen_1_pasangan['+
-                                            counter_dividen+
-                                            ']" placeholder="Dividen Pasangan"></div><div class="col-md-1"><a onClick="removeDividen(this,'+
-                                            counter_dividen+
-                                            ' ); return false;" id ="button'+counter_dividen+'"class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a><br><br></div></div>'); //add input box
-
-                                      	});
-                                      });
-
-                                      function removeDividen(e,counter_dividen){
-                                        // $(e).parents('div'+counter_pndptn+'').remove();
-                                      console.log('masuk');
-                                        $('#dividen_add'+counter_dividen+'').remove();
-                                        $('#button'+counter_dividen+'').remove();
-                                      //   var counter = document.getElementById("counter").value;
-                                      //   counter--;
-                                      // doctype.getElementById("counter").value = counter;
-                                      }
-
-                                      </script>
-
-
-
                                       <!-- jumlah pendapatan -->
                                       <div class="row">
                                         <div class="col-md-3 mt-2 mt-md-0">
@@ -273,18 +222,18 @@
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="pendapatan_pegawai" value="{{ old('pendapatan_pegawai')}}">
+                                                <input class="form-control bg-light" type="text" name="pendapatan_pegawai" id="total_dividen_pegawai" >
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" type="text" name="pendapatan_pasangan" value="{{ old('pendapatan_pasangan')}}">
+                                            <input class="form-control bg-light" type="text" name="pendapatan_pasangan" value="{{ old('pendapatan_pasangan')}}" id="total_dividen_pasangan" >
                                         </div>
                                       </div>
                                       <br>
 
                                       <!-- Tanggungan -->
                                       <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-8">
                                           <p><b>4. TANGGUNGAN / ANSURAN BULANAN ATAS HUTANG / PINJAMAN</b></p>
                                         </div>
                                       </div>
@@ -378,16 +327,16 @@
                                           <p>iv) Pinjaman Koperasi</p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="jumlah_koperasi_pegawai" value="{{ old('jumlah_koperasi_pegawai')}}">
+                                          <input class="form-control bg-light" onkeyup="findTotalPinjamanPegawai()" name="jumlah_koperasi_pegawai" value="{{ old('jumlah_koperasi_pegawai')}}" id="jumlah_koperasi_pegawai">
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="bulanan_koperasi_pegawai" value="{{ old('bulanan_koperasi_pegawai')}}">
+                                          <input class="form-control bg-light" onkeyup="findTotalBulananPegawai()" name="bulanan_koperasi_pegawai" value="{{ old('bulanan_koperasi_pegawai')}}" id="bulanan_koperasi_pegawai">
                                         </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="jumlah_koperasi_pasangan" value="{{ old('jumlah_koperasi_pasangan')}}">
+                                            <input class="form-control bg-light" onkeyup="findTotalPinjamanPasangan()" name="jumlah_koperasi_pasangan" value="{{ old('jumlah_koperasi_pasangan')}}" id="jumlah_koperasi_pasangan">
                                           </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="bulanan_koperasi_pasangan" value="{{ old('bulanan_koperasi_pasangan')}}">
+                                            <input class="form-control bg-light" onkeyup="findTotalBulananPasangan()" name="bulanan_koperasi_pasangan" value="{{ old('bulanan_koperasi_pasangan')}}" id="bulanan_koperasi_pasangan">
                                         </div>
                                       </div>
                                       <br>
@@ -423,62 +372,22 @@
                                       <br>
                                       </div>
 
-                                      <!--script-->
-                                      <script type="text/javascript">
-                                        $(document).ready(function() {
-                                      	// var max_fields      = 10; //maximum input boxes allowed
-                                      	var wrapper   		= $("#table_lain"); //Fields wrapper
-                                      	var add_button      = $("#add_pinjaman_button"); //Add button ID
-                                        var counter = document.getElementById("counter").value;
-
-                                      	$(add_button).click(function(e){ //on add input button click
-                                      		e.preventDefault();
-                                            counter++;
-
-                                      			$(wrapper).append('<div id="divi'+counter+'"  class="row"><div class="col-md-3"><input class="form-control bg-light" type="text" name="lain_lain_pinjaman['+
-                                            counter+
-                                            ']" placeholder="Nyatakan Lain-Lain Pinjaman"></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="pinjaman_pegawai['+
-                                            counter+
-                                            ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="bulanan_pegawai['+
-                                            counter+
-                                            ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="pinjaman_pasangan['+
-                                            counter+
-                                            ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="bulanan_pasangan['+
-                                            counter+
-                                            ']"></div><div class="col-md-1"><a onClick="removeData(this,'+
-                                            counter+
-                                            ' ); return false;" id ="del'+counter+'"class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a><br><br></div></div>'); //add input box
-
-                                      	});
-                                      });
-
-                                      function removeData(e,counter){
-                                      //$(e).parents('div'+counter+'').remove();
-                                      console.log('masuk');
-                                        $('#divi'+counter+'').remove();
-                                        $('#del'+counter+'').remove();
-                                       //  var counter = document.getElementById("counter").value;
-                                       //  counter--;
-                                       // doctype.getElementById("counter").value = counter;
-                                      }
-                                      </script>
-
                                       <!--JUMLAH PINJAMAN -->
                                       <div class="row">
                                         <div class="col-md-3">
                                           <p><b>JUMLAH</b></p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pegawai">
+                                          <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pegawai" id="jumlah_pinjaman_pegawai" >
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" name="jumlah_bulanan_pegawai">
+                                          <input class="form-control bg-light" type="text" name="jumlah_bulanan_pegawai" id="jumlah_bulanan_pegawai" >
                                         </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pasangan">
+                                            <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pasangan" id="jumlah_pinjaman_pasangan" >
                                           </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" name="jumlah_bulanan_pasangan" required>
+                                            <input class="form-control bg-light" type="text" name="jumlah_bulanan_pasangan" id="jumlah_bulanan_pasangan" >
                                         </div>
                                       </div>
                                       <br>
@@ -489,7 +398,7 @@
                                       </div>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Jenis Harta</p>
+                                          <p class="required">Jenis Harta</p>
                                         </div>
                                         <div class="col-md-8">
                                           <input class="form-control bg-light" type="text" name="jenis_harta"  placeholder="Jenis Harta"  value="{{ old('jenis_harta')}}" required>
@@ -498,13 +407,13 @@
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
+                                          <p class="required">Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
                                         </div>
                                         <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="pemilik_harta" placeholder="Nama Pemilik Sebelum" value="{{ old('pemilik_harta')}}">
+                                          <input class="form-control bg-light" type="text" name="pemilik_harta" placeholder="Nama Pemilik Sebelum" value="{{ old('pemilik_harta')}}" required>
                                         </div>
                                         <div class="col-md-4">
-                                            <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik">
+                                            <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik" required>
                                                 <option value="" selected disabled hidden>Hubungan dengan Pemilik</option>
                                                 <option value="Sendiri" {{ old('hubungan_pemilik') == "Sendiri" ? 'selected' : '' }}>Sendiri</option>
                                                 <option value="Anak" {{ old('hubungan_pemilik') == "Anak" ? 'selected' : '' }}>Anak</option>
@@ -516,46 +425,46 @@
                                       </div>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
+                                          <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="maklumat_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ old('maklumat_harta')}}">
+                                          <input class="form-control bg-light" type="text" name="maklumat_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ old('maklumat_harta')}}" required>
                                         </div>
                                       </div>
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Tarikh Pemilikan Harta</p>
+                                          <p class="required">Tarikh Pemilikan Harta</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_pemilikan_harta" value="{{ old('tarikh_pemilikan_harta')}}">
+                                          <input class="form-control bg-light" type="date" name="tarikh_pemilikan_harta" value="{{ old('tarikh_pemilikan_harta')}}" required>
                                         </div>
                                       </div>
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
+                                          <p class="required">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="bilangan" placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ old('bilangan')}}">
+                                          <input class="form-control bg-light" type="text" name="bilangan" placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ old('bilangan')}}" required>
                                         </div>
                                       </div>
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Nilai Perolehan Harta (RM)</p>
+                                          <p class="required">Nilai Perolehan Harta (RM)</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="nilai_perolehan" placeholder="Nilai Perolehan Harta (RM)" value="{{ old('nilai_perolehan')}}">
+                                          <input class="form-control bg-light" type="text" name="nilai_perolehan" placeholder="Nilai Perolehan Harta (RM)" value="{{ old('nilai_perolehan')}}" required>
                                         </div>
                                       </div>
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Cara Dan Dari Siapa Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
+                                          <p class="required">Cara Dan Dari Siapa Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
                                         </div>
                                         <div class="col-md-4">
-                                            <select id="cara_perolehan" class="custom-select  bg-light" name="cara_perolehan">
+                                            <select id="cara_perolehan" class="custom-select  bg-light" name="cara_perolehan" required>
                                                 <option value="" selected disabled hidden>Cara Perolehan</option>
                                                 <option value="Dipusakai" {{ old('cara_perolehan') == "Dipusakai" ? 'selected' : '' }}>Dipusakai</option>
                                                 <option value="Dibeli" {{ old('cara_perolehan') == "Dibeli" ? 'selected' : '' }}>Dibeli</option>
@@ -573,7 +482,7 @@
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p><b>Punca-punca Kewangan Bagi Memiliki Harta Dan Jumlahnya</b></p>
+                                          <p class="required"><b>Punca-punca Kewangan Bagi Memiliki Harta Dan Jumlahnya</b></p>
                                         </div>
                                       </div>
                                       <div class="row">
@@ -700,4 +609,191 @@
                       </div>
                </div>
            </div>
+           </div>
+
+           <!--script-->
+           <script type="text/javascript">
+             $(document).ready(function() {
+             // var max_fields      = 10; //maximum input boxes allowed
+             var wrapper   		= $("#table_lain"); //Fields wrapper
+             var add_button      = $("#add_pinjaman_button"); //Add button ID
+             var counter = document.getElementById("counter").value;
+
+             $(add_button).click(function(e){ //on add input button click
+               e.preventDefault();
+                 counter++;
+
+                 $(wrapper).append('<div id="divi'+counter+'"  class="row"><div class="col-md-3"><input class="form-control bg-light" type="text" name="lain_lain_pinjaman['+
+                 counter+
+                 ']" placeholder="Nyatakan Lain-Lain Pinjaman"></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="pinjaman_pegawai['+
+                 counter+
+                 ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="bulanan_pegawai['+
+                 counter+
+                 ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="pinjaman_pasangan['+
+                 counter+
+                 ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="bulanan_pasangan['+
+                 counter+
+                 ']"></div><div class="col-md-1"><a onClick="removeData(this,'+
+                 counter+
+                 ' ); return false;" id ="del'+counter+'"class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a><br><br></div></div>'); //add input box
+
+             });
+           });
+
+           function removeData(e,counter){
+           //$(e).parents('div'+counter+'').remove();
+           console.log('masuk');
+             $('#divi'+counter+'').remove();
+             $('#del'+counter+'').remove();
+            //  var counter = document.getElementById("counter").value;
+            //  counter--;
+            // doctype.getElementById("counter").value = counter;
+           }
+           </script>
+           <script type="text/javascript">
+
+             $(document).ready(function() {
+             // var max_fields      = 10; //maximum input boxes allowed
+             var wrapper   		= $("#dividen_field"); //Fields wrapper
+             var add_button      = $("#add_dividen_button"); //Add button ID
+             var counter_dividen = document.getElementById("counter_dividen").value;
+
+             $(add_button).click(function(e){ //on add input button click
+               e.preventDefault();
+                 counter_dividen++;
+                 console.log(counter_dividen);
+
+                 $(wrapper).append('<div id="dividen_add'+counter_dividen+'" class="row"><div class="col-md-3 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" type="text" name="dividen_1['+
+                 counter_dividen+
+                 ']" placeholder="Nyatakan Dividen"></div></div><div class="col-md-4 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" onkeyup="findTotalDividenPegawai()" name="dividen_1_pegawai['+
+                 counter_dividen+
+                 ']" placeholder="Dividen Pegawai"></div></div><div class="col-md-4 mt-2 mt-md-0" id="dividen"><input class="form-control bg-light" onkeyup="findTotalDividenPasangan()" name="dividen_1_pasangan['+
+                 counter_dividen+
+                 ']" placeholder="Dividen Pasangan" id="dividen_pasangan"></div><div class="col-md-1"><a onClick="removeDividen(this,'+
+                 counter_dividen+
+                 ' ); return false;" id ="button'+counter_dividen+'"class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a><br><br></div></div>'); //add input box
+
+             });
+           });
+
+           function removeDividen(e,counter_dividen){
+             // $(e).parents('div'+counter_pndptn+'').remove();
+           console.log('masuk');
+             $('#dividen_add'+counter_dividen+'').remove();
+             $('#button'+counter_dividen+'').remove();
+           //   var counter = document.getElementById("counter").value;
+           //   counter--;
+           // doctype.getElementById("counter").value = counter;
+           }
+
+           </script>
+
+           <script>
+           function findTotalDividenPegawai(){
+             //cari length array dulu
+             var arr = $('#dividen').val();
+             arr=parseFloat(arr);
+             console.log( "ni dividen",arr);                                                                            // console.log( counter);
+             var total_dividen_pegawai=0.00;
+             total_dividen_pegawai=parseFloat(total_dividen_pegawai);
+
+
+            for(var i=0; i<arr.length; i++) {
+              if(parseFloat(arr[i].value))
+               total_dividen_pegawai += parseFloat(arr[i].value);
+
+            }console.log(  "ni total", total_dividen_pegawai);
+            document.getElementById('total_dividen_pegawai').value = total_dividen_pegawai;
+          }
+
+          function findTotalDividenPasangan(){
+            //cari length array dulu
+            var arr = $('#dividen_pasangan').val();
+            arr=parseInt(arr);
+            console.log( arr);
+            var total_dividen_pasangan=0.00;
+            total_dividen_pasangan=parseFloat(total_dividen_pasangan);
+            console.log( total_dividen_pasangan);
+
+           for(var i=0; i<arr.length; i++) {
+             if(parseFloat(arr[i].value))
+              total_dividen_pasangan += parseFloat(arr[i].value);
+
+           }
+           document.getElementById('total_dividen_pasangan').value = total_dividen_pasangan;
+         }
+           </script>
+
+           <script>
+           function findTotalPinjamanPegawai(){
+             //cari length array dulu
+             var arr = $('#jumlah_koperasi_pegawai').val();
+             arr=parseFloat(arr);
+             console.log( "ni dividen",arr);                                                                            // console.log( counter);
+             var jumlah_pinjaman_pegawai=0.00;
+             jumlah_pinjaman_pegawai=parseFloat(jumlah_pinjaman_pegawai);
+
+
+            for(var i=0; i<arr.length; i++) {
+              if(parseFloat(arr[i].value))
+               jumlah_pinjaman_pegawai += parseFloat(arr[i].value);
+
+            }console.log(  "ni total", jumlah_pinjaman_pegawai);
+            document.getElementById('jumlah_pinjaman_pegawai').value = jumlah_pinjaman_pegawai;
+          }
+
+          function findTotalBulananPegawai(){
+            //cari length array dulu
+            var arr = $('#bulanan_koperasi_pegawai').val();
+            arr=parseInt(arr);
+            console.log( arr);
+            var jumlah_bulanan_pegawai=0.00;
+            jumlah_bulanan_pegawai=parseFloat(jumlah_bulanan_pegawai);
+            console.log( jumlah_bulanan_pegawai);
+
+           for(var i=0; i<arr.length; i++) {
+             if(parseFloat(arr[i].value))
+              jumlah_bulanan_pegawai += parseFloat(arr[i].value);
+
+           }
+           document.getElementById('jumlah_bulanan_pegawai').value = jumlah_bulanan_pegawai;
+         }
+           </script>
+           <script>
+           function findTotalPinjamanPasangan(){
+             //cari length array dulu
+             var arr = $('#jumlah_koperasi_pasangan').val();
+             arr=parseFloat(arr);
+             console.log( "ni dividen",arr);
+             var jumlah_pinjaman_pasangan=0.00;
+             jumlah_pinjaman_pasangan=parseFloat(jumlah_pinjaman_pasangan);
+
+
+            for(var i=0; i<arr.length; i++) {
+              if(parseFloat(arr[i].value))
+               jumlah_pinjaman_pasangan += parseFloat(arr[i].value);
+
+            }console.log(  "ni total", jumlah_pinjaman_pasangan);
+            document.getElementById('jumlah_pinjaman_pasangan').value = jumlah_pinjaman_pasangan;
+          }
+
+          function findTotalBulananPasangan(){
+            //cari length array dulu
+            var arr = $('#bulanan_koperasi_pasangan').val();
+            arr=parseInt(arr);
+            console.log( arr);
+            var jumlah_bulanan_pasangan=0.00;
+            jumlah_bulanan_pasangan=parseFloat(jumlah_bulanan_pasangan);
+            console.log( jumlah_bulanan_pasangan);
+
+           for(var i=0; i<arr.length; i++) {
+             if(parseFloat(arr[i].value))
+              jumlah_bulanan_pasangan += parseFloat(arr[i].value);
+
+           }
+           document.getElementById('jumlah_bulanan_pasangan').value = jumlah_bulanan_pasangan;
+         }
+           </script>
+
+
 @endsection

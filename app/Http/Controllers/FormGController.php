@@ -54,6 +54,8 @@ public function add(array $data){
       'dividen_1' => $data['dividen_1'],
       'dividen_1_pegawai' => $data['dividen_1_pegawai'],
       'dividen_1_pasangan' => $data['dividen_1_pasangan'],
+      'pendapatan_pegawai' => $data['pendapatan_pegawai'],
+      'pendapatan_pasangan' => $data['pendapatan_pasangan'],
       'pinjaman_perumahan_pegawai' => $data['pinjaman_perumahan_pegawai'],
       'bulanan_perumahan_pegawai' => $data['bulanan_perumahan_pegawai'],
       'pinjaman_perumahan_pasangan' => $data['pinjaman_perumahan_pasangan'],
@@ -126,6 +128,8 @@ public function add(array $data){
       'dividen_1[]' => ['nullable', 'string'],
       'dividen_1_pegawai[]' => ['nullable', 'string'],
       'dividen_1_pasangan[]' => ['nullable', 'string'],
+      'pendapatan_pegawai' => ['nullable', 'string'],
+      'pendapatan_pasangan' => ['nullable', 'string'],
       'pinjaman_perumahan_pegawai' => ['nullable', 'string'],
       'bulanan_perumahan_pegawai' =>['nullable', 'string'],
       'pinjaman_perumahan_pasangan' => ['nullable', 'string'],
@@ -260,6 +264,8 @@ public function update($id){
   $formgs->jumlah_imbuhan_pasangan = request()->jumlah_imbuhan_pasangan;
   $formgs->sewa = request()->sewa;
   $formgs->sewa_pasangan = request()->sewa_pasangan;
+  $formgs->pendapatan_pasangan = request()->pendapatan_pasangan;
+  $formgs->pendapatan_pegawai = request()->pendapatan_pegawai;
   $formgs->pinjaman_perumahan_pegawai  = request()->pinjaman_perumahan_pegawai;
   $formgs->bulanan_perumahan_pegawai = request()->bulanan_perumahan_pegawai;
   $formgs->pinjaman_perumahan_pasangan = request()->pinjaman_perumahan_pasangan;

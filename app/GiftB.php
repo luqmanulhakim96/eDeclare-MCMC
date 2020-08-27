@@ -24,4 +24,7 @@ class GiftB extends Model implements Auditable
       return $this->belongsTo(User::class, 'user_id');
 
     }
+    public function jenishadiahb(){
+      return $this->hasMany('App\JenisHadiah');
+    }
 }

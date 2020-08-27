@@ -5,7 +5,7 @@
                                 <!-- Basic tabs card -->
                                 <div class="card rounded-lg">
                                     <div class="card-body">
-                                        <div class="card-title">Konfigurasi Sistem</div>
+                                        <div class="card-title">Tetapan Sistem</div>
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item">
@@ -23,14 +23,14 @@
                                                 <div class="col mt-10">
                                                   <div class="col-md-12">
                                                       Nilai Minimum Terkini Hadiah Yang Diterima
-                                                      <button class="btn btn-ripple btn-raised btn-success m-2" > RM {{$listHadiah->nilai_hadiah}}</button>
+                                                      <button class="btn btn-ripple btn-raised btn-success m-2" > RM {{$nilaiHadiah->nilai_hadiah}}</button>
                                                   </div>
                                                   <br>
                                                   <div class="col-md-12">
                                                       <p>Nilai Hadiah Yang Diterima</p>
                                                   </div>
                                                   <div class="col-md-4">
-                                                    <form action="{{route('nilaiGift.update', $listHadiah->id)}}" method="post">
+                                                    <form action="{{route('nilaiGift.update', $nilaiHadiah->id)}}" method="post">
                                                       @csrf
                                                       <div class="form-group">
                                                           <input type="text" class="form-control bg-light" name="nilai_hadiah" placeholder="Nilai Hadiah Yang Diterima (RM)">
@@ -48,21 +48,45 @@
                                       <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="page-body p-4 text-dark">
                                           <div class="col mt-10">
+                                            <br>
                                             <div class="col-md-12">
-                                                <p>Nilai Hadiah Yang Diterima</p>
+                                                <p>Tambah Jenis Hadiah</p>
                                             </div>
                                             <div class="col-md-4">
+                                              <form action="{{route('jenishadiah.submit')}}" method="POST">
+                                                @csrf
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control bg-light" placeholder="Nilai Hadiah Yang Diterima (RM)">
+                                                    <input type="text" class="form-control bg-light" name="jenis_gift" placeholder="Jenis Hadiah ">
                                                     <br>
-                                                    <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Kemaskini</button>
-                                                    <!-- <input type="submit">Kemaskini</input> -->
+                                                    <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Tambah</button>
+                                                    <!-- <input type="submit"> -->
                                                 </div>
+                                              </form>
+                                            </div>
+                                            <div class="col-md-8">
+                                                  <table class="table table-striped table-bordered" >
+                                                    <thead class="thead-light">
+                                                      <tr>
+                                                        <th>ID</th>
+                                                        <th>Jenis Hadiah</th>
+                                                        <th>Padam</th>
+                                                        <tr>
+                                                  </thead>
+                                                    @foreach($jenisHadiah as $data)
+                                                    <tr align="center">
+                                                      <td>{{$data->id}}</td>
+                                                      <td>{{$data->jenis_gift}}</td>
+                                                      <td><a href="{{route('jenishadiah.delete', $data->id)}}"><i class="fas fa-times-circle text-danger"></i></a></td>
+                                                    </tr>
+                                                    @endforeach
+                                                  </table>
                                             </div>
                                             </div>
                                           </div>
                                       </div>
                                   </div>
                               </div>
+                            </div>
+                        </div>
 
 @endsection

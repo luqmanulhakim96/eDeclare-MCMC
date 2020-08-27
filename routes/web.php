@@ -177,13 +177,49 @@ Route::get('/form/viewUlasanHartaG/{id}', 'AdminController@viewUlasanHartaG')->n
 
 Route::get('/admin/senaraiharta', 'AdminController@senaraiharta')->name('user.admin.harta.senaraiharta');
 
-Route::get('/admin/list/harta/b', 'AdminController@listFormB')->name('user.admin.harta.senaraiformB');
+Route::get('/admin/list/harta/b/sedang-diproses', 'AdminController@listFormB')->name('user.admin.harta.listB.senaraiformB');
 
-Route::get('/admin/list/harta/c', 'AdminController@listFormC')->name('user.admin.harta.senaraiformC');
+Route::get('/admin/list/harta/b/diterima', 'AdminController@listformBDiterima')->name('user.admin.harta.listB.Diterima');
 
-Route::get('/admin/list/harta/d', 'AdminController@listFormD')->name('user.admin.harta.senaraiformD');
+Route::get('/admin/list/harta/b/tidak-lengkap', 'AdminController@listformBTidakLengkap')->name('user.admin.harta.listB.TidakLengkap');
 
-Route::get('/admin/list/harta/g', 'AdminController@listFormG')->name('user.admin.harta.senaraiformG');
+Route::get('/admin/list/harta/b/tidak-diterima', 'AdminController@listformBTidakDiterima')->name('user.admin.harta.listB.TidakDiterima');
+
+Route::get('/admin/list/harta/b/proses-ke-Ketua-Jabatan-Integriti', 'AdminController@listFormBProsesHOD')->name('user.admin.harta.listB.ProsesHOD');
+
+Route::get('/admin/list/harta/c/sedang-diproses', 'AdminController@listFormC')->name('user.admin.harta.listC.senaraiformC');
+
+Route::get('/admin/list/harta/c/diterima', 'AdminController@listformCDiterima')->name('user.admin.harta.listC.Diterima');
+
+Route::get('/admin/list/harta/c/tidak-lengkap', 'AdminController@listformCTidakLengkap')->name('user.admin.harta.listC.TidakLengkap');
+
+Route::get('/admin/list/harta/c/tidak-diterima', 'AdminController@listformCTidakDiterima')->name('user.admin.harta.listC.TidakDiterima');
+
+Route::get('/admin/list/harta/c/proses-ke-Ketua-Jabatan-Integriti', 'AdminController@listFormCProsesHOD')->name('user.admin.harta.listC.ProsesHOD');
+
+Route::get('/admin/list/harta/d/sedang-diproses', 'AdminController@listFormD')->name('user.admin.harta.listD.senaraiformD');
+
+Route::get('/admin/list/harta/d/diterima', 'AdminController@listformDDiterima')->name('user.admin.harta.listD.Diterima');
+
+Route::get('/admin/list/harta/d/tidak-lengkap', 'AdminController@listformDTidakLengkap')->name('user.admin.harta.listD.TidakLengkap');
+
+Route::get('/admin/list/harta/d/tidak-diterima', 'AdminController@listformDTidakDiterima')->name('user.admin.harta.listD.TidakDiterima');
+
+Route::get('/admin/list/harta/d/proses-ke-Ketua-Jabatan-Integriti', 'AdminController@listFormDProsesHOD')->name('user.admin.harta.listD.ProsesHOD');
+
+Route::get('/admin/list/harta/g/sedang-diproses', 'AdminController@listFormG')->name('user.admin.harta.listG.senaraiformG');
+
+Route::get('/admin/list/harta/g/diterima', 'AdminController@listformGDiterima')->name('user.admin.harta.listG.Diterima');
+
+Route::get('/admin/list/harta/g/tidak-lengkap', 'AdminController@listformGTidakLengkap')->name('user.admin.harta.listG.TidakLengkap');
+
+Route::get('/admin/list/harta/g/tidak-diterima', 'AdminController@listformGTidakDiterima')->name('user.admin.harta.listG.TidakDiterima');
+
+Route::get('/admin/list/harta/g/proses-ke-Ketua-Jabatan-Integriti', 'AdminController@listFormGProsesHOD')->name('user.admin.harta.listG.ProsesHOD');
+
+Route::post('/jenis-hadiah/submit', 'AdminController@submitJenisHadiah')->name('jenishadiah.submit');
+
+Route::post('/jenis-hadiah/delete/{$id}','AdminController@deletejenisHadiah')->name('jenishadiah.delete');
 
 
 

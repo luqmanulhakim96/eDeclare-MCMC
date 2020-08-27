@@ -7,20 +7,22 @@ use Illuminate\Http\Request;
 use App\Gift;
 use DB;
 use Auth;
+use App\NilaiHadiah;
 
 
 class GiftController extends Controller
 {
     //
     public function giftBaru(){
-
-      return view('user.hadiah.gift');
+      $nilaiHadiah = NilaiHadiah::first();
+      return view('user.hadiah.gift', compact('nilaiHadiah'));
   }
   public function editHadiah($id){
       //$info = SenaraiHarga::find(1);
       $info = Gift::findOrFail($id);
+      $nilaiHadiah = NilaiHadiah::first();
       //dd($info);
-      return view('user.hadiah.editgift', compact('info'));
+      return view('user.hadiah.editgift', compact('info','nilaiHadiah'));
     }
 
   public function add(array $data, $uploaded_gambar_hadiah){
@@ -28,7 +30,7 @@ class GiftController extends Controller
       $sedang_proses= "Sedang Diproses";
 
 
-  
+
       return Gift::create([
         'jabatan' => $data['jabatan'],
         'jenis_gift' => $data['jenis_hadiah'],

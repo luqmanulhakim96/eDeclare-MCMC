@@ -8,7 +8,7 @@
             <!-- basic light table card -->
             <div class="card rounded-lg" >
                 <div class="card-body">
-                    <div class="card-title">Senarai Sejarah Penerimaan Hadiah lebih RM 100</div>
+                    <div class="card-title">Senarai Sejarah Penerimaan Hadiah lebih RM {{ $nilaiHadiah ->nilai_hadiah }}</div>
                     <!-- Description -->
                     <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
                     <!-- Table -->
@@ -50,7 +50,7 @@
 
                                   <td>
                                     @if($data ->status == "Sedang Diproses")
-                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>                                
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                      @elseif($data ->status == "Diterima")
                                      <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                      @elseif($data ->status == "Tidak Lengkap")

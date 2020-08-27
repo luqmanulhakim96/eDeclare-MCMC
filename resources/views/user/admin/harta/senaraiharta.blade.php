@@ -11,7 +11,7 @@
   <div class="small-cards mt-5 mb-4">
       <div class="row">
           <!-- Col sm 6, col md 6, col lg 3 -->
-          <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.senaraiformB')}}">
+          <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.listB.senaraiformB')}}">
               <!-- Card -->
               <div class="card border-0 rounded-lg">
                   <!-- Card body -->
@@ -35,7 +35,7 @@
           </a>
 
           <!-- Col sm 6, col md 6, col lg 3 -->
-          <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.senaraiformC')}}">
+          <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.listC.senaraiformC')}}">
               <!-- Card -->
               <div class="card border-0 rounded-lg">
                   <!-- Card body -->
@@ -59,7 +59,7 @@
           </a>
       <br>
       <!-- Col sm 6, col md 6, col lg 3 -->
-      <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.senaraiformD')}}">
+      <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.listD.senaraiformD')}}">
           <!-- Card -->
           <div class="card border-0 rounded-lg">
               <!-- Card body -->
@@ -82,7 +82,7 @@
           </div>
       </a>
 
-      <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.senaraiformG')}}">
+      <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.listG.senaraiformG')}}">
           <!-- Card -->
           <div class="card border-0 rounded-lg">
               <!-- Card body -->

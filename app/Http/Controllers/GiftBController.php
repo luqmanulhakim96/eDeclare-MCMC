@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\GiftB;
 use DB;
 use Auth;
+use App\NilaiHadiah;
 
 use App\Notifications\Gift\UserGiftAdminB;
 
@@ -14,14 +15,15 @@ class GiftBController extends Controller
 {
     //
     public function giftBaru(){
-
-      return view('user.hadiah.giftB');
+      $nilaiHadiah = NilaiHadiah::first();
+      return view('user.hadiah.giftB', compact('nilaiHadiah'));
   }
   public function editHadiah($id){
       //$info = SenaraiHarga::find(1);
       $info = GiftB::findOrFail($id);
+      $nilaiHadiah = NilaiHadiah::first();
       //dd($info);
-      return view('user.hadiah.editgiftB', compact('info'));
+      return view('user.hadiah.editgiftB', compact('info','nilaiHadiah'));
     }
 
 

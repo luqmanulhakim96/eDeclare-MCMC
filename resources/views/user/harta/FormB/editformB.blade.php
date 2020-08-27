@@ -10,15 +10,6 @@
                    <h5 class="font-weight-normal">Lampiran B: Borang Perisytiharan Harta</h5>
                </div>
 
-               @if ($errors->any())
-              <div class="alert alert-danger">
-                  <ul>
-                      @foreach ($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                      @endforeach
-                  </ul>
-              </div>
-              @endif
 
                <!-- All Basic Form elements -->
                <div class="row">
@@ -724,4 +715,5 @@
                       </div>
                </div>
            </div>
+          </div>
 @endsection

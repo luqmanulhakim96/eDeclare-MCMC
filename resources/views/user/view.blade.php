@@ -12,6 +12,101 @@
                 </div>
                 <br>
                 <br>
+                <div class="small-cards mt-5 mb-4">
+                    <div class="row">
+                        <!-- Col sm 6, col md 6, col lg 3 -->
+                        <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
+                            <!-- Card -->
+                            <div class="card border-0 rounded-lg">
+                                <!-- Card body -->
+                                <div class="card-body">
+
+                                    <div class="d-flex flex-row justify-content-center align-items-center">
+                                        <!-- Icon -->
+                                        <div class="small-card-icon">
+                                            <i class="far fa-user-circle card-icon-bg-primary fa-4x"></i>
+                                        </div>
+                                        <!-- Text -->
+                                        <div class="small-card-text w-100 text-center">
+                                            <p class="font-weight-normal m-0 text-muted">Jumlah Perisytiharan Harta</p>
+                                            <h4 class="font-weight-normal m-0 text-primary">{{$listB}}</h4>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Col sm 6, col md 6, col lg 3 -->
+                        <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
+                            <!-- Card -->
+                            <div class="card border-0 rounded-lg">
+                                <!-- Card body -->
+                                <div class="card-body">
+
+                                    <div class="d-flex flex-row justify-content-center align-items-center">
+                                        <!-- Icon -->
+                                        <div class="small-card-icon">
+                                            <i class="fas fa-coins card-icon-bg-primary fa-4x"></i>
+                                        </div>
+                                        <!-- Text -->
+                                        <div class="small-card-text w-100 text-center">
+                                            <p class="font-weight-normal m-0 text-muted">Jumlah Pelupusan Harta</p>
+                                            <h4 class="font-weight-normal m-0 text-primary">{{$listC}}</h4>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Col sm 6, col md 6, col lg 3 -->
+                        <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
+                            <!-- Card -->
+                            <div class="card border-0 rounded-lg">
+                                <!-- Card body -->
+                                <div class="card-body">
+
+                                    <div class="d-flex flex-row justify-content-center align-items-center">
+                                        <!-- Icon -->
+                                        <div class="small-card-icon">
+                                            <i class="fas fa-shopping-basket card-icon-bg-primary fa-4x"></i>
+                                        </div>
+                                        <!-- Text -->
+                                        <div class="small-card-text w-100 text-center">
+                                            <p class="font-weight-normal m-0 text-muted">Jumlah Perisytiharan Syarikat</p>
+                                            <h4 class="font-weight-normal m-0 text-primary">{{$listD}}</h4>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Col sm 6, col md 6, col lg 3 -->
+                        <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
+                            <!-- Card -->
+                            <div class="card border-0 rounded-lg">
+                                <!-- Card body -->
+                                <div class="card-body">
+
+                                    <div class="d-flex flex-row justify-content-center align-items-center">
+                                        <!-- Icon -->
+                                        <div class="small-card-icon">
+                                            <i class="far fa-money-bill-alt card-icon-bg-primary fa-4x"></i>
+                                        </div>
+                                        <!-- Text -->
+                                        <div class="small-card-text w-100 text-center">
+                                            <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah Perisytiharan Saham</p>
+                                            <h4 class="font-weight-normal m-0 text-primary">{{$listG}}</h4>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
 
                 <div class="card-title" align="center"><b>TATACARA PENGGUNAAN UNTUK MENGISI PERMOHONAN</b></div>
                 <div class="card rounded-lg">
@@ -43,7 +138,7 @@
                                         <!-- Text -->
                                         <div class="small-card-text w-100 text-center">
                                           <i><img src="{{ asset('qbadminui/img/prize_A icon.png') }}" alt="img" class="w-50"></i>
-                                            <p class="font-weight-normal m-0 text-muted">Penerimaan Hadiah bernilai atas dari RM 100</p>
+                                            <p class="font-weight-normal m-0 text-muted">Penerimaan Hadiah bernilai atas dari RM {{$nilai_hadiah->nilai_hadiah}}</p>
                                         </div>
                                     </div>
 
@@ -63,7 +158,7 @@
                                       <!-- Text -->
                                       <div class="small-card-text w-100 text-center">
                                           <i><img src="{{ asset('qbadminui/img/prize_B icon.png') }}" alt="img" class="w-50"></i>
-                                          <p class="font-weight-normal m-0 text-muted">Penerimaan Hadiah bawah dari RM 100</p>
+                                          <p class="font-weight-normal m-0 text-muted">Penerimaan Hadiah bawah dari RM {{$nilai_hadiah->nilai_hadiah}}</p>
                                       </div>
                                   </div>
 

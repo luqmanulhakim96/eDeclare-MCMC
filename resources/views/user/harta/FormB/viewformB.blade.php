@@ -230,12 +230,12 @@
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div align="center">
                                                 <!-- <input class="form-control bg-light" type="text" name="pendapatan_pegawai" value="{{ old('pendapatan_pegawai')}}"> -->
-                                                {{ $listHarta ->pendapatan_pegawai }}
+                                                <b>{{ $listHarta ->pendapatan_pegawai }}</b>
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="pendapatan_pasangan" value="{{ old('pendapatan_pasangan')}}"> -->
-                                            {{ $listHarta ->pendapatan_pasangan }}
+                                            <b>{{ $listHarta ->pendapatan_pasangan }}</b>
                                         </div>
                                       </div>
                                       <br>
@@ -438,13 +438,22 @@
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
+                                          <p>Pemilik Harta</p>
                                         </div>
-                                        <div class="col-md-4">
-                                          <!-- <input class="form-control bg-light" type="text" name="pemilik_harta" placeholder="Nama Pemilik Sebelum" value="{{ old('pemilik_harta')}}"> -->
+                                        <div class="col-md-8">
+                                          @if('{{ $listHarta ->tarikh_lupus }}' == !null)
                                           {{ $listHarta ->pemilik_harta }}
+                                          @else
+                                          <p>Tiada</p>
+                                          @endif
                                         </div>
-                                        <div class="col-md-4">
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                          <div class="col-md-4">
+                                            <p> Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
+                                          </div>
+                                        <div class="col-md-8">
                                             {{ $listHarta ->hubungan_pemilik }}
                                         </div>
                                       </div>
@@ -490,15 +499,18 @@
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Cara Dan Dari Siapa Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
+                                          <p>Cara Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
                                         </div>
                                         <div class="col-md-4">
                                             {{ $listHarta ->cara_perolehan }}
                                         </div>
-                                        <!-- <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="cara_perolehan" value="{{ session()->get('asset.cara_perolehan') }}">
-                                        </div> -->
-                                        <div class="col-md-4">
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                          <div class="col-md-4">
+                                            <p>Dari Siapa Harta Diperolehi</p>
+                                          </div>
+                                        <div class="col-md-8">
                                           <!-- <input class="form-control bg-light" type="text" name="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum" value="{{ old('nama_pemilikan_asal')}}"> -->
                                             {{ $listHarta ->nama_pemilikan_asal }}
                                         </div>
@@ -605,8 +617,11 @@
                                           <p>iv) Harga Jualan</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="harga_jualan" value="{{ old('harga_jualan')}}"> -->
+                                          @if('{{ $listHarta ->tarikh_lupus }}' == !null)
                                           {{ $listHarta ->harga_jualan }}
+                                          @else
+                                          <p>Tiada</p>
+                                          @endif
                                         </div>
                                       </div>
                                       <br>
@@ -615,8 +630,12 @@
                                           <p>v)	Tarikh lupus</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="date" name="tarikh_lupus" value="{{ old('tarikh_lupus')}}"> -->
+
+                                          @if('{{ $listHarta ->tarikh_lupus }}' == NULL)
+                                          <p>Tiada</p>
+                                          @else
                                           {{ $listHarta ->tarikh_lupus }}
+                                          @endif
                                         </div>
                                       </div>
                                       <br>

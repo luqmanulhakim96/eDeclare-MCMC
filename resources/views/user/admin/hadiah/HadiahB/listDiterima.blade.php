@@ -18,7 +18,7 @@
             <!-- basic light table card -->
             <div class="card rounded-lg" >
                 <div class="card-body">
-                    <div class="card-title">Senarai Penerimaan Hadiah bernilai lebih dari RM 100</div>
+                    <div class="card-title">Senarai Penerimaan Hadiah bernilai lebih dari RM {{ $nilai_hadiah ->nilai_hadiah }}</div>
 
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">

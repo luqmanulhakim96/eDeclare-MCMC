@@ -163,12 +163,12 @@
                                         <div class="col-md-3">
                                           <p> 1) Gaji</p>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
+                                        <div class="col-md-4" align="center">
+
                                                 {{Auth::user()->gaji }}
-                                            </div>
+
                                         </div>
-                                        <div class="col-md-4 mt-2 mt-md-0">
+                                        <div class="col-md-4 mt-2 mt-md-0" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ old('gaji_pasangan')}}"> -->
                                             {{ $listHarta ->gaji_pasangan }}
                                         </div>
@@ -179,13 +179,13 @@
                                         <div class="col-md-3 mt-2 mt-md-0">
                                             <p> ii) Jumlah Semua Imbuhan Tetap atau Elaun</p>
                                         </div>
-                                        <div class="col-md-4 mt-2 mt-md-0">
-                                            <div class="input-group">
+                                        <div class="col-md-4 mt-2 mt-md-0" align="center">
+
                                               <!-- <input class="form-control bg-light" type="text" name="jumlah_imbuhan" placeholder="Imbuhan Pegawai" value="{{ old('jumlah_imbuhan')}}"> -->
-                                              {{ $listHarta ->jumlah_imbuhanjumlah_imbuhan }}
-                                            </div>
+                                              {{ $listHarta ->jumlah_imbuhan }}
+
                                         </div>
-                                        <div class="col-md-4 mt-2 mt-md-0">
+                                        <div class="col-md-4 mt-2 mt-md-0" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="jumlah_imbuhan_pasangan" placeholder="Imbuhan Pasangan" value="{{ old('jumlah_imbuhan_pasangan')}}"> -->
                                           {{ $listHarta ->jumlah_imbuhan_pasangan }}
                                         </div>
@@ -196,13 +196,13 @@
                                         <div class="col-md-3 mt-2 mt-md-0">
                                             <p> iii) Sewa Rumah/Kedai</p>
                                         </div>
-                                        <div class="col-md-4 mt-2 mt-md-0">
-                                            <div class="input-group">
+                                        <div class="col-md-4 mt-2 mt-md-0" align="center">
+
                                               <!-- <input class="form-control bg-light" type="text" name="sewa" placeholder="Sewa Pegawai" value="{{ old('sewa')}}"> -->
                                               {{ $listHarta ->sewa }}
-                                            </div>
+
                                         </div>
-                                        <div class="col-md-4 mt-2 mt-md-0">
+                                        <div class="col-md-4 mt-2 mt-md-0" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="sewa_pasangan" placeholder="Sewa Pasangan" value="{{ old('sewa_pasangan')}}"> -->
                                           {{ $listHarta ->sewa_pasangan }}
                                         </div>
@@ -217,19 +217,19 @@
 
                                       @foreach($listDividenG as $data)
                                       <div class="row">
-                                        <div class="col-md-3 mt-2 mt-md-0">
+                                        <div class="col-md-3 mt-2 mt-md-0" >
                                             <div class="input-group">
                                               <!-- <input class="form-control bg-light" type="text" name="dividen_1[]" placeholder="Nyatakan Dividen" value="{{ old('dividen_1[]')}}"> -->
                                               {{ $data ->dividen_1 }}
                                             </div>
                                         </div>
-                                        <div class="col-md-4 mt-2 mt-md-0">
-                                            <div class="input-group">
+                                        <div class="col-md-4 mt-2 mt-md-0" align="center">
+
                                               <!-- <input class="form-control bg-light" type="text" name="dividen_1_pegawai[]" placeholder="Dividen Pegawai" value="{{ old('dividen_1_pegawai[]')}}"> -->
                                               {{ $data ->dividen_1_pegawai }}
-                                            </div>
+
                                         </div>
-                                        <div class="col-md-4 mt-2 mt-md-0">
+                                        <div class="col-md-4 mt-2 mt-md-0" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="dividen_1_pasangan[]" placeholder="Dividen Pasangan" value="{{ old('dividen_1_pasangan[]')}}"> -->
                                           {{ $data ->dividen_1_pasangan }}
                                         </div>
@@ -237,22 +237,18 @@
                                       </div>
                                       <br>
                                       @endforeach
-                                      </div>
 
                                       <!-- jumlah pendapatan -->
                                       <div class="row">
                                         <div class="col-md-3 mt-2 mt-md-0">
                                           <p><b>JUMLAH</b></p>
                                         </div>
-                                        <div class="col-md-4 mt-2 mt-md-0">
-                                            <div class="input-group">
-                                              <!-- <input class="form-control bg-light" type="text" name="pendapatan_pegawai" value="{{ old('pendapatan_pegawai')}}"> -->
-                                              {{ $listHarta ->pendapatan_pegawai }}
-                                            </div>
+                                        <div class="col-md-4 mt-2 mt-md-0" align="center">
+                                          <b>{{ $listHarta ->pendapatan_pegawai }}</b>
                                         </div>
-                                        <div class="col-md-4 mt-2 mt-md-0">
+                                        <div class="col-md-4 mt-2 mt-md-0" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="pendapatan_pasangan" value="{{ old('pendapatan_pasangan')}}"> -->
-                                          {{ $listHarta ->pendapatan_pasangan }}
+                                          <b>{{ $listHarta ->pendapatan_pasangan }}</b>
                                         </div>
                                       </div>
                                       <br>
@@ -278,19 +274,19 @@
                                         <div class="col-md-3">
                                           <p>i) Jumlah Pinjaman Perumahan</p>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pegawai" value="{{ old('pinjaman_perumahan_pegawai')}}"> -->
                                           {{ $listHarta ->pinjaman_perumahan_pegawai }}
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="bulanan_perumahan_pegawai" value="{{ old('bulanan_perumahan_pegawai')}}"> -->
                                           {{ $listHarta ->bulanan_perumahan_pegawai }}
                                         </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pasangan" value="{{ old('pinjaman_perumahan_pasangan')}}"> -->
                                             {{ $listHarta ->pinjaman_perumahan_pasangan }}
                                           </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="bulanan_perumahan_pasangan" value="{{ old('bulanan_perumahan_pasangan')}}"> -->
                                             {{ $listHarta ->bulanan_perumahan_pasangan }}
                                         </div>
@@ -302,22 +298,22 @@
                                         <div class="col-md-3">
                                           <p>ii) Jumlah Pinjaman Kenderaan</p>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pegawai" value="{{ old('pinjaman_kenderaan_pegawai')}}"> -->
                                           {{ $listHarta ->pinjaman_kenderaan_pegawai }}
 
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pegawai" value="{{ old('bulanan_kenderaan_pegawai')}}"> -->
                                           {{ $listHarta ->bulanan_kenderaan_pegawai }}
 
                                         </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pasangan" value="{{ old('pinjaman_kenderaan_pasangan')}}"> -->
                                             {{ $listHarta ->pinjaman_kenderaan_pasangan }}
 
                                           </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pasangan" value="{{ old('bulanan_kenderaan_pasangan')}}"> -->
                                             {{ $listHarta ->bulanan_kenderaan_pasangan }}
 
@@ -329,22 +325,22 @@
                                         <div class="col-md-3">
                                           <p>iii) Cukai Pendapatan</p>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="jumlah_cukai_pegawai" value="{{ old('jumlah_cukai_pegawai')}}"> -->
                                           {{ $listHarta ->jumlah_cukai_pegawai }}
 
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="bulanan_cukai_pegawai" value="{{ old('bulanan_cukai_pegawai')}}"> -->
                                           {{ $listHarta ->bulanan_cukai_pegawai }}
 
                                         </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="jumlah_cukai_pasangan" value="{{ old('jumlah_cukai_pasangan')}}"> -->
                                             {{ $listHarta ->jumlah_cukai_pasangan }}
 
                                           </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="bulanan_cukai_pasangan" value="{{ old('bulanan_cukai_pasangan')}}"> -->
                                             {{ $listHarta ->bulanan_cukai_pasangan }}
 
@@ -356,21 +352,21 @@
                                         <div class="col-md-3">
                                           <p>iv) Pinjaman Koperasi</p>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="jumlah_koperasi_pegawai" value="{{ old('jumlah_koperasi_pegawai')}}"> -->
                                           {{ $listHarta ->jumlah_koperasi_pegawai }}
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="bulanan_koperasi_pegawai" value="{{ old('bulanan_koperasi_pegawai')}}"> -->
                                           {{ $listHarta ->bulanan_koperasi_pegawai }}
 
                                         </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="jumlah_koperasi_pasangan" value="{{ old('jumlah_koperasi_pasangan')}}"> -->
                                             {{ $listHarta ->jumlah_koperasi_pasangan }}
 
                                           </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="bulanan_koperasi_pasangan" value="{{ old('bulanan_koperasi_pasangan')}}"> -->
                                             {{ $listHarta ->bulanan_koperasi_pasangan }}
 
@@ -392,19 +388,19 @@
                                           <!-- <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman" value="{{ old('lain_lain_pinjaman[]')}}"> -->
                                           {{ $datas ->lain_lain_pinjaman }}
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="pinjaman_pegawai[]" value="{{ old('pinjaman_pegawai[]')}}"> -->
                                           {{ $datas ->pinjaman_pegawai }}
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="bulanan_pegawai[]" value="{{ old('bulanan_pegawai[]')}}"> -->
                                           {{ $datas ->bulanan_pegawai }}
                                         </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="pinjaman_pasangan[]" value="{{ old('pinjaman_pasangan[]')}}"> -->
                                             {{ $datas ->pinjaman_pasangan }}
                                           </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="bulanan_pasangan[]" value="{{ old('bulanan_pasangan[]')}}"> -->
                                             {{ $datas ->bulanan_pasangan }}
                                         </div>
@@ -420,22 +416,22 @@
                                         <div class="col-md-3">
                                           <p><b>JUMLAH</b></p>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pegawai" value="{{ old('jumlah_pinjaman_pegawai')}}"> -->
                                           {{ $listHarta ->jumlah_pinjaman_pegawai }}
 
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="jumlah_bulanan_pegawai" value="{{ old('jumlah_pinjaman_pegawai')}}"> -->
                                           {{ $listHarta ->jumlah_bulanan_pegawai }}
 
                                         </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pasangan" value="{{ old('jumlah_pinjaman_pegawai')}}"> -->
                                             {{ $listHarta ->jumlah_pinjaman_pasangan }}
 
                                           </div>
-                                          <div class="col-md-2">
+                                          <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="jumlah_bulanan_pasangan" value="{{ old('jumlah_pinjaman_pegawai')}}"> -->
                                             {{ $listHarta ->jumlah_bulanan_pasangan }}
 
@@ -761,13 +757,13 @@
 
 
 
-                                      <div class="row">
+                                      <!-- <div class="row">
                                           <div class="col-md-12">
                                             <input type="checkbox" name="pengakuan" value="pengakuan_pegawai" >
                                             <label for="pengakuan"> Saya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah lengkap dan benar.</label><br>
                                             <label> Dengan ini saya memohon kelulusan untuk memiliki tanah/saham* seperti yang dinyatakan di atas dan berjanji akan mematuhi syarat-syarat yang ditetapkan.</label><br>
                                           </div>
-                                      </div>
+                                      </div> -->
                                   <!-- button -->
                                      <div class="row">
                                       <div class="col-md-2">
