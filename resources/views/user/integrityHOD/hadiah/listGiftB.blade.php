@@ -4,13 +4,7 @@
 
 <div class="page-body p-4 text-dark">
   <!-- <div class="card-body"> -->
-        <div class="buttons">
-          <div class="btn-group">
-            <button class="btn btn-outline-dark">Diproses ke Ketua Bahagian</button>
-            <button class="btn btn-outline-dark">Tidak Lengkap</button>
-            <button class="btn btn-outline-dark">Tidak Diterima</button>
-          </div>
-        </div>
+        
   <!-- </div> -->
 <div class="row mt-10">
         <!-- Col md 6 -->
@@ -18,7 +12,7 @@
             <!-- basic light table card -->
             <div class="card rounded-lg" >
                 <div class="card-body">
-                    <div class="card-title">Senarai Penerimaan Hadiah bawah RM 100</div>
+                    <div class="card-title">Senarai Penerimaan Hadiah bawah RM {{ $nilai_hadiah ->nilai_hadiah }}</div>
                     <!-- Description -->
                     <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
                     <!-- Table -->

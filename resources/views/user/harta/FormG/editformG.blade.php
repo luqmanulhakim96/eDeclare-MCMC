@@ -5,15 +5,7 @@
                <div class="page-heading border-bottom d-flex flex-row">
                    <h5 class="font-weight-normal">Lampiran G: Permohonan bagi mendapatkan kebenaran untuk memohon dan memiliki saham</h5>
                </div>
-               @if ($errors->any())
-              <div class="alert alert-danger">
-                  <ul>
-                      @foreach ($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                      @endforeach
-                  </ul>
-              </div>
-              @endif
+
 
                <!-- All Basic Form elements -->
                <div class="row">
@@ -45,31 +37,31 @@
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>Tarikh Lantikan Ke Perkhidmatan Sekarang</p>
+                                          <p class="required">Tarikh Lantikan Ke Perkhidmatan Sekarang</p>
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="date" class="form-control bg-light" name="tarikh_lantikan" placeholder="Tarikh Lantikan Ke Perkhidmatan Sekarang" value="{{ $info->tarikh_lantikan  }}">
+                                              <input type="date" class="form-control bg-light" name="tarikh_lantikan" placeholder="Tarikh Lantikan Ke Perkhidmatan Sekarang" value="{{ $info->tarikh_lantikan  }}" required>
                                           </div>
                                       </div>
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>Nama Perkhidmatan</p>
+                                          <p class="required">Nama Perkhidmatan</p>
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" name="nama_perkhidmatan" placeholder="Nama Perkhidmatan" value="{{ $info->nama_perkhidmatan  }}">
+                                              <input type="text" class="form-control bg-light" name="nama_perkhidmatan" placeholder="Nama Perkhidmatan" value="{{ $info->nama_perkhidmatan  }}" required>
                                           </div>
                                       </div>
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>Kumpulan Perkhidmatan,Gred/ Tingkatan Hakiki dan Gelaran Jawatan</p>
+                                          <p class="required">Kumpulan Perkhidmatan,Gred/ Tingkatan Hakiki dan Gelaran Jawatan</p>
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" name="gelaran" placeholder="Kumpulan Perkhidmatan,Gred/ Tingkatan Hakiki dan Gelaran Jawatan" value="{{ $info->gelaran  }}">
+                                              <input type="text" class="form-control bg-light" name="gelaran" placeholder="Kumpulan Perkhidmatan,Gred/ Tingkatan Hakiki dan Gelaran Jawatan" value="{{ $info->gelaran  }}" required>
                                           </div>
                                       </div>
                                   </div>
@@ -619,47 +611,47 @@
                                       </div>
                                       <div class="row">
                                           <div class="col-md-4">
-                                            <p>Luas</p>
+                                            <p class="required">Luas</p>
                                           </div>
                                           <div class="col-md-8">
                                               <div class="form-group">
-                                                  <input type="text" class="form-control bg-light" name="luas" placeholder="Luas" value="{{ $info->luas  }}">
+                                                  <input type="text" class="form-control bg-light" name="luas" placeholder="Luas" value="{{ $info->luas  }}" required>
                                               </div>
                                           </div>
                                       </div>
                                       <div class="row">
                                           <div class="col-md-4">
-                                            <p>No.Lot</p>
+                                            <p class="required">No.Lot</p>
                                           </div>
                                           <div class="col-md-8">
                                               <div class="form-group">
-                                                  <input type="text" class="form-control bg-light" name="lot" placeholder="No. Lot" value="{{ $info->lot  }}">
+                                                  <input type="text" class="form-control bg-light" name="lot" placeholder="No. Lot" value="{{ $info->lot  }}" required>
                                               </div>
                                           </div>
                                       </div>
                                       <div class="row">
                                           <div class="col-md-4">
-                                            <p>Mukim</p>
+                                            <p class="required">Mukim</p>
                                           </div>
                                           <div class="col-md-8">
                                               <div class="form-group">
-                                                  <input type="text" class="form-control bg-light" name="mukim" placeholder="Mukim" value="{{ $info->mukim  }}">
+                                                  <input type="text" class="form-control bg-light" name="mukim" placeholder="Mukim" value="{{ $info->mukim  }}" required>
                                               </div>
                                           </div>
                                       </div>
                                       <div class="row">
                                           <div class="col-md-4">
-                                            <p>Negeri</p>
+                                            <p class="required">Negeri</p>
                                           </div>
                                           <div class="col-md-8">
                                               <div class="form-group">
-                                                  <input type="text" class="form-control bg-light" name="negeri" placeholder="Negeri" value="{{ $info->negeri  }}">
+                                                  <input type="text" class="form-control bg-light" name="negeri" placeholder="Negeri" value="{{ $info->negeri  }}" required>
                                               </div>
                                           </div>
                                       </div>
                                       <div class="row">
                                           <div class="col-md-4">
-                                            <p>Jenis Tanah</p>
+                                            <p class="required">Jenis Tanah</p>
                                           </div>
                                           <div class="col-md-8">
                                             <input type="radio" id="pertanian" name="jenis_tanah" value="pertanian" {{ $info->jenis_tanah == "pertanian" ? 'checked' : '' }}>
@@ -677,51 +669,51 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-4">
-                                          <p>Nama Syarikat</p>
+                                          <p class="required">Nama Syarikat</p>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" name="nama_syarikat" placeholder="Nama Syarikat" value="{{ $info->nama_syarikat  }}">
+                                                <input type="text" class="form-control bg-light" name="nama_syarikat" placeholder="Nama Syarikat" value="{{ $info->nama_syarikat  }}" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                          <p>Modal Berbayar (Paid Up Capital)</p>
+                                          <p class="required">Modal Berbayar (Paid Up Capital)</p>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" name="modal_berbayar" placeholder="Modal Berbayar (Paid Up Capital)" value="{{ $info->modal_berbayar  }}">
+                                                <input type="text" class="form-control bg-light" name="modal_berbayar" placeholder="Modal Berbayar (Paid Up Capital)" value="{{ $info->modal_berbayar  }}" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                          <p>Jumlah Unit Nilai Saham Sumber Kewangan</p>
+                                          <p class="required">Jumlah Unit Nilai Saham Sumber Kewangan</p>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" name="jumlah_unit_saham" placeholder="Jumlah Unit" value="{{ $info->jumlah_unit_saham  }}">
+                                                <input type="text" class="form-control bg-light" name="jumlah_unit_saham" placeholder="Jumlah Unit" value="{{ $info->jumlah_unit_saham  }}" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                          <p>Nilai Saham</p>
+                                          <p class="required">Nilai Saham</p>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" name="nilai_saham" placeholder="Nilai Saham" value="{{ $info->nilai_saham  }}">
+                                                <input type="text" class="form-control bg-light" name="nilai_saham" placeholder="Nilai Saham" value="{{ $info->nilai_saham  }}" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                          <p>Sumber Kewangan</p>
+                                          <p class="required">Sumber Kewangan</p>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" name="sumber_kewangan" placeholder="Sumber Kewangan" value="{{ $info->sumber_kewangan  }}">
+                                                <input type="text" class="form-control bg-light" name="sumber_kewangan" placeholder="Sumber Kewangan" value="{{ $info->sumber_kewangan  }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -795,7 +787,7 @@
                                       <div class="col-md-8">
                                       </div>
                                       <div class="col-md-2">
-                                        <button type="submit" class="btn btn-primary mt-4">Hantar</button>
+                                        <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
                                     <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
                                       </div>
                                 </div>

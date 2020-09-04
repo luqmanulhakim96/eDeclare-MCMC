@@ -155,7 +155,7 @@
                                                 <label for="Proses ke Ketua Jabatan Integriti">Proses ke Ketua Jabatan Integriti</label><br><br>
                                            <!-- button -->
                                            <div class="col-md-2">
-                                             <button type="submit" class="btn btn-primary mt-4">Hantar</button>
+                                             <button type="submit" onclick=" return confirm('Hantar Ulasan?');" class="btn btn-primary mt-4">Hantar</button>
                                            </div>
                                        </form>
                                     </div>

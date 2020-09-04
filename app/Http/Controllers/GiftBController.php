@@ -8,6 +8,8 @@ use App\GiftB;
 use DB;
 use Auth;
 use App\NilaiHadiah;
+use App\JenisHadiah;
+use App\User;
 
 use App\Notifications\Gift\UserGiftAdminB;
 
@@ -16,14 +18,16 @@ class GiftBController extends Controller
     //
     public function giftBaru(){
       $nilaiHadiah = NilaiHadiah::first();
-      return view('user.hadiah.giftB', compact('nilaiHadiah'));
+      $jenisHadiah = JenisHadiah::get();
+      return view('user.hadiah.giftB', compact('nilaiHadiah','jenisHadiah'));
   }
   public function editHadiah($id){
       //$info = SenaraiHarga::find(1);
       $info = GiftB::findOrFail($id);
       $nilaiHadiah = NilaiHadiah::first();
+      $jenisHadiah = JenisHadiah::get();
       //dd($info);
-      return view('user.hadiah.editgiftB', compact('info','nilaiHadiah'));
+      return view('user.hadiah.editgiftB', compact('info','nilaiHadiah','jenisHadiah'));
     }
 
 
@@ -59,7 +63,7 @@ class GiftBController extends Controller
         'alamat_pemberi'=> ['required', 'string'],
         'hubungan_pemberi'=> ['required', 'string'],
         'sebab_diberi'=> ['required', 'string'],
-        'gambar_hadiah'=> ['required','max:100000','mimes:jpeg,jpg,png'],
+        'gambar_hadiah'=> ['required','max:100000'],
       ]);
   }
 
@@ -89,7 +93,7 @@ class GiftBController extends Controller
       return redirect()->route('user.hadiah.senaraihadiahB');
   }
 
-  public function update($id){
+  public function update($id,$uploaded_gambar_hadiah){
     $giftbs = GiftB::find($id);
     $giftbs->jabatan = request()->jabatan;
     $giftbs->jenis_gift = request()->jenis_hadiah;
@@ -97,16 +101,17 @@ class GiftBController extends Controller
     $giftbs->tarikh_diterima = request()->tarikh_diterima;
     $giftbs->alamat_pemberi = request()->alamat_pemberi;
     $giftbs->hubungan_pemberi = request()->hubungan_pemberi;
-    $giftbs->sebab_gift = request()->sebab_hadiah;
-    $giftbs->gambar_gift = request()->gambar_hadiah;
+    $giftbs->sebab_gift = request()->sebab_diberi;
+    $giftbs->gambar_gift = $uploaded_gambar_hadiah;
     $giftbs->save();
   }
 
-  public function updateHadiah($id){
+  public function updateHadiah(Request $request,$id){
     $this->validator(request()->all())->validate();
     //dd($request->all());
+    $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
 
-    $this->update($id);
+    $this->update($id,$uploaded_gambar_hadiah);
     return redirect()->route('user.hadiah.senaraihadiahB');
   }
 }

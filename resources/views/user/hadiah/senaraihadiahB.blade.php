@@ -25,7 +25,7 @@
                                   <th class="all" width="30%"><p>Hubungan Pemberi</p></th>
                                   <th class="all" width="70%"><p class="all">Gambar Hadiah</p></th>
                                   <th class="all" width="30%"><p>Status Penerimaan Hadiah</p></th>
-                                  <th class="all" width="30%"><p>Edit/Padam</p></th>
+                                  <th class="all" width="30%"><p>Edit</p></th>
                                 </tr>
                             </thead>
                             <tbody align="center">
@@ -45,11 +45,28 @@
                                         </button>
                                   </td>
                                   <!-- <td>$image_path</td> -->
-                                  <td><span class="badge badge-success badge-pill">Selesai</span></td>
+                                  <td>
+                                    @if($data ->status == "Sedang Diproses")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                     @elseif($data ->status == "Diterima")
+                                     <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
+                                     @elseif($data ->status == "Tidak Lengkap")
+                                     <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
+                                     @elseif($data ->status == "Tidak Diterima")
+                                     <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
+                                     @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                     @elseif($data ->status == "Proses ke Ketua Bahagian")
+                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                     @endif
+                                  </td>
                                   <td class="p-3">
                                   <div class="d-flex flex-row justify-content-around align-items-center">
+                                    @if($data ->status == "Sedang Diproses")
                                       <a href="{{ route('user.hadiah.editgiftB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="{{ route('giftB.delete', $data->id) }}" class="btn btn-danger" onclick=" return confirm('Padam maklumat?');"><i class="fas fa-times-circle"></i></a>
+                                      @else
+                                      <a class="btn btn-light mr-1" disabled ><i class="fas fa-pencil-alt"></i></a>
+                                      @endif
                                   </div>
                                   </td>
                                 </tr>

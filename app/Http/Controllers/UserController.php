@@ -37,19 +37,20 @@ class UserController extends Controller
   public function index()
   {
       // $user = User::find(1);
-      $user = User::find(1);
+      // $user = User::find(1);
       $nilai_hadiah = NilaiHadiah::first();
-      $listB = FormB::where('user_id', $user->id)->count();
-      $listC = FormC::where('user_id', $user->id)->count();
-      $listD = FormD::where('user_id', $user->id)->count();
-      $listG = FormG::where('user_id', $user->id)->count();
+      $userid = Auth::user()->id;
+      $listB = FormB::where('user_id', $userid)->count();
+      $listC = FormC::where('user_id', $userid)->count();
+      $listD = FormD::where('user_id', $userid)->count();
+      $listG = FormG::where('user_id', $userid)->count();
       // dd($listHadiah);
       // dd($user);
       // dd($user[0]->name);
       // $full_name = preg_split("/\s+/", Auth::user()->name);
       // $short_name = $full_name[0]." ".$full_name[1];
       // dd($short_name);
-      return view('user.view', compact('user','nilai_hadiah','listB','listC','listD','listG'));
+      return view('user.view', compact('nilai_hadiah','listB','listC','listD','listG'));
   }
 
   public function addAsset(array $data)

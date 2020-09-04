@@ -66,6 +66,8 @@
                                     <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
                                     @elseif($data ->status == "Tidak Diterima")
                                     <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
+                                    @elseif($data ->status == "Proses ke Ketua Bahagian")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                     @endif
                                   </td>
                                   <td class="p-3">

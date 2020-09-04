@@ -74,79 +74,79 @@
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                        <p>i) Nama Syarikat / Perniagaan</p>
+                                        <p class="required">i) Nama Syarikat / Perniagaan</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="nama_syarikat" placeholder="Nama Syarikat/Perniagaan" value="{{ $info->nama_syarikat  }}">
+                                        <input class="form-control bg-light" type="text" name="nama_syarikat" placeholder="Nama Syarikat/Perniagaan" value="{{ $info->nama_syarikat  }}" required>
                                       </div>
                                   </div>
                                       <br>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>ii) No. Pendaftaran</p>
+                                          <p class="required">ii) No. Pendaftaran</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_syarikat" placeholder="No Pendaftaran Syarikat/Perniagaan" value="{{ $info->no_pendaftaran_syarikat  }}">
+                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_syarikat" placeholder="No Pendaftaran Syarikat/Perniagaan" value="{{ $info->no_pendaftaran_syarikat  }}" required>
                                       </div>
                                   </div>
                                   <br>
                                     <div class="row">
                                       <div class="col-md-4">
-                                          <p>iii) Alamat Syarikat / Perniagaan</p>
+                                          <p class="required">iii) Alamat Syarikat / Perniagaan</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="alamat_syarikat" placeholder="Alamat Syarikat / Perniagaan" value="{{ $info->alamat_syarikat  }}">
+                                          <input class="form-control bg-light" type="text" name="alamat_syarikat" placeholder="Alamat Syarikat / Perniagaan" value="{{ $info->alamat_syarikat  }}" required>
                                       </div>
                                   </div>
                                   <br>
                                   <div class="row">
                                     <div class="col-md-4">
-                                        <p>iv) Jenis Syarikat / Perniagaan</p>
+                                        <p class="required">iv) Jenis Syarikat / Perniagaan</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="jenis_syarikat" placeholder="Jenis Syarikat / Perniagaan" value="{{ $info->jenis_syarikat  }}">
+                                        <input class="form-control bg-light" type="text" name="jenis_syarikat" placeholder="Jenis Syarikat / Perniagaan" value="{{ $info->jenis_syarikat  }}" required>
                                     </div>
                                   </div>
                                   <br>
                                   <div class="row">
                                     <div class="col-md-4">
-                                        <p>v) Pulangan Perniagaan Tahunan</p>
+                                        <p class="required">v) Pulangan Perniagaan Tahunan</p>
                                     </div>
                                     <div class="col-md-8">
-                                       <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ $info->pulangan_tahunan  }}">
+                                       <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ $info->pulangan_tahunan  }}" required>
                                     </div>
                                  </div>
                                  <br>
                                  <div class="row">
                                     <div class="col-md-4">
-                                        <p>vi) Modal Dibenarkan</p>
+                                        <p class="required">vi) Modal Dibenarkan</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ $info->modal_syarikat  }}">
+                                        <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ $info->modal_syarikat  }}" required>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row">
                                   <div class="col-md-4">
-                                      <p>vii) Modal Berbayar (Paid Up Capital)</p>
+                                      <p class="required">vii) Modal Berbayar (Paid Up Capital)</p>
                                   </div>
                                   <div class="col-md-8">
-                                      <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ $info->modal_dibayar  }}">
+                                      <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ $info->modal_dibayar  }}" required>
                                   </div>
                                </div>
                                <br>
                                <div class="row">
                                  <div class="col-md-4">
-                                     <p>viii) Punca Kewangan Syarikat / Perniagaan</p>
+                                     <p class="required">viii) Punca Kewangan Syarikat / Perniagaan</p>
                                  </div>
                                  <div class="col-md-8">
-                                     <input class="form-control bg-light" type="text" name="punca_kewangan" placeholder=" "  value="{{ $info->punca_kewangan  }}">
+                                     <input class="form-control bg-light" type="text" name="punca_kewangan" placeholder=" "  value="{{ $info->punca_kewangan  }}" required>
                                  </div>
                               </div>
                               <br>
                               <div class="row">
                                 <div class="col-md-6">
-                                    <p>ix) Nama ahli keluarga yang terlibat dalam perniagaan / syarikat</p>
+                                    <p class="required">ix) Nama ahli keluarga yang terlibat dalam perniagaan / syarikat</p>
                                 </div>
                               </div>
                               <br>
@@ -300,7 +300,7 @@
                                   <div class="col-md-8">
                                   </div>
                                   <div class="col-md-2">
-                                    <button type="submit" class="btn btn-primary mt-4">Hantar</button>
+                                    <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
                                     <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
                                   </div>
                                 </div>

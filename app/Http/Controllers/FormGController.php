@@ -10,6 +10,7 @@ use App\PinjamanG;
 use App\Pinjaman;
 use DB;
 use Auth;
+use App\User;
 
 use App\Notifications\Form\UserFormAdminG;
 

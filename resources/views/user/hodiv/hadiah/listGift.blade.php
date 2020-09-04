@@ -4,13 +4,14 @@
 
 <div class="page-body p-4 text-dark">
   <!-- <div class="card-body"> -->
-        <div class="buttons">
-          <div class="btn-group">
-            <button class="btn btn-outline-dark">Diproses ke Ketua Bahagian</button>
-            <button class="btn btn-outline-dark">Tidak Lengkap</button>
-            <button class="btn btn-outline-dark">Tidak Diterima</button>
-          </div>
-        </div>
+  <div class="buttons">
+    <a href="{{route('user.hodiv.hadiah.listGift')}}"  class="btn btn-dark m-2">Sedang Diproses</a>
+    <a href="{{route('user.hodiv.hadiah.HadiahA.diprosesHODIV')}}"class="btn btn-light m-2">Diproses ke Pentadbir Sistem</a>
+    <a href="{{route('user.hodiv.hadiah.HadiahA.listDiterima')}}" class="btn btn-light m-2">Diterima</a>
+    <a href="{{route('user.hodiv.hadiah.HadiahA.listTidakLengkap')}}"class="btn btn-light m-2">Tidak Lengkap</a>
+    <a href="{{route('user.hodiv.hadiah.HadiahA.listTidakDiterima')}}" class="btn btn-light m-2" >Tidak Diterima</a>
+  </div>
+
   <!-- </div> -->
 <div class="row mt-10">
         <!-- Col md 6 -->
@@ -18,7 +19,7 @@
             <!-- basic light table card -->
             <div class="card rounded-lg" >
                 <div class="card-body">
-                    <div class="card-title">Senarai Penerimaan Hadiah bernilai lebih dari RM 100</div>
+                    <div class="card-title">Senarai Penerimaan Hadiah bernilai lebih dari RM {{ $nilai_hadiah ->nilai_hadiah }}</div>
                     <!-- Description -->
                     <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
                     <!-- Table -->
@@ -69,9 +70,9 @@
                                     @if($data ->status == "Sedang Diproses")
                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                     @elseif($data ->status == "Diproses ke Ketua Jabatan Integriti")
-                                    <span class="badge badge-warning badge-pill">Diproses ke Ketua Jabatan Integriti</span>
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                     @elseif($data ->status == "Tidak Lengkap")
-                                    <span class="badge badge-danger badge-pill">Tidak Lengkap</span>
+                                    <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
                                     @elseif($data ->status == "Tidak Diterima")
                                     <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
                                     @elseif($data ->status == "Diterima")

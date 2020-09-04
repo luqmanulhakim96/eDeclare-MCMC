@@ -46,7 +46,7 @@
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>Jabatan/ Bahagian</p>
+                                          <p class="required">Jabatan/ Bahagian</p>
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
@@ -62,10 +62,17 @@
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                        <p>i) Jenis</p>
+                                        <p class="required">i) Jenis</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="jenis_hadiah" id="jenis_hadiah" placeholder="Jenis Hadiah" required>
+                                        <select id="jenis_hadiah" class="custom-select  bg-light" name="jenis_hadiah" required>
+                                            <option value="" selected disabled hidden>Jenis Hadiah</option>
+                                            @foreach($jenisHadiah as $data)
+                                            @if($data->status_jenis_hadiah == "Aktif")
+                                            <option value="{{$data->jenis_gift}}">{{$data->jenis_gift}}</option>
+                                            @endif
+                                            @endforeach
+                                            </select>
                                       </div>
                                       @error('jenis_hadiah')
                                       <div class="alert alert-danger">
@@ -76,7 +83,7 @@
                                       <br>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>ii) Nilai/ Anggaran Nilai</p>
+                                          <p class="required">ii) Nilai/ Anggaran Nilai</p>
                                       </div>
                                       <div class="col-md-8">
                                           <input class="form-control bg-light" type="text" name="nilai_hadiah" id="nilai_hadiah" placeholder="Nilai Hadiah/ Anggaran Nilai" required>
@@ -90,7 +97,7 @@
                                   <br>
                                     <div class="row">
                                       <div class="col-md-4">
-                                          <p>iii) Tarikh diterima</p>
+                                          <p class="required">iii) Tarikh diterima</p>
                                       </div>
                                       <div class="col-md-8">
                                           <input class="form-control bg-light" type="date" name="tarikh_diterima" id="tarikh_diterima" placeholder="Tarikh Hadiah Diterima" required>
@@ -104,7 +111,7 @@
                                   <br>
                                   <div class="row">
                                     <div class="col-md-4">
-                                        <p>iv) Nama Pemberi</p>
+                                        <p class="required">iv) Nama Pemberi</p>
                                     </div>
                                     <div class="col-md-8">
                                         <input class="form-control bg-light" type="text" name="nama_pemberi" id="nama_pemberi" placeholder="Nama Pemberi Hadiah" required>
@@ -118,7 +125,7 @@
                                   <br>
                                   <div class="row">
                                     <div class="col-md-4">
-                                        <p>v) Alamat Pemberi</p>
+                                        <p class="required">v) Alamat Pemberi</p>
                                     </div>
                                     <div class="col-md-8">
                                        <input class="form-control bg-light" type="text" name="alamat_pemberi" id="alamat_pemberi" placeholder="Alamat Pemberi" required>
@@ -132,7 +139,7 @@
                                  <br>
                                  <div class="row">
                                    <div class="col-md-4">
-                                       <p>v) Hubungan Pemberi</p>
+                                       <p class="required">v) Hubungan Pemberi</p>
                                    </div>
                                    <div class="col-md-8">
                                       <input class="form-control bg-light" type="text" name="hubungan_pemberi" id="hubungan_pemberi" placeholder="Hubungan Pemberi" required>
@@ -146,7 +153,7 @@
                                  <br>
                                  <div class="row">
                                     <div class="col-md-4">
-                                        <p>vi)Sebab Diberi</p>
+                                        <p class="required">vi)Sebab Diberi</p>
                                     </div>
                                     <div class="col-md-8">
                                         <input class="form-control bg-light" type="text" name="sebab_diberi" id="sebab_diberi" placeholder="Sebab Diberi" required>
@@ -161,7 +168,7 @@
                               <!--upload gambar hadiah-->
                               <div class="row">
                                  <div class="col-md-6">
-                                     <p><b>3. GAMBAR HADIAH YANG DITERIMA</b></p>
+                                     <p class="required"><b>3. GAMBAR HADIAH YANG DITERIMA</b></p>
                                  </div>
                               </div>
                               <div class="row">

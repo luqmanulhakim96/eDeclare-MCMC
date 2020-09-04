@@ -3,11 +3,12 @@
            <!--Page Body part -->
            <div class="page-body p-4 text-dark">
              <div class="buttons">
-               <a href="{{route('user.admin.harta.listG.senaraiformG')}}"  class="btn btn-warning m-2">Sedang Diproses</a>
+               <a href="{{route('user.admin.harta.listG.senaraiformG')}}"  class="btn btn-light m-2">Sedang Diproses</a>
                <a href="{{route('user.admin.harta.listG.ProsesHOD')}}"class="btn btn-dark m-2">Diproses ke Ketua Jabatan Integriti</a>
-               <a href="{{route('user.admin.harta.listG.Diterima')}}" class="btn btn-success m-2">Diterima</a>
-               <a href="{{route('user.admin.harta.listG.TidakLengkap')}}"class="btn btn-danger m-2">Tidak Lengkap</a>
-               <a href="{{route('user.admin.harta.listG.TidakDiterima')}}" class="btn btn-danger m-2" >Tidak Diterima</a>
+               <a href="{{route('user.admin.harta.listG.Diterima')}}" class="btn btn-light m-2">Diterima</a>
+               <a href="{{route('user.admin.harta.listG.TidakLengkap')}}"class="btn btn-light m-2">Tidak Lengkap</a>
+               <a href="{{route('user.admin.harta.listG.TidakDiterima')}}" class="btn btn-light m-2" >Tidak Diterima</a>
+               <a href="{{route('user.admin.harta.listG.upload')}}" class="btn btn-light m-2" >Proses ke Jawatankuasa Tatatertib</a>
              </div>
            <div class="row mt-10">
                    <!-- Col md 6 -->

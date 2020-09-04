@@ -502,24 +502,41 @@
                                           <p><b>5. KETERANGAN MENGENAI HARTA</b></p>
                                         </div>
                                       </div>
-                                      <div class="row">
+                                      <!-- <div class="row">
                                         <div class="col-md-4">
                                           <p>Jenis Harta</p>
                                         </div>
                                         <div class="col-md-8">
                                           <input class="form-control bg-light" type="text" name="jenis_harta"  placeholder="Jenis Harta" value="{{ $info->jenis_harta  }}">
                                         </div>
+                                      </div> -->
+                                      <div class="row">
+                                          <div class="col-md-4">
+                                            <p class="required">Jenis Harta</p>
+                                          </div>
+                                          <div class="col-md-8">
+                                            <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta" value="{{ old('jenis_harta')}}" required>
+                                                <option value="" selected disabled hidden>Jenis Harta</option>
+
+                                                @foreach($jenisHarta as $jenisharta)
+                                                @if($jenisharta->status_jenis_harta == "Aktif")
+                                                <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
+                                                @endif
+                                                @endforeach
+
+                                                </select>
+                                          </div>
                                       </div>
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
+                                          <p class="required">Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
                                         </div>
                                         <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="pemilik_harta" placeholder="Nama Pemilik Sebelum" value="{{ $info->pemilik_harta  }}">
+                                          <input class="form-control bg-light" type="text" name="pemilik_harta" placeholder="Nama Pemilik Sebelum" value="{{ $info->pemilik_harta  }}" required>
                                         </div>
                                         <div class="col-md-4">
-                                            <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik" value="{{ $info->hubungan_pemilik  }}">
+                                            <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik" value="{{ $info->hubungan_pemilik  }}" required>
                                                 <option value="" selected disabled hidden>Hubungan dengan Pemilik</option>
                                                 <option value="Sendiri" {{ $info->hubungan_pemilik == "Sendiri" ? 'selected' : '' }}>Sendiri</option>
                                                 <option value="Anak" {{ $info->hubungan_pemilik == "Anak" ? 'selected' : '' }}>Anak</option>
@@ -531,46 +548,46 @@
                                       </div>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
+                                          <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="maklumat_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->maklumat_harta  }}">
+                                          <input class="form-control bg-light" type="text" name="maklumat_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->maklumat_harta  }}" required>
                                         </div>
                                       </div>
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Tarikh Pemilikan Harta</p>
+                                          <p class="required">Tarikh Pemilikan Harta</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_pemilikan_harta"  value="{{ $info->tarikh_pemilikan_harta  }}">
+                                          <input class="form-control bg-light" type="date" name="tarikh_pemilikan_harta"  value="{{ $info->tarikh_pemilikan_harta  }}" required>
                                         </div>
                                       </div>
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
+                                          <p class="required">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="bilangan" placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}">
+                                          <input class="form-control bg-light" type="text" name="bilangan" placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}" required>
                                         </div>
                                       </div>
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Nilai Perolehan Harta (RM)</p>
+                                          <p class="required">Nilai Perolehan Harta (RM)</p>
                                         </div>
                                         <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="nilai_perolehan" value="{{ $info->nilai_perolehan  }}" placeholder="Nilai Perolehan Harta (RM)">
+                                          <input class="form-control bg-light" type="text" name="nilai_perolehan" value="{{ $info->nilai_perolehan  }}" placeholder="Nilai Perolehan Harta (RM)" required>
                                         </div>
                                       </div>
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p>Cara Dan Dari Siapa Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
+                                          <p class="required">Cara Dan Dari Siapa Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
                                         </div>
                                         <div class="col-md-4">
-                                            <select id="cara_perolehan" class="custom-select  bg-light" name="cara_perolehan" value="{{ $info->cara_perolehan  }}">
+                                            <select id="cara_perolehan" class="custom-select  bg-light" name="cara_perolehan" value="{{ $info->cara_perolehan  }}" required>
                                                 <option value="" selected disabled hidden>Cara Perolehan</option>
                                                 <option value="Dipusakai" {{ $info->cara_perolehan == "Dipusakai" ? 'selected' : '' }}>Dipusakai</option>
                                                 <option value="Dibeli" {{ $info->cara_perolehan == "Dibeli" ? 'selected' : '' }}>Dibeli</option>
@@ -588,7 +605,7 @@
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p><b>Punca-punca Kewangan Bagi Memiliki Harta Dan Jumlahnya</b></p>
+                                          <p class="required"><b>Punca-punca Kewangan Bagi Memiliki Harta Dan Jumlahnya</b></p>
                                         </div>
                                       </div>
                                       <div class="row">
@@ -707,7 +724,7 @@
                                     <div class="col-md-10">
                                     </div>
                                     <div class="col-md-2">
-                                      <button type="submit" class="btn btn-primary mt-4">Hantar</button>
+                                      <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
 
                                     </div>
                               </form>

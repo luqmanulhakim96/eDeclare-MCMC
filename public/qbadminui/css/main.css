@@ -6,7 +6,7 @@ Author's custom styles
 
 body {
   font-size: 0.8rem;
-  font-family: "Verdana", serif;
+  font-family: "Verdana", sans-serif;
 }
 
 a {
@@ -40,7 +40,7 @@ input::placeholder {
 html {
   font-size: 1em;
   line-height: 1.4;
-  font-family: "Verdana", serif !important;
+  font-family: "Verdana", sans-serif !important;
 }
 
 ::-moz-selection {
@@ -1297,7 +1297,7 @@ button.close {
 }
 
 .theme-option .side-nav-themes .side-nav-theme-primary {
-  background: linear-gradient(-154deg, #639, #33214b) !important;
+  background: linear-gradient(-154deg, #fa048fad, #0082c8) !important
 }
 
 .theme-option .side-nav-themes .side-nav-theme-light {
@@ -1307,7 +1307,7 @@ button.close {
 /* The sidebar */
 
 .side-bar {
-  background: linear-gradient(-154deg, #ff62d2, #0381ff) !important;
+  background: linear-gradient(-154deg, #fa048fad, #0082c8) !important;
   height: 100vh !important;
   width: 17rem !important;
   visibility: hidden;

@@ -171,7 +171,7 @@
                                     <!-- Basic one -->
                                      <div class="dropdown">
                                             <select id="select-1" class="custom-select  bg-light" name="hubungan[]"  value="{{ old('hubungan[]')}}">
-                                                <option value="" selected disabled hidden>Pilih Hubungan</option>
+                                                <option selected disabled hidden>Pilih Hubungan</option>
                                                 <option value="Isteri" {{ old('hubungan[]') == "Isteri" ? 'selected' : '' }}>Isteri</option>
                                                 <option value="Suami" {{ old('hubungan[]') == "Suami" ? 'selected' : '' }}>Suami</option>
                                                 <option value="Anak" {{ old('hubungan[]') == "Anak" ? 'selected' : '' }}>Anak</option>
@@ -185,7 +185,7 @@
                                     <!-- Basic one -->
                                      <div class="dropdown">
                                           <select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat[]"  value="{{ old('jawatan_syarikat[]')}}">
-                                              <option value="" selected disabled hidden>Pilih Jawatan</option>
+                                              <option selected disabled hidden>Pilih Jawatan</option>
                                               <option value="Pemilik Saham" {{ old('jawatan_syarikat[]') == "Pemilik Saham" ? 'selected' : '' }}>Pemilik Saham</option>
                                               <option value="Pengarah/ Lembaga Pengarah" {{ old('jawatan_syarikat[]') == "Pengarah/ Lembaga Pengarah" ? 'selected' : '' }}>Pengarah/ Lembaga Pengarah</option>
                                           </select>
@@ -219,9 +219,9 @@
                                   counter+
                                   ']" placeholder=" "></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="hubungan['+
                                   counter+
-                                  ']"><option value="" selected disabled hidden>Pilih Hubungan</option><option value="Isteri">Isteri</option><option value="Suami">Suami</option><option value="Anak">Anak</option><option value="Lain-Lain">Lain-Lain</option></select></div></div></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat['+
+                                  ']"><option selected disabled hidden>Pilih Hubungan</option><option value="Isteri">Isteri</option><option value="Suami">Suami</option><option value="Anak">Anak</option><option value="Lain-Lain">Lain-Lain</option></select></div></div></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat['+
                                   counter+
-                                  ']"><option value=" " selected disabled hidden>Pilih Jawatan</option><option value="Pemilik Saham">Pemilik Saham</option><option value="Pengarah/ Lembaga Pengarah">Pengarah/ Lembaga Pengarah</option></select></div></div></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="jumlah_saham['+
+                                  ']"><option selected disabled hidden>Pilih Jawatan</option><option value="Pemilik Saham">Pemilik Saham</option><option value="Pengarah/ Lembaga Pengarah">Pengarah/ Lembaga Pengarah</option></select></div></div></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="jumlah_saham['+
                                   counter+
                                   ']" placeholder=" "></div><div class="col-md-2"> <input class="form-control bg-light" type="text" name="nilai_saham['+
                                   counter+
@@ -261,7 +261,7 @@
                               <div class="row">
                                  <div class="col-md-4">
                                    <label for="dokumen_syarikat">Muatnaik Dokumen Syarikat:</label>
-                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat" aria-describedby="dokumen_syarikat" required>
+                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat" aria-describedby="dokumen_syarikat" v-validate="'required|ext:jpeg,jpg,png,pdf,doc.docx,csv,xls|size:1000'">
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
                                  </div>
                              </div>
@@ -284,7 +284,7 @@
                                   <div class="col-md-8">
                                   </div>
                                   <div class="col-md-2">
-                                    <button type="submit" class="btn btn-primary mt-4">Hantar</button>
+                                    <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
                                     <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
                                   </div>
                                 </div>

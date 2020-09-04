@@ -8,6 +8,8 @@ use App\FormC;
 use App\PinjamanB;
 use DB;
 use Auth;
+use App\User;
+use App\JenisHarta;
 
 use App\Notifications\Form\UserFormAdminC;
 
@@ -15,13 +17,15 @@ class FormCController extends Controller
 {
   public function formC()
   {
-    return view('user.harta.FormC.formC');
+    $jenisHarta = JenisHarta::get();
+    return view('user.harta.FormC.formC', compact('jenisHarta'));
   }
 public function editformC($id){
     //$info = SenaraiHarga::find(1);
     $info = FormC::findOrFail($id);
+    $jenisHarta = JenisHarta::get();
     //dd($info);
-    return view('user.harta.FormC.editformC', compact('info'));
+    return view('user.harta.FormC.editformC', compact('info','jenisHarta'));
   }
 
 public function add(array $data){

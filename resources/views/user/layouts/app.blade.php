@@ -43,7 +43,7 @@
             <!-- Brand details -->
             <div class="side-menu-brand d-flex flex-column justify-content-center align-items-center clear mt-3">
                 <img src="{{ asset('https://upload.wikimedia.org/wikipedia/commons/f/fc/SKMM-MCMC-2014.png') }}" alt="bran_name" class="brand-img" style="width:100px;height:100px;">
-                <a href="{{ route('menu-utama') }}" class="brand-name mt-2 ml-3 font-weight-bold">Asset & Gift System</a>
+                <a href="{{ route('menu-utama') }}" class="brand-name mt-2 ml-3 font-weight-bold">Sistem Perisytiharan Harta & Hadiah (e-Declare)</a>
             </div>
 
             @if(Auth::user())
@@ -226,7 +226,7 @@
                           @endif
                           <!--ITadmin-->
                           @if(Auth::user()->role == 4)
-                          <li class="side-menu-item px-3"><a href="{{ route('user.it.view') }}" class="w-100 py-3 pl-4">Dashboard</a></li>
+                          <!-- <li class="side-menu-item px-3"><a href="{{ route('user.it.view') }}" class="w-100 py-3 pl-4">Dashboard</a></li> -->
                           <!-- Sub menu parent -->
                           <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Peribadi </a></li>
                           <!-- <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Perisytiharan Peribadi </a></li> -->
@@ -413,7 +413,7 @@
                                 href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"
-                            >Sign out</a>
+                            >Log Keluar</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>

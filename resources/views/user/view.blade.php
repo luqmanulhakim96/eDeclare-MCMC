@@ -10,8 +10,6 @@
                       <div class="card-titleuser"><b>Selamat Datang Ke Portal Perisytiharan Harta dan Pemberian Hadiah Suruhanjaya Komunikasi dan Multimedia Malaysia (MCMC)</b></div>
                 </div>
                 </div>
-                <br>
-                <br>
                 <div class="small-cards mt-5 mb-4">
                     <div class="row">
                         <!-- Col sm 6, col md 6, col lg 3 -->
@@ -23,14 +21,16 @@
 
                                     <div class="d-flex flex-row justify-content-center align-items-center">
                                         <!-- Icon -->
-                                        <div class="small-card-icon">
-                                            <i class="far fa-user-circle card-icon-bg-primary fa-4x"></i>
+                                        <div class="small-card-icon w-100">
+                                          <i><img src="{{ asset('qbadminui/img/formB.png') }}" alt="img" class="w-50"></i>
                                         </div>
                                         <!-- Text -->
+                                        <a href="{{route('user.harta.FormB.senaraihartaB')}}">
                                         <div class="small-card-text w-100 text-center">
-                                            <p class="font-weight-normal m-0 text-muted">Jumlah Perisytiharan Harta</p>
+                                            <p class="font-weight-normal m-0 text-muted">Jumlah Perisytiharan Harta Pegawai</p>
                                             <h4 class="font-weight-normal m-0 text-primary">{{$listB}}</h4>
                                         </div>
+                                      </a>
                                     </div>
 
                                 </div>
@@ -46,14 +46,16 @@
 
                                     <div class="d-flex flex-row justify-content-center align-items-center">
                                         <!-- Icon -->
-                                        <div class="small-card-icon">
-                                            <i class="fas fa-coins card-icon-bg-primary fa-4x"></i>
+                                        <div class="small-card-icon w-100 ">
+                                            <i><img src="{{ asset('qbadminui/img/formC.png') }}" alt="img" class="w-50"></i>
                                         </div>
                                         <!-- Text -->
+                                        <a href="{{route('user.harta.FormC.senaraihartaC')}}">
                                         <div class="small-card-text w-100 text-center">
-                                            <p class="font-weight-normal m-0 text-muted">Jumlah Pelupusan Harta</p>
+                                            <p class="font-weight-normal m-0 text-muted">Jumlah Pelupusan Harta Pegawai</p>
                                             <h4 class="font-weight-normal m-0 text-primary">{{$listC}}</h4>
                                         </div>
+                                      </a>
                                     </div>
 
                                 </div>
@@ -69,14 +71,16 @@
 
                                     <div class="d-flex flex-row justify-content-center align-items-center">
                                         <!-- Icon -->
-                                        <div class="small-card-icon">
-                                            <i class="fas fa-shopping-basket card-icon-bg-primary fa-4x"></i>
+                                        <div class="small-card-icon w-100">
+                                            <i><img src="{{ asset('qbadminui/img/formD.png') }}" alt="img" class="w-50"></i>
                                         </div>
                                         <!-- Text -->
+                                        <a href="{{route('user.harta.FormD.senaraihartaD')}}">
                                         <div class="small-card-text w-100 text-center">
                                             <p class="font-weight-normal m-0 text-muted">Jumlah Perisytiharan Syarikat</p>
                                             <h4 class="font-weight-normal m-0 text-primary">{{$listD}}</h4>
                                         </div>
+                                      </a>
                                     </div>
 
                                 </div>
@@ -92,14 +96,17 @@
 
                                     <div class="d-flex flex-row justify-content-center align-items-center">
                                         <!-- Icon -->
-                                        <div class="small-card-icon">
-                                            <i class="far fa-money-bill-alt card-icon-bg-primary fa-4x"></i>
+                                        <div class="small-card-icon w-100">
+                                            <!-- <i class="far fa-money-bill-alt card-icon-bg-primary fa-4x"></i> -->
+                                            <i><img src="{{ asset('qbadminui/img/formG.png') }}" alt="img" class="w-50"></i>
                                         </div>
                                         <!-- Text -->
+                                        <a href="{{route('user.harta.FormG.senaraihartaG')}}">
                                         <div class="small-card-text w-100 text-center">
-                                            <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah Perisytiharan Saham</p>
+                                            <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah Perisytiharan Saham Pegawai</p>
                                             <h4 class="font-weight-normal m-0 text-primary">{{$listG}}</h4>
                                         </div>
+                                      </a>
                                     </div>
 
                                 </div>
@@ -158,6 +165,7 @@
                                       <!-- Text -->
                                       <div class="small-card-text w-100 text-center">
                                           <i><img src="{{ asset('qbadminui/img/prize_B icon.png') }}" alt="img" class="w-50"></i>
+
                                           <p class="font-weight-normal m-0 text-muted">Penerimaan Hadiah bawah dari RM {{$nilai_hadiah->nilai_hadiah}}</p>
                                       </div>
                                   </div>
@@ -231,6 +239,7 @@
                                         </div>
                                     </div>
 
+                                </div>
                                 </div>
                             </a>
                         </td>

@@ -202,11 +202,11 @@
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" onkeyup="findTotalDividenPegawai()" name="dividen_1_pegawai[0]" placeholder="Dividen Pegawai" value="{{ old('dividen_1_pegawai[]')}}" id="dividen">
+                                                <input class="form-control bg-light" oninput="findTotalDividenPegawai()" name="dividen_1_pegawai[0]" placeholder="Dividen Pegawai" id="dividen0" value="{{ old('dividen_1_pegawai[]')}}">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" onkeyup="findTotalDividenPasangan()" name="dividen_1_pasangan[0]" placeholder="Dividen Pasangan" value="{{ old('dividen_1_pasangan[]')}}" id="dividen_pasangan">
+                                            <input class="form-control bg-light" oninput="findTotalDividenPasangan()" name="dividen_1_pasangan[0]" placeholder="Dividen Pasangan" id="dividen_pasangan0" value="{{ old('dividen_1_pasangan[]')}}">
                                         </div>
                                         <div class="col-md-1">
                                           <button class="add_field_button" id="add_dividen_button">Tambah</button>
@@ -230,6 +230,46 @@
                                         </div>
                                       </div>
                                       <br>
+
+                                      <script>
+                                          function findTotalDividenPegawai(){
+                                              //cari length array dulu
+                                              // var arr = $('#dividen[0').val();
+                                              var arr = $('#counter_for_dividen').val();
+
+                                              console.log( "ni dividen before",arr);
+
+                                              arr=parseFloat(arr);
+                                              console.log( "ni dividen",arr);
+                                              var total_dividen_pegawai=0.00;
+                                              total_dividen_pegawai=parseFloat(total_dividen_pegawai);
+                                              console.log("ni panjang",arr.length);
+
+                                             for(var i=0; i<arr.length; i++) {
+                                               console.log( "dividen",arr[i].value);
+                                               if(parseFloat(arr[i].value))
+                                                total_dividen_pegawai += parseFloat(arr[i].value);
+                                             }
+                                             console.log(  "ni total", total_dividen_pegawai);
+                                             document.getElementById('total_dividen_pegawai').value = total_dividen_pegawai;
+                                           }
+                                           function findTotalDividenPasangan(){
+                                                 //cari length array dulu
+                                                 var arr = $('#dividen_pasangan').val();
+                                                 arr=parseInt(arr);
+                                                 console.log( arr);
+                                                 var total_dividen_pasangan=0.00;
+                                                 total_dividen_pasangan=parseFloat(total_dividen_pasangan);
+                                                 console.log( total_dividen_pasangan);
+
+                                                for(var i=0; i<arr.length; i++) {
+                                                  if(parseFloat(arr[i].value))
+                                                   total_dividen_pasangan += parseFloat(arr[i].value);
+
+                                              }
+                                            document.getElementById('total_dividen_pasangan').value = total_dividen_pasangan;
+                                          }
+                                      </script>
 
                                       <!-- Tanggungan -->
                                       <div class="row">
@@ -396,14 +436,33 @@
                                           <p><b>5. KETERANGAN MENGENAI HARTA</b></p>
                                         </div>
                                       </div>
-                                      <div class="row">
+                                      <!-- <div class="row">
                                         <div class="col-md-4">
                                           <p class="required">Jenis Harta</p>
                                         </div>
                                         <div class="col-md-8">
                                           <input class="form-control bg-light" type="text" name="jenis_harta"  placeholder="Jenis Harta"  value="{{ old('jenis_harta')}}" required>
                                         </div>
+                                      </div> -->
+
+                                      <div class="row">
+                                          <div class="col-md-4">
+                                            <p class="required">Jenis Harta</p>
+                                          </div>
+                                          <div class="col-md-8">
+                                            <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta" value="{{ old('jenis_harta')}}" required>
+                                                <option value="" selected disabled hidden>Jenis Harta</option>
+
+                                                @foreach($jenisHarta as $jenisharta)
+                                                @if($jenisharta->status_jenis_harta == "Aktif")
+                                                <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
+                                                @endif
+                                                @endforeach
+
+                                                </select>
+                                          </div>
                                       </div>
+
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
@@ -601,7 +660,7 @@
                                     <div class="col-md-10">
                                     </div>
                                     <div class="col-md-2">
-                                      <button type="submit" class="btn btn-primary mt-4">Hantar</button>
+                                      <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
 
                                     </div>
                               </form>
@@ -635,7 +694,9 @@
                  counter+
                  ']"></div><div class="col-md-1"><a onClick="removeData(this,'+
                  counter+
-                 ' ); return false;" id ="del'+counter+'"class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a><br><br></div></div>'); //add input box
+                 ' ); return false;" id ="del'+
+                 counter+
+                 '"class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a><br><br></div></div>');
 
              });
            });
@@ -661,13 +722,15 @@
              $(add_button).click(function(e){ //on add input button click
                e.preventDefault();
                  counter_dividen++;
-                 console.log(counter_dividen);
+                 console.log('dividencounter',counter_dividen);
 
                  $(wrapper).append('<div id="dividen_add'+counter_dividen+'" class="row"><div class="col-md-3 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" type="text" name="dividen_1['+
                  counter_dividen+
                  ']" placeholder="Nyatakan Dividen"></div></div><div class="col-md-4 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" onkeyup="findTotalDividenPegawai()" name="dividen_1_pegawai['+
                  counter_dividen+
-                 ']" placeholder="Dividen Pegawai"></div></div><div class="col-md-4 mt-2 mt-md-0" id="dividen"><input class="form-control bg-light" onkeyup="findTotalDividenPasangan()" name="dividen_1_pasangan['+
+                 ']" placeholder="Dividen Pegawai"></div></div><input type="hidden" name="counter" id="counter_for_dividen" value="'+
+                 counter_dividen+
+                 '"<div class="col-md-4 mt-2 mt-md-0" id="dividen"><input class="form-control bg-light" onkeyup="findTotalDividenPasangan()" name="dividen_1_pasangan['+
                  counter_dividen+
                  ']" placeholder="Dividen Pasangan" id="dividen_pasangan"></div><div class="col-md-1"><a onClick="removeDividen(this,'+
                  counter_dividen+
@@ -688,41 +751,7 @@
 
            </script>
 
-           <script>
-           function findTotalDividenPegawai(){
-             //cari length array dulu
-             var arr = $('#dividen').val();
-             arr=parseFloat(arr);
-             console.log( "ni dividen",arr);                                                                            // console.log( counter);
-             var total_dividen_pegawai=0.00;
-             total_dividen_pegawai=parseFloat(total_dividen_pegawai);
 
-
-            for(var i=0; i<arr.length; i++) {
-              if(parseFloat(arr[i].value))
-               total_dividen_pegawai += parseFloat(arr[i].value);
-
-            }console.log(  "ni total", total_dividen_pegawai);
-            document.getElementById('total_dividen_pegawai').value = total_dividen_pegawai;
-          }
-
-          function findTotalDividenPasangan(){
-            //cari length array dulu
-            var arr = $('#dividen_pasangan').val();
-            arr=parseInt(arr);
-            console.log( arr);
-            var total_dividen_pasangan=0.00;
-            total_dividen_pasangan=parseFloat(total_dividen_pasangan);
-            console.log( total_dividen_pasangan);
-
-           for(var i=0; i<arr.length; i++) {
-             if(parseFloat(arr[i].value))
-              total_dividen_pasangan += parseFloat(arr[i].value);
-
-           }
-           document.getElementById('total_dividen_pasangan').value = total_dividen_pasangan;
-         }
-           </script>
 
            <script>
            function findTotalPinjamanPegawai(){

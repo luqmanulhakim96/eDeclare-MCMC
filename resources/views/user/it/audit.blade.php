@@ -11,10 +11,9 @@
                   <div class="card-body">
                       <div class="card-title">Audit Trail</div>
                       <div class="table-responsive">
-
                       <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
                         <!-- Table head -->
-                        <thead>
+                        <thead class="thead-light">
                             <tr>
                               <th class="all">Nama Pengguna</th>
                               <th class="all">IP Address</th>
@@ -31,12 +30,15 @@
                         <tbody>
                           @foreach($data as $datas)
                             @if( $datas->user_id != NULL)
+
                               <tr>
                               @if($datas->user->name == NULL)
                                 <td>Tiada</td>
+
                               @else
                                 <td>{{  ucfirst($datas->user->name) }}</td>
                               @endif
+
                               <td>{{ $datas->ip_address }}</td>
                               <td>{{  Carbon\Carbon::parse($datas->updated_at)->format('d-m-Y h:i:s')  }}</td>
                               @if($datas->user->role == 1)
@@ -54,6 +56,7 @@
                               <td>{{ substr($datas->auditable_type, strpos($datas->auditable_type, "/") + 4) }}</td>
                               @if( $datas->old_values == "[]")
                                 <td>-</td>
+
                               @else
                               <table>
                                 @foreach(explode(',', $datas->old_values) as $info)
@@ -87,5 +90,4 @@
                   </div>
                 </div>
             </div>
-        </main>
 @endsection

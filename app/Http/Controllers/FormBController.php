@@ -10,6 +10,7 @@ use App\PinjamanB;
 use App\User;
 use DB;
 use Auth;
+use App\JenisHarta;
 
 use App\Notifications\Form\UserFormAdminB;
 
@@ -17,11 +18,13 @@ class FormBController extends Controller
 {
   public function formB()
   {
-    return view('user.harta.FormB.formB');
+    $jenisHarta = JenisHarta::get();
+    return view('user.harta.FormB.formB', compact('jenisHarta'));
   }
 public function editformB($id){
     //$info = SenaraiHarga::find(1);
     $info = FormB::findOrFail($id);
+    $jenisHarta = JenisHarta::get();
 
     $listDividenB = DividenB::where('formbs_id', $info->id) ->get();
       // dd($listDividenB[0]->dividen_1);
@@ -32,7 +35,7 @@ public function editformB($id){
 
 
 
-    return view('user.harta.FormB.editformB', compact('info','listDividenB','listPinjamanB','count_div','count_pinjaman'));
+    return view('user.harta.FormB.editformB', compact('info','listDividenB','listPinjamanB','count_div','count_pinjaman','jenisHarta'));
   }
 
 public function add(array $data){

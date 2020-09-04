@@ -8,7 +8,7 @@
             <!-- basic light table card -->
             <div class="card rounded-lg" >
                 <div class="card-body">
-                    <div class="card-title">Maklumat Penerimaan Hadiah RM 100 dan Kebawah</div>
+                    <div class="card-title">Maklumat Penerimaan Hadiah RM {{ $nilai_hadiah ->nilai_hadiah }} dan Kebawah</div>
                     <div class="card-body">
 
                           <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
@@ -152,7 +152,7 @@
                                    <label for="Tidak Diterima">Tidak Diterima</label><br>
                                  <!-- button -->
                                  <div class="col-md-2">
-                                   <button type="submit" class="btn btn-primary mt-4">Hantar</button>
+                                   <button type="submit" onclick=" return confirm('Hantar Ulasan?');" class="btn btn-primary mt-4">Hantar</button>
                                  </div>
                              </form>
                           </div>

@@ -14,9 +14,7 @@
                                             <li class="nav-item">
                                             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tetapan Kandungan Notifikasi</a>
                                             </li>
-                                            <li class="nav-item">
-                                            <a class="nav-link" id="calendar-tab" data-toggle="tab" href="#calendar" role="tab" aria-controls="calendar" aria-selected="false">Tetapan Cuti</a>
-                                            </li>
+                                            
                                         </ul>
 
                                         <!-- Tab panes -->
@@ -95,22 +93,7 @@
                                             </div>
                                           </div>
                                       </div>
-                                      <div class="tab-pane" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
-                                        <div class="page-body p-4 text-dark">
-                                          <div class="col mt-10">
-                                            <div class="col-md-12">
-                                                <p> Tetapan Tarikh Cuti</p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input type="date" class="form-control bg-light" placeholder="Nilai Hadiah Yang Diterima">
-                                                    <br><br>
-                                                    <input type="submit">
-                                                </div>
-                                            </div>
-                                            </div>
-                                          </div>
-                                      </div>
+
                                       </div>
                               </div>
                             </div>
