@@ -55,25 +55,27 @@
                               @if( $datas->old_values == "[]")
                                 <td>-</td>
                               @else
-                              <table>
-                                @foreach(explode(',', $datas->old_values) as $info)
-                                  <tr>
-                                    <td>{{  preg_replace('/[{}]/',"",$info) }}</td>
-                                  </tr>
-                                @endforeach
-                              </table>
+                              <td>
+                                <table>
+                                  @foreach(explode(',', $datas->old_values) as $info)
+                                    <tr>
+                                      <td>{{preg_replace('/[{}]/',"",$info) }}</td>
+                                    </tr>
+                                  @endforeach
+                                </table>
+                              </td>
                               @endif
                               @if( $datas->new_values == "[]")
                                 <td>-</td>
                               @else
                               <td>
-                              <table>
-                                @foreach(explode(',', $datas->new_values) as $info)
-                                  <tr>
-                                    <td>{{  preg_replace('/[{}]/',"",$info) }}</td>
-                                  </tr>
-                                @endforeach
-                              </table>
+                                <table>
+                                  @foreach(explode(',', $datas->new_values) as $info)
+                                    <tr>
+                                      <td>{{  preg_replace('/[{}]/',"",$info) }}</td>
+                                    </tr>
+                                  @endforeach
+                                </table>
                               </td>
                               @endif
                               <td>{{ $datas->url }}</td>
