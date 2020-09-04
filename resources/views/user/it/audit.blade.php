@@ -39,15 +39,15 @@
                               @endif
                               <td>{{ $datas->ip_address }}</td>
                               <td>{{  Carbon\Carbon::parse($datas->updated_at)->format('d-m-Y h:i:s')  }}</td>
-                              @if($datas->user->role == 0)
+                              @if($datas->user->role == 1)
                                 <td> Pentadbir Sistem (Admin) </td>
-                              @elseif($datas->user->role == 1)
-                                <td> Penyokong 1 </td>
                               @elseif($datas->user->role == 2)
-                                <td> Penyokong 2 </td>
+                                <td> Penyokong 1 </td>
                               @elseif($datas->user->role == 3)
-                                <td> Ketua Pengarah </td>
+                                <td> Penyokong 2 </td>
                               @elseif($datas->user->role == 4)
+                                <td> Ketua Pengarah </td>
+                              @elseif($datas->user->role == 5)
                                 <td> Superadmin </td>
                               @endif
                               <td>{{  ucfirst($datas->event) }}</td>
