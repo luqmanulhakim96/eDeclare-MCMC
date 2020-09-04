@@ -8,6 +8,7 @@ use App\FormD;
 use App\Keluarga;
 use DB;
 use Auth;
+use App\User;
 
 use App\Notifications\Form\UserFormAdminD;
 

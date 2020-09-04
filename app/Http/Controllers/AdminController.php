@@ -19,6 +19,7 @@ use App\Keluarga;
 use App\Pinjaman;
 use App\NilaiHadiah;
 use App\JenisHadiah;
+use App\JenisHarta;
 use Auth;
 
 class AdminController extends Controller
@@ -30,16 +31,22 @@ class AdminController extends Controller
       $listHadiah = Gift::where('status','Diproses ke Pentadbir Sistem')->get();
       $attendance = Gift::with('gifts')->get();
 
-      return view('user.admin.view', compact('listB','listHadiah'));
+      $list = FormB::count();
+      $listC = FormC::count();
+      $listD = FormD::count();
+      $listG = FormG::count();
+
+      return view('user.admin.view', compact('listB','listHadiah','list','listC','listD','listG'));
     }
 
     public function systemConfig(){
       $nilaiHadiah = NilaiHadiah::first();
       // dd($nilaiHadiah);
       $jenisHadiah = JenisHadiah::get();
+      $jenisHarta = JenisHarta::get();
       // dd($listHadiah);
 
-      return view('user.admin.systemconfig', compact('nilaiHadiah','jenisHadiah'));
+      return view('user.admin.systemconfig', compact('nilaiHadiah','jenisHadiah','jenisHarta'));
   }
 
   public function updateNilaiHadiah(Request $request,$id){
@@ -78,6 +85,7 @@ class AdminController extends Controller
 
     $listHadiah = Gift::where('status','Sedang Diproses')->get();
     $attendance = Gift::with('gifts')->get();
+    // dd($listHadiah);
     $nilai_hadiah = NilaiHadiah::first();
 
     return view('user.admin.hadiah.listGift', compact('listHadiah','nilai_hadiah'));
@@ -168,8 +176,9 @@ class AdminController extends Controller
      //dd($id);
     $listHadiah = GiftB::findOrFail($id);
     $attendance = GiftB::with('giftbs')->get();
+    $nilai_hadiah = NilaiHadiah::first();
 
-    return view('user.admin.hadiah.ulasanHadiahB', compact('listHadiah'));
+    return view('user.admin.hadiah.ulasanHadiahB', compact('listHadiah','nilai_hadiah'));
   }
 
   public function viewUlasanHadiah($id)
@@ -177,8 +186,9 @@ class AdminController extends Controller
      //dd($id);
     $listHadiah = Gift::findOrFail($id);
     $attendance = Gift::with('gifts')->get();
+    $nilai_hadiah = NilaiHadiah::first();
 
-    return view('user.admin.hadiah.ulasanHadiah', compact('listHadiah'));
+    return view('user.admin.hadiah.ulasanHadiah', compact('listHadiah','nilai_hadiah'));
   }
 
   public function viewUlasanHartaG($id)
@@ -224,11 +234,41 @@ class AdminController extends Controller
   }
 
   public function listformB(){
-
     $listB = FormB::where('status','Sedang Diproses')->get();
     $attendance = FormB::with('formbs')->get();
 
     return view('user.admin.harta.listB.senaraiformB', compact('listB'));
+
+  }
+  public function listformBupload(){
+    $listB = FormB::where('status','Proses ke Jawatankuasa Tatatertib')->get();
+    $attendance = FormB::with('formbs')->get();
+
+    return view('user.admin.harta.listB.upload', compact('listB'));
+
+  }
+
+  public function listformCupload(){
+    $listC = FormC::where('status','Proses ke Jawatankuasa Tatatertib')->get();
+    $attendance = FormC::with('formcs')->get();
+
+    return view('user.admin.harta.listC.upload', compact('listC'));
+
+  }
+
+  public function listformDupload(){
+    $listD = FormD::where('status','Proses ke Jawatankuasa Tatatertib')->get();
+    $attendance = FormD::with('formds')->get();
+
+    return view('user.admin.harta.listD.upload', compact('listD'));
+
+  }
+
+  public function listformGupload(){
+    $listG = FormG::where('status','Proses ke Jawatankuasa Tatatertib')->get();
+    $attendance = FormG::with('formgs')->get();
+
+    return view('user.admin.harta.listG.upload', compact('listG'));
 
   }
 
@@ -315,7 +355,7 @@ class AdminController extends Controller
 
   public function listformD(){
 
-    $listD = FormC::where('status','Sedang Diproses')->get();
+    $listD = FormD::where('status','Sedang Diproses')->get();
     $attendance = FormD::with('formds')->get();
 
     return view('user.admin.harta.listD.senaraiformD', compact('listD'));
@@ -474,7 +514,6 @@ class AdminController extends Controller
    }
 
    public function addjenishadiah(array $data){
-// dd($data);
       $status_jenis_hadiah= "Aktif";
        return JenisHadiah::create([
          'jenis_gift' => $data['jenis_gift'],
@@ -497,9 +536,49 @@ class AdminController extends Controller
      return redirect()->route('user.admin.systemconfig');
      }
 
+     public function deleteJenisHadiah(Request $request){
+        // dd($request->id);
+        $status_jenis_hadiah_baru= "Tak Aktif";
+        $id=$request->id;
+        $gifts=JenisHadiah::find($id);
+        $gifts->status_jenis_hadiah = $status_jenis_hadiah_baru;
+        $gifts->save();
 
+      return redirect()->route('user.admin.systemconfig');
+     }
 
+     public function addjenisharta(array $data){
+        $status_jenis_harta= "Aktif";
+         return JenisHarta::create([
+           'jenis_harta' => $data['jenis_harta'],
+           'status_jenis_harta' => $status_jenis_harta
+         ]);
+       }
 
+       protected function validatorjenisharta(array $data)
+     {
+         return Validator::make($data, ['jenis_harta' =>['nullable', 'string']]);
+     }
 
+       public function submitJenisHarta(Request $request){
+
+       $this->validatorjenishadiah($request->all())->validate();
+
+       event($jenis_hartas = $this->addjenisharta($request->all()));
+  // dd($jenis_hadiahs);
+       //send notification to admin (noti yang dia dah berjaya declare)
+       return redirect()->route('user.admin.systemconfig');
+       }
+
+       public function deleteJenisHarta(Request $request){
+          // dd($request->id);
+          $status_jenis_harta_baru= "Tak Aktif";
+          $id=$request->id;
+          $gifts=JenisHarta::find($id);
+          $gifts->status_jenis_harta = $status_jenis_harta_baru;
+          $gifts->save();
+
+        return redirect()->route('user.admin.systemconfig');
+       }
 
 }

@@ -11,10 +11,9 @@
                   <div class="card-body">
                       <div class="card-title">Audit Trail</div>
                       <div class="table-responsive">
-
                       <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
                         <!-- Table head -->
-                        <thead>
+                        <thead class="thead-light">
                             <tr>
                               <th class="all">Nama Pengguna</th>
                               <th class="all">IP Address</th>
@@ -38,21 +37,21 @@
                             @endif
                             <td>{{ $datas->ip_address }}</td>
                             <td>{{  Carbon\Carbon::parse($datas->updated_at)->format('d-m-Y h:i:s')  }}</td>
-                            @if($datas->user->role == 0)
+                            @if($datas->user->role == 1)
                             <td> Pentadbir Sistem (Admin) </td>
-                            @elseif($datas->user->role == 1)
-                            <td> Penyokong 1 </td>
                             @elseif($datas->user->role == 2)
-                            <td> Penyokong 2 </td>
+                            <td> Ketua Jabatan Integriti </td>
                             @elseif($datas->user->role == 3)
-                            <td> Ketua Pengarah </td>
+                            <td> Ketua Bahagian </td>
                             @elseif($datas->user->role == 4)
-                            <td> Superadmin </td>
+                            <td> IT Admin </td>
+                            @elseif($datas->user->role == 5)
+                            <td> Pengguna Sistem </td>
                             @endif
                             <td>{{  ucfirst($datas->event) }}</td>
                             <td>{{ substr($datas->auditable_type, strpos($datas->auditable_type, "/") + 4) }}</td>
                             @if( $datas->old_values == "[]")
-                            <td>-</td>
+                            <td></td>
                             @else
                               @if( $datas->auditable_type == "App\SenaraiSurat")
                               <td>Data Surat</td>
@@ -61,7 +60,7 @@
                               @endif
                             @endif
                             @if( $datas->new_values == "[]")
-                            <td>-</td>
+                            <td></td>
                             @else
                               @if( $datas->auditable_type == "App\SenaraiSurat")
                               <td>{{ $datas->new_values }}</td>
@@ -79,5 +78,4 @@
                   </div>
                 </div>
             </div>
-        </main>
 @endsection

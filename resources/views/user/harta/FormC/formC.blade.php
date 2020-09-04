@@ -62,14 +62,32 @@
                                         <p><b>2. KETERANGAN MENGENAI PELUPUSAN HARTA</b></p>
                                       </div>
                                   </div>
-                                  <div class="row">
+                                  <!-- <div class="row">
                                       <div class="col-md-4">
                                         <p class="required">Jenis Harta</p>
                                       </div>
                                       <div class="col-md-8">
                                         <input class="form-control bg-light" type="text" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}" required>
                                       </div>
+                                  </div> -->
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                        <p class="required">Jenis Harta</p>
+                                      </div>
+                                      <div class="col-md-8">
+                                        <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}" required>
+                                            <option value="" selected disabled hidden>Jenis Harta</option>
+
+                                            @foreach($jenisHarta as $jenisharta)
+                                            @if($jenisharta->status_jenis_harta == "Aktif")
+                                            <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
+                                            @endif
+                                            @endforeach
+
+                                            </select>
+                                      </div>
                                   </div>
+
                                       <br>
                                   <div class="row">
                                       <div class="col-md-4">
@@ -156,7 +174,7 @@
                                     <div class="col-md-8">
                                     </div>
                                     <div class="col-md-2">
-                                      <button type="submit" class="btn btn-primary mt-4">Hantar</button>
+                                      <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
                                       <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
                                     </div>
 

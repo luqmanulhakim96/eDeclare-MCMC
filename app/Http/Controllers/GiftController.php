@@ -8,6 +8,7 @@ use App\Gift;
 use DB;
 use Auth;
 use App\NilaiHadiah;
+use App\JenisHadiah;
 
 
 class GiftController extends Controller
@@ -15,14 +16,16 @@ class GiftController extends Controller
     //
     public function giftBaru(){
       $nilaiHadiah = NilaiHadiah::first();
-      return view('user.hadiah.gift', compact('nilaiHadiah'));
+      $jenisHadiah = JenisHadiah::get();
+      return view('user.hadiah.gift', compact('nilaiHadiah','jenisHadiah'));
   }
   public function editHadiah($id){
       //$info = SenaraiHarga::find(1);
       $info = Gift::findOrFail($id);
       $nilaiHadiah = NilaiHadiah::first();
+      $jenisHadiah = JenisHadiah::get();
       //dd($info);
-      return view('user.hadiah.editgift', compact('info','nilaiHadiah'));
+      return view('user.hadiah.editgift', compact('info','nilaiHadiah','jenisHadiah'));
     }
 
   public function add(array $data, $uploaded_gambar_hadiah){
@@ -59,13 +62,17 @@ class GiftController extends Controller
         'alamat_pemberi'=> ['required', 'string'],
         'hubungan_pemberi'=> ['required', 'string'],
         'sebab_diberi'=> ['required', 'string'],
-        'gambar_hadiah'=> ['required','max:100000','mimes:jpeg,jpg,png'],
+        'gambar_hadiah'=> ['required','max:100000'],
       ]);
   }
 
-    public function submitForm(Request $request){
 
+    public function submitForm(Request $request){
+// dd($request->all());
     $this->validator($request->all())->validate();
+    // dd($request->all());
+    // dd($request->all());
+
     $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
     event($gifts = $this->add($request->all(),$uploaded_gambar_hadiah));
 
@@ -80,7 +87,7 @@ class GiftController extends Controller
       return redirect()->route('user.hadiah.senaraihadiah');
   }
 
-  public function update($id){
+  public function update($id,$uploaded_gambar_hadiah){
     $gifts = Gift::find($id);
     $gifts->jabatan = request()->jabatan;
     $gifts->jenis_gift = request()->jenis_hadiah;
@@ -88,16 +95,17 @@ class GiftController extends Controller
     $gifts->tarikh_diterima = request()->tarikh_diterima;
     $gifts->alamat_pemberi = request()->alamat_pemberi;
     $gifts->hubungan_pemberi = request()->hubungan_pemberi;
-    $gifts->sebab_gift = request()->sebab_hadiah;
-    $gifts->gambar_gift = request()->gambar_hadiah;
+    $gifts->sebab_gift = request()->sebab_diberi;
+    $gifts->gambar_gift = $uploaded_gambar_hadiah;
     $gifts->save();
   }
 
-  public function updateHadiah($id){
-    $this->validator(request()->all())->validate();
-    //dd($request->all());
+  public function updateHadiah(Request $request,$id){
+    // $this->validator(request()->all())->validate();
+    // dd($request->all());
+    $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
 
-    $this->update($id);
+    $this->update($id,$uploaded_gambar_hadiah);
     return redirect()->route('user.hadiah.senaraihadiah');
   }
 }

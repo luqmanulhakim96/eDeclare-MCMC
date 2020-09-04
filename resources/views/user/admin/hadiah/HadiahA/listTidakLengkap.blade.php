@@ -5,11 +5,11 @@
 <div class="page-body p-4 text-dark">
   <!-- <div class="card-body"> -->
   <div class="buttons">
-    <a href="{{route('user.admin.hadiah.listGift')}}" class="btn btn-warning m-2">Sedang Diproses</a>
-    <a href="{{route('user.admin.hadiah.HadiahA.diprosesHODIV')}}"class="btn btn-warning m-2">Diproses ke Pentadbir Sistem</a>
-    <a href="{{route('user.admin.hadiah.HadiahA.listDiterima')}}" class="btn btn-success m-2">Diterima</a>
+    <a href="{{route('user.admin.hadiah.listGift')}}" class="btn btn-light m-2">Sedang Diproses</a>
+    <a href="{{route('user.admin.hadiah.HadiahA.diprosesHODIV')}}"class="btn btn-light m-2">Diproses ke Pentadbir Sistem</a>
+    <a href="{{route('user.admin.hadiah.HadiahA.listDiterima')}}" class="btn btn-light m-2">Diterima</a>
     <a href="{{route('user.admin.hadiah.HadiahA.listTidakLengkap')}}" class="btn btn-dark m-2">Tidak Lengkap</a>
-    <a href="{{route('user.admin.hadiah.HadiahA.listTidakDiterima')}}" class="btn btn-danger m-2" >Tidak Diterima</a>
+    <a href="{{route('user.admin.hadiah.HadiahA.listTidakDiterima')}}" class="btn btn-light m-2" >Tidak Diterima</a>
   </div>
   <!-- </div> -->
 <div class="row mt-10">

@@ -45,18 +45,60 @@ class HodivController extends Controller
 
   public function listGift(){
 
-    $listHadiah = Gift::get();
+    $listHadiah = Gift::where('status','Sedang Diproses')->get();
     $attendance = Gift::with('gifts')->get();
+    // dd($listHadiah);
+    $nilai_hadiah = NilaiHadiah::first();
 
-    return view('user.hodiv.hadiah.listGift', compact('listHadiah'));
+    return view('user.hodiv.hadiah.listGift', compact('listHadiah','nilai_hadiah'));
+  }
+
+  public function listDiterima(){
+
+    $listHadiah = Gift::where('status','Diterima')->get();
+    $attendance = Gift::with('gifts')->get();
+    $nilai_hadiah = NilaiHadiah::first();
+
+    return view('user.hodiv.hadiah.HadiahA.listDiterima', compact('listHadiah','nilai_hadiah'));
+
+  }
+
+  public function listTidakDiterima(){
+
+    $listHadiah = Gift::where('status','Tidak Diterima')->get();
+    $attendance = Gift::with('gifts')->get();
+    $nilai_hadiah = NilaiHadiah::first();
+
+    return view('user.hodiv.hadiah.HadiahA.listTidakDiterima', compact('listHadiah','nilai_hadiah'));
+
+  }
+
+  public function listTidakLengkap(){
+
+    $listHadiah = Gift::where('status','Tidak Lengkap')->get();
+    $attendance = Gift::with('gifts')->get();
+    $nilai_hadiah = NilaiHadiah::first();
+
+    return view('user.hodiv.hadiah.HadiahA.listTidakLengkap', compact('listHadiah','nilai_hadiah'));
+
+  }
+
+  public function diprosesHODIV(){
+
+    $listHadiah = Gift::where('status','Diproses ke Ketua Jabatan Integriti')->get();
+    $attendance = Gift::with('gifts')->get();
+    $nilai_hadiah = NilaiHadiah::first();
+
+    return view('user.hodiv.hadiah.HadiahA.diprosesHODIV', compact('listHadiah','nilai_hadiah'));
 
   }
   //senarai hadiah bawah rm100
   public function listGiftB(){
     $listHadiah = GiftB::get();
     $attendance = GiftB::with('giftbs')->get();
+    $nilai_hadiah = NilaiHadiah::first();
 
-    return view('user.hodiv.hadiah.listGiftB', compact('listHadiah'));
+    return view('user.hodiv.hadiah.listGiftB', compact('listHadiah','nilai_hadiah'));
 
   }
 
@@ -65,8 +107,9 @@ class HodivController extends Controller
      //dd($id);
     $listHadiah = GiftB::findOrFail($id);
     $attendance = GiftB::with('giftbs')->get();
+    $nilai_hadiah = NilaiHadiah::first();
 
-    return view('user.hodiv.hadiah.ulasanHadiahB', compact('listHadiah'));
+    return view('user.hodiv.hadiah.ulasanHadiahB', compact('listHadiah','nilai_hadiah'));
   }
 
   public function viewUlasanHadiah($id)
@@ -74,8 +117,9 @@ class HodivController extends Controller
      //dd($id);
     $listHadiah = Gift::findOrFail($id);
     $attendance = Gift::with('gifts')->get();
+    $nilai_hadiah = NilaiHadiah::first();
 
-    return view('user.hodiv.hadiah.ulasanHadiah', compact('listHadiah'));
+    return view('user.hodiv.hadiah.ulasanHadiah', compact('listHadiah','nilai_hadiah'));
   }
 
   public function viewUlasanHartaG($id)

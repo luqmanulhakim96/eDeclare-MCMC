@@ -179,6 +179,8 @@ Route::get('/admin/senaraiharta', 'AdminController@senaraiharta')->name('user.ad
 
 Route::get('/admin/list/harta/b/sedang-diproses', 'AdminController@listFormB')->name('user.admin.harta.listB.senaraiformB');
 
+Route::get('/admin/list/harta/b/proses-tatatertib', 'AdminController@listformBupload')->name('user.admin.harta.listB.upload');
+
 Route::get('/admin/list/harta/b/diterima', 'AdminController@listformBDiterima')->name('user.admin.harta.listB.Diterima');
 
 Route::get('/admin/list/harta/b/tidak-lengkap', 'AdminController@listformBTidakLengkap')->name('user.admin.harta.listB.TidakLengkap');
@@ -188,6 +190,8 @@ Route::get('/admin/list/harta/b/tidak-diterima', 'AdminController@listformBTidak
 Route::get('/admin/list/harta/b/proses-ke-Ketua-Jabatan-Integriti', 'AdminController@listFormBProsesHOD')->name('user.admin.harta.listB.ProsesHOD');
 
 Route::get('/admin/list/harta/c/sedang-diproses', 'AdminController@listFormC')->name('user.admin.harta.listC.senaraiformC');
+
+Route::get('/admin/list/harta/c/proses-tatatertib', 'AdminController@listformCupload')->name('user.admin.harta.listC.upload');
 
 Route::get('/admin/list/harta/c/diterima', 'AdminController@listformCDiterima')->name('user.admin.harta.listC.Diterima');
 
@@ -199,6 +203,8 @@ Route::get('/admin/list/harta/c/proses-ke-Ketua-Jabatan-Integriti', 'AdminContro
 
 Route::get('/admin/list/harta/d/sedang-diproses', 'AdminController@listFormD')->name('user.admin.harta.listD.senaraiformD');
 
+Route::get('/admin/list/harta/d/proses-tatatertib', 'AdminController@listformDupload')->name('user.admin.harta.listD.upload');
+
 Route::get('/admin/list/harta/d/diterima', 'AdminController@listformDDiterima')->name('user.admin.harta.listD.Diterima');
 
 Route::get('/admin/list/harta/d/tidak-lengkap', 'AdminController@listformDTidakLengkap')->name('user.admin.harta.listD.TidakLengkap');
@@ -208,6 +214,8 @@ Route::get('/admin/list/harta/d/tidak-diterima', 'AdminController@listformDTidak
 Route::get('/admin/list/harta/d/proses-ke-Ketua-Jabatan-Integriti', 'AdminController@listFormDProsesHOD')->name('user.admin.harta.listD.ProsesHOD');
 
 Route::get('/admin/list/harta/g/sedang-diproses', 'AdminController@listFormG')->name('user.admin.harta.listG.senaraiformG');
+
+Route::get('/admin/list/harta/g/proses-tatatertib', 'AdminController@listformGupload')->name('user.admin.harta.listG.upload');
 
 Route::get('/admin/list/harta/g/diterima', 'AdminController@listformGDiterima')->name('user.admin.harta.listG.Diterima');
 
@@ -219,7 +227,11 @@ Route::get('/admin/list/harta/g/proses-ke-Ketua-Jabatan-Integriti', 'AdminContro
 
 Route::post('/jenis-hadiah/submit', 'AdminController@submitJenisHadiah')->name('jenishadiah.submit');
 
-Route::post('/jenis-hadiah/delete/{$id}','AdminController@deletejenisHadiah')->name('jenishadiah.delete');
+Route::post('/jenis-harta/submit', 'AdminController@submitJenisHarta')->name('jenisharta.submit');
+
+Route::post('/jenis-hadiah/delete','AdminController@deleteJenisHadiah')->name('jenishadiah.delete');
+
+Route::post('/jenis-harta/delete','AdminController@deleteJenisHarta')->name('jenisharta.delete');
 
 
 
@@ -233,6 +245,14 @@ Route::get('/hodiv/homepage', 'HodivController@hodivDashboard')->name('user.hodi
 Route::get('/hodiv/list/harta', 'HodivController@listAsset')->name('user.hodiv.listAsset');
 
 Route::get('/hodiv/list/hadiah', 'HodivController@listGift')->name('user.hodiv.hadiah.listGift');
+
+Route::get('/hodiv/list/hadiah/diterima', 'HodivController@listDiterima')->name('user.hodiv.hadiah.HadiahA.listDiterima');
+
+Route::get('/hodiv/list/hadiah/tidak-diterima', 'HodivController@listTidakDiterima')->name('user.hodiv.hadiah.HadiahA.listTidakDiterima');
+
+Route::get('/hodiv/list/hadiah/tidak-lengkap', 'HodivController@listTidakLengkap')->name('user.hodiv.hadiah.HadiahA.listTidakLengkap');
+
+Route::get('/hodiv/list/hadiah/Proses-Ketua-Bahagian', 'HodivController@diprosesHODIV')->name('user.hodiv.hadiah.HadiahA.diprosesHODIV');
 
 Route::get('/hodiv/list/hadiahB', 'HodivController@listGiftB')->name('user.hodiv.hadiah.listGiftB');
 
@@ -280,6 +300,14 @@ Route::get('/integrityHOD/homepage', 'IntegrityHodController@integrityDashboard'
 Route::get('/integrityHOD/list/harta', 'IntegrityHodController@listAsset')->name('user.integrityHOD.listAsset');
 
 Route::get('/integrityHOD/list/hadiah', 'IntegrityHodController@listGift')->name('user.integrityHOD.hadiah.listGift');
+
+Route::get('/integrityHOD/list/hadiah/diterima', 'IntegrityHodController@listDiterima')->name('user.integrityHOD.hadiah.HadiahA.listDiterima');
+
+Route::get('/integrityHOD/list/hadiah/tidak-diterima', 'IntegrityHodController@listTidakDiterima')->name('user.integrityHOD.hadiah.HadiahA.listTidakDiterima');
+
+Route::get('/integrityHOD/list/hadiah/tidak-lengkap', 'IntegrityHodController@listTidakLengkap')->name('user.integrityHOD.hadiah.HadiahA.listTidakLengkap');
+
+Route::get('/integrityHOD/list/hadiah/Proses-Ketua-Bahagian', 'IntegrityHodController@diprosesHODIV')->name('user.integrityHOD.hadiah.HadiahA.diprosesHODIV');
 
 Route::get('/integrityHOD/list/hadiahB', 'IntegrityHodController@listGiftB')->name('user.integrityHOD.hadiah.listGiftB');
 

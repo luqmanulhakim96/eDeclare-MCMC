@@ -72,22 +72,31 @@
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                        <p>Jenis Harta</p>
+                                        <p class="required">Jenis Harta</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="jenis_harta_lupus" value="{{ $info->jenis_harta_lupus  }}">
+                                        <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}" required>
+                                            <option value="" selected disabled hidden>Jenis Harta</option>
+
+                                            @foreach($jenisHarta as $jenisharta)
+                                            @if($jenisharta->status_jenis_harta == "Aktif")
+                                            <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
+                                            @endif
+                                            @endforeach
+
+                                            </select>
                                       </div>
                                   </div>
                                       <br>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
+                                          <p class="required">Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
                                       </div>
                                       <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="pemilik_harta_pelupusan" placeholder="Nama Pemilik Sebelum" value="{{ $info->pemilik_harta_pelupusan  }}">
+                                          <input class="form-control bg-light" type="text" name="pemilik_harta_pelupusan" placeholder="Nama Pemilik Sebelum" value="{{ $info->pemilik_harta_pelupusan  }}" required>
                                       </div>
                                       <div class="col-md-4">
-                                          <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik_pelupusan" value="{{ $info->hubungan_pemilik_pelupusan  }}">
+                                          <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik_pelupusan" value="{{ $info->hubungan_pemilik_pelupusan }}" required>
                                             <option value="" selected disabled hidden>Hubungan dengan Pemilik</option>
                                             <option value="Sendiri"  {{ $info->hubungan_pemilik_pelupusan == "Sendiri" ? 'selected' : '' }}>Sendiri</option>
                                             <option value="Anak"  {{ $info->hubungan_pemilik_pelupusan == "Anak" ? 'selected' : '' }}>Anak</option>
@@ -102,37 +111,37 @@
                                   </div>
                                     <div class="row">
                                       <div class="col-md-4">
-                                          <p>Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
+                                          <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->no_pendaftaran_harta  }}">
+                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->no_pendaftaran_harta  }}" required>
                                       </div>
                                   </div>
                                   <br>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>Tarikh Pemilikan Harta</p>
+                                          <p class="required">Tarikh Pemilikan Harta</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_pemilikan" value="{{ $info->tarikh_pemilikan  }}">
+                                          <input class="form-control bg-light" type="date" name="tarikh_pemilikan" value="{{ $info->tarikh_pemilikan  }}" required>
                                       </div>
                                   </div>
                                   <br>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>Tarikh Pelupusan Harta</p>
+                                          <p class="required">Tarikh Pelupusan Harta</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_pelupusan" value="{{ $info->tarikh_pelupusan  }}">
+                                          <input class="form-control bg-light" type="date" name="tarikh_pelupusan" value="{{ $info->tarikh_pelupusan  }}" required>
                                       </div>
                                   </div>
                                   <br>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p>Cara Pelupusan (sama ada dijual, dihadiahkan dan sebagainya). Jika dijual, Nyatakan nilai jualan.</p>
+                                          <p class="required">Cara Pelupusan (sama ada dijual, dihadiahkan dan sebagainya). Jika dijual, Nyatakan nilai jualan.</p>
                                       </div>
                                       <div class="col-md-4">
-                                          <select id="cara_pelupusan" class="custom-select  bg-light" name="cara_pelupusan" value="{{ $info->cara_pelupusan  }}">
+                                          <select id="cara_pelupusan" class="custom-select  bg-light" name="cara_pelupusan" value="{{ $info->cara_pelupusan  }}" required>
                                               <option value="" selected disabled hidden>Cara pelupusan</option>
                                               <option value="Dijual" {{ $info->cara_pelupusan == "Dijual" ? 'selected' : '' }}>Dijual</option>
                                               <option value="Dihadiahkan" {{ $info->cara_pelupusan == "Dihadiahkan" ? 'selected' : '' }}>Dihadiahkan</option>
@@ -147,7 +156,7 @@
                                       </div>
                                   </div>
                                   <br>
-                                  <<div class="row">
+                                  <div class="row">
                                     <div class="col-md-1" align="right">
                                       <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
                                     </div>
@@ -164,7 +173,7 @@
                                     <div class="col-md-8">
                                     </div>
                                     <div class="col-md-2">
-                                      <button type="submit" class="btn btn-primary mt-4">Hantar</button>
+                                      <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
                                       <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
                                     </div>
 

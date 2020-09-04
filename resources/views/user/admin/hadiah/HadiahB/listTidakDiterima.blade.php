@@ -5,9 +5,9 @@
 <div class="page-body p-4 text-dark">
   <!-- <div class="card-body"> -->
   <div class="buttons">
-    <a href="{{route('user.admin.hadiah.listGiftB')}}"  class="btn btn-warning m-2">Sedang Diproses</a>
-    <a href="{{route('user.admin.hadiah.HadiahB.listDiterima')}}" class="btn btn-success m-2">Diterima</a>
-    <a href="{{route('user.admin.hadiah.HadiahB.listTidakLengkap')}}"class="btn btn-danger m-2">Tidak Lengkap</a>
+    <a href="{{route('user.admin.hadiah.listGiftB')}}"  class="btn btn-light m-2">Sedang Diproses</a>
+    <a href="{{route('user.admin.hadiah.HadiahB.listDiterima')}}" class="btn btn-light m-2">Diterima</a>
+    <a href="{{route('user.admin.hadiah.HadiahB.listTidakLengkap')}}"class="btn btn-light m-2">Tidak Lengkap</a>
     <a href="{{route('user.admin.hadiah.HadiahB.listTidakDiterima')}}" class="btn btn-dark m-2" >Tidak Diterima</a>
   </div>
 
