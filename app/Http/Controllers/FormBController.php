@@ -44,6 +44,7 @@ public function add(array $data){
   // dd($sedang_proses);
 
     return FormB::create([
+      'jabatan' => $data['jabatan'],
       'gaji_pasangan' => $data['gaji_pasangan'],
       'jumlah_imbuhan' => $data['jumlah_imbuhan'],
       'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
@@ -110,6 +111,7 @@ public function add(array $data){
   protected function validator(array $data)
 {
     return Validator::make($data, [
+      'jabatan' =>['nullable', 'string'],
       'gaji_pasangan' =>['nullable', 'string'],
       'jumlah_imbuhan' => ['nullable', 'string'],
       'jumlah_imbuhan_pasangan' =>['nullable', 'string'],
@@ -340,6 +342,8 @@ public function add(array $data){
       $this->update($id);
       return redirect()->route('user.harta.FormB.senaraihartaB');
     }
+
+
 
 
 

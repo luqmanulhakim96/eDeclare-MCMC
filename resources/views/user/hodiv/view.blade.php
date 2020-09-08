@@ -5,47 +5,140 @@
 
                 <!-- Small card component -->
                 <div class="card rounded-lg">
-                <div class="card-body">
-                      <div class="card-titleuser"><b>Selamat Datang Ke Portal Perisytiharan Harta dan Pemberian Hadiah Suruhanjaya Komunikasi dan Multimedia Malaysia (MCMC)</b></div>
+                  <div class="card-body">
+                        <div class="card-titleuser"><b>Selamat Datang Ke Portal Perisytiharan Harta dan Pemberian Hadiah Suruhanjaya Komunikasi dan Multimedia Malaysia (MCMC)</b></div>
+                  </div>
                 </div>
-                </div>
-
-                <!-- <div class="card rounded-lg">
-            <div class="card-body">
-                      <div class="card-title"><b>Tatacara Penggunaan Untuk Mengisi Permohonan.</b></div>
-                      <div class="card-title">1. Mendaftar masuk di Portal Perisytiharan Harta dan Pemberian Hadiah Suruhanjaya Komunikasi dan Multimedia Malaysia (MCMC).</div>
-                      <div class="card-title">2. Klik Perakuan Tiada Penambahan Harta  untuk mengisi Borang Lampiran A: Borang Pengakuan Tiada Perubahan ke atas Pemilikan Harta.</div>
-                      <div class="card-title">3. Klik Perisytiharan Harta Baharu untuk mengisi Borang Lampiran B, C dan D.</div>
-                      <div class="card-title">4. Klik Penerimaan Hadiah Baharu untuk mengisi Borang Lampiran A: Borang Penerimaan Hadiah.</div>
-                      <div class="card-title">5. Klik butang "Hantar" untuk mengahntar permohonan.</div>
-                </div>
-            </div><br><br> -->
-
-            <!--Page Body part -->
-            <div class="page-body p-4 text-dark">
-                <!-- <div class="page-heading border-bottom d-flex flex-row">
-                    <h5 class="font-weight-normal">Version 1</h5>
-                    <small class="mt-2 ml-2">Dashboard</small>
-                </div> -->
-                <!-- Small card component -->
-                <div class="row mb-4">
-                    <!-- Col lg 8, col md 12 -->
-                    <div class="col-lg-8 col-md-12 mt-4 mt-lg-0">
+                <!--Page Body part -->
+                <div class="small-cards mt-5 mb-4">
+                <div class="row">
+                    <!-- Col sm 6, col md 6, col lg 3 -->
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
                         <!-- Card -->
                         <div class="card border-0 rounded-lg">
                             <!-- Card body -->
                             <div class="card-body">
+
+                                <div class="d-flex flex-row justify-content-center align-items-center">
+                                    <!-- Icon -->
+                                    <div class="small-card-icon" align="center" style="opacity: 70%;">
+                                        <!-- <i class="far fa-user-circle card-icon-bg-primary fa-4x"></i> -->
+                                        <i><img src="{{ asset('qbadminui/img/formB.png') }}" alt="img" class="w-50"></i>
+                                    </div>
+                                    <!-- Text -->
+                                    <a href="{{route('user.admin.harta.listB.Diterima')}}">
+                                    <div class="small-card-text w-100 text-center">
+                                        <p class="font-weight-normal m-0 text-muted">Jumlah Perisytiharan Harta</p>
+                                        <h4 class="font-weight-normal m-0 text-primary">{{$list}}</h4>
+                                    </div>
+                                  </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Col sm 6, col md 6, col lg 3 -->
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
+                        <!-- Card -->
+                        <div class="card border-0 rounded-lg">
+                            <!-- Card body -->
+                            <div class="card-body">
+
+                                <div class="d-flex flex-row justify-content-center align-items-center">
+                                    <!-- Icon -->
+                                    <div class="small-card-icon" align="center" style="opacity: 70%;">
+                                        <i><img src="{{ asset('qbadminui/img/formC.png') }}" alt="img" class="w-50"></i>
+                                    </div>
+                                    <!-- Text -->
+                                    <a href="{{route('user.admin.harta.listC.Diterima')}}">
+                                    <div class="small-card-text w-100 text-center">
+                                        <p class="font-weight-normal m-0 text-muted">Jumlah Pelupusan Harta</p>
+                                        <h4 class="font-weight-normal m-0 text-primary">{{$listC}}</h4>
+                                    </div>
+                                  </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Col sm 6, col md 6, col lg 3 -->
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
+                        <!-- Card -->
+                        <div class="card border-0 rounded-lg">
+                            <!-- Card body -->
+                            <div class="card-body">
+
+                                <div class="d-flex flex-row justify-content-center align-items-center">
+                                    <!-- Icon -->
+                                    <div class="small-card-icon" align="center" style="opacity: 70%;">
+                                        <i><img src="{{ asset('qbadminui/img/formD.png') }}" alt="img" class="w-50"></i>
+                                    </div>
+                                    <!-- Text -->
+                                    <a href="{{route('user.admin.harta.listD.Diterima')}}">
+                                    <div class="small-card-text w-100 text-center">
+                                        <p class="font-weight-normal m-0 text-muted">Jumlah Perisytiharan Syarikat</p>
+                                        <h4 class="font-weight-normal m-0 text-primary">{{$listD}}</h4>
+                                    </div>
+                                  </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Col sm 6, col md 6, col lg 3 -->
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
+                        <!-- Card -->
+                        <div class="card border-0 rounded-lg">
+                            <!-- Card body -->
+                            <div class="card-body">
+
+                                <div class="d-flex flex-row justify-content-center align-items-center">
+                                    <!-- Icon -->
+                                    <div class="small-card-icon" align="center" style="opacity: 70%;">
+                                        <i><img src="{{ asset('qbadminui/img/formG.png') }}" alt="img" class="w-50"></i>
+                                    </div>
+                                    <!-- Text -->
+                                    <a href="{{route('user.admin.harta.listG.Diterima')}}">
+                                    <div class="small-card-text w-100 text-center">
+                                        <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah Perisytiharan Saham</p>
+                                        <h4 class="font-weight-normal m-0 text-primary">{{$listG}}</h4>
+                                    </div>
+                                  </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+            <!--Page Body part -->
+            <div class="page-body p-4 text-dark">
+                <!-- Small card component -->
+                <div class="row mb-4">
+                    <!-- Col lg 8, col md 12 -->
+                    <div class="col-lg-6 col-md-12 mt-4 mt-lg-0">
+                        <!-- Card -->
+                        <div class="card border-0 rounded-lg">
+                            <!-- Card body -->
+                            <div class="card-body">
+
                                 <!-- Card title -->
-                                <div class="card-title">Statistik Tahunan Perisytiharan Harta </div>
+                                <div class="card-title" align="center">Statistik Perisytiharan Harta </div>
                                 <!-- Chart -->
-                                <div id="echartBar" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div>
+                                <div class="" id="chart-wrap">
+                                    <div id="columnchart_values" style="width: 100%; height: 100%;" ></div>
+                                </div><!-- <div id="echartBar" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div> -->
                             </div>
 
                         </div>
 
                     </div>
                     <!-- Col lg 4, col md 12 -->
-                    <div class="col-lg-4 col-md-12 mt-4 mt-lg-0">
+                    <div class="col-lg-6 col-md-12 mt-4 mt-lg-0">
                         <!-- Card -->
                         <div class="card border-0 rounded-lg">
                             <!-- Card body -->
@@ -53,7 +146,8 @@
                                 <!-- Card title -->
                                 <div class="card-title">Statistik Penerimaan Hadiah</div>
                                 <!-- Chart -->
-                                <div id="echartPie" style="width:100%;height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div>
+                                <div id="donutchart" style="width: 100%; height: 400px;"></div>
+                                <!-- <div id="echartPie" style="width:100%;height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div> -->
                             </div>
 
                         </div>
@@ -284,6 +378,60 @@
                         </div>
                 </div>
     </div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "Jumlah", { role: "style" } ],
+        ["Perisytiharan Harta", {{$listBDiterima}}, "#2ab1fa"],
+        ["Pelupusan Harta", {{$listCDiterima}}, "#0082c8"],
+        ["Perisytiharan Syarikat", {{$listDDiterima}}, "#a864ba"],
+        ["Perisytiharan Saham", {{$listGDiterima}}, "color: #e659b5"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Statistik Perisytiharan Harta",
+        width: 400,
+        height: 400,
+        var: {groupWidth: "98%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
+  </script>
+
+  <script type="text/javascript">
+      var nilai_hadiah = <?php echo $nilaiHadiah->nilai_hadiah;?>;
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Hadiah Bernilai lebih RM '+nilai_hadiah, {{$listHadiahA}}],
+          ['Hadiah Bernilai RM' +nilai_hadiah+' dan ke bawah', {{$listHadiahB}}]
+        ]);
+
+        var options = {
+          title: 'Statistik Penerimaan Hadiah',
+          pieHole: 0.4,
+          colors: ['#fc0fc0','#c020d0','#8432DF','#4743EF','#0B54FE']
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
 
 
 

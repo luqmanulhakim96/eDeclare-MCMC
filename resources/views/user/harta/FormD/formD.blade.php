@@ -14,7 +14,7 @@
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-                              <form action="{{route('d.submit')}}" method="POST">
+                              <form action="{{route('d.submit')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
@@ -44,6 +44,16 @@
                                       <div class="col-md-8">
                                           <div class="form-group">
                                               {{Auth::user()->jawatan }}
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <p>Jabatan</p>
+                                      </div>
+                                      <div class="col-md-8">
+                                          <div class="form-group">
+                                            <input type="hidden" name="jabatan" value="{{Auth::user()->jabatan }}">{{Auth::user()->jabatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -170,8 +180,8 @@
                                      <div class="dropdown-example d-flex justify-content-betwen">
                                     <!-- Basic one -->
                                      <div class="dropdown">
-                                            <select id="select-1" class="custom-select  bg-light" name="hubungan[]"  value="{{ old('hubungan[]')}}">
-                                                <option selected disabled hidden>Pilih Hubungan</option>
+                                            <select id="select" class="custom-select  bg-light" name="hubungan[]"  value="{{ old('hubungan[]')}}">
+                                                <option selected disabled hidden >Pilih Hubungan</option>
                                                 <option value="Isteri" {{ old('hubungan[]') == "Isteri" ? 'selected' : '' }}>Isteri</option>
                                                 <option value="Suami" {{ old('hubungan[]') == "Suami" ? 'selected' : '' }}>Suami</option>
                                                 <option value="Anak" {{ old('hubungan[]') == "Anak" ? 'selected' : '' }}>Anak</option>
@@ -217,7 +227,7 @@
 
                             			$(wrapper).append('<div id="div'+counter+'" class="row"><div class="col-md-2"><input class="form-control bg-light" type="text" name="nama_ahli['+
                                   counter+
-                                  ']" placeholder=" "></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="hubungan['+
+                                  ']" placeholder=" "></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select" class="custom-select  bg-light" name="hubungan['+
                                   counter+
                                   ']"><option selected disabled hidden>Pilih Hubungan</option><option value="Isteri">Isteri</option><option value="Suami">Suami</option><option value="Anak">Anak</option><option value="Lain-Lain">Lain-Lain</option></select></div></div></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat['+
                                   counter+
@@ -261,7 +271,7 @@
                               <div class="row">
                                  <div class="col-md-4">
                                    <label for="dokumen_syarikat">Muatnaik Dokumen Syarikat:</label>
-                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat" aria-describedby="dokumen_syarikat" v-validate="'required|ext:jpeg,jpg,png,pdf,doc.docx,csv,xls|size:1000'">
+                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat[]" aria-describedby="dokumen_syarikat" multiple>
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
                                  </div>
                              </div>

@@ -5,22 +5,10 @@
 
                 <!-- Small card component -->
                 <div class="card rounded-lg">
-                <div class="card-body">
-                      <div class="card-titleuser" align="center"><b>Selamat Datang Ke Portal Perisytiharan Harta dan Pemberian Hadiah Suruhanjaya Komunikasi dan Multimedia Malaysia (MCMC)</b></div>
+                  <div class="card-body">
+                        <div class="card-titleuser" align="center"><b>Selamat Datang Ke Portal Perisytiharan Harta dan Pemberian Hadiah Suruhanjaya Komunikasi dan Multimedia Malaysia (MCMC)</b></div>
+                  </div>
                 </div>
-                </div>
-
-                <!-- <div class="card rounded-lg">
-            <div class="card-body">
-                      <div class="card-title"><b>Tatacara Penggunaan Untuk Mengisi Permohonan.</b></div>
-                      <div class="card-title">1. Mendaftar masuk di Portal Perisytiharan Harta dan Pemberian Hadiah Suruhanjaya Komunikasi dan Multimedia Malaysia (MCMC).</div>
-                      <div class="card-title">2. Klik Perakuan Tiada Penambahan Harta  untuk mengisi Borang Lampiran A: Borang Pengakuan Tiada Perubahan ke atas Pemilikan Harta.</div>
-                      <div class="card-title">3. Klik Perisytiharan Harta Baharu untuk mengisi Borang Lampiran B, C dan D.</div>
-                      <div class="card-title">4. Klik Penerimaan Hadiah Baharu untuk mengisi Borang Lampiran A: Borang Penerimaan Hadiah.</div>
-                      <div class="card-title">5. Klik butang "Hantar" untuk mengahntar permohonan.</div>
-                </div>
-            </div><br><br> -->
-
             <!--Page Body part -->
             <div class="small-cards mt-5 mb-4">
             <div class="row">
@@ -130,24 +118,25 @@
 
                 <div class="row mb-4">
                     <!-- Col lg 8, col md 12 -->
-                    <div class="col-lg-8 col-md-12 mt-4 mt-lg-0">
+                    <div class="col-lg-6 col-md-12 mt-4 mt-lg-0">
                         <!-- Card -->
                         <div class="card border-0 rounded-lg">
                             <!-- Card body -->
                             <div class="card-body">
 
-                              <!-- <div id="barchart_values" style="width: 900px; height: 300px;"></div> -->
                                 <!-- Card title -->
-                                <div class="card-title">Statistik Tahunan Perisytiharan Harta </div>
+                                <div class="card-title" align="center">Statistik Perisytiharan Harta </div>
                                 <!-- Chart -->
-                                <div id="echartBar" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div>
+                                <div class="" id="chart-wrap">
+                                    <div id="columnchart_values" style="width: 100%; height: 100%;" ></div>
+                                </div><!-- <div id="echartBar" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div> -->
                             </div>
 
                         </div>
 
                     </div>
                     <!-- Col lg 4, col md 12 -->
-                    <div class="col-lg-4 col-md-12 mt-4 mt-lg-0">
+                    <div class="col-lg-6 col-md-12 mt-4 mt-lg-0">
                         <!-- Card -->
                         <div class="card border-0 rounded-lg">
                             <!-- Card body -->
@@ -155,7 +144,8 @@
                                 <!-- Card title -->
                                 <div class="card-title">Statistik Penerimaan Hadiah</div>
                                 <!-- Chart -->
-                                <div id="echartPie" style="width:100%;height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div>
+                                <div id="donutchart" style="width: 100%; height: 400px;"></div>
+                                <!-- <div id="echartPie" style="width:100%;height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div> -->
                             </div>
 
                         </div>
@@ -339,38 +329,60 @@
                         </div>
                 </div>
     </div>
-    <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-   google.charts.load("current", {packages:["corechart"]});
-   google.charts.setOnLoadCallback(drawChart);
-   function drawChart() {
-     var data = google.visualization.arrayToDataTable([
-       ["Element", "Density", { role: "style" } ],
-       ["Copper", 8.94, "#b87333"],
-       ["Silver", 10.49, "silver"],
-       ["Gold", 19.30, "gold"],
-       ["Platinum", 21.45, "color: #e5e4e2"]
-     ]);
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "Jumlah", { role: "style" } ],
+        ["Perisytiharan Harta", {{$listBDiterima}}, "#fc0fc0"],
+        ["Pelupusan Harta", {{$listCDiterima}}, "#c020d0"],
+        ["Perisytiharan Syarikat", {{$listDDiterima}}, "#8432DF"],
+        ["Perisytiharan Saham", {{$listGDiterima}}, "#4743EF"]
+      ]);
 
-     var view = new google.visualization.DataView(data);
-     view.setColumns([0, 1,
-                      { calc: "stringify",
-                        sourceColumn: 1,
-                        type: "string",
-                        role: "annotation" },
-                      2]);
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
 
-     var options = {
-       title: "Density of Precious Metals, in g/cm^3",
-       width: 600,
-       height: 400,
-       bar: {groupWidth: "95%"},
-       legend: { position: "none" },
-     };
-     var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-     chart.draw(view, options);
- }
- </script> -->
+      var options = {
+        title: "Statistik Perisytiharan Harta",
+        width: 400,
+        height: 400,
+        var: {groupWidth: "98%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
+  </script>
+
+  <script type="text/javascript">
+      var nilai_hadiah = <?php echo $nilaiHadiah->nilai_hadiah;?>;
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Hadiah Bernilai lebih RM '+nilai_hadiah, {{$listHadiahA}}],
+          ['Hadiah Bernilai RM' +nilai_hadiah+' dan ke bawah', {{$listHadiahB}}]
+        ]);
+
+        var options = {
+          title: 'Statistik Penerimaan Hadiah',
+          pieHole: 0.4,
+          colors: ['#fc0fc0','#c020d0','#8432DF','#4743EF','#0B54FE']
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
 
 
 

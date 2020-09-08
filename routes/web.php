@@ -123,6 +123,8 @@ Route::get('/form/viewG/{id}', 'UserController@viewG')->name('user.harta.FormG.v
 
 Route::get('/admin/homepage', 'AdminController@adminDashboard')->name('user.admin.view');
 
+Route::get('/senarai-laporan-harta', 'AdminController@senarailaporanharta')->name('user.admin.harta.senarailaporanharta');
+
 Route::post('/formB/ulasan/admin/{id}', 'AdminController@updateStatusUlasanAdminB')->name('ulasanadminB.update');
 
 Route::post('/formC/ulasan/admin/{id}', 'AdminController@updateStatusUlasanAdminC')->name('ulasanadminC.update');
@@ -137,9 +139,17 @@ Route::post('/GiftB/ulasan/admin/{id}', 'AdminController@updateStatusUlasanAdmin
 
 Route::get('/admin/system/config', 'AdminController@systemConfig')->name('user.admin.systemconfig');
 
-Route::post('/Gift/nilai/admin/{id}', 'AdminController@updateNilaiHadiah')->name('nilaiGift.update');
+Route::post('/Hadiah/nilai/admin/{id}', 'AdminController@updateNilaiHadiah')->name('nilaiGift.update');
 
 Route::get('/admin/system/notification', 'AdminController@notification')->name('user.admin.notification');
+
+Route::get('/admin/laporan-B', 'AdminController@reportB')->name('user.admin.harta.reportB');
+
+Route::get('/admin/laporan-C', 'AdminController@reportC')->name('user.admin.harta.reportC');
+
+Route::get('/admin/laporan-D', 'AdminController@reportD')->name('user.admin.harta.reportD');
+
+Route::get('/admin/laporan-G', 'AdminController@reportG')->name('user.admin.harta.reportG');
 
 Route::get('/admin/list/harta', 'AdminController@listAsset')->name('user.admin.listAsset');
 

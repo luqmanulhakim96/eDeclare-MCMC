@@ -37,36 +37,34 @@
                                          @foreach($listB as $data)
 
                                          <tr>
-                                             <td>{{ $data ->id }}</td>
-                                             <td>{{ $data ->formbs->kad_pengenalan }}</td>
-                                             <td>{{ $data ->formbs->name }}</td>
-                                             <td>
-                                                 <div class="d-flex flex-row justify-content-around align-items-center">
-                                                     <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
-                                                 </div>
-                                             </td>
-                                             <td>{{ $data ->updated_at}}</td>
-                                             <td>
-                                               @if($data ->status == "Sedang Diproses")
-                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                               @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
-                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                               @elseif($data ->status == "Tidak Lengkap")
-                                               <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
-                                               @elseif($data ->status == "Tidak Diterima")
-                                               <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
-                                               @elseif($data ->status == "Diterima")
-                                               <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
+                                           <td>{{ $data ->id }}</td>
+                                           <td>{{ $data ->formbs->kad_pengenalan }}</td>
+                                           <td>{{ $data ->formbs->name }}</td>
+                                           <td>
+                                               <div class="d-flex flex-row justify-content-around align-items-center">
+                                                   <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                                               </div>
+                                           </td>
+                                           <td>{{ $data ->updated_at}}</td>
+                                           <td>
+                                             @if($data ->status == "Sedang Diproses")
+                                             <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                             @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                             <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                             @elseif($data ->status == "Tidak Lengkap")
+                                             <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
+                                             @elseif($data ->status == "Tidak Diterima")
+                                             <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
+                                             @elseif($data ->status == "Diterima")
+                                             <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
 
+                                             @endif
+                                           </td>
+                                           <td>
+                                             @if($data ->status == "Sedang Diproses")
+                                             <a href="{{route('user.admin.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
                                                @endif
-                                             </td>
-                                             <td>
-                                               @if($data ->status == "Sedang Diproses")
-                                               <a href="{{route('user.admin.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
-                                                 <!-- @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
-                                                 <input type="file" class="form-control bg-light" id="dokumen_perisytiharan" name="dokumen_perisytiharan" aria-describedby="gambar_hadiah"> -->
-                                                 @endif
-                                             </td>
+                                           </td>
                                            </tr>
                                           @endforeach
                                            <!-- Table data -->

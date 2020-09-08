@@ -24,7 +24,7 @@ class FormB extends Model implements Auditable
       'nilai_perolehan', 'cara_perolehan','nama_pemilikan_asal', 'jumlah_pinjaman',
       'institusi_pinjaman', 'tempoh_bayar_balik', 'ansuran_bulanan', 'tarikh_ansuran_pertama',
       'jenis_harta_pelupusan', 'alamat_asset', 'no_pendaftaran', 'harga_jualan',
-      'tarikh_lupus','user_id','status','ulasan_admin','ulasan_hod','ulasan_hodiv'
+      'tarikh_lupus','user_id','status','ulasan_admin','ulasan_hod','ulasan_hodiv','jabatan'
     ];
     public function formbs(){
       return $this->belongsTo(User::class, 'user_id');

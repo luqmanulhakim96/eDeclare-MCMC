@@ -44,6 +44,7 @@ public function add(array $data){
   $sedang_proses= "Sedang Diproses";
 
     return FormG::create([
+      'jabatan' => $data['jabatan'],
       'tarikh_lantikan' => $data['tarikh_lantikan'],
       'nama_perkhidmatan' => $data['nama_perkhidmatan'],
       'gelaran' => $data['gelaran'],
@@ -118,6 +119,7 @@ public function add(array $data){
   protected function validator(array $data)
   {
     return Validator::make($data, [
+      'jabatan' =>['nullable', 'string'],
       'tarikh_lantikan'  =>['nullable', 'date'],
       'nama_perkhidmatan' =>['nullable', 'string'],
       'gelaran'  =>['nullable', 'string'],

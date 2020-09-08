@@ -23,8 +23,26 @@ class IntegrityHodController extends Controller
 {
     //
     public function integrityDashboard(){
+      $listB = FormB::where('status','Sedang Diproses')->get();
+      $attendance = FormB::with('formbs')->get();
+      $listHadiah = Gift::where('status','Diproses ke Pentadbir Sistem')->get();
+      $attendance = Gift::with('gifts')->get();
 
-      return view('user.integrityHOD.view');
+      $list = FormB::count();
+      $listC = FormC::count();
+      $listD = FormD::count();
+      $listG = FormG::count();
+
+      $listBDiterima = FormB::where('status','Diterima')->count();
+      $listCDiterima = FormC::where('status','Diterima')->count();
+      $listDDiterima = FormD::where('status','Diterima')->count();
+      $listGDiterima = FormG::where('status','Diterima')->count();
+
+      $listHadiahA = Gift::where('status','Diterima')->count();
+      $listHadiahB = GiftB::where('status','Diterima')->count();
+      $nilaiHadiah = NilaiHadiah::first();
+
+      return view('user.integrityHOD.view', compact('nilaiHadiah','listB','listHadiah','list','listC','listD','listG','listHadiahA','listHadiahB','listBDiterima','listCDiterima','listDDiterima','listGDiterima'));
     }
 
     public function listAsset(){
