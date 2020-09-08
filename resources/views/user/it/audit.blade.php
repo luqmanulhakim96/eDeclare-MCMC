@@ -23,52 +23,64 @@
                               <th class="all">Database</th>
                               <th class="all">Data Lama</th>
                               <th class="all">Data Baharu</th>
+                              <th class="all">URL</th>
                             </tr>
                         </thead>
                         <!-- Table body -->
                         <tbody>
                           @foreach($data as $datas)
                             @if( $datas->user_id != NULL)
-                            <tr>
-                            @if($datas->user->name == NULL)
-                            <td>Tiada</td>
-                            @else
-                            <td>{{  ucfirst($datas->user->name) }}</td>
-                            @endif
-                            <td>{{ $datas->ip_address }}</td>
-                            <td>{{  Carbon\Carbon::parse($datas->updated_at)->format('d-m-Y h:i:s')  }}</td>
-                            @if($datas->user->role == 1)
-                            <td> Pentadbir Sistem (Admin) </td>
-                            @elseif($datas->user->role == 2)
-                            <td> Ketua Jabatan Integriti </td>
-                            @elseif($datas->user->role == 3)
-                            <td> Ketua Bahagian </td>
-                            @elseif($datas->user->role == 4)
-                            <td> IT Admin </td>
-                            @elseif($datas->user->role == 5)
-                            <td> Pengguna Sistem </td>
-                            @endif
-                            <td>{{  ucfirst($datas->event) }}</td>
-                            <td>{{ substr($datas->auditable_type, strpos($datas->auditable_type, "/") + 4) }}</td>
-                            @if( $datas->old_values == "[]")
-                            <td></td>
-                            @else
-                              @if( $datas->auditable_type == "App\SenaraiSurat")
-                              <td>Data Surat</td>
+
+                              <tr>
+                              @if($datas->user->name == NULL)
+                                <td>Tiada</td>
+
                               @else
-                              <td>{{ $datas->old_values }}</td>
+                                <td>{{  ucfirst($datas->user->name) }}</td>
                               @endif
-                            @endif
-                            @if( $datas->new_values == "[]")
-                            <td></td>
-                            @else
-                              @if( $datas->auditable_type == "App\SenaraiSurat")
-                              <td>{{ $datas->new_values }}</td>
+
+                              <td>{{ $datas->ip_address }}</td>
+                              <td>{{  Carbon\Carbon::parse($datas->updated_at)->format('d-m-Y h:i:s')  }}</td>
+                              @if($datas->user->role == 1)
+                                <td> Pentadbir Sistem (Admin) </td>
+                              @elseif($datas->user->role == 2)
+                                <td> Penyokong 1 </td>
+                              @elseif($datas->user->role == 3)
+                                <td> Penyokong 2 </td>
+                              @elseif($datas->user->role == 4)
+                                <td> Ketua Pengarah </td>
+                              @elseif($datas->user->role == 5)
+                                <td> Superadmin </td>
+                              @endif
+                              <td>{{  ucfirst($datas->event) }}</td>
+                              <td>{{ substr($datas->auditable_type, strpos($datas->auditable_type, "/") + 4) }}</td>
+                              @if( $datas->old_values == "[]")
+                                <td>-</td>
+
                               @else
-                              <td>{{ $datas->new_values }}</td>
+                              <table>
+                                @foreach(explode(',', $datas->old_values) as $info)
+                                  <tr>
+                                    <td>{{  preg_replace('/[{}]/',"",$info) }}</td>
+                                  </tr>
+                                @endforeach
+                              </table>
                               @endif
-                            @endif
-                          </tr>
+                              @if( $datas->new_values == "[]")
+                                <td>-</td>
+                              @else
+                              <td>
+                              <table>
+                                @foreach(explode(',', $datas->new_values) as $info)
+                                  <tr>
+                                    <td>{{  preg_replace('/[{}]/',"",$info) }}</td>
+                                  </tr>
+                                @endforeach
+                              </table>
+                              </td>
+                              @endif
+                              <td>{{ $datas->url }}</td>
+                              </tr>
                             @endif
                           @endforeach
                         </tbody>
