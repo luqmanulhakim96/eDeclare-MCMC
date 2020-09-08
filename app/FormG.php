@@ -24,7 +24,7 @@ class FormG extends Model implements Auditable
       'mukim_pertanian', 'negeri_pertanian', 'luas_perumahan','lot_perumahan','mukim_perumahan',
       'negeri_perumahan','tarikh_diperolehi','luas', 'lot','mukim','negeri',
       'jenis_tanah', 'nama_syarikat', 'modal_berbayar','jumlah_unit_saham','nilai_saham',
-      'sumber_kewangan','pengakuan','user_id','status','ulasan_admin','ulasan_hod','ulasan_hodiv'
+      'sumber_kewangan','pengakuan','user_id','status','ulasan_admin','ulasan_hod','ulasan_hodiv','jabatan'
     ];
 
     public function formgs(){

@@ -34,6 +34,7 @@ public function add(array $data){
   $sedang_proses= "Sedang Diproses";
 
     return FormC::create([
+      'jabatan' => $data['jabatan'],
       'jenis_harta_lupus' => $data['jenis_harta_lupus'],
       'pemilik_harta_pelupusan' => $data['pemilik_harta_pelupusan'],
       'hubungan_pemilik_pelupusan' => $data['hubungan_pemilik_pelupusan'],
@@ -53,6 +54,7 @@ public function add(array $data){
   protected function validator(array $data)
 {
     return Validator::make($data, [
+      'jabatan' =>['nullable', 'string'],
       'jenis_harta_lupus' =>['nullable', 'string'],
       'pemilik_harta_pelupusan' => ['nullable', 'string'],
       'hubungan_pemilik_pelupusan' =>['nullable', 'string'],

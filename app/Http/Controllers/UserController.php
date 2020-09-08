@@ -121,7 +121,7 @@ class UserController extends Controller
   {
      //dd($id);
     $listHarta = FormB::findOrFail($id);
-    // dd($listHarta);
+     // dd($listHarta);
     $listDividenB = DividenB::where('formbs_id', $listHarta->id) ->get();
 
     $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();

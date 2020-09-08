@@ -46,6 +46,16 @@
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
+                                          <p>Jabatan</p>
+                                      </div>
+                                      <div class="col-md-8">
+                                          <div class="form-group">
+                                            {{$listHarta ->jabatan }}
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4">
                                           <p>Alamat Tempat Bertugas</p>
                                       </div>
                                       <div class="col-md-8">

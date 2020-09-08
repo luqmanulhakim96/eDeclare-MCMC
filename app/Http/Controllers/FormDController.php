@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\FormD;
 use App\Keluarga;
+use App\DokumenSyarikat;
 use DB;
 use Auth;
 use App\User;
@@ -34,6 +35,7 @@ public function add(array $data){
   $sedang_proses= "Sedang Diproses";
 
     return FormD::create([
+      'jabatan' => $data['jabatan'],
       'nama_syarikat' => $data['nama_syarikat'],
       'no_pendaftaran_syarikat' => $data['no_pendaftaran_syarikat'],
       'alamat_syarikat' => $data['alamat_syarikat'],
@@ -47,12 +49,9 @@ public function add(array $data){
       'jawatan_syarikat' => $data['jawatan_syarikat'],
       'jumlah_saham' => $data['jumlah_saham'],
       'nilai_saham' => $data['nilai_saham'],
-      'dokumen_syarikat' => $data['dokumen_syarikat'],
       'pengakuan' => $data['pengakuan'],
       'user_id' => $userid,
       'status' => $sedang_proses,
-
-
 
     ]);
   }
@@ -60,6 +59,7 @@ public function add(array $data){
   protected function validator(array $data)
 {
     return Validator::make($data, [
+      'jabatan' =>['nullable', 'string'],
       'nama_syarikat' =>['nullable', 'string'],
       'no_pendaftaran_syarikat' => ['nullable', 'string'],
       'alamat_syarikat' =>['nullable', 'string'],
@@ -73,36 +73,47 @@ public function add(array $data){
       'jawatan_syarikat[]' => ['nullable', 'string'],
       'jumlah_saham[]' => ['nullable', 'string'],
       'nilai_saham[]' => ['nullable', 'string'],
-      'dokumen_syarikat' => ['nullable', 'string'],
+      'dokumen_syarikat[]' => ['nullable', 'max:100000'],
       'pengakuan' => ['nullable', 'string'],
 
     ]);
 }
 
   public function submitForm(Request $request){
+    // dd($request->all());
 
   $this->validator($request->all())->validate();
-  // dd($request->all());
-  event($formds = $this->add($request->all()));
-   // dd($request->all());
-   // dd($request->dividen_1);
 
-   $count = count($request->nama_ahli);
-   $count_id = 0;
+  event($formds = $this->add($request->all()));
+
+     // $dokumen_syarikat = $request->file('dokumen_syarikat')->store('public/uploads/dokumen_syarikat');
+     // dd($request->all());
+    // dd($request->dokumen_syarikat);
+    foreach($request->dokumen_syarikat as $file)
+    {
+        $file_syarikat = new DokumenSyarikat();
+        $file_syarikat->dokumen_syarikat = $file->store('public/uploads/dokumen_syarikat');
+        $file_syarikat->formds_id = $formds->id;
+        $file_syarikat->save();
+        // dd($file_syarikat);
+    }
+
+     $count = count($request->nama_ahli);
+     $count_id = 0;
 
     for ($i=0; $i < $count; $i++) {
-    $count_id++;
-	  $keluargas = new Keluarga();
-	  $keluargas->nama_ahli = $request->nama_ahli[$i];
-	  $keluargas->hubungan = $request->hubungan[$i];
-    $keluargas->jawatan_syarikat = $request->jawatan_syarikat[$i];
-    $keluargas->jumlah_saham = $request->jumlah_saham[$i];
-    $keluargas->nilai_saham = $request->nilai_saham[$i];
-    $keluargas->formds_id = $formds-> id;
-    $keluargas->keluarga_id = $count_id;
-    $keluargas->save();
-
+      $count_id++;
+      $keluargas = new Keluarga();
+      $keluargas->nama_ahli = $request->nama_ahli[$i];
+      $keluargas->hubungan = $request->hubungan[$i];
+      $keluargas->jawatan_syarikat = $request->jawatan_syarikat[$i];
+      $keluargas->jumlah_saham = $request->jumlah_saham[$i];
+      $keluargas->nilai_saham = $request->nilai_saham[$i];
+      $keluargas->formds_id = $formds->id;
+      $keluargas->keluarga_id = $count_id;
+      $keluargas->save();
     }
+
     //send notification to admin (noti yang dia dah berjaya declare)
     // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
     $email = null; // for testing
@@ -115,7 +126,7 @@ public function add(array $data){
     // }
 
     return redirect()->route('user.harta.FormD.senaraihartaD');
-     }
+   }
 
 
 // public function deleteHadiah($id){

@@ -36,7 +36,16 @@ class AdminController extends Controller
       $listD = FormD::count();
       $listG = FormG::count();
 
-      return view('user.admin.view', compact('listB','listHadiah','list','listC','listD','listG'));
+      $listBDiterima = FormB::where('status','Diterima')->count();
+      $listCDiterima = FormC::where('status','Diterima')->count();
+      $listDDiterima = FormD::where('status','Diterima')->count();
+      $listGDiterima = FormG::where('status','Diterima')->count();
+
+      $listHadiahA = Gift::where('status','Diterima')->count();
+      $listHadiahB = GiftB::where('status','Diterima')->count();
+      $nilaiHadiah = NilaiHadiah::first();
+
+      return view('user.admin.view', compact('nilaiHadiah','listB','listHadiah','list','listC','listD','listG','listHadiahA','listHadiahB','listBDiterima','listCDiterima','listDDiterima','listGDiterima'));
     }
 
     public function systemConfig(){
@@ -236,6 +245,7 @@ class AdminController extends Controller
   public function listformB(){
     $listB = FormB::where('status','Sedang Diproses')->get();
     $attendance = FormB::with('formbs')->get();
+    // dd($listB);
 
     return view('user.admin.harta.listB.senaraiformB', compact('listB'));
 
@@ -579,6 +589,43 @@ class AdminController extends Controller
           $gifts->save();
 
         return redirect()->route('user.admin.systemconfig');
+       }
+
+       public function senarailaporanharta()
+       {
+         return view('user.admin.harta.senarailaporanharta');
+       }
+
+       public function reportB(){
+         $listB = FormB::where('status','Diterima')->get();
+
+         $attendance = FormB::with('formbs')->get();
+
+         return view('user.admin.harta.reportB',compact('listB'));
+       }
+
+       public function reportC(){
+         $listC = FormC::where('status','Diterima')->get();
+
+         $attendance = FormC::with('formcs')->get();
+
+         return view('user.admin.harta.reportC',compact('listC'));
+       }
+
+       public function reportD(){
+         $listD = FormD::where('status','Diterima')->get();
+
+         $attendance = FormD::with('formds')->get();
+
+         return view('user.admin.harta.reportD',compact('listD'));
+       }
+
+       public function reportG(){
+         $listG = FormG::where('status','Diterima')->get();
+
+         $attendance = FormG::with('formgs')->get();
+
+         return view('user.admin.harta.reportG',compact('listG'));
        }
 
 }

@@ -37,6 +37,16 @@
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
+                                          <p>Jabatan</p>
+                                      </div>
+                                      <div class="col-md-8">
+                                          <div class="form-group">
+                                            {{Auth::user()->jabatan }}
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4">
                                           <p class="required">Tarikh Lantikan Ke Perkhidmatan Sekarang</p>
                                       </div>
                                       <div class="col-md-8">
@@ -741,23 +751,24 @@
                                       </div>
                                     </div>
 
+                                    @foreach($listPinjaman as $data)
                                   <input type="hidden" name="counter_saham" value="0" id="counter_saham">
                                   <div class="saham" id="saham">
                                     <div class="row">
                                       <div class="col-md-2">
-                                        <input type="text" class="form-control bg-light" name="institusi[]" placeholder="Nama Institusi" value="{{ $info->institusi  }}">
+                                        <input type="text" class="form-control bg-light" name="institusi[]" placeholder="Nama Institusi" value="{{ $data->institusi  }}">
                                       </div>
                                       <div class="col-md-2">
-                                        <input type="text" class="form-control bg-light" name="alamat_institusi[]" placeholder="Alamat Institusi" value="{{ $info->alamat_institusi  }}">
+                                        <input type="text" class="form-control bg-light" name="alamat_institusi[]" placeholder="Alamat Institusi" value="{{ $data->alamat_institusi  }}">
                                       </div>
                                       <div class="col-md-2">
-                                        <input type="text" class="form-control bg-light" name="ansuran_bulanan[]" placeholder="Ansuran Bulanan" value="{{ $info->ansuran_bulanan  }}">
+                                        <input type="text" class="form-control bg-light" name="ansuran_bulanan[]" placeholder="Ansuran Bulanan" value="{{ $data->ansuran_bulanan  }}">
                                       </div>
                                       <div class="col-md-2">
-                                        <input type="date" class="form-control bg-light" name="tarikh_ansuran[]" placeholder="Tarikh Ansuran Pertama" value="{{ $info->tarikh_ansuran  }}">
+                                        <input type="date" class="form-control bg-light" name="tarikh_ansuran[]" placeholder="Tarikh Ansuran Pertama" value="{{ $data->tarikh_ansuran  }}">
                                       </div>
                                       <div class="col-md-2">
-                                        <input type="text" class="form-control bg-light" name="tempoh_pinjaman[]" placeholder="Tempoh Pinjaman" value="{{ $info->tempoh_pinjaman  }}">
+                                        <input type="text" class="form-control bg-light" name="tempoh_pinjaman[]" placeholder="Tempoh Pinjaman" value="{{ $data->tempoh_pinjaman  }}">
                                       </div>
                                       <div class="col-md-1">
                                         <button class="add_field_button" id="add_saham_button">Add</button>
@@ -765,6 +776,7 @@
                                     </div>
                                     <br>
                                 </div>
+                                @endforeach
                                     <br>
                                     <br>
 
