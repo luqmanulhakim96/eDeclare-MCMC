@@ -12,7 +12,8 @@ use DB;
 use Auth;
 use App\User;
 
-use App\Notifications\Form\UserFormAdminG;
+// use App\Notifications\Form\UserFormAdminG;
+use App\Jobs\SendNotificationFormG;
 
 class FormGController extends Controller
 {
@@ -247,11 +248,12 @@ public function add(array $data){
       // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
       $email = null; // for testing
       $admin_available = User::where('role','=','1')->get(); //get system admin information
-      if ($email) {
+      // if ($email) {
         foreach ($admin_available as $data) {
-          $formbs->notify(new UserFormAdminG($data, $email));
+          // $formgs->notify(new UserFormAdminG($data, $email));
+          $this->dispatch(new SendNotificationFormG($data, $email, $formgs));
         }
-      }
+      // }
 
       return redirect()->route('user.harta.FormG.senaraihartaG');
     }

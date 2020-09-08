@@ -12,7 +12,8 @@ use DB;
 use Auth;
 use App\JenisHarta;
 
-use App\Notifications\Form\UserFormAdminB;
+// use App\Notifications\Form\UserFormAdminB;
+use App\Jobs\SendNotificationFormB;
 
 class FormBController extends Controller
 {
@@ -21,7 +22,8 @@ class FormBController extends Controller
     $jenisHarta = JenisHarta::get();
     return view('user.harta.FormB.formB', compact('jenisHarta'));
   }
-public function editformB($id){
+
+  public function editformB($id){
     //$info = SenaraiHarga::find(1);
     $info = FormB::findOrFail($id);
     $jenisHarta = JenisHarta::get();
@@ -38,77 +40,73 @@ public function editformB($id){
     return view('user.harta.FormB.editformB', compact('info','listDividenB','listPinjamanB','count_div','count_pinjaman','jenisHarta'));
   }
 
-public function add(array $data){
-  $userid = Auth::user()->id;
-  $sedang_proses= "Sedang Diproses";
-  // dd($sedang_proses);
+  public function add(array $data){
+    $userid = Auth::user()->id;
+    $sedang_proses= "Sedang Diproses";
+    // dd($sedang_proses);
 
-    return FormB::create([
-      'gaji_pasangan' => $data['gaji_pasangan'],
-      'jumlah_imbuhan' => $data['jumlah_imbuhan'],
-      'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
-      'sewa' => $data['sewa'],
-      'sewa_pasangan' => $data['sewa_pasangan'],
-      'dividen_1' => $data['dividen_1'],
-      'dividen_1_pegawai' => $data['dividen_1_pegawai'],
-      'dividen_1_pasangan' => $data['dividen_1_pasangan'],
-      'pendapatan_pegawai' => $data['pendapatan_pegawai'],
-      'pendapatan_pasangan' => $data['pendapatan_pasangan'],
-      'pinjaman_perumahan_pegawai' => $data['pinjaman_perumahan_pegawai'],
-      'bulanan_perumahan_pegawai' => $data['bulanan_perumahan_pegawai'],
-      'pinjaman_perumahan_pasangan' => $data['pinjaman_perumahan_pasangan'],
-      'bulanan_perumahan_pasangan' => $data['bulanan_perumahan_pasangan'],
-      'pinjaman_kenderaan_pegawai' => $data['pinjaman_kenderaan_pegawai'],
-      'bulanan_kenderaan_pegawai' => $data['bulanan_kenderaan_pegawai'],
-      'pinjaman_kenderaan_pasangan' => $data['pinjaman_kenderaan_pasangan'],
-      'bulanan_kenderaan_pasangan' => $data['bulanan_kenderaan_pasangan'],
-      'jumlah_cukai_pegawai' => $data['jumlah_cukai_pegawai'],
-      'bulanan_cukai_pegawai' => $data['bulanan_cukai_pegawai'],
-      'jumlah_cukai_pasangan' => $data['jumlah_cukai_pasangan'],
-      'bulanan_cukai_pasangan' => $data['bulanan_cukai_pasangan'],
-      'jumlah_koperasi_pegawai' => $data['jumlah_koperasi_pegawai'],
-      'bulanan_koperasi_pegawai' => $data['bulanan_koperasi_pegawai'],
-      'jumlah_koperasi_pasangan' => $data['jumlah_koperasi_pasangan'],
-      'bulanan_koperasi_pasangan' => $data['bulanan_koperasi_pasangan'],
-      'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
-      'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
-      'bulanan_pegawai'=> $data['bulanan_pegawai'],
-      'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
-      'bulanan_pasangan'=> $data['bulanan_pasangan'],
-      'jumlah_pinjaman_pegawai' => $data['jumlah_pinjaman_pegawai'],
-      'jumlah_bulanan_pegawai' => $data['jumlah_bulanan_pegawai'],
-      'jumlah_pinjaman_pasangan' => $data['jumlah_pinjaman_pasangan'],
-      'jumlah_bulanan_pasangan' => $data['jumlah_bulanan_pasangan'],
-      'jenis_harta' => $data['jenis_harta'],
-      'pemilik_harta' => $data['pemilik_harta'],
-      'hubungan_pemilik' => $data['hubungan_pemilik'],
-      'maklumat_harta' => $data['maklumat_harta'],
-      'tarikh_pemilikan_harta' => $data['tarikh_pemilikan_harta'],
-      'bilangan' => $data['bilangan'],
-      'nilai_perolehan' => $data['nilai_perolehan'],
-      'cara_perolehan' => $data['cara_perolehan'],
-      'nama_pemilikan_asal' => $data['nama_pemilikan_asal'],
-      'jumlah_pinjaman' => $data['jumlah_pinjaman'],
-      'institusi_pinjaman' => $data['institusi_pinjaman'],
-      'tempoh_bayar_balik' => $data['tempoh_bayar_balik'],
-      'ansuran_bulanan' => $data['ansuran_bulanan'],
-      'tarikh_ansuran_pertama' => $data['tarikh_ansuran_pertama'],
-      'jenis_harta_pelupusan' => $data['jenis_harta_pelupusan'],
-      'alamat_asset' => $data['alamat_asset'],
-      'no_pendaftaran' => $data['no_pendaftaran'],
-      'harga_jualan' => $data['harga_jualan'],
-      'tarikh_lupus' => $data['tarikh_lupus'],
-      'user_id' => $userid,
-      'status' => $sedang_proses,
-
-
-
-    ]);
-
-  }
+      return FormB::create([
+        'gaji_pasangan' => $data['gaji_pasangan'],
+        'jumlah_imbuhan' => $data['jumlah_imbuhan'],
+        'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
+        'sewa' => $data['sewa'],
+        'sewa_pasangan' => $data['sewa_pasangan'],
+        'dividen_1' => $data['dividen_1'],
+        'dividen_1_pegawai' => $data['dividen_1_pegawai'],
+        'dividen_1_pasangan' => $data['dividen_1_pasangan'],
+        'pendapatan_pegawai' => $data['pendapatan_pegawai'],
+        'pendapatan_pasangan' => $data['pendapatan_pasangan'],
+        'pinjaman_perumahan_pegawai' => $data['pinjaman_perumahan_pegawai'],
+        'bulanan_perumahan_pegawai' => $data['bulanan_perumahan_pegawai'],
+        'pinjaman_perumahan_pasangan' => $data['pinjaman_perumahan_pasangan'],
+        'bulanan_perumahan_pasangan' => $data['bulanan_perumahan_pasangan'],
+        'pinjaman_kenderaan_pegawai' => $data['pinjaman_kenderaan_pegawai'],
+        'bulanan_kenderaan_pegawai' => $data['bulanan_kenderaan_pegawai'],
+        'pinjaman_kenderaan_pasangan' => $data['pinjaman_kenderaan_pasangan'],
+        'bulanan_kenderaan_pasangan' => $data['bulanan_kenderaan_pasangan'],
+        'jumlah_cukai_pegawai' => $data['jumlah_cukai_pegawai'],
+        'bulanan_cukai_pegawai' => $data['bulanan_cukai_pegawai'],
+        'jumlah_cukai_pasangan' => $data['jumlah_cukai_pasangan'],
+        'bulanan_cukai_pasangan' => $data['bulanan_cukai_pasangan'],
+        'jumlah_koperasi_pegawai' => $data['jumlah_koperasi_pegawai'],
+        'bulanan_koperasi_pegawai' => $data['bulanan_koperasi_pegawai'],
+        'jumlah_koperasi_pasangan' => $data['jumlah_koperasi_pasangan'],
+        'bulanan_koperasi_pasangan' => $data['bulanan_koperasi_pasangan'],
+        'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
+        'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
+        'bulanan_pegawai'=> $data['bulanan_pegawai'],
+        'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
+        'bulanan_pasangan'=> $data['bulanan_pasangan'],
+        'jumlah_pinjaman_pegawai' => $data['jumlah_pinjaman_pegawai'],
+        'jumlah_bulanan_pegawai' => $data['jumlah_bulanan_pegawai'],
+        'jumlah_pinjaman_pasangan' => $data['jumlah_pinjaman_pasangan'],
+        'jumlah_bulanan_pasangan' => $data['jumlah_bulanan_pasangan'],
+        'jenis_harta' => $data['jenis_harta'],
+        'pemilik_harta' => $data['pemilik_harta'],
+        'hubungan_pemilik' => $data['hubungan_pemilik'],
+        'maklumat_harta' => $data['maklumat_harta'],
+        'tarikh_pemilikan_harta' => $data['tarikh_pemilikan_harta'],
+        'bilangan' => $data['bilangan'],
+        'nilai_perolehan' => $data['nilai_perolehan'],
+        'cara_perolehan' => $data['cara_perolehan'],
+        'nama_pemilikan_asal' => $data['nama_pemilikan_asal'],
+        'jumlah_pinjaman' => $data['jumlah_pinjaman'],
+        'institusi_pinjaman' => $data['institusi_pinjaman'],
+        'tempoh_bayar_balik' => $data['tempoh_bayar_balik'],
+        'ansuran_bulanan' => $data['ansuran_bulanan'],
+        'tarikh_ansuran_pertama' => $data['tarikh_ansuran_pertama'],
+        'jenis_harta_pelupusan' => $data['jenis_harta_pelupusan'],
+        'alamat_asset' => $data['alamat_asset'],
+        'no_pendaftaran' => $data['no_pendaftaran'],
+        'harga_jualan' => $data['harga_jualan'],
+        'tarikh_lupus' => $data['tarikh_lupus'],
+        'user_id' => $userid,
+        'status' => $sedang_proses,
+      ]);
+    }
 
   protected function validator(array $data)
-{
+  {
     return Validator::make($data, [
       'gaji_pasangan' =>['nullable', 'string'],
       'jumlah_imbuhan' => ['nullable', 'string'],
@@ -165,7 +163,7 @@ public function add(array $data){
       'harga_jualan' => ['nullable', 'string'],
       'tarikh_lupus' => ['nullable', 'date'],
     ]);
-}
+  }
 
   public function submitForm(Request $request){
 
@@ -209,11 +207,12 @@ public function add(array $data){
      // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
      $email = null; // for testing
      $admin_available = User::where('role','=','1')->get(); //get system admin information
-     if ($email) {
-       foreach ($admin_available as $data) {
-         $formbs->notify(new UserFormAdminB($data, $email));
-       }
+     // if (!$email) {
+     foreach ($admin_available as $data) {
+       // $formbs->notify(new UserFormAdminB($data, $email));
+       $this->dispatch(new SendNotificationFormB($data, $email, $formbs));
      }
+     // }
      return redirect()->route('user.harta.FormB.senaraihartaB');
    }
 
