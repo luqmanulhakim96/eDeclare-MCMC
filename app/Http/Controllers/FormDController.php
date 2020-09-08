@@ -11,7 +11,7 @@ use DB;
 use Auth;
 use App\User;
 
-use App\Notifications\Form\UserFormAdminD;
+use App\Jobs\SendNotificationFormD;
 
 class FormDController extends Controller
 {
@@ -118,11 +118,12 @@ public function add(array $data){
     // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
     $email = null; // for testing
     $admin_available = User::where('role','=','1')->get(); //get system admin information
-    if ($email) {
+    // if ($email) {
       foreach ($admin_available as $data) {
-        $formbs->notify(new UserFormAdminC($data, $email));
+        $this->dispatch(new SendNotificationFormD($data, $email, $formds));
+        // $formds->notify(new UserFormAdminC($data, $email));
       }
-    }
+    // }
 
     return redirect()->route('user.harta.FormD.senaraihartaD');
    }

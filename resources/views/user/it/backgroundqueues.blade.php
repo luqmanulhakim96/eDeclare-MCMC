@@ -32,11 +32,11 @@
                               <tr>
                                   <td>
                                       @if(!$job->isFinished())
-                                              Running
+                                      <span class="badge m-1 p-2 badge-pill badge-warning" style="font-size:12px;">Running</span>
                                       @elseif($job->hasSucceeded())
-                                              Success
+                                      <span class="badge m-1 p-2 badge-pill badge-primary" style="font-size:12px;">Success</span>
                                       @else
-                                              Failed
+                                      <span class="badge m-1 p-2 badge-pill badge-danger" style="font-size:12px;">Failed</span>
                                       @endif
                                   </td>
 
@@ -83,7 +83,7 @@
 
                                   <td>
                                       @if($job->hasFailed() && $job->exception_message !== null)
-                                          <textarea rows="4" class="w-64 text-xs p-1 border rounded" readonly>{{ $job->exception_message }}</textarea>
+                                          <textarea rows="4" class="w-64 text-xs p-1 border" readonly>{{ $job->exception_message }}</textarea>
                                       @else
                                           -
                                       @endif

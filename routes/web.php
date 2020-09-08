@@ -373,9 +373,9 @@ Route::get('/itadmin/users', 'ItAdminController@users')->name('user.it.users');
 
 Route::get('/itadmin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('user.it.errorlog');
 
-Route::prefix('jobs')->group(function () {
-    Route::queueMonitor();
-});
+// Route::prefix('jobs')->group(function () {
+//     Route::queueMonitor();
+// });
 
 
 Route::get('/formBs', 'AssetController@createStep1')->name('asset.create');
