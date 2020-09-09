@@ -7,49 +7,54 @@
           <div class="card-body">
               <div class="card-title">Laporan Perisytiharan Harta</div>
               <table id="example" class="display" style="width:100%" border="1">
-        <thead>
-            <tr>
-                <th>Julat Nilai Harta</th>
-                <th>Range</th>
-                <th>Nama Staff</th>
-                <th>Jabatan</th>
-            </tr>
-        </thead>
-        <tbody>
-          @foreach($listB as $data)
-            <tr>
-                <td> </td>
-                <!-- <td>{{$data ->formbs->name}}</td> -->
-                  @if($data->nilai_perolehan <= 500000.00)
-                    <td style="color: #fff; background: black;"><p>0-500000.00</p></td>
+                <thead>
+                    <tr>
+                        <th style="text-align:center">Julat Nilai Harta</th>
+                        <th></th>
+                        <th style="text-align:center">Nama Staff</th>
+                        <th style="text-align:center">Jabatan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  @foreach($listB as $data)
+                    <tr>
+                        <td> </td>
+                        <!-- <td>{{$data ->formbs->name}}</td> -->
+                          @if($data->nilai_perolehan <= 500000.00)
+                            <td style="text-align:center"><p>0-500000.00</p></td>
 
-                  @elseif($data->nilai_perolehan > 500000.00 && $data->nilai_perolehan <= 1000000.00)
-                    <td><p>500000.01-1000000.00</p></td>
+                          @elseif($data->nilai_perolehan > 500000.00 && $data->nilai_perolehan <= 1000000.00)
+                            <td style="text-align:center"><p>500000.01-1000000.00</p></td>
 
-                  @elseif($data->nilai_perolehan > 1000000.00 && $data->nilai_perolehan <= 2000000.00)
-                    <td><p>1000000.01-2000000.00</p></td>
+                          @elseif($data->nilai_perolehan > 1000000.00 && $data->nilai_perolehan <= 2000000.00)
+                            <td style="text-align:center"><p>1000000.01-2000000.00</p></td>
 
-                  @elseif($data->nilai_perolehan > 2000000.00 && $data->nilai_perolehan <= 5000000.00)
-                    <td><p>2000000.01-5000000.00</p></td>
+                          @elseif($data->nilai_perolehan > 2000000.00 && $data->nilai_perolehan <= 5000000.00)
+                            <td style="text-align:center"><p>2000000.01-5000000.00</p></td>
 
-                  @else
-                    <td><p>Above 5 million</p></td>
-                  @endif
-                  <td>{{$data ->formbs->name}}</td>
+                          @else
+                            <td style="text-align:center"><p>Above 5 million</p></td>
+                          @endif
+                          <td style="text-align:center">{{$data ->formbs->name}}</td>
 
-                <td>{{$data ->formbs->jabatan}}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-
+                        <td style="text-align:center">{{$data ->formbs->jabatan}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+              </table>
           </div>
       </div>
     </div>
+
     <script type="text/javascript">
     $(document).ready(function() {
         var groupColumn = 1;
         var table = $('#example').DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+
             "columnDefs": [
                 { "visible": false, "targets": groupColumn }
             ],
@@ -70,6 +75,7 @@
                     }
                 } );
             }
+
         } );
 
         // Order by the grouping
@@ -82,6 +88,8 @@
                 table.order( [ groupColumn, 'asc' ] ).draw();
             }
         } );
+
     } );
+
     </script>
 @endsection

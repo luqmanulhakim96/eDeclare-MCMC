@@ -26,7 +26,7 @@
                           <!-- Text -->
                           <div class="small-card-text w-100 text-center">
                               <!-- <p class="font-weight-normal m-0 text-muted">Lampiran B:</p> -->
-                              <p class="font-weight-normal m-0 text-primary">Senarai Perisytiharan Harta Baharu</p>
+                              <p class="font-weight-normal m-0 text-primary"> Perisytiharan Harta Pegawai</p><br>
                           </div>
                       </div>
 
@@ -50,7 +50,7 @@
                           <!-- Text -->
                           <div class="small-card-text w-100 text-center">
                               <!-- <p class="font-weight-normal m-0 text-muted">Lampiran C:</p> -->
-                              <p class="font-weight-normal m-0 text-primary">Senarai Pelupusan Harta Baharu</p>
+                              <p class="font-weight-normal m-0 text-primary"> Pelupusan Harta Pegawai</p><br>
                           </div>
                       </div>
 
@@ -74,7 +74,7 @@
                       <!-- Text -->
                       <div class="small-card-text w-100 text-center">
                           <!-- <p class="font-weight-normal m-0 text-muted">Lampiran D:</p> -->
-                          <p class="font-weight-normal m-0 text-primary">Senarai Perisytiharan Syarikat dan Perniagaan Sendiri</p>
+                          <p class="font-weight-normal m-0 text-primary"> Perisytiharan Syarikat/Perniagaan Sendiri</p>
                       </div>
                   </div>
 
@@ -97,7 +97,7 @@
                       <!-- Text -->
                       <div class="small-card-text w-100 text-center">
                           <!-- <p class="font-weight-normal m-0 text-muted">Lampiran G:</p> -->
-                          <p class="font-weight-normal m-0 text-primary">Senarai Memohon dan Memiliki Saham</p>
+                          <p class="font-weight-normal m-0 text-primary"> Memohon dan Memiliki Saham</p><br>
                       </div>
                   </div>
 
