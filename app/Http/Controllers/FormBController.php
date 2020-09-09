@@ -12,7 +12,8 @@ use DB;
 use Auth;
 use App\JenisHarta;
 
-use App\Notifications\Form\UserFormAdminB;
+// use App\Notifications\Form\UserFormAdminB;
+use App\Jobs\SendNotificationFormB;
 
 class FormBController extends Controller
 {
@@ -21,7 +22,8 @@ class FormBController extends Controller
     $jenisHarta = JenisHarta::get();
     return view('user.harta.FormB.formB', compact('jenisHarta'));
   }
-public function editformB($id){
+
+  public function editformB($id){
     //$info = SenaraiHarga::find(1);
     $info = FormB::findOrFail($id);
     $jenisHarta = JenisHarta::get();
@@ -109,7 +111,7 @@ public function add(array $data){
   }
 
   protected function validator(array $data)
-{
+  {
     return Validator::make($data, [
       'jabatan' =>['nullable', 'string'],
       'gaji_pasangan' =>['nullable', 'string'],
@@ -167,7 +169,7 @@ public function add(array $data){
       'harga_jualan' => ['nullable', 'string'],
       'tarikh_lupus' => ['nullable', 'date'],
     ]);
-}
+  }
 
   public function submitForm(Request $request){
 
@@ -211,11 +213,12 @@ public function add(array $data){
      // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
      $email = null; // for testing
      $admin_available = User::where('role','=','1')->get(); //get system admin information
-     if ($email) {
-       foreach ($admin_available as $data) {
-         $formbs->notify(new UserFormAdminB($data, $email));
-       }
+     // if (!$email) {
+     foreach ($admin_available as $data) {
+       // $formbs->notify(new UserFormAdminB($data, $email));
+       $this->dispatch(new SendNotificationFormB($data, $email, $formbs));
      }
+     // }
      return redirect()->route('user.harta.FormB.senaraihartaB');
    }
 

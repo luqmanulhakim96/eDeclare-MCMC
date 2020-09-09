@@ -11,7 +11,8 @@ use App\NilaiHadiah;
 use App\JenisHadiah;
 use App\User;
 
-use App\Notifications\Gift\UserGiftAdminB;
+// use App\Notifications\Gift\UserGiftAdminB;
+use App\Jobs\SendNotificationGiftB;
 
 class GiftBController extends Controller
 {
@@ -77,11 +78,12 @@ class GiftBController extends Controller
     // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
     $email = null; // for testing
     $admin_available = User::where('role','=','2')->get(); //get system hodiv information
-    if ($email) {
+    // if ($email) {
       foreach ($admin_available as $data) {
-        $formbs->notify(new UserGiftAdminB($data, $email));
+        // $giftbs->notify(new UserGiftAdminB($data, $email));
+        $this->dispatch(new SendNotificationGiftB($data, $email, $giftbs));
       }
-    }
+    // }
 
     return redirect()->route('user.hadiah.senaraihadiahB');
 
