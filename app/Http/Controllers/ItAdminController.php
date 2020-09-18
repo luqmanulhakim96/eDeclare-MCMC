@@ -38,7 +38,7 @@ class ItAdminController extends Controller
         $rows = $backupDestinationStatuses->map(function (BackupDestinationStatus $backupDestinationStatus) {
             return $this->convertToRow($backupDestinationStatus);
         });
-
+        $data = [];
         foreach ($files as $file) {
           // $data[] = substr($file, strpos($file, "/")+1);
           // dd(Storage::lastModified($file));
