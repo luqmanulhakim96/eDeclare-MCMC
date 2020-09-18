@@ -293,6 +293,49 @@
                 </div>
             </div>
 
+            @if ($message = Session::get('success'))
+            <script type="text/javascript">
+                 $(document).ready(function() {
+                     $('#modal').modal();
+                 });
+             </script>
+            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content alert alert-card  alert-success">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Operasi Berjaya!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <p>{{$message}}</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            @elseif ($message = Session::get('error'))
+            <script type="text/javascript">
+                 $(document).ready(function() {
+                     $('#error_modal').modal();
+                 });
+             </script>
+            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content alert alert-card  warning-success">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Operasi Gagal!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <p>{{$message}}</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            @endif
 
 
             <!-- The navbar -->
@@ -470,3 +513,11 @@
 
 </body>
 </html>
+<script type="text/javascript">
+  $("document").ready(function(){
+    setTimeout(function(){
+       $('#modal').modal('hide');
+    }, 1500 ); // 5 secs
+
+  });
+</script>
