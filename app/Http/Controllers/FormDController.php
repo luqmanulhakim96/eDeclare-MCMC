@@ -10,6 +10,7 @@ use App\DokumenSyarikat;
 use DB;
 use Auth;
 use App\User;
+use App\Email;
 
 use App\Jobs\SendNotificationFormD;
 

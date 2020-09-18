@@ -15,8 +15,15 @@ class FormD extends Model implements Auditable
     protected $table = 'formds';
     protected $fillable = [
       'nama_syarikat','no_pendaftaran_syarikat','alamat_syarikat', 'jenis_syarikat','pulangan_tahunan',
-      'modal_syarikat', 'modal_dibayar', 'punca_kewangan','dokumen_syarikat','pengakuan','user_id','status','ulasan_admin','ulasan_hod','ulasan_hodiv','jabatan'
+      'modal_syarikat', 'modal_dibayar', 'punca_kewangan','dokumen_syarikat','pengakuan','user_id','status',
+      'nama_admin','no_admin','ulasan_admin','nama_hod','no_hod','ulasan_hod','nama_hodiv','no_hodiv','ulasan_hodiv','jabatan'
     ];
+
+    public static function getTableName()
+    {
+        return (new self())->getTable();
+    }
+
     public function formds(){
       return $this->belongsTo(User::class, 'user_id');
 
@@ -27,6 +34,16 @@ class FormD extends Model implements Auditable
     }
     public function dokumen(){
       return $this->hasMany('App\DokumenSyarikat');
+
+    }
+
+    public function users(){
+      return $this->belongsTo(User::class, 'user_id');
+
+    }
+
+    public function dokumenPegawai(){
+      return $this->hasMany('App\DokumenD');
 
     }
 }

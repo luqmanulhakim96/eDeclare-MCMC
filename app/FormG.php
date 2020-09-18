@@ -24,8 +24,14 @@ class FormG extends Model implements Auditable
       'mukim_pertanian', 'negeri_pertanian', 'luas_perumahan','lot_perumahan','mukim_perumahan',
       'negeri_perumahan','tarikh_diperolehi','luas', 'lot','mukim','negeri',
       'jenis_tanah', 'nama_syarikat', 'modal_berbayar','jumlah_unit_saham','nilai_saham',
-      'sumber_kewangan','pengakuan','user_id','status','ulasan_admin','ulasan_hod','ulasan_hodiv','jabatan'
+      'sumber_kewangan','pengakuan','user_id','status','nama_admin','no_admin','ulasan_admin','nama_hod','no_hod','ulasan_hod',
+      'nama_hodiv','no_hodiv','ulasan_hodiv','jabatan'
     ];
+
+    public static function getTableName()
+    {
+        return (new self())->getTable();
+    }
 
     public function formgs(){
       return $this->belongsTo(User::class, 'user_id');
@@ -41,5 +47,14 @@ class FormG extends Model implements Auditable
 
     public function pinjamans(){
       return $this->hasMany('App\Pinjaman');
+    }
+
+    public function users(){
+      return $this->belongsTo(User::class, 'user_id');
+
+    }
+    public function dokumenPegawai(){
+      return $this->hasMany('App\DokumenG');
+
     }
 }

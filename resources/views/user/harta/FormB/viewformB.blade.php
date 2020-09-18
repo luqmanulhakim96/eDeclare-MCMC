@@ -27,7 +27,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{Auth::user()->name }}</b>
+                                              <b>{{$listHarta ->formbs->name }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -37,7 +37,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{Auth::user()->kad_pengenalan }}</b>
+                                              <b>{{$listHarta ->formbs->kad_pengenalan }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -47,7 +47,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <b>{{Auth::user()->jawatan }}</b>
+                                            <b>{{$listHarta ->formbs->jawatan }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -67,7 +67,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{Auth::user()->alamat_tempat_bertugas }}</b>
+                                              <b>{{$listHarta ->formbs->alamat_tempat_bertugas }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -84,7 +84,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{Auth::user()->nama_pasangan }}</b>
+                                              <b>{{$listHarta ->formbs->nama_pasangan }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -94,7 +94,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{Auth::user()->kad_pengenalan_pasangan }}</b>
+                                              <b>{{$listHarta ->formbs->kad_pengenalan_pasangan }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -104,7 +104,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{Auth::user()->pekerjaan_pasangan }}</b>
+                                              <b>{{$listHarta ->formbs->pekerjaan_pasangan }}</b>
                                           </div>
                                       </div>
                                     </div>
@@ -114,7 +114,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <b>{{Auth::user()->nama_anak }}</b>
+                                                <b>{{$listHarta ->formbs->nama_anak }}</b>
                                             </div>
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <b>{{Auth::user()->umur_anak }}</b>
+                                                <b>{{$listHarta ->formbs->umur_anak }}</b>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                {{Auth::user()->no_kad_pengenalan_anak }}
+                                                {{$listHarta ->formbs->no_kad_pengenalan_anak }}
                                             </div>
                                         </div>
                                       </div>
@@ -162,7 +162,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div align="center">
-                                                {{Auth::user()->gaji }}
+                                                {{$listHarta ->formbs->gaji }}
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">

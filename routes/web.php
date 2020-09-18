@@ -121,7 +121,25 @@ Route::get('/form/viewG/{id}', 'UserController@viewG')->name('user.harta.FormG.v
 
 
 
-Route::get('/admin/homepage', 'AdminController@adminDashboard')->name('user.admin.view');
+Route::get('/admin/laman-utama', 'AdminController@adminDashboard')->name('user.admin.view');
+
+Route::get('/admin/emel/tambah/template', 'AdminController@EmelTemplate')->name('user.admin.template_email');
+
+Route::post('/admin/emel/template/hantar', 'AdminController@submitemel')->name('email.submit');
+
+Route::get('/emel/padam/{id}','AdminController@deleteemel')->name('emel.delete');
+
+Route::get('/emel/edit/{id}','AdminController@editemel')->name('emel.edit');
+
+Route::post('/emel/update/{id}','AdminController@updateemel')->name('emel.update');
+
+Route::post('/Lampiran-B/dokumen/{id}', 'AdminController@submitDokumenB')->name('dokumenB.submit');
+
+Route::post('/Lampiran-C/dokumen/{id}', 'AdminController@submitDokumenC')->name('dokumenC.submit');
+
+Route::post('/Lampiran-D/dokumen/{id}', 'AdminController@submitDokumenD')->name('dokumenD.submit');
+
+Route::post('/Lampiran-G/dokumen/{id}', 'AdminController@submitDokumenG')->name('dokumenG.submit');
 
 Route::get('/senarai-laporan-harta', 'AdminController@senarailaporanharta')->name('user.admin.harta.senarailaporanharta');
 
@@ -144,6 +162,8 @@ Route::post('/Hadiah/nilai/admin/{id}', 'AdminController@updateNilaiHadiah')->na
 Route::get('/admin/system/notification', 'AdminController@notification')->name('user.admin.notification');
 
 Route::get('/admin/laporan-B', 'AdminController@reportB')->name('user.admin.harta.reportB');
+
+Route::get('/admin/laporan-hadiah', 'AdminController@reportHadiah')->name('user.admin.hadiah.report');
 
 Route::get('/admin/laporan-C', 'AdminController@reportC')->name('user.admin.harta.reportC');
 
@@ -185,7 +205,11 @@ Route::get('/form/viewUlasanHartaD/{id}', 'AdminController@viewUlasanHartaD')->n
 
 Route::get('/form/viewUlasanHartaG/{id}', 'AdminController@viewUlasanHartaG')->name('user.admin.harta.ulasanHartaG');
 
-Route::get('/admin/senaraiharta', 'AdminController@senaraiharta')->name('user.admin.harta.senaraiharta');
+Route::get('/admin/senaraiharta', 'AdminController@senaraiAllForm')->name('user.admin.harta.senaraiallharta');
+
+Route::get('/admin/senarai-hadiah', 'AdminController@senaraiAllHadiah')->name('user.admin.hadiah.senaraiallhadiah');
+
+Route::get('/admin/senarai-harta-pegawai', 'AdminController@senaraiharta')->name('user.admin.harta.senaraiharta');
 
 Route::get('/admin/list/harta/b/sedang-diproses', 'AdminController@listFormB')->name('user.admin.harta.listB.senaraiformB');
 
@@ -294,6 +318,10 @@ Route::get('/hodiv/viewUlasanHartaG/{id}', 'HodivController@viewUlasanHartaG')->
 
 Route::get('/hodiv/senaraiharta', 'HodivController@senaraiharta')->name('user.hodiv.harta.senaraiharta');
 
+Route::get('/hodiv/senaraiharta', 'HodivController@senaraiAllForm')->name('user.hodiv.harta.senaraiallharta');
+
+Route::get('/hodiv/senarai-hadiah', 'HodivController@senaraiAllHadiah')->name('user.hodiv.hadiah.senaraiallhadiah');
+
 Route::get('/hodiv/list/harta/b', 'HodivController@listFormB')->name('user.hodiv.harta.senaraiformB');
 
 Route::get('/hodiv/list/harta/c', 'HodivController@listFormC')->name('user.hodiv.harta.senaraiformC');
@@ -348,6 +376,10 @@ Route::get('/integrityHOD/viewUlasanHartaD/{id}', 'IntegrityHodController@viewUl
 Route::get('/integrityHOD/viewUlasanHartaG/{id}', 'IntegrityHodController@viewUlasanHartaG')->name('user.integrityHOD.harta.ulasanHartaG');
 
 Route::get('/integrityHOD/senaraiharta', 'IntegrityHodController@senaraiharta')->name('user.integrityHOD.harta.senaraiharta');
+
+Route::get('/integrityHOD/senaraiharta', 'IntegrityHodController@senaraiAllForm')->name('user.integrityHOD.harta.senaraiallharta');
+
+Route::get('/integrityHOD/senarai-hadiah', 'IntegrityHodController@senaraiAllHadiah')->name('user.integrityHOD.hadiah.senaraiallhadiah');
 
 Route::get('/integrityHOD/list/harta/b', 'IntegrityHodController@listFormB')->name('user.integrityHOD.harta.senaraiformB');
 

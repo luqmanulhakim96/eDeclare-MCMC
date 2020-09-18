@@ -48,12 +48,26 @@
 
     <script type="text/javascript">
     $(document).ready(function() {
+        var buttonCommon = {
+          exportOptions: {
+               // Any other settings used
+               grouped_array_index: 0,
+          },
+        };
         var groupColumn = 1;
         var table = $('#example').DataTable({
-          dom: 'Bfrtip',
-          buttons: [
-              'copy', 'csv', 'excel', 'pdf', 'print'
-          ],
+             dom: 'Bfrtip',
+             buttons: [
+             $.extend( true, {}, buttonCommon, {
+                 extend: 'copyHtml5'
+             } ),
+             $.extend( true, {}, buttonCommon, {
+                 extend: 'excelHtml5'
+             } ),
+             $.extend( true, {}, buttonCommon, {
+                 extend: 'pdfHtml5'
+             } )
+         ],
 
             "columnDefs": [
                 { "visible": false, "targets": groupColumn }

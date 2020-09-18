@@ -4,8 +4,8 @@
       <!-- Light Bordered Table card -->
       <div class="card rounded-lg">
               <!-- Table -->
-              <div class="table-responsive">
-                  <table class="table table-bordered">
+              <div class="table-responsive" >
+                  <table class="table table-bordered" id="example">
                       <thead>
                           <tr class="text-center">
                               <th width="10%"><p class="mb-0">#</p></th>
@@ -72,4 +72,29 @@
 
           </div>
       </div>
+      <script type="text/javascript">
+      $(document).ready(function() {
+          var buttonCommon = {
+            exportOptions: {
+                 // Any other settings used
+                 grouped_array_index: 0,
+            },
+          };
+          var groupColumn = 1;
+          var table = $('#example').DataTable({
+               dom: 'Bfrtip',
+               buttons: [
+               $.extend( true, {}, buttonCommon, {
+                   extend: 'copyHtml5'
+               } ),
+               $.extend( true, {}, buttonCommon, {
+                   extend: 'excelHtml5'
+               } ),
+               $.extend( true, {}, buttonCommon, {
+                   extend: 'pdfHtml5'
+               } )
+           ]
+           } );
+       } );
+       </script>
 @endsection

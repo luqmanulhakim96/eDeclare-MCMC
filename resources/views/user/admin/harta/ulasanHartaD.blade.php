@@ -15,7 +15,16 @@
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lampiran</a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Ulasan</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                              <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
                                       <div class="col-md-4">
@@ -23,7 +32,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->name }}
+                                              {{$listHarta ->formds->name }}
                                           </div>
                                       </div>
                                   </div>
@@ -33,7 +42,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->kad_pengenalan }}
+                                              {{$listHarta ->formds->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -43,7 +52,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->jawatan }}
+                                              {{$listHarta ->formds->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -53,7 +62,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->alamat_tempat_bertugas }}
+                                              {{$listHarta ->formds->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>
@@ -179,38 +188,49 @@
                                    </div>
 
                                    </div>
-                                   <br>
                                    @endforeach
-
-                                   <div class="row">
-                                     <div class="col-md-4">
-                                       <p>Ulasan Admin</p>
-                                       <br>
-                                       <form action="{{route('ulasanadminD.update', $listHarta->id)}}" method="post">
-                                         @csrf
-                                          <textarea name="ulasan_admin" rows="8" cols="30" placeholder="Ulasan Admin"></textarea><br>
-
-                                          <input type="radio" id="tidak_lengkap" name="status" value="Tidak Lengkap">
-                                              <label for="Tidak Lengkap">Tidak Lengkap</label><br>
-                                          <input type="radio" id="diterima" name="status" value="Proses ke Ketua Jabatan Integriti">
-                                              <label for="Diterima">Proses ke Ketua Jabatan Integriti</label><br>
-                                            <!-- button -->
-                                            <div class="col-md-2">
-                                              <button type="submit" onclick=" return confirm('Hantar Ulasan?');" class="btn btn-primary mt-4">Hantar</button>
-                                            </div>
-                                        </form>
-                                     </div>
-                                     <div class="col-md-4">
-                                         <p>Ulasan Ketua Jabatan Integriti</p>
-                                         <br>
-                                         <textarea rows="8" cols="30" readonly>{{ $listHarta ->ulasan_hod }}</textarea>
-                                     </div>
-                                     <div class="col-md-4">
-                                         <p>Ulasan Ketua Bahagian</p>
-                                         <br>
-                                         <textarea rows="8" cols="30" readonly>{{ $listHarta ->ulasan_hodiv }}</textarea>
-                                     </div>
                                    </div>
+                                   <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                     <div class="page-body p-4 text-dark">
+                                       <form action="{{route('ulasanadminD.update', $listHarta->id)}}" method="post">
+                                       @csrf
+                                       <div class="row">
+                                         <div class="col-md-2">
+                                             <p>Nama</p>
+                                          </div>
+                                          <div class="col-md-8">
+                                            <input type="text" class="form-control bg-light" name="nama_admin" value="{{Auth::user()->name }}" readonly><br>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                              <p>No Staff</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <input type="text" class="form-control bg-light" name="no_admin" value="{{Auth::user()->kad_pengenalan }}" readonly><br>
+                                             </div>
+                                        </div>
+                                            <div class="row">
+                                              <div class="col-md-2">
+                                                <p>Ulasan Admin</p>
+                                              </div>
+                                              <div class="col-md-8">
+
+                                                           <textarea class="form-control bg-light" name="ulasan_admin" rows="4" cols="50" placeholder="Ulasan Admin"></textarea><br>
+
+                                                           <input type="radio" id="tidak_lengkap" name="status" value="Tidak Lengkap">
+                                                               <label for="Tidak Lengkap">Tidak Lengkap</label><br>
+                                                           <input type="radio" id="diterima" name="status" value="Proses ke Ketua Jabatan Integriti">
+                                                               <label for="Diterima">Proses ke Ketua Jabatan Integriti</label><br>
+                                                             <!-- button -->
+                                                           <div>
+                                                             <button type="submit" onclick=" return confirm('Hantar Ulasan?');" class="btn btn-primary mt-4">Hantar</button>
+                                                           </div>
+                                                   </div>
+                                                 </div>
+                                             </form>
+                                        </div>
+                               </div>
                       </div>
                </div>
            </div>

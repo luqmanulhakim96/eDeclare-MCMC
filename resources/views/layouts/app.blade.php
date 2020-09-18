@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('qbadminui/css/vendor/bootstrap-4.3.1/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('qbadminui/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('qbadminui/css/vendor/DataTable-1.10.20/datatables.min.css') }}"></link>
+    <script src="{{ asset('qbadminui/js/plugins/dataTables.buttons.js') }}"></script>
 
     <!-- TinyMCE script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.4.0/tinymce.min.js"></script>

@@ -9,20 +9,20 @@
                 <!-- Small card component -->
                 <div class="card rounded-lg">
                   <div class="card-body">
-                      <div class="card-title">Background Queue</div>
+                      <div class="card-title">Latar Belakang Sistem</div>
                       <div class="table-responsive">
 
-                      <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                      <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                         <!-- Table head -->
                         <thead>
                             <tr>
                               <th class="all">Status</th>
-                              <th class="all">Job</th>
-                              <th class="all">Details</th>
-                              <th class="all">Progress</th>
-                              <th class="all">Duration</th>
-                              <th class="all">Started</th>
-                              <th class="all">Error</th>
+                              <th class="all">Tugas</th>
+                              <th class="all">Perincian</th>
+                              <th class="all">Perkembangan</th>
+                              <th class="all">Tempoh</th>
+                              <th class="all">Permulaan</th>
+                              <th class="all">Ralat</th>
                             </tr>
                         </thead>
                         <!-- Table body -->
@@ -100,4 +100,29 @@
                 </div>
             </div>
         </main>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            var buttonCommon = {
+              exportOptions: {
+                   // Any other settings used
+                   grouped_array_index: 0,
+              },
+            };
+            var groupColumn = 1;
+            var table = $('#example').DataTable({
+                 dom: 'Bfrtip',
+                 buttons: [
+                 $.extend( true, {}, buttonCommon, {
+                     extend: 'copyHtml5'
+                 } ),
+                 $.extend( true, {}, buttonCommon, {
+                     extend: 'excelHtml5'
+                 } ),
+                 $.extend( true, {}, buttonCommon, {
+                     extend: 'pdfHtml5'
+                 } )
+             ]
+             } );
+         } );
+         </script>
 @endsection

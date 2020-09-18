@@ -36,7 +36,7 @@ class PerakuanController extends Controller
     $this->validator($request->all())->validate();
 // dd($request->all());
     event($perakuanharta = $this->add($request->all()));
-    return redirect()->route('menu-utama');
+    return redirect()->route('user.form');
 
   }
 }

@@ -11,6 +11,7 @@ use App\Pinjaman;
 use DB;
 use Auth;
 use App\User;
+use App\Email;
 
 // use App\Notifications\Form\UserFormAdminG;
 use App\Jobs\SendNotificationFormG;

@@ -5,6 +5,6 @@
     <title></title>
   </head>
   <body>
-    Content
+    {!!$email->kandungan!!}
   </body>
 </html>

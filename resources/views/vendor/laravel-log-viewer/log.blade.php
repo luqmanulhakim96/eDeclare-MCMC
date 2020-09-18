@@ -16,7 +16,7 @@
                     Log file >50M, please download it.
                   </div>
                 @else
-                  <table id="table-log" class="table table-striped" data-ordering-index="{{ $standardFormat ? 2 : 0 }}">
+                  <table id="example" class="table table-striped" data-ordering-index="{{ $standardFormat ? 2 : 0 }}">
                     <thead>
                     <tr>
                       @if ($standardFormat)
@@ -122,10 +122,37 @@
         if (data) data.start = 0;
         return data;
       }
+  }
     });
     $('#delete-log, #clean-log, #delete-all-log').click(function () {
       return confirm('Are you sure?');
     });
+
   });
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var buttonCommon = {
+      exportOptions: {
+           // Any other settings used
+           grouped_array_index: 0,
+      },
+    };
+    var groupColumn = 1;
+    var table = $('#example').DataTable({
+         dom: 'Bfrtip',
+         buttons: [
+         $.extend( true, {}, buttonCommon, {
+             extend: 'copyHtml5'
+         } ),
+         $.extend( true, {}, buttonCommon, {
+             extend: 'excelHtml5'
+         } ),
+         $.extend( true, {}, buttonCommon, {
+             extend: 'pdfHtml5'
+         } )
+     ]
+     } );
+ } );
+ </script>
 @endsection
