@@ -21,6 +21,12 @@ use App\NilaiHadiah;
 use App\JenisHadiah;
 use App\JenisHarta;
 use Auth;
+use DB;
+use App\DokumenB;
+use App\DokumenC;
+use App\DokumenD;
+use App\DokumenG;
+use App\Email;
 
 class AdminController extends Controller
 {
@@ -45,7 +51,36 @@ class AdminController extends Controller
       $listHadiahB = GiftB::where('status','Diterima')->count();
       $nilaiHadiah = NilaiHadiah::first();
 
-      return view('user.admin.view', compact('nilaiHadiah','listB','listHadiah','list','listC','listD','listG','listHadiahA','listHadiahB','listBDiterima','listCDiterima','listDDiterima','listGDiterima'));
+      $pegawai_dah_declare_Bs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id)"));
+      $pegawai_dah_declare_Cs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formcs.user_id ) as data from formcs where EXISTS ( SELECT formcs.user_id FROM formcs, users where formcs.user_id= users.id)"));
+      $pegawai_dah_declare_Ds =DB::select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id)"));
+      $pegawai_dah_declare_Gs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id)"));
+
+      $pegawai_gift_declare_Gs =DB::select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id)"));
+      $pegawai_giftb_declare_Gs =DB::select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id)"));
+
+      // $total_declare = $pegawai_dah_declare_Bs[0]->data + $pegawai_dah_declare_Cs[0]->data + $pegawai_dah_declare_Ds[0]->data + $pegawai_dah_declare_Gs[0]->data;
+      // dd($total_declare);
+      $total_user =DB::select(DB::raw ("SELECT COUNT( DISTINCT users.id ) as data From users"));
+      $undeclareB= $total_user[0]->data - $pegawai_dah_declare_Bs[0]->data ;
+      $undeclareC= $total_user[0]->data - $pegawai_dah_declare_Cs[0]->data ;
+      $undeclareD= $total_user[0]->data - $pegawai_dah_declare_Ds[0]->data ;
+      $undeclareG= $total_user[0]->data - $pegawai_dah_declare_Gs[0]->data ;
+      $undeclareGift= $total_user[0]->data - $pegawai_gift_declare_Gs[0]->data ;
+      $undeclareGiftB= $total_user[0]->data - $pegawai_giftb_declare_Gs[0]->data ;
+
+      // $total_no_declare = $undeclareB + $undeclareC + $undeclareD + $undeclareG;
+
+      // dd($undeclareC);
+
+      return view('user.admin.view', compact('nilaiHadiah',
+                                             'listB','listHadiah','list','listC','listD','listG',
+                                             'listHadiahA','listHadiahB','listBDiterima','listCDiterima',
+                                             'listDDiterima','listGDiterima','pegawai_dah_declare_Bs',
+                                             'pegawai_dah_declare_Cs','pegawai_dah_declare_Ds','pegawai_dah_declare_Gs',
+                                             'pegawai_gift_declare_Gs','pegawai_giftb_declare_Gs',
+                                             'undeclareGift','undeclareGiftB',
+                                             'undeclareB','undeclareC','undeclareD','undeclareG'));
     }
 
     public function systemConfig(){
@@ -68,8 +103,9 @@ class AdminController extends Controller
   }
 
   public function notification(){
-
-    return view('user.admin.notification');
+    $listEmel = Email::get();
+// dd($listEmel);
+    return view('user.admin.notification',compact('listEmel'));
   }
 
   public function listAsset(){
@@ -204,6 +240,7 @@ class AdminController extends Controller
   {
      //dd($id);
     $listHarta = FormG::findOrFail($id);
+    $attendance = FormG::with('formgs')->get();
     $listDividenG = DividenG::where('formgs_id', $listHarta->id) ->get();
     $listPinjamanG = PinjamanG::where('formgs_id', $listHarta->id) ->get();
     $listPinjaman = Pinjaman::where('formgs_id', $listHarta->id) ->get();
@@ -215,6 +252,7 @@ class AdminController extends Controller
   {
      //dd($id);
     $listHarta = FormB::findOrFail($id);
+    $attendance = FormB::with('formbs')->get();
     $listDividenB = DividenB::where('formbs_id', $listHarta->id) ->get();
 
     $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();
@@ -457,70 +495,82 @@ class AdminController extends Controller
    public function updateStatusUlasanAdminB(Request $request,$id){
 
      $formbs = FormB::find($id);
+     $formbs->nama_admin = $request->nama_admin;
+     $formbs->no_admin = $request->no_admin;
      $formbs->status = $request->status;
      $formbs->ulasan_admin = $request->ulasan_admin;
      $formbs->save();
 
      //send notification to HOD (noti ulasan admin dah check)
 
-     return redirect()->route('user.admin.harta.listB.senaraiformB');
+     return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanAdminC(Request $request,$id){
 
      $formbs = FormC::find($id);
+     $formbs->nama_admin = $request->nama_admin;
+     $formbs->no_admin = $request->no_admin;
      $formbs->status = $request->status;
      $formbs->ulasan_admin = $request->ulasan_admin;
      $formbs->save();
      //send notification to HOD (noti ulasan admin dah check)
 
-     return redirect()->route('user.admin.harta.listC.senaraiformC');
+     return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanAdminD(Request $request,$id){
 
      $formbs = FormD::find($id);
+     $formbs->nama_admin = $request->nama_admin;
+     $formbs->no_admin = $request->no_admin;
      $formbs->status = $request->status;
      $formbs->ulasan_admin = $request->ulasan_admin;
      $formbs->save();
      //send notification to HOD (noti ulasan admin dah check)
 
-     return redirect()->route('user.admin.harta.listD.senaraiformD');
+     return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanAdminG(Request $request,$id){
 
      $formbs = FormG::find($id);
+     $formbs->nama_admin = $request->nama_admin;
+     $formbs->no_admin = $request->no_admin;
      $formbs->status = $request->status;
      $formbs->ulasan_admin = $request->ulasan_admin;
      $formbs->save();
      //send notification to HOD (noti ulasan admin dah check)
 
-     return redirect()->route('user.admin.harta.listG.senaraiformG');
+     return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanAdminGift(Request $request,$id){
 
      $gifts = Gift::find($id);
+     $gifts->nama_admin = $request->nama_admin;
+     $gifts->no_admin = $request->no_admin;
      $gifts->status = $request->status;
      $gifts->ulasan_admin = $request->ulasan_admin;
      $gifts->save();
 
      //send notification to users (status="Diterima" && status="Tidak Diterima" && status="Tidak Lengkap")
 
-     return redirect()->route('user.admin.hadiah.listGift');
+     return redirect()->route('user.admin.hadiah.senaraiallhadiah');
    }
 
    public function updateStatusUlasanAdminGiftB(Request $request,$id){
 
      $giftbs = GiftB::find($id);
+     $giftbs->nama_admin = $request->nama_admin;
+     $giftbs->no_admin = $request->no_admin;
      $giftbs->status = $request->status;
      $giftbs->ulasan_admin = $request->ulasan_admin;
      $giftbs->save();
 
      //send notification to users (status="Diterima" && status="Tidak Diterima" && status="Tidak Lengkap")
 
-     return redirect()->route('user.admin.hadiah.listGiftB');
+     return redirect()->route('user.admin.hadiah.senaraiallhadiah');
    }
 
    public function addjenishadiah(array $data){
@@ -627,5 +677,187 @@ class AdminController extends Controller
 
          return view('user.admin.harta.reportG',compact('listG'));
        }
+
+       public function senaraiAllForm(){
+         $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
+         $listallBTable = FormB::getTableName();
+         $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
+         $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->get();
+         $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->get();
+         $merged = $listallB->mergeRecursive($listallC);
+         $merged = $merged->mergeRecursive($listallD);
+         $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+
+         return view('user.admin.harta.senaraiallharta', compact('merged'));
+       }
+
+       public function senaraiAllHadiah(){
+         $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
+         $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
+         $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
+
+         return view('user.admin.hadiah.senaraiallhadiah', compact('merged'));
+       }
+
+       public function reportHadiah(){
+         $listHadiah = Gift::where('status','Diterima')->get();
+         // dd($listHadiah);
+         $attendance = Gift::with('gifts')->get();
+         $listHadiahBs = GiftB::where('status','Diterima')->get();
+         $attendanceb = GiftB::with('giftbs')->get();
+
+
+         $listHadiahA = Gift::where('status','Diterima')->count();
+         $listHadiahB = GiftB::where('status','Diterima')->count();
+         $nilaiHadiah = NilaiHadiah::first();
+         // dd($nilaiHadiah);
+         $hadiah =DB::select(DB::raw("SELECT COUNT(gifts.status) as count, gifts.jenis_gift FROM jenis_hadiahs, gifts WHERE gifts.jenis_gift = jenis_hadiahs.jenis_gift AND gifts.status = 'Diterima' GROUP BY gifts.jenis_gift"));
+
+         // $hadiahB =DB::select(DB::raw("SELECT COUNT(giftbs.status) as count, giftbs.jenis_gift FROM jenis_hadiahs, giftbs WHERE giftbs.jenis_gift = jenis_hadiahs.jenis_gift AND giftbs.status = 'Diterima' GROUP BY giftbs.jenis_gift"));
+
+
+         return view('user.admin.hadiah.report', compact('hadiah','nilaiHadiah','listHadiah','listHadiahA','listHadiahBs','listHadiahB'));
+       }
+
+       public function submitDokumenB(Request $request, $id){
+         // dd($request->all());
+         $status="Selesai";
+         $formbs = FormB::findOrFail($id);
+         $formbs->status = $status;
+         $formbs->save();
+
+         foreach($request->dokumen_pegawai as $file)
+         {
+             $file_syarikat = new DokumenB();
+             $file_syarikat->dokumen_pegawai = $file->store('public/uploads/dokumen_pegawai');
+             $file_syarikat->formbs_id = $formbs->id;
+             $file_syarikat->save();
+             // dd($file_syarikat);
+         }
+         return redirect()->route('user.admin.harta.senaraiallharta');
+       }
+
+       public function submitDokumenC(Request $request, $id){
+         // dd($request->all());
+         $status="Selesai";
+         $formcs = FormC::findOrFail($id);
+         $formcs->status = $status;
+         $formcs->save();
+
+         foreach($request->dokumen_pegawai as $file)
+         {
+             $file_syarikat = new DokumenC();
+             $file_syarikat->dokumen_pegawai = $file->store('public/uploads/dokumen_pegawai');
+             $file_syarikat->formcs_id = $formcs->id;
+             $file_syarikat->save();
+             // dd($file_syarikat);
+         }
+         return redirect()->route('user.admin.harta.senaraiallharta');
+       }
+
+       public function submitDokumenD(Request $request, $id){
+         // dd($request->all());
+         $status="Selesai";
+         $formds = FormD::findOrFail($id);
+         $formds->status = $status;
+         $formds->save();
+
+         foreach($request->dokumen_pegawai as $file)
+         {
+             $file_syarikat = new DokumenD();
+             $file_syarikat->dokumen_pegawai = $file->store('public/uploads/dokumen_pegawai');
+             $file_syarikat->formds_id = $formds->id;
+             $file_syarikat->save();
+             // dd($file_syarikat);
+         }
+         return redirect()->route('user.admin.harta.senaraiallharta');
+       }
+
+       public function submitDokumenG(Request $request, $id){
+         // dd($request->all());
+         $status="Selesai";
+         $formgs = FormG::findOrFail($id);
+         $formgs->status = $status;
+         $formgs->save();
+
+         foreach($request->dokumen_pegawai as $file)
+         {
+             $file_syarikat = new DokumenG();
+             $file_syarikat->dokumen_pegawai = $file->store('public/uploads/dokumen_pegawai');
+             $file_syarikat->formgs_id = $formgs->id;
+             $file_syarikat->save();
+             // dd($file_syarikat);
+         }
+         return redirect()->route('user.admin.harta.senaraiallharta');
+       }
+
+       public function EmelTemplate()
+       {
+         return view('user.admin.template_email');
+       }
+
+       public function addemel(array $data){
+           return Email::create([
+             'jenis' => $data['jenis'],
+             'penerima' => $data['penerima'],
+             'subjek' => $data['subjek'],
+             'tajuk' => $data['tajuk'],
+             'kandungan' => $data['kandungan']
+           ]);
+         }
+
+         protected function validatoremel(array $data)
+       {
+           return Validator::make($data, [
+             'jenis' =>['nullable', 'string'],
+             'penerima'=>['nullable', 'string'],
+             'subjek'=>['nullable', 'string'],
+             'tajuk'=>['nullable', 'string'],
+             'kandungan'=>['nullable', 'string']
+         ]);
+       }
+
+         public function submitemel(Request $request){
+
+         $this->validatoremel($request->all())->validate();
+
+         event($emails = $this->addemel($request->all()));
+
+         return redirect()->route('user.admin.notification');
+         }
+
+         public function deleteemel($id){
+             $gifts = Email::find($id);
+             $gifts-> delete();
+             return redirect()->route('user.admin.notification');
+         }
+
+         public function editemel($id){
+             $info = Email::findOrFail($id);
+
+             // dd($info);
+             return view('user.admin.edit_email', compact('info'));
+           }
+
+           public function update($id){
+             $emails = Email::find($id);
+             $emails->jenis = request()->jenis;
+             $emails->penerima = request()->penerima;
+             $emails->subjek = request()->subjek;
+             $emails->tajuk = request()->tajuk;
+             $emails->kandungan = request()->kandungan;
+             $emails->save();
+           }
+
+         public function updateemel(Request $request,$id){
+           // dd($request->all());
+            $this->validatoremel(request()->all())->validate();
+           // dd($request->all());
+
+           $this->update($id);
+           return redirect()->route('user.admin.notification');
+         }
+
+
 
 }

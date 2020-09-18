@@ -11,7 +11,7 @@
                   <div class="card-body">
                       <div class="card-title">Audit Trail</div>
                       <div class="table-responsive">
-                      <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                      <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                         <!-- Table head -->
                         <thead class="thead-light">
                             <tr>
@@ -44,41 +44,20 @@
                               @if($datas->user->role == 1)
                                 <td> Pentadbir Sistem (Admin) </td>
                               @elseif($datas->user->role == 2)
-                                <td> Penyokong 1 </td>
+                                <td> Ketua Jabatan Integriti </td>
                               @elseif($datas->user->role == 3)
-                                <td> Penyokong 2 </td>
+                                <td> Ketua Bahagian </td>
                               @elseif($datas->user->role == 4)
-                                <td> Ketua Pengarah </td>
+                                <td> IT Admin </td>
                               @elseif($datas->user->role == 5)
-                                <td> Superadmin </td>
+                                <td> Pengguna </td>
                               @endif
                               <td>{{  ucfirst($datas->event) }}</td>
                               <td>{{ substr($datas->auditable_type, strpos($datas->auditable_type, "/") + 4) }}</td>
-                              @if( $datas->old_values == "[]")
-                                <td>-</td>
+                              <td>{{$datas->old_values}}</td>
+                              <td>{{$datas->new_values}}</td>
 
-                              @else
-                              <table>
-                                @foreach(explode(',', $datas->old_values) as $info)
-                                  <tr>
-                                    <td>{{  preg_replace('/[{}]/',"",$info) }}</td>
-                                  </tr>
-                                @endforeach
-                              </table>
-                              @endif
-                              @if( $datas->new_values == "[]")
-                                <td>-</td>
-                              @else
-                              <td>
-                              <table>
-                                @foreach(explode(',', $datas->new_values) as $info)
-                                  <tr>
-                                    <td>{{  preg_replace('/[{}]/',"",$info) }}</td>
-                                  </tr>
-                                @endforeach
-                              </table>
-                              </td>
-                              @endif
+                              
                               <td>{{ $datas->url }}</td>
                               </tr>
                             @endif
@@ -90,4 +69,29 @@
                   </div>
                 </div>
             </div>
+            <script type="text/javascript">
+            $(document).ready(function() {
+                var buttonCommon = {
+                  exportOptions: {
+                       // Any other settings used
+                       grouped_array_index: 0,
+                  },
+                };
+                var groupColumn = 1;
+                var table = $('#example').DataTable({
+                     dom: 'Bfrtip',
+                     buttons: [
+                     $.extend( true, {}, buttonCommon, {
+                         extend: 'copyHtml5'
+                     } ),
+                     $.extend( true, {}, buttonCommon, {
+                         extend: 'excelHtml5'
+                     } ),
+                     $.extend( true, {}, buttonCommon, {
+                         extend: 'pdfHtml5'
+                     } )
+                 ]
+                 } );
+             } );
+             </script>
 @endsection

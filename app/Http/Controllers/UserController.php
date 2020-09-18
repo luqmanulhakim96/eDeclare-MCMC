@@ -205,4 +205,6 @@ class UserController extends Controller
     event($permohonan = $this->addAsset($request->all()));
     return redirect()->route('permohonan-asset');
   }
+
+
 }

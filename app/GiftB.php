@@ -17,13 +17,19 @@ class GiftB extends Model implements Auditable
     protected $fillable = [
       'jabatan','jenis_gift', 'nilai_gift', 'tarikh_diterima', 'nama_pemberi', 'alamat_pemberi',
       'hubungan_pemberi', 'sebab_gift', 'ulasan_jabatan', 'gambar_gift',
-      'status_gift', 'user_id','status','ulasan_admin','ulasan_hod','ulasan_hodiv'
+      'status_gift', 'user_id','status','nama_admin','no_admin','ulasan_admin','ulasan_hod','ulasan_hodiv'
     ];
 
     public function giftbs(){
       return $this->belongsTo(User::class, 'user_id');
 
     }
+
+    public function users(){
+      return $this->belongsTo(User::class, 'user_id');
+
+    }
+
     public function jenishadiahb(){
       return $this->hasMany('App\JenisHadiah');
     }

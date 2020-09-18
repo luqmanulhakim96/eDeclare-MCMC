@@ -18,14 +18,15 @@ use App\Keluarga;
 use App\Pinjaman;
 use App\NilaiHadiah;
 use Auth;
+use DB;
 
 class HodivController extends Controller
 {
     //
   public function hodivDashboard(){
-    $listB = FormB::where('status','Sedang Diproses')->get();
+    $listB = FormB::where('status','Proses ke Ketua Bahagian')->get();
     $attendance = FormB::with('formbs')->get();
-    $listHadiah = Gift::where('status','Diproses ke Pentadbir Sistem')->get();
+    $listHadiah = Gift::where('status','Sedang Diproses')->get();
     $attendance = Gift::with('gifts')->get();
 
     $list = FormB::count();
@@ -42,8 +43,30 @@ class HodivController extends Controller
     $listHadiahB = GiftB::where('status','Diterima')->count();
     $nilaiHadiah = NilaiHadiah::first();
 
-    return view('user.hodiv.view', compact('nilaiHadiah','listB','listHadiah','list','listC','listD','listG','listHadiahA','listHadiahB','listBDiterima','listCDiterima','listDDiterima','listGDiterima'));
-  }
+    $pegawai_dah_declare_Bs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id)"));
+    $pegawai_dah_declare_Cs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formcs.user_id ) as data from formcs where EXISTS ( SELECT formcs.user_id FROM formcs, users where formcs.user_id= users.id)"));
+    $pegawai_dah_declare_Ds =DB::select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id)"));
+    $pegawai_dah_declare_Gs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id)"));
+
+    // $total_declare = $pegawai_dah_declare_Bs[0]->data + $pegawai_dah_declare_Cs[0]->data + $pegawai_dah_declare_Ds[0]->data + $pegawai_dah_declare_Gs[0]->data;
+    // dd($total_declare);
+    $total_user =DB::select(DB::raw ("SELECT COUNT( DISTINCT users.id ) as data From users"));
+    $undeclareB= $total_user[0]->data - $pegawai_dah_declare_Bs[0]->data ;
+    $undeclareC= $total_user[0]->data - $pegawai_dah_declare_Cs[0]->data ;
+    $undeclareD= $total_user[0]->data - $pegawai_dah_declare_Ds[0]->data ;
+    $undeclareG= $total_user[0]->data - $pegawai_dah_declare_Gs[0]->data ;
+
+    // $total_no_declare = $undeclareB + $undeclareC + $undeclareD + $undeclareG;
+
+    // dd($undeclareC);
+
+    return view('user.admin.view', compact('nilaiHadiah',
+                                           'listB','listHadiah','list','listC','listD','listG',
+                                           'listHadiahA','listHadiahB','listBDiterima','listCDiterima',
+                                           'listDDiterima','listGDiterima','pegawai_dah_declare_Bs',
+                                           'pegawai_dah_declare_Cs','pegawai_dah_declare_Ds','pegawai_dah_declare_Gs',
+                                           'undeclareB','undeclareC','undeclareD','undeclareG'));
+}
 
   public function listAsset(){
 
@@ -223,70 +246,103 @@ class HodivController extends Controller
    public function updateStatusUlasanHODivB(Request $request,$id){
 
      $formbs = FormB::find($id);
+     $formbs->nama_hodiv = $request->nama_hodiv;
+     $formbs->no_hodiv = $request->no_hodiv;
      $formbs->status = $request->status;
      $formbs->ulasan_hodiv = $request->ulasan_hodiv;
      $formbs->save();
 
      //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
 
-     return redirect()->route('user.hodiv.harta.senaraiformB');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivC(Request $request,$id){
 
      $formbs = FormC::find($id);
+     $formbs->nama_hodiv = $request->nama_hodiv;
+     $formbs->no_hodiv = $request->no_hodiv;
      $formbs->status = $request->status;
      $formbs->ulasan_hodiv = $request->ulasan_hodiv;
      $formbs->save();
 
      //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
 
-     return redirect()->route('user.hodiv.harta.senaraiformC');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivD(Request $request,$id){
 
      $formbs = FormD::find($id);
+     $formbs->nama_hodiv = $request->nama_hodiv;
+     $formbs->no_hodiv = $request->no_hodiv;
      $formbs->status = $request->status;
      $formbs->ulasan_hodiv = $request->ulasan_hodiv;
      $formbs->save();
 
      //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
 
-     return redirect()->route('user.hodiv.harta.senaraiformD');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivG(Request $request,$id){
 
      $formbs = FormG::find($id);
+     $formbs->nama_hodiv = $request->nama_hodiv;
+     $formbs->no_hodiv = $request->no_hodiv;
      $formbs->status = $request->status;
      $formbs->ulasan_hodiv = $request->ulasan_hodiv;
      $formbs->save();
 
      //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
 
-     return redirect()->route('user.hodiv.harta.senaraiformG');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivGift(Request $request,$id){
 
      $gifts = Gift::find($id);
+     $gifts->nama_hodiv = $request->nama_hodiv;
+     $gifts->no_hodiv = $request->no_hodiv;
      $gifts->status = $request->status;
      $gifts->ulasan_hodiv = $request->ulasan_hodiv;
      $gifts->save();
 
      //send notification to hod (ulasan hodiv)
 
-     return redirect()->route('user.hodiv.hadiah.listGift');
+     return redirect()->route('user.hodiv.hadiah.senaraiallhadiah');
    }
 
    public function updateStatusUlasanHODivGiftB(Request $request,$id){
 
      $giftbs = GiftB::find($id);
+     $giftbs->nama_hodiv = $request->nama_hodiv;
+     $giftbs->no_hodiv = $request->no_hodiv;
      $giftbs->status = $request->status;
      $giftbs->ulasan_hodiv = $request->ulasan_hodiv;
      $giftbs->save();
 
-     return redirect()->route('user.hodiv.hadiah.listGiftB');
+     return redirect()->route('user.hodiv.hadiah.senaraiallhadiah');
+   }
+
+   public function senaraiAllForm(){
+     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallBTable = FormB::getTableName();
+     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->get();
+     $merged = $listallB->mergeRecursive($listallC);
+     $merged = $merged->mergeRecursive($listallD);
+     $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+
+     return view('user.hodiv.harta.senaraiallharta', compact('merged'));
+   }
+
+   public function senaraiAllHadiah(){
+     $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
+     $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
+     $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
+
+     return view('user.hodiv.hadiah.senaraiallhadiah', compact('merged'));
    }
 }

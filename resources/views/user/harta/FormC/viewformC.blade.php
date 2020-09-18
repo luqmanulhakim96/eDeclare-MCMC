@@ -20,7 +20,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                                {{Auth::user()->name }}
+                                                {{$listHarta ->formcs->name }}
                                           </div>
                                       </div>
                                   </div>
@@ -30,7 +30,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->kad_pengenalan }}
+                                              {{$listHarta ->formcs->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -40,7 +40,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                                {{Auth::user()->jawatan }}
+                                                {{$listHarta ->formcs->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -50,7 +50,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            {{$listHarta ->jabatan }}
+                                            {{$listHarta ->formcs->jabatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -60,7 +60,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->alamat_tempat_bertugas }}
+                                              {{$listHarta ->formcs->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>

@@ -13,7 +13,7 @@
                                <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
                                <!-- Table -->
                                <div class="table-responsive">
-                                   <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                                   <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <th width="10%"><p class="mb-0">ID</p></th>
@@ -57,7 +57,9 @@
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                  @if($data ->status == "Sedang Diproses")
                                                    <a href="{{ route('user.harta.FormC.editformC', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                                  @endif
+                                                   @else
+                                                   <span>-</span>
+                                                 @endif
                                                </div>
                                              </td>
                                              <!-- <td>{{ $data ->gambar_gift  }}</td> -->
@@ -77,5 +79,30 @@
                    </div>
                  </div>
              </div>
+             <script type="text/javascript">
+             $(document).ready(function() {
+                 var buttonCommon = {
+                   exportOptions: {
+                        // Any other settings used
+                        grouped_array_index: 0,
+                   },
+                 };
+                 var groupColumn = 1;
+                 var table = $('#example').DataTable({
+                      dom: 'Bfrtip',
+                      buttons: [
+                      $.extend( true, {}, buttonCommon, {
+                          extend: 'copyHtml5'
+                      } ),
+                      $.extend( true, {}, buttonCommon, {
+                          extend: 'excelHtml5'
+                      } ),
+                      $.extend( true, {}, buttonCommon, {
+                          extend: 'pdfHtml5'
+                      } )
+                  ]
+                  } );
+              } );
+              </script>
 
 @endsection

@@ -17,15 +17,14 @@
     <link rel="stylesheet" href="{{ asset('qbadminui/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('qbadminui/css/vendor/bootstrap-4.3.1/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('qbadminui/css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('qbadminui/js/vendor/Datatables/datatables.css') }}"/>
 
-    <link rel="stylesheet" href="{{ asset('qbadminui/css/vendor/DataTable-1.10.20/datatables.min.css') }}"></link>
+    <!-- tinymce -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.4.0/tinymce.min.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- <script src="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"></script> -->
-    <script src="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css"></script>
     <meta name="theme-color" content="#fafafa">
 
-    <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/> -->
     <style>
     .required:after {
     content:" *";
@@ -135,13 +134,13 @@
 
                           <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.hadiah.senaraihadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.harta.senaraiharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.hadiah.senaraiallhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.harta.senaraiallharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
                               </ul>
                           </div>
 
                           <!-- Sub menu parent -->
-                        <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#form-sub-menu" aria-expanded="false" aria-controls="form-sub-menu">Konfigurasi Sistem</a></li>
+                        <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#form-sub-menu" aria-expanded="false" aria-controls="form-sub-menu">Tetapan Sistem</a></li>
                         <!-- Sub menu -->
                         <div id="form-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
@@ -153,7 +152,7 @@
 
                         <div id="laporan" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.hadiah.senaraihadiah') }}" class="w-100 pl-4">Hadiah </a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.hadiah.report') }}" class="w-100 pl-4">Hadiah </a></li>
                                 <li class="side-sub-menu-item px-3"><a href="{{ route('user.admin.harta.senarailaporanharta') }}" class="w-100 pl-4">Harta</a></li>
                             </ul>
                         </div>
@@ -178,7 +177,7 @@
                                   <li class="side-sub-menu-item px-3"><a class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#senaraiperibadi" aria-expanded="false" aria-controls="senaraiperibadi">Senarai Perisytiharan</a></li>
                                   <div id="senaraiperibadi" class="collapse" aria-labelledby="headingOne" data-parent="#senaraiperibadi">
                                       <ul class="side-sub-menu p-0">
-                                        <li class="side-menu-item px-5"><a href="{{ route('user.senaraiharta') }}" class="w-100 py-3 pl-4">Harta Pegawai</a></li>
+                                        <li class="side-menu-item px-5"><a href="{{ route('user.integrityHOD.harta.senaraiallharta') }}" class="w-100 py-3 pl-4">Harta Pegawai</a></li>
                                         <li class="side-menu-item px-5"><a href="{{ route('user.senaraihadiah') }}" class="w-100 py-3 pl-4">Hadiah Pegawai</a></li>
                                       </ul>
                                   </div>
@@ -190,8 +189,8 @@
 
                           <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.integrityHOD.hadiah.senaraihadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.integrityHOD.harta.senaraiharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.integrityHOD.hadiah.senaraiallhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.integrityHOD.harta.senaraiallharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
                               </ul>
                           </div>
                           @endif
@@ -227,8 +226,8 @@
 
                           <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hodiv.hadiah.senaraihadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
-                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hodiv.harta.senaraiharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hodiv.hadiah.senaraiallhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.hodiv.harta.senaraiallharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
                               </ul>
                           </div>
                           @endif
@@ -497,19 +496,8 @@
     <script src="{{ asset('qbadminui/js/plugins.js') }}"></script>
     <script src="{{ asset('qbadminui/js/main.js') }}"></script>
     <!-- Data Table -->
-    <script src="{{ asset('qbadminui/js/vendor/DataTable-1.10.20/datatables.min.js') }}"></script>
     <!-- Data Table script -->
-    <script src="{{ asset('qbadminui/js/plugins/dataTable_script.js') }}"></script>
-
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
-    <!-- <script src="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css"></script> -->
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="{{ asset('qbadminui/js/vendor/DataTables/datatables.js') }}"></script>
 
 </body>
 </html>

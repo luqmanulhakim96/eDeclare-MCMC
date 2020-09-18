@@ -15,10 +15,27 @@ class FormC extends Model implements Auditable
     protected $table = 'formcs';
     protected $fillable = [
       'jenis_harta_lupus','pemilik_harta_pelupusan','hubungan_pemilik_pelupusan', 'no_pendaftaran_harta','tarikh_pemilikan',
-      'tarikh_pelupusan', 'cara_pelupusan', 'nilai_pelupusan','pengakuan','user_id','status','ulasan_admin','ulasan_hod','ulasan_hodiv','jabatan'
+      'tarikh_pelupusan', 'cara_pelupusan', 'nilai_pelupusan','pengakuan','user_id','status',
+      'nama_admin','no_admin','ulasan_admin','nama_hod','no_hod','ulasan_hod','nama_hodiv','no_hodiv','ulasan_hodiv','jabatan'
     ];
+
+    public static function getTableName()
+    {
+        return (new self())->getTable();
+    }
+
     public function formcs(){
       return $this->belongsTo(User::class, 'user_id');
+
+    }
+
+    public function users(){
+      return $this->belongsTo(User::class, 'user_id');
+
+    }
+
+    public function dokumenPegawai(){
+      return $this->hasMany('App\DokumenC');
 
     }
 }

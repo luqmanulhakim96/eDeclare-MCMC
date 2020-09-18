@@ -48,5 +48,7 @@
     <script src="{{ asset('qbadminui/js/vendor/DataTable-1.10.20/datatables.min.js') }}"></script>
     <!-- Data Table script -->
     <script src="{{ asset('qbadminui/js/plugins/dataTable_script.js') }}"></script>
+    <script src="{{ asset('qbadminui/js/plugins/dataTables.buttons.js') }}"></script>
+
 </body>
 </html>
