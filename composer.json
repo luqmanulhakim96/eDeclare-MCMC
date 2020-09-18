@@ -21,7 +21,8 @@
         "owen-it/laravel-auditing": "^10.0",
         "protoqol/prequel": "^1.22",
         "rap2hpoutre/laravel-log-viewer": "^1.6",
-        "romanzipp/laravel-queue-monitor": "^2.0"
+        "romanzipp/laravel-queue-monitor": "^2.0",
+        "spatie/laravel-backup": "^6.11"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

@@ -367,6 +367,14 @@ Route::get('/itadmin/background/queues', 'ItAdminController@backgroundQueues')->
 
 Route::get('/itadmin/backup', 'ItAdminController@backup')->name('user.it.backup');
 
+Route::get('/itadmin/backup/run/full', 'ItAdminController@backupRun')->name('user.it.backup.run');
+
+Route::get('/itadmin/backup/run//database', 'ItAdminController@backupRunDatabase')->name('user.it.backup.run-database');
+
+Route::get('/itadmin/backup/run/system', 'ItAdminController@backupRunSystem')->name('user.it.backup.run-system');
+
+Route::get('/itadmin/backup/download/{filename}', 'ItAdminController@backupDownload')->name('user.it.backup.download');
+
 Route::get('/itadmin/audit', 'ItAdminController@audit')->name('user.it.audit');
 
 Route::get('/itadmin/users', 'ItAdminController@users')->name('user.it.users');

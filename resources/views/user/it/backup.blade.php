@@ -1,75 +1,80 @@
 @extends('user.layouts.app')
 @section('content')
-<div class="col-md-12 mt-4">
-      <!-- Light Bordered Table card -->
-      <div class="card rounded-lg">
-              <!-- Table -->
-              <div class="table-responsive">
-                  <table class="table table-bordered">
-                      <thead>
-                          <tr class="text-center">
-                              <th width="10%"><p class="mb-0">#</p></th>
-                              <th width="50%"><p class="mb-0">Nama</p></th>
-                              <th width="55%"><p class="mb-0">No Kad Pengenalan</p></th>
-                              <th width="30%"><p class="mb-0">Jabatan</p></th>
-                              <th width="30%"><p class="mb-0">Jawatan</p></th>
-                              <th width="30%"><p class="mb-0">Status</p></th>
-                              <th width="50%"><p class="mb-0">Edit</p></th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <!-- Table data -->
-                          <tr class="text-center">
-                              <td><p class="mb-0 font-weight-bold">1</p></td>
-                              <td><p class="mb-0 font-weight-normal">Muhammad Syahdan</p></td>
-                              <td><p class="mb-0 font-weight-normal">971112065055</p></td>
-                              <td><p class="mb-0 font-weight-normal">IT</p></td>
-                              <td><p class="mb-0 font-weight-normal">Admin</p></td>
-                              <td><span class="badge badge-success badge-pill">Aktif</span></td>
-                              <td class="p-3">
-                                  <div class="d-flex flex-row justify-content-around align-items-center">
-                                      <a href="#" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                  </div>
-                              </td>
-                          </tr>
+            <!--Page Body part -->
+            <div class="page-body p-4 text-dark">
+                <div class="page-heading border-bottom d-flex flex-row">
+                    <!-- <h5 class="font-weight-normal">Version 1</h5>
+                    <small class="mt-2 ml-2">Dashboard</small> -->
+                </div>
+                <!-- Small card component -->
+                <div class="card rounded-lg">
+                  <div class="card-body">
+                      <div class="card-title">Backup</div>
+                      <div class="row">
+                       <div class="col-md-2">
+                         <a href="{{route('user.it.backup.run')}}"><button class="btn btn-primary mb-4">Create Full Backup</button></a>
+                       </div>
+                       <div class="col-md-2">
+                         <a href="{{route('user.it.backup.run-system')}}"><button class="btn btn-primary mb-4">Create System Backup</button></a>
+                       </div>
+                       <div class="col-md-2">
+                         <a href="{{route('user.it.backup.run-database')}}"><button class="btn btn-primary mb-4">Create Database Backup</button></a>
+                       </div>
+                     </div>
+                      <div class="table-responsive">
 
-                          <!-- Table data -->
-                          <tr class="text-center">
-                              <td><p class="mb-0 font-weight-bold">2</p></td>
-                              <td><p class="mb-0 font-weight-normal">Muhammad Hafiz</p></td>
-                              <td><p class="mb-0 font-weight-normal">971112065055</p></td>
-                              <td><p class="mb-0 font-weight-normal">HR</p></td>
-                              <td><p class="mb-0 font-weight-normal">User</p></td>
-                              <td><span class="badge badge-success badge-pill">Aktif</span></td>
-                              <td class="p-3">
-                                  <div class="d-flex flex-row justify-content-around align-items-center">
-                                      <a href="#" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                  </div>
-                              </td>
-                          </tr>
+                      <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                        <!-- Table head -->
+                        <thead>
+                            <tr>
+                              <th class="all">Nama</th>
+                              <th class="all">Disk</th>
+                              <th class="all">Reachable</th>
+                              <th class="all">Healty</th>
+                              <th class="all">Newest Backup</th>
+                              <th class="all">Used Storage</th>
+                              <th class="all">Fail</th>
 
-                          <!-- Table data -->
-                          <tr class="text-center">
-                              <td><p class="mb-0 font-weight-bold">3</p></td>
-                              <td><p class="mb-0 font-weight-normal">Muhammad Amirul</p></td>
-                              <td><p class="mb-0 font-weight-normal">971112065055</p></td>
-                              <td><p class="mb-0 font-weight-normal">IT</p></td>
-                              <td><p class="mb-0 font-weight-normal">Integrity HOD</p></td>
-                              <td><span class="badge badge-danger badge-pill">Tidak Aktif</span></td>
-                              <td class="p-3">
-                                  <div class="d-flex flex-row justify-content-around align-items-center">
-                                      <a href="#" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                  </div>
-                              </td>
-                          </tr>
+                            </tr>
+                        </thead>
+                        <!-- Table body -->
+                        <tbody class="table table-striped table-bordered" id="responsiveDataTable">
+                          @foreach($rows as $row)
+                          <td>{{$row["backupName"]}}</td>
+                          <td>{{$row["disk"]}}</td>
+                          <td>{{$row["reachable"]}}</td>
+                          <td>{{$row["healthy"]}}</td>
+                          <td>{{$row["newest"]}}</td>
+                          <td>{{$row["usedStorage"]}}</td>
+                          @endforeach
+                          <td>
+                            <table>
+                              <thead>
+                                  <th class="all">Nama Fail</th>
+                                  <th class="all">Tarikh</th>
+                                  <th class="all">Tindakan</th>
+                              </thead>
+                              <tbody>
+                                @foreach($data as $file)
+                                <tr>
+                                  <td>{{$file['filename']}}</td>
+                                  <td>{{Carbon\Carbon::parse($file['date'])->format('d-m-Y h:i:s') }}</td>
 
-                      </tbody>
-                  </table>
-              </div>
+                                  <td><a href="{{route('user.it.backup.download', ['filename'=>$file['filename']])}}" class="btn btn-success"><i class="fas fa-download"></i></a></td>
+                                </tr>
+                                @endforeach
+                              </tbody>
+                            </table>
+                          </td>
+                        </tbody>
+                      </table>
+                    </div>
 
-          </div>
-      </div>
+                  </div>
+                </div>
+            </div>
+        </main>
+        <script type="text/javascript">
+
+        </script>
 @endsection
