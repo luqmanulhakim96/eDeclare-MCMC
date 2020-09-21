@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Audit;
+use App\User;
 use romanzipp\QueueMonitor\Models\Monitor;
 use Artisan;
 use Log;
 use Storage;
 use File;
+use Auth;
 use Carbon\Carbon;
 
 use Spatie\Backup\BackupDestination\Backup;
@@ -122,13 +124,45 @@ class ItAdminController extends Controller
       }
 
       public function audit(){
-        $data = Audit::get();
-
+        $data = Audit::where('event','!=','Log Masuk')->where('event','!=','Log Keluar')->get();
         return view('user.it.audit', compact('data'));
       }
 
-      public function users(){
+      public function auditTrailLogUser()
+      {
+        // $data = Audit::with('user')->get();
+        // $data = User::where('role','!=','5')->get();
+        // $all = $user->audits;
+        $data = Audit::where('event','Log Masuk')->orWhere('event','Log Keluar')->get();
+        // dd($data);
+        return view('user.it.auditUser', compact('data'));
+      }
 
-        return view('user.it.users');
+      public function users(){
+        $currentUser = Auth::user();
+        $user = User::where([['status','!=','0']])->get();
+        // $user = User::where([['role','!=','5'],['status','!=','0']])->get();
+        // $user_deact = User::where([['role','!=','5'],['status','!=','1']])->get();
+        $user_deact = User::where([['status','!=','1']])->get();
+
+        // dd($user_deact);
+        return view('user.it.users', compact('user','user_deact', 'currentUser'));
+      }
+
+      public function userDelete($id){
+
+          $user = User::find($id);
+          // dd($user);
+          if($user->status == false){
+            $user->update(['status' => 1]);
+            $success = 'error';
+            $text = 'Pengguna tidak berjaya dinyahaktif';
+          }
+          elseif($user->status == true){
+            $user->update(['name' => 'luqman hakim']);
+            $success = 'success';
+            $text = 'Pengguna berjaya dinyahaktif';
+          }
+          return redirect()->route('user.it.users')->with($success,$text);
       }
 }
