@@ -10,6 +10,8 @@
                 <div class="card rounded-lg">
                   <div class="card-body">
                       <div class="card-title">Audit Trail</div>
+                      <a class="btn btn-primary mb-2" href="{{route('user.it.auditUser')}}">Audit Keluar Masuk Pengguna</a>
+
                       <div class="table-responsive">
                       <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                         <!-- Table head -->
@@ -42,22 +44,22 @@
                               <td>{{ $datas->ip_address }}</td>
                               <td>{{  Carbon\Carbon::parse($datas->updated_at)->format('d-m-Y h:i:s')  }}</td>
                               @if($datas->user->role == 1)
-                                <td> Pentadbir Sistem (Admin) </td>
+                              <td> Pentadbir Sistem (Admin) </td>
                               @elseif($datas->user->role == 2)
-                                <td> Ketua Jabatan Integriti </td>
+                              <td> Integrity HOD </td>
                               @elseif($datas->user->role == 3)
-                                <td> Ketua Bahagian </td>
+                              <td> Pegawai HR </td>
                               @elseif($datas->user->role == 4)
-                                <td> IT Admin </td>
+                              <td> Pegawai Admin </td>
                               @elseif($datas->user->role == 5)
-                                <td> Pengguna </td>
+                              <td> Pegawai HR </td>
                               @endif
                               <td>{{  ucfirst($datas->event) }}</td>
                               <td>{{ substr($datas->auditable_type, strpos($datas->auditable_type, "/") + 4) }}</td>
                               <td>{{$datas->old_values}}</td>
                               <td>{{$datas->new_values}}</td>
 
-                              
+
                               <td>{{ $datas->url }}</td>
                               </tr>
                             @endif

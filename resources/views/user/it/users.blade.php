@@ -35,7 +35,33 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-
+                                  @foreach($user as $data)
+                                  <tr>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->email  }}</td>
+                                    @if($data->role == 1)
+                                    <td> Pentadbir Sistem (Admin) </td>
+                                    @elseif($data->role == 2)
+                                    <td> Integrity HOD </td>
+                                    @elseif($data->role == 3)
+                                    <td> Pegawai HR </td>
+                                    @elseif($data->role == 4)
+                                    <td> Pegawai Admin </td>
+                                    @elseif($data->role == 5)
+                                    <td> Pegawai HR </td>
+                                    @endif
+                                    <td>{{ $data->kad_pengenalan }}</td>
+                                    <td class="p-3">
+                                          <div class="d-flex flex-row justify-content-around align-items-center">
+                                              @if($currentUser->id != $data->id)
+                                              <a href="{{ route('user.it.users.deactivate', $data->id) }}" class="btn btn-danger"><i class="fas fa-times-circle"></i></a>
+                                              @else
+                                              <a href="#" class="btn btn-dark"><i class="fas fa-times-circle"></i></a>
+                                              @endif
+                                          </div>
+                                    </td>
+                                  </tr>
+                                  @endforeach
                                 </tbody>
                               </table>
                             </div>
@@ -55,7 +81,33 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-
+                                  @foreach($user_deact as $data)
+                                  <tr>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->email  }}</td>
+                                    @if($data->role == 1)
+                                    <td> Pentadbir Sistem (Admin) </td>
+                                    @elseif($data->role == 2)
+                                    <td> Integrity HOD </td>
+                                    @elseif($data->role == 3)
+                                    <td> Pegawai HR </td>
+                                    @elseif($data->role == 4)
+                                    <td> Pegawai Admin </td>
+                                    @elseif($data->role == 5)
+                                    <td> Pegawai HR </td>
+                                    @endif
+                                    <td>{{ $data->kad_pengenalan }}</td>
+                                    <td class="p-3">
+                                          <div class="d-flex flex-row justify-content-around align-items-center">
+                                              @if($currentUser->id != $data->id)
+                                              <a href="{{ route('user.it.users.deactivate', $data->id) }}" class="btn btn-danger"><i class="fas fa-times-circle"></i></a>
+                                              @else
+                                              <a href="#" class="btn btn-dark"><i class="fas fa-times-circle"></i></a>
+                                              @endif
+                                          </div>
+                                    </td>
+                                  </tr>
+                                  @endforeach
                                 </tbody>
                               </table>
                             </div>
