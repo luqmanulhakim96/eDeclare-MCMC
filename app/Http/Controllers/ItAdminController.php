@@ -161,6 +161,7 @@ class ItAdminController extends Controller
           $userToLogout = User::find($id);
 
           // dd($user);
+
           if($userToLogout->status == false){
             $userToLogout->update(['status' => 1]);
             $success = 'success';
@@ -168,6 +169,7 @@ class ItAdminController extends Controller
           }
           elseif($userToLogout->status == true){
             $userToLogout->update(['status' => 0]);
+
             $success = 'success';
             $text = 'Pengguna berjaya dinyahaktif';
           }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use Carbon\Carbon;
 use App\Audit;
+use Auth;
 
 class LogSuccessfulLogin
 {
@@ -47,6 +48,11 @@ class LogSuccessfulLogin
       // $details = Audit::create($data);
 
     $user = $event->user;
+    if($user->status == 0){
+        // dd($user);
+        Auth::logout();
+        return redirect()->route('login');
+    }
 
     $data = [
        'auditable_id' => $user->id,
