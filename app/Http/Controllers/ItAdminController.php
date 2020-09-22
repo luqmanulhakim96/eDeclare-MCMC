@@ -139,7 +139,10 @@ class ItAdminController extends Controller
       }
 
       public function users(){
+
+        // get current user
         $currentUser = Auth::user();
+
         $user = User::where([['status','!=','0']])->get();
         // $user = User::where([['role','!=','5'],['status','!=','0']])->get();
         // $user_deact = User::where([['role','!=','5'],['status','!=','1']])->get();
@@ -151,15 +154,22 @@ class ItAdminController extends Controller
 
       public function userDelete($id){
 
-          $user = User::find($id);
+          // get current user
+          $currentUser = Auth::user();
+
+          // logout user
+          $userToLogout = User::find($id);
+
           // dd($user);
-          if($user->status == false){
-            $user->update(['status' => 1]);
+
+          if($userToLogout->status == false){
+            $userToLogout->update(['status' => 1]);
             $success = 'success';
-            $text = 'Pengguna berjaya diaktif';
+            $text = 'Pengguna berjaya diaktifkan';
           }
-          elseif($user->status == true){
-            $user->update(['status' => 0]);
+          elseif($userToLogout->status == true){
+            $userToLogout->update(['status' => 0]);
+
             $success = 'success';
             $text = 'Pengguna berjaya dinyahaktif';
           }
