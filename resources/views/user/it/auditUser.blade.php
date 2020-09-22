@@ -13,7 +13,7 @@
                       <a class="btn btn-primary mb-2" href="{{route('user.it.audit')}}">Audit Sistem</a>
 
                       <div class="table-responsive">
-                      <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                      <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                         <!-- Table head -->
                         <thead class="thead-light">
                             <tr>
@@ -65,4 +65,30 @@
                   </div>
                 </div>
             </div>
+
+            <script type="text/javascript">
+            $(document).ready(function() {
+                var buttonCommon = {
+                  exportOptions: {
+                       // Any other settings used
+                       grouped_array_index: 0,
+                  },
+                };
+                var groupColumn = 1;
+                var table = $('#example').DataTable({
+                     dom: 'Bfrtip',
+                     buttons: [
+                     $.extend( true, {}, buttonCommon, {
+                         extend: 'copyHtml5'
+                     } ),
+                     $.extend( true, {}, buttonCommon, {
+                         extend: 'excelHtml5'
+                     } ),
+                     $.extend( true, {}, buttonCommon, {
+                         extend: 'pdfHtml5'
+                     } )
+                 ]
+                 } );
+             } );
+             </script>
 @endsection

@@ -155,11 +155,11 @@ class ItAdminController extends Controller
           // dd($user);
           if($user->status == false){
             $user->update(['status' => 1]);
-            $success = 'error';
-            $text = 'Pengguna tidak berjaya dinyahaktif';
+            $success = 'success';
+            $text = 'Pengguna berjaya diaktif';
           }
           elseif($user->status == true){
-            $user->update(['name' => 'luqman hakim']);
+            $user->update(['status' => 0]);
             $success = 'success';
             $text = 'Pengguna berjaya dinyahaktif';
           }
