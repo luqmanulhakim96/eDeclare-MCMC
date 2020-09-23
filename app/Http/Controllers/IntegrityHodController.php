@@ -19,6 +19,14 @@ use App\Pinjaman;
 use App\NilaiHadiah;
 use Auth;
 use DB;
+use App\Email;
+
+use App\Jobs\SendNotificationFormBHod;
+use App\Jobs\SendNotificationFormCHod;
+use App\Jobs\SendNotificationFormDHod;
+use App\Jobs\SendNotificationFormGHod;
+
+use App\Jobs\SendNotificationGiftHod;
 
 class IntegrityHodController extends Controller
 {
@@ -48,6 +56,9 @@ class IntegrityHodController extends Controller
       $pegawai_dah_declare_Ds =DB::select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id)"));
       $pegawai_dah_declare_Gs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id)"));
 
+      $pegawai_gift_declare =DB::select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id)"));
+      $pegawai_giftb_declare =DB::select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id)"));
+
       // $total_declare = $pegawai_dah_declare_Bs[0]->data + $pegawai_dah_declare_Cs[0]->data + $pegawai_dah_declare_Ds[0]->data + $pegawai_dah_declare_Gs[0]->data;
       // dd($total_declare);
       $total_user =DB::select(DB::raw ("SELECT COUNT( DISTINCT users.id ) as data From users"));
@@ -55,6 +66,8 @@ class IntegrityHodController extends Controller
       $undeclareC= $total_user[0]->data - $pegawai_dah_declare_Cs[0]->data ;
       $undeclareD= $total_user[0]->data - $pegawai_dah_declare_Ds[0]->data ;
       $undeclareG= $total_user[0]->data - $pegawai_dah_declare_Gs[0]->data ;
+      $undeclareGift= $total_user[0]->data - $pegawai_gift_declare[0]->data ;
+      $undeclareGiftB= $total_user[0]->data - $pegawai_giftb_declare[0]->data ;
 
       // $total_no_declare = $undeclareB + $undeclareC + $undeclareD + $undeclareG;
 
@@ -65,6 +78,7 @@ class IntegrityHodController extends Controller
                                              'listHadiahA','listHadiahB','listBDiterima','listCDiterima',
                                              'listDDiterima','listGDiterima','pegawai_dah_declare_Bs',
                                              'pegawai_dah_declare_Cs','pegawai_dah_declare_Ds','pegawai_dah_declare_Gs',
+                                             'pegawai_gift_declare','pegawai_giftb_declare','undeclareGift','undeclareGiftB',
                                              'undeclareB','undeclareC','undeclareD','undeclareG'));
     }
 
@@ -249,8 +263,42 @@ class IntegrityHodController extends Controller
        $formbs->ulasan_hod = $request->ulasan_hod;
        $formbs->save();
 
+       $tempoh_notifikasi = 
+
        //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
        //send notification to users (status="Diterima" && status="Tidak Diterima")
+
+       if($request->status == 'Proses ke Ketua Bahagian'){
+
+       $email = Email::where('penerima', '=', 'Ketua Bahagian')->where('jenis', '=', 'Proses ke Ketua Bahagian (Harta)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $hodiv_available = User::where('role','=','3')->get(); //get system admin information
+       // if ($email) {
+         foreach ($hodiv_available as $data) {
+           // $formcs->notify(new UserFormAdminC($data, $email));
+           $this->dispatch(new SendNotificationFormBHod($data, $email, $formbs));
+
+         }
+       }
+       elseif ($request->status == 'Diterima') {
+         $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $user = User::where('id', '=', $formbs->user_id)->first(); //get system admin information
+         // dd($user);
+         $this->dispatch(new SendNotificationFormBHod($user, $email, $formbs));
+         SendNotificationFormBHod::dispatch($user, $email, $formbs)->delay(now()->addMinutes(1));
+
+         // $this->dispatch(new SendNotificationFormBHod($user, $email, $formbs)));
+
+      }
+       else {
+         $email = Email::where('jenis', '=', 'Perisytiharan Harta Gagal')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $user = User::where('id', '=', $formbs->user_id)->first(); //get system admin information
+
+         $this->dispatch(new SendNotificationFormBHod($user, $email, $formbs));
+
+     }
 
        return redirect()->route('user.integrityHOD.harta.senaraiallharta');
      }
@@ -258,45 +306,126 @@ class IntegrityHodController extends Controller
 
      public function updateStatusUlasanHODC(Request $request,$id){
 
-       $formbs = FormC::find($id);
-       $formbs->nama_hod = $request->nama_hod;
-       $formbs->no_hod = $request->no_hod;
-       $formbs->status = $request->status;
-       $formbs->ulasan_hod = $request->ulasan_hod;
-       $formbs->save();
+       $formcs = FormC::find($id);
+       $formcs->nama_hod = $request->nama_hod;
+       $formcs->no_hod = $request->no_hod;
+       $formcs->status = $request->status;
+       $formcs->ulasan_hod = $request->ulasan_hod;
+       $formcs->save();
 
        //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
        //send notification to users (status="Diterima" && status="Tidak Diterima")
+
+       if($request->status == 'Proses ke Ketua Bahagian'){
+
+       $email = Email::where('penerima', '=', 'Ketua Bahagian')->where('jenis', '=', 'Proses ke Ketua Bahagian (Harta)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $hodiv_available = User::where('role','=','3')->get(); //get system admin information
+       // if ($email) {
+         foreach ($hodiv_available as $data) {
+           // $formcs->notify(new UserFormAdminC($data, $email));
+           $this->dispatch(new SendNotificationFormCHod($data, $email, $formcs));
+         }
+       }
+       elseif ($request->status == 'Diterima') {
+         $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $user = User::where('id', '=', $formcs->user_id)->first(); //get system admin information
+
+         $this->dispatch(new SendNotificationFormCHod($data, $email, $formcs));
+
+      }
+       else {
+         $email = Email::where('jenis', '=', 'Perisytiharan Harta Gagal')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $user = User::where('id', '=', $formcs->user_id)->first(); //get system admin information
+         $this->dispatch(new SendNotificationFormCHod($data, $email, $formcs));
+
+     }
 
        return redirect()->route('user.integrityHOD.harta.senaraiallharta');
      }
 
      public function updateStatusUlasanHODD(Request $request,$id){
 
-       $formbs = FormD::find($id);
-       $formbs->nama_hod = $request->nama_hod;
-       $formbs->no_hod = $request->no_hod;
-       $formbs->status = $request->status;
-       $formbs->ulasan_hod = $request->ulasan_hod;
-       $formbs->save();
+       $formds = FormD::find($id);
+       $formds->nama_hod = $request->nama_hod;
+       $formds->no_hod = $request->no_hod;
+       $formds->status = $request->status;
+       $formds->ulasan_hod = $request->ulasan_hod;
+       $formds->save();
 
        //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
        //send notification to users (status="Diterima" && status="Tidak Diterima")
+
+       if($request->status == 'Proses ke Ketua Bahagian'){
+
+       $email = Email::where('penerima', '=', 'Ketua Bahagian')->where('jenis', '=', 'Proses ke Ketua Bahagian (Harta)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $hodiv_available = User::where('role','=','3')->get(); //get system admin information
+       // if ($email) {
+         foreach ($hodiv_available as $data) {
+           // $formcs->notify(new UserFormAdminC($data, $email));
+           $this->dispatch(new SendNotificationFormDHod($data, $email, $formds));
+         }
+       }
+       elseif ($request->status == 'Diterima') {
+         $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $user = User::where('id', '=', $formds->user_id)->first(); //get system admin information
+         $this->dispatch(new SendNotificationFormDHod($data, $email, $formds));
+
+      }
+       else {
+         $email = Email::where('jenis', '=', 'Perisytiharan Harta Gagal')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $user = User::where('id', '=', $formds->user_id)->first(); //get system admin information
+         $this->dispatch(new SendNotificationFormDHod($data, $email, $formds));
+
+     }
 
        return redirect()->route('user.integrityHOD.harta.senaraiallharta');
      }
 
      public function updateStatusUlasanHODG(Request $request,$id){
 
-       $formbs = FormG::find($id);
-       $formbs->nama_hod = $request->nama_hod;
-       $formbs->no_hod = $request->no_hod;
-       $formbs->status = $request->status;
-       $formbs->ulasan_hod = $request->ulasan_hod;
-       $formbs->save();
+       $formgs = FormG::find($id);
+       $formgs->nama_hod = $request->nama_hod;
+       $formgs->no_hod = $request->no_hod;
+       $formgs->status = $request->status;
+       $formgs->ulasan_hod = $request->ulasan_hod;
+       $formgs->save();
 
        //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
        //send notification to users (status="Diterima" && status="Tidak Diterima")
+
+       if($request->status == 'Proses ke Ketua Bahagian'){
+
+       $email = Email::where('penerima', '=', 'Ketua Bahagian')->where('jenis', '=', 'Proses ke Ketua Bahagian (Harta)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $hodiv_available = User::where('role','=','3')->get(); //get system admin information
+       // if ($email) {
+         foreach ($hodiv_available as $data) {
+           // $formcs->notify(new UserFormAdminC($data, $email));
+           $this->dispatch(new SendNotificationFormGHod($data, $email, $formgs));
+         }
+       }
+       elseif ($request->status == 'Diterima') {
+         $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $user = User::where('id', '=', $formgs->user_id)->first(); //get system admin information
+
+         $this->dispatch(new SendNotificationFormGHod($data, $email, $formgs));
+
+      }
+       else {
+         $email = Email::where('jenis', '=', 'Perisytiharan Harta Gagal')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $user = User::where('id', '=', $formgs->user_id)->first(); //get system admin information
+
+         $this->dispatch(new SendNotificationFormGHod($data, $email, $formgs));
+
+     }
 
        return redirect()->route('user.integrityHOD.harta.senaraiallharta');
      }
@@ -311,6 +440,26 @@ class IntegrityHodController extends Controller
        $gifts->save();
 
        //send notification to admin (ulasan hodiv)
+       if($request->status == 'Diproses ke Pentadbir Sistem'){
+       $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $hod_admin = User::where('role','=','1')->get(); //get system hodiv information
+       // if ($email) {
+         foreach ($hod_admin as $data) {
+           // $giftbs->notify(new UserGiftAdminB($data, $email));
+           $this->dispatch(new SendNotificationGiftHod($data, $email, $gifts));
+         }
+       }
+       else {
+         $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Hadiah)')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $hod_admin = User::where('role','=','1')->get(); //get system hodiv information
+         // if ($email) {
+           foreach ($hod_admin as $data) {
+             // $giftbs->notify(new UserGiftAdminB($data, $email));
+             $this->dispatch(new SendNotificationGiftHod($data, $email, $gifts));
+       }
+     }
 
        return redirect()->route('user.integrityHOD.hadiah.senaraiallhadiah');
      }

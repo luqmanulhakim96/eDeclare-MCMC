@@ -10,6 +10,7 @@ use Auth;
 use App\NilaiHadiah;
 use App\JenisHadiah;
 use App\User;
+use App\Email;
 
 // use App\Notifications\Gift\UserGiftAdminB;
 use App\Jobs\SendNotificationGiftB;
@@ -75,9 +76,9 @@ class GiftBController extends Controller
     event($giftbs = $this->add($request->all(),$uploaded_gambar_hadiah));
 
     //send notification to hodiv (user declare)
-    // $email = SenaraiEmail::where('kepada', '=', 'admin')->where('jenis', '=', 'permohonan_baru')->first(); //template email yang diguna
-    $email = null; // for testing
-    $admin_available = User::where('role','=','2')->get(); //get system hodiv information
+    $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
+    // $email = null; // for testing
+    $admin_available = User::where('role','=','1')->get(); //get system hodiv information
     // if ($email) {
       foreach ($admin_available as $data) {
         // $giftbs->notify(new UserGiftAdminB($data, $email));

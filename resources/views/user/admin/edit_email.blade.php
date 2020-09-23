@@ -24,10 +24,18 @@
                                 <div class="col-md-6">
                                   <select id="jenis" class="custom-select  bg-light" name="jenis">
                                       <option value="" selected disabled hidden>Pilih Jenis Templat</option>
-                                      <option value="Perisytiharan Berjaya" {{ $info->jenis == "Perisytiharan Berjaya" ? 'selected' : '' }}>Perisytiharan Berjaya</option>
-                                      <option value="Perisytiharan Gagal" {{ $info->jenis == "Perisytiharan Gagal" ? 'selected' : '' }}>Perisytiharan Gagal</option>
-                                      <option value="Proses ke Ketua Jabatan Integriti" {{ $info->jenis == "Proses ke Ketua Jabatan Integriti" ? 'selected' : '' }}>Proses ke Ketua Jabatan Integriti</option>
-                                      <option value="Proses ke Ketua Bahagian"{{ $info->jenis == "Proses ke Ketua Bahagian" ? 'selected' : '' }}>Proses ke Ketua Bahagian</option>
+                                      <option value="Perisytiharan Harta Baharu" {{ $info->jenis == "Perisytiharan Harta Baharu" ? 'selected' : '' }}>Perisytiharan Harta Baharu</option>
+                                      <option value="Perisytiharan Hadiah Baharu" {{ $info->jenis == "Perisytiharan Hadiah Baharu" ? 'selected' : '' }}>Perisytiharan Hadiah Baharu</option>
+                                      <option value="Perisytiharan Tidak Lengkap (Harta)" {{ $info->jenis == "Perisytiharan Tidak Lengkap (Harta)" ? 'selected' : '' }}>Perisytiharan Tidak Lengkap (Harta)</option>
+                                      <option value="Perisytiharan Tidak Lengkap (Hadiah)" {{ $info->jenis == "Perisytiharan Tidak Lengkap (Hadiah)" ? 'selected' : '' }}>Perisytiharan Tidak Lengkap (Hadiah)</option>
+                                      <option value="Proses ke Ketua Jabatan Integriti (Harta)" {{ $info->jenis == "Proses ke Ketua Jabatan Integriti (Harta)" ? 'selected' : '' }}>Proses ke Ketua Jabatan Integriti (Harta)</option>
+                                      <option value="Proses ke Ketua Jabatan Integriti (Hadiah)" {{ $info->jenis == "Proses ke Ketua Jabatan Integriti (Hadiah)" ? 'selected' : '' }}>Proses ke Ketua Jabatan Integriti (Hadiah)</option>
+                                      <option value="Proses ke Ketua Bahagian (Harta)"{{ $info->jenis == "Proses ke Ketua Bahagian (Harta)" ? 'selected' : '' }}>Proses ke Ketua Bahagian (Harta)</option>
+                                      <option value="Proses ke Ketua Bahagian (Hadiah)"{{ $info->jenis == "Proses ke Ketua Bahagian (Hadiah)" ? 'selected' : '' }}>Proses ke Ketua Bahagian (Hadiah)</option>
+                                      <option value="Perisytiharan Harta Diterima"{{ $info->jenis == "Perisytiharan Harta Diterima" ? 'selected' : '' }}>Perisytiharan Harta Diterima</option>
+                                      <option value="Perisytiharan Harta Gagal"{{ $info->jenis == "Perisytiharan Harta Gagal" ? 'selected' : '' }}>Perisytiharan Harta Gagal</option>
+                                      <option value="Perisytiharan Hadiah Diterima"{{ $info->jenis == "Perisytiharan Hadiah Diterima" ? 'selected' : '' }}>Perisytiharan Hadiah Diterima</option>
+                                      <option value="Perisytiharan Hadiah Gagal"{{ $info->jenis == "Perisytiharan Hadiah Gagal" ? 'selected' : '' }}>Perisytiharan Hadiah Gagal</option>
                                       </select>
                                 </div>
                                 <div class="col-md-6">

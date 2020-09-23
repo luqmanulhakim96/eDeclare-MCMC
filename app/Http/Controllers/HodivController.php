@@ -19,6 +19,14 @@ use App\Pinjaman;
 use App\NilaiHadiah;
 use Auth;
 use DB;
+use App\Email;
+
+use App\Jobs\SendNotificationFormBHodiv;
+use App\Jobs\SendNotificationFormCHodiv;
+use App\Jobs\SendNotificationFormDHodiv;
+use App\Jobs\SendNotificationFormGHodiv;
+
+use App\Jobs\SendNotificationGiftHodiv;
 
 class HodivController extends Controller
 {
@@ -48,6 +56,9 @@ class HodivController extends Controller
     $pegawai_dah_declare_Ds =DB::select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id)"));
     $pegawai_dah_declare_Gs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id)"));
 
+    $pegawai_gift_declare =DB::select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id)"));
+    $pegawai_giftb_declare =DB::select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id)"));
+
     // $total_declare = $pegawai_dah_declare_Bs[0]->data + $pegawai_dah_declare_Cs[0]->data + $pegawai_dah_declare_Ds[0]->data + $pegawai_dah_declare_Gs[0]->data;
     // dd($total_declare);
     $total_user =DB::select(DB::raw ("SELECT COUNT( DISTINCT users.id ) as data From users"));
@@ -55,6 +66,8 @@ class HodivController extends Controller
     $undeclareC= $total_user[0]->data - $pegawai_dah_declare_Cs[0]->data ;
     $undeclareD= $total_user[0]->data - $pegawai_dah_declare_Ds[0]->data ;
     $undeclareG= $total_user[0]->data - $pegawai_dah_declare_Gs[0]->data ;
+    $undeclareGift= $total_user[0]->data - $pegawai_gift_declare[0]->data ;
+    $undeclareGiftB= $total_user[0]->data - $pegawai_giftb_declare[0]->data ;
 
     // $total_no_declare = $undeclareB + $undeclareC + $undeclareD + $undeclareG;
 
@@ -65,6 +78,7 @@ class HodivController extends Controller
                                            'listHadiahA','listHadiahB','listBDiterima','listCDiterima',
                                            'listDDiterima','listGDiterima','pegawai_dah_declare_Bs',
                                            'pegawai_dah_declare_Cs','pegawai_dah_declare_Ds','pegawai_dah_declare_Gs',
+                                           'pegawai_gift_declare','pegawai_giftb_declare','undeclareGift','undeclareGiftB',
                                            'undeclareB','undeclareC','undeclareD','undeclareG'));
 }
 
@@ -252,7 +266,27 @@ class HodivController extends Controller
      $formbs->ulasan_hodiv = $request->ulasan_hodiv;
      $formbs->save();
 
-     //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
+     if($request->status == 'Proses ke Ketua Jabatan Integriti'){
+
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Harta)')->first(); //template email yang diguna
+     // $email = null; // for testing
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
+       }
+     }
+     else{
+       $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $hod_available = User::where('role','=','2')->get(); //get system admin information
+       // if ($email) {
+         foreach ($hod_available as $data) {
+           // $formcs->notify(new UserFormAdminC($data, $email));
+           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
+         }
+     }
 
      return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
@@ -268,6 +302,28 @@ class HodivController extends Controller
 
      //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
 
+     if($request->status == 'Proses ke Ketua Jabatan Integriti'){
+
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Harta)')->first(); //template email yang diguna
+     // $email = null; // for testing
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormCHodiv($data, $email, $formcs));
+       }
+     }
+     else{
+       $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $hod_available = User::where('role','=','2')->get(); //get system admin information
+       // if ($email) {
+         foreach ($hod_available as $data) {
+           // $formcs->notify(new UserFormAdminC($data, $email));
+           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
+         }
+     }
+
      return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
@@ -281,6 +337,28 @@ class HodivController extends Controller
      $formbs->save();
 
      //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
+
+     if($request->status == 'Proses ke Ketua Jabatan Integriti'){
+
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Harta)')->first(); //template email yang diguna
+     // $email = null; // for testing
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormDHodiv($data, $email, $formds));
+       }
+     }
+     else{
+       $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $hod_available = User::where('role','=','2')->get(); //get system admin information
+       // if ($email) {
+         foreach ($hod_available as $data) {
+           // $formcs->notify(new UserFormAdminC($data, $email));
+           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
+         }
+     }
 
      return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
@@ -296,6 +374,28 @@ class HodivController extends Controller
 
      //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
 
+     if($request->status == 'Proses ke Ketua Jabatan Integriti'){
+
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Harta)')->first(); //template email yang diguna
+     // $email = null; // for testing
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormGHodiv($data, $email, $formgs));
+       }
+     }
+     else{
+       $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $hod_available = User::where('role','=','2')->get(); //get system admin information
+       // if ($email) {
+         foreach ($hod_available as $data) {
+           // $formcs->notify(new UserFormAdminC($data, $email));
+           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
+         }
+     }
+
      return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
@@ -309,6 +409,27 @@ class HodivController extends Controller
      $gifts->save();
 
      //send notification to hod (ulasan hodiv)
+     // dd($request->status);
+     if($request->status == 'Diproses ke Ketua Jabatan Integriti'){
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Hadiah)')->first(); //template email yang diguna
+     // $email = null; // for testing
+     $hod_available = User::where('role','=','2')->get(); //get system hodiv information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $giftbs->notify(new UserGiftAdminB($data, $email));
+         $this->dispatch(new SendNotificationGiftHodiv($data, $email, $gifts));
+       }
+     }
+     else {
+       $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Perisytiharan Tidak Lengkap (Hadiah)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $hod_available = User::where('role','=','2')->get(); //get system hodiv information
+       // if ($email) {
+         foreach ($hod_available as $data) {
+           // $giftbs->notify(new UserGiftAdminB($data, $email));
+           $this->dispatch(new SendNotificationGiftHodiv($data, $email, $gifts));
+     }
+   }
 
      return redirect()->route('user.hodiv.hadiah.senaraiallhadiah');
    }

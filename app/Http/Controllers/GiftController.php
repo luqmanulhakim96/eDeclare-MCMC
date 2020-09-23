@@ -9,6 +9,10 @@ use DB;
 use Auth;
 use App\NilaiHadiah;
 use App\JenisHadiah;
+use App\Email;
+use App\User;
+
+use App\Jobs\SendNotificationGift;
 
 
 class GiftController extends Controller
@@ -77,6 +81,14 @@ class GiftController extends Controller
     event($gifts = $this->add($request->all(),$uploaded_gambar_hadiah));
 
     //send notification to hodiv (user declare)
+    $email = Email::where('penerima', '=', 'Ketua Bahagian')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
+    // $email = null; // for testing
+    $hodiv_available = User::where('role','=','3')->get(); //get system hodiv information
+    // if ($email) {
+      foreach ($hodiv_available as $data) {
+        // $giftbs->notify(new UserGiftAdminB($data, $email));
+        $this->dispatch(new SendNotificationGift($data, $email, $gifts));
+      }
     return redirect()->route('user.hadiah.senaraihadiah');
 
   }

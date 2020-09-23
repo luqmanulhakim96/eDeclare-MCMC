@@ -24,10 +24,18 @@
                                 <div class="col-md-6">
                                   <select id="jenis" class="custom-select  bg-light" name="jenis" value="{{ old('jenis')}}" required>
                                       <option value="" selected disabled hidden>Pilih Jenis Templat</option>
-                                      <option value="Perisytiharan Berjaya">Perisytiharan Berjaya</option>
-                                      <option value="Perisytiharan Gagal">Perisytiharan Gagal</option>
-                                      <option value="Proses ke Ketua Jabatan Integriti">Proses ke Ketua Jabatan Integriti</option>
-                                      <option value="Proses ke Ketua Bahagian">Proses ke Ketua Bahagian</option>
+                                      <option value="Perisytiharan Harta Baharu">Perisytiharan Harta Baharu</option>
+                                      <option value="Perisytiharan Hadiah Baharu">Perisytiharan Hadiah Baharu</option>
+                                      <option value="Perisytiharan Tidak Lengkap (Harta)">Perisytiharan Tidak Lengkap (Harta)</option>
+                                      <option value="Perisytiharan Tidak Lengkap (Hadiah)">Perisytiharan Tidak Lengkap (Hadiah)</option>
+                                      <option value="Proses ke Ketua Jabatan Integriti (Harta)">Proses ke Ketua Jabatan Integriti (Harta)</option>
+                                      <option value="Proses ke Ketua Jabatan Integriti (Hadiah)">Proses ke Ketua Jabatan Integriti (Hadiah)</option>
+                                      <option value="Proses ke Ketua Bahagian (Harta)">Proses ke Ketua Bahagian (Harta)</option>
+                                      <option value="Proses ke Ketua Bahagian (Hadiah)">Proses ke Ketua Bahagian (Hadiah)</option>
+                                      <option value="Perisytiharan Harta Diterima">Perisytiharan Harta Diterima</option>
+                                      <option value="Perisytiharan Harta Gagal">Perisytiharan Harta Gagal</option>
+                                      <option value="Perisytiharan Hadiah Diterima">Perisytiharan Hadiah Diterima</option>
+                                      <option value="Perisytiharan Hadiah Gagal">Perisytiharan Hadiah Gagal</option>
                                       </select>
                                 </div>
                                 <div class="col-md-6">

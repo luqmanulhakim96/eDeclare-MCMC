@@ -172,7 +172,7 @@
                                 <p>Ulasan Pentadbir Sistem</p>
                               </div>
                               <div class="col-md-8">
-                                   <textarea name="ulasan_admin" rows="8" cols="30" placeholder="Ulasan Pentadbir Sistem"></textarea><br>
+                                   <textarea class="form-control bg-light" name="ulasan_admin" rows="8" cols="30" placeholder="Ulasan Pentadbir Sistem"></textarea><br>
 
                                    <input type="radio" id="tidak_lengkap" name="status" value="Tidak Lengkap">
                                        <label for="Tidak Lengkap">Tidak Lengkap</label><br>

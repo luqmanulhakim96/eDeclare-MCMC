@@ -233,9 +233,9 @@
                                 <div class="card-body" align="center">
 
                                     <!-- Card title -->
-                                    <div class="card-title" align="center">Statistik Pegawai Yang Telah Mengisytihar dan Tidak Mengisytihar Harta/Hadiah</div>
+                                    <div class="card-title" align="center">Statistik Pegawai Yang Telah Mengisytihar dan Tidak Mengisytihar Harta/Hadiah</div><br><br>
                                     <!-- Chart -->
-                                      <div id="columnchart_material" style="width: 80%; height: 500px;"></div>
+                                      <div id="columnchart_material" style="width: 90%; height: 500px;"></div>
                                     <!-- <div id="echartBar" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div> -->
                                 </div>
 
@@ -245,7 +245,7 @@
                       </div>
                     </div>
                   </div>
-    </div>
+
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
@@ -258,13 +258,13 @@
           ['Pelupusan Harta', {{$pegawai_dah_declare_Cs[0]->data}}, {{$undeclareC}}],
           ['Perisytiharan Syarikat', {{$pegawai_dah_declare_Ds[0]->data}}, {{$undeclareD}}],
           ['Perisytiharan Saham', {{$pegawai_dah_declare_Gs[0]->data}}, {{$undeclareG}}],
-          ['Perisytiharan Hadiah A', {{$pegawai_gift_declare_Gs[0]->data}}, {{$undeclareGift}}],
-          ['Perisytiharan Hadiah B', {{$pegawai_giftb_declare_Gs[0]->data}}, {{$undeclareGiftB}}]
+          ['Perisytiharan Hadiah A', {{$pegawai_gift_declare[0]->data}}, {{$undeclareGift}}],
+          ['Perisytiharan Hadiah B', {{$pegawai_giftb_declare[0]->data}}, {{$undeclareGiftB}}]
         ]);
 
         var options = {
           chart: {
-            colors: ['#fc0fc0','#c020d0','#8432DF','#4743EF','#0B54FE']
+            // colors: ['#fc0fc0','#c020d0','#8432DF','#4743EF','#0B54FE']
             // title: 'Company Performance',
             // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
           }
@@ -329,13 +329,7 @@
         chart.draw(data, options);
       }
     </script>
-      <script type="text/javascript">
-        function passGambarHadiah(path){
-          console.log(path);
-          $(".modal-body #imageHadiah").attr('src', path);
-          $('.modal-body #imageHadiah').show();
-        }
-      </script>
+
 
 
 

@@ -235,7 +235,7 @@
                                     <!-- Card title -->
                                     <div class="card-title" align="center">Statistik Pegawai Yang Telah Mengisytihar dan Tidak Mengisytihar Harta/Hadiah</div>
                                     <!-- Chart -->
-                                      <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+                                      <div id="columnchart_material" style="width: 90%; height: 500px;"></div>
                                     <!-- <div id="echartBar" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div> -->
                                 </div>
 
@@ -245,7 +245,7 @@
                       </div>
                     </div>
                   </div>
-    </div>
+
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
