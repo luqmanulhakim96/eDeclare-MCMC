@@ -55,6 +55,7 @@
                                   <th class="all">Tindakan</th>
                               </thead>
                               <tbody>
+                                @if(!is_null($data))
                                 @foreach($data as $file)
                                 <tr>
                                   <td>{{$file['filename']}}</td>
@@ -63,6 +64,7 @@
                                   <td><a href="{{route('user.it.backup.download', ['filename'=>$file['filename']])}}" class="btn btn-success"><i class="fas fa-download"></i></a></td>
                                 </tr>
                                 @endforeach
+                                @endif
                               </tbody>
                             </table>
                           </td>

@@ -127,6 +127,15 @@ $(document).ready(function(){
         ]
     });
 
+    let responsiveDataTable2 = $("#responsiveDataTable2")
+    $(responsiveDataTable2).DataTable({
+        responsive : true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+
     // Individual column searching  Data Table
 
     // Setup - add a text input to each footer cell

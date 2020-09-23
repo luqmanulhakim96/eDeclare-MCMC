@@ -411,7 +411,11 @@ Route::get('/itadmin/backup/download/{filename}', 'ItAdminController@backupDownl
 
 Route::get('/itadmin/audit', 'ItAdminController@audit')->name('user.it.audit');
 
+Route::get('/itadmin/audit/user', 'ItAdminController@auditTrailLogUser')->name('user.it.auditUser');
+
 Route::get('/itadmin/users', 'ItAdminController@users')->name('user.it.users');
+
+Route::get('/itadmin/users/deactivate/{id}', 'ItAdminController@userDelete')->name('user.it.users.deactivate');
 
 Route::get('/itadmin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('user.it.errorlog');
 
