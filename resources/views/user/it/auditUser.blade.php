@@ -10,7 +10,7 @@
                 <div class="card rounded-lg">
                   <div class="card-body">
                       <div class="card-title">Audit Trail</div>
-                      <a class="btn btn-primary mb-2" href="{{route('user.it.auditUser')}}">Audit Keluar Masuk Pengguna</a>
+                      <a class="btn btn-primary mb-2" href="{{route('user.it.audit')}}">Audit Sistem</a>
 
                       <div class="table-responsive">
                       <table class="table table-striped table-bordered" id="example" style="width: 100%;">
@@ -18,50 +18,44 @@
                         <thead class="thead-light">
                             <tr>
                               <th class="all">Nama Pengguna</th>
-                              <th class="all">IP Address</th>
-                              <th class="all">Timestamp</th>
-                              <th class="all">Role</th>
-                              <th class="all">Event</th>
-                              <th class="all">Database</th>
-                              <th class="all">Data Lama</th>
-                              <th class="all">Data Baharu</th>
-                              <th class="all">URL</th>
+                              <th class="all">Peranan</th>
+                              <th class="all">Alamat IP</th>
+                              <th class="all">Masa</th>
+                              <th class="all">Pengkalan Data</th>
+                              <th class="all">Acara</th>
                             </tr>
                         </thead>
                         <!-- Table body -->
                         <tbody>
                           @foreach($data as $datas)
                             @if( $datas->user_id != NULL)
+                            <tr>
+                            @if($datas->user->name == NULL)
+                            <td>Tiada</td>
+                            @else
+                            <td>{{  ucfirst($datas->user->name) }}</td>
+                            @endif
+                            @if($datas->user->role == 1)
+                            <td> Pentadbir Sistem (Admin) </td>
+                            @elseif($datas->user->role == 2)
+                            <td> Integrity HOD </td>
+                            @elseif($datas->user->role == 3)
+                            <td> Pegawai HR </td>
+                            @elseif($datas->user->role == 4)
+                            <td> Pegawai Admin </td>
+                            @elseif($datas->user->role == 5)
+                            <td> Pegawai HR </td>
+                            @endif
+                            <td>{{ $datas->ip_address }}</td>
+                            <td>{{  Carbon\Carbon::parse($datas->updated_at)->format('M-d-Y h:i:s')  }}</td>
+                            <td>{{ substr($datas->auditable_type, strpos($datas->auditable_type, "/") + 4) }}</td>
 
-                              <tr>
-                              @if($datas->user->name == NULL)
-                                <td>Tiada</td>
-
-                              @else
-                                <td>{{  ucfirst($datas->user->name) }}</td>
-                              @endif
-
-                              <td>{{ $datas->ip_address }}</td>
-                              <td>{{  Carbon\Carbon::parse($datas->updated_at)->format('d-m-Y h:i:s')  }}</td>
-                              @if($datas->user->role == 1)
-                              <td> Pentadbir Sistem (Admin) </td>
-                              @elseif($datas->user->role == 2)
-                              <td> Integrity HOD </td>
-                              @elseif($datas->user->role == 3)
-                              <td> Pegawai HR </td>
-                              @elseif($datas->user->role == 4)
-                              <td> Pegawai Admin </td>
-                              @elseif($datas->user->role == 5)
-                              <td> Pegawai HR </td>
-                              @endif
-                              <td>{{  ucfirst($datas->event) }}</td>
-                              <td>{{ substr($datas->auditable_type, strpos($datas->auditable_type, "/") + 4) }}</td>
-                              <td>{{$datas->old_values}}</td>
-                              <td>{{$datas->new_values}}</td>
-
-
-                              <td>{{ $datas->url }}</td>
-                              </tr>
+                            @if($datas->event == "Log Masuk")
+                            <td><span class="badge m-1 badge-success" style="font-size:12px;">Log Masuk</span></td>
+                            @else
+                            <td><span class="badge m-1 badge-warning" style="font-size:12px;">Log Keluar</span></td>
+                            @endif
+                          </tr>
                             @endif
                           @endforeach
                         </tbody>
@@ -71,6 +65,7 @@
                   </div>
                 </div>
             </div>
+
             <script type="text/javascript">
             $(document).ready(function() {
                 var buttonCommon = {
