@@ -139,6 +139,8 @@
                  $('.modal-body #imageHadiah').show();
                }
              </script>
+
+
              <script type="text/javascript">
              $(document).ready(function() {
                  var buttonCommon = {

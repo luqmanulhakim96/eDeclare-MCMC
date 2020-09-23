@@ -19,10 +19,29 @@ class UserSeeder extends Seeder
       ]
     );
 
+      DB::table('tempoh_notifikasis')-> insert(
+      [
+        'status' => 'Diterima'
+      ]
+    );
+
+      DB::table('tempoh_notifikasis')-> insert(
+      [
+        'status' => 'Tidak Lengkap'
+      ]
+    );
+
+      DB::table('tempoh_notifikasis')-> insert(
+      [
+        'status' => 'Gagal'
+      ]
+    );
+
       $hashed_password = Hash::make("1234567890");
       DB::table('users')-> insert(
       [
         'name' => 'Muhammad Syahdan',
+        'no_staff' => '01',
         'email' => 'adan@artanis.com',
         'password' => $hashed_password,
         'kad_pengenalan' => '900102034567',
@@ -42,6 +61,7 @@ class UserSeeder extends Seeder
       DB::table('users')-> insert(
       [
         'name' => 'Amirul Amsyar',
+        'no_staff' => '02',
         'email' => 'amirul@artanis.com',
         'password' => $hashed_password,
         'kad_pengenalan' => '900102034568',
@@ -62,6 +82,7 @@ class UserSeeder extends Seeder
       DB::table('users')-> insert(
       [
         'name' => 'Muhammad Hafiz',
+        'no_staff' => '03',
         'email' => 'hafiz@artanis.com',
         'password' => $hashed_password,
         'kad_pengenalan' => '900102034569',
@@ -81,6 +102,7 @@ class UserSeeder extends Seeder
       DB::table('users')-> insert(
       [
         'name' => 'Muhammad Shahid',
+        'no_staff' => '04',
         'email' => 'shahid@artanis.com',
         'password' => $hashed_password,
         'kad_pengenalan' => '900102034560',
@@ -100,6 +122,7 @@ class UserSeeder extends Seeder
       DB::table('users')-> insert(
       [
         'name' => 'Muhammad Luqman',
+        'no_staff' => '05',
         'email' => 'luqman@artanis.com',
         'password' => $hashed_password,
         'kad_pengenalan' => '900102034561',

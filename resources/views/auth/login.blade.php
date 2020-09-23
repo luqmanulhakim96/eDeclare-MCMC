@@ -19,9 +19,9 @@
                             <h5 class="text-dark my-3">Sign In</h5>
                             <!-- Email -->
                             <div class="form-group mb-2">
-                                <label for="email" class="text-muted">Email Address</label>
-                                <input id="email" type="email" class="form-control badge-pill bg-light @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                @error('email')
+                                <label for="email" class="text-muted">No Staff</label>
+                                <input id="no_staff" type="text" class="form-control badge-pill bg-light" name="no_staff" value="{{ old('no_staff') }}" required autocomplete="no_staff" autofocus>
+                                @error('no_staff')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

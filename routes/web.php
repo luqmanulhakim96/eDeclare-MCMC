@@ -133,6 +133,8 @@ Route::get('/emel/edit/{id}','AdminController@editemel')->name('emel.edit');
 
 Route::post('/emel/update/{id}','AdminController@updateemel')->name('emel.update');
 
+Route::post('/emel/tempoh/{id}','AdminController@updateTempohNotifikasi')->name('tempoh_notifikasi.update');
+
 Route::post('/Lampiran-B/dokumen/{id}', 'AdminController@submitDokumenB')->name('dokumenB.submit');
 
 Route::post('/Lampiran-C/dokumen/{id}', 'AdminController@submitDokumenC')->name('dokumenC.submit');

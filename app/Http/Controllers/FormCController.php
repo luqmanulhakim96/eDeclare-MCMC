@@ -75,7 +75,7 @@ public function add(array $data){
   event($formcs = $this->add($request->all()));
 
   //send notification to admin (noti yang dia dah berjaya declare)
-  $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Gagal')->first(); //template email yang diguna
+  $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
   // $email = null; // for testing
   $admin_available = User::where('role','=','1')->get(); //get system admin information
   // if ($email) {

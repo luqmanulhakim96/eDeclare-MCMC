@@ -211,7 +211,7 @@ public function add(array $data){
      }
 
      //send notification to admin (noti yang dia dah berjaya declare)
-     $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Berjaya')->first(); //template email yang diguna
+     $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
      // dd($email);
      // $email = null; // for testing
      $admin_available = User::where('role','=','1')->get(); //get system admin information

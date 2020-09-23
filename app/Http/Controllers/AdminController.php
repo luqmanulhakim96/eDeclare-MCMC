@@ -27,6 +27,14 @@ use App\DokumenC;
 use App\DokumenD;
 use App\DokumenG;
 use App\Email;
+use App\TempohNotifikasi;
+
+use App\Jobs\SendNotificationFormBHod;
+use App\Jobs\SendNotificationFormCHod;
+use App\Jobs\SendNotificationFormDHod;
+use App\Jobs\SendNotificationFormGHod;
+
+use App\Jobs\SendNotificationGift;
 
 class AdminController extends Controller
 {
@@ -56,8 +64,8 @@ class AdminController extends Controller
       $pegawai_dah_declare_Ds =DB::select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id)"));
       $pegawai_dah_declare_Gs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id)"));
 
-      $pegawai_gift_declare_Gs =DB::select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id)"));
-      $pegawai_giftb_declare_Gs =DB::select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id)"));
+      $pegawai_gift_declare =DB::select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id)"));
+      $pegawai_giftb_declare =DB::select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id)"));
 
       // $total_declare = $pegawai_dah_declare_Bs[0]->data + $pegawai_dah_declare_Cs[0]->data + $pegawai_dah_declare_Ds[0]->data + $pegawai_dah_declare_Gs[0]->data;
       // dd($total_declare);
@@ -66,8 +74,8 @@ class AdminController extends Controller
       $undeclareC= $total_user[0]->data - $pegawai_dah_declare_Cs[0]->data ;
       $undeclareD= $total_user[0]->data - $pegawai_dah_declare_Ds[0]->data ;
       $undeclareG= $total_user[0]->data - $pegawai_dah_declare_Gs[0]->data ;
-      $undeclareGift= $total_user[0]->data - $pegawai_gift_declare_Gs[0]->data ;
-      $undeclareGiftB= $total_user[0]->data - $pegawai_giftb_declare_Gs[0]->data ;
+      $undeclareGift= $total_user[0]->data - $pegawai_gift_declare[0]->data ;
+      $undeclareGiftB= $total_user[0]->data - $pegawai_giftb_declare[0]->data ;
 
       // $total_no_declare = $undeclareB + $undeclareC + $undeclareD + $undeclareG;
 
@@ -78,7 +86,7 @@ class AdminController extends Controller
                                              'listHadiahA','listHadiahB','listBDiterima','listCDiterima',
                                              'listDDiterima','listGDiterima','pegawai_dah_declare_Bs',
                                              'pegawai_dah_declare_Cs','pegawai_dah_declare_Ds','pegawai_dah_declare_Gs',
-                                             'pegawai_gift_declare_Gs','pegawai_giftb_declare_Gs',
+                                             'pegawai_gift_declare','pegawai_giftb_declare',
                                              'undeclareGift','undeclareGiftB',
                                              'undeclareB','undeclareC','undeclareD','undeclareG'));
     }
@@ -104,8 +112,9 @@ class AdminController extends Controller
 
   public function notification(){
     $listEmel = Email::get();
-// dd($listEmel);
-    return view('user.admin.notification',compact('listEmel'));
+    $listTempohNotifikasi = TempohNotifikasi::get();
+    // dd($listTempohNotifikasi[0]['id']);
+    return view('user.admin.notification',compact('listEmel','listTempohNotifikasi'));
   }
 
   public function listAsset(){
@@ -502,45 +511,130 @@ class AdminController extends Controller
      $formbs->save();
 
      //send notification to HOD (noti ulasan admin dah check)
+     // dd($request->status);
+     if($request->status == 'Proses ke Ketua Jabatan Integriti'){
+
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Harta)')->first(); //template email yang diguna
+     // $email = null; // for testing
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormBHod($data, $email, $formbs));
+       }
+     }
+     else{
+     $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormBHod($data, $email, $formbs));
+       }
+
+     }
 
      return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanAdminC(Request $request,$id){
 
-     $formbs = FormC::find($id);
-     $formbs->nama_admin = $request->nama_admin;
-     $formbs->no_admin = $request->no_admin;
-     $formbs->status = $request->status;
-     $formbs->ulasan_admin = $request->ulasan_admin;
-     $formbs->save();
+     $formcs = FormC::find($id);
+     $formcs->nama_admin = $request->nama_admin;
+     $formcs->no_admin = $request->no_admin;
+     $formcs->status = $request->status;
+     $formcs->ulasan_admin = $request->ulasan_admin;
+     $formcs->save();
      //send notification to HOD (noti ulasan admin dah check)
+     if($request->status == 'Proses ke Ketua Jabatan Integriti'){
+
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Harta)')->first(); //template email yang diguna
+     // $email = null; // for testing
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormCHod($data, $email, $formcs));
+       }
+     }
+     else{
+     $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormCHod($data, $email, $formcs));
+       }
+
+     }
 
      return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanAdminD(Request $request,$id){
 
-     $formbs = FormD::find($id);
-     $formbs->nama_admin = $request->nama_admin;
-     $formbs->no_admin = $request->no_admin;
-     $formbs->status = $request->status;
-     $formbs->ulasan_admin = $request->ulasan_admin;
-     $formbs->save();
+     $formds = FormD::find($id);
+     $formds->nama_admin = $request->nama_admin;
+     $formds->no_admin = $request->no_admin;
+     $formds->status = $request->status;
+     $formds->ulasan_admin = $request->ulasan_admin;
+     $formds->save();
      //send notification to HOD (noti ulasan admin dah check)
+     if($request->status == 'Proses ke Ketua Jabatan Integriti'){
+
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Harta)')->first(); //template email yang diguna
+     // $email = null; // for testing
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormDHod($data, $email, $formds));
+       }
+     }
+     else{
+      $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormDHod($data, $email, $formds));
+
+      }
+    }
 
      return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanAdminG(Request $request,$id){
 
-     $formbs = FormG::find($id);
-     $formbs->nama_admin = $request->nama_admin;
-     $formbs->no_admin = $request->no_admin;
-     $formbs->status = $request->status;
-     $formbs->ulasan_admin = $request->ulasan_admin;
-     $formbs->save();
+     $formgs = FormG::find($id);
+     $formgs->nama_admin = $request->nama_admin;
+     $formgs->no_admin = $request->no_admin;
+     $formgs->status = $request->status;
+     $formgs->ulasan_admin = $request->ulasan_admin;
+     $formgs->save();
      //send notification to HOD (noti ulasan admin dah check)
+     if($request->status == 'Proses ke Ketua Jabatan Integriti'){
+
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Harta)')->first(); //template email yang diguna
+     // $email = null; // for testing
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormGHod($data, $email, $formgs));
+       }
+     }
+     else{
+     $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
+     $hod_available = User::where('role','=','2')->get(); //get system admin information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $formcs->notify(new UserFormAdminC($data, $email));
+         $this->dispatch(new SendNotificationFormGHod($data, $email, $formgs));
+
+      }
+    }
 
      return redirect()->route('user.admin.harta.senaraiallharta');
    }
@@ -555,6 +649,32 @@ class AdminController extends Controller
      $gifts->save();
 
      //send notification to users (status="Diterima" && status="Tidak Diterima" && status="Tidak Lengkap")
+     if($request->status == 'Tidak Lengkap'){
+
+       $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Hadiah)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+
+       $this->dispatch(new SendNotificationGift($user, $email, $gifts));
+       }
+
+     else if ($request->status == 'Diterima') {
+       $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Diterima')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+
+       $this->dispatch(new SendNotificationGift($user, $email, $gifts));
+
+    }
+     else {
+       $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Gagal')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+
+       $this->dispatch(new SendNotificationGift($user, $email, $gifts));
+
+   }
+
 
      return redirect()->route('user.admin.hadiah.senaraiallhadiah');
    }
@@ -569,6 +689,32 @@ class AdminController extends Controller
      $giftbs->save();
 
      //send notification to users (status="Diterima" && status="Tidak Diterima" && status="Tidak Lengkap")
+     //send notification to users (status="Diterima" && status="Tidak Diterima" && status="Tidak Lengkap")
+     if($request->status == 'Tidak Lengkap'){
+
+       $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Hadiah)')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+
+       $this->dispatch(new SendNotificationGift($user, $email, $giftbs));
+       }
+
+     else if ($request->status == 'Diterima') {
+       $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Diterima')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+
+       $this->dispatch(new SendNotificationGift($user, $email, $giftbs));
+
+    }
+     else {
+       $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Gagal')->first(); //template email yang diguna
+       // $email = null; // for testing
+       $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+
+       $this->dispatch(new SendNotificationGift($user, $email, $giftbs));
+
+   }
 
      return redirect()->route('user.admin.hadiah.senaraiallhadiah');
    }
@@ -858,6 +1004,16 @@ class AdminController extends Controller
            return redirect()->route('user.admin.notification');
          }
 
+         public function updateTempohNotifikasi(Request $request,$id){
+           // dd($request->all());
+           $tempoh=TempohNotifikasi::find($id);
+           // dd($tempoh);
+
+           $tempoh->tempoh_notifikasi = $request->tempoh_notifikasi;
+           $tempoh->save();
+
+           return redirect()->route('user.admin.notification');
+         }
 
 
 }
