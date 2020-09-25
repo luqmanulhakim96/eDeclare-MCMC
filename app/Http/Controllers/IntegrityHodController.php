@@ -263,7 +263,7 @@ class IntegrityHodController extends Controller
        $formbs->ulasan_hod = $request->ulasan_hod;
        $formbs->save();
 
-       $tempoh_notifikasi = 
+
 
        //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
        //send notification to users (status="Diterima" && status="Tidak Diterima")

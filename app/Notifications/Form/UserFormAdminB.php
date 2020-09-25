@@ -16,7 +16,7 @@ class UserFormAdminB extends Notification
 {
     use Queueable;
     use IsMonitored;
-    
+
     protected $admin;
     protected $email;
 
@@ -65,7 +65,7 @@ class UserFormAdminB extends Notification
         // dd($notifiable);
         return[
           'permohonan_id' => $notifiable->id,
-          'tajuk' => 'Terdapat Lampiran B baru yang perlu disemak',
+          'tajuk' => 'Terdapat Lampiran Harta B baru yang perlu disemak',
           'tarikh_dicipta' => $notifiable->created_at,
           'kepada_email' => $this->admin->email,
           'kepada_id' => $this->admin->id,

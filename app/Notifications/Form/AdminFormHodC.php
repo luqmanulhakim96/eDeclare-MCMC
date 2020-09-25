@@ -64,7 +64,7 @@ class AdminFormHodC extends Notification
         // dd($notifiable);
         return[
           'permohonan_id' => $notifiable->id,
-          'tajuk' => 'Terdapat Lampiran C baru yang perlu disemak',
+          'tajuk' => 'Terdapat Lampiran Harta C baru yang perlu disemak',
           'tarikh_dicipta' => $notifiable->created_at,
           'kepada_email' => $this->hod->email,
           'kepada_id' => $this->hod->id,
