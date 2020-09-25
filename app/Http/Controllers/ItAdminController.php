@@ -26,11 +26,15 @@ class ItAdminController extends Controller
         return view('user.it.view');
       }
 
-      public function errorLogging(){
+      // error log viewer can be found at resources > vendor > laravel-log-viewer > log.blade.php
+      // using \Rap2hpoutre\LaravelLogViewer\LogViewerController@index Controller
 
-        return view('user.it.errorlog');
-      }
+      // public function errorLogging(){
+      //
+      //   return view('user.it.errorlog');
+      // }
 
+      //start backup process
       public function backup(){
 
         // $files = Storage::disk('local')->files(env('APP_NAME'));
@@ -91,21 +95,21 @@ class ItAdminController extends Controller
         Artisan::queue('backup:run');
         $message = "Full Backup success!";
         Log::info($message);
-        return redirect()->route('user.it.backup')->with('success','Full Backup success!');
+        return redirect()->route('user.it.backup')->with('success','Full Backup in process! Please wait 5-10 minutes.');
       }
 
       public function backupRunSystem(){
         Artisan::queue('backup:run --only-files');
         $message = "System Backup success!";
         Log::info($message);
-        return redirect()->route('user.it.backup')->with('success','System Backup success!');
+        return redirect()->route('user.it.backup')->with('success','System Backup in process! Please wait 5-10 minutes.');
       }
 
       public function backupRunDatabase(){
         Artisan::queue('backup:run --only-db');
         $message = "Database Backup success!";
         Log::info($message);
-        return redirect()->route('user.it.backup')->with('success','Database Backup success!');
+        return redirect()->route('user.it.backup')->with('success','Database Backup in process! Please wait 5-10 minutes.');
       }
 
       public function backupDownload($filename){
@@ -116,6 +120,7 @@ class ItAdminController extends Controller
 
         return Storage::download($filepath);
       }
+      //end of backup process
 
       public function backgroundQueues(){
         $jobs = Monitor::get();
@@ -174,5 +179,9 @@ class ItAdminController extends Controller
             $text = 'Pengguna berjaya dinyahaktif';
           }
           return redirect()->route('user.it.users')->with($success,$text);
+      }
+
+      public function konfigurasiSistem(){
+        return view('user.it.konfigurasi');
       }
 }

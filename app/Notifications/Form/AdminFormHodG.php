@@ -64,7 +64,7 @@ class AdminFormHodG extends Notification
         // dd($notifiable);
         return[
           'permohonan_id' => $notifiable->id,
-          'tajuk' => 'Terdapat Lampiran G baru yang perlu disemak',
+          'tajuk' => 'Terdapat Lampiran Harta G baru yang perlu disemak',
           'tarikh_dicipta' => $notifiable->created_at,
           'kepada_email' => $this->hod->email,
           'kepada_id' => $this->hod->id,
