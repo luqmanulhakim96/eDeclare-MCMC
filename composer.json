@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "acaronlex/laravel-calendar": "^1.1",
+        "adldap2/adldap2-laravel": "^6.1",
         "barryvdh/laravel-dompdf": "^0.8.6",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
@@ -19,7 +19,6 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "owen-it/laravel-auditing": "^10.0",
-        "protoqol/prequel": "^1.22",
         "rap2hpoutre/laravel-log-viewer": "^1.6",
         "romanzipp/laravel-queue-monitor": "^2.0",
         "spatie/laravel-backup": "^6.11"

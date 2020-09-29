@@ -36,6 +36,8 @@ use App\Jobs\SendNotificationFormGHod;
 
 use App\Jobs\SendNotificationGift;
 
+use Adldap\Laravel\Facades\Adldap;
+
 class AdminController extends Controller
 {
     //
@@ -81,6 +83,9 @@ class AdminController extends Controller
 
       // dd($undeclareC);
 
+      // $userldap = Adldap::search()->users()->find('Siti Rafidah');
+      // dd($userldap);
+      
       return view('user.admin.view', compact('nilaiHadiah',
                                              'listB','listHadiah','list','listC','listD','listG',
                                              'listHadiahA','listHadiahB','listBDiterima','listCDiterima',
