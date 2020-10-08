@@ -41,5 +41,6 @@ class LoginController extends Controller
     public function username(){
       // return 'no_staff';
       return 'samaccountname';
+      // return 'username';
     }
 }

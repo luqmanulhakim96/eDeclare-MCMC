@@ -86,8 +86,8 @@ class AdminController extends Controller
       // $userldap = Adldap::search()->users()->find('Siti Rafidah'); //active directory testing
       // $userldap = Adldap::first(); //active directory testing
 
-      $userldap = Adldap::search()->users()->find('Siti Rafidah'); //active directory testing
-      dd($userldap);
+      // $userldap = Adldap::search()->users()->find('Siti Rafidah'); //active directory testing
+      // dd($userldap);
       // dd(UserTest::get());
       // $users = DB::connection('sqlsrv2')->select(DB::raw ("SELECT * From dbo.V_ED_STAFF"));
 

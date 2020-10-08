@@ -33,6 +33,20 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                <!-- <label for="username" class="text-muted">Username</label>
+                                <input id="username" type="text" class="form-control badge-pill bg-light" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                                @error('username')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror -->
+                                <!-- <label for="email" class="text-muted">Username</label>
+                                <input id="userprincipalname" type="text" class="form-control badge-pill bg-light" name="userprincipalname" value="{{ old('userprincipalname') }}" required autocomplete="userprincipalname" autofocus>
+                                @error('userprincipalname')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror -->
                             </div>
                             <!-- Passeord -->
                             <div class="form-group mb-2">
