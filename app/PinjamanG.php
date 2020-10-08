@@ -10,6 +10,8 @@ class PinjamanG extends Model implements Auditable
 {
   use \OwenIt\Auditing\Auditable;
   use Notifiable;
+  protected $connection = 'sqlsrv';
+  
 
   protected $guarded = [];
   protected $table = 'pinjaman_gs';

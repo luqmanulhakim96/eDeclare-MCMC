@@ -17,6 +17,8 @@ class User extends Authenticatable implements Auditable
      *
      * @var array
      */
+     protected $connection = 'sqlsrv';
+
      protected $fillable = [
 
          'name','no_staff','email', 'password', 'kad_pengenalan', 'jabatan','jawatan', 'alamat_tempat_bertugas', 'nama_pasangan',

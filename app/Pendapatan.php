@@ -10,6 +10,8 @@ class Pendapatan extends Model implements Auditable
 {
   use \OwenIt\Auditing\Auditable;
   use Notifiable;
+  protected $connection = 'sqlsrv';
+  
 
   protected $fillable = [
     'gaji', 'jumlah_imbuhan', 'sewa', 'jenis_dividen', 'dividen', 'gaji_pasangan',

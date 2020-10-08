@@ -10,6 +10,8 @@ class DividenB extends Model implements Auditable
 {
   use \OwenIt\Auditing\Auditable;
   use Notifiable;
+  protected $connection = 'sqlsrv';
+  
 
   protected $guarded = [];
   protected $table = 'dividen_bs';

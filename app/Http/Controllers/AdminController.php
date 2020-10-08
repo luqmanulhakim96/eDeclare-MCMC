@@ -28,6 +28,7 @@ use App\DokumenD;
 use App\DokumenG;
 use App\Email;
 use App\TempohNotifikasi;
+use App\UserTest;
 
 use App\Jobs\SendNotificationFormBHod;
 use App\Jobs\SendNotificationFormCHod;
@@ -61,17 +62,17 @@ class AdminController extends Controller
       $listHadiahB = GiftB::where('status','Diterima')->count();
       $nilaiHadiah = NilaiHadiah::first();
 
-      $pegawai_dah_declare_Bs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id)"));
-      $pegawai_dah_declare_Cs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formcs.user_id ) as data from formcs where EXISTS ( SELECT formcs.user_id FROM formcs, users where formcs.user_id= users.id)"));
-      $pegawai_dah_declare_Ds =DB::select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id)"));
-      $pegawai_dah_declare_Gs =DB::select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id)"));
+      $pegawai_dah_declare_Bs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id)"));
+      $pegawai_dah_declare_Cs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formcs.user_id ) as data from formcs where EXISTS ( SELECT formcs.user_id FROM formcs, users where formcs.user_id= users.id)"));
+      $pegawai_dah_declare_Ds =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id)"));
+      $pegawai_dah_declare_Gs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id)"));
 
-      $pegawai_gift_declare =DB::select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id)"));
-      $pegawai_giftb_declare =DB::select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id)"));
+      $pegawai_gift_declare =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id)"));
+      $pegawai_giftb_declare =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id)"));
 
       // $total_declare = $pegawai_dah_declare_Bs[0]->data + $pegawai_dah_declare_Cs[0]->data + $pegawai_dah_declare_Ds[0]->data + $pegawai_dah_declare_Gs[0]->data;
       // dd($total_declare);
-      $total_user =DB::select(DB::raw ("SELECT COUNT( DISTINCT users.id ) as data From users"));
+      $total_user =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT users.id ) as data From users"));
       $undeclareB= $total_user[0]->data - $pegawai_dah_declare_Bs[0]->data ;
       $undeclareC= $total_user[0]->data - $pegawai_dah_declare_Cs[0]->data ;
       $undeclareD= $total_user[0]->data - $pegawai_dah_declare_Ds[0]->data ;
@@ -82,10 +83,14 @@ class AdminController extends Controller
       // $total_no_declare = $undeclareB + $undeclareC + $undeclareD + $undeclareG;
 
       // dd($undeclareC);
+      // $userldap = Adldap::search()->users()->find('Siti Rafidah'); //active directory testing
+      // $userldap = Adldap::first(); //active directory testing
 
-      // $userldap = Adldap::search()->users()->find('Siti Rafidah');
-      // dd($userldap);
-      
+      $userldap = Adldap::search()->users()->find('Siti Rafidah'); //active directory testing
+      dd($userldap);
+      // dd(UserTest::get());
+      // $users = DB::connection('sqlsrv2')->select(DB::raw ("SELECT * From dbo.V_ED_STAFF"));
+
       return view('user.admin.view', compact('nilaiHadiah',
                                              'listB','listHadiah','list','listC','listD','listG',
                                              'listHadiahA','listHadiahB','listBDiterima','listCDiterima',

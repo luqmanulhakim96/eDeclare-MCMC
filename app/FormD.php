@@ -10,6 +10,8 @@ class FormD extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
     use Notifiable;
+    protected $connection = 'sqlsrv';
+    
 
     //
     protected $table = 'formds';
