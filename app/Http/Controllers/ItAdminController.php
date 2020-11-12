@@ -152,7 +152,6 @@ class ItAdminController extends Controller
         // $user = User::where([['role','!=','5'],['status','!=','0']])->get();
         // $user_deact = User::where([['role','!=','5'],['status','!=','1']])->get();
         $user_deact = User::where([['status','!=','1']])->get();
-
         // dd($user_deact);
         return view('user.it.users', compact('user','user_deact', 'currentUser'));
       }
@@ -182,6 +181,126 @@ class ItAdminController extends Controller
       }
 
       public function konfigurasiSistem(){
-        return view('user.it.konfigurasi');
+        $config_app = config('app');
+        $attributes_config_app = array_keys($config_app);
+
+        $config_database = config('database');
+        $config_database_sqlsrv = $config_database['connections']['sqlsrv'];
+        $attributes_config_database = array_keys($config_database_sqlsrv);
+
+        $config_mail = config('mail');
+        $config_mail_smtp = $config_mail['mailers']['smtp'];
+        $config_mail_from = $config_mail['from'];
+
+        $attributes_config_mail_smtp = array_keys($config_mail_smtp);
+        $attributes_config_mail_from = array_keys($config_mail_from);
+
+        // dd($config_app);
+
+        return view('user.it.konfigurasi', compact('config_app','attributes_config_app', 'config_database_sqlsrv', 'attributes_config_database', 'config_mail_smtp', 'config_mail_from', 'attributes_config_mail_smtp', 'attributes_config_mail_from'));
+      }
+
+      public function editKonfigurasiSistem(Request $request){
+        // dd($request->all());
+        $aplikasi_name = $request->aplikasi_name;
+        $aplikasi_debug = $request->aplikasi_debug;
+        if($aplikasi_debug == '1')
+        {
+          $aplikasi_debug = 'true';
+        }
+        else {
+          $aplikasi_debug = 'false';
+        }
+        $aplikasi_url = $request->aplikasi_url;
+        $aplikasi_timezone = $request->aplikasi_timezone;
+
+        $database_host = $request->database_host;
+        $database_port = $request->database_port;
+        $database_database = $request->database_database;
+        $database_username = $request->database_username;
+        $database_password = $request->database_password;
+
+        $smtp_host = $request->smtp_host;
+        $smtp_port = $request->smtp_port;
+        $smtp_encryption = $request->smtp_encryption;
+        $smtp_username = $request->smtp_username;
+        $smtp_password = $request->smtp_password;
+        $smtp_address = $request->smtp_address;
+        $smtp_name = $request->smtp_name;
+
+        // config(['app.name' => $request->aplikasi_name]);
+         // $day = $this->setEnv("APP_NAME", $request->aplikasi_name);
+
+         // App config
+         $this->setEnvironmentValue('APP_NAME', $aplikasi_name);
+         $this->setEnvironmentValue('APP_DEBUG', $aplikasi_debug);
+         $this->setEnvironmentValue('APP_URL', $aplikasi_url);
+         // $this->setEnvironmentValue('APP_NAME', '"testing"');
+        // config(['app.timezone' => $request->aplikasi_timezone]);
+
+        // Database config
+        $this->setEnvironmentValue('DB_HOST', $database_host);
+        $this->setEnvironmentValue('DB_PORT', $database_port);
+        $this->setEnvironmentValue('DB_DATABASE', $database_database);
+        $this->setEnvironmentValue('DB_USERNAME', $database_username);
+        $this->setEnvironmentValue('DB_PASSWORD', $database_password);
+
+        // Email config
+        $this->setEnvironmentValue('MAIL_HOST', $smtp_host);
+        $this->setEnvironmentValue('MAIL_PORT', $smtp_port);
+        $this->setEnvironmentValue('MAIL_USERNAME', $smtp_username);
+        $this->setEnvironmentValue('MAIL_PASSWORD', $smtp_password);
+        $this->setEnvironmentValue('MAIL_ENCRYPTION', $smtp_encryption);
+        $this->setEnvironmentValue('MAIL_FROM_ADDRESS', $smtp_address);
+        $this->setEnvironmentValue('MAIL_FROM_NAME', $smtp_name);
+
+        // config(['app.url' => $request->aplikasi_url]);
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        // Artisan::call('config:cache');
+
+        return redirect()->route('user.it.konfigurasi');
+        // Auth::logout();
+        // return redirect()->route('login');
+      }
+
+      // private function setEnv($key, $value)
+      // {
+      //   file_put_contents(app()->environmentFilePath(), str_replace(
+      //     $key . '=' . env($value),
+      //     $key . '=' . $value,
+      //     file_get_contents(app()->environmentFilePath())
+      //   ));
+      // }
+
+      // public function setEnvironmentValue($envKey, $envValue)
+      // {
+      //     $envFile = app()->environmentFilePath();
+      //     $str = file_get_contents($envFile);
+      //
+      //     $oldValue = strtok($str, "{$envKey}=");
+      //
+      //     $str = str_replace("{$envKey}={$oldValue}", "{$envKey}={$envValue}\n", $str);
+      //
+      //     $fp = fopen($envFile, 'w');
+      //     fwrite($fp, $str);
+      //     fclose($fp);
+      // }
+
+      private function setEnvironmentValue($envKey, $envValue)
+      {
+          $envFile = app()->environmentFilePath();
+          $str = file_get_contents($envFile);
+
+          $str .= "\n"; // In case the searched variable is in the last line without \n
+          $keyPosition = strpos($str, "{$envKey}=");
+          $endOfLinePosition = strpos($str, PHP_EOL, $keyPosition);
+          $oldLine = substr($str, $keyPosition, $endOfLinePosition - $keyPosition);
+          $str = str_replace($oldLine, "{$envKey}={$envValue}", $str);
+          $str = substr($str, 0, -1);
+
+          $fp = fopen($envFile, 'w');
+          fwrite($fp, $str);
+          fclose($fp);
       }
 }

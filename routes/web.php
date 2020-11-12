@@ -422,6 +422,8 @@ Route::get('/itadmin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@i
 
 Route::get('/itadmin/configure', 'ItAdminController@konfigurasiSistem')->name('user.it.konfigurasi');
 
+  Route::post('/itadmin/configure/edit', 'ItAdminController@editKonfigurasiSistem')->name('user.it.konfigurasi.edit');
+
 // Route::prefix('jobs')->group(function () {
 //     Route::queueMonitor();
 // });
