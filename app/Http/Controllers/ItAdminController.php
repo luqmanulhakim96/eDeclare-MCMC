@@ -173,10 +173,12 @@ class ItAdminController extends Controller
           }
           elseif($userToLogout->status == true){
             $userToLogout->update(['status' => 0]);
+            $userToLogout->update(['should_re_login' => 1]);
 
             $success = 'success';
             $text = 'Pengguna berjaya dinyahaktif';
           }
+          // dd($userToLogout);
           return redirect()->route('user.it.users')->with($success,$text);
       }
 
@@ -263,29 +265,6 @@ class ItAdminController extends Controller
         // Auth::logout();
         // return redirect()->route('login');
       }
-
-      // private function setEnv($key, $value)
-      // {
-      //   file_put_contents(app()->environmentFilePath(), str_replace(
-      //     $key . '=' . env($value),
-      //     $key . '=' . $value,
-      //     file_get_contents(app()->environmentFilePath())
-      //   ));
-      // }
-
-      // public function setEnvironmentValue($envKey, $envValue)
-      // {
-      //     $envFile = app()->environmentFilePath();
-      //     $str = file_get_contents($envFile);
-      //
-      //     $oldValue = strtok($str, "{$envKey}=");
-      //
-      //     $str = str_replace("{$envKey}={$oldValue}", "{$envKey}={$envValue}\n", $str);
-      //
-      //     $fp = fopen($envFile, 'w');
-      //     fwrite($fp, $str);
-      //     fclose($fp);
-      // }
 
       private function setEnvironmentValue($envKey, $envValue)
       {

@@ -28,7 +28,7 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td  style="width: 20%;">{{ucfirst($attributes_config_app[0])}}</td>
+                                  <td  style="width: 20%;">{{ucfirst($attributes_config_app[0])}} <small>(*Changes in Name will require user to logout the system)</small></td>
                                   <td><input id="aplikasi_name" type="text" class="form-control bg-light" name="aplikasi_name" value="{{$config_app['name']}}" autocomplete="aplikasi_name" onchange=""="this.value = this.value.toUpperCase();"></td>
                                 </tr>
                                 <tr>

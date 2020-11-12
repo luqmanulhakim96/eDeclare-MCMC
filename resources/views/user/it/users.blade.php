@@ -11,6 +11,10 @@
                 <div class="card rounded-lg">
                   <div class="card-body">
                       <div class="card-title">Senarai Pengguna</div>
+                      <!-- <div class="col">
+                        <button type="submit" onclick="return confirm('Anda pasti maklumat ini tepat? ');" class="btn btn-primary mb" id="submit-form" style="float: right;">Kemaskini Maklumat</button>
+                      </div>
+                      <br> -->
                         <!-- Tab nav -->
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
@@ -23,7 +27,7 @@
                         <!-- Tab content -->
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-active" role="tabpanel" aria-labelledby="pills-active-tab">
-                              <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                              <table class="table table-striped table-bordered" id="table1" style="width: 100%;">
 
                                 <thead>
                                   <tr>
@@ -69,7 +73,7 @@
                             <div class="tab-pane fade" id="pills-deactivate" role="tabpanel" aria-labelledby="pills-deactivate-tab">
                               <div class="table-responsive">
 
-                              <table class="table table-striped table-bordered" id="responsiveDataTable2" style="width: 100%;">
+                              <table class="table table-striped table-bordered" id="table2" style="width: 100%;">
 
                                 <thead>
                                   <tr>
@@ -117,4 +121,11 @@
                     </div>
                 </div>
             </main>
+
+            <script type="text/javascript">
+              $(document).ready( function () {
+                  $('#table1').DataTable();
+                  $('#table2').DataTable();
+              });
+             </script>
 @endsection
