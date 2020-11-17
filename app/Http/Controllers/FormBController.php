@@ -12,6 +12,7 @@ use DB;
 use Auth;
 use App\JenisHarta;
 use App\Email;
+use PDF;
 
 // use App\Notifications\Form\UserFormAdminB;
 use App\Jobs\SendNotificationFormB;
@@ -111,6 +112,76 @@ public function add(array $data){
 
   }
 
+  public function adddraft(array $data){
+    $userid = Auth::user()->id;
+    $sedang_proses= "Disimpan ke Draf";
+    // dd($sedang_proses);
+
+      return FormB::create([
+        'jabatan' => $data['jabatan'],
+        'gaji_pasangan' => $data['gaji_pasangan'],
+        'jumlah_imbuhan' => $data['jumlah_imbuhan'],
+        'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
+        'sewa' => $data['sewa'],
+        'sewa_pasangan' => $data['sewa_pasangan'],
+        'dividen_1' => $data['dividen_1'],
+        'dividen_1_pegawai' => $data['dividen_1_pegawai'],
+        'dividen_1_pasangan' => $data['dividen_1_pasangan'],
+        'pendapatan_pegawai' => $data['pendapatan_pegawai'],
+        'pendapatan_pasangan' => $data['pendapatan_pasangan'],
+        'pinjaman_perumahan_pegawai' => $data['pinjaman_perumahan_pegawai'],
+        'bulanan_perumahan_pegawai' => $data['bulanan_perumahan_pegawai'],
+        'pinjaman_perumahan_pasangan' => $data['pinjaman_perumahan_pasangan'],
+        'bulanan_perumahan_pasangan' => $data['bulanan_perumahan_pasangan'],
+        'pinjaman_kenderaan_pegawai' => $data['pinjaman_kenderaan_pegawai'],
+        'bulanan_kenderaan_pegawai' => $data['bulanan_kenderaan_pegawai'],
+        'pinjaman_kenderaan_pasangan' => $data['pinjaman_kenderaan_pasangan'],
+        'bulanan_kenderaan_pasangan' => $data['bulanan_kenderaan_pasangan'],
+        'jumlah_cukai_pegawai' => $data['jumlah_cukai_pegawai'],
+        'bulanan_cukai_pegawai' => $data['bulanan_cukai_pegawai'],
+        'jumlah_cukai_pasangan' => $data['jumlah_cukai_pasangan'],
+        'bulanan_cukai_pasangan' => $data['bulanan_cukai_pasangan'],
+        'jumlah_koperasi_pegawai' => $data['jumlah_koperasi_pegawai'],
+        'bulanan_koperasi_pegawai' => $data['bulanan_koperasi_pegawai'],
+        'jumlah_koperasi_pasangan' => $data['jumlah_koperasi_pasangan'],
+        'bulanan_koperasi_pasangan' => $data['bulanan_koperasi_pasangan'],
+        'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
+        'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
+        'bulanan_pegawai'=> $data['bulanan_pegawai'],
+        'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
+        'bulanan_pasangan'=> $data['bulanan_pasangan'],
+        'jumlah_pinjaman_pegawai' => $data['jumlah_pinjaman_pegawai'],
+        'jumlah_bulanan_pegawai' => $data['jumlah_bulanan_pegawai'],
+        'jumlah_pinjaman_pasangan' => $data['jumlah_pinjaman_pasangan'],
+        'jumlah_bulanan_pasangan' => $data['jumlah_bulanan_pasangan'],
+        'jenis_harta' => $data['jenis_harta'],
+        'pemilik_harta' => $data['pemilik_harta'],
+        'hubungan_pemilik' => $data['hubungan_pemilik'],
+        'maklumat_harta' => $data['maklumat_harta'],
+        'tarikh_pemilikan_harta' => $data['tarikh_pemilikan_harta'],
+        'bilangan' => $data['bilangan'],
+        'nilai_perolehan' => $data['nilai_perolehan'],
+        'cara_perolehan' => $data['cara_perolehan'],
+        'nama_pemilikan_asal' => $data['nama_pemilikan_asal'],
+        'jumlah_pinjaman' => $data['jumlah_pinjaman'],
+        'institusi_pinjaman' => $data['institusi_pinjaman'],
+        'tempoh_bayar_balik' => $data['tempoh_bayar_balik'],
+        'ansuran_bulanan' => $data['ansuran_bulanan'],
+        'tarikh_ansuran_pertama' => $data['tarikh_ansuran_pertama'],
+        'jenis_harta_pelupusan' => $data['jenis_harta_pelupusan'],
+        'alamat_asset' => $data['alamat_asset'],
+        'no_pendaftaran' => $data['no_pendaftaran'],
+        'harga_jualan' => $data['harga_jualan'],
+        'tarikh_lupus' => $data['tarikh_lupus'],
+        'user_id' => $userid,
+        'status' => $sedang_proses,
+
+
+
+      ]);
+
+    }
+
   protected function validator(array $data)
   {
     return Validator::make($data, [
@@ -174,6 +245,48 @@ public function add(array $data){
 
   public function submitForm(Request $request){
 
+  if ($request->has('save'))
+  {
+    $this->validator($request->all())->validate();
+    // dd($request->all());
+    event($formbs = $this->adddraft($request->all()));
+
+    $count = count($request->dividen_1);
+
+    $count_id = 0;
+
+    for ($i=0; $i < $count; $i++) {
+      $count_id++;
+  	  $dividen_bs = new DividenB();
+  	  $dividen_bs->dividen_1 = $request->dividen_1[$i];
+  	  $dividen_bs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
+      $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+      $dividen_bs->formbs_id = $formbs-> id;
+      $dividen_bs->dividen_id = $count_id;
+      $dividen_bs->save();
+    }
+
+    $count1 = count($request->lain_lain_pinjaman);
+    $count_id_pinjaman = 0;
+
+    for ($i=0; $i < $count1; $i++) {
+        $count_id_pinjaman++;
+     	  $pinjaman_bs = new PinjamanB();
+     	  $pinjaman_bs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
+     	  $pinjaman_bs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
+        $pinjaman_bs->bulanan_pegawai = $request->bulanan_pegawai[$i];
+        $pinjaman_bs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
+        $pinjaman_bs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+        $pinjaman_bs->formbs_id = $formbs-> id;
+        $pinjaman_bs->pinjaman_id = $count_id_pinjaman;
+         //dd($request->all());
+        $pinjaman_bs->save();
+     }
+     return redirect()->route('user.harta.senaraidraft');
+   }
+
+  else if ($request->has('publish'))
+  {
     $this->validator($request->all())->validate();
     // dd($request->all());
     event($formbs = $this->add($request->all()));
@@ -220,12 +333,13 @@ public function add(array $data){
        // $formbs->notify(new UserFormAdminB($data, $email));
        $this->dispatch(new SendNotificationFormB($data, $email, $formbs));
      }
-     // }
      return redirect()->route('user.harta.FormB.senaraihartaB');
-   }
+  }
+}
 
     public function update($id){
       $formbs = FormB::find($id);
+      $sedang_proses= "Sedang Diproses";
       $formbs->gaji_pasangan  = request()->gaji_pasangan;
       $formbs->jumlah_imbuhan  = request()->jumlah_imbuhan;
       $formbs->jumlah_imbuhan_pasangan = request()->jumlah_imbuhan_pasangan;
@@ -270,6 +384,7 @@ public function add(array $data){
       $formbs->no_pendaftaran = request()->no_pendaftaran;
       $formbs->harga_jualan = request()->harga_jualan;
       $formbs->tarikh_lupus= request()->tarikh_lupus;
+      $formbs->status= $sedang_proses;
       $formbs->save();
      }
 
@@ -278,7 +393,6 @@ public function add(array $data){
         $this->validator(request()->all())->validate();
 
         $formbs = FormB::find($id);
-
         $count_div = DividenB::where('formbs_id', $formbs->id)->get();
         $count = count($count_div);
 
@@ -342,14 +456,25 @@ public function add(array $data){
         // dd($this->all());
       }
 
+      if($request ->status =='Disimpan ke Draf'){
+        //send notification to admin (noti yang dia dah berjaya declare)
+        $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
+        // dd($email);
+        // $email = null; // for testing
+        $admin_available = User::where('role','=','1')->get(); //get system admin information
+        // if (!$email) {
+        foreach ($admin_available as $data) {
+          // $formbs->notify(new UserFormAdminB($data, $email));
+          $this->dispatch(new SendNotificationFormB($data, $email, $formbs));
+        }
 
+      }
+      else{
+
+      }
 
       $this->update($id);
       return redirect()->route('user.harta.FormB.senaraihartaB');
     }
-
-
-
-
 
 }

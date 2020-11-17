@@ -21,6 +21,7 @@ use App\Keluarga;
 use App\NilaiHadiah;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class UserController extends Controller
 {
@@ -89,6 +90,16 @@ class UserController extends Controller
     return view('user.harta.senaraiharta');
   }
 
+  public function senaraiDraftHadiah()
+  {
+    $userid = Auth::user()->id;
+    $listHadiah = Gift::where('user_id', $userid)->where('status','Disimpan ke Draf')->get();
+    $listHadiahB = GiftB::where('user_id', $userid)->where('status','Disimpan ke Draf')->get();
+    $merged = $listHadiah->mergeRecursive($listHadiahB);
+    $nilaiHadiah = NilaiHadiah::first();
+
+    return view('user.hadiah.senaraidraft', compact('merged','nilaiHadiah'));
+  }
 
   public function senaraiHadiah()
   {
@@ -116,6 +127,48 @@ class UserController extends Controller
 
     return view('user.harta.FormB.senaraihartaB', compact('listHarta'));
   }
+
+  public function senaraiDraftHarta()
+  {
+    $userid = Auth::user()->id;
+    $listDrafB= FormB::where('user_id', $userid)->where('status','Disimpan ke Draf')->get();
+    $listDrafC= FormC::where('user_id', $userid)->where('status','Disimpan ke Draf')->get();
+    $listDrafD= FormD::where('user_id', $userid)->where('status','Disimpan ke Draf')->get();
+    $listDrafG= FormG::where('user_id', $userid)->where('status','Disimpan ke Draf')->get();
+    $merged = $listDrafB->mergeRecursive($listDrafC);
+    $merged = $merged->mergeRecursive($listDrafD);
+    $merged = $merged->mergeRecursive($listDrafG)->sortBy('status');
+    // dd($listDrafB);
+
+    return view('user.harta.senaraidraft', compact('merged'));
+  }
+
+  public function createPDF($id) {
+      // retreive all records from db
+      $listHarta = FormB::findOrFail($id);
+       // dd($listHarta);
+      $listDividenB = DividenB::where('formbs_id', $listHarta->id) ->get();
+
+      $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();
+
+      // share data to view
+      // view()->share('employee',$data);
+      $pdf = PDF::loadView('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB'));
+      // download PDF file with download method
+      return $pdf->download('Lampiran_B.pdf');
+    }
+
+    public function printB($id)
+    {
+       //dd($id);
+      $listHarta = FormB::findOrFail($id);
+       // dd($listHarta);
+      $listDividenB = DividenB::where('formbs_id', $listHarta->id) ->get();
+
+      $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();
+
+      return view('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB'));
+    }
 
   public function viewB($id)
   {
@@ -146,6 +199,22 @@ class UserController extends Controller
       return view('user.harta.FormC.viewformC', compact('listHarta'));
   }
 
+  public function printC($id)
+  {
+
+    $listHarta = FormC::findOrFail($id);
+
+      return view('user.harta.FormC.print', compact('listHarta'));
+  }
+
+  public function createPDFC($id) {
+
+      $listHarta = FormC::findOrFail($id);
+      $pdf = PDF::loadView('user.harta.FormC.print', compact('listHarta'));
+      // download PDF file with download method
+      return $pdf->download('Lampiran_C.pdf');
+    }
+
   public function senaraiHartaD()
   {
     $userid = Auth::user()->id;
@@ -163,6 +232,25 @@ class UserController extends Controller
 
       return view('user.harta.FormD.viewformD', compact('listHarta','listKeluarga'));
   }
+
+  public function printD($id)
+  {
+     //dd($id);
+    $listHarta = FormD::findOrFail($id);
+    $listKeluarga = Keluarga::where('formds_id', $listHarta->id) ->get();
+
+      return view('user.harta.FormD.print', compact('listHarta','listKeluarga'));
+  }
+
+  public function createPDFD($id) {
+
+      $listHarta = FormD::findOrFail($id);
+      $listKeluarga = Keluarga::where('formds_id', $listHarta->id) ->get();
+
+      $pdf = PDF::loadView('user.harta.FormD.print', compact('listHarta','listKeluarga'));
+      // download PDF file with download method
+      return $pdf->download('Lampiran_D.pdf');
+    }
 
   public function senaraiHartaG()
   {
@@ -184,27 +272,75 @@ class UserController extends Controller
       return view('user.harta.FormG.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman'));
   }
 
-
-  public function editProfile()
+  public function printG($id)
   {
-    return view('user.profile');
+     //dd($id);
+    $listHarta = FormG::findOrFail($id);
+    $listDividenG = DividenG::where('formgs_id', $listHarta->id) ->get();
+    $listPinjamanG = PinjamanG::where('formgs_id', $listHarta->id) ->get();
+    $listPinjaman = Pinjaman::where('formgs_id', $listHarta->id) ->get();
+
+      return view('user.harta.FormG.print', compact('listHarta','listDividenG','listPinjamanG','listPinjaman'));
   }
 
-  public function validator(array $data)
-  {
-    return Validator::make($data, [
-      'fName'=>['required']
-    ]);
-  }
+  public function createPDFG($id) {
 
-  public function submitForm(Request $request)
-  {
-    dd($request->all());
+      $listHarta = FormG::findOrFail($id);
+      $listDividenG = DividenG::where('formgs_id', $listHarta->id) ->get();
+      $listPinjamanG = PinjamanG::where('formgs_id', $listHarta->id) ->get();
+      $listPinjaman = Pinjaman::where('formgs_id', $listHarta->id) ->get();
 
-    $this->validator($request->all())->validate();
-    event($permohonan = $this->addAsset($request->all()));
-    return redirect()->route('permohonan-asset');
-  }
+      $pdf = PDF::loadView('user.harta.FormG.print', compact('listHarta','listDividenG','listPinjamanG','listPinjaman'));
+      // download PDF file with download method
+      return $pdf->download('Lampiran_G.pdf');
+    }
+
+    public function createPDFGift($id) {
+        // retreive all records from db
+        $info = Gift::find($id);
+
+        $nilaiHadiah = NilaiHadiah::first();
+
+        // share data to view
+        // view()->share('employee',$data);
+        $pdf = PDF::loadView('user.hadiah.print', compact('info','nilaiHadiah'));
+        // download PDF file with download method
+        return $pdf->download('Lampiran_Hadiah_A.pdf');
+      }
+
+      public function printGift($id)
+      {
+        $userid = Gift::findOrFail($id);
+         // dd($listHarta);
+        $info = Gift::where('user_id', $userid)->get();
+        $nilaiHadiah = NilaiHadiah::first();
+
+        return view('user.hadiah.print', compact('info','nilaiHadiah'));
+      }
+
+      public function createPDFGiftB($id) {
+          // retreive all records from db
+          $info = GiftB::find($id);
+
+          $nilaiHadiah = NilaiHadiah::first();
+
+          // share data to view
+          // view()->share('employee',$data);
+          $pdf = PDF::loadView('user.hadiah.printB', compact('info','nilaiHadiah'));
+          // download PDF file with download method
+          return $pdf->download('Lampiran_Hadiah_B.pdf');
+        }
+
+        public function printGiftB($id)
+        {
+          $userid = GiftB::findOrFail($id);
+           // dd($listHarta);
+          $info = GiftB::where('user_id', $userid)->get();
+          $nilaiHadiah = NilaiHadiah::first();
+
+          return view('user.hadiah.printB', compact('info','nilaiHadiah'));
+        }
+
 
 
 }

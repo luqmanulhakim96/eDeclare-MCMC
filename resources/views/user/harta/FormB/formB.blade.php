@@ -661,17 +661,18 @@
                                           <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
                                         </div>
                                         <div class="col-md-11">
-                                            <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
+                                            <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
                                         </div>
                                       </div>
 
                                   <!-- button -->
                                   <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-9">
                                     </div>
-                                    <div class="col-md-2">
-                                      <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
+                                    <div class="col-md-3">
+                                      <button type="submit" onclick=" return confirm('Simpan maklumat?');" class="btn btn-primary mt-4" name="save">Simpan</button>
 
+                                      <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4" name="publish">Hantar</button>
                                     </div>
                               </form>
                           </div>
@@ -736,11 +737,11 @@
 
                  $(wrapper).append('<div id="dividen_add'+counter_dividen+'" class="row"><div class="col-md-3 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" type="text" name="dividen_1['+
                  counter_dividen+
-                 ']" placeholder="Nyatakan Dividen"></div></div><div class="col-md-4 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" onkeyup="findTotalDividenPegawai()" name="dividen_1_pegawai['+
+                 ']" placeholder="Nyatakan Dividen"></div></div><div class="col-md-4 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" oninput="findTotalDividenPegawai()" name="dividen_1_pegawai['+
                  counter_dividen+
                  ']" placeholder="Dividen Pegawai"></div></div><input type="hidden" name="counter" id="counter_for_dividen" value="'+
                  counter_dividen+
-                 '"<div class="col-md-4 mt-2 mt-md-0" id="dividen"><input class="form-control bg-light" onkeyup="findTotalDividenPasangan()" name="dividen_1_pasangan['+
+                 '"><div class="col-md-4 mt-2 mt-md-0" id="dividen"><input class="form-control bg-light" oninput="findTotalDividenPasangan()" name="dividen_1_pasangan['+
                  counter_dividen+
                  ']" placeholder="Dividen Pasangan" id="dividen_pasangan"></div><div class="col-md-1"><a onClick="removeDividen(this,'+
                  counter_dividen+
@@ -768,7 +769,7 @@
              //cari length array dulu
              var arr = $('#jumlah_koperasi_pegawai').val();
              arr=parseFloat(arr);
-             console.log( "ni dividen",arr);                                                                            // console.log( counter);
+             console.log( "ni dividen",arr);
              var jumlah_pinjaman_pegawai=0.00;
              jumlah_pinjaman_pegawai=parseFloat(jumlah_pinjaman_pegawai);
 

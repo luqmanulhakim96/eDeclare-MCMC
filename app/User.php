@@ -74,4 +74,9 @@ class User extends Authenticatable implements Auditable
     public function tanggungan(){
       return $this->hasMany('App\Tanggungan');
     }
+
+    public function layouts(){
+      return $this->belongsTo('App\Route', 'route_id');
+
+    }
 }

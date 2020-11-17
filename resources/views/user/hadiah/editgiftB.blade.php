@@ -193,6 +193,9 @@
                                        Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan dirujuk kepada Jawatankuasa Tatatertib MCMC</label><br>
                                   </div>
                               </div>
+                              <div class="hidden">
+                                  <input class="form-control bg-light" type="text" name="status" value="{{ $info->status }}">
+                              </div>
                                   <!-- button -->
                                  <div class="row">
                                   <div class="col-md-10">

@@ -829,22 +829,20 @@
                                         <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
                                       </div>
                                       <div class="col-md-11">
-                                          <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
+                                          <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
                                       </div>
                                     </div>
                                   <!-- button -->
-                                     <div class="row">
-                                      <div class="col-md-2">
-                                        <!-- <a class="btn btn-primary mt-4" href="">Kembali</a> -->
-                                        <!-- <button type="submit" class="btn btn-primary mt-4">Kembali</button> -->
-                                      </div>
-                                      <div class="col-md-8">
-                                      </div>
-                                      <div class="col-md-2">
-                                        <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
-                                    <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
-                                      </div>
-                                </div>
+                                  <div class="row">
+                                    <div class="col-md-9">
+                                    </div>
+                                    <div class="col-md-3">
+                                      <button type="submit" onclick=" return confirm('Simpan maklumat?');" class="btn btn-primary mt-4" name="save">Simpan</button>
+
+                                      <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4" name="publish">Hantar</button>
+                                    </div>
+                              </form>
+                          </div>
                               </form>
                           </div>
                       </div>
