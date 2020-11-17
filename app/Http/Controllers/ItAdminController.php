@@ -12,6 +12,8 @@ use Storage;
 use File;
 use Auth;
 use Carbon\Carbon;
+use App\Route;
+use Illuminate\Support\Facades\Validator;
 
 use Spatie\Backup\BackupDestination\Backup;
 use Spatie\Backup\Helpers\Format;
@@ -21,6 +23,7 @@ use Spatie\Backup\Tasks\Monitor\BackupDestinationStatusFactory;
 
 class ItAdminController extends Controller
 {
+
       public function itDashboard(){
 
         return view('user.it.view');
@@ -28,6 +31,7 @@ class ItAdminController extends Controller
 
       // error log viewer can be found at resources > vendor > laravel-log-viewer > log.blade.php
       // using \Rap2hpoutre\LaravelLogViewer\LogViewerController@index Controller
+
 
       // public function errorLogging(){
       //
@@ -149,11 +153,28 @@ class ItAdminController extends Controller
         $currentUser = Auth::user();
 
         $user = User::where([['status','!=','0']])->get();
+        // dd($user);
         // $user = User::where([['role','!=','5'],['status','!=','0']])->get();
         // $user_deact = User::where([['role','!=','5'],['status','!=','1']])->get();
         $user_deact = User::where([['status','!=','1']])->get();
         // dd($user_deact);
         return view('user.it.users', compact('user','user_deact', 'currentUser'));
+      }
+
+      public function updateUserRole(Request $request,$id){
+        $users=User::find($id);
+        // dd($request->all());
+        $users->role = $request->role;
+        $users->save();
+
+        $currentUser = Auth::user();
+
+        $user = User::where([['status','!=','0']])->get();
+        // $user = User::where([['role','!=','5'],['status','!=','0']])->get();
+        // $user_deact = User::where([['role','!=','5'],['status','!=','1']])->get();
+        $user_deact = User::where([['status','!=','1']])->get();
+
+        return redirect()->route('user.it.users', compact('user','user_deact', 'currentUser'));
       }
 
       public function userDelete($id){
@@ -181,6 +202,82 @@ class ItAdminController extends Controller
           // dd($userToLogout);
           return redirect()->route('user.it.users')->with($success,$text);
       }
+
+
+      public function SistemKonfigurasi(){
+        $test = Route::findOrFail(1);
+        $admin = json_decode($test->layout);
+
+        $test1 = Route::findOrFail(2);
+        $itadmin = json_decode($test1->layout);
+        // dd($admin);
+        $route=Route::get();
+        return view('user.it.sistemkonfigurasi',compact('route','admin','itadmin'));
+      }
+
+      // public function addlayout(array $data){
+      //     $layouts = [
+      //       $data['layout1'],
+      //       $data['layout2']
+      //     ];
+      //     $layouts = json_encode($layouts);
+      //     if($data['jawatan'] == 'Pentadbir Sistem')
+      //     {
+      //       $roles = '1';
+      //     }
+      //     else if($data['jawatan'] == 'IT Admin'){
+      //       $roles = '4';
+      //     }
+      //
+      //     return Route::create([
+      //       'jawatan' => $data['jawatan'],
+      //       'layout' => $layouts,
+      //       'roles' => $roles
+      //     ]);
+      //   }
+      //
+      //   protected function validatorlayout(array $data)
+      // {
+      //     return Validator::make($data, [
+      //       'jawatan' =>['nullable', 'string'],
+      //       'layout'=>['nullable', 'string'],
+      //
+      //   ]);
+      // }
+      //
+      //   public function submitlayout(Request $request){
+      //
+      //   $this->validatorlayout($request->all())->validate();
+      //
+      //   event($layouts = $this->addlayout($request->all()));
+      //
+      //   return redirect()->route('user.it.sistemkonfigurasi');
+      //   }
+
+      public function updateLayout(Request $request){
+        // dd($request->all());
+        $routes = Route::find($request->id_admin);
+
+        $layouts = [
+              $request['layout1_admin'],
+              $request['layout2_admin']
+            ];
+        $layouts = json_encode($layouts);
+        // dd($layouts);
+        $routes->layout = $layouts;
+        $routes->save();
+
+        $routes2 = Route::find($request->id_itadmin);
+        $layouts2 = [
+              $request['layout1_it'],
+              $request['layout2_it']
+            ];
+        $layouts2 = json_encode($layouts2);
+        // dd($routes2);
+        $routes2->layout = $layouts2;
+        $routes2->save();
+
+        return redirect()->route('user.it.sistemkonfigurasi');
 
       public function konfigurasiSistem(){
         $config_app = config('app');
@@ -281,5 +378,6 @@ class ItAdminController extends Controller
           $fp = fopen($envFile, 'w');
           fwrite($fp, $str);
           fclose($fp);
+
       }
 }

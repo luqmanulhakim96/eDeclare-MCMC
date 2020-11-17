@@ -19,7 +19,7 @@
                         <!-- Card body -->
                         <div class="card-body">
 
-                            <a href="{{route('user.admin.harta.listB.Diterima')}}">
+                            <a href="{{route('user.admin.harta.senaraiallharta')}}">
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <!-- Icon -->
                                 <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -45,7 +45,7 @@
                         <!-- Card body -->
                         <div class="card-body">
 
-                          <a href="{{route('user.admin.harta.listC.Diterima')}}">
+                          <a href="{{route('user.admin.harta.senaraiallharta')}}">
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <!-- Icon -->
                                 <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -72,7 +72,7 @@
                         <!-- Card body -->
                         <div class="card-body">
 
-                          <a href="{{route('user.admin.harta.listD.Diterima')}}">
+                          <a href="{{route('user.admin.harta.senaraiallharta')}}">
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <!-- Icon -->
                                 <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -103,7 +103,7 @@
                           <!-- Card body -->
                           <div class="card-body">
 
-                            <a href="{{route('user.admin.harta.listG.Diterima')}}">
+                            <a href="{{route('user.admin.harta.senaraiallharta')}}">
                               <div class="d-flex flex-row justify-content-center align-items-center">
                                   <!-- Icon -->
                                   <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -263,11 +263,17 @@
         ]);
 
         var options = {
-          chart: {
-            // colors: ['#fc0fc0','#c020d0','#8432DF','#4743EF','#0B54FE']
-            // title: 'Company Performance',
-            // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-          }
+          width: 900,
+          legend: { position: 'none' },
+          // chart: { title: 'Chess opening moves',
+          //          subtitle: 'popularity by percentage' },
+          bars: 'vertical', // Required for Material Bar Charts.
+          // axes: {
+          //   x: {
+          //     0: { side: 'top', label: 'Percentage'} // Top x-axis.
+          //   }
+          // },
+          colors: ['#89cff0','#00468b'],
         };
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
@@ -282,10 +288,10 @@
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ["Lampiran", "Jumlah", { role: "style" } ],
-        ["Perisytiharan Harta", {{$listBDiterima}}, "#fc0fc0"],
-        ["Pelupusan Harta", {{$listCDiterima}}, "#c020d0"],
-        ["Perisytiharan Syarikat", {{$listDDiterima}}, "#8432DF"],
-        ["Perisytiharan Saham", {{$listGDiterima}}, "#4743EF"]
+        ["Perisytiharan Harta", {{$listBDiterima}}, "#89cff0"],
+        ["Pelupusan Harta", {{$listCDiterima}}, "#89cff0"],
+        ["Perisytiharan Syarikat", {{$listDDiterima}}, "#89cff0"],
+        ["Perisytiharan Saham", {{$listGDiterima}}, "#89cff0"]
       ]);
 
       var view = new google.visualization.DataView(data);
@@ -312,6 +318,7 @@
       var nilai_hadiah = <?php echo $nilaiHadiah->nilai_hadiah;?>;
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
+
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
@@ -322,7 +329,7 @@
         var options = {
           // title: 'Statistik Penerimaan Hadiah',
           pieHole: 0.4,
-          colors: ['#fc0fc0','#c020d0','#8432DF','#4743EF','#0B54FE']
+          colors: ['#89cff0','#00468b']
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));

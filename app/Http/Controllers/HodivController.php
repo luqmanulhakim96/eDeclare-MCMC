@@ -288,7 +288,7 @@ class HodivController extends Controller
          }
      }
 
-     return redirect()->route('user.hodiv.harta.senaraiallharta');
+     return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivC(Request $request,$id){
@@ -324,7 +324,7 @@ class HodivController extends Controller
          }
      }
 
-     return redirect()->route('user.hodiv.harta.senaraiallharta');
+     return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivD(Request $request,$id){
@@ -360,7 +360,7 @@ class HodivController extends Controller
          }
      }
 
-     return redirect()->route('user.hodiv.harta.senaraiallharta');
+     return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivG(Request $request,$id){
@@ -396,7 +396,7 @@ class HodivController extends Controller
          }
      }
 
-     return redirect()->route('user.hodiv.harta.senaraiallharta');
+     return redirect()->route('user.admin.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivGift(Request $request,$id){
@@ -431,7 +431,7 @@ class HodivController extends Controller
      }
    }
 
-     return redirect()->route('user.hodiv.hadiah.senaraiallhadiah');
+     return redirect()->route('user.admin.hadiah.senaraiallhadiah');
    }
 
    public function updateStatusUlasanHODivGiftB(Request $request,$id){
@@ -443,10 +443,10 @@ class HodivController extends Controller
      $giftbs->ulasan_hodiv = $request->ulasan_hodiv;
      $giftbs->save();
 
-     return redirect()->route('user.hodiv.hadiah.senaraiallhadiah');
+     return redirect()->route('user.admin.hadiah.senaraiallhadiah');
    }
 
-   public function senaraiAllForm(){
+   public function senaraiTugasanHarta(){
      $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
      $listallBTable = FormB::getTableName();
      $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
@@ -456,14 +456,14 @@ class HodivController extends Controller
      $merged = $merged->mergeRecursive($listallD);
      $merged = $merged->mergeRecursive($listallG)->sortBy('status');
 
-     return view('user.hodiv.harta.senaraiallharta', compact('merged'));
+     return view('user.hodiv.harta.senaraitugasanharta', compact('merged'));
    }
 
-   public function senaraiAllHadiah(){
+   public function senaraiTugasanHadiah(){
      $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
      $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
      $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
 
-     return view('user.hodiv.hadiah.senaraiallhadiah', compact('merged'));
+     return view('user.hodiv.hadiah.senaraitugasanhadiah', compact('merged'));
    }
 }

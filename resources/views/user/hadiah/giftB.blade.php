@@ -198,7 +198,8 @@
                                   <div class="col-md-10">
                                   </div>
                                   <div class="col-md-2">
-                                    <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
+                                    <button type="submit" onclick=" return confirm('Simpan maklumat?');" class="btn btn-primary mt-4" name="save">Simpan</button>
+                                    <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4" name="publish">Hantar</button>
                                   </div>
                                 </div>
                               </form>

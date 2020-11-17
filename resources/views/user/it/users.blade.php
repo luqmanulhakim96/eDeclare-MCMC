@@ -27,7 +27,9 @@
                         <!-- Tab content -->
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-active" role="tabpanel" aria-labelledby="pills-active-tab">
-                              <table class="table table-striped table-bordered" id="table1" style="width: 100%;">
+
+                              <table class="table table-striped table-bordered" id="example" style="width: 100%;">
+
 
                                 <thead>
                                   <tr>
@@ -43,17 +45,36 @@
                                   <tr>
                                     <td>{{ $data->name }}</td>
                                     <td>{{ $data->email  }}</td>
-                                    @if($data->role == 1)
+                                    <td>
+                                      <form action="{{route('user.update', $data->id)}}" method="POST">
+                                      @csrf
+                                      <div class="row">
+                                      <div class="col-md-8">
+                                        <select id="role" class="custom-select  bg-light" name="role" value="{{ old('role', $data->role) }}">
+                                            <option value="1" {{ old('role',$data->role)=='1' ? 'selected' : ''  }}>Pentadbir Sistem</option>
+                                            <option value="2" {{ old('role',$data->role)=='2' ? 'selected' : ''  }}>Ketua Jabatan Integriti</option>
+                                            <option value="3" {{ old('role',$data->role)=='3' ? 'selected' : ''  }}>Ketua Bahagian</option>
+                                            <option value="4"{{ old('role',$data->role)=='4' ? 'selected' : ''  }}>IT Admin</option>
+                                            <option value="5"{{ old('role',$data->role)=='5' ? 'selected' : ''  }}>Pengguna</option>
+                                        </select>
+                                      </div>
+                                      <div class="col-md-2">
+                                        <button type="submit" name="submit" onclick=" return confirm('Set Peranan ?');" class="btn btn-primary mt-4">Set</button>
+                                      </div>
+                                      </div>
+                                    </form>
+                                    </td>
+                                    <!-- @if($data->role == 1)
                                     <td> Pentadbir Sistem (Admin) </td>
                                     @elseif($data->role == 2)
-                                    <td> Integrity HOD </td>
+                                    <td> Ketua Bahagian Integriti </td>
                                     @elseif($data->role == 3)
-                                    <td> Pegawai HR </td>
+                                    <td> Ketua Bahagian </td>
                                     @elseif($data->role == 4)
-                                    <td> Pegawai Admin </td>
+                                    <td> Pegawai IT </td>
                                     @elseif($data->role == 5)
-                                    <td> Pegawai HR </td>
-                                    @endif
+                                    <td> Pengguna </td>
+                                    @endif -->
                                     <td>{{ $data->kad_pengenalan }}</td>
                                     <td class="p-3">
                                           <div class="d-flex flex-row justify-content-around align-items-center">
@@ -73,7 +94,8 @@
                             <div class="tab-pane fade" id="pills-deactivate" role="tabpanel" aria-labelledby="pills-deactivate-tab">
                               <div class="table-responsive">
 
-                              <table class="table table-striped table-bordered" id="table2" style="width: 100%;">
+                              <table class="table table-striped table-bordered" id="example1" style="width: 100%;">
+
 
                                 <thead>
                                   <tr>
@@ -89,17 +111,7 @@
                                   <tr>
                                     <td>{{ $data->name }}</td>
                                     <td>{{ $data->email  }}</td>
-                                    @if($data->role == 1)
-                                    <td> Pentadbir Sistem (Admin) </td>
-                                    @elseif($data->role == 2)
-                                    <td> Integrity HOD </td>
-                                    @elseif($data->role == 3)
-                                    <td> Pegawai HR </td>
-                                    @elseif($data->role == 4)
-                                    <td> Pegawai Admin </td>
-                                    @elseif($data->role == 5)
-                                    <td> Pegawai HR </td>
-                                    @endif
+                                    <td>{{ $data->email  }}</td>
                                     <td>{{ $data->kad_pengenalan }}</td>
                                     <td class="p-3">
                                           <div class="d-flex flex-row justify-content-around align-items-center">
@@ -120,12 +132,14 @@
                       </div>
                     </div>
                 </div>
+
             </main>
 
             <script type="text/javascript">
               $(document).ready( function () {
-                  $('#table1').DataTable();
-                  $('#table2').DataTable();
+                  $('#example').DataTable();
+                  $('#example1').DataTable();
               });
              </script>
+
 @endsection

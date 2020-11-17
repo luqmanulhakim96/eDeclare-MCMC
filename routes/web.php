@@ -24,145 +24,180 @@ Route::get('/notifikasi/baca/{id}', 'NotificationController@redirectNotification
 
 Route::get('/menu-utama', 'UserController@index')->name('menu-utama');
 
-Route::get('/permohonan/senaraiborang', 'UserController@senaraiborang')->name('user.form');
+Route::get('/permohonan/senarai-borang-harta', 'UserController@senaraiborang')->name('user.form');
 
-Route::get('/permohonan/senaraiboranghadiah', 'UserController@senaraiboranghadiah')->name('user.hadiah');
+Route::get('/permohonan/senarai-borang-hadiah', 'UserController@senaraiboranghadiah')->name('user.hadiah');
 
-Route::get('/permohonan/senaraiharta', 'UserController@senaraisemuaharta')->name('user.senaraiharta');
+Route::get('/permohonan/senarai-harta-peribadi', 'UserController@senaraisemuaharta')->name('user.senaraiharta');
 
-Route::get('/permohonan/senaraihadiah', 'UserController@senaraisemuahadiah')->name('user.senaraihadiah');
+Route::get('/permohonan/senarai-hadiah-peribadi', 'UserController@senaraisemuahadiah')->name('user.senaraihadiah');
 
-Route::get('/permohonan/form/B', 'FormBController@formB')->name('user.harta.FormB.formB');
+Route::get('/permohonan/lampiran-B', 'FormBController@formB')->name('user.harta.FormB.formB');
 
-Route::get('/permohonan/form/C', 'FormCController@formC')->name('user.harta.FormC.formC');
+Route::get('/permohonan/lampiran-C', 'FormCController@formC')->name('user.harta.FormC.formC');
 
-Route::get('/permohonan/form/D', 'FormDController@formD')->name('user.harta.FormD.formD');
+Route::get('/permohonan/lampiran-D', 'FormDController@formD')->name('user.harta.FormD.formD');
 
-Route::get('/permohonan/form/G', 'FormGController@formG')->name('user.harta.FormG.formG');
+Route::get('/permohonan/lampiran-G', 'FormGController@formG')->name('user.harta.FormG.formG');
 
 Route::get('/permohonan/hadiah', 'GiftController@giftBaru')->name('user.hadiah.gift');
 
 Route::get('/permohonanB/hadiah', 'GiftBController@giftBaru')->name('user.hadiah.giftB');
 
-Route::get('/permohonan/senarai/harta', 'UserController@senaraiHarta')->name('user.harta.senaraiharta');
+Route::get('/permohonan/pdf/{id}','UserController@createPDF')->name('user.harta.formBprint');
 
-Route::get('/permohonan/senarai/hartaB', 'UserController@senaraiHartaB')->name('user.harta.FormB.senaraihartaB');
+Route::get('/form/printB/{id}', 'UserController@printB')->name('user.harta.FormB.print');
 
-Route::get('/permohonan/senarai/hartaC', 'UserController@senaraiHartaC')->name('user.harta.FormC.senaraihartaC');
+Route::get('/permohonanC/pdf/{id}','UserController@createPDFC')->name('user.harta.formCprint');
 
-Route::get('/permohonan/senarai/hartaD', 'UserController@senaraiHartaD')->name('user.harta.FormD.senaraihartaD');
+Route::get('/form/printC/{id}', 'UserController@printC')->name('user.harta.FormC.print');
 
-Route::get('/permohonan/senarai/hartaG', 'UserController@senaraiHartaG')->name('user.harta.FormG.senaraihartaG');
+Route::get('/permohonanD/pdf/{id}','UserController@createPDFD')->name('user.harta.formDprint');
+
+Route::get('/form/printD/{id}', 'UserController@printD')->name('user.harta.FormD.print');
+
+Route::get('/permohonanG/pdf/{id}','UserController@createPDFG')->name('user.harta.formGprint');
+
+Route::get('/form/printG/{id}', 'UserController@printG')->name('user.harta.FormG.print');
+
+Route::get('/permohonan_hadiah/pdf/{id}','UserController@createPDFGift')->name('user.hadiah.Giftprint');
+
+Route::get('/form/printGift/{id}', 'UserController@printGift')->name('user.hadiah.printGift');
+
+Route::get('/permohonan_hadiah_b/pdf/{id}','UserController@createPDFGiftB')->name('user.hadiah.GiftBprint');
+
+Route::get('/form/printGiftB/{id}', 'UserController@printGiftB')->name('user.hadiah.printGiftB');
+
+Route::get('/senarai/permohonan/pengguna', 'AdminController@listAllUserDeclaration')->name('user.admin.senarai_user_declaration');
+
+
+// Route::get('/permohonan/senarai/harta', 'UserController@senaraiHarta')->name('user.harta.senaraiharta');
+
+Route::get('/permohonan/senarai/harta-B', 'UserController@senaraiHartaB')->name('user.harta.FormB.senaraihartaB');
+
+Route::get('/senarai/draf/harta', 'UserController@senaraiDraftHarta')->name('user.harta.senaraidraft');
+
+Route::get('/permohonan/senarai/harta-C', 'UserController@senaraiHartaC')->name('user.harta.FormC.senaraihartaC');
+
+Route::get('/permohonan/senarai/harta-D', 'UserController@senaraiHartaD')->name('user.harta.FormD.senaraihartaD');
+
+Route::get('/permohonan/senarai/harta-G', 'UserController@senaraiHartaG')->name('user.harta.FormG.senaraihartaG');
 
 Route::get('/permohonan/senarai/hadiah', 'UserController@senaraiHadiah')->name('user.hadiah.senaraihadiah');
 
+Route::get('/senarai/draf/hadiah', 'UserController@senaraiDraftHadiah')->name('user.hadiah.senaraidraft');
+
 Route::get('/permohonan/senarai/hadiahB', 'UserController@senaraiHadiahB')->name('user.hadiah.senaraihadiahB');
 
-Route::get('/permohonan/perakuan', 'PerakuanController@perakuanBaru')->name('user.perakuanharta.formA');
+Route::get('/permohonan/lampiran-A', 'PerakuanController@perakuanBaru')->name('user.perakuanharta.formA');
 
 Route::post('/permohonan/hantar', 'UserController@submitForm')->name('permohonan-asset-hantar');
 
 Route::get('/profil/edit', 'UserController@editProfile')->name('user.profile');
 
 
-Route::post('/hadiah/submit', 'GiftController@submitForm')->name('gift.submit');
+Route::post('/hadiah-A/hantar', 'GiftController@submitForm')->name('gift.submit');
 
-Route::post('/hadiah/update/{id}', 'GiftController@updateHadiah')->name('gift.update');
+Route::post('/hadiah-A/kemaskini/id={id}', 'GiftController@updateHadiah')->name('gift.update');
 
-Route::get('/hadiah/edit/{id}', 'GiftController@editHadiah')->name('user.hadiah.editgift');
+Route::get('/hadiah-A/edit/id={id}', 'GiftController@editHadiah')->name('user.hadiah.editgift');
 
-Route::get('/hadiah/delete/{id}','GiftController@deleteHadiah')->name('gift.delete');
+Route::get('/hadiah/lampiran-A/id={id}', 'GiftController@viewHadiah')->name('user.hadiah.viewA');
 
-Route::post('/hadiahB/submit', 'GiftBController@submitForm')->name('giftB.submit');
+Route::get('/hadiah-A/padam/id={id}','GiftController@deleteHadiah')->name('gift.delete');
 
-Route::post('/hadiahB/update/{id}', 'GiftBController@updateHadiah')->name('giftB.update');
+Route::post('/hadiah-B/hantar', 'GiftBController@submitForm')->name('giftB.submit');
 
-Route::get('/hadiahB/edit/{id}', 'GiftBController@editHadiah')->name('user.hadiah.editgiftB');
+Route::post('/hadiah-B/kemaskini/id={id}', 'GiftBController@updateHadiah')->name('giftB.update');
 
-Route::get('/hadiahB/delete/{id}','GiftBController@deleteHadiah')->name('giftB.delete');
+Route::get('/hadiah-B/edit/id={id}', 'GiftBController@editHadiah')->name('user.hadiah.editgiftB');
+
+Route::get('/hadiah/lampiran-B/id={id}', 'GiftBController@viewHadiahB')->name('user.hadiah.viewB');
+
+Route::get('/hadiah-B/padam/id={id}','GiftBController@deleteHadiah')->name('giftB.delete');
 
 
 
 Route::post('/perakuan-harta', 'PerakuanController@submitForm')->name('perakuan.submit');
 
-Route::post('/formB/submit', 'FormBController@submitForm')->name('b.submit');
+Route::post('/lampiran-B/hantar', 'FormBController@submitForm')->name('b.submit');
 
-Route::get('/formB/edit/{id}', 'FormBController@editformB')->name('user.harta.FormB.editformB');
+Route::get('/lampiran-B/edit/id={id}', 'FormBController@editformB')->name('user.harta.FormB.editformB');
 
-Route::post('/formB/update/{id}', 'FormBController@updateFormB')->name('b.update');
+Route::post('/lampiran-B/kemaskini/id={id}', 'FormBController@updateFormB')->name('b.update');
 
-Route::post('/formC/submit', 'FormCController@submitForm')->name('c.submit');
+Route::post('/lampiran-C/hantar', 'FormCController@submitForm')->name('c.submit');
 
-Route::get('/formC/edit/{id}', 'FormCController@editformC')->name('user.harta.FormC.editformC');
+Route::get('/lampiran-C/edit/id={id}', 'FormCController@editformC')->name('user.harta.FormC.editformC');
 
-Route::post('/formC/update/{id}', 'FormCController@updateformC')->name('c.update');
+Route::post('/lampiran-C/kemaskini/id={id}', 'FormCController@updateformC')->name('c.update');
 
-Route::post('/formD/submit', 'FormDController@submitForm')->name('d.submit');
+Route::post('/lampiran-D/hantar', 'FormDController@submitForm')->name('d.submit');
 
-Route::get('/formD/edit/{id}', 'FormDController@editformD')->name('user.harta.FormD.editformD');
+Route::get('/lampiran-D/edit/id={id}', 'FormDController@editformD')->name('user.harta.FormD.editformD');
 
-Route::post('/formD/update/{id}', 'FormDController@updateformD')->name('d.update');
+Route::post('/lampiran-D/kemaskini/id={id}', 'FormDController@updateformD')->name('d.update');
 
-Route::post('/formG/submit', 'FormGController@submitForm')->name('g.submit');
+Route::post('/lampiran-G/hantar', 'FormGController@submitForm')->name('g.submit');
 
-Route::get('/formG/edit/{id}', 'FormGController@editformG')->name('user.harta.FormG.editformG');
+Route::get('/lampiran-G/edit/id={id}', 'FormGController@editformG')->name('user.harta.FormG.editformG');
 
-Route::post('/formG/update/{id}', 'FormGController@updateFormG')->name('g.update');
+Route::post('/lampiran-G/kemaskini/id={id}', 'FormGController@updateFormG')->name('g.update');
 
-Route::get('/form/viewB/{id}', 'UserController@viewB')->name('user.harta.FormB.viewformB');
+Route::get('/lampiran/B/id={id}', 'UserController@viewB')->name('user.harta.FormB.viewformB');
 
-Route::get('/form/viewC/{id}', 'UserController@viewC')->name('user.harta.FormC.viewformC');
+Route::get('/lampiran/C/id={id}', 'UserController@viewC')->name('user.harta.FormC.viewformC');
 
-Route::get('/form/viewD/{id}', 'UserController@viewD')->name('user.harta.FormD.viewformD');
+Route::get('/lampiran/D/id={id}', 'UserController@viewD')->name('user.harta.FormD.viewformD');
 
-Route::get('/form/viewG/{id}', 'UserController@viewG')->name('user.harta.FormG.viewformG');
+Route::get('/lampiran/G/id={id}', 'UserController@viewG')->name('user.harta.FormG.viewformG');
 
 // Route::get('/permohonan/giftB', 'UserController@FormB')->name('user.harta.viewformB');
 
 
 
 
-Route::get('/admin/laman-utama', 'AdminController@adminDashboard')->name('user.admin.view');
+Route::get('/dashboard', 'AdminController@adminDashboard')->name('user.admin.view');
 
-Route::get('/admin/emel/tambah/template', 'AdminController@EmelTemplate')->name('user.admin.template_email');
+Route::get('/admin/emel/tambah/templat', 'AdminController@EmelTemplate')->name('user.admin.template_email');
 
-Route::post('/admin/emel/template/hantar', 'AdminController@submitemel')->name('email.submit');
+Route::post('/admin/emel/templat/hantar', 'AdminController@submitemel')->name('email.submit');
 
-Route::get('/emel/padam/{id}','AdminController@deleteemel')->name('emel.delete');
+Route::get('/emel/padam/id={id}','AdminController@deleteemel')->name('emel.delete');
 
-Route::get('/emel/edit/{id}','AdminController@editemel')->name('emel.edit');
+Route::get('/emel/edit/id={id}','AdminController@editemel')->name('emel.edit');
 
-Route::post('/emel/update/{id}','AdminController@updateemel')->name('emel.update');
+Route::post('/emel/kemaskini/id={id}','AdminController@updateemel')->name('emel.update');
 
-Route::post('/emel/tempoh/{id}','AdminController@updateTempohNotifikasi')->name('tempoh_notifikasi.update');
+Route::post('/emel/tempoh/id={id}','AdminController@updateTempohNotifikasi')->name('tempoh_notifikasi.update');
 
-Route::post('/Lampiran-B/dokumen/{id}', 'AdminController@submitDokumenB')->name('dokumenB.submit');
+Route::post('/Lampiran-B/dokumen/id={id}', 'AdminController@submitDokumenB')->name('dokumenB.submit');
 
-Route::post('/Lampiran-C/dokumen/{id}', 'AdminController@submitDokumenC')->name('dokumenC.submit');
+Route::post('/Lampiran-C/dokumen/id={id}', 'AdminController@submitDokumenC')->name('dokumenC.submit');
 
-Route::post('/Lampiran-D/dokumen/{id}', 'AdminController@submitDokumenD')->name('dokumenD.submit');
+Route::post('/Lampiran-D/dokumen/id={id}', 'AdminController@submitDokumenD')->name('dokumenD.submit');
 
-Route::post('/Lampiran-G/dokumen/{id}', 'AdminController@submitDokumenG')->name('dokumenG.submit');
+Route::post('/Lampiran-G/dokumen/id={id}', 'AdminController@submitDokumenG')->name('dokumenG.submit');
 
 Route::get('/senarai-laporan-harta', 'AdminController@senarailaporanharta')->name('user.admin.harta.senarailaporanharta');
 
-Route::post('/formB/ulasan/admin/{id}', 'AdminController@updateStatusUlasanAdminB')->name('ulasanadminB.update');
+Route::post('/form-B/ulasan/admin/id={id}', 'AdminController@updateStatusUlasanAdminB')->name('ulasanadminB.update');
 
-Route::post('/formC/ulasan/admin/{id}', 'AdminController@updateStatusUlasanAdminC')->name('ulasanadminC.update');
+Route::post('/form-C/ulasan/admin/id={id}', 'AdminController@updateStatusUlasanAdminC')->name('ulasanadminC.update');
 
-Route::post('/formD/ulasan/admin/{id}', 'AdminController@updateStatusUlasanAdminD')->name('ulasanadminD.update');
+Route::post('/form-D/ulasan/admin/id={id}', 'AdminController@updateStatusUlasanAdminD')->name('ulasanadminD.update');
 
-Route::post('/formG/ulasan/admin/{id}', 'AdminController@updateStatusUlasanAdminG')->name('ulasanadminG.update');
+Route::post('/form-G/ulasan/admin/id={id}', 'AdminController@updateStatusUlasanAdminG')->name('ulasanadminG.update');
 
-Route::post('/Gift/ulasan/admin/{id}', 'AdminController@updateStatusUlasanAdminGift')->name('ulasanadminGift.update');
+Route::post('/Hadiah-A/ulasan/admin/id={id}', 'AdminController@updateStatusUlasanAdminGift')->name('ulasanadminGift.update');
 
-Route::post('/GiftB/ulasan/admin/{id}', 'AdminController@updateStatusUlasanAdminGiftB')->name('ulasanadminGiftB.update');
+Route::post('/Hadiah-B/ulasan/admin/id={id}', 'AdminController@updateStatusUlasanAdminGiftB')->name('ulasanadminGiftB.update');
 
-Route::get('/admin/system/config', 'AdminController@systemConfig')->name('user.admin.systemconfig');
+Route::get('/admin/tetapan-sistem', 'AdminController@systemConfig')->name('user.admin.systemconfig');
 
-Route::post('/Hadiah/nilai/admin/{id}', 'AdminController@updateNilaiHadiah')->name('nilaiGift.update');
+Route::post('/Hadiah/nilai/admin/id={id}', 'AdminController@updateNilaiHadiah')->name('nilaiGift.update');
 
-Route::get('/admin/system/notification', 'AdminController@notification')->name('user.admin.notification');
+Route::get('/admin/sistem-notifikasi', 'AdminController@notification')->name('user.admin.notification');
 
 Route::get('/admin/laporan-B', 'AdminController@reportB')->name('user.admin.harta.reportB');
 
@@ -196,21 +231,27 @@ Route::get('/admin/list/hadiahB', 'AdminController@listGiftB')->name('user.admin
 
 Route::get('/admin/senaraihadiah', 'AdminController@senaraihadiah')->name('user.admin.hadiah.senaraihadiah');
 
-Route::get('/form/viewUlasanHadiah/{id}', 'AdminController@viewUlasanHadiah')->name('user.admin.hadiah.ulasanHadiah');
+Route::get('/lampiran/Ulasan-Hadiah-A/id={id}', 'AdminController@viewUlasanHadiah')->name('user.admin.hadiah.ulasanHadiah');
 
-Route::get('/form/viewUlasanHadiahB/{id}', 'AdminController@viewUlasanHadiahB')->name('user.admin.hadiah.ulasanHadiahB');
+Route::get('/lampiran/Ulasan-Hadiah-B/id={id}', 'AdminController@viewUlasanHadiahB')->name('user.admin.hadiah.ulasanHadiahB');
 
-Route::get('/form/viewUlasanHartaB/{id}', 'AdminController@viewUlasanHartaB')->name('user.admin.harta.ulasanHartaB');
+Route::get('/lampiran/Ulasan-Harta-B/id={id}', 'AdminController@viewUlasanHartaB')->name('user.admin.harta.ulasanHartaB');
 
-Route::get('/form/viewUlasanHartaC/{id}', 'AdminController@viewUlasanHartaC')->name('user.admin.harta.ulasanHartaC');
+Route::get('/lampiran/Ulasan-Harta-C/id={id}', 'AdminController@viewUlasanHartaC')->name('user.admin.harta.ulasanHartaC');
 
-Route::get('/form/viewUlasanHartaD/{id}', 'AdminController@viewUlasanHartaD')->name('user.admin.harta.ulasanHartaD');
+Route::get('/lampiran/Ulasan-Harta-D/id={id}', 'AdminController@viewUlasanHartaD')->name('user.admin.harta.ulasanHartaD');
 
-Route::get('/form/viewUlasanHartaG/{id}', 'AdminController@viewUlasanHartaG')->name('user.admin.harta.ulasanHartaG');
+Route::get('/lampiran/Ulasan-Harta-G/id={id}', 'AdminController@viewUlasanHartaG')->name('user.admin.harta.ulasanHartaG');
 
-Route::get('/admin/senaraiharta', 'AdminController@senaraiAllForm')->name('user.admin.harta.senaraiallharta');
+Route::get('/senarai-harta', 'AdminController@senaraiAllForm')->name('user.admin.harta.senaraiallharta');
 
-Route::get('/admin/senarai-hadiah', 'AdminController@senaraiAllHadiah')->name('user.admin.hadiah.senaraiallhadiah');
+// Route::get('/admin/senarai-harta-pengguna/id={id}', 'AdminController@senaraiAllUserForm')->name('user.admin.senaraiallharta');
+
+Route::get('/admin/senarai-tugasan-harta', 'AdminController@senaraiTugasanHarta')->name('user.admin.harta.senaraitugasanharta');
+
+Route::get('/senarai-hadiah', 'AdminController@senaraiAllHadiah')->name('user.admin.hadiah.senaraiallhadiah');
+
+Route::get('/admin/senarai-tugasan-hadiah', 'AdminController@senaraiTugasanHadiah')->name('user.admin.hadiah.senaraitugasanhadiah');
 
 Route::get('/admin/senarai-harta-pegawai', 'AdminController@senaraiharta')->name('user.admin.harta.senaraiharta');
 
@@ -274,127 +315,121 @@ Route::post('/jenis-harta/delete','AdminController@deleteJenisHarta')->name('jen
 
 
 
-Route::get('/events', 'EventController@index')->name('fullcalendar');
+Route::get('/Ketua-Bahagian/senarai/harta', 'HodivController@listAsset')->name('user.hodiv.listAsset');
 
+Route::get('/Ketua-Bahagian/senarai/hadiah', 'HodivController@listGift')->name('user.hodiv.hadiah.listGift');
 
-Route::get('/hodiv/homepage', 'HodivController@hodivDashboard')->name('user.hodiv.view');
+Route::get('/Ketua-Bahagian/senarai/hadiah/diterima', 'HodivController@listDiterima')->name('user.hodiv.hadiah.HadiahA.listDiterima');
 
-Route::get('/hodiv/list/harta', 'HodivController@listAsset')->name('user.hodiv.listAsset');
+Route::get('/Ketua-Bahagian/senarai/hadiah/tidak-diterima', 'HodivController@listTidakDiterima')->name('user.hodiv.hadiah.HadiahA.listTidakDiterima');
 
-Route::get('/hodiv/list/hadiah', 'HodivController@listGift')->name('user.hodiv.hadiah.listGift');
+Route::get('/Ketua-Bahagian/senarai/hadiah/tidak-lengkap', 'HodivController@listTidakLengkap')->name('user.hodiv.hadiah.HadiahA.listTidakLengkap');
 
-Route::get('/hodiv/list/hadiah/diterima', 'HodivController@listDiterima')->name('user.hodiv.hadiah.HadiahA.listDiterima');
+Route::get('/Ketua-Bahagian/senarai/hadiah/Proses-Ketua-Bahagian', 'HodivController@diprosesHODIV')->name('user.hodiv.hadiah.HadiahA.diprosesHODIV');
 
-Route::get('/hodiv/list/hadiah/tidak-diterima', 'HodivController@listTidakDiterima')->name('user.hodiv.hadiah.HadiahA.listTidakDiterima');
+Route::get('/Ketua-Bahagian/senarai/hadiah-B', 'HodivController@listGiftB')->name('user.hodiv.hadiah.listGiftB');
 
-Route::get('/hodiv/list/hadiah/tidak-lengkap', 'HodivController@listTidakLengkap')->name('user.hodiv.hadiah.HadiahA.listTidakLengkap');
+Route::post('/Lampiran-B/ulasan/Ketua-Bahagian/id={id}', 'HodivController@updateStatusUlasanHODivB')->name('ulasanHODivB.update');
 
-Route::get('/hodiv/list/hadiah/Proses-Ketua-Bahagian', 'HodivController@diprosesHODIV')->name('user.hodiv.hadiah.HadiahA.diprosesHODIV');
+Route::post('/Lampiran-C/ulasan/Ketua-Bahagian/id={id}', 'HodivController@updateStatusUlasanHODivC')->name('ulasanHODivC.update');
 
-Route::get('/hodiv/list/hadiahB', 'HodivController@listGiftB')->name('user.hodiv.hadiah.listGiftB');
+Route::post('/Lampiran-D/ulasan/Ketua-Bahagian/id={id}', 'HodivController@updateStatusUlasanHODivD')->name('ulasanHODivD.update');
 
-Route::post('/formB/ulasan/hodiv/{id}', 'HodivController@updateStatusUlasanHODivB')->name('ulasanHODivB.update');
+Route::post('/Lampiran-G/ulasan/Ketua-Bahagian/id={id}', 'HodivController@updateStatusUlasanHODivG')->name('ulasanHODivG.update');
 
-Route::post('/formC/ulasan/hodiv/{id}', 'HodivController@updateStatusUlasanHODivC')->name('ulasanHODivC.update');
+Route::post('/Hadiah-A/ulasan/Ketua-Bahagian/id={id}', 'HodivController@updateStatusUlasanHODivGift')->name('ulasanHODivGift.update');
 
-Route::post('/formD/ulasan/hodiv/{id}', 'HodivController@updateStatusUlasanHODivD')->name('ulasanHODivD.update');
+Route::post('/Hadiah-B/ulasan/Ketua-Bahagian/id={id}', 'HodivController@updateStatusUlasanHODivGiftB')->name('ulasanHODivGiftB.update');
 
-Route::post('/formG/ulasan/hodiv/{id}', 'HodivController@updateStatusUlasanHODivG')->name('ulasanHODivG.update');
+Route::get('/Ketua-Bahagian/senarai-hadiah', 'HodivController@senaraihadiah')->name('user.hodiv.hadiah.senaraihadiah');
 
-Route::post('/Gift/ulasan/hodiv/{id}', 'HodivController@updateStatusUlasanHODivGift')->name('ulasanHODivGift.update');
+Route::get('/Ketua-Bahagian/senarai-tugasan-hadiah', 'HodivController@senaraiTugasanHadiah')->name('user.hodiv.hadiah.senaraitugasanhadiah');
 
-Route::post('/GiftB/ulasan/hodiv/{id}', 'HodivController@updateStatusUlasanHODivGiftB')->name('ulasanHODivGiftB.update');
+Route::get('/Ketua-Bahagian/senarai-tugasan-harta', 'HodivController@senaraiTugasanHarta')->name('user.hodiv.harta.senaraitugasanharta');
 
-Route::get('/hodiv/senaraihadiah', 'HodivController@senaraihadiah')->name('user.hodiv.hadiah.senaraihadiah');
+Route::get('/Ketua-Bahagian/Ulasan-Hadiah-A/id={id}', 'HodivController@viewUlasanHadiah')->name('user.hodiv.hadiah.ulasanHadiah');
 
-Route::get('/hodiv/viewUlasanHadiah/{id}', 'HodivController@viewUlasanHadiah')->name('user.hodiv.hadiah.ulasanHadiah');
+Route::get('/Ketua-Bahagian/Ulasan-Hadiah-B/id={id}', 'HodivController@viewUlasanHadiahB')->name('user.hodiv.hadiah.ulasanHadiahB');
 
-Route::get('/hodiv/viewUlasanHadiahB/{id}', 'HodivController@viewUlasanHadiahB')->name('user.hodiv.hadiah.ulasanHadiahB');
+Route::get('/Ketua-Bahagian/Ulasan-Harta-B/id={id}', 'HodivController@viewUlasanHartaB')->name('user.hodiv.harta.ulasanHartaB');
 
-Route::get('/hodiv/viewUlasanHartaB/{id}', 'HodivController@viewUlasanHartaB')->name('user.hodiv.harta.ulasanHartaB');
+Route::get('/Ketua-Bahagian/Ulasan-Harta-C/id={id}', 'HodivController@viewUlasanHartaC')->name('user.hodiv.harta.ulasanHartaC');
 
-Route::get('/hodiv/viewUlasanHartaC/{id}', 'HodivController@viewUlasanHartaC')->name('user.hodiv.harta.ulasanHartaC');
+Route::get('/Ketua-Bahagian/Ulasan-Harta-D/{id}', 'HodivController@viewUlasanHartaD')->name('user.hodiv.harta.ulasanHartaD');
 
-Route::get('/hodiv/viewUlasanHartaD/{id}', 'HodivController@viewUlasanHartaD')->name('user.hodiv.harta.ulasanHartaD');
+Route::get('/Ketua-Bahagian/Ulasan-Harta-G/id={id}', 'HodivController@viewUlasanHartaG')->name('user.hodiv.harta.ulasanHartaG');
 
-Route::get('/hodiv/viewUlasanHartaG/{id}', 'HodivController@viewUlasanHartaG')->name('user.hodiv.harta.ulasanHartaG');
+Route::get('/Ketua-Bahagian/senarai-harta', 'HodivController@senaraiharta')->name('user.hodiv.harta.senaraiharta');
 
-Route::get('/hodiv/senaraiharta', 'HodivController@senaraiharta')->name('user.hodiv.harta.senaraiharta');
+Route::get('/Ketua-Bahagian/senarai/harta-b', 'HodivController@listFormB')->name('user.hodiv.harta.senaraiformB');
 
-Route::get('/hodiv/senaraiharta', 'HodivController@senaraiAllForm')->name('user.hodiv.harta.senaraiallharta');
+Route::get('/Ketua-Bahagian/senarai/harta-c', 'HodivController@listFormC')->name('user.hodiv.harta.senaraiformC');
 
-Route::get('/hodiv/senarai-hadiah', 'HodivController@senaraiAllHadiah')->name('user.hodiv.hadiah.senaraiallhadiah');
+Route::get('/Ketua-Bahagian/senarai/harta-d', 'HodivController@listFormD')->name('user.hodiv.harta.senaraiformD');
 
-Route::get('/hodiv/list/harta/b', 'HodivController@listFormB')->name('user.hodiv.harta.senaraiformB');
-
-Route::get('/hodiv/list/harta/c', 'HodivController@listFormC')->name('user.hodiv.harta.senaraiformC');
-
-Route::get('/hodiv/list/harta/d', 'HodivController@listFormD')->name('user.hodiv.harta.senaraiformD');
-
-Route::get('/hodiv/list/harta/g', 'HodivController@listFormG')->name('user.hodiv.harta.senaraiformG');
+Route::get('/Ketua-Bahagian/senarai/harta-g', 'HodivController@listFormG')->name('user.hodiv.harta.senaraiformG');
 
 
 
 
-Route::get('/integrityHOD/homepage', 'IntegrityHodController@integrityDashboard')->name('user.integrityHOD.view');
 
-Route::get('/integrityHOD/list/harta', 'IntegrityHodController@listAsset')->name('user.integrityHOD.listAsset');
+Route::get('/Ketua-Jabatan-Integriti/senarai/harta', 'IntegrityHodController@listAsset')->name('user.integrityHOD.listAsset');
 
-Route::get('/integrityHOD/list/hadiah', 'IntegrityHodController@listGift')->name('user.integrityHOD.hadiah.listGift');
+Route::get('/Ketua-Jabatan-Integriti/senarai/hadiah', 'IntegrityHodController@listGift')->name('user.integrityHOD.hadiah.listGift');
 
-Route::get('/integrityHOD/list/hadiah/diterima', 'IntegrityHodController@listDiterima')->name('user.integrityHOD.hadiah.HadiahA.listDiterima');
+Route::get('/Ketua-Jabatan-Integriti/senarai/hadiah/diterima', 'IntegrityHodController@listDiterima')->name('user.integrityHOD.hadiah.HadiahA.listDiterima');
 
-Route::get('/integrityHOD/list/hadiah/tidak-diterima', 'IntegrityHodController@listTidakDiterima')->name('user.integrityHOD.hadiah.HadiahA.listTidakDiterima');
+Route::get('/Ketua-Jabatan-Integriti/senarai/hadiah/tidak-diterima', 'IntegrityHodController@listTidakDiterima')->name('user.integrityHOD.hadiah.HadiahA.listTidakDiterima');
 
-Route::get('/integrityHOD/list/hadiah/tidak-lengkap', 'IntegrityHodController@listTidakLengkap')->name('user.integrityHOD.hadiah.HadiahA.listTidakLengkap');
+Route::get('/Ketua-Jabatan-Integriti/senarai/hadiah/tidak-lengkap', 'IntegrityHodController@listTidakLengkap')->name('user.integrityHOD.hadiah.HadiahA.listTidakLengkap');
 
-Route::get('/integrityHOD/list/hadiah/Proses-Ketua-Bahagian', 'IntegrityHodController@diprosesHODIV')->name('user.integrityHOD.hadiah.HadiahA.diprosesHODIV');
+Route::get('/Ketua-Jabatan-Integriti/senarai/hadiah/Proses-Ketua-Bahagian', 'IntegrityHodController@diprosesHODIV')->name('user.integrityHOD.hadiah.HadiahA.diprosesHODIV');
 
-Route::get('/integrityHOD/list/hadiahB', 'IntegrityHodController@listGiftB')->name('user.integrityHOD.hadiah.listGiftB');
+Route::get('/Ketua-Jabatan-Integriti/senarai/hadiahB', 'IntegrityHodController@listGiftB')->name('user.integrityHOD.hadiah.listGiftB');
 
-Route::post('/formB/ulasan/integrityHOD/{id}', 'IntegrityHodController@updateStatusUlasanHODB')->name('ulasanHODB.update');
+Route::get('/Ketua-Jabatan-Integriti/senarai-tugasan-hadiah', 'IntegrityHodController@senaraiTugasanHadiah')->name('user.integrityHOD.hadiah.senaraitugasanhadiah');
 
-Route::post('/formC/ulasan/integrityHOD/{id}', 'IntegrityHodController@updateStatusUlasanHODC')->name('ulasanHODC.update');
+Route::get('/Ketua-Jabatan-Integriti/senarai-tugasan-harta', 'IntegrityHodController@senaraiTugasanHarta')->name('user.integrityHOD.harta.senaraitugasanharta');
 
-Route::post('/formD/ulasan/integrityHOD/{id}', 'IntegrityHodController@updateStatusUlasanHODD')->name('ulasanHODD.update');
+Route::post('/formB/ulasan/Ketua-Jabatan-Integriti/id={id}', 'IntegrityHodController@updateStatusUlasanHODB')->name('ulasanHODB.update');
 
-Route::post('/formG/ulasan/integrityHOD/{id}', 'IntegrityHodController@updateStatusUlasanHODG')->name('ulasanHODG.update');
+Route::post('/formC/ulasan/Ketua-Jabatan-Integriti/id={id}', 'IntegrityHodController@updateStatusUlasanHODC')->name('ulasanHODC.update');
 
-Route::post('/Gift/ulasan/integrityHOD/{id}', 'IntegrityHodController@updateStatusUlasanHODGift')->name('ulasanHODGift.update');
+Route::post('/formD/ulasan/Ketua-Jabatan-Integriti/id={id}', 'IntegrityHodController@updateStatusUlasanHODD')->name('ulasanHODD.update');
 
-Route::post('/GiftB/ulasan/integrityHOD/{id}', 'IntegrityHodController@updateStatusUlasanHODGiftB')->name('ulasanHODGiftB.update');
+Route::post('/formG/ulasan/Ketua-Jabatan-Integriti/id={id}', 'IntegrityHodController@updateStatusUlasanHODG')->name('ulasanHODG.update');
 
-Route::get('/integrityHOD/senaraihadiah', 'IntegrityHodController@senaraihadiah')->name('user.integrityHOD.hadiah.senaraihadiah');
+Route::post('/Gift/ulasan/Ketua-Jabatan-Integriti/id={id}', 'IntegrityHodController@updateStatusUlasanHODGift')->name('ulasanHODGift.update');
 
-Route::get('/integrityHOD/viewUlasanHadiah/{id}', 'IntegrityHodController@viewUlasanHadiah')->name('user.integrityHOD.hadiah.ulasanHadiah');
+Route::post('/GiftB/ulasan/Ketua-Jabatan-Integriti/id={id}', 'IntegrityHodController@updateStatusUlasanHODGiftB')->name('ulasanHODGiftB.update');
 
-Route::get('/integrityHOD/viewUlasanHadiahB/{id}', 'IntegrityHodController@viewUlasanHadiahB')->name('user.integrityHOD.hadiah.ulasanHadiahB');
+Route::get('/Ketua-Jabatan-Integriti/senarai-hadiah', 'IntegrityHodController@senaraihadiah')->name('user.integrityHOD.hadiah.senaraihadiah');
 
-Route::get('/integrityHOD/viewUlasanHartaB/{id}', 'IntegrityHodController@viewUlasanHartaB')->name('user.integrityHOD.harta.ulasanHartaB');
+Route::get('/Ketua-Jabatan-Integriti/viewUlasanHadiah/id={id}', 'IntegrityHodController@viewUlasanHadiah')->name('user.integrityHOD.hadiah.ulasanHadiah');
 
-Route::get('/integrityHOD/viewUlasanHartaC/{id}', 'IntegrityHodController@viewUlasanHartaC')->name('user.integrityHOD.harta.ulasanHartaC');
+Route::get('/Ketua-Jabatan-Integriti/viewUlasanHadiahB/id={id}', 'IntegrityHodController@viewUlasanHadiahB')->name('user.integrityHOD.hadiah.ulasanHadiahB');
 
-Route::get('/integrityHOD/viewUlasanHartaD/{id}', 'IntegrityHodController@viewUlasanHartaD')->name('user.integrityHOD.harta.ulasanHartaD');
+Route::get('/Ketua-Jabatan-Integriti/Ulasan-Harta-B/id={id}', 'IntegrityHodController@viewUlasanHartaB')->name('user.integrityHOD.harta.ulasanHartaB');
 
-Route::get('/integrityHOD/viewUlasanHartaG/{id}', 'IntegrityHodController@viewUlasanHartaG')->name('user.integrityHOD.harta.ulasanHartaG');
+Route::get('/Ketua-Jabatan-Integriti/Ulasan-Harta-C/id={id}', 'IntegrityHodController@viewUlasanHartaC')->name('user.integrityHOD.harta.ulasanHartaC');
 
-Route::get('/integrityHOD/senaraiharta', 'IntegrityHodController@senaraiharta')->name('user.integrityHOD.harta.senaraiharta');
+Route::get('/Ketua-Jabatan-Integriti/Ulasan-Harta-D/id={id}', 'IntegrityHodController@viewUlasanHartaD')->name('user.integrityHOD.harta.ulasanHartaD');
 
-Route::get('/integrityHOD/senaraiharta', 'IntegrityHodController@senaraiAllForm')->name('user.integrityHOD.harta.senaraiallharta');
+Route::get('/Ketua-Jabatan-Integriti/Ulasan-Harta-G/id={id}', 'IntegrityHodController@viewUlasanHartaG')->name('user.integrityHOD.harta.ulasanHartaG');
 
-Route::get('/integrityHOD/senarai-hadiah', 'IntegrityHodController@senaraiAllHadiah')->name('user.integrityHOD.hadiah.senaraiallhadiah');
+Route::get('/Ketua-Jabatan-Integriti/senaraiharta', 'IntegrityHodController@senaraiharta')->name('user.integrityHOD.harta.senaraiharta');
 
-Route::get('/integrityHOD/list/harta/b', 'IntegrityHodController@listFormB')->name('user.integrityHOD.harta.senaraiformB');
+Route::get('/Ketua-Jabatan-Integriti/senarai/harta/b', 'IntegrityHodController@listFormB')->name('user.integrityHOD.harta.senaraiformB');
 
-Route::get('/integrityHOD/list/harta/c', 'IntegrityHodController@listFormC')->name('user.integrityHOD.harta.senaraiformC');
+Route::get('/Ketua-Jabatan-Integriti/senarai/harta/c', 'IntegrityHodController@listFormC')->name('user.integrityHOD.harta.senaraiformC');
 
-Route::get('/integrityHOD/list/harta/d', 'IntegrityHodController@listFormD')->name('user.integrityHOD.harta.senaraiformD');
+Route::get('/Ketua-Jabatan-Integriti/senarai/harta/d', 'IntegrityHodController@listFormD')->name('user.integrityHOD.harta.senaraiformD');
 
-Route::get('/integrityHOD/list/harta/g', 'IntegrityHodController@listFormG')->name('user.integrityHOD.harta.senaraiformG');
+Route::get('/Ketua-Jabatan-Integriti/senarai/harta/g', 'IntegrityHodController@listFormG')->name('user.integrityHOD.harta.senaraiformG');
 
 
 // IT ADMIN ROUTES
-Route::get('/itadmin/homepage', 'ItAdminController@itDashboard')->name('user.it.view');
+Route::get('/itadmin/sistem-konfigurasi', 'ItAdminController@SistemKonfigurasi')->name('user.it.sistemkonfigurasi');
 
 Route::get('/itadmin/background/queues', 'ItAdminController@backgroundQueues')->name('user.it.backgroundqueues');
 
@@ -418,11 +453,19 @@ Route::get('/itadmin/users', 'ItAdminController@users')->name('user.it.users');
 
 Route::get('/itadmin/users/deactivate/{id}', 'ItAdminController@userDelete')->name('user.it.users.deactivate');
 
+Route::post('/itadmin/users/id={id}', 'ItAdminController@updateUserRole')->name('user.update');
+
 Route::get('/itadmin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('user.it.errorlog');
+
+
+Route::post('/itadmin/sistem-konfigurasi/kemaskini', 'ItAdminController@updateLayout')->name('layout.update');
+
+// Route::post('/itadmin/sistem-konfigurasi/hantar', 'ItAdminController@submitlayout')->name('layout.submit');
 
 Route::get('/itadmin/configure', 'ItAdminController@konfigurasiSistem')->name('user.it.konfigurasi');
 
-  Route::post('/itadmin/configure/edit', 'ItAdminController@editKonfigurasiSistem')->name('user.it.konfigurasi.edit');
+Route::post('/itadmin/configure/edit', 'ItAdminController@editKonfigurasiSistem')->name('user.it.konfigurasi.edit');
+
 
 // Route::prefix('jobs')->group(function () {
 //     Route::queueMonitor();

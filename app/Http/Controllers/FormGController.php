@@ -40,6 +40,82 @@ public function editformG($id){
     //dd($info);
     return view('user.harta.FormG.editformG', compact('info','listDividenG','listPinjamanG','listPinjaman','count_pinjaman','count_div','count_pinjam'));
   }
+  public function adddraft(array $data){
+    $userid = Auth::user()->id;
+    $sedang_proses= "Disimpan ke Draf";
+
+      return FormG::create([
+        'jabatan' => $data['jabatan'],
+        'tarikh_lantikan' => $data['tarikh_lantikan'],
+        'nama_perkhidmatan' => $data['nama_perkhidmatan'],
+        'gelaran' => $data['gelaran'],
+        'gaji_pasangan' => $data['gaji_pasangan'],
+        'jumlah_imbuhan' => $data['jumlah_imbuhan'],
+        'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
+        'sewa' => $data['sewa'],
+        'sewa_pasangan' => $data['sewa_pasangan'],
+        'dividen_1' => $data['dividen_1'],
+        'dividen_1_pegawai' => $data['dividen_1_pegawai'],
+        'dividen_1_pasangan' => $data['dividen_1_pasangan'],
+        'pendapatan_pegawai' => $data['pendapatan_pegawai'],
+        'pendapatan_pasangan' => $data['pendapatan_pasangan'],
+        'pinjaman_perumahan_pegawai' => $data['pinjaman_perumahan_pegawai'],
+        'bulanan_perumahan_pegawai' => $data['bulanan_perumahan_pegawai'],
+        'pinjaman_perumahan_pasangan' => $data['pinjaman_perumahan_pasangan'],
+        'bulanan_perumahan_pasangan' => $data['bulanan_perumahan_pasangan'],
+        'pinjaman_kenderaan_pegawai' => $data['pinjaman_kenderaan_pegawai'],
+        'bulanan_kenderaan_pegawai' => $data['bulanan_kenderaan_pegawai'],
+        'pinjaman_kenderaan_pasangan' => $data['pinjaman_kenderaan_pasangan'],
+        'bulanan_kenderaan_pasangan' => $data['bulanan_kenderaan_pasangan'],
+        'jumlah_cukai_pegawai' => $data['jumlah_cukai_pegawai'],
+        'bulanan_cukai_pegawai' => $data['bulanan_cukai_pegawai'],
+        'jumlah_cukai_pasangan' => $data['jumlah_cukai_pasangan'],
+        'bulanan_cukai_pasangan' => $data['bulanan_cukai_pasangan'],
+        'jumlah_koperasi_pegawai' => $data['jumlah_koperasi_pegawai'],
+        'bulanan_koperasi_pegawai' => $data['bulanan_koperasi_pegawai'],
+        'jumlah_koperasi_pasangan' => $data['jumlah_koperasi_pasangan'],
+        'bulanan_koperasi_pasangan' => $data['bulanan_koperasi_pasangan'],
+        'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
+        'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
+        'bulanan_pegawai'=> $data['bulanan_pegawai'],
+        'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
+        'bulanan_pasangan'=> $data['bulanan_pasangan'],
+        'jumlah_pinjaman_pegawai' => $data['jumlah_pinjaman_pegawai'],
+        'jumlah_bulanan_pegawai' => $data['jumlah_bulanan_pegawai'],
+        'jumlah_pinjaman_pasangan' => $data['jumlah_pinjaman_pasangan'],
+        'jumlah_bulanan_pasangan' => $data['jumlah_bulanan_pasangan'],
+        'luas_pertanian' => $data['luas_pertanian'],
+        'lot_pertanian' => $data['lot_pertanian'],
+        'mukim_pertanian' => $data['mukim_pertanian'],
+        'negeri_pertanian' => $data['negeri_pertanian'],
+        'luas_perumahan' => $data['luas_perumahan'],
+        'lot_perumahan' => $data['lot_perumahan'],
+        'mukim_perumahan' => $data['mukim_perumahan'],
+        'negeri_perumahan' => $data['negeri_perumahan'],
+        'tarikh_diperolehi' => $data['tarikh_diperolehi'],
+        'luas' => $data['luas'],
+        'lot' => $data['lot'],
+        'mukim' => $data['mukim'],
+        'negeri' => $data['negeri'],
+        'jenis_tanah' => $data['jenis_tanah'],
+        'nama_syarikat' => $data['nama_syarikat'],
+        'modal_berbayar' => $data['modal_berbayar'],
+        'jumlah_unit_saham' => $data['jumlah_unit_saham'],
+        'nilai_saham' => $data['nilai_saham'],
+        'sumber_kewangan' => $data['sumber_kewangan'],
+        'institusi' => $data['institusi'],
+        'alamat_institusi' => $data['alamat_institusi'],
+        'ansuran_bulanan' => $data['ansuran_bulanan'],
+        'tarikh_ansuran' => $data['tarikh_ansuran'],
+        'tempoh_pinjaman' => $data['tempoh_pinjaman'],
+        'pengakuan' => $data['pengakuan'],
+        'user_id' => $userid,
+        'status' => $sedang_proses,
+
+
+
+      ]);
+    }
 
 public function add(array $data){
   $userid = Auth::user()->id;
@@ -189,79 +265,143 @@ public function add(array $data){
 
   public function submitForm(Request $request){
 
-  $this->validator($request->all())->validate();
- // dd($request->all());
-  event($formgs = $this->add($request->all()));
-   //dd($request->all());
-   // dd($request->dividen_1);
+  if ($request->has('save')){
 
-   $count = count($request->dividen_1);
-   // dd($request->dividen_1);
-   $count_id = 0;
+      $this->validator($request->all())->validate();
+     // dd($request->all());
+      event($formgs = $this->adddraft($request->all()));
+       //dd($request->all());
+       // dd($request->dividen_1);
 
-   for ($i=0; $i < $count; $i++) {
-        $count_id++;
-    	  $dividen_gs = new DividenG();
-    	  $dividen_gs->dividen_1 = $request->dividen_1[$i];
-    	  $dividen_gs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
-        $dividen_gs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
-        $dividen_gs->formgs_id = $formgs-> id;
-        $dividen_gs->dividen_id = $count_id;
-        //dd($request->all());
-        $dividen_gs->save();
-      }
+       $count = count($request->dividen_1);
+       // dd($request->dividen_1);
+       $count_id = 0;
 
-    $count = count($request->lain_lain_pinjaman);
-    // dd($request->dividen_1);
-    $count_id_pinjaman = 0;
+       for ($i=0; $i < $count; $i++) {
+            $count_id++;
+        	  $dividen_gs = new DividenG();
+        	  $dividen_gs->dividen_1 = $request->dividen_1[$i];
+        	  $dividen_gs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
+            $dividen_gs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+            $dividen_gs->formgs_id = $formgs-> id;
+            $dividen_gs->dividen_id = $count_id;
+            //dd($request->all());
+            $dividen_gs->save();
+          }
+
+        $count = count($request->lain_lain_pinjaman);
+        // dd($request->dividen_1);
+        $count_id_pinjaman = 0;
+
+         for ($i=0; $i < $count; $i++) {
+            $count_id_pinjaman++;
+         	  $pinjaman_gs = new PinjamanG();
+         	  $pinjaman_gs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
+         	  $pinjaman_gs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
+            $pinjaman_gs->bulanan_pegawai = $request->bulanan_pegawai[$i];
+            $pinjaman_gs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
+            $pinjaman_gs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+            $pinjaman_gs->formgs_id = $formgs-> id;
+            $pinjaman_gs->pinjaman_id = $count_id_pinjaman;
+             //dd($request->all());
+             $pinjaman_gs->save();
+           }
+
+         $count = count($request->institusi);
+         // dd($request->dividen_1);
+         $count_id_pinjam = 0;
+
+          for ($i=0; $i < $count; $i++) {
+          $count_id_pinjam++;
+        	 $pinjaman = new Pinjaman();
+        	 $pinjaman->institusi = $request->institusi[$i];
+        	 $pinjaman->alamat_institusi = $request->alamat_institusi[$i];
+           $pinjaman->ansuran_bulanan = $request->ansuran_bulanan[$i];
+           $pinjaman->tarikh_ansuran = $request->tarikh_ansuran[$i];
+           $pinjaman->tempoh_pinjaman = $request->tempoh_pinjaman[$i];
+           $pinjaman->formgs_id = $formgs-> id;
+           $pinjaman->pinjaman_id = $count_id_pinjam;
+           $pinjaman->save();
+
+          }
+
+      return redirect()->route('user.harta.senaraidraft');
+    }
+  else if ($request->has('publish'))
+  {
+    $this->validator($request->all())->validate();
+   // dd($request->all());
+    event($formgs = $this->add($request->all()));
+     //dd($request->all());
+     // dd($request->dividen_1);
+
+     $count = count($request->dividen_1);
+     // dd($request->dividen_1);
+     $count_id = 0;
 
      for ($i=0; $i < $count; $i++) {
-        $count_id_pinjaman++;
-     	  $pinjaman_gs = new PinjamanG();
-     	  $pinjaman_gs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
-     	  $pinjaman_gs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
-        $pinjaman_gs->bulanan_pegawai = $request->bulanan_pegawai[$i];
-        $pinjaman_gs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
-        $pinjaman_gs->bulanan_pasangan = $request->bulanan_pasangan[$i];
-        $pinjaman_gs->formgs_id = $formgs-> id;
-        $pinjaman_gs->pinjaman_id = $count_id_pinjaman;
-         //dd($request->all());
-         $pinjaman_gs->save();
-       }
-
-     $count = count($request->institusi);
-     // dd($request->dividen_1);
-     $count_id_pinjam = 0;
-
-      for ($i=0; $i < $count; $i++) {
-      $count_id_pinjam++;
-    	 $pinjaman = new Pinjaman();
-    	 $pinjaman->institusi = $request->institusi[$i];
-    	 $pinjaman->alamat_institusi = $request->alamat_institusi[$i];
-       $pinjaman->ansuran_bulanan = $request->ansuran_bulanan[$i];
-       $pinjaman->tarikh_ansuran = $request->tarikh_ansuran[$i];
-       $pinjaman->tempoh_pinjaman = $request->tempoh_pinjaman[$i];
-       $pinjaman->formgs_id = $formgs-> id;
-       $pinjaman->pinjaman_id = $count_id_pinjam;
-       $pinjaman->save();
-
-      }
-
-      //send notification to admin (noti yang dia dah berjaya declare)
-      $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
-      // $email = null; // for testing
-      $admin_available = User::where('role','=','1')->get(); //get system admin information
-      // if ($email) {
-        foreach ($admin_available as $data) {
-          // $formgs->notify(new UserFormAdminG($data, $email));
-          $this->dispatch(new SendNotificationFormG($data, $email, $formgs));
+          $count_id++;
+          $dividen_gs = new DividenG();
+          $dividen_gs->dividen_1 = $request->dividen_1[$i];
+          $dividen_gs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
+          $dividen_gs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+          $dividen_gs->formgs_id = $formgs-> id;
+          $dividen_gs->dividen_id = $count_id;
+          //dd($request->all());
+          $dividen_gs->save();
         }
-      // }
 
+      $count = count($request->lain_lain_pinjaman);
+      // dd($request->dividen_1);
+      $count_id_pinjaman = 0;
+
+       for ($i=0; $i < $count; $i++) {
+          $count_id_pinjaman++;
+          $pinjaman_gs = new PinjamanG();
+          $pinjaman_gs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
+          $pinjaman_gs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
+          $pinjaman_gs->bulanan_pegawai = $request->bulanan_pegawai[$i];
+          $pinjaman_gs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
+          $pinjaman_gs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+          $pinjaman_gs->formgs_id = $formgs-> id;
+          $pinjaman_gs->pinjaman_id = $count_id_pinjaman;
+           //dd($request->all());
+           $pinjaman_gs->save();
+         }
+
+       $count = count($request->institusi);
+       // dd($request->dividen_1);
+       $count_id_pinjam = 0;
+
+        for ($i=0; $i < $count; $i++) {
+        $count_id_pinjam++;
+         $pinjaman = new Pinjaman();
+         $pinjaman->institusi = $request->institusi[$i];
+         $pinjaman->alamat_institusi = $request->alamat_institusi[$i];
+         $pinjaman->ansuran_bulanan = $request->ansuran_bulanan[$i];
+         $pinjaman->tarikh_ansuran = $request->tarikh_ansuran[$i];
+         $pinjaman->tempoh_pinjaman = $request->tempoh_pinjaman[$i];
+         $pinjaman->formgs_id = $formgs-> id;
+         $pinjaman->pinjaman_id = $count_id_pinjam;
+         $pinjaman->save();
+
+        }
+
+        //send notification to admin (noti yang dia dah berjaya declare)
+        $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
+        // $email = null; // for testing
+        $admin_available = User::where('role','=','1')->get(); //get system admin information
+        // if ($email) {
+          foreach ($admin_available as $data) {
+            // $formgs->notify(new UserFormAdminG($data, $email));
+            $this->dispatch(new SendNotificationFormG($data, $email, $formgs));
+          }
       return redirect()->route('user.harta.FormG.senaraihartaG');
-    }
+  }
+}
 
 public function update($id){
+  $sedang_proses= "Sedang Diproses";
   $formgs = FormG::find($id);
   $formgs->nama_perkhidmatan  = request()->nama_perkhidmatan;
   $formgs->gelaran  = request()->gelaran;
@@ -311,6 +451,7 @@ public function update($id){
   $formgs->nilai_saham = request()->nilai_saham;
   $formgs->sumber_kewangan = request()->sumber_kewangan;
   $formgs->pengakuan= request()->pengakuan;
+  $formgs->status= $sedang_proses;
   $formgs->save();
 }
 
@@ -408,6 +549,18 @@ $pinjaman->pinjaman_id = $count;
 $pinjaman->save();
 // dd($this->all());
 }
+
+  if($request ->status =='Disimpan ke Draf'){
+    //send notification to admin (noti yang dia dah berjaya declare)
+    $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
+    // $email = null; // for testing
+    $admin_available = User::where('role','=','1')->get(); //get system admin information
+    // if ($email) {
+      foreach ($admin_available as $data) {
+        // $formgs->notify(new UserFormAdminG($data, $email));
+        $this->dispatch(new SendNotificationFormG($data, $email, $formgs));
+      }
+  }
 
   $this->update($id);
   return redirect()->route('user.harta.FormG.senaraihartaG');

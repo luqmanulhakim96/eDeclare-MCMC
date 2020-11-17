@@ -95,8 +95,6 @@
                                              </td>
                                            </tr>
                                           @endforeach
-                                           <!-- Table data -->
-
                                        </tbody>
                                    </table>
                                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

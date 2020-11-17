@@ -56,22 +56,22 @@
                                   </div>
                                   <br>
 
-                                      <p><b>2.PERAKUAN PEGAWAI</b></p>
+                                      <p class="required"><b>2.PERAKUAN PEGAWAI</b></p>
 
                                 <div class="row">
                                     <div class="col-md-12">
                                       <input type="checkbox" name="perakuan" value="pengakuan pegawai" id="perakuan" required>
                                       <label for="pengakuan"> Dengan ini saya mengaku bahawa tiada perubahan ke atas pemilikan harta saya seperti yang telah di isytiharkan pada.  </label><input class="form-control bg-light" type="date" name="tarikh_perakuan" id="tarikh_perakuan" required><br>
                                     </div>
-                                    <div class="col-md-10">
-                                      <p> Saya membuat pengakuan ini selaras dengan kehendak perenggan 6, Pekeliling Perkhidmatan Bil. 3 Tahun 2002</p>
+                                    <div class="col-md-12">
+                                      <p> Saya membuat pengakuan ini selaras dengan kehendak perenggan 6, Pekeliling Perkhidmatan Bil. 3 Tahun 2002. Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</p>
                                     </div>
                                 </div>
                                     <!-- button -->
                                    <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-11">
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                       <button type="submit" class="btn btn-primary mt-4">Hantar</button>
                                     </div>
                                   </div>

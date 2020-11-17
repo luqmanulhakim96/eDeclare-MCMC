@@ -115,8 +115,8 @@
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ["Element", "Jumlah", { role: "style" } ],
-        ["Hadiah > RM "+nilai_hadiah, {{$listHadiahA}}, "#c020d0"],
-        ["Hadiah <= RM "+nilai_hadiah, {{$listHadiahB}}, "#8432DF"]
+        ["Hadiah > RM "+nilai_hadiah, {{$listHadiahA}}, "#89cff0"],
+        ["Hadiah <= RM "+nilai_hadiah, {{$listHadiahB}}, "#00468b"]
       ]);
 
       var view = new google.visualization.DataView(data);
@@ -167,7 +167,7 @@
         var options = {
           // title: 'Statistik Penerimaan Hadiah Mengikut Jenis Hadiah Yang Diterima',
           pieHole: 0.4,
-          colors: ['#fc0fc0','#c020d0','#8432DF','#4743EF','#0B54FE']
+          colors: ['#89cff0','#00468b','#7a8ea7']
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));

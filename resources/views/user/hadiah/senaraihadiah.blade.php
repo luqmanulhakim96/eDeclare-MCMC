@@ -13,26 +13,34 @@
                     <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
                     <!-- Table -->
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                        <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                             <thead class="thead-light">
                                 <tr class="text-center">
-                                    <th class="all" width="10%"><p>ID</p></th>
-                                    <th class="all" width="30%"><p>Jenis Hadiah</p></th>
-                                    <th class="all" width="30"><p>Nilai Hadiah (RM)</p></th>
-                                    <th class="all" width="15%"><p>Tarikh Diterima</p></th>
-                                    <th class="all" width="30%"><p class="all">Nama Pemberi</p></th>
-                                    <th class="all" width="30%"><p class="all">Alamat Pemberi</p></th>
-                                    <th class="all" width="30%"><p>Hubungan Pemberi</p></th>
-                                    <th class="all" width="70%"><p class="all">Gambar Hadiah</p></th>
-                                    <th class="all" width="30%"><p>Status Penerimaan Hadiah</p></th>
-                                    <th class="all" width="30%"><p>Tindakan</p></th>
+                                    <th class="all"><p>ID</p></th>
+                                    <th class="all"><p> Lampiran A</p></th>
+                                    <th class="all"><p>Jenis Hadiah</p></th>
+                                    <th class="all"><p>Nilai Hadiah (RM)</p></th>
+                                    <th class="all"><p>Tarikh Diterima</p></th>
+                                    <th class="all"><p class="all">Nama Pemberi</p></th>
+                                    <th class="all"><p class="all">Alamat Pemberi</p></th>
+                                    <th class="all"><p>Hubungan Pemberi</p></th>
+                                    <th class="all"><p class="all">Gambar Hadiah</p></th>
+                                    <th class="all"><p>Status Penerimaan Hadiah</p></th>
+                                    <th class="all"><p>Tindakan</p></th>
                                 </tr>
                             </thead>
                             <tbody align="center">
                               @foreach($listHadiah as $data)
+                              @if($data ->status != "Disimpan ke Draf")
 
                               <tr>
                                   <td>{{ $data ->id }}</td>
+                                  <td>
+                                    Lampiran A
+                                    <div class="d-flex flex-row justify-content-around align-items-center">
+                                        <a href="{{ route('user.hadiah.viewA', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                                    </div>
+                                  </td>
                                   <td>{{ $data ->jenis_gift }}</td>
                                   <td>{{ $data ->nilai_gift  }}</td>
                                   <td>{{ $data ->tarikh_diterima }}</td>
@@ -79,6 +87,7 @@
                                   </div>
                                   </td>
                                 </tr>
+                                @endif
                                @endforeach
 
                         </table>
@@ -116,5 +125,30 @@
       $('.modal-body #imageHadiah').show();
     }
   </script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+      var buttonCommon = {
+        exportOptions: {
+             // Any other settings used
+             grouped_array_index: 0,
+        },
+      };
+      var groupColumn = 1;
+      var table = $('#example').DataTable({
+           dom: 'Bfrtip',
+           buttons: [
+           $.extend( true, {}, buttonCommon, {
+               extend: 'copyHtml5'
+           } ),
+           $.extend( true, {}, buttonCommon, {
+               extend: 'excelHtml5'
+           } ),
+           $.extend( true, {}, buttonCommon, {
+               extend: 'pdfHtml5'
+           } )
+       ]
+       } );
+   } );
+   </script>
 
 @endsection
