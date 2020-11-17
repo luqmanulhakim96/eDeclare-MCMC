@@ -11,6 +11,10 @@
                 <div class="card rounded-lg">
                   <div class="card-body">
                       <div class="card-title">Senarai Pengguna</div>
+                      <!-- <div class="col">
+                        <button type="submit" onclick="return confirm('Anda pasti maklumat ini tepat? ');" class="btn btn-primary mb" id="submit-form" style="float: right;">Kemaskini Maklumat</button>
+                      </div>
+                      <br> -->
                         <!-- Tab nav -->
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
@@ -23,7 +27,9 @@
                         <!-- Tab content -->
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-active" role="tabpanel" aria-labelledby="pills-active-tab">
+
                               <table class="table table-striped table-bordered" id="example" style="width: 100%;">
+
 
                                 <thead>
                                   <tr>
@@ -90,6 +96,7 @@
 
                               <table class="table table-striped table-bordered" id="example1" style="width: 100%;">
 
+
                                 <thead>
                                   <tr>
                                     <th class="all">Nama</th>
@@ -125,55 +132,14 @@
                       </div>
                     </div>
                 </div>
-            </div>
+
+            </main>
+
             <script type="text/javascript">
-            $(document).ready(function() {
-                var buttonCommon = {
-                  exportOptions: {
-                       // Any other settings used
-                       grouped_array_index: 0,
-                  },
-                };
-                var groupColumn = 1;
-                var table = $('#example').DataTable({
-                     dom: 'Bfrtip',
-                     buttons: [
-                     $.extend( true, {}, buttonCommon, {
-                         extend: 'copyHtml5'
-                     } ),
-                     $.extend( true, {}, buttonCommon, {
-                         extend: 'excelHtml5'
-                     } ),
-                     $.extend( true, {}, buttonCommon, {
-                         extend: 'pdfHtml5'
-                     } )
-                 ]
-                 } );
-             } );
+              $(document).ready( function () {
+                  $('#example').DataTable();
+                  $('#example1').DataTable();
+              });
              </script>
-             <script type="text/javascript">
-             $(document).ready(function() {
-                 var buttonCommon = {
-                   exportOptions: {
-                        // Any other settings used
-                        grouped_array_index: 0,
-                   },
-                 };
-                 var groupColumn = 1;
-                 var table = $('#example1').DataTable({
-                      dom: 'Bfrtip',
-                      buttons: [
-                      $.extend( true, {}, buttonCommon, {
-                          extend: 'copyHtml5'
-                      } ),
-                      $.extend( true, {}, buttonCommon, {
-                          extend: 'excelHtml5'
-                      } ),
-                      $.extend( true, {}, buttonCommon, {
-                          extend: 'pdfHtml5'
-                      } )
-                  ]
-                  } );
-              } );
-              </script>
+
 @endsection

@@ -317,6 +317,7 @@
                           <!-- Sub menu -->
                           <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
+                                  <li class="side-sub-menu-item px-3"><a href="{{ route('user.it.konfigurasi') }}" class="w-100 pl-4">Konfigurasi Sistem</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.it.backup') }}" class="w-100 pl-4">Pemulihan dan Sokongan Sistem </a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.it.errorlog') }}" class="w-100 pl-4">Ralat dan Sistem Log</a></li>
                                   <li class="side-sub-menu-item px-3"><a href="{{ route('user.it.backgroundqueues') }}" class="w-100 pl-4">Memantau Latar Belakang Sistem </a></li>
@@ -334,7 +335,7 @@
         <main class="bg-light main-full-body">
 
             <!-- Theme changer -->
-            <div class="theme-option p-4">
+            <!-- <div class="theme-option p-4">
                 <div class="theme-pck">
                     <i class="fas fa-cog fa-lg"></i>
                 </div>
@@ -343,7 +344,7 @@
                     <p class="p-3 rounded side-nav-theme-primary side-nav-theme" theme-color="purple"></p>
                     <p class="p-3 rounded ml-2 side-nav-theme-light side-nav-theme" theme-color="light"></p>
                 </div>
-            </div>
+            </div> -->
 
             @if ($message = Session::get('success'))
             <script type="text/javascript">
@@ -413,50 +414,7 @@
                     <!-- Message dropdown -->
                     <div class="dropdown dropdown-arow-none d-contents text-center mx-2 pt-1">
                         <!-- Icon -->
-                        <a href="#" class="w-100 dropdown-toggle text-muted position-relative" data-toggle="dropdown">
-                            <!-- Message -->
-                            <!-- <i class="far fa-envelope fa-2x"></i> -->
-                            <!-- <span class="badge badge-danger position-absolute notification-badge">3</span> -->
-                        </a>
-                        <!-- Dropdown menu -->
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-max-height p-0">
-                            <!-- Dropdown item -->
-                            <a href="#" class="dropdown-item text-secondary-light p-0">
-                                <div class="d-flex flex-row border-bottom">
-                                    <!-- Profile image -->
-                                    <div class="notification-icon bg-secondary-c pt-3"><img src="{{ asset('qbadminui/img/profile.jpg') }}" alt="img" class="w-75 img-round"></div>
-                                    <!-- Message notification -->
-                                    <div class="flex-grow-1 px-3 py-3">
-                                        <p class="mb-0">James <span class="badge badge-pill badge-primary">1</span></p>
-                                        <small>James : Hey! Are you busy?</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <!-- Dropdown item -->
-                            <a href="#" class="dropdown-item text-secondary-light p-0">
-                                <div class="d-flex flex-row border-bottom">
-                                    <!-- Profile image -->
-                                    <div class="notification-icon bg-secondary-c pt-3"><img src="{{ asset('qbadminui/img/profile.jpg') }}" alt="img" class="w-75 img-round"></div>
-                                    <!-- Message notification -->
-                                    <div class="flex-grow-1 px-3 py-3">
-                                        <p class="mb-0">Jhone <span class="badge badge-pill badge-primary">1</span></p>
-                                        <small>Jhone : Hey! I need help.</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <!-- Dropdown item -->
-                            <a href="#" class="dropdown-item text-secondary-light p-0">
-                                <div class="d-flex flex-row border-bottom">
-                                    <!-- Profile image -->
-                                    <div class="notification-icon bg-secondary-c pt-3"><img src="{{ asset('qbadminui/img/profile.jpg') }}" alt="img" class="w-75 img-round"></div>
-                                    <!-- Message notification -->
-                                    <div class="flex-grow-1 px-3 py-3">
-                                        <p class="mb-0">Mariam <span class="badge badge-pill badge-primary">1</span></p>
-                                        <small>Mariam : information</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+
                     </div>
 
                     <!-- Notification dropdown -->
@@ -465,47 +423,37 @@
                         <a href="#" class="w-100 dropdown-toggle text-muted position-relative" data-toggle="dropdown">
                             <!-- Notification -->
                             <i class="far fa-bell fa-2x"></i>
-                            <span class="badge badge-primary position-absolute notification-badge">3</span>
+                            <span class="badge badge-primary position-absolute notification-badge">{{$count_notification}}</span>
                         </a>
+                        @if($count_notification != 0)
                         <!-- Dropdown menu -->
                         <div class="dropdown-menu dropdown-menu-right p-0 dropdown-menu-max-height">
                             <!-- Menu item -->
-                            <a href="#" class="dropdown-item text-secondary-light p-0">
-                                <div class="d-flex flex-row border-bottom">
-                                    <div class="notification-icon bg-secondary-c pt-3 px-3"><i class="far fa-envelope text-primary fa-lg"></i></div>
-                                    <div class="flex-grow-1 px-3 py-3">
-                                        <p class="mb-0">New message <span class="badge badge-pill badge-primary">New</span></p>
-                                        <small>James : Hey! Are you busy?</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <!-- Menu item -->
-                            <a href="#" class="dropdown-item text-secondary-light p-0">
-                                <div class="d-flex flex-row border-bottom">
-                                    <div class="notification-icon bg-secondary-c pt-3 px-3"><i class="fas fa-clipboard-list text-success fa-lg"></i></div>
-                                    <div class="flex-grow-1 px-3 py-3">
-                                        <p class="m-0">New order received <span class="badge badge-pill badge-success">New</span></p>
-                                        <small>3 iPhone x</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <!-- Menu item -->
-                            <a href="#" class="dropdown-item text-secondary-light p-0 pr-2">
-                                <div class="d-flex flex-row border-bottom">
-                                    <div class="notification-icon bg-secondary-c pt-3 px-3"><i class="fas fa-box-open text-warning fa-lg"></i></div>
-                                    <div class="flex-grow-1 px-3 py-3">
-                                        <p class="m-0">Product out of stock <span class="badge badge-pill badge-warning small">1</span></p>
-                                        <small>Headphone E63</small>
-                                    </div>
-                                </div>
-                            </a>
+                            @foreach($permohonan_admin as $permohonan)
+                              @foreach($permohonan->unreadNotifications->sortByDesc('created_at') as $notification)
+                                @if($notification->data['kepada_id'] == Auth::user()->id)
+                                <a href="{{route('notification.mark-as-read', $notification->id)}}" class="dropdown-item text-secondary-light p-0">
+                                      <div class="d-flex flex-row border-bottom">
+                                          <div class="notification-icon bg-secondary-c pt-3 px-3 pb-3"><i class="far fa-envelope text-primary fa-lg pt-3"></i></div>
+                                          <div class="flex-grow-1 px-3 py-3">
+                                              <p class="mb-0"> {{date('H:i:s d-m-Y', strtotime($permohonan->created_at))}} &ensp;<span class="badge badge-pill badge-primary">Baru</span></p>
+                                              <small>{{$notification->data['tajuk'] }}</small>
+                                          </div>
+                                      </div>
+                                  </a>
+                                  @endif
+                                @endforeach
+                              @endforeach
                         </div>
+                        @endif
                     </div>
 
                     <!-- Profile action dropdown -->
                     <div class="dropdown dropdown-arow-none d-contents text-center mx-2">
                         <!-- Icon -->
-                        <a href="#" class="w-100 dropdown-toggle text-muted" data-toggle="dropdown"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcScbyaC694UuDqfOSQEwPZrKBXESLtdOn74Iw&usqp=CAU" alt="profile" class="profile-avatar"></a>
+                        <a href="#" class="w-100 dropdown-toggle text-muted" data-toggle="dropdown">
+                          <img src="{{ asset('https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg') }}" alt="profile" class="profile-avatar" style="height:40px; width:40px;">
+                        </a>
                         <!-- Dropdown Menu -->
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-max-height">
                             <!-- Menu items -->
@@ -561,7 +509,7 @@
   $("document").ready(function(){
     setTimeout(function(){
        $('#modal').modal('hide');
-    }, 1500 ); // 5 secs
+    }, 2500 ); // 2.5 secs
 
   });
 </script>

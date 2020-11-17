@@ -65,7 +65,7 @@ class AdminFormHodivB extends Notification
         // dd($notifiable);
         return[
           'permohonan_id' => $notifiable->id,
-          'tajuk' => 'Terdapat Lampiran B baru yang perlu disemak',
+          'tajuk' => 'Terdapat Lampiran Harta B baru yang perlu disemak',
           'tarikh_dicipta' => $notifiable->created_at,
           'kepada_email' => $this->hodiv->email,
           'kepada_id' => $this->hodiv->id,

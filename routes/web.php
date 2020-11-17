@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/notifikasi/baca/{id}', 'NotificationController@redirectNotification')->name('notification.mark-as-read');
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/menu-utama', 'UserController@index')->name('menu-utama');
@@ -456,9 +457,15 @@ Route::post('/itadmin/users/id={id}', 'ItAdminController@updateUserRole')->name(
 
 Route::get('/itadmin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('user.it.errorlog');
 
+
 Route::post('/itadmin/sistem-konfigurasi/kemaskini', 'ItAdminController@updateLayout')->name('layout.update');
 
 // Route::post('/itadmin/sistem-konfigurasi/hantar', 'ItAdminController@submitlayout')->name('layout.submit');
+
+Route::get('/itadmin/configure', 'ItAdminController@konfigurasiSistem')->name('user.it.konfigurasi');
+
+Route::post('/itadmin/configure/edit', 'ItAdminController@editKonfigurasiSistem')->name('user.it.konfigurasi.edit');
+
 
 // Route::prefix('jobs')->group(function () {
 //     Route::queueMonitor();

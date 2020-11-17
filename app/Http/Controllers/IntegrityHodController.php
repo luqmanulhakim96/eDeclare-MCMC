@@ -264,6 +264,7 @@ class IntegrityHodController extends Controller
        $formbs->save();
 
 
+
        //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
        //send notification to users (status="Diterima" && status="Tidak Diterima")
 
