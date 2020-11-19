@@ -56,8 +56,24 @@
                               @endif
                               <td>{{  ucfirst($datas->event) }}</td>
                               <td>{{ substr($datas->auditable_type, strpos($datas->auditable_type, "/") + 4) }}</td>
-                              <td>{{$datas->old_values}}</td>
-                              <td>{{$datas->new_values}}</td>
+                              @if( $datas->old_values == "[]")
+                                <td>-</td>
+                              @else
+                                      <td>{{$datas->old_values}}</td>
+                              @endif
+                              @if( $datas->new_values == "[]")
+                                <td>-</td>
+                              @else
+                              <td>
+                              <table>
+                                @foreach(explode(',', $datas->new_values) as $info)
+                                  <tr>
+                                    <td>{{  preg_replace('/[{}]/',"",$info) }}</td>
+                                  </tr>
+                                @endforeach
+                              </table>
+                              </td>
+                              @endif
 
 
                               <td>{{ $datas->url }}</td>

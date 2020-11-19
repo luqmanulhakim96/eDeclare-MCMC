@@ -18,26 +18,20 @@
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <!-- <th width="10%"><p class="mb-0">ID</p></th> -->
-                                               <th width="30%"><p class="mb-0">No Staff</p></th>
-                                               <th width="30"><p class="mb-0">Nama</p></th>
-                                               <th width="10%"><p class="mb-0">Lampiran</p></th>
-                                               <th width="70%"><p class="mb-0">Tarikh</p></th>
-                                               <th width="30%"><p class="mb-0">Status</p></th>
-                                               <th width="30%"><p class="mb-0">Tindakan</p></th>
+                                               <th><p class="mb-0">No Staff</p></th>
+                                               <th><p class="mb-0">Nama</p></th>
+                                               <th><p class="mb-0">Lampiran</p></th>
+                                               <th><p class="mb-0">Tarikh</p></th>
+                                               <th><p class="mb-0">Status</p></th>
 
                                            </tr>
                                        </thead>
                                        <tbody align="center">
                                          @foreach($merged as $data)
+                                         @if($data->status != 'Disimpan ke Draf')
                                          <tr>
-                                             <!-- <td>{{ $data ->id }}</td> -->
-                                             <td>{{ $data ->users->kad_pengenalan }}</td>
+                                             <td>{{ $data ->users->no_staff }}</td>
                                              <td>{{ $data ->users->name }}</td>
-                                             <!-- <td>
-                                                 <div class="d-flex flex-row justify-content-around align-items-center">
-                                                     <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
-                                                 </div>
-                                             </td> -->
                                              <td>
                                                @if($data ->getTable() == "formbs")
                                                Lampiran B
@@ -70,8 +64,8 @@
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                               @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
-                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
+                                               <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan Integriti</span>
                                                @elseif($data ->status == "Tidak Lengkap")
                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Tidak Diterima")
@@ -82,140 +76,8 @@
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @endif
                                              </td>
-                                             <td>
-
-                                               @if($data ->getTable() == "formbs")
-                                                 @if($data ->status == "Sedang Diproses")
-                                                 <a href="{{route('user.admin.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
-                                                 @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
-
-                                                 <button type="button" class="fas fa-upload btn-primary" data-toggle="modal" data-target="#exampleModal" ></button>
-                                                 <!-- Modal -->
-                                                 <form action="{{route('dokumenB.submit', $data->id)}}" method="POST" enctype="multipart/form-data">
-                                                   @csrf
-                                                 <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true">
-                                                          <div class="modal-dialog" role="document">
-                                                          <div class="modal-content">
-                                                              <div class="modal-header">
-                                                              <h5 class="modal-title" id="exampleModalLabel">Muat Naik Dokumen</h5>
-                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                  <span aria-hidden="true">×</span>
-                                                              </button>
-                                                              </div>
-                                                              <div class="modal-body">
-                                                                <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
-                                                                  <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
-                                                              </div>
-                                                              <div class="modal-footer">
-                                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                              <button type="submit" class="btn btn-primary">Muat Naik</button>
-                                                              </div>
-                                                          </div>
-                                                          </div>
-                                                      </div>
-                                                    </form>
-                                                 @else
-                                                 -
-                                                 @endif
-                                               @elseif($data ->getTable() == "formcs")
-                                                 @if($data ->status == "Sedang Diproses")
-                                                 <a href="{{route('user.admin.harta.ulasanHartaC',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
-                                                   @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
-                                                   <button type="button" class="fas fa-upload btn-primary" data-toggle="modal" data-target="#exampleModal" ></button>
-                                                   <!-- Modal -->
-                                                   <form action="{{route('dokumenC.submit', $data->id)}}" method="POST" enctype="multipart/form-data">
-                                                     @csrf
-                                                   <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true">
-                                                            <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Muat Naik Dokumen</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                  <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
-                                                                    <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                <button type="submit" class="btn btn-primary">Muat Naik</button>
-                                                                </div>
-                                                            </div>
-                                                            </div>
-                                                        </div>
-                                                      </form>
-                                                 @else
-                                                 -
-                                                 @endif
-                                               @elseif($data ->getTable() == "formds")
-                                                 @if($data ->status == "Sedang Diproses")
-                                                 <a href="{{route('user.admin.harta.ulasanHartaD',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
-                                                   @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
-                                                   <button type="button" class="fas fa-upload btn-primary" data-toggle="modal" data-target="#exampleModal" ></button>
-                                                   <!-- Modal -->
-                                                   <form action="{{route('dokumenD.submit', $data->id)}}" method="POST" enctype="multipart/form-data">
-                                                     @csrf
-                                                   <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true">
-                                                            <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Muat Naik Dokumen</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                  <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
-                                                                    <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                <button type="submit" class="btn btn-primary">Muat Naik</button>
-                                                                </div>
-                                                            </div>
-                                                            </div>
-                                                        </div>
-                                                      </form>
-                                                 @else
-                                                 -
-                                                 @endif
-                                                @elseif($data ->getTable() == "formgs")
-                                                  @if($data ->status == "Sedang Diproses")
-                                                  <a href="{{route('user.admin.harta.ulasanHartaG',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
-                                                    @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
-                                                    <button type="button" class="fas fa-upload btn-primary" data-toggle="modal" data-target="#exampleModal" ></button>
-                                                    <!-- Modal -->
-                                                    <form action="{{route('dokumenG.submit', $data->id)}}" method="POST" enctype="multipart/form-data">
-                                                      @csrf
-                                                    <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true">
-                                                             <div class="modal-dialog" role="document">
-                                                             <div class="modal-content">
-                                                                 <div class="modal-header">
-                                                                 <h5 class="modal-title" id="exampleModalLabel">Muat Naik Dokumen</h5>
-                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                     <span aria-hidden="true">×</span>
-                                                                 </button>
-                                                                 </div>
-                                                                 <div class="modal-body">
-                                                                   <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
-                                                                     <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
-                                                                 </div>
-                                                                 <div class="modal-footer">
-                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                 <button type="submit" class="btn btn-primary">Muat Naik</button>
-                                                                 </div>
-                                                             </div>
-                                                             </div>
-                                                         </div>
-                                                       </form>
-                                                  @else
-                                                  -
-                                                  @endif
-                                                @endif
-                                             </td>
                                            </tr>
+                                           @endif
                                           @endforeach
                                            <!-- Table data -->
 

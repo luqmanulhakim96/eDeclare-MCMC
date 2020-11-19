@@ -263,7 +263,7 @@ class IntegrityHodController extends Controller
        $formbs->ulasan_hod = $request->ulasan_hod;
        $formbs->save();
 
-       $tempoh_notifikasi = 
+
 
        //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
        //send notification to users (status="Diterima" && status="Tidak Diterima")
@@ -300,7 +300,7 @@ class IntegrityHodController extends Controller
 
      }
 
-       return redirect()->route('user.integrityHOD.harta.senaraiallharta');
+       return redirect()->route('user.admin.harta.senaraiallharta');
      }
 
 
@@ -343,7 +343,7 @@ class IntegrityHodController extends Controller
 
      }
 
-       return redirect()->route('user.integrityHOD.harta.senaraiallharta');
+       return redirect()->route('user.admin.harta.senaraiallharta');
      }
 
      public function updateStatusUlasanHODD(Request $request,$id){
@@ -384,7 +384,7 @@ class IntegrityHodController extends Controller
 
      }
 
-       return redirect()->route('user.integrityHOD.harta.senaraiallharta');
+       return redirect()->route('user.admin.harta.senaraiallharta');
      }
 
      public function updateStatusUlasanHODG(Request $request,$id){
@@ -427,7 +427,7 @@ class IntegrityHodController extends Controller
 
      }
 
-       return redirect()->route('user.integrityHOD.harta.senaraiallharta');
+       return redirect()->route('user.admin.harta.senaraiallharta');
      }
 
      public function updateStatusUlasanHODGift(Request $request,$id){
@@ -461,7 +461,7 @@ class IntegrityHodController extends Controller
        }
      }
 
-       return redirect()->route('user.integrityHOD.hadiah.senaraiallhadiah');
+       return redirect()->route('user.admin.hadiah.senaraiallhadiah');
      }
 
      public function updateStatusUlasanHODGiftB(Request $request,$id){
@@ -471,10 +471,10 @@ class IntegrityHodController extends Controller
        $giftbs->ulasan_hod = $request->ulasan_hod;
        $giftbs->save();
 
-       return redirect()->route('user.integrityHOD.hadiah.senaraiallhadiah');
+       return redirect()->route('user.admin.hadiah.senaraiallhadiah');
      }
 
-     public function senaraiAllForm(){
+     public function senaraiTugasanHarta(){
        $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
        $listallBTable = FormB::getTableName();
        $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
@@ -484,14 +484,14 @@ class IntegrityHodController extends Controller
        $merged = $merged->mergeRecursive($listallD);
        $merged = $merged->mergeRecursive($listallG)->sortBy('status');
 
-       return view('user.integrityHOD.harta.senaraiallharta', compact('merged'));
+       return view('user.integrityHOD.harta.senaraitugasanharta', compact('merged'));
      }
 
-     public function senaraiAllHadiah(){
+     public function senaraiTugasanHadiah(){
        $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
        $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
        $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
 
-       return view('user.integrityHOD.hadiah.senaraiallhadiah', compact('merged'));
+       return view('user.integrityHOD.hadiah.senaraitugasanhadiah', compact('merged'));
      }
 }

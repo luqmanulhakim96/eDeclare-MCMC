@@ -119,7 +119,7 @@
                 <div class="card rounded-lg">
                     <div class="card-body">
                       <div  align="center">
-                        <img src="{{ asset('qbadminui/img/landing.png') }}" alt="img" class="w-50 ">
+                        <img src="{{ asset('qbadminui/img/landing.png') }}" alt="img" style="width:80%; height:80%;">
                       </div>
                     </div>
                 </div>

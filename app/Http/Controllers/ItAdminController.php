@@ -16,7 +16,11 @@ use Storage;
 use File;
 use Auth;
 use Carbon\Carbon;
+
 use Adldap\Laravel\Facades\Adldap;
+use App\Route;
+use Illuminate\Support\Facades\Validator;
+
 
 use Spatie\Backup\BackupDestination\Backup;
 use Spatie\Backup\Helpers\Format;
@@ -26,16 +30,22 @@ use Spatie\Backup\Tasks\Monitor\BackupDestinationStatusFactory;
 
 class ItAdminController extends Controller
 {
+
       public function itDashboard(){
 
         return view('user.it.view');
       }
 
-      public function errorLogging(){
+      // error log viewer can be found at resources > vendor > laravel-log-viewer > log.blade.php
+      // using \Rap2hpoutre\LaravelLogViewer\LogViewerController@index Controller
 
-        return view('user.it.errorlog');
-      }
 
+      // public function errorLogging(){
+      //
+      //   return view('user.it.errorlog');
+      // }
+
+      //start backup process
       public function backup(){
 
         // $files = Storage::disk('local')->files(env('APP_NAME'));
@@ -96,21 +106,21 @@ class ItAdminController extends Controller
         Artisan::queue('backup:run');
         $message = "Full Backup success!";
         Log::info($message);
-        return redirect()->route('user.it.backup')->with('success','Full Backup success!');
+        return redirect()->route('user.it.backup')->with('success','Full Backup in process! Please wait 5-10 minutes.');
       }
 
       public function backupRunSystem(){
         Artisan::queue('backup:run --only-files');
         $message = "System Backup success!";
         Log::info($message);
-        return redirect()->route('user.it.backup')->with('success','System Backup success!');
+        return redirect()->route('user.it.backup')->with('success','System Backup in process! Please wait 5-10 minutes.');
       }
 
       public function backupRunDatabase(){
         Artisan::queue('backup:run --only-db');
         $message = "Database Backup success!";
         Log::info($message);
-        return redirect()->route('user.it.backup')->with('success','Database Backup success!');
+        return redirect()->route('user.it.backup')->with('success','Database Backup in process! Please wait 5-10 minutes.');
       }
 
       public function backupDownload($filename){
@@ -121,6 +131,7 @@ class ItAdminController extends Controller
 
         return Storage::download($filepath);
       }
+      //end of backup process
 
       public function backgroundQueues(){
         $jobs = Monitor::get();
@@ -167,12 +178,28 @@ class ItAdminController extends Controller
         $currentUser = Auth::user();
 
         $user = User::where([['status','!=','0']])->get();
+        // dd($user);
+        // $user = User::where([['role','!=','5'],['status','!=','0']])->get();
+        // $user_deact = User::where([['role','!=','5'],['status','!=','1']])->get();
+        $user_deact = User::where([['status','!=','1']])->get();
+        // dd($user_deact);
+        return view('user.it.users', compact('user','user_deact', 'currentUser'));
+      }
+
+      public function updateUserRole(Request $request,$id){
+        $users=User::find($id);
+        // dd($request->all());
+        $users->role = $request->role;
+        $users->save();
+
+        $currentUser = Auth::user();
+
+        $user = User::where([['status','!=','0']])->get();
         // $user = User::where([['role','!=','5'],['status','!=','0']])->get();
         // $user_deact = User::where([['role','!=','5'],['status','!=','1']])->get();
         $user_deact = User::where([['status','!=','1']])->get();
 
-        // dd($user_deact);
-        return view('user.it.users', compact('user','user_deact', 'currentUser'));
+        return redirect()->route('user.it.users', compact('user','user_deact', 'currentUser'));
       }
 
       public function userDelete($id){
@@ -192,10 +219,190 @@ class ItAdminController extends Controller
           }
           elseif($userToLogout->status == true){
             $userToLogout->update(['status' => 0]);
+            $userToLogout->update(['should_re_login' => 1]);
 
             $success = 'success';
             $text = 'Pengguna berjaya dinyahaktif';
           }
+          // dd($userToLogout);
           return redirect()->route('user.it.users')->with($success,$text);
+      }
+
+
+      public function SistemKonfigurasi(){
+        $test = Route::findOrFail(1);
+        $admin = json_decode($test->layout);
+
+        $test1 = Route::findOrFail(2);
+        $itadmin = json_decode($test1->layout);
+        // dd($admin);
+        $route=Route::get();
+        return view('user.it.sistemkonfigurasi',compact('route','admin','itadmin'));
+      }
+
+      // public function addlayout(array $data){
+      //     $layouts = [
+      //       $data['layout1'],
+      //       $data['layout2']
+      //     ];
+      //     $layouts = json_encode($layouts);
+      //     if($data['jawatan'] == 'Pentadbir Sistem')
+      //     {
+      //       $roles = '1';
+      //     }
+      //     else if($data['jawatan'] == 'IT Admin'){
+      //       $roles = '4';
+      //     }
+      //
+      //     return Route::create([
+      //       'jawatan' => $data['jawatan'],
+      //       'layout' => $layouts,
+      //       'roles' => $roles
+      //     ]);
+      //   }
+      //
+      //   protected function validatorlayout(array $data)
+      // {
+      //     return Validator::make($data, [
+      //       'jawatan' =>['nullable', 'string'],
+      //       'layout'=>['nullable', 'string'],
+      //
+      //   ]);
+      // }
+      //
+      //   public function submitlayout(Request $request){
+      //
+      //   $this->validatorlayout($request->all())->validate();
+      //
+      //   event($layouts = $this->addlayout($request->all()));
+      //
+      //   return redirect()->route('user.it.sistemkonfigurasi');
+      //   }
+
+      public function updateLayout(Request $request){
+        // dd($request->all());
+        $routes = Route::find($request->id_admin);
+
+        $layouts = [
+              $request['layout1_admin'],
+              $request['layout2_admin']
+            ];
+        $layouts = json_encode($layouts);
+        // dd($layouts);
+        $routes->layout = $layouts;
+        $routes->save();
+
+        $routes2 = Route::find($request->id_itadmin);
+        $layouts2 = [
+              $request['layout1_it'],
+              $request['layout2_it']
+            ];
+        $layouts2 = json_encode($layouts2);
+        // dd($routes2);
+        $routes2->layout = $layouts2;
+        $routes2->save();
+
+        return redirect()->route('user.it.sistemkonfigurasi');
+
+      public function konfigurasiSistem(){
+        $config_app = config('app');
+        $attributes_config_app = array_keys($config_app);
+
+        $config_database = config('database');
+        $config_database_sqlsrv = $config_database['connections']['sqlsrv'];
+        $attributes_config_database = array_keys($config_database_sqlsrv);
+
+        $config_mail = config('mail');
+        $config_mail_smtp = $config_mail['mailers']['smtp'];
+        $config_mail_from = $config_mail['from'];
+
+        $attributes_config_mail_smtp = array_keys($config_mail_smtp);
+        $attributes_config_mail_from = array_keys($config_mail_from);
+
+        // dd($config_app);
+
+        return view('user.it.konfigurasi', compact('config_app','attributes_config_app', 'config_database_sqlsrv', 'attributes_config_database', 'config_mail_smtp', 'config_mail_from', 'attributes_config_mail_smtp', 'attributes_config_mail_from'));
+      }
+
+      public function editKonfigurasiSistem(Request $request){
+        // dd($request->all());
+        $aplikasi_name = $request->aplikasi_name;
+        $aplikasi_debug = $request->aplikasi_debug;
+        if($aplikasi_debug == '1')
+        {
+          $aplikasi_debug = 'true';
+        }
+        else {
+          $aplikasi_debug = 'false';
+        }
+        $aplikasi_url = $request->aplikasi_url;
+        $aplikasi_timezone = $request->aplikasi_timezone;
+
+        $database_host = $request->database_host;
+        $database_port = $request->database_port;
+        $database_database = $request->database_database;
+        $database_username = $request->database_username;
+        $database_password = $request->database_password;
+
+        $smtp_host = $request->smtp_host;
+        $smtp_port = $request->smtp_port;
+        $smtp_encryption = $request->smtp_encryption;
+        $smtp_username = $request->smtp_username;
+        $smtp_password = $request->smtp_password;
+        $smtp_address = $request->smtp_address;
+        $smtp_name = $request->smtp_name;
+
+        // config(['app.name' => $request->aplikasi_name]);
+         // $day = $this->setEnv("APP_NAME", $request->aplikasi_name);
+
+         // App config
+         $this->setEnvironmentValue('APP_NAME', $aplikasi_name);
+         $this->setEnvironmentValue('APP_DEBUG', $aplikasi_debug);
+         $this->setEnvironmentValue('APP_URL', $aplikasi_url);
+         // $this->setEnvironmentValue('APP_NAME', '"testing"');
+        // config(['app.timezone' => $request->aplikasi_timezone]);
+
+        // Database config
+        $this->setEnvironmentValue('DB_HOST', $database_host);
+        $this->setEnvironmentValue('DB_PORT', $database_port);
+        $this->setEnvironmentValue('DB_DATABASE', $database_database);
+        $this->setEnvironmentValue('DB_USERNAME', $database_username);
+        $this->setEnvironmentValue('DB_PASSWORD', $database_password);
+
+        // Email config
+        $this->setEnvironmentValue('MAIL_HOST', $smtp_host);
+        $this->setEnvironmentValue('MAIL_PORT', $smtp_port);
+        $this->setEnvironmentValue('MAIL_USERNAME', $smtp_username);
+        $this->setEnvironmentValue('MAIL_PASSWORD', $smtp_password);
+        $this->setEnvironmentValue('MAIL_ENCRYPTION', $smtp_encryption);
+        $this->setEnvironmentValue('MAIL_FROM_ADDRESS', $smtp_address);
+        $this->setEnvironmentValue('MAIL_FROM_NAME', $smtp_name);
+
+        // config(['app.url' => $request->aplikasi_url]);
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        // Artisan::call('config:cache');
+
+        return redirect()->route('user.it.konfigurasi');
+        // Auth::logout();
+        // return redirect()->route('login');
+      }
+
+      private function setEnvironmentValue($envKey, $envValue)
+      {
+          $envFile = app()->environmentFilePath();
+          $str = file_get_contents($envFile);
+
+          $str .= "\n"; // In case the searched variable is in the last line without \n
+          $keyPosition = strpos($str, "{$envKey}=");
+          $endOfLinePosition = strpos($str, PHP_EOL, $keyPosition);
+          $oldLine = substr($str, $keyPosition, $endOfLinePosition - $keyPosition);
+          $str = str_replace($oldLine, "{$envKey}={$envValue}", $str);
+          $str = substr($str, 0, -1);
+
+          $fp = fopen($envFile, 'w');
+          fwrite($fp, $str);
+          fclose($fp);
+
       }
 }

@@ -17,19 +17,19 @@
                                    <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                                        <thead class="thead-light">
                                            <tr class="text-center">
-                                               <th width="10%"><p class="mb-0">ID</p></th>
-                                               <th width="30%"><p class="mb-0">No Staff</p></th>
-                                               <th width="30"><p class="mb-0">Nama</p></th>
-                                               <th width="10%"><p class="mb-0">Jabatan</p></th>
-                                               <th width="70%"><p class="mb-0">Jenis Hadiah</p></th>
-                                               <th width="30%"><p class="mb-0">Nilai Hadiah (RM)</p></th>
-                                               <th width="30%"><p class="mb-0">Tarikh Diterima</p></th>
-                                               <th width="30%"><p class="mb-0">Nama Pemberi</p></th>
-                                               <th width="30"><p class="mb-0">Alamat Pemberi</p></th>
-                                               <th width="10%"><p class="mb-0">Hubungan Pemberi</p></th>
-                                               <th width="70%"><p class="mb-0">Gambar Hadiah</p></th>
-                                               <th width="30%"><p class="mb-0">Status Hadiah (RM)</p></th>
-                                               <th width="30%"><p class="mb-0">Tindakan</p></th>
+                                               <th><p class="mb-0">ID</p></th>
+                                               <th><p class="mb-0">No Staff</p></th>
+                                               <th><p class="mb-0">Jenis Lampiran</p></th>
+                                               <th><p class="mb-0">Nama</p></th>
+                                               <th><p class="mb-0">Jabatan</p></th>
+                                               <th><p class="mb-0">Jenis Hadiah</p></th>
+                                               <th><p class="mb-0">Nilai Hadiah (RM)</p></th>
+                                               <th><p class="mb-0">Tarikh Diterima</p></th>
+                                               <th><p class="mb-0">Nama Pemberi</p></th>
+                                               <th><p class="mb-0">Alamat Pemberi</p></th>
+                                               <th><p class="mb-0">Hubungan Pemberi</p></th>
+                                               <th width="30%"><p class="mb-0">Gambar Hadiah</p></th>
+                                               <th><p class="mb-0">Status Hadiah (RM)</p></th>
 
                                            </tr>
                                        </thead>
@@ -37,14 +37,22 @@
                                          @foreach($merged as $data)
                                          <tr>
                                              <td>{{ $data ->id }}</td>
-                                             <td>{{ $data ->users->kad_pengenalan }}</td>
-                                             <td>{{ $data ->users->name }}</td>
-                                             <!-- <td>
-                                                 <div class="d-flex flex-row justify-content-around align-items-center">
-                                                     <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
-                                                 </div>
-                                             </td> -->
+                                             <td>{{ $data ->users->no_staff }}</td>
+                                             <td>
+                                               @if($data ->getTable() == "gifts")
+                                               Lampiran A
+                                               <div class="d-flex flex-row justify-content-around align-items-center">
+                                                   <a href="{{ route('user.hadiah.viewA', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                                               </div>
 
+                                               @elseif($data ->getTable() == "giftbs")
+                                               Lampiran B
+                                               <div class="d-flex flex-row justify-content-around align-items-center">
+                                                   <a href="{{ route('user.hadiah.viewB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                                               </div>
+                                               @endif
+                                             </td>
+                                             <td>{{ $data ->users->name }}</td>
                                              <td>{{ $data ->jabatan}}</td>
                                              <td>{{ $data ->jenis_gift}}</td>
                                              <td>{{ $data ->nilai_gift}}</td>
@@ -85,21 +93,6 @@
                                                 <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                 @endif
                                               @endif
-                                             </td>
-                                             <td>
-                                               @if($data ->getTable() == "gifts")
-                                                 @if($data ->status == "Diproses ke Pentadbir Sistem")
-                                                 <a href="{{route('user.admin.hadiah.ulasanHadiah',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
-                                                 @else
-                                                 -
-                                                 @endif
-                                               @elseif($data ->getTable() == "giftbs")
-                                                 @if($data ->status == "Sedang Diproses")
-                                                 <a href="{{route('user.admin.hadiah.ulasanHadiahB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
-                                                 @else
-                                                 -
-                                                 @endif
-                                                @endif
                                              </td>
                                            </tr>
                                           @endforeach

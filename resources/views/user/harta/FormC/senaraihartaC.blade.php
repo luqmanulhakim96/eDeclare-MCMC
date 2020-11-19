@@ -27,6 +27,7 @@
                                        </thead>
                                        <tbody align="center">
                                          @foreach($listHarta as $data)
+                                         @if($data ->status != "Disimpan ke Draf")
 
                                          <tr>
                                              <td>{{ $data ->id }}</td>
@@ -67,6 +68,7 @@
                                              <!-- <td><img src="{{ asset('storage/uploads/gambar_hadiah/0nSg30DXJdzDJf6RCbqmeGjoZb9P45lVlw8DRdIe.png' ) }}"></td> -->
 
                                            </tr>
+                                           @endif
                                           @endforeach
                                            <!-- Table data -->
 

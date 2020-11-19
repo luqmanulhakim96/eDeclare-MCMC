@@ -64,7 +64,7 @@ class UserFormAdminD extends Notification
         // dd($notifiable);
         return[
           'permohonan_id' => $notifiable->id,
-          'tajuk' => 'Terdapat Lampiran D baru yang perlu disemak',
+          'tajuk' => 'Terdapat Lampiran Harta D baru yang perlu disemak',
           'tarikh_dicipta' => $notifiable->created_at,
           'kepada_email' => $this->admin->email,
           'kepada_id' => $this->admin->id,

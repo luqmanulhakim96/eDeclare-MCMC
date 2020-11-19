@@ -672,10 +672,10 @@
                                                    <div class="col-md-8">
                                                         <textarea class="form-control bg-light" name="ulasan_hodiv" rows="4" cols="50" placeholder="Ulasan Ketua Bahagian"></textarea><br>
 
-                                                        <input type="radio" id="tidak_diterima" name="status" value="Proses ke Jawatankuasa Tatatertib">
-                                                            <label for="Proses ke Jawatankuasa Tatatertib">Proses ke Jawatankuasa Tatatertib</label><br>
+
                                                         <input type="radio" id="diterima" name="status" value="Proses ke Ketua Jabatan Integriti">
-                                                            <label for="Proses ke Ketua Jabatan Integriti">Proses ke Ketua Jabatan Integriti</label><br><br>
+                                                            <label for="Proses ke Ketua Jabatan Integriti">Proses ke Ketua Jabatan Integriti</label><br>
+                                                            
                                                           <!-- button -->
                                                         <div>
                                                           <button type="submit" onclick=" return confirm('Hantar Ulasan?');" class="btn btn-primary mt-4">Hantar</button>

@@ -30,7 +30,7 @@
                                        </thead>
                                        <tbody align="center">
                                          @foreach($listHarta as $data)
-
+                                         @if($data ->status != "Disimpan ke Draf")
                                          <tr>
                                              <td>{{ $data ->id }}</td>
                                              <td>{{Auth::user()->name }}</td>
@@ -67,6 +67,7 @@
                                               </div>
                                              </td>
                                            </tr>
+                                           @endif
                                           @endforeach
                                            <!-- Table data -->
 

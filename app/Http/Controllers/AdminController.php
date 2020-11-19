@@ -43,6 +43,11 @@ class AdminController extends Controller
 {
     //
     public function adminDashboard(){
+    $adan= json_decode(Auth::user()->layouts->layout);
+    // dd($adan);
+    foreach($adan as $route){
+    dd($route);
+  }
       $listB = FormB::where('status','Sedang Diproses')->get();
       $attendance = FormB::with('formbs')->get();
       $listHadiah = Gift::where('status','Diproses ke Pentadbir Sistem')->get();
@@ -847,12 +852,33 @@ class AdminController extends Controller
          return view('user.admin.harta.senaraiallharta', compact('merged'));
        }
 
+       public function senaraiTugasanHarta(){
+         $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
+         $listallBTable = FormB::getTableName();
+         $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
+         $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->get();
+         $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->get();
+         $merged = $listallB->mergeRecursive($listallC);
+         $merged = $merged->mergeRecursive($listallD);
+         $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+
+         return view('user.admin.harta.senaraitugasanharta', compact('merged'));
+       }
+
        public function senaraiAllHadiah(){
          $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
          $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
          $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
 
          return view('user.admin.hadiah.senaraiallhadiah', compact('merged'));
+       }
+
+       public function senaraiTugasanHadiah(){
+         $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
+         $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();
+         $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
+
+         return view('user.admin.hadiah.senaraitugasanhadiah', compact('merged'));
        }
 
        public function reportHadiah(){
@@ -881,14 +907,13 @@ class AdminController extends Controller
          $formbs = FormB::findOrFail($id);
          $formbs->status = $status;
          $formbs->save();
-
          foreach($request->dokumen_pegawai as $file)
          {
              $file_syarikat = new DokumenB();
              $file_syarikat->dokumen_pegawai = $file->store('public/uploads/dokumen_pegawai');
              $file_syarikat->formbs_id = $formbs->id;
              $file_syarikat->save();
-             // dd($file_syarikat);
+              // dd($file);
          }
          return redirect()->route('user.admin.harta.senaraiallharta');
        }
@@ -1023,6 +1048,27 @@ class AdminController extends Controller
            $tempoh->save();
 
            return redirect()->route('user.admin.notification');
+         }
+
+         public function listAllUserDeclaration(){
+           $alluser = User::get();
+
+           return view('user.admin.senarai_user_declaration', compact('alluser'));
+         }
+
+         public function senaraiAllUserForm($id){
+           $user= User::find($id);
+           // dd($user->id);
+           $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('user_id',$user->id)->get();
+           $listallBTable = FormB::getTableName();
+           $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('user_id',$user->id)->get();
+           $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('user_id',$user->id)->get();
+           $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('user_id',$user->id)->get();
+           $merged = $listallB->mergeRecursive($listallC);
+           $merged = $merged->mergeRecursive($listallD);
+           $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+
+           return view('user.admin.senaraiallharta', compact('merged'));
          }
 
 

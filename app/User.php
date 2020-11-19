@@ -22,9 +22,10 @@ class User extends Authenticatable implements Auditable
      protected $connection = 'sqlsrv';
 
      protected $fillable = [
-
          'name','no_staff','email', 'password', 'kad_pengenalan', 'jabatan','jawatan', 'alamat_tempat_bertugas', 'nama_pasangan',
-         'kad_pengenalan_pasangan', 'pekerjaan_pasangan', 'gaji', 'nama_anak', 'umur_anak', 'no_kad_pengenalan_anak', 'lain_lain_pendapatan_bulanan', 'role', 'status', 'username'
+
+         'kad_pengenalan_pasangan', 'pekerjaan_pasangan', 'gaji', 'nama_anak', 'umur_anak', 'no_kad_pengenalan_anak', 'lain_lain_pendapatan_bulanan', 'role', 'status', 'username','should_re_login'
+
 
      ];
 
@@ -79,5 +80,10 @@ class User extends Authenticatable implements Auditable
 
     public function tanggungan(){
       return $this->hasMany('App\Tanggungan');
+    }
+
+    public function layouts(){
+      return $this->belongsTo('App\Route', 'route_id');
+
     }
 }

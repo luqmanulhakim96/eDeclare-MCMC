@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Controllers\Auth\Request as Request;
 
 class LoginController extends Controller
 {
@@ -42,5 +43,13 @@ class LoginController extends Controller
       // return 'no_staff';
       return 'samaccountname';
       // return 'username';
+    }
+
+    public function authenticated($request, $user)
+    {
+        $user->should_re_login = false;
+        $user->save();
+
+        return redirect()->intended($this->redirectPath());
     }
 }

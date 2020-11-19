@@ -682,7 +682,10 @@
                                                         <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
                                                             <label for="Tidak Diterima">Tidak Diterima</label><br>
                                                         <input type="radio" id="tidak_diterima" name="status" value="Proses ke Ketua Bahagian">
-                                                            <label for="Proses ke Ketua Bahagian">Proses ke Ketua Bahagian</label><br><br>
+                                                            <label for="Proses ke Ketua Bahagian">Proses ke Ketua Bahagian</label><br>
+                                                        <input type="radio" id="tidak_diterima" name="status" value="Untuk Tindakan Jawatankuasa Tatatertib">
+                                                            <label for="Untuk Tindakan Jawatankuasa Tatatertib">Untuk Tindakan Jawatankuasa Tatatertib</label><br>
+                                                            <br>
                                                           <!-- button -->
                                                         <div>
                                                           <button type="submit" onclick=" return confirm('Hantar Ulasan?');" class="btn btn-primary mt-4">Hantar</button>
