@@ -11,6 +11,7 @@ use DB;
 use Auth;
 use App\User;
 use App\Email;
+use App\UserExistingStaffNextofKin;
 
 use App\Jobs\SendNotificationFormD;
 
@@ -18,6 +19,11 @@ class FormDController extends Controller
 {
   public function formD()
   {
+    //data ic user
+    // $username =strtoupper(Auth::user()->name);
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+    //data testing
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
     return view('user.harta.FormD.formD');
   }
 
@@ -25,6 +31,13 @@ public function editformD($id){
     //$info = SenaraiHarga::find(1);
     $info = FormD::findOrFail($id);
     //dd($info);
+
+    //data ic user
+    // $username =strtoupper(Auth::user()->name);
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+    //data testing
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
+
     $keluarga = Keluarga::where('formds_id', $info->id) ->get();
     $count_keluarga = Keluarga::where('formds_id', $info->id)->count();
     // dd($count_keluarga);
@@ -107,9 +120,11 @@ public function add(array $data){
 }
 
   public function submitForm(Request $request){
+
   if ($request->has('save'))
   {
       $this->validator($request->all())->validate();
+
 
       event($formds = $this->adddraft($request->all()));
 

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Audit;
 use App\User;
+use App\UserExistingStaff;
+use App\UserExistingStaffInfo;
+use App\UserExistingStaffNextofKin;
+
 use romanzipp\QueueMonitor\Models\Monitor;
 use Artisan;
 use Log;
@@ -12,8 +16,11 @@ use Storage;
 use File;
 use Auth;
 use Carbon\Carbon;
+
+use Adldap\Laravel\Facades\Adldap;
 use App\Route;
 use Illuminate\Support\Facades\Validator;
+
 
 use Spatie\Backup\BackupDestination\Backup;
 use Spatie\Backup\Helpers\Format;
@@ -133,6 +140,24 @@ class ItAdminController extends Controller
       }
 
       public function audit(){
+        // testing data get from mcmc databases
+
+        // $userldap = Adldap::search()->users()->find('siti rafidah'); //active directory testing
+        // dd($userldap);
+        // $user = UserExistingStaffNextofKin::first();
+        // $user = UserExistingStaffNextofKin::where('STAFFNO','522')->get();
+        // $user = UserExistingStaffInfo::first();
+        // $user = UserExistingStaff::first();
+
+        // $username = strtoupper(Auth::user()->name);
+        // // dd($username);
+        // $user = UserExistingStaff::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD')->get();
+        // $user = UserExistingStaffInfo::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD')->get();
+        // dd($user);
+
+        // end of testing data get from mcmc databases
+
+
         $data = Audit::where('event','!=','Log Masuk')->where('event','!=','Log Keluar')->get();
         return view('user.it.audit', compact('data'));
       }

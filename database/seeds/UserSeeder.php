@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
       [
         'name' => 'Muhammad Syahdan',
         'no_staff' => '01',
-        'email' => 'adan@artanis.com',
+        'email' => 'syahdan@artaniscloud.com',
         'password' => $hashed_password,
         'kad_pengenalan' => '900102034567',
         'jabatan'=>'Jabatan Integriti',

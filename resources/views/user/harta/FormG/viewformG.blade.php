@@ -25,7 +25,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->formgs->name }}
+                                              {{$listHarta ->nama_pegawai }}
                                           </div>
                                       </div>
                                   </div>
@@ -35,7 +35,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->formgs->kad_pengenalan }}
+                                            {{$listHarta ->formgs->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -88,7 +88,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->formgs->alamat_tempat_bertugas }}
+                                              {{$listHarta->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>
@@ -181,7 +181,9 @@
                                         </div>
                                         <div class="col-md-4" align="center">
 
-                                                {{$listHarta ->formgs->gaji }}
+                                          @foreach($salary as $gaji)
+                                            {{$gaji->SALARY}}
+                                          @endforeach
 
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">

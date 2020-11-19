@@ -12,7 +12,11 @@ use DB;
 use Auth;
 use App\JenisHarta;
 use App\Email;
+use App\UserExistingStaff;
+use App\UserExistingStaffNextofKin;
+
 use PDF;
+
 
 // use App\Notifications\Form\UserFormAdminB;
 use App\Jobs\SendNotificationFormB;
@@ -22,7 +26,37 @@ class FormBController extends Controller
   public function formB()
   {
     $jenisHarta = JenisHarta::get();
-    return view('user.harta.FormB.formB', compact('jenisHarta'));
+
+    //data gaji user
+    // $username =strtoupper(Auth::user()->name);
+    // $salary = UserExistingStaff::where('STAFFNAME',$username) ->get();
+    //data testing
+    $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
+
+    //data ic pasangan
+    $username =strtoupper(Auth::user()->name);
+    $user = UserExistingStaff::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD') ->get('STAFFNO');
+    // $user = UserExistingStaff::where('STAFFNAME',$username) ->get('STAFFNO');
+    foreach ($user as $pasangan) {
+      $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')
+                                                ->where('STAFFNO',$pasangan->STAFFNO)->get();
+      }
+
+    //data anak
+   foreach ($user as $anak) {
+    $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$anak->STAFFNO)->get();
+    $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$anak->STAFFNO)->where('RELATIONSHIP','D')->get();
+    $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+
+  }
+  // dd($maklumat_anak);
+    //data testing
+    // $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('STAFFNO','552')->where('RELATIONSHIP','S')->get();
+    // $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO','552')->where('RELATIONSHIP','D')->get();
+    // $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+
+    // dd($maklumat_anak);
+    return view('user.harta.FormB.formB', compact('jenisHarta','salary','maklumat_pasangan','maklumat_anak'));
   }
 
   public function editformB($id){
@@ -30,8 +64,32 @@ class FormBController extends Controller
     $info = FormB::findOrFail($id);
     $jenisHarta = JenisHarta::get();
 
+    //data gaji user
+    // $username =strtoupper(Auth::user()->name);
+    // $salary = UserExistingStaff::where('STAFFNAME',$username) ->get();
+    //data testing
+    $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
+    // dd($salary);
+
+    //data ic pasangan
+    $username =strtoupper(Auth::user()->name);
+    $user = UserExistingStaff::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD') ->get('STAFFNO');
+    // $user = UserExistingStaff::where('STAFFNAME',$username) ->get('STAFFNO');
+    foreach ($user as $pasangan) {
+      $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')
+                                                ->where('STAFFNO',$pasangan->STAFFNO)->get();
+      }
+
+    //data anak
+   foreach ($user as $anak) {
+    $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$anak->STAFFNO)->get();
+    $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$anak->STAFFNO)->where('RELATIONSHIP','D')->get();
+    $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+
+  }
+
     $listDividenB = DividenB::where('formbs_id', $info->id) ->get();
-      // dd($listDividenB[0]->dividen_1);
+
     $listPinjamanB = PinjamanB::where('formbs_id', $info->id) ->get();
 
     $count_div = DividenB::where('formbs_id', $info->id)->count();
@@ -39,7 +97,7 @@ class FormBController extends Controller
 
 
 
-    return view('user.harta.FormB.editformB', compact('info','listDividenB','listPinjamanB','count_div','count_pinjaman','jenisHarta'));
+    return view('user.harta.FormB.editformB', compact('info','listDividenB','listPinjamanB','count_div','count_pinjaman','jenisHarta','salary','maklumat_anak','maklumat_pasangan'));
   }
 
 public function add(array $data){
@@ -48,6 +106,11 @@ public function add(array $data){
   // dd($sedang_proses);
 
     return FormB::create([
+      'nama_pegawai' => $data['nama_pegawai'],
+      'kad_pengenalan' => $data['kad_pengenalan'],
+      'jawatan' => $data['jawatan'],
+      'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
+      'gaji' => $data['gaji'],
       'jabatan' => $data['jabatan'],
       'gaji_pasangan' => $data['gaji_pasangan'],
       'jumlah_imbuhan' => $data['jumlah_imbuhan'],
@@ -185,6 +248,11 @@ public function add(array $data){
   protected function validator(array $data)
   {
     return Validator::make($data, [
+      'nama_pegawai' =>['nullable', 'string'],
+      'kad_pengenalan' => ['nullable', 'string'],
+      'jawatan' => ['nullable', 'string'],
+      'alamat_tempat_bertugas' => ['nullable', 'string'],
+      'gaji' =>['nullable', 'string'],
       'jabatan' =>['nullable', 'string'],
       'gaji_pasangan' =>['nullable', 'string'],
       'jumlah_imbuhan' => ['nullable', 'string'],
@@ -288,7 +356,7 @@ public function add(array $data){
   else if ($request->has('publish'))
   {
     $this->validator($request->all())->validate();
-    // dd($request->all());
+
     event($formbs = $this->add($request->all()));
 
     $count = count($request->dividen_1);
@@ -306,6 +374,7 @@ public function add(array $data){
       $dividen_bs->save();
     }
 
+
     $count1 = count($request->lain_lain_pinjaman);
     $count_id_pinjaman = 0;
 
@@ -322,6 +391,8 @@ public function add(array $data){
          //dd($request->all());
         $pinjaman_bs->save();
      }
+
+
 
      //send notification to admin (noti yang dia dah berjaya declare)
      $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna

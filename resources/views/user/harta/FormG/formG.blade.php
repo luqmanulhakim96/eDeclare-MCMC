@@ -20,7 +20,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->name }}
+                                          <input type="hidden" name="nama_pegawai"  value="{{Auth::user()->name }}">{{Auth::user()->name }}
                                           </div>
                                       </div>
                                   </div>
@@ -30,7 +30,17 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->kad_pengenalan }}
+                                            <input type="hidden" name="kad_pengenalan"  value="{{Auth::user()->kad_pengenalan}}">{{Auth::user()->kad_pengenalan}}
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <p>Jawatan / Gred</p>
+                                      </div>
+                                      <div class="col-md-8">
+                                          <div class="form-group">
+                                          <input type="hidden" name="jawatan"  value="{{Auth::user()->jawatan }}">{{Auth::user()->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -50,7 +60,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="date" class="form-control bg-light" name="tarikh_lantikan" placeholder="Tarikh Lantikan Ke Perkhidmatan Sekarang" value="{{ old('tarikh_lantikan')}}" required>
+                                              <input type="date" class="form-control bg-light" name="tarikh_lantikan" placeholder="Tarikh Lantikan Ke Perkhidmatan Sekarang" required>
                                           </div>
                                       </div>
                                   </div>
@@ -60,7 +70,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" name="nama_perkhidmatan" placeholder="Nama Perkhidmatan" value="{{ old('nama_perkhidmatan')}}" required>
+                                              <input type="text" class="form-control bg-light" name="nama_perkhidmatan" placeholder="Nama Perkhidmatan" required>
                                           </div>
                                       </div>
                                   </div>
@@ -70,7 +80,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" name="gelaran" placeholder="Kumpulan Perkhidmatan,Gred/ Tingkatan Hakiki dan Gelaran Jawatan" value="{{ old('gelaran')}}" required>
+                                              <input type="text" class="form-control bg-light" name="gelaran" placeholder="Kumpulan Perkhidmatan,Gred/ Tingkatan Hakiki dan Gelaran Jawatan"  required>
                                           </div>
                                       </div>
                                   </div>
@@ -80,23 +90,31 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->alamat_tempat_bertugas }}
+                                              <input type="hidden" name="alamat_tempat_bertugas" value="{{Auth::user()->alamat_tempat_bertugas }}">{{Auth::user()->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>
-                                  <br>
+
+                                  <!-- keluarga -->
                                   <div class="row">
                                     <div class="col-md-4">
                                       <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
                                     </div>
                                   </div>
+                                  @foreach($maklumat_pasangan as $maklumat_pasangan)
                                   <div class="row">
                                       <div class="col-md-4">
                                           <p>Nama Suami / Isteri</p>
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                                {{Auth::user()->nama_pasangan }}
+
+                                            @if($maklumat_pasangan->NOKNAME != null)
+                                              <input type="hidden" name="nama_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKNAME}}
+                                              @else
+                                              -
+                                              @endif
+
                                           </div>
                                       </div>
                                   </div>
@@ -106,7 +124,13 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->kad_pengenalan_pasangan }}
+                                            @if($maklumat_pasangan->ICNEW != null)
+                                              <input type="hidden" name="ic_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->ICNEW}}
+                                              @else
+                                              -
+                                              @endif
+
+
                                           </div>
                                       </div>
                                   </div>
@@ -116,17 +140,30 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->pekerjaan_pasangan }}
+
+                                            @if($maklumat_pasangan->NOKEMLOYER != NULL)
+                                              <input type="hidden" name="pekerjaan_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKEMLOYER}}
+                                              @else
+                                              -
+                                              @endif
+
                                           </div>
                                       </div>
                                     </div>
+                                    @endforeach
+                                    @foreach($maklumat_anak as $maklumat_anak)
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p>Nama Anak</p>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                {{Auth::user()->pekerjaan_pasangan }}
+                                                @if($maklumat_pasangan->NOKNAME != null)
+                                                <input type="hidden" name="nama_anak" value="{{$maklumat_anak->NOKNAME}}">{{$maklumat_anak->NOKNAME}}
+                                                @else
+                                                -
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
@@ -136,7 +173,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                {{Auth::user()->pekerjaan_pasangan }}
+                                                <input type="hidden" name="umur_anak" value="{{Auth::user()->umur_anak }}">{{Auth::user()->umur_anak }}
                                             </div>
                                         </div>
                                     </div>
@@ -146,10 +183,16 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                {{Auth::user()->pekerjaan_pasangan }}
+                                              @if($maklumat_anak->ICNEW != NULL)
+                                                <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}
+                                                @else
+                                                -
+                                                @endif
+
                                             </div>
                                         </div>
                                       </div>
+                                      @endforeach
                                       <!-- pendapatan bulanan-->
                                       <div class="row">
                                         <div class="col-md-4">
@@ -173,7 +216,9 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                {{Auth::user()->gaji }}
+                                              @foreach($salary as $gaji)
+                                                <input type="hidden" name="gaji" value="{{$gaji->SALARY}}">{{$gaji->SALARY}}
+                                              @endforeach
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">

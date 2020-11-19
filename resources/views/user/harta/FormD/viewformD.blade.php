@@ -40,7 +40,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->formds->kad_pengenalan }}
+                                            {{$listHarta ->formds->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>

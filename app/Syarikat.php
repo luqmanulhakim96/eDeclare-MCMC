@@ -10,6 +10,8 @@ class Syarikat extends Model implements Auditable
 {
   use \OwenIt\Auditing\Auditable;
   use Notifiable;
+  protected $connection = 'sqlsrv';
+  
 
   protected $fillable = [
     'nama_syarikat', 'no_pendaftaran', 'alamat_syarikat', 'jenis_syarikat', 'income_tahunan', 'modal_syarikat',

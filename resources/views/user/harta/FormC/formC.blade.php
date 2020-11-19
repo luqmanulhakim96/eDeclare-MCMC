@@ -32,7 +32,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->kad_pengenalan }}
+                                            {{Auth::user()->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>

@@ -40,7 +40,9 @@ class LoginController extends Controller
     }
 
     public function username(){
-      return 'no_staff';
+      // return 'no_staff';
+      return 'samaccountname';
+      // return 'username';
     }
 
     public function authenticated($request, $user)

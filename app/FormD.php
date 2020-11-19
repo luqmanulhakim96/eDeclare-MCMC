@@ -7,9 +7,12 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Notifications\Notifiable;
 
 class FormD extends Model implements Auditable
+// class FormD extends Model
 {
     use \OwenIt\Auditing\Auditable;
     use Notifiable;
+    protected $connection = 'sqlsrv';
+
 
     //
     protected $table = 'formds';

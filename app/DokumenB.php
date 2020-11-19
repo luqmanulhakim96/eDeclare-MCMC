@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DokumenB extends Model
 {
+  protected $connection = 'sqlsrv';
+  
     protected $table = 'dokumen_bs';
     protected $fillable = [
       'dokumen_pegawai','formbs_id'

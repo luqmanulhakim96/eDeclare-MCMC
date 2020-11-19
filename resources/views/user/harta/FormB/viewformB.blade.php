@@ -34,7 +34,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->formbs->name }}</b>
+                                              <b>{{$listHarta ->nama_pegawai }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -44,7 +44,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->formbs->kad_pengenalan }}</b>
+                                              <b>{{$listHarta ->kad_pengenalan }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -54,7 +54,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <b>{{$listHarta ->formbs->jawatan }}</b>
+                                            <b>{{$listHarta->jawatan }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -74,7 +74,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->formbs->alamat_tempat_bertugas }}</b>
+                                              <b>{{$listHarta ->alamat_tempat_bertugas }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -85,13 +85,18 @@
                                       <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
                                     </div>
                                   </div>
+                                  @foreach($maklumat_pasangan as $maklumat_pasangan)
                                   <div class="row">
                                       <div class="col-md-4">
                                           <p>Nama Suami / Isteri</p>
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->formbs->nama_pasangan }}</b>
+                                              <b>@if($maklumat_pasangan->NOKNAME != null)
+                                                {{$maklumat_pasangan->NOKNAME}}
+                                                @else
+                                                -
+                                                @endif</b>
                                           </div>
                                       </div>
                                   </div>
@@ -101,7 +106,11 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->formbs->kad_pengenalan_pasangan }}</b>
+                                              <b>  @if($maklumat_pasangan->ICNEW != null)
+                                                  {{$maklumat_pasangan->ICNEW}}
+                                                  @else
+                                                  -
+                                                  @endif</b>
                                           </div>
                                       </div>
                                   </div>
@@ -111,17 +120,27 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->formbs->pekerjaan_pasangan }}</b>
+                                              <b>@if($maklumat_pasangan->NOKEMLOYER != NULL)
+                                              {{$maklumat_pasangan->NOKEMLOYER}}
+                                                @else
+                                                -
+                                                @endif</b>
                                           </div>
                                       </div>
                                     </div>
+                                    @endforeach
+                                    @foreach($maklumat_anak as $maklumat_anak)
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p>Nama Anak</p>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <b>{{$listHarta ->formbs->nama_anak }}</b>
+                                                <b>@if($maklumat_pasangan->NOKNAME != null)
+                                                {{$maklumat_anak->NOKNAME}}
+                                                @else
+                                                -
+                                                @endif</b>
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +150,11 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <b>{{$listHarta ->formbs->umur_anak }}</b>
+                                                <b>@if($maklumat_pasangan->NOKNAME != null)
+                                                {{$maklumat_anak->NOKNAME}}
+                                                @else
+                                                -
+                                                @endif</b>
                                             </div>
                                         </div>
                                     </div>
@@ -141,10 +164,15 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                {{$listHarta ->formbs->no_kad_pengenalan_anak }}
+                                              <b>@if($maklumat_anak->ICNEW != NULL)
+                                                <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}
+                                                @else
+                                                -
+                                                @endif</b>
                                             </div>
                                         </div>
                                       </div>
+                                      @endforeach
                                       <!-- pendapatan bulanan-->
 
                                       <div class="row">
@@ -169,7 +197,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div align="center">
-                                                {{$listHarta ->formbs->gaji }}
+                                              {{$listHarta ->gaji }}
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
