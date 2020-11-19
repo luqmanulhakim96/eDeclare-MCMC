@@ -39,6 +39,7 @@ class GiftBController extends Controller
       $sedang_proses= "Sedang Diproses";
 
       return GiftB::create([
+        'jawatan' => $data['jawatan'],
         'jabatan' => $data['jabatan'],
         'jenis_gift' => $data['jenis_hadiah'],
         'nilai_gift' => $data['nilai_hadiah'],
@@ -57,6 +58,7 @@ class GiftBController extends Controller
     protected function validator(array $data)
   {
       return Validator::make($data, [
+        'jawatan' => ['nullable', 'string'],
         'jabatan' => ['required', 'string'],
         'jenis_hadiah'=> ['required', 'string'],
         'nilai_hadiah'=> ['required', 'string'],

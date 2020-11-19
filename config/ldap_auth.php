@@ -298,10 +298,14 @@ return [
 
     'sync_attributes' => [
         //insert data from ad to users table
-        
+
         'email' => 'userprincipalname',
         'username' => 'userprincipalname',
         // 'email' => 'username',
+        'title' => 'title',
+        'alamat_tempat_bertugas' => 'l',
+        'jawatan' => 'title',
+        'jabatan' => 'department',
         'name' => 'cn',
 
     ],

@@ -15,16 +15,53 @@ use App\Email;
 
 // use App\Notifications\Form\UserFormAdminG;
 use App\Jobs\SendNotificationFormG;
+use App\UserExistingStaff;
+use App\UserExistingStaffNextofKin;
+
 
 class FormGController extends Controller
 {
   public function formG()
   {
-    return view('user.harta.FormG.formG');
+
+    //data gaji user
+    $username =strtoupper(Auth::user()->name);
+    // $salary = UserExistingStaff::where('STAFFNAME',$username) ->get();
+    //data testing
+    $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
+    // return view('user.harta.FormG.formG',compact('salary','ic'));
+    //data ic pasangan
+    $username =strtoupper(Auth::user()->name);
+    $user = UserExistingStaff::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD') ->get('STAFFNO');
+    // $user = UserExistingStaff::where('STAFFNAME',$username) ->get('STAFFNO');
+    foreach ($user as $pasangan) {
+      $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')
+                                                ->where('STAFFNO',$pasangan->STAFFNO)->get();
+      }
+
+    //data anak
+   foreach ($user as $anak) {
+    $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$anak->STAFFNO)->get();
+    $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$anak->STAFFNO)->where('RELATIONSHIP','D')->get();
+    $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+
+  }
+  return view('user.harta.FormG.formG', compact('salary','maklumat_pasangan','maklumat_anak'));
   }
 public function editformG($id){
     //$info = SenaraiHarga::find(1);
     $info = FormG::findOrFail($id);
+    //data ic user
+    // $username =strtoupper(Auth::user()->name);
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+    //data testing
+    $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
+
+    //data gaji user
+    // $username =strtoupper(Auth::user()->name);
+    // $salary = UserExistingStaff::where('STAFFNAME',$username) ->get();
+    //data testing
+    $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
 
     $listDividenG = DividenG::where('formgs_id', $info->id) ->get();
 
@@ -38,7 +75,7 @@ public function editformG($id){
 
     $count_pinjam = Pinjaman::where('formgs_id', $info->id)->count();
     //dd($info);
-    return view('user.harta.FormG.editformG', compact('info','listDividenG','listPinjamanG','listPinjaman','count_pinjaman','count_div','count_pinjam'));
+    return view('user.harta.FormG.editformG', compact('info','listDividenG','listPinjamanG','listPinjaman','count_pinjaman','count_div','count_pinjam','salary','ic'));
   }
 
 public function add(array $data){
@@ -50,6 +87,12 @@ public function add(array $data){
       'tarikh_lantikan' => $data['tarikh_lantikan'],
       'nama_perkhidmatan' => $data['nama_perkhidmatan'],
       'gelaran' => $data['gelaran'],
+      'nama_pegawai' => $data['nama_pegawai'],
+      'kad_pengenalan' => $data['kad_pengenalan'],
+      'jawatan' => $data['jawatan'],
+      'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
+      'gaji' => $data['gaji'],
+      'jabatan' => $data['jabatan'],
       'gaji_pasangan' => $data['gaji_pasangan'],
       'jumlah_imbuhan' => $data['jumlah_imbuhan'],
       'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
@@ -121,6 +164,11 @@ public function add(array $data){
   protected function validator(array $data)
   {
     return Validator::make($data, [
+      'nama_pegawai' =>['nullable', 'string'],
+      'kad_pengenalan' => ['nullable', 'string'],
+      'jawatan' => ['nullable', 'string'],
+      'alamat_tempat_bertugas' => ['nullable', 'string'],
+      'gaji' =>['nullable', 'string'],
       'jabatan' =>['nullable', 'string'],
       'tarikh_lantikan'  =>['nullable', 'date'],
       'nama_perkhidmatan' =>['nullable', 'string'],

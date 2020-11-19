@@ -15,7 +15,7 @@ class AddAdditionalDataInUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('kad_pengenalan')->unique()->nullable();
+            $table->string('kad_pengenalan')->nullable();
             $table->string('jawatan')->nullable();
             $table->string('alamat_tempat_bertugas')->nullable();
             $table->string('nama_pasangan')->nullable();

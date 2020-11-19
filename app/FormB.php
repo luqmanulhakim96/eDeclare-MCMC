@@ -7,6 +7,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Notifications\Notifiable;
 
 class FormB extends Model implements Auditable
+// class FormB extends Model
 {
     use \OwenIt\Auditing\Auditable;
     use Notifiable;
@@ -14,7 +15,7 @@ class FormB extends Model implements Auditable
     //
     protected $table = 'formbs';
     protected $fillable = [
-      'gaji_pasangan','jumlah_imbuhan','jumlah_imbuhan_pasangan', 'sewa','sewa_pasangan','pendapatan_pegawai','pendapatan_pasangan',
+      'nama_pegawai','kad_pengenalan','jawatan','alamat_tempat_bertugas','gaji','gaji_pasangan','jumlah_imbuhan','jumlah_imbuhan_pasangan', 'sewa','sewa_pasangan','pendapatan_pegawai','pendapatan_pasangan',
       'pinjaman_perumahan_pegawai', 'bulanan_perumahan_pegawai','pinjaman_perumahan_pasangan', 'bulanan_perumahan_pasangan',
       'pinjaman_kenderaan_pegawai', 'bulanan_kenderaan_pegawai', 'pinjaman_kenderaan_pasangan', 'bulanan_kenderaan_pasangan',
       'jumlah_cukai_pegawai', 'bulanan_cukai_pegawai', 'jumlah_cukai_pasangan', 'bulanan_cukai_pasangan',

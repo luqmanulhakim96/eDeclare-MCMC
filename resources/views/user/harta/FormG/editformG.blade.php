@@ -31,7 +31,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->kad_pengenalan }}
+                                            {{Auth::user()->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -174,7 +174,9 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                {{Auth::user()->gaji }}
+                                              @foreach($salary as $gaji)
+                                                {{$gaji->SALARY}}
+                                              @endforeach
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">

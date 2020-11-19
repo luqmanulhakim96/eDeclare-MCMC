@@ -7,11 +7,12 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Notifications\Notifiable;
 
 class Asset extends Model implements Auditable
+// class Asset extends Model
 {
     use \OwenIt\Auditing\Auditable;
     use Notifiable;
     protected $connection = 'sqlsrv';
-    
+
 
     //
     protected $fillable = [

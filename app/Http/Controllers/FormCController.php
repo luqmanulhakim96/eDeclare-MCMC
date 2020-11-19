@@ -11,6 +11,7 @@ use Auth;
 use App\User;
 use App\JenisHarta;
 use App\Email;
+use App\UserExistingStaffNextofKin;
 
 // use App\Notifications\Form\UserFormAdminC;
 use App\Jobs\SendNotificationFormC;
@@ -20,12 +21,24 @@ class FormCController extends Controller
   public function formC()
   {
     $jenisHarta = JenisHarta::get();
+    //data ic user
+    $username =strtoupper(Auth::user()->name);
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+    //data testing
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
+
     return view('user.harta.FormC.formC', compact('jenisHarta'));
   }
 public function editformC($id){
     //$info = SenaraiHarga::find(1);
     $info = FormC::findOrFail($id);
     $jenisHarta = JenisHarta::get();
+
+    //data ic user
+    // $username =strtoupper(Auth::user()->name);
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+    //data testing
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
     //dd($info);
     return view('user.harta.FormC.editformC', compact('info','jenisHarta'));
   }

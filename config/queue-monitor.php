@@ -24,4 +24,13 @@ return [
          */
         'per_page' => 35,
     ],
+
+    'drivers' => [
+        'database' => [
+            'table'      => 'queue_monitor',
+            'connection' => 'mysql',
+        ],
+    ],
+
+    
 ];

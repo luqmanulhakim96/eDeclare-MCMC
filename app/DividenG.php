@@ -7,11 +7,12 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Notifications\Notifiable;
 
 class DividenG extends Model implements Auditable
+// class DividenG extends Model
 {
   use \OwenIt\Auditing\Auditable;
   use Notifiable;
   protected $connection = 'sqlsrv';
-  
+
 
   protected $table = 'dividen_gs';
   protected $fillable = [

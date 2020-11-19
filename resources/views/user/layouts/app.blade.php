@@ -103,7 +103,7 @@
                         </div>
                         @endif
                         <!--admin-->
-                        @if(Auth::user()->role == 1)
+                        @if(Auth::user()->name == "")
                           <li class="side-menu-item px-3"><a href="{{ route('user.admin.view') }}" class="w-100 py-3 pl-4">Dashboard</a></li>
                           <!-- Sub menu parent -->
                           <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Peribadi </a></li>
@@ -232,7 +232,7 @@
                           </div>
                           @endif
                           <!--ITadmin-->
-                          @if(Auth::user()->role == 4)
+                          @if(Auth::user()->name == "Asset and Gift")
                           <!-- <li class="side-menu-item px-3"><a href="{{ route('user.it.view') }}" class="w-100 py-3 pl-4">Dashboard</a></li> -->
                           <!-- Sub menu parent -->
                           <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#sub_menu_1" aria-expanded="false" aria-controls="sub_menu_1">Peribadi </a></li>

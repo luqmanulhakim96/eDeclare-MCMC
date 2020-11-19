@@ -40,7 +40,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                          <b>{{Auth::user()->jawatan }}</b>
+                                            <b><input type="hidden" name="jawatan" value="{{Auth::user()->jawatan }}">{{Auth::user()->jawatan }}</b>
                                           </div>
                                       </div>
                                   </div>

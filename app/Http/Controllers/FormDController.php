@@ -11,6 +11,7 @@ use DB;
 use Auth;
 use App\User;
 use App\Email;
+use App\UserExistingStaffNextofKin;
 
 use App\Jobs\SendNotificationFormD;
 
@@ -18,6 +19,11 @@ class FormDController extends Controller
 {
   public function formD()
   {
+    //data ic user
+    // $username =strtoupper(Auth::user()->name);
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+    //data testing
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
     return view('user.harta.FormD.formD');
   }
 
@@ -25,6 +31,13 @@ public function editformD($id){
     //$info = SenaraiHarga::find(1);
     $info = FormD::findOrFail($id);
     //dd($info);
+
+    //data ic user
+    // $username =strtoupper(Auth::user()->name);
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+    //data testing
+    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
+
     $keluarga = Keluarga::where('formds_id', $info->id) ->get();
     $count_keluarga = Keluarga::where('formds_id', $info->id)->count();
     // dd($count_keluarga);
@@ -96,7 +109,7 @@ public function add(array $data){
         $file_syarikat->dokumen_syarikat = $file->store('public/uploads/dokumen_syarikat');
         $file_syarikat->formds_id = $formds->id;
         $file_syarikat->save();
-        // dd($file_syarikat);
+         dd($file_syarikat);
     }
 
      $count = count($request->nama_ahli);
