@@ -48,7 +48,7 @@ class GiftBController extends Controller
       return GiftB::create([
         'jawatan' => $data['jawatan'],
         'jabatan' => $data['jabatan'],
-        'jenis_gift' => $data['jenis_hadiah'],
+        'jenis_gift' => $data['jenis_gift'],
         'nilai_gift' => $data['nilai_hadiah'],
         'tarikh_diterima' => $data['tarikh_diterima'],
         'nama_pemberi' => $data['nama_pemberi'],
@@ -68,7 +68,7 @@ class GiftBController extends Controller
 
         return GiftB::create([
           'jabatan' => $data['jabatan'],
-          'jenis_gift' => $data['jenis_hadiah'],
+          'jenis_gift' => $data['jenis_gift'],
           'nilai_gift' => $data['nilai_hadiah'],
           'tarikh_diterima' => $data['tarikh_diterima'],
           'nama_pemberi' => $data['nama_pemberi'],
@@ -82,13 +82,32 @@ class GiftBController extends Controller
         ]);
       }
 
+      public function adddraft1(array $data){
+          $userid = Auth::user()->id;
+          $sedang_proses= "Disimpan ke Draf";
+
+          return GiftB::create([
+            'jabatan' => $data['jabatan'],
+            'jenis_gift' => $data['jenis_gift'],
+            'nilai_gift' => $data['nilai_hadiah'],
+            'tarikh_diterima' => $data['tarikh_diterima'],
+            'nama_pemberi' => $data['nama_pemberi'],
+            'alamat_pemberi' => $data['alamat_pemberi'],
+            'hubungan_pemberi' => $data['hubungan_pemberi'],
+            'sebab_gift' => $data['sebab_diberi'],
+            'user_id' => $userid,
+            'status' => $sedang_proses,
+
+          ]);
+        }
+
     protected function validator(array $data)
   {
       return Validator::make($data, [
         'jawatan' => ['nullable', 'string'],
         'jabatan' => ['required', 'string'],
-        'jenis_hadiah'=> ['required', 'string'],
-        'nilai_hadiah'=> ['required', 'string'],
+        'jenis_gift'=> ['required', 'string'],
+        'nilai_hadiah'=> ['required', 'numeric'],
         'tarikh_diterima'=> ['required', 'date'],
         'nama_pemberi'=> ['required', 'string'],
         'alamat_pemberi'=> ['required', 'string'],
@@ -98,12 +117,32 @@ class GiftBController extends Controller
       ]);
   }
 
+  protected function validatordraft(array $data)
+{
+    return Validator::make($data, [
+      'jawatan' => ['nullable', 'string'],
+      'jabatan' => ['nullable', 'string'],
+      'jenis_gift'=> ['nullable', 'string'],
+      'nilai_hadiah'=> ['nullable', 'numeric'],
+      'tarikh_diterima'=> ['nullable', 'date'],
+      'nama_pemberi'=> ['nullable', 'string'],
+      'alamat_pemberi'=> ['nullable', 'string'],
+      'hubungan_pemberi'=> ['nullable', 'string'],
+      'sebab_diberi'=> ['nullable', 'string'],
+      'gambar_hadiah'=> ['nullable','max:100000'],
+    ]);
+}
+
     public function submitForm(Request $request){
       if ($request->has('save'))
       {
-        $this->validator($request->all())->validate();
+        $this->validatordraft($request->all())->validate();
+        if($request->file('gambar_hadiah') != NULL){
         $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
         event($giftbs = $this->adddraft($request->all(),$uploaded_gambar_hadiah));
+      }
+      else
+      event($giftbs = $this->adddraft1($request->all()));
 
       return redirect()->route('user.hadiah.senaraidraft');
       }
@@ -111,7 +150,7 @@ class GiftBController extends Controller
       {
         $this->validator($request->all())->validate();
         $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
-        event($giftbs = $this->adddraft($request->all(),$uploaded_gambar_hadiah));
+        event($giftbs = $this->add($request->all(),$uploaded_gambar_hadiah));
 
         //send notification to hodiv (user declare)
         $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
@@ -137,7 +176,7 @@ class GiftBController extends Controller
     $sedang_proses= "Sedang Diproses";
     $giftbs = GiftB::find($id);
     $giftbs->jabatan = request()->jabatan;
-    $giftbs->jenis_gift = request()->jenis_hadiah;
+    $giftbs->jenis_gift = request()->jenis_gift;
     $giftbs->nilai_gift = request()->nilai_hadiah;
     $giftbs->tarikh_diterima = request()->tarikh_diterima;
     $giftbs->alamat_pemberi = request()->alamat_pemberi;

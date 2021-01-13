@@ -185,7 +185,7 @@
                               </div>
                               <div class="row">
                                   <div class="col-md-2">
-                                    <p>No Staff</p>
+                                    <p>No Kad Pengenalan</p>
                                   </div>
                                   <div class="col-md-8">
                                     <input type="text" class="form-control bg-light" name="no_admin" value="{{Auth::user()->kad_pengenalan }}" readonly><br>

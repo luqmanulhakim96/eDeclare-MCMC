@@ -18,7 +18,7 @@
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <th><p class="mb-0">ID</p></th>
-                                               <th><p class="mb-0">No Staff</p></th>
+                                               <!-- <th><p class="mb-0">No Staff</p></th> -->
                                                <th><p class="mb-0">Jenis Lampiran</p></th>
                                                <th><p class="mb-0">Nama</p></th>
                                                <th><p class="mb-0">Jabatan</p></th>
@@ -37,7 +37,6 @@
                                          @foreach($merged as $data)
                                          <tr>
                                              <td>{{ $data ->id }}</td>
-                                             <td>{{ $data ->users->no_staff }}</td>
                                              <td>
                                                @if($data ->getTable() == "gifts")
                                                Lampiran A

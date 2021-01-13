@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddShouldReLoginInUsers extends Migration
+class AddStatusToAssetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddShouldReLoginInUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('should_re_login')->default(false);
+        Schema::table('assets', function (Blueprint $table) {
+              $table->string('status')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddShouldReLoginInUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('should_re_login');
+        Schema::table('assets', function (Blueprint $table) {
+            $table->dropColumn('status');
         });
     }
 }

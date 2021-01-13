@@ -14,7 +14,7 @@ class AddRouteIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('route_id')->nullable();
+            $table->string('route_id')->default(2);
         });
     }
 

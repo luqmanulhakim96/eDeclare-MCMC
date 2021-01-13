@@ -17,7 +17,7 @@ class FormD extends Model implements Auditable
     //
     protected $table = 'formds';
     protected $fillable = [
-      'nama_syarikat','no_pendaftaran_syarikat','alamat_syarikat', 'jenis_syarikat','pulangan_tahunan',
+      'nama_pegawai','kad_pengenalan','jawatan','alamat_tempat_bertugas','nama_syarikat','no_pendaftaran_syarikat','alamat_syarikat', 'jenis_syarikat','pulangan_tahunan',
       'modal_syarikat', 'modal_dibayar', 'punca_kewangan','dokumen_syarikat','pengakuan','user_id','status',
       'nama_admin','no_admin','ulasan_admin','nama_hod','no_hod','ulasan_hod','nama_hodiv','no_hodiv','ulasan_hodiv','jabatan'
     ];

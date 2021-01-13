@@ -47,6 +47,15 @@ class LoginController extends Controller
 
     public function authenticated($request, $user)
     {
+        if($user->name == 'Asset and Gift' || $user->name == 'Siti Rafidah Ahmad Fuad')
+        {
+          // // dd(Auth::user());
+          // $user = User::findOrFail($user->id);
+          // // dd($user);
+          $user->role = 4;
+          $user->save();
+        }
+
         $user->should_re_login = false;
         $user->save();
 

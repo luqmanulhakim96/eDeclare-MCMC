@@ -28,7 +28,7 @@ class GiftController extends Controller
       $info = Gift::findOrFail($id);
       $nilaiHadiah = NilaiHadiah::first();
       $jenisHadiah = JenisHadiah::get();
-      //dd($info);
+      // dd($info);
       return view('user.hadiah.editgift', compact('info','nilaiHadiah','jenisHadiah'));
     }
     public function viewHadiah($id){
@@ -49,7 +49,7 @@ class GiftController extends Controller
       return Gift::create([
         'jawatan' => $data['jawatan'],
         'jabatan' => $data['jabatan'],
-        'jenis_gift' => $data['jenis_hadiah'],
+        'jenis_gift' => $data['jenis_gift'],
         'nilai_gift' => $data['nilai_hadiah'],
         'tarikh_diterima' => $data['tarikh_diterima'],
         'nama_pemberi' => $data['nama_pemberi'],
@@ -70,7 +70,7 @@ class GiftController extends Controller
 
         return Gift::create([
           'jabatan' => $data['jabatan'],
-          'jenis_gift' => $data['jenis_hadiah'],
+          'jenis_gift' => $data['jenis_gift'],
           'nilai_gift' => $data['nilai_hadiah'],
           'tarikh_diterima' => $data['tarikh_diterima'],
           'nama_pemberi' => $data['nama_pemberi'],
@@ -84,14 +84,35 @@ class GiftController extends Controller
         ]);
       }
 
+      public function adddraft1(array $data){
+          $userid = Auth::user()->id;
+          $sedang_proses= "Disimpan ke Draf";
+
+
+
+          return Gift::create([
+            'jabatan' => $data['jabatan'],
+            'jenis_gift' => $data['jenis_gift'],
+            'nilai_gift' => $data['nilai_hadiah'],
+            'tarikh_diterima' => $data['tarikh_diterima'],
+            'nama_pemberi' => $data['nama_pemberi'],
+            'alamat_pemberi' => $data['alamat_pemberi'],
+            'hubungan_pemberi' => $data['hubungan_pemberi'],
+            'sebab_gift' => $data['sebab_diberi'],
+            'user_id' => $userid,
+            'status' => $sedang_proses,
+
+          ]);
+        }
+
 
     protected function validator(array $data)
   {
       return Validator::make($data, [
         'jawatan' => ['nullable', 'string'],
         'jabatan' => ['required', 'string'],
-        'jenis_hadiah'=> ['required', 'string'],
-        'nilai_hadiah'=> ['required', 'string'],
+        'jenis_gift'=> ['required', 'string'],
+        'nilai_hadiah'=> ['required', 'numeric'],
         'tarikh_diterima'=> ['required', 'date'],
         'nama_pemberi'=> ['required', 'string'],
         'alamat_pemberi'=> ['required', 'string'],
@@ -101,13 +122,32 @@ class GiftController extends Controller
       ]);
   }
 
+  protected function validatordraft(array $data)
+{
+    return Validator::make($data, [
+      'jawatan' => ['nullable', 'string'],
+      'jabatan' => ['nullable', 'string'],
+      'jenis_gift'=> ['nullable', 'string'],
+      'nilai_hadiah'=> ['nullable', 'numeric'],
+      'tarikh_diterima'=> ['nullable', 'date'],
+      'nama_pemberi'=> ['nullable', 'string'],
+      'alamat_pemberi'=> ['nullable', 'string'],
+      'hubungan_pemberi'=> ['nullable', 'string'],
+      'sebab_diberi'=> ['nullable', 'string'],
+      'gambar_hadiah'=> ['nullable','max:100000'],
+    ]);
+}
+
 public function submitForm(Request $request){
   if ($request->has('save'))
   {
-      $this->validator($request->all())->validate();
-
-      $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
-      event($gifts = $this->adddraft($request->all(),$uploaded_gambar_hadiah));
+    $this->validatordraft($request->all())->validate();
+    if($request->file('gambar_hadiah') != NULL){
+    $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
+    event($gifts = $this->adddraft($request->all(),$uploaded_gambar_hadiah));
+  }
+  else
+  event($gifts = $this->adddraft1($request->all()));
 
   return redirect()->route('user.hadiah.senaraidraft');
   }
@@ -141,7 +181,7 @@ public function submitForm(Request $request){
     $sedang_proses= "Sedang Diproses";
     $gifts = Gift::find($id);
     $gifts->jabatan = request()->jabatan;
-    $gifts->jenis_gift = request()->jenis_hadiah;
+    $gifts->jenis_gift = request()->jenis_gift;
     $gifts->nilai_gift = request()->nilai_hadiah;
     $gifts->tarikh_diterima = request()->tarikh_diterima;
     $gifts->alamat_pemberi = request()->alamat_pemberi;

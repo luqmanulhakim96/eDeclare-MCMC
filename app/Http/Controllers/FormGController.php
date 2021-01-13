@@ -21,47 +21,88 @@ use App\UserExistingStaffNextofKin;
 
 class FormGController extends Controller
 {
+  public function split_name($name) {
+    $parts = array();
+
+  while ( strlen( trim($name)) > 0 ) {
+      $name = trim($name);
+      $string = preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+      $parts[] = $string;
+      $name = trim( preg_replace('#'.preg_quote($string,'#').'#', '', $name ) );
+  }
+
+  if (empty($parts)) {
+      return false;
+  }
+
+  $parts = array_reverse($parts);
+  $name = array();
+  $name['first_name'] = $parts[0];
+  $name['middle_name'] = (isset($parts[2])) ? $parts[1] : '';
+  $name['last_name'] = (isset($parts[2])) ? $parts[2] : ( isset($parts[1]) ? $parts[1] : '');
+
+  return $name;
+  }
+
   public function formG()
   {
 
     //data gaji user
     $username =strtoupper(Auth::user()->name);
-    // $salary = UserExistingStaff::where('STAFFNAME',$username) ->get();
-    //data testing
-    $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
-    // return view('user.harta.FormG.formG',compact('salary','ic'));
+    $username=$this->split_name($username);
+    // dd($username);
+    $salary = UserExistingStaff::where('STAFFNAME','LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get();
+
+
     //data ic pasangan
     $username =strtoupper(Auth::user()->name);
-    $user = UserExistingStaff::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD') ->get('STAFFNO');
-    // $user = UserExistingStaff::where('STAFFNAME',$username) ->get('STAFFNO');
-    foreach ($user as $pasangan) {
-      $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')
-                                                ->where('STAFFNO',$pasangan->STAFFNO)->get();
-      }
+    $username=$this->split_name($username);
 
-    //data anak
-   foreach ($user as $anak) {
-    $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$anak->STAFFNO)->get();
-    $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$anak->STAFFNO)->where('RELATIONSHIP','D')->get();
-    $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+    $user = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
 
-  }
-  return view('user.harta.FormG.formG', compact('salary','maklumat_pasangan','maklumat_anak'));
+    if($user->isEmpty()){
+      $maklumat_pasangan = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+      $maklumat_anak = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+      return view('user.harta.FormG.formG', compact('salary','maklumat_pasangan','maklumat_anak'));
+    }
+    else{
+      // dd($user);
+      foreach ($user as $keluarga) {
+
+        $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+        $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+        }
+        return view('user.harta.FormG.formG', compact('salary','maklumat_pasangan','maklumat_anak'));
+
+    }
   }
 public function editformG($id){
     //$info = SenaraiHarga::find(1);
     $info = FormG::findOrFail($id);
-    //data ic user
-    // $username =strtoupper(Auth::user()->name);
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+    $username =strtoupper(Auth::user()->name);
+    $username=$this->split_name($username);
+    $salary = UserExistingStaff::where('STAFFNAME','LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get();
     //data testing
-    $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
+    // $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
 
-    //data gaji user
-    // $username =strtoupper(Auth::user()->name);
-    // $salary = UserExistingStaff::where('STAFFNAME',$username) ->get();
-    //data testing
-    $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
+    $user = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+    // dd($user);
+    foreach ($user as $pasangan) {
+      $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')
+                                                ->where('STAFFNO',$pasangan->STAFFNO)->get();
+      // dd(UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO','522')->get());
+
+      }
+
+      //data anak
+     foreach ($user as $anak) {
+      $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$anak->STAFFNO)->get();
+      $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$anak->STAFFNO)->where('RELATIONSHIP','D')->get();
+      $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+
+    }
 
     $listDividenG = DividenG::where('formgs_id', $info->id) ->get();
 
@@ -75,17 +116,22 @@ public function editformG($id){
 
     $count_pinjam = Pinjaman::where('formgs_id', $info->id)->count();
     //dd($info);
-    return view('user.harta.FormG.editformG', compact('info','listDividenG','listPinjamanG','listPinjaman','count_pinjaman','count_div','count_pinjam','salary','ic'));
+    return view('user.harta.FormG.editformG', compact('info','listDividenG','listPinjamanG','listPinjaman','count_pinjaman','count_div','count_pinjam','salary','maklumat_anak','maklumat_pasangan'));
   }
-  public function adddraft(array $data){
+  public function adddraft(array $data,$isChecked){
     $userid = Auth::user()->id;
     $sedang_proses= "Disimpan ke Draf";
 
       return FormG::create([
+        'nama_pegawai' => $data['nama_pegawai'],
+        'kad_pengenalan' => $data['kad_pengenalan'],
+        'jawatan' => $data['jawatan'],
+        'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
         'jabatan' => $data['jabatan'],
         'tarikh_lantikan' => $data['tarikh_lantikan'],
         'nama_perkhidmatan' => $data['nama_perkhidmatan'],
         'gelaran' => $data['gelaran'],
+        'gaji' => $data['gaji'],
         'gaji_pasangan' => $data['gaji_pasangan'],
         'jumlah_imbuhan' => $data['jumlah_imbuhan'],
         'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
@@ -94,8 +140,6 @@ public function editformG($id){
         'dividen_1' => $data['dividen_1'],
         'dividen_1_pegawai' => $data['dividen_1_pegawai'],
         'dividen_1_pasangan' => $data['dividen_1_pasangan'],
-        'pendapatan_pegawai' => $data['pendapatan_pegawai'],
-        'pendapatan_pasangan' => $data['pendapatan_pasangan'],
         'pinjaman_perumahan_pegawai' => $data['pinjaman_perumahan_pegawai'],
         'bulanan_perumahan_pegawai' => $data['bulanan_perumahan_pegawai'],
         'pinjaman_perumahan_pasangan' => $data['pinjaman_perumahan_pasangan'],
@@ -116,11 +160,7 @@ public function editformG($id){
         'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
         'bulanan_pegawai'=> $data['bulanan_pegawai'],
         'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
-        'bulanan_pasangan'=> $data['bulanan_pasangan'],
-        'jumlah_pinjaman_pegawai' => $data['jumlah_pinjaman_pegawai'],
-        'jumlah_bulanan_pegawai' => $data['jumlah_bulanan_pegawai'],
-        'jumlah_pinjaman_pasangan' => $data['jumlah_pinjaman_pasangan'],
-        'jumlah_bulanan_pasangan' => $data['jumlah_bulanan_pasangan'],
+        'bulanan_pasangan'=> $data['bulanan_pasangan'],        
         'luas_pertanian' => $data['luas_pertanian'],
         'lot_pertanian' => $data['lot_pertanian'],
         'mukim_pertanian' => $data['mukim_pertanian'],
@@ -145,7 +185,7 @@ public function editformG($id){
         'ansuran_bulanan' => $data['ansuran_bulanan'],
         'tarikh_ansuran' => $data['tarikh_ansuran'],
         'tempoh_pinjaman' => $data['tempoh_pinjaman'],
-        'pengakuan' => $data['pengakuan'],
+        'pengakuan' =>$isChecked,
         'user_id' => $userid,
         'status' => $sedang_proses,
 
@@ -159,6 +199,7 @@ public function add(array $data){
   $sedang_proses= "Sedang Diproses";
 
     return FormG::create([
+
       'jabatan' => $data['jabatan'],
       'tarikh_lantikan' => $data['tarikh_lantikan'],
       'nama_perkhidmatan' => $data['nama_perkhidmatan'],
@@ -177,8 +218,6 @@ public function add(array $data){
       'dividen_1' => $data['dividen_1'],
       'dividen_1_pegawai' => $data['dividen_1_pegawai'],
       'dividen_1_pasangan' => $data['dividen_1_pasangan'],
-      'pendapatan_pegawai' => $data['pendapatan_pegawai'],
-      'pendapatan_pasangan' => $data['pendapatan_pasangan'],
       'pinjaman_perumahan_pegawai' => $data['pinjaman_perumahan_pegawai'],
       'bulanan_perumahan_pegawai' => $data['bulanan_perumahan_pegawai'],
       'pinjaman_perumahan_pasangan' => $data['pinjaman_perumahan_pasangan'],
@@ -200,10 +239,6 @@ public function add(array $data){
       'bulanan_pegawai'=> $data['bulanan_pegawai'],
       'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
       'bulanan_pasangan'=> $data['bulanan_pasangan'],
-      'jumlah_pinjaman_pegawai' => $data['jumlah_pinjaman_pegawai'],
-      'jumlah_bulanan_pegawai' => $data['jumlah_bulanan_pegawai'],
-      'jumlah_pinjaman_pasangan' => $data['jumlah_pinjaman_pasangan'],
-      'jumlah_bulanan_pasangan' => $data['jumlah_bulanan_pasangan'],
       'luas_pertanian' => $data['luas_pertanian'],
       'lot_pertanian' => $data['lot_pertanian'],
       'mukim_pertanian' => $data['mukim_pertanian'],
@@ -237,7 +272,7 @@ public function add(array $data){
     ]);
   }
 
-  protected function validator(array $data)
+  protected function validatordraft(array $data)
   {
     return Validator::make($data, [
       'nama_pegawai' =>['nullable', 'string'],
@@ -249,41 +284,35 @@ public function add(array $data){
       'tarikh_lantikan'  =>['nullable', 'date'],
       'nama_perkhidmatan' =>['nullable', 'string'],
       'gelaran'  =>['nullable', 'string'],
-      'gaji_pasangan' =>['nullable', 'string'],
-      'jumlah_imbuhan' => ['nullable', 'string'],
-      'jumlah_imbuhan_pasangan' =>['nullable', 'string'],
-      'sewa' =>['nullable', 'string'],
-      'sewa_pasangan' =>['nullable', 'string'],
+      'gaji_pasangan' =>['nullable', 'numeric'],
+      'jumlah_imbuhan' => ['nullable', 'numeric'],
+      'jumlah_imbuhan_pasangan' =>['nullable', 'numeric'],
+      'sewa' =>['nullable', 'numeric'],
+      'sewa_pasangan' =>['nullable', 'numeric'],
       'dividen_1[]' => ['nullable', 'string'],
-      'dividen_1_pegawai[]' => ['nullable', 'string'],
-      'dividen_1_pasangan[]' => ['nullable', 'string'],
-      'pendapatan_pegawai' => ['nullable', 'string'],
-      'pendapatan_pasangan' => ['nullable', 'string'],
-      'pinjaman_perumahan_pegawai' => ['nullable', 'string'],
-      'bulanan_perumahan_pegawai' =>['nullable', 'string'],
-      'pinjaman_perumahan_pasangan' => ['nullable', 'string'],
-      'bulanan_perumahan_pasangan' => ['nullable', 'string'],
-      'pinjaman_kenderaan_pegawai' => ['nullable', 'string'],
-      'bulanan_kenderaan_pegawai' => ['nullable', 'string'],
-      'pinjaman_kenderaan_pasangan' => ['nullable', 'string'],
-      'bulanan_kenderaan_pasangan' =>['nullable', 'string'],
-      'jumlah_cukai_pegawai' =>['nullable', 'string'],
-      'bulanan_cukai_pegawai' => ['nullable', 'string'],
-      'jumlah_cukai_pasangan' => ['nullable', 'string'],
-      'bulanan_cukai_pasangan' =>['nullable', 'string'],
-      'jumlah_koperasi_pegawai' => ['nullable', 'string'],
-      'bulanan_koperasi_pegawai' => ['nullable', 'string'],
-      'jumlah_koperasi_pasangan' => ['nullable', 'string'],
-      'bulanan_koperasi_pasangan' => ['nullable', 'string'],
+      'dividen_1_pegawai[]' => ['nullable', 'numeric'],
+      'dividen_1_pasangan[]' => ['nullable', 'numeric'],
+      'pinjaman_perumahan_pegawai' => ['nullable', 'numeric'],
+      'bulanan_perumahan_pegawai' =>['nullable', 'numeric'],
+      'pinjaman_perumahan_pasangan' => ['nullable', 'numeric'],
+      'bulanan_perumahan_pasangan' => ['nullable', 'numeric'],
+      'pinjaman_kenderaan_pegawai' => ['nullable', 'numeric'],
+      'bulanan_kenderaan_pegawai' => ['nullable', 'numeric'],
+      'pinjaman_kenderaan_pasangan' => ['nullable', 'numeric'],
+      'bulanan_kenderaan_pasangan' =>['nullable', 'numeric'],
+      'jumlah_cukai_pegawai' =>['nullable', 'numeric'],
+      'bulanan_cukai_pegawai' => ['nullable', 'numeric'],
+      'jumlah_cukai_pasangan' => ['nullable', 'numeric'],
+      'bulanan_cukai_pasangan' =>['nullable', 'numeric'],
+      'jumlah_koperasi_pegawai' => ['nullable', 'numeric'],
+      'bulanan_koperasi_pegawai' => ['nullable', 'numeric'],
+      'jumlah_koperasi_pasangan' => ['nullable', 'numeric'],
+      'bulanan_koperasi_pasangan' => ['nullable', 'numeric'],
       'lain_lain_pinjaman[]'=> ['nullable', 'string'],
-      'pinjaman_pegawai[]'=> ['nullable', 'string'],
-      'bulanan_pegawai[]'=> ['nullable', 'string'],
-      'pinjaman_pasangan[]'=> ['nullable', 'string'],
-      'bulanan_pasangan[]'=> ['nullable', 'string'],
-      'jumlah_pinjaman_pegawai' => ['nullable', 'string'],
-      'jumlah_bulanan_pegawai' =>['nullable', 'string'],
-      'jumlah_pinjaman_pasangan' => ['nullable', 'string'],
-      'jumlah_bulanan_pasangan' => ['nullable', 'string'],
+      'pinjaman_pegawai[]'=> ['nullable', 'numeric'],
+      'bulanan_pegawai[]'=> ['nullable', 'numeric'],
+      'pinjaman_pasangan[]'=> ['nullable', 'numeric'],
+      'bulanan_pasangan[]'=> ['nullable', 'numeric'],
       'luas_pertanian' => ['nullable', 'string'],
       'lot_pertanian' => ['nullable', 'string'],
       'mukim_pertanian' => ['nullable', 'string'],
@@ -291,33 +320,102 @@ public function add(array $data){
       'lot_perumahan'=> ['nullable', 'string'],
       'mukim_perumahan' => ['nullable', 'string'],
       'negeri_perumahan' => ['nullable', 'string'],
-      'tarikh_diperolehi' => ['nullable', 'string'],
+      'tarikh_diperolehi' => ['nullable', 'date'],
       'luas' => ['nullable', 'string'],
       'lot'=> ['nullable', 'string'],
       'mukim' => ['nullable', 'string'],
       'negeri' => ['nullable', 'string'],
       'jenis_tanah' => ['nullable', 'string'],
       'nama_syarikat' => ['nullable', 'string'],
-      'modal_berbayar' => ['nullable', 'string'],
+      'modal_berbayar' => ['nullable', 'numeric'],
       'jumlah_unit_saham'=> ['nullable', 'string'],
-      'nilai_saham' => ['nullable', 'string'],
+      'nilai_saham' => ['nullable', 'numeric'],
       'sumber_kewangan' => ['nullable', 'string'],
       'institusi[]'=> ['nullable', 'string'],
       'alamat_institusi[]' => ['nullable', 'string'],
-      'ansuran_bulanan[]' => ['nullable', 'numeric'],
+      'ansuran_bulanan[]' => ['nullable', 'string'],
       'tarikh_ansuran[]' => ['nullable', 'date'],
       'tempoh_pinjaman[]' => ['nullable', 'string'],
-      'pengakuan' => ['nullable', 'string'],
+      'pengakuan' => ['nullable'],
+    ]);
+  }
+
+  protected function validator(array $data)
+  {
+    return Validator::make($data, [
+      'nama_pegawai' =>['nullable', 'string'],
+      'kad_pengenalan' => ['nullable', 'string'],
+      'jawatan' => ['nullable', 'string'],
+      'alamat_tempat_bertugas' => ['nullable', 'string'],
+      'gaji' =>['nullable', 'string'],
+      'jabatan' =>['nullable', 'string'],
+      'tarikh_lantikan'  =>['required', 'date'],
+      'nama_perkhidmatan' =>['required', 'string'],
+      'gelaran'  =>['required', 'string'],
+      'gaji_pasangan' =>['nullable', 'numeric'],
+      'jumlah_imbuhan' => ['nullable', 'numeric'],
+      'jumlah_imbuhan_pasangan' =>['nullable', 'numeric'],
+      'sewa' =>['nullable', 'numeric'],
+      'sewa_pasangan' =>['nullable', 'numeric'],
+      'dividen_1[]' => ['nullable', 'string'],
+      'dividen_1_pegawai[]' => ['nullable', 'numeric'],
+      'dividen_1_pasangan[]' => ['nullable', 'numeric'],
+      'pinjaman_perumahan_pegawai' => ['nullable', 'numeric'],
+      'bulanan_perumahan_pegawai' =>['nullable', 'numeric'],
+      'pinjaman_perumahan_pasangan' => ['nullable', 'numeric'],
+      'bulanan_perumahan_pasangan' => ['nullable', 'numeric'],
+      'pinjaman_kenderaan_pegawai' => ['nullable', 'numeric'],
+      'bulanan_kenderaan_pegawai' => ['nullable', 'numeric'],
+      'pinjaman_kenderaan_pasangan' => ['nullable', 'numeric'],
+      'bulanan_kenderaan_pasangan' =>['nullable', 'numeric'],
+      'jumlah_cukai_pegawai' =>['nullable', 'numeric'],
+      'bulanan_cukai_pegawai' => ['nullable', 'numeric'],
+      'jumlah_cukai_pasangan' => ['nullable', 'numeric'],
+      'bulanan_cukai_pasangan' =>['nullable', 'numeric'],
+      'jumlah_koperasi_pegawai' => ['nullable', 'numeric'],
+      'bulanan_koperasi_pegawai' => ['nullable', 'numeric'],
+      'jumlah_koperasi_pasangan' => ['nullable', 'numeric'],
+      'bulanan_koperasi_pasangan' => ['nullable', 'numeric'],
+      'lain_lain_pinjaman[]'=> ['nullable', 'string'],
+      'pinjaman_pegawai[]'=> ['nullable', 'numeric'],
+      'bulanan_pegawai[]'=> ['nullable', 'numeric'],
+      'pinjaman_pasangan[]'=> ['nullable', 'numeric'],
+      'bulanan_pasangan[]'=> ['nullable', 'numeric'],
+      'luas_pertanian' => ['nullable', 'string'],
+      'lot_pertanian' => ['nullable', 'string'],
+      'mukim_pertanian' => ['nullable', 'string'],
+      'luas_perumahan' => ['nullable', 'string'],
+      'lot_perumahan'=> ['nullable', 'string'],
+      'mukim_perumahan' => ['nullable', 'string'],
+      'negeri_perumahan' => ['nullable', 'string'],
+      'tarikh_diperolehi' => ['nullable', 'date'],
+      'luas' => ['required', 'string'],
+      'lot'=> ['required', 'string'],
+      'mukim' => ['required', 'string'],
+      'negeri' => ['required', 'string'],
+      'jenis_tanah' => ['required', 'string'],
+      'nama_syarikat' => ['required', 'string'],
+      'modal_berbayar' => ['required', 'numeric'],
+      'jumlah_unit_saham'=> ['required', 'string'],
+      'nilai_saham' => ['required', 'numeric'],
+      'sumber_kewangan' => ['required', 'string'],
+      'institusi[]'=> ['nullable', 'string'],
+      'alamat_institusi[]' => ['nullable', 'string'],
+      'ansuran_bulanan[]' => ['nullable', 'string'],
+      'tarikh_ansuran[]' => ['nullable', 'date'],
+      'tempoh_pinjaman[]' => ['nullable', 'string'],
+      'pengakuan' => ['required'],
     ]);
   }
 
   public function submitForm(Request $request){
 
   if ($request->has('save')){
+      $isChecked = $request->has('pengakuan');
 
-      $this->validator($request->all())->validate();
+      $this->validatordraft($request->all())->validate();
      // dd($request->all());
-      event($formgs = $this->adddraft($request->all()));
+      event($formgs = $this->adddraft($request->all(),$isChecked));
        //dd($request->all());
        // dd($request->dividen_1);
 

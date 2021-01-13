@@ -659,7 +659,7 @@
                                            </div>
                                            <div class="row">
                                                <div class="col-md-2">
-                                                 <p>No Staff</p>
+                                                 <p>No Kad Pengenalan</p>
                                                </div>
                                                <div class="col-md-8">
                                                  <input type="text" class="form-control bg-light" name="no_hodiv" value="{{Auth::user()->kad_pengenalan }}" readonly><br>
@@ -675,7 +675,7 @@
 
                                                         <input type="radio" id="diterima" name="status" value="Proses ke Ketua Jabatan Integriti">
                                                             <label for="Proses ke Ketua Jabatan Integriti">Proses ke Ketua Jabatan Integriti</label><br>
-                                                            
+
                                                           <!-- button -->
                                                         <div>
                                                           <button type="submit" onclick=" return confirm('Hantar Ulasan?');" class="btn btn-primary mt-4">Hantar</button>

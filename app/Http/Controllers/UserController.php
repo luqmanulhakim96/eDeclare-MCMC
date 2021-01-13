@@ -9,6 +9,7 @@ use App\User;
 use App\Gift;
 use App\GiftB;
 use App\DividenB;
+use App\DokumenSyarikat;
 use App\PinjamanB;
 use App\DividenG;
 use App\PinjamanG;
@@ -55,6 +56,29 @@ class UserController extends Controller
       // $short_name = $full_name[0]." ".$full_name[1];
       // dd($short_name);
       return view('user.view', compact('nilai_hadiah','listB','listC','listD','listG'));
+  }
+
+  public function split_name($name) {
+    $parts = array();
+
+  while ( strlen( trim($name)) > 0 ) {
+      $name = trim($name);
+      $string = preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+      $parts[] = $string;
+      $name = trim( preg_replace('#'.preg_quote($string,'#').'#', '', $name ) );
+  }
+
+  if (empty($parts)) {
+      return false;
+  }
+
+  $parts = array_reverse($parts);
+  $name = array();
+  $name['first_name'] = $parts[0];
+  $name['middle_name'] = (isset($parts[2])) ? $parts[1] : '';
+  $name['last_name'] = (isset($parts[2])) ? $parts[2] : ( isset($parts[1]) ? $parts[1] : '');
+
+  return $name;
   }
 
   public function addAsset(array $data)
@@ -146,6 +170,33 @@ class UserController extends Controller
     return view('user.harta.senaraidraft', compact('merged'));
   }
 
+  public function printA($id)
+    {
+       //dd($id);
+      $listHarta = Asset::findOrFail($id);
+       // dd($listHarta);
+
+      return view('user.perakuanharta.print', compact('listHarta'));
+    }
+
+  public function viewA($id)
+  {
+     //dd($id);
+    $listHarta = Asset::findOrFail($id);
+     // dd($listHarta);
+
+    return view('user.perakuanharta.viewformA', compact('listHarta'));
+  }
+
+  public function createPDFA($id) {
+
+      $listHarta = Asset::findOrFail($id);
+      // dd($listHarta);
+      $pdf = PDF::loadView('user.perakuanharta.print', compact('listHarta'));
+      // download PDF file with download method
+      return $pdf->download('Lampiran_A.pdf');
+    }
+
   public function createPDF($id) {
       // retreive all records from db
       $listHarta = FormB::findOrFail($id);
@@ -183,22 +234,29 @@ class UserController extends Controller
     $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();
 
     $username =strtoupper(Auth::user()->name);
-    $user = UserExistingStaff::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD') ->get('STAFFNO');
-    // $user = UserExistingStaff::where('STAFFNAME',$username) ->get('STAFFNO');
-    foreach ($user as $pasangan) {
-      $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')
-                                                ->where('STAFFNO',$pasangan->STAFFNO)->get();
-      }
+    $username=$this->split_name($username);
+    $salary = UserExistingStaff::where('STAFFNAME','LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get();
+    //data testing
+    // $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
 
-    //data anak
-    foreach ($user as $anak) {
-     $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$anak->STAFFNO)->get();
-     $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$anak->STAFFNO)->where('RELATIONSHIP','D')->get();
-     $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+    $user = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+    if($user->isEmpty()){
+      $maklumat_pasangan = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+      $maklumat_anak = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+      return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','maklumat_pasangan','maklumat_anak'));
+    }
+    else{
+      // dd($user);
+      foreach ($user as $keluarga) {
 
-   }
+        $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+        $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+        }
+        return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','maklumat_pasangan','maklumat_anak'));
 
-    return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','maklumat_anak','maklumat_pasangan'));
+    }
   }
 
   public function senaraiHartaC()
@@ -215,6 +273,7 @@ class UserController extends Controller
   {
      //dd($id);
     $listHarta = FormC::findOrFail($id);
+    // dd($listHarta);
     //data ic user
     // $username =strtoupper(Auth::user()->name);
     // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
@@ -254,13 +313,14 @@ class UserController extends Controller
      //dd($id);
     $listHarta = FormD::findOrFail($id);
     $listKeluarga = Keluarga::where('formds_id', $listHarta->id) ->get();
+    $dokumen_syarikat = DokumenSyarikat::where('formds_id', $listHarta->id) ->get();
     //data ic user
     // $username =strtoupper(Auth::user()->name);
     // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
     //data testing
     // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
 
-      return view('user.harta.FormD.viewformD', compact('listHarta','listKeluarga'));
+      return view('user.harta.FormD.viewformD', compact('listHarta','listKeluarga','dokumen_syarikat'));
   }
 
   public function printD($id)
@@ -299,19 +359,32 @@ class UserController extends Controller
     $listDividenG = DividenG::where('formgs_id', $listHarta->id) ->get();
     $listPinjamanG = PinjamanG::where('formgs_id', $listHarta->id) ->get();
     $listPinjaman = Pinjaman::where('formgs_id', $listHarta->id) ->get();
-    //data ic user
-    // $username =strtoupper(Auth::user()->name);
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+    $username =strtoupper(Auth::user()->name);
+    $username=$this->split_name($username);
+    $salary = UserExistingStaff::where('STAFFNAME','LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get();
     //data testing
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
+    // $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
 
-    //data gaji user
-    // $username =strtoupper(Auth::user()->name);
-    // $salary = UserExistingStaff::where('STAFFNAME',$username) ->get();
-    //data testing
-    $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
+    $user = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+    if($user->isEmpty()){
+      $maklumat_pasangan = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+      $maklumat_anak = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+      return view('user.harta.FormG.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','salary','maklumat_pasangan','maklumat_anak'));
+    }
+    else{
+      // dd($user);
+      foreach ($user as $keluarga) {
 
-      return view('user.harta.FormG.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','salary'));
+        $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+        $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+        }
+        return view('user.harta.FormG.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','salary','maklumat_pasangan','maklumat_anak'));
+
+    }
+
+
   }
 
   public function printG($id)

@@ -30,7 +30,7 @@ class FormDController extends Controller
 public function editformD($id){
     //$info = SenaraiHarga::find(1);
     $info = FormD::findOrFail($id);
-    //dd($info);
+    // dd($info);
 
     //data ic user
     // $username =strtoupper(Auth::user()->name);
@@ -40,15 +40,24 @@ public function editformD($id){
 
     $keluarga = Keluarga::where('formds_id', $info->id) ->get();
     $count_keluarga = Keluarga::where('formds_id', $info->id)->count();
-    // dd($count_keluarga);
-    return view('user.harta.FormD.editformD', compact('info','keluarga','count_keluarga'));
+    $dokumen_syarikat = DokumenSyarikat::where('formds_id', $info->id) ->get();
+    // dd($dokumen_syarikat);
+    return view('user.harta.FormD.editformD', compact('info','keluarga','count_keluarga','dokumen_syarikat'));
   }
 
 public function add(array $data){
   $userid = Auth::user()->id;
+
   $sedang_proses= "Sedang Diproses";
+  if(is_null($data['pengakuan'])){
+    $pengakuan = false;
+  }
 
     return FormD::create([
+      'nama_pegawai' => $data['nama_pegawai'],
+      'kad_pengenalan' => $data['kad_pengenalan'],
+      'jawatan' => $data['jawatan'],
+      'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
       'jabatan' => $data['jabatan'],
       'nama_syarikat' => $data['nama_syarikat'],
       'no_pendaftaran_syarikat' => $data['no_pendaftaran_syarikat'],
@@ -70,11 +79,17 @@ public function add(array $data){
     ]);
   }
 
-  public function adddraft(array $data){
+  public function adddraft(array $data,$isChecked){
     $userid = Auth::user()->id;
+    // dd($isChecked);
     $sedang_proses= "Disimpan ke Draf";
 
+
       return FormD::create([
+        'nama_pegawai' => $data['nama_pegawai'],
+        'kad_pengenalan' => $data['kad_pengenalan'],
+        'jawatan' => $data['jawatan'],
+        'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
         'jabatan' => $data['jabatan'],
         'nama_syarikat' => $data['nama_syarikat'],
         'no_pendaftaran_syarikat' => $data['no_pendaftaran_syarikat'],
@@ -89,48 +104,82 @@ public function add(array $data){
         'jawatan_syarikat' => $data['jawatan_syarikat'],
         'jumlah_saham' => $data['jumlah_saham'],
         'nilai_saham' => $data['nilai_saham'],
-        'pengakuan' => $data['pengakuan'],
+        'pengakuan' => $isChecked,
         'user_id' => $userid,
         'status' => $sedang_proses,
 
       ]);
+
     }
 
   protected function validator(array $data)
 {
     return Validator::make($data, [
+      'nama_pegawai' =>['nullable', 'string'],
+      'kad_pengenalan' => ['nullable', 'string'],
+      'jawatan' => ['nullable', 'string'],
+      'alamat_tempat_bertugas' => ['nullable', 'string'],
       'jabatan' =>['nullable', 'string'],
-      'nama_syarikat' =>['nullable', 'string'],
-      'no_pendaftaran_syarikat' => ['nullable', 'string'],
-      'alamat_syarikat' =>['nullable', 'string'],
-      'jenis_syarikat' =>['nullable', 'string'],
-      'pulangan_tahunan' =>['nullable', 'string'],
-      'modal_syarikat' => ['nullable', 'string'],
-      'modal_dibayar' => ['nullable', 'string'],
-      'punca_kewangan' => ['nullable', 'string'],
+      'nama_syarikat' =>['required', 'string'],
+      'no_pendaftaran_syarikat' => ['required', 'string'],
+      'alamat_syarikat' =>['required'],
+      'jenis_syarikat' =>['required', 'string'],
+      'pulangan_tahunan' =>['required', 'numeric'],
+      'modal_syarikat' => ['required', 'numeric'],
+      'modal_dibayar' => ['required', 'numeric'],
+      'punca_kewangan' => ['required', 'string'],
       'nama_ahli[]' => ['nullable', 'string'],
       'hubungan[]' => ['nullable', 'string'],
       'jawatan_syarikat[]' => ['nullable', 'string'],
-      'jumlah_saham[]' => ['nullable', 'string'],
-      'nilai_saham[]' => ['nullable', 'string'],
+      'jumlah_saham[]' => ['nullable', 'numeric'],
+      'nilai_saham[]' => ['nullable', 'numeric'],
       'dokumen_syarikat[]' => ['nullable', 'max:100000'],
-      'pengakuan' => ['nullable', 'string'],
+      'pengakuan' => ['required'],
 
     ]);
+}
+
+protected function validatordraft(array $data)
+{
+  return Validator::make($data, [
+    'nama_pegawai' =>['nullable', 'string'],
+    'kad_pengenalan' => ['nullable', 'string'],
+    'jawatan' => ['nullable', 'string'],
+    'alamat_tempat_bertugas' => ['nullable', 'string'],
+    'jabatan' =>['nullable', 'string'],
+    'nama_syarikat' =>['nullable', 'string'],
+    'no_pendaftaran_syarikat' => ['nullable', 'string'],
+    'alamat_syarikat' =>['nullable', 'string'],
+    'jenis_syarikat' =>['nullable', 'string'],
+    'pulangan_tahunan' =>['nullable', 'string'],
+    'modal_syarikat' => ['nullable', 'string'],
+    'modal_dibayar' => ['nullable', 'string'],
+    'punca_kewangan' => ['nullable', 'string'],
+    'nama_ahli[]' => ['nullable', 'string'],
+    'hubungan[]' => ['nullable', 'string'],
+    'jawatan_syarikat[]' => ['nullable', 'string'],
+    'jumlah_saham[]' => ['nullable', 'string'],
+    'nilai_saham[]' => ['nullable', 'string'],
+    'dokumen_syarikat[]' => ['nullable', 'max:100000'],
+    'pengakuan' => ['nullable', 'string'],
+
+  ]);
 }
 
   public function submitForm(Request $request){
 
   if ($request->has('save'))
   {
-      $this->validator($request->all())->validate();
+      $isChecked = $request->has('pengakuan');
+      $this->validatordraft($request->all())->validate();
 
 
-      event($formds = $this->adddraft($request->all()));
+      event($formds = $this->adddraft($request->all(),$isChecked));
 
          // $dokumen_syarikat = $request->file('dokumen_syarikat')->store('public/uploads/dokumen_syarikat');
          // dd($request->all());
         // dd($request->dokumen_syarikat);
+        if($request->dokumen_syarikat != NULL){
         foreach($request->dokumen_syarikat as $file)
         {
             $file_syarikat = new DokumenSyarikat();
@@ -139,6 +188,7 @@ public function add(array $data){
             $file_syarikat->save();
             // dd($file_syarikat);
         }
+      }
 
          $count = count($request->nama_ahli);
          $count_id = 0;
@@ -160,6 +210,7 @@ public function add(array $data){
   else if ($request->has('publish'))
   {
     $this->validator($request->all())->validate();
+    // dd($request->all());
 
     event($formds = $this->add($request->all()));
 
@@ -168,6 +219,7 @@ public function add(array $data){
       // dd($request->dokumen_syarikat);
       foreach($request->dokumen_syarikat as $file)
       {
+        // dd($file);
           $file_syarikat = new DokumenSyarikat();
           $file_syarikat->dokumen_syarikat = $file->store('public/uploads/dokumen_syarikat');
           $file_syarikat->formds_id = $formds->id;

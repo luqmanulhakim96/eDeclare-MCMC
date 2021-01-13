@@ -17,8 +17,8 @@
                                    <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                                        <thead class="thead-light">
                                            <tr class="text-center">
-                                               <!-- <th width="10%"><p class="mb-0">ID</p></th> -->
-                                               <th><p class="mb-0">No Staff</p></th>
+                                               <th width="10%"><p class="mb-0">ID</p></th>
+                                               <!-- <th><p class="mb-0">No Staff</p></th> -->
                                                <th><p class="mb-0">Nama</p></th>
                                                <th><p class="mb-0">Lampiran</p></th>
                                                <th><p class="mb-0">Tarikh</p></th>
@@ -28,12 +28,18 @@
                                        </thead>
                                        <tbody align="center">
                                          @foreach($merged as $data)
-                                         @if($data->status != 'Disimpan ke Draf')
+                                         @if($data->status != 'Disimpan ke Draf' || $data->status == 'Lampiran A')
                                          <tr>
-                                             <td>{{ $data ->users->no_staff }}</td>
-                                             <td>{{ $data ->users->name }}</td>
+                                            <td>{{ $data ->id}}</td>
+                                            <td>{{ $data ->users ->name}}</td>
+
                                              <td>
-                                               @if($data ->getTable() == "formbs")
+                                               @if($data ->getTable() == "assets")
+                                               Lampiran A
+                                               <div class="d-flex flex-row justify-content-around align-items-center">
+                                                   <a href="{{ route('user.perakuanharta.viewformA', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                                               </div>
+                                               @elseif($data ->getTable() == "formbs")
                                                Lampiran B
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
@@ -74,6 +80,8 @@
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Selesai")
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == 'Lampiran A')
+                                               <span class="badge badge-success badge-pill">Berjaya</span>
                                                @endif
                                              </td>
                                            </tr>

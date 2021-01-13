@@ -17,7 +17,7 @@
                                    <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                                        <thead class="thead-light">
                                            <tr class="text-center">
-                                               <th><p class="mb-0">No Staff</p></th>
+                                               <th><p class="mb-0">ID</p></th>
                                                <th><p class="mb-0">Nama</p></th>
                                                <th><p class="mb-0">Lampiran</p></th>
                                                <th><p class="mb-0">Tarikh</p></th>
@@ -33,7 +33,7 @@
                                          <tr>
 
 
-                                             <td>{{ $data ->users->no_staff }}</td>
+                                             <td>{{ $data ->id }}</td>
                                              <td>{{ $data ->users->name }}</td>
                                              <td>
                                                @if($data ->getTable() == "formbs")

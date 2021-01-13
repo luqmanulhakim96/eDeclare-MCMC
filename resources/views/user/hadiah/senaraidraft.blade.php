@@ -18,7 +18,7 @@
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <th width="10%"><p class="mb-0">ID</p></th>
-                                               <th width="30%"><p class="mb-0">No Staff</p></th>
+                                               <!-- <th width="30%"><p class="mb-0">No Staff</p></th> -->
                                                <th width="30"><p class="mb-0">Nama</p></th>
                                                <th width="10%"><p class="mb-0">Jabatan</p></th>
                                                <th width="70%"><p class="mb-0">Jenis Hadiah</p></th>
@@ -37,7 +37,7 @@
                                          @foreach($merged as $data)
                                          <tr>
                                              <td>{{ $data ->id }}</td>
-                                             <td>{{ $data ->users->kad_pengenalan }}</td>
+                                             <!-- <td>{{ $data ->users->kad_pengenalan }}</td> -->
                                              <td>{{ $data ->users->name }}</td>
                                              <!-- <td>
                                                  <div class="d-flex flex-row justify-content-around align-items-center">

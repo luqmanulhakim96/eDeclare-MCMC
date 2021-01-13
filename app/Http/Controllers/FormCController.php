@@ -23,7 +23,7 @@ class FormCController extends Controller
     $jenisHarta = JenisHarta::get();
     //data ic user
     $username =strtoupper(Auth::user()->name);
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+    $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
     //data testing
     // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
 
@@ -48,6 +48,10 @@ public function add(array $data){
   $sedang_proses= "Sedang Diproses";
 
     return FormC::create([
+      'nama_pegawai' => $data['nama_pegawai'],
+      'kad_pengenalan' => $data['kad_pengenalan'],
+      'jawatan' => $data['jawatan'],
+      'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
       'jabatan' => $data['jabatan'],
       'jenis_harta_lupus' => $data['jenis_harta_lupus'],
       'pemilik_harta_pelupusan' => $data['pemilik_harta_pelupusan'],
@@ -65,11 +69,15 @@ public function add(array $data){
     ]);
   }
 
-  public function adddraft(array $data){
+  public function adddraft(array $data,$isChecked){
     $userid = Auth::user()->id;
     $sedang_proses= "Disimpan ke Draf";
 
       return FormC::create([
+        'nama_pegawai' => $data['nama_pegawai'],
+        'kad_pengenalan' => $data['kad_pengenalan'],
+        'jawatan' => $data['jawatan'],
+        'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
         'jabatan' => $data['jabatan'],
         'jenis_harta_lupus' => $data['jenis_harta_lupus'],
         'pemilik_harta_pelupusan' => $data['pemilik_harta_pelupusan'],
@@ -79,8 +87,8 @@ public function add(array $data){
         'tarikh_pelupusan' => $data['tarikh_pelupusan'],
         'cara_pelupusan' => $data['cara_pelupusan'],
         'nilai_pelupusan' => $data['nilai_pelupusan'],
-        'pengakuan' => $data['pengakuan'],
         'user_id' => $userid,
+        'pengakuan' =>$isChecked,
         'status' => $sedang_proses,
 
 
@@ -90,6 +98,30 @@ public function add(array $data){
   protected function validator(array $data)
 {
     return Validator::make($data, [
+      'nama_pegawai' =>['nullable', 'string'],
+      'kad_pengenalan' => ['nullable', 'string'],
+      'jawatan' => ['nullable', 'string'],
+      'alamat_tempat_bertugas' => ['nullable', 'string'],
+      'jabatan' =>['nullable', 'string'],
+      'jenis_harta_lupus' =>['required', 'string'],
+      'pemilik_harta_pelupusan' => ['required', 'string'],
+      'hubungan_pemilik_pelupusan' =>['required', 'string'],
+      'no_pendaftaran_harta' =>['required', 'string'],
+      'tarikh_pemilikan' =>['required', 'date'],
+      'tarikh_pelupusan' => ['required', 'date'],
+      'cara_pelupusan' => ['required', 'string'],
+      'nilai_pelupusan' => ['required', 'numeric'],
+      'pengakuan' => ['required'],
+
+    ]);
+}
+  protected function validatordraft(array $data)
+{
+    return Validator::make($data, [
+      'nama_pegawai' =>['nullable', 'string'],
+      'kad_pengenalan' => ['nullable', 'string'],
+      'jawatan' => ['nullable', 'string'],
+      'alamat_tempat_bertugas' => ['nullable', 'string'],
       'jabatan' =>['nullable', 'string'],
       'jenis_harta_lupus' =>['nullable', 'string'],
       'pemilik_harta_pelupusan' => ['nullable', 'string'],
@@ -105,10 +137,13 @@ public function add(array $data){
 }
 
   public function submitForm(Request $request){
+    // dd($request->all());
   if ($request->has('save')){
+    $isChecked = $request->has('pengakuan');
 
-    $this->validator($request->all())->validate();
-    event($formcs = $this->adddraft($request->all()));
+    $this->validatordraft($request->all())->validate();
+    // dd($request->all());
+    event($formcs = $this->adddraft($request->all(),$isChecked));
 
     return redirect()->route('user.harta.senaraidraft');
   }
@@ -116,6 +151,7 @@ public function add(array $data){
   {
 
     $this->validator($request->all())->validate();
+    // dd($request->all());
     event($formcs = $this->add($request->all()));
 
     //send notification to admin (noti yang dia dah berjaya declare)

@@ -5,7 +5,7 @@
                                 <!-- Basic tabs card -->
                                 <div class="card rounded-lg">
                                     <div class="card-body">
-                                        <div class="card-title">Sistem Konfigurasi</div>
+                                        <div class="card-title">Susun Atur Sistem</div>
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item">
@@ -75,7 +75,7 @@
                                                 @endforeach
                                                 <br>
                                                   <div class="row">
-                                                    <button class="btn btn-primary" type="submit" name="button">Hantar</button>
+                                                    <button class="btn btn-primary" onclick=" return confirm('Set maklumat?');" type="submit" name="button">Hantar</button>
                                                   </div>
                                               </form>
                                               </div>

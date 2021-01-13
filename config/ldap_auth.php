@@ -300,8 +300,8 @@ return [
         //insert data from ad to users table
 
         'email' => 'userprincipalname',
-        'username' => 'userprincipalname',
-        // 'email' => 'username',
+        'username' => 'samaccountname',
+        // 'samaccountname' => 'userprincipalname',
         'title' => 'title',
         'alamat_tempat_bertugas' => 'l',
         'jawatan' => 'title',
