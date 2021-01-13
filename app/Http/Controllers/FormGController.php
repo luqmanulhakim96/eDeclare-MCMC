@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\FormB;
+use App\DividenB;
+use App\PinjamanB;
 use App\FormG;
 use App\DividenG;
 use App\PinjamanG;
@@ -46,7 +49,9 @@ class FormGController extends Controller
 
   public function formG()
   {
-
+    //data dari form latest
+    $userid = Auth::user()->id;
+    $data_user = FormB::where('user_id', $userid) ->get();
     //data gaji user
     $username =strtoupper(Auth::user()->name);
     $username=$this->split_name($username);
@@ -61,12 +66,20 @@ class FormGController extends Controller
     $user = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
 
     if($user->isEmpty()){
-      $maklumat_pasangan = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-      $maklumat_anak = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-      return view('user.harta.FormG.formG', compact('salary','maklumat_pasangan','maklumat_anak'));
+      if($data_user->isEmpty()){
+        $last_data_formb = null;
+        $dividen_user= null;
+        $pinjaman_user= null;
+        $maklumat_pasangan = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+        $maklumat_anak = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+      return view('user.harta.FormG.formG', compact('salary','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+      }
     }
     else{
-      // dd($user);
+      $last_data_formb = collect($data_user)->last();
+      $dividen_user = DividenB::where('formbs_id', $last_data_formb->id) ->get();
+      $pinjaman_user = PinjamanB::where('formbs_id', $last_data_formb->id) ->get();
+
       foreach ($user as $keluarga) {
 
         $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
@@ -74,8 +87,7 @@ class FormGController extends Controller
         $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
-        return view('user.harta.FormG.formG', compact('salary','maklumat_pasangan','maklumat_anak'));
-
+        return view('user.harta.FormG.formG', compact('salary','maklumat_pasangan','maklumat_anak','last_data_formb','dividen_user','pinjaman_user'));
     }
   }
 public function editformG($id){
@@ -160,7 +172,7 @@ public function editformG($id){
         'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
         'bulanan_pegawai'=> $data['bulanan_pegawai'],
         'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
-        'bulanan_pasangan'=> $data['bulanan_pasangan'],        
+        'bulanan_pasangan'=> $data['bulanan_pasangan'],
         'luas_pertanian' => $data['luas_pertanian'],
         'lot_pertanian' => $data['lot_pertanian'],
         'mukim_pertanian' => $data['mukim_pertanian'],

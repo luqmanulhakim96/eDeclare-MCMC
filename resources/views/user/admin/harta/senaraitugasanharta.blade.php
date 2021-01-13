@@ -29,7 +29,7 @@
                                        </thead>
                                        <tbody align="center">
                                          @foreach($merged as $data)
-                                         @if($data ->status == "Sedang Diproses")
+                                         @if($data ->status == "Sedang Diproses" || $data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
                                          <tr>
                                              <!-- <td>{{ $data ->id }}</td> -->
                                              <td>{{ $data ->id }}</td>
@@ -56,7 +56,7 @@
                                                    <a href="{{ route('user.harta.FormD.viewformD', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                </div>
                                                @elseif($data ->getTable() == "formgs")
-                                               Lampiran G
+                                               Lampiran E
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormG.viewformG', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                </div>
@@ -70,7 +70,7 @@
                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
-                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan</span>
                                                @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Tidak Lengkap")
@@ -81,6 +81,8 @@
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Selesai")
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @endif
                                              </td>
                                              <td>
@@ -111,7 +113,198 @@
                                                 @endif
                                              </td>
                                            </tr>
-                                           @endif
+                                           @elseif($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
+                                          <tr>
+                                              <td>{{ $data ->users->no_staff }}</td>
+                                              <td>{{ $data ->users->name }}</td>
+                                              <td>
+                                                @if($data ->getTable() == "formbs")
+                                                Lampiran B
+                                                <div class="d-flex flex-row justify-content-around align-items-center">
+                                                    <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                                                </div>
+                                                @elseif($data ->getTable() == "formcs")
+                                                Lampiran C
+                                                <div class="d-flex flex-row justify-content-around align-items-center">
+                                                    <a href="{{ route('user.harta.FormC.viewformC', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                                                </div>
+                                                @elseif($data ->getTable() == "formds")
+                                                Lampiran D
+                                                <div class="d-flex flex-row justify-content-around align-items-center">
+                                                    <a href="{{ route('user.harta.FormD.viewformD', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                                                </div>
+                                                @elseif($data ->getTable() == "formgs")
+                                                Lampiran G
+                                                <div class="d-flex flex-row justify-content-around align-items-center">
+                                                    <a href="{{ route('user.harta.FormG.viewformG', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                                                </div>
+                                                @endif
+                                              </td>
+                                              <td>{{ $data ->created_at}}</td>
+                                              <td>
+                                                @if($data ->status == "Sedang Diproses")
+                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
+                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                                @elseif($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
+                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                                @elseif($data ->status == "Tidak Lengkap")
+                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
+                                                @elseif($data ->status == "Tidak Diterima")
+                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
+                                                @elseif($data ->status == "Diterima")
+                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
+                                                @elseif($data ->status == "Selesai")
+                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
+                                                @endif
+                                              </td>
+                                              <td>
+                                                @if($data ->getTable() == "formbs")
+                                                  @if($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
+                                                    <button class="btn btn-success mr-1" type="button" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal2">
+                                                      <i class="fa fa-upload"> </i>
+                                                   </button>
+                                                   <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                       <div class="modal-dialog modal-dialog-centered" role="document">
+                                                       <div class="modal-content">
+                                                           <div class="modal-header">
+                                                           <h5 class="modal-title" id="exampleModalLabel">Muat Naik Dokumen Perisytiharan</h5>
+                                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                               <span aria-hidden="true">&times;</span>
+                                                           </button>
+                                                           </div>
+                                                           <div class="modal-body" align="center">
+                                                           <form action="{{route('dokumenB.submit',$data->id)}}" method="post" enctype="multipart/form-data">
+                                                             @csrf
+                                                             <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
+                                                             <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small><br>
+                                                               <input type="radio" id="diterima" name="status" value="Diterima">
+                                                                   <label for="Diterima">Diterima</label>
+                                                               <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
+                                                                   <label for="Tidak Diterima">Tidak Diterima</label><br>
+                                                           </div>
+                                                           <div class="modal-footer">
+                                                             <button type="submit" class="btn btn-secondary">Muat Naik</button>
+                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                           </div>
+                                                           </form>
+                                                       </div>
+                                                       </div>
+                                                   </div>
+                                                  @else
+                                                  -
+                                                  @endif
+                                                @elseif($data ->getTable() == "formcs")
+                                                  @if($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
+                                                  <button class="btn btn-success mr-1" type="button" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal2">
+                                                    <i class="fa fa-upload"> </i>
+                                                 </button>
+                                                 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                     <div class="modal-dialog modal-dialog-centered" role="document">
+                                                     <div class="modal-content">
+                                                         <div class="modal-header">
+                                                         <h5 class="modal-title" id="exampleModalLabel">Muat Naik Dokumen Perisytiharan</h5>
+                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                             <span aria-hidden="true">&times;</span>
+                                                         </button>
+                                                         </div>
+                                                         <div class="modal-body" align="center">
+                                                         <form action="{{route('dokumenC.submit',$data->id)}}" method="post" enctype="multipart/form-data">
+                                                           @csrf
+                                                           <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
+                                                           <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small><br>
+                                                             <input type="radio" id="diterima" name="status" value="Diterima">
+                                                                 <label for="Diterima">Diterima</label>
+                                                             <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
+                                                                 <label for="Tidak Diterima">Tidak Diterima</label><br>
+                                                         </div>
+                                                         <div class="modal-footer">
+                                                           <button type="submit" class="btn btn-secondary">Muat Naik</button>
+                                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                         </div>
+                                                         </form>
+                                                     </div>
+                                                     </div>
+                                                 </div>
+                                                  @else
+                                                  -
+                                                  @endif
+                                                @elseif($data ->getTable() == "formds")
+                                                  @if($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
+                                                  <button class="btn btn-success mr-1" type="button" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal2">
+                                                    <i class="fa fa-upload"> </i>
+                                                 </button>
+                                                 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                     <div class="modal-dialog modal-dialog-centered" role="document">
+                                                     <div class="modal-content">
+                                                         <div class="modal-header">
+                                                         <h5 class="modal-title" id="exampleModalLabel">Muat Naik Dokumen Perisytiharan</h5>
+                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                             <span aria-hidden="true">&times;</span>
+                                                         </button>
+                                                         </div>
+                                                         <div class="modal-body" align="center">
+                                                         <form action="{{route('dokumenD.submit',$data->id)}}" method="post" enctype="multipart/form-data">
+                                                           @csrf
+                                                           <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
+                                                           <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small><br>
+                                                             <input type="radio" id="diterima" name="status" value="Diterima">
+                                                                 <label for="Diterima">Diterima</label>
+                                                             <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
+                                                                 <label for="Tidak Diterima">Tidak Diterima</label><br>
+                                                         </div>
+                                                         <div class="modal-footer">
+                                                           <button type="submit" class="btn btn-secondary">Muat Naik</button>
+                                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                         </div>
+                                                         </form>
+                                                     </div>
+                                                     </div>
+                                                 </div>
+                                                  @else
+                                                  -
+                                                  @endif
+                                                 @elseif($data ->getTable() == "formgs")
+                                                   @if($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
+                                                   <button class="btn btn-success mr-1" type="button" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal2">
+                                                     <i class="fa fa-upload"> </i>
+                                                  </button>
+                                                  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                                      <div class="modal-content">
+                                                          <div class="modal-header">
+                                                          <h5 class="modal-title" id="exampleModalLabel">Muat Naik Dokumen Perisytiharan</h5>
+                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                              <span aria-hidden="true">&times;</span>
+                                                          </button>
+                                                          </div>
+                                                          <div class="modal-body" align="center">
+                                                          <form action="{{route('dokumenG.submit',$data->id)}}" method="post" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
+                                                            <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small><br>
+                                                              <input type="radio" id="diterima" name="status" value="Diterima">
+                                                                  <label for="Diterima">Diterima</label>
+                                                              <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
+                                                                  <label for="Tidak Diterima">Tidak Diterima</label><br>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-secondary">Muat Naik</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                          </div>
+                                                          </form>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                   @else
+                                                   -
+                                                   @endif
+                                                 @endif
+                                              </td>
+                                               @endif
+                                            </tr>
                                           @endforeach
                                            <!-- Table data -->
 

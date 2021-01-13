@@ -74,16 +74,30 @@ class FormBController extends Controller
 
     //data ic pasangan
     $username =strtoupper(Auth::user()->name);
+    //data dari form latest
+    $userid = Auth::user()->id;
+    $data_user = FormB::where('user_id', $userid) ->get();
+
     $username=$this->split_name($username);
     $user = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
     // dd($user);
     if($user->isEmpty()){
-      $maklumat_pasangan = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-      $maklumat_anak = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-      return view('user.harta.FormB.formB', compact('jenisHarta','salary','maklumat_pasangan','maklumat_anak'));
+      if($data_user->isEmpty()){
+        $last_data_formb = null;
+        $dividen_user= null;
+        $pinjaman_user= null;
+        $maklumat_pasangan = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+        $maklumat_anak = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+        return view('user.harta.FormB.formB', compact('jenisHarta','salary','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+      }
     }
     else{
-      // dd($user);
+      $data_user = FormB::where('user_id', $userid) ->get();
+      $last_data_formb = collect($data_user)->last();
+      $dividen_user = DividenB::where('formbs_id', $last_data_formb->id) ->get();
+      // dd($dividen_user);
+      $pinjaman_user = PinjamanB::where('formbs_id', $last_data_formb->id) ->get();
+
       foreach ($user as $keluarga) {
 
         $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
@@ -91,7 +105,7 @@ class FormBController extends Controller
         $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
-        return view('user.harta.FormB.formB', compact('jenisHarta','salary','maklumat_pasangan','maklumat_anak'));
+        return view('user.harta.FormB.formB', compact('jenisHarta','salary','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
 
     }
 
