@@ -930,9 +930,9 @@ class AdminController extends Controller
 
        public function submitDokumenB(Request $request, $id){
          // dd($request->all());
-         $status="Selesai";
+         // $status="Proses ke Pentadbir Sistem(Tatatertib)";
          $formbs = FormB::findOrFail($id);
-         $formbs->status = $status;
+         $formbs->status = $request->status;
          $formbs->save();
          foreach($request->dokumen_pegawai as $file)
          {
@@ -947,9 +947,9 @@ class AdminController extends Controller
 
        public function submitDokumenC(Request $request, $id){
          // dd($request->all());
-         $status="Selesai";
+         // $status="Proses ke Pentadbir Sistem(Tatatertib)";
          $formcs = FormC::findOrFail($id);
-         $formcs->status = $status;
+         $formcs->status = $request->status;
          $formcs->save();
 
          foreach($request->dokumen_pegawai as $file)
@@ -965,9 +965,9 @@ class AdminController extends Controller
 
        public function submitDokumenD(Request $request, $id){
          // dd($request->all());
-         $status="Selesai";
+         // $status="Proses ke Pentadbir Sistem(Tatatertib)";
          $formds = FormD::findOrFail($id);
-         $formds->status = $status;
+         $formds->status = $request->status;
          $formds->save();
 
          foreach($request->dokumen_pegawai as $file)
@@ -983,9 +983,9 @@ class AdminController extends Controller
 
        public function submitDokumenG(Request $request, $id){
          // dd($request->all());
-         $status="Selesai";
+         // $status="Proses ke Pentadbir Sistem(Tatatertib)";
          $formgs = FormG::findOrFail($id);
-         $formgs->status = $status;
+         $formgs->status = $request->status;
          $formgs->save();
 
          foreach($request->dokumen_pegawai as $file)

@@ -61,7 +61,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                       <input type="checkbox" name="perakuan" value="pengakuan pegawai" id="perakuan" required>
-                                      <label for="pengakuan"> Dengan ini saya mengaku bahawa tiada perubahan ke atas pemilikan harta saya seperti yang telah di isytiharkan pada.  </label>
+                                      <label for="pengakuan"> Dengan ini saya mengaku bahawa tiada perubahan ke atas pemilikan harta saya seperti yang telah di isytiharkan pada  </label>
                                       <input class="form-control bg-light" type="date" name="tarikh_perakuan" value="<?php echo date('Y-m-d'); ?>" required readonly><br>
                                     </div>
                                     <div class="col-md-12">

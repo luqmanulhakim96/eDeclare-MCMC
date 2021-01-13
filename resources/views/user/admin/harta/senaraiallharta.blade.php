@@ -70,8 +70,10 @@
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
-                                               <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan Integriti</span>
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Tidak Lengkap")
                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Tidak Diterima")
@@ -81,7 +83,7 @@
                                                @elseif($data ->status == "Selesai")
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == 'Lampiran A')
-                                               <span class="badge badge-success badge-pill">Berjaya</span>
+                                               <span class="badge badge-success badge-pill">Diterima</span>
                                                @endif
                                              </td>
                                            </tr>

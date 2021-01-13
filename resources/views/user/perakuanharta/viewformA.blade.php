@@ -66,7 +66,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                       <p>Dengan ini saya mengaku bahawa tiada perubahan ke atas pemilikan harta saya seperti yang telah di isytiharkan pada. <B>{{$listHarta -> tarikh_perakuan}}</b><p>
+                                       <p>Dengan ini saya mengaku bahawa tiada perubahan ke atas pemilikan harta saya seperti yang telah di isytiharkan pada <B>{{$listHarta -> tarikh_perakuan}}</b><p>
                                     </div>
                                     <div class="col-md-12">
                                       <p> Saya membuat pengakuan ini selaras dengan kehendak perenggan 6, Pekeliling Perkhidmatan Bil. 3 Tahun 2002. Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</p>
