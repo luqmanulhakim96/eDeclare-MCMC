@@ -1,4 +1,4 @@
-
+@extends('user.layouts.appPrint')
            <!--Page Body part -->
            <table>
            <tr>
@@ -70,10 +70,9 @@
                                  <td><p><b>3. GAMBAR HADIAH YANG DITERIMA</b></p></td>
                               </tr>
                               <tr>
-                                 <td align="center">
-                                   <div class="img-responsive" alt="Gambar Hadiah" align="center">
-                                     <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  width="70%" height="70%">
-                                  </div>
-                                </td>
+                                <td align="center">
+                                  <?php $image_path = str_replace('public', 'storage',  $info->gambar_gift); ?>
+                                   <img src="{{ $image_path }}">
+                               </td>
                              </tr>
                           </table>

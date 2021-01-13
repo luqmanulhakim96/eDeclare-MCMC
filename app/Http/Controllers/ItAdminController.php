@@ -142,7 +142,7 @@ class ItAdminController extends Controller
       public function audit(){
         // testing data get from mcmc databases
 
-        // $userldap = Adldap::search()->users()->find('siti rafidah'); //active directory testing
+        // $userldap = Adldap::search()->users()->find('assetngift'); //active directory testing
         // dd($userldap);
         // $user = UserExistingStaffNextofKin::first();
         // $user = UserExistingStaffNextofKin::where('STAFFNO','522')->get();
@@ -150,7 +150,7 @@ class ItAdminController extends Controller
         // $user = UserExistingStaff::first();
 
         // $username = strtoupper(Auth::user()->name);
-        // // dd($username);
+        // dd($username);
         // $user = UserExistingStaff::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD')->get();
         // $user = UserExistingStaffInfo::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD')->get();
         // dd($user);
@@ -190,6 +190,12 @@ class ItAdminController extends Controller
         $users=User::find($id);
         // dd($request->all());
         $users->role = $request->role;
+        if($request->role == 1){
+          $users->route_id = 1;
+        }
+        elseif ($request->role == 4) {
+          $users->route_id = 2;
+        }
         $users->save();
 
         $currentUser = Auth::user();
@@ -303,6 +309,7 @@ class ItAdminController extends Controller
         $routes2->save();
 
         return redirect()->route('user.it.sistemkonfigurasi');
+      }
 
       public function konfigurasiSistem(){
         $config_app = config('app');

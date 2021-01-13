@@ -14,7 +14,7 @@
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-                              <form action="{{route('d.submit')}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{route('d.submit')}}" method="POST" name="Ds" enctype="multipart/form-data">
                                 @csrf
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
@@ -23,7 +23,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->name }}
+                                          <input type="hidden" name="nama_pegawai"  value="{{Auth::user()->name }}">{{Auth::user()->name }}
                                           </div>
                                       </div>
                                   </div>
@@ -33,7 +33,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                          {{Auth::user()->kad_pengenalan }}
+                                            <input type="hidden" name="kad_pengenalan"  value="{{Auth::user()->kad_pengenalan}}">{{Auth::user()->kad_pengenalan}}
                                           </div>
                                       </div>
                                   </div>
@@ -43,7 +43,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->jawatan }}
+                                          <input type="hidden" name="jawatan"  value="{{Auth::user()->jawatan }}">{{Auth::user()->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -63,7 +63,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->alamat_tempat_bertugas }}
+                                              <input type="hidden" name="alamat_tempat_bertugas" value="{{Auth::user()->alamat_tempat_bertugas }}">{{Auth::user()->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>
@@ -78,8 +78,11 @@
                                         <p class="required">i) Nama Syarikat / Perniagaan</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="nama_syarikat" placeholder="Nama Syarikat/Perniagaan" value="{{ old('nama_syarikat')}}" required>
+                                        <input class="form-control bg-light" type="text" name="nama_syarikat" placeholder="Nama Syarikat/Perniagaan" value="{{ old('nama_syarikat')}}" >
                                       </div>
+                                      @error('nama_syarikat')
+                                         <div class="alert alert-danger">{{ $message }}</div>
+                                     @enderror
                                   </div>
                                       <br>
                                   <div class="row">
@@ -89,6 +92,9 @@
                                       <div class="col-md-8">
                                           <input class="form-control bg-light" type="text" name="no_pendaftaran_syarikat" placeholder="No Pendaftaran Syarikat/Perniagaan" value="{{ old('no_pendaftaran_syarikat')}}" class="required">
                                       </div>
+                                      @error('no_pendaftaran_syarikat')
+                                         <div class="alert alert-danger">{{ $message }}</div>
+                                     @enderror
                                   </div>
                                   <br>
                                     <div class="row">
@@ -98,6 +104,9 @@
                                       <div class="col-md-8">
                                           <input class="form-control bg-light" type="text" name="alamat_syarikat" placeholder="Alamat Syarikat / Perniagaan" value="{{ old('alamat_syarikat')}}" class="required">
                                       </div>
+                                      @error('alamat_syarikat')
+                                         <div class="alert alert-danger">{{ $message }}</div>
+                                     @enderror
                                   </div>
                                   <br>
                                   <div class="row">
@@ -107,6 +116,9 @@
                                     <div class="col-md-8">
                                         <input class="form-control bg-light" type="text" name="jenis_syarikat" placeholder="Jenis Syarikat / Perniagaan" value="{{ old('jenis_syarikat')}}" class="required">
                                     </div>
+                                    @error('jenis_syarikat')
+                                       <div class="alert alert-danger">{{ $message }}</div>
+                                   @enderror
                                   </div>
                                   <br>
                                   <div class="row">
@@ -116,6 +128,9 @@
                                     <div class="col-md-8">
                                        <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ old('pulangan_tahunan')}}" class="required">
                                     </div>
+                                    @error('pulangan_tahunan')
+                                       <div class="alert alert-danger">{{ $message }}</div>
+                                   @enderror
                                  </div>
                                  <br>
                                  <div class="row">
@@ -125,6 +140,9 @@
                                     <div class="col-md-8">
                                         <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ old('modal_syarikat')}}" class="required">
                                     </div>
+                                    @error('modal_syarikat')
+                                       <div class="alert alert-danger">{{ $message }}</div>
+                                   @enderror
                                 </div>
                                 <br>
                                 <div class="row">
@@ -134,6 +152,9 @@
                                   <div class="col-md-8">
                                       <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ old('modal_dibayar')}}" class="required">
                                   </div>
+                                  @error('modal_dibayar')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
                                </div>
                                <br>
                                <div class="row">
@@ -143,6 +164,7 @@
                                  <div class="col-md-8">
                                      <input class="form-control bg-light" type="text" name="punca_kewangan" placeholder="Punca Kewangan Syarikat / Perniagaan"  value="{{ old('punca_kewangan')}}" class="required">
                                  </div>
+
                               </div>
                               <br>
                               <div class="row">
@@ -181,7 +203,7 @@
                                     <!-- Basic one -->
                                      <div class="dropdown">
                                             <select id="select" class="custom-select  bg-light" name="hubungan[]"  value="{{ old('hubungan[]')}}">
-                                                <option selected disabled hidden >Pilih Hubungan</option>
+                                                <option selected hidden></option>
                                                 <option value="Isteri" {{ old('hubungan[]') == "Isteri" ? 'selected' : '' }}>Isteri</option>
                                                 <option value="Suami" {{ old('hubungan[]') == "Suami" ? 'selected' : '' }}>Suami</option>
                                                 <option value="Anak" {{ old('hubungan[]') == "Anak" ? 'selected' : '' }}>Anak</option>
@@ -195,7 +217,7 @@
                                     <!-- Basic one -->
                                      <div class="dropdown">
                                           <select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat[]"  value="{{ old('jawatan_syarikat[]')}}">
-                                              <option selected disabled hidden>Pilih Jawatan</option>
+                                              <option selected hidden></option>
                                               <option value="Pemilik Saham" {{ old('jawatan_syarikat[]') == "Pemilik Saham" ? 'selected' : '' }}>Pemilik Saham</option>
                                               <option value="Pengarah/ Lembaga Pengarah" {{ old('jawatan_syarikat[]') == "Pengarah/ Lembaga Pengarah" ? 'selected' : '' }}>Pengarah/ Lembaga Pengarah</option>
                                           </select>
@@ -274,16 +296,22 @@
                                       <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat[]" aria-describedby="dokumen_syarikat" multiple>
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
                                  </div>
+                                 @error('dokumen_syarikat[]')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                              </div>
                              <br>
                              <br>
                              <div class="row">
                                <div class="col-md-1" align="right">
-                                 <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
+                                 <input type="checkbox" name="pengakuan" value="pengakuan pegawai">
                                </div>
                                <div class="col-md-11">
                                    <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
                                </div>
+                               @error('pengakuan')
+                                  <div class="alert alert-danger">{{ $message }}</div>
+                              @enderror
                              </div>
                                   <!-- button -->
                                   <div class="row">
@@ -292,7 +320,7 @@
                                     <div class="col-md-3">
                                       <button type="submit" onclick=" return confirm('Simpan maklumat?');" class="btn btn-primary mt-4" name="save">Simpan</button>
 
-                                      <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4" name="publish">Hantar</button>
+                                      <button type="submit" onclick="return confirm('Hantar maklumat?');" class="btn btn-primary mt-4" name="publish">Hantar</button>
                                     </div>
                               </form>
                           </div>
@@ -301,4 +329,5 @@
                       </div>
                </div>
            </div>
+
 @endsection

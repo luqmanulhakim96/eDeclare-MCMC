@@ -35,6 +35,21 @@ class AppServiceProvider extends ServiceProvider
     {
       view()->composer('*', function ($view)
       {
+        // dd(Auth::user());
+
+        if(Auth::user())
+        {
+          // if(Auth::user()->name == 'Asset and Gift' || Auth::user()->name == 'Siti Rafidah Ahmad Fuad')
+          // {
+          //   // dd(Auth::user());
+          //   $user = User::findOrFail(Auth::user()->id);
+          //   // dd($user);
+          //   $user->role = 2;
+          //   $user->save();
+          // }
+          // dd($user);
+
+        }
         if(Auth::user()){
           $count_notification = 0;
           $formbs = FormB::get();

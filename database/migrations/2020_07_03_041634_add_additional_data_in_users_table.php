@@ -26,7 +26,7 @@ class AddAdditionalDataInUsersTable extends Migration
             $table->string('umur_anak')->nullable();
             $table->string('no_kad_pengenalan_anak')->nullable();
             $table->decimal('lain_lain_pendapatan_bulanan',10,2)->nullable();
-            $table->integer('role')->nullable();
+            $table->integer('role')->default(5);
         });
     }
 

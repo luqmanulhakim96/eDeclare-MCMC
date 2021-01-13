@@ -51,7 +51,10 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" placeholder="Jabatan / Bahagian" name="jabatan">
+                                              <input type="text" class="form-control bg-light" value="{{ old('jabatan')}}" placeholder="Jabatan / Bahagian" name="jabatan">
+                                              @error('jabatan')
+                                                 <div class="alert alert-danger">{{ $message }}</div>
+                                             @enderror
                                           </div>
                                       </div>
                                   </div>
@@ -79,18 +82,18 @@
                                         <p class="required">i) Jenis</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <select id="jenis_hadiah" class="custom-select  bg-light" name="jenis_hadiah" required>
-                                            <option value="" selected disabled hidden>Jenis Hadiah</option>
+                                        <select id="jenis_gift" class="custom-select  bg-light" name="jenis_gift" value="{{old('jenis_gift')}}" >
+                                            <option value="" selected hidden></option>
 
                                             @foreach($jenisHadiah as $data)
                                             @if($data->status_jenis_hadiah == "Aktif")
-                                            <option value="{{$data->jenis_gift}}">{{$data->jenis_gift}}</option>
+                                            <option value="{{$data->jenis_gift}}"  {{ old('jenis_gift') =="$data->jenis_gift" ? 'selected' :'' }}>{{$data->jenis_gift}}</option>
                                             @endif
                                             @endforeach
 
                                             </select>
                                       </div>
-                                      @error('jenis_hadiah')
+                                      @error('jenis_gift')
                                       <div class="alert alert-danger">
                                         <strong>{{ $message }}</strong>
                                       </div>
@@ -102,7 +105,7 @@
                                           <p class="required">ii) Nilai/ Anggaran Nilai</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="nilai_hadiah" id="nilai_hadiah" placeholder="Nilai Hadiah/ Anggaran Nilai" required>
+                                          <input class="form-control bg-light" type="text" name="nilai_hadiah" value="{{ old('nilai_hadiah')}}" id="nilai_hadiah" placeholder="Nilai Hadiah/ Anggaran Nilai" >
                                       </div>
                                       @error('nilai_hadiah')
                                       <div class="alert alert-danger">
@@ -116,7 +119,7 @@
                                           <p class="required">iii) Tarikh diterima</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_diterima" id="tarikh_diterima" placeholder="Tarikh Hadiah Diterima" required>
+                                          <input class="form-control bg-light" id="datefield" type="date" name="tarikh_diterima" value="{{ old('tarikh_diterima')}}" id="tarikh_diterima" placeholder="Tarikh Hadiah Diterima" >
                                       </div>
                                       @error('tarikh_diterima')
                                       <div class="alert alert-danger">
@@ -130,7 +133,7 @@
                                         <p class="required">iv) Nama Pemberi</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="nama_pemberi" id="nama_pemberi" placeholder="Nama Pemberi Hadiah" required>
+                                        <input class="form-control bg-light" type="text" name="nama_pemberi" value="{{ old('nama_pemberi')}}" id="nama_pemberi" placeholder="Nama Pemberi Hadiah" >
                                     </div>
                                     @error('nama_pemberi')
                                     <div class="alert alert-danger">
@@ -144,7 +147,7 @@
                                         <p class="required">v) Alamat Pemberi</p>
                                     </div>
                                     <div class="col-md-8">
-                                       <input class="form-control bg-light" type="text" name="alamat_pemberi" id="alamat_pemberi" placeholder="Alamat Pemberi" required>
+                                       <input class="form-control bg-light" type="text" name="alamat_pemberi" value="{{ old('alamat_pemberi')}}" id="alamat_pemberi" placeholder="Alamat Pemberi" >
                                     </div>
                                     @error('alamat_pemberi')
                                     <div class="alert alert-danger">
@@ -158,7 +161,7 @@
                                        <p class="required">v) Hubungan Pemberi</p>
                                    </div>
                                    <div class="col-md-8">
-                                      <input class="form-control bg-light" type="text" name="hubungan_pemberi" id="hubungan_pemberi" placeholder="Hubungan Pemberi" required>
+                                      <input class="form-control bg-light" type="text" name="hubungan_pemberi" value="{{ old('hubungan_pemberi')}}" id="hubungan_pemberi" placeholder="Hubungan Pemberi" >
                                    </div>
                                    @error('hubungan_pemberi')
                                    <div class="alert alert-danger">
@@ -172,7 +175,7 @@
                                         <p class="required">vi)Sebab Diberi</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="sebab_diberi" id="sebab_diberi" placeholder="Sebab Diberi" required>
+                                        <input class="form-control bg-light" type="text" name="sebab_diberi" value="{{ old('sebab_diberi')}}" id="sebab_diberi" placeholder="Sebab Diberi" >
                                     </div>
                                     @error('sebab_diberi')
                                     <div class="alert alert-danger">
@@ -190,8 +193,13 @@
                               <div class="row">
                                  <div class="col-md-4">
                                    <label for="dokumen_syarikat">Sila lampirkan gambar hadiah yang diterima:</label>
-                                      <input type="file" class="form-control bg-light" id="gambar_hadiah" name="gambar_hadiah" aria-describedby="gambar_hadiah" required>
+                                      <input type="file" class="form-control bg-light" id="gambar_hadiah" name="gambar_hadiah" aria-describedby="gambar_hadiah"  >
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
+                                        @error('dokumen_syarikat')
+                                        <div class="alert alert-danger">
+                                          <strong>{{ $message }}</strong>
+                                        </div>
+                                        @enderror
                                  </div>
 
                              </div>
@@ -199,20 +207,25 @@
                              <br>
                              <div class="row">
                                  <div class="col-md-1" align="right">
-                                   <input type="checkbox" name="pengakuan" value="pengakuan_pegawai" required></div>
+                                   <input type="checkbox" name="pengakuan" value="pengakuan_pegawai" ></div>
                                    <div class="col-md-11">
                                    <label for="pengakuan"> Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar.
                                       Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan dirujuk kepada Jawatankuasa Tatatertib MCMC</label><br>
                                  </div>
+                                 @error('pengakuan')
+                                 <div class="alert alert-danger">
+                                   <strong>{{ $message }}</strong>
+                                 </div>
+                                 @enderror
                              </div>
 
-                             
+
 
                                   <!-- button -->
                                  <div class="row">
-                                  <div class="col-md-10">
+                                  <div class="col-md-9">
                                   </div>
-                                  <div class="col-md-2">
+                                  <div class="col-md-3">
                                     <button type="submit" onclick=" return confirm('Simpan maklumat?');" class="btn btn-primary mt-4" name="save">Simpan</button>
 
                                     <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4" name="publish">Hantar</button>
@@ -223,4 +236,19 @@
                       </div>
                </div>
            </div>
+           <script type="text/javascript">
+           var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+             if(dd<10){
+                    dd='0'+dd
+                }
+                if(mm<10){
+                    mm='0'+mm
+                }
+
+            today = yyyy+'-'+mm+'-'+dd;
+            document.getElementById("datefield").setAttribute("max", today);
+            </script>
 @endsection

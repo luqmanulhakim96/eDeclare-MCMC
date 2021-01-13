@@ -79,18 +79,18 @@
                                         <p class="required">i) Jenis</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <select id="jenis_hadiah" class="custom-select  bg-light" name="jenis_hadiah" required>
-                                            <option value="" selected disabled hidden>Jenis Hadiah</option>
+                                        <select id="jenis_gift" class="custom-select  bg-light" name="jenis_gift" value="{{$info->jenis_gift}}" >
+                                            <option value="" selected disable hidden></option>
 
                                             @foreach($jenisHadiah as $data)
                                             @if($data->status_jenis_hadiah == "Aktif")
-                                            <option value="{{$data->jenis_gift}}">{{$data->jenis_gift}}</option>
+                                            <option value="{{$data->jenis_gift}}"  {{ $info->jenis_gift == "$data->jenis_gift" ? 'selected' :'' }}>{{$data->jenis_gift}}</option>
                                             @endif
                                             @endforeach
 
                                             </select>
                                       </div>
-                                      @error('jenis_hadiah')
+                                      @error('jenis_gift')
                                       <div class="alert alert-danger">
                                         <strong>{{ $message }}</strong>
                                       </div>
@@ -116,7 +116,7 @@
                                           <p class="required">iii) Tarikh diterima</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="date" name="tarikh_diterima" id="tarikh_diterima" placeholder="Tarikh Hadiah Diterima" value="{{ $info->tarikh_diterima  }}" required>
+                                          <input class="form-control bg-light" id="datefield" type="date" name="tarikh_diterima" id="tarikh_diterima" placeholder="Tarikh Hadiah Diterima" value="{{ $info->tarikh_diterima  }}" required>
                                       </div>
                                       @error('tarikh_diterima')
                                       <div class="alert alert-danger">
@@ -187,11 +187,25 @@
                                      <p class="required"><b>3. GAMBAR HADIAH YANG DITERIMA</b></p>
                                  </div>
                               </div>
+
+                              @if($info->gambar_gift != NULL)
+                              <div class="row">
+                                 <div class="col-md-4">
+                                      <iframe src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}" width="400px" height="400px"></iframe>
+                                 </div>
+                              </div>
+                              @endif
                               <div class="row">
                                  <div class="col-md-4">
                                    <label for="dokumen_syarikat">Sila lampirkan gambar hadiah yang diterima:</label>
-                                      <input type="file" class="form-control bg-light" id="gambar_hadiah" name="gambar_hadiah" aria-describedby="gambar_hadiah" required>
+                                      <input type="file" class="form-control bg-light" id="gambar_hadiah" name="gambar_hadiah" aria-describedby="gambar_hadiah" value="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}" required>
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
+
+                                        @error('gambar_hadiah')
+                                        <div class="alert alert-danger">
+                                          <strong>{{ $message }}</strong>
+                                        </div>
+                                        @enderror
                                  </div>
 
                              </div>
@@ -221,4 +235,19 @@
                       </div>
                </div>
            </div>
+           <script type="text/javascript">
+           var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+             if(dd<10){
+                    dd='0'+dd
+                }
+                if(mm<10){
+                    mm='0'+mm
+                }
+
+            today = yyyy+'-'+mm+'-'+dd;
+            document.getElementById("datefield").setAttribute("max", today);
+            </script>
 @endsection

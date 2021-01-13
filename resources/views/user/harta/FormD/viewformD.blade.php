@@ -30,7 +30,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->formds->name }}
+                                              {{$listHarta->nama_pegawai }}
                                           </div>
                                       </div>
                                   </div>
@@ -40,7 +40,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            {{$listHarta ->formds->kad_pengenalan }}
+                                            {{$listHarta ->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -50,7 +50,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->formds->jawatan }}
+                                              {{$listHarta->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -70,7 +70,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->formds->alamat_tempat_bertugas }}
+                                              {{$listHarta->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>
@@ -234,6 +234,20 @@
 
                                    </div>
                                    <br>
+                                   <div class="row">
+                                      <div class="col-md-6">
+                                          <p><b>3. DOKUMEN SYARIKAT</b></p>
+                                      </div>
+                                   </div>
+                                   <div class="row">
+                                     @foreach($dokumen_syarikat as $dokumen_syarikat)
+                                       @if($dokumen_syarikat->dokumen_syarikat != NULL)
+                                      <div class="col-md-4">
+                                           <iframe src="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}" width="400px" height="400px"></iframe>
+                                      </div>
+                                      @endif
+                                    @endforeach
+                                   </div>
                                    @endforeach
                               </div>
 

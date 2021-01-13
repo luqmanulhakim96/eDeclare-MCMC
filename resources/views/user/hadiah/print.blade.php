@@ -1,4 +1,4 @@
-
+@extends('user.layouts.appPrint')
            <!--Page Body part -->
            <table>
            <tr>
@@ -6,7 +6,9 @@
              <td><h5>LAMPIRAN 'A'</h5></td>
            </tr>
            <tr>
-             <td align="center" colspan="2"><img src="https://pbs.twimg.com/profile_images/1306147240814063621/DpSqT1KA_400x400.jpg" height="20%" width="20%"></td>
+             <td align="center" colspan="2">
+
+                <img src="D:\MCMC-Gift-Asset-System\public\storage\uploads\gambar_hadiah\MCMC.png" height="20%" width="20%"></td>
            </tr>
          </table>
            <div class="page-body p-4 text-dark">
@@ -71,9 +73,8 @@
                               </tr>
                               <tr>
                                  <td align="center">
-                                   <div class="img-responsive" alt="Gambar Hadiah" align="center">
-                                     <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  width="70%" height="70%">
-                                  </div>
+                                   <?php $image_path = str_replace('public', 'storage',  $info->gambar_gift); ?>
+                                    <img src="{{ $image_path }}">
                                 </td>
                              </tr>
                           </table>

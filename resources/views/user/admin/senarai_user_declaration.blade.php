@@ -18,18 +18,16 @@
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <!-- <th width="10%"><p class="mb-0">ID</p></th> -->
-                                               <th width="10%"><p class="mb-0">No Staff</p></th>
+                                               <th width="10%"><p class="mb-0">ID</p></th>
                                                <th><p class="mb-0">Nama</p></th>
                                            </tr>
                                        </thead>
                                        <tbody align="center">
                                          @foreach($alluser as $data)
-
-                                         <tr>
-                                             <td>{{ $data ->no_staff }}</td>
-                                             <td><a href="{{route('user.admin.senaraiallharta', $data->id)}} " >{{ $data ->name }}</a></td>
-                                        </tr>
-
+                                           <tr>
+                                               <td>{{ $data ->id }}</td>
+                                               <td><a href="{{route('user.admin.senaraiallharta1', $data->id)}} " >{{ $data ->name }}</a></td>
+                                          </tr>
                                           @endforeach
                                            <!-- Table data -->
 

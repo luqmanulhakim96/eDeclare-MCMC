@@ -88,6 +88,9 @@
                                       </div>
                                       <div class="col-md-8">
                                         <input class="form-control bg-light" type="text" name="nama_syarikat" placeholder="Nama Syarikat/Perniagaan" value="{{ $info->nama_syarikat  }}" required>
+                                        @error('nama_syarikat')
+                                           <div class="alert alert-danger">{{ $message }}</div>
+                                       @enderror
                                       </div>
                                   </div>
                                       <br>
@@ -97,6 +100,9 @@
                                       </div>
                                       <div class="col-md-8">
                                           <input class="form-control bg-light" type="text" name="no_pendaftaran_syarikat" placeholder="No Pendaftaran Syarikat/Perniagaan" value="{{ $info->no_pendaftaran_syarikat  }}" required>
+                                          @error('no_pendaftaran_syarikat')
+                                             <div class="alert alert-danger">{{ $message }}</div>
+                                         @enderror
                                       </div>
                                   </div>
                                   <br>
@@ -106,6 +112,9 @@
                                       </div>
                                       <div class="col-md-8">
                                           <input class="form-control bg-light" type="text" name="alamat_syarikat" placeholder="Alamat Syarikat / Perniagaan" value="{{ $info->alamat_syarikat  }}" required>
+                                          @error('alamat_syarikat')
+                                             <div class="alert alert-danger">{{ $message }}</div>
+                                         @enderror
                                       </div>
                                   </div>
                                   <br>
@@ -115,6 +124,9 @@
                                     </div>
                                     <div class="col-md-8">
                                         <input class="form-control bg-light" type="text" name="jenis_syarikat" placeholder="Jenis Syarikat / Perniagaan" value="{{ $info->jenis_syarikat  }}" required>
+                                        @error('jenis_syarikat')
+                                           <div class="alert alert-danger">{{ $message }}</div>
+                                       @enderror
                                     </div>
                                   </div>
                                   <br>
@@ -124,6 +136,9 @@
                                     </div>
                                     <div class="col-md-8">
                                        <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ $info->pulangan_tahunan  }}" required>
+                                       @error('pulangan_tahunan')
+                                          <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
                                     </div>
                                  </div>
                                  <br>
@@ -133,6 +148,9 @@
                                     </div>
                                     <div class="col-md-8">
                                         <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ $info->modal_syarikat  }}" required>
+                                        @error('modal_syarikat')
+                                           <div class="alert alert-danger">{{ $message }}</div>
+                                       @enderror
                                     </div>
                                 </div>
                                 <br>
@@ -142,6 +160,9 @@
                                   </div>
                                   <div class="col-md-8">
                                       <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ $info->modal_dibayar  }}" required>
+                                      @error('modal_dibayar')
+                                         <div class="alert alert-danger">{{ $message }}</div>
+                                     @enderror
                                   </div>
                                </div>
                                <br>
@@ -151,6 +172,9 @@
                                  </div>
                                  <div class="col-md-8">
                                      <input class="form-control bg-light" type="text" name="punca_kewangan" placeholder=" "  value="{{ $info->punca_kewangan  }}" required>
+                                     @error('punca_kewangan')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                  </div>
                               </div>
                               <br>
@@ -189,6 +213,9 @@
                                    <div class="col-md-2">
                                      <div class="input-group">
                                        <input class="form-control bg-light" type="text" name="nama_ahli[]" placeholder=" "  value="{{ $data->nama_ahli  }}">
+                                       @error('nama_ahli[]')
+                                          <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
                                    </div>
                                    </div>
                                    <div class="col-md-2">
@@ -196,12 +223,15 @@
                                     <!-- Basic one -->
                                      <div class="dropdown">
                                             <select id="select-1" class="custom-select  bg-light" name="hubungan[]"  value="{{ $data->hubungan  }}">
-                                                <option value="" selected disabled hidden>Pilih Hubungan</option>
+                                                <option value="" selected hidden></option>
                                                 <option value="Isteri" {{ $data->hubungan == "Isteri" ? 'selected' : '' }}>Isteri</option>
                                                 <option value="Suami" {{ $data->hubungan == "Suami" ? 'selected' : '' }}>Suami</option>
                                                 <option value="Anak" {{ $data->hubungan == "Anak" ? 'selected' : '' }}>Anak</option>
                                                 <option value="Lain-lain" {{ $data->hubungan == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
                                             </select>
+                                            @error('hubungan[]')
+                                               <div class="alert alert-danger">{{ $message }}</div>
+                                           @enderror
                                     </div>
                                    </div>
                                    </div>
@@ -210,18 +240,27 @@
                                     <!-- Basic one -->
                                      <div class="dropdown">
                                           <select id="select-2" class="custom-select  bg-light" name="jawatan_syarikat[]"  value="{{ $data->jawatan_syarikat  }}">
-                                              <option value="" selected disabled hidden>Pilih Jawatan</option>
+                                              <option value="" selected hidden></option>
                                               <option value="Pemilik Saham"  {{ $data->jawatan_syarikat  == "Pemilik Saham" ? 'selected' : '' }}>Pemilik Saham</option>
                                               <option value="Pengarah/ Lembaga Pengarah"  {{ $data->jawatan_syarikat  == "Pengarah/ Lembaga Pengarah" ? 'selected' : '' }}>Pengarah/ Lembaga Pengarah</option>
                                           </select>
+                                          @error('jawatan_syarikat[]')
+                                             <div class="alert alert-danger">{{ $message }}</div>
+                                         @enderror
                                     </div>
                                    </div>
                                    </div>
                                    <div class="col-md-2">
                                        <input class="form-control bg-light" type="text" name="jumlah_saham[]" placeholder=" "  value="{{ $data->jumlah_saham  }}">
+                                       @error('jumlah_saham[]')
+                                          <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
                                    </div>
                                    <div class="col-md-2">
                                        <input class="form-control bg-light" type="text" name="nilai_saham[]" placeholder=" "  value="{{ $data->nilai_saham  }}">
+                                       @error('nilai_saham[]')
+                                          <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
                                    </div>
                                    <div class="col-md-1">
                                       @for($i=0;$i<$count_keluarga; $i++)
@@ -281,15 +320,27 @@
                                      <p><b>3. DOKUMEN SYARIKAT</b></p>
                                  </div>
                               </div>
+
                                <div class="row">
                                   <div class="col-md-6">
                                       <p>Bersama-sama in disertakan 'Memorandum And Articles of Association'</p>
                                   </div>
                               </div>
+
+                                <div class="row">
+                                  @foreach($dokumen_syarikat as $dokumen_syarikat)
+                                    @if($dokumen_syarikat->dokumen_syarikat != NULL)
+                                   <div class="col-md-4">
+                                        <iframe src="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}" width="400px" height="400px"></iframe>
+                                   </div>
+                                   @endif
+                                 @endforeach
+                                </div>
+
                               <div class="row">
                                  <div class="col-md-4">
                                    <label for="dokumen_syarikat">Muatnaik Dokumen Syarikat:</label>
-                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat" aria-describedby="dokumen_syarikat">
+                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat" aria-describedby="dokumen_syarikat" value="$dokumen_syarikat->dokumen_syarikat[]">
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
                                  </div>
                              </div>

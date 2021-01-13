@@ -174,7 +174,7 @@
                               </div>
                               <div class="row">
                                   <div class="col-md-2">
-                                    <p>No Staff</p>
+                                    <p>No Kad Pengenalan</p>
                                   </div>
                                   <div class="col-md-8">
                                     <input type="text" class="form-control bg-light" name="no_hod" value="{{Auth::user()->kad_pengenalan }}" readonly><br>
@@ -182,7 +182,7 @@
                               </div>
                             <div class="row">
                               <div class="col-md-2">
-                                <p>Ulasan Pentadbir Sistem</p>
+                                <p>Ulasan Ketua Jabatan Integriti</p>
                               </div>
                               <div class="col-md-8">
                                    <textarea name="ulasan_hod" class="form-control bg-light" rows="8" cols="30" placeholder="Ulasan Pentadbir Sistem"></textarea><br>

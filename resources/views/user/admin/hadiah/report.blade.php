@@ -62,8 +62,8 @@
                                                     <table class="table table-striped table-bordered" id="example1" style="width: 100%;">
                                                         <thead class="thead-light">
                                                             <tr class="text-center">
-                                                                <!-- <th width="10%"><p class="mb-0">ID</p></th> -->
-                                                                <th width="30%"><p class="mb-0">No Staff</p></th>
+                                                                <th width="10%"><p class="mb-0">ID</p></th>
+                                                                <!-- <th width="30%"><p class="mb-0">No Staff</p></th> -->
                                                                 <th width="30"><p class="mb-0">Nama</p></th>
                                                                 <th width="10%"><p class="mb-0">Jabatan</p></th>
                                                                 <th width="70%"><p class="mb-0">Jenis Hadiah</p></th>
@@ -74,8 +74,8 @@
                                                         <tbody align="center">
                                                           @foreach($listHadiah as $data)
                                                           <tr>
-                                                              <!-- <td>{{ $data ->id }}</td> -->
-                                                              <td>{{ $data ->gifts->kad_pengenalan }}</td>
+                                                              <td>{{ $data ->id }}</td>
+                                                              <!-- <td>{{ $data ->gifts->kad_pengenalan }}</td> -->
                                                               <td>{{ $data ->gifts->name }}</td>
                                                               <td>{{ $data ->jabatan}}</td>
                                                               <td>{{ $data ->jenis_gift}}</td>
@@ -85,8 +85,8 @@
                                                            @endforeach
                                                            @foreach($listHadiahBs as $data)
                                                            <tr>
-                                                               <!-- <td>{{ $data ->id }}</td> -->
-                                                               <td>{{ $data ->giftbs->kad_pengenalan }}</td>
+                                                               <td>{{ $data ->id }}</td>
+                                                               <!-- <td>{{ $data ->giftbs->kad_pengenalan }}</td> -->
                                                                <td>{{ $data ->giftbs->name }}</td>
                                                                <td>{{ $data ->jabatan}}</td>
                                                                <td>{{ $data ->jenis_gift}}</td>

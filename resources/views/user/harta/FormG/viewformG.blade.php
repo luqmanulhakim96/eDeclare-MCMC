@@ -98,13 +98,20 @@
                                       <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
                                     </div>
                                   </div>
+                                  @foreach($maklumat_pasangan as $maklumat_pasangan)
                                   <div class="row">
                                       <div class="col-md-4">
                                           <p>Nama Suami / Isteri</p>
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                                {{$listHarta ->formgs->nama_pasangan }}
+
+                                            @if($maklumat_pasangan->NOKNAME != null)
+                                              <input type="hidden" name="nama_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKNAME}}
+                                              @else
+                                              -
+                                              @endif
+
                                           </div>
                                       </div>
                                   </div>
@@ -114,7 +121,13 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->formgs->kad_pengenalan_pasangan }}
+                                            @if($maklumat_pasangan->ICNEW != null)
+                                              <input type="hidden" name="ic_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->ICNEW}}
+                                              @else
+                                              -
+                                              @endif
+
+
                                           </div>
                                       </div>
                                   </div>
@@ -124,17 +137,30 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->formgs->pekerjaan_pasangan }}
+
+                                            @if($maklumat_pasangan->NOKEMLOYER != NULL)
+                                              <input type="hidden" name="pekerjaan_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKEMLOYER}}
+                                              @else
+                                              -
+                                              @endif
+
                                           </div>
                                       </div>
                                     </div>
+                                    @endforeach
+                                    @foreach($maklumat_anak as $maklumat_anak)
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p>Nama Anak</p>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                {{$listHarta ->formgs->pekerjaan_pasangan }}
+                                                @if($maklumat_pasangan->NOKNAME != null)
+                                                <input type="hidden" name="nama_anak" value="{{$maklumat_anak->NOKNAME}}">{{$maklumat_anak->NOKNAME}}
+                                                @else
+                                                -
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
@@ -144,7 +170,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                {{$listHarta ->formgs->pekerjaan_pasangan }}
+                                                <input type="hidden" name="umur_anak" value="{{Auth::user()->umur_anak }}">{{Auth::user()->umur_anak }}
                                             </div>
                                         </div>
                                     </div>
@@ -154,10 +180,16 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                {{$listHarta ->formgs->pekerjaan_pasangan }}
+                                              @if($maklumat_anak->ICNEW != NULL)
+                                                <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}
+                                                @else
+                                                -
+                                                @endif
+
                                             </div>
                                         </div>
                                       </div>
+                                      @endforeach
                                       <!-- pendapatan bulanan-->
                                       <div class="row">
                                         <div class="col-md-4">

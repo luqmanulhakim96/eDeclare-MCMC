@@ -34,7 +34,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->nama_pegawai }}</b>
+                                              {{$listHarta ->nama_pegawai }}
                                           </div>
                                       </div>
                                   </div>
@@ -44,7 +44,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->kad_pengenalan }}</b>
+                                              {{$listHarta ->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -54,7 +54,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <b>{{$listHarta->jawatan }}</b>
+                                            {{$listHarta->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -64,7 +64,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <b>{{$listHarta ->jabatan }}</b>
+                                            {{$listHarta ->jabatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -74,11 +74,13 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->alamat_tempat_bertugas }}</b>
+                                              {{$listHarta ->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>
 
+                                  @if($maklumat_pasangan->isEmpty())
+                                  @else
                                   <!-- keluarga -->
                                   <div class="row">
                                     <div class="col-md-4">
@@ -92,11 +94,11 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>@if($maklumat_pasangan->NOKNAME != null)
+                                              @if($maklumat_pasangan->NOKNAME != null)
                                                 {{$maklumat_pasangan->NOKNAME}}
                                                 @else
                                                 -
-                                                @endif</b>
+                                                @endif
                                           </div>
                                       </div>
                                   </div>
@@ -106,11 +108,11 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>  @if($maklumat_pasangan->ICNEW != null)
+                                                @if($maklumat_pasangan->ICNEW != null)
                                                   {{$maklumat_pasangan->ICNEW}}
                                                   @else
                                                   -
-                                                  @endif</b>
+                                                  @endif
                                           </div>
                                       </div>
                                   </div>
@@ -120,15 +122,19 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>@if($maklumat_pasangan->NOKEMLOYER != NULL)
+                                              @if($maklumat_pasangan->NOKEMLOYER != NULL)
                                               {{$maklumat_pasangan->NOKEMLOYER}}
                                                 @else
                                                 -
-                                                @endif</b>
+                                                @endif
                                           </div>
                                       </div>
                                     </div>
                                     @endforeach
+                                    @endif
+
+                                    @if($maklumat_anak->isEmpty())
+                                    @else
                                     @foreach($maklumat_anak as $maklumat_anak)
                                     <div class="row">
                                         <div class="col-md-4">
@@ -136,11 +142,11 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <b>@if($maklumat_pasangan->NOKNAME != null)
+                                                @if($maklumat_pasangan->NOKNAME != null)
                                                 {{$maklumat_anak->NOKNAME}}
                                                 @else
                                                 -
-                                                @endif</b>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -150,11 +156,11 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <b>@if($maklumat_pasangan->NOKNAME != null)
+                                                @if($maklumat_pasangan->NOKNAME != null)
                                                 {{$maklumat_anak->NOKNAME}}
                                                 @else
                                                 -
-                                                @endif</b>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -164,15 +170,16 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                              <b>@if($maklumat_anak->ICNEW != NULL)
+                                            @if($maklumat_anak->ICNEW != NULL)
                                                 <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}
                                                 @else
                                                 -
-                                                @endif</b>
+                                                @endif
                                             </div>
                                         </div>
                                       </div>
                                       @endforeach
+                                      @endif
                                       <!-- pendapatan bulanan-->
 
                                       <div class="row">

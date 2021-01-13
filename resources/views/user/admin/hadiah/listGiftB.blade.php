@@ -25,7 +25,7 @@
                             <thead class="thead-light">
                                 <tr class="text-center">
                                   <th class="all" width="10%"><p>ID</p></th>
-                                  <th class="all" width="10%"><p>No Staff</p></th>
+                                  <!-- <th class="all" width="10%"><p>No Staff</p></th> -->
                                   <th class="all" width="10%"><p>Nama</p></th>
                                   <th class="all" width="10%"><p>Jabatan</p></th>
                                   <th class="all" width="30%"><p>Jenis Hadiah</p></th>
@@ -45,9 +45,6 @@
 
                               <tr>
                                   <td>{{ $data ->id }}</td>
-                                  <td>
-                                    {{ $data ->giftbs->kad_pengenalan }}
-                                  </td>
 
                                   <td>{{ $data ->giftbs->name }}</td>
                                   <td>{{ $data ->jabatan}}</td>

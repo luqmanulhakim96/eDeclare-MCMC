@@ -18,7 +18,7 @@
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <!-- <th width="10%"><p class="mb-0">ID</p></th> -->
-                                               <th><p class="mb-0">No Staff</p></th>
+                                               <th><p class="mb-0">ID</p></th>
                                                <th><p class="mb-0">Nama</p></th>
                                                <th><p class="mb-0">Lampiran</p></th>
                                                <th><p class="mb-0">Tarikh</p></th>
@@ -32,7 +32,7 @@
                                          @if($data ->status == "Sedang Diproses")
                                          <tr>
                                              <!-- <td>{{ $data ->id }}</td> -->
-                                             <td>{{ $data ->users->no_staff }}</td>
+                                             <td>{{ $data ->id }}</td>
                                              <td>{{ $data ->users->name }}</td>
                                              <!-- <td>
                                                  <div class="d-flex flex-row justify-content-around align-items-center">

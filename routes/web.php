@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  $userldap = Adldap::search()->users()->find('assetngift'); //active directory testing
+  dd($userldap);
+  return view('welcome');
 });
 
 Auth::routes();
@@ -44,6 +46,10 @@ Route::get('/permohonan/hadiah', 'GiftController@giftBaru')->name('user.hadiah.g
 
 Route::get('/permohonanB/hadiah', 'GiftBController@giftBaru')->name('user.hadiah.giftB');
 
+Route::get('/permohonanA/pdf/{id}','UserController@createPDFA')->name('user.perakuanharta.formAprint');
+
+Route::get('/form/printA/{id}', 'UserController@printA')->name('user.perakuanharta.print');
+
 Route::get('/permohonan/pdf/{id}','UserController@createPDF')->name('user.harta.formBprint');
 
 Route::get('/form/printB/{id}', 'UserController@printB')->name('user.harta.FormB.print');
@@ -71,7 +77,7 @@ Route::get('/form/printGiftB/{id}', 'UserController@printGiftB')->name('user.had
 Route::get('/senarai/permohonan/pengguna', 'AdminController@listAllUserDeclaration')->name('user.admin.senarai_user_declaration');
 
 
-// Route::get('/permohonan/senarai/harta', 'UserController@senaraiHarta')->name('user.harta.senaraiharta');
+Route::get('/permohonan/senarai/harta', 'UserController@senaraiHarta')->name('user.harta.senaraiharta');
 
 Route::get('/permohonan/senarai/harta-B', 'UserController@senaraiHartaB')->name('user.harta.FormB.senaraihartaB');
 
@@ -143,6 +149,8 @@ Route::post('/lampiran-G/hantar', 'FormGController@submitForm')->name('g.submit'
 Route::get('/lampiran-G/edit/id={id}', 'FormGController@editformG')->name('user.harta.FormG.editformG');
 
 Route::post('/lampiran-G/kemaskini/id={id}', 'FormGController@updateFormG')->name('g.update');
+
+Route::get('/lampiran/A/id={id}', 'UserController@viewA')->name('user.perakuanharta.viewformA');
 
 Route::get('/lampiran/B/id={id}', 'UserController@viewB')->name('user.harta.FormB.viewformB');
 
@@ -245,7 +253,7 @@ Route::get('/lampiran/Ulasan-Harta-G/id={id}', 'AdminController@viewUlasanHartaG
 
 Route::get('/senarai-harta', 'AdminController@senaraiAllForm')->name('user.admin.harta.senaraiallharta');
 
-// Route::get('/admin/senarai-harta-pengguna/id={id}', 'AdminController@senaraiAllUserForm')->name('user.admin.senaraiallharta');
+Route::get('/admin/senarai-harta-pengguna/id={id}', 'AdminController@senaraiAllUserForm')->name('user.admin.senaraiallharta1');
 
 Route::get('/admin/senarai-tugasan-harta', 'AdminController@senaraiTugasanHarta')->name('user.admin.harta.senaraitugasanharta');
 
@@ -429,6 +437,8 @@ Route::get('/Ketua-Jabatan-Integriti/senarai/harta/g', 'IntegrityHodController@l
 
 
 // IT ADMIN ROUTES
+Route::get('/itadmin/homepage','ItAdminController@itDashboard')->name('user.it.view');
+
 Route::get('/itadmin/sistem-konfigurasi', 'ItAdminController@SistemKonfigurasi')->name('user.it.sistemkonfigurasi');
 
 Route::get('/itadmin/background/queues', 'ItAdminController@backgroundQueues')->name('user.it.backgroundqueues');
