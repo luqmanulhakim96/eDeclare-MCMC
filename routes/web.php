@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  $userldap = Adldap::search()->users()->find('assetngift'); //active directory testing
-  dd($userldap);
-  return view('welcome');
+  // $userldap = Adldap::search()->users()->find('assetngift'); //active directory testing
+  // dd($userldap);
+  return view('auth/login');
 });
 
 Auth::routes();

@@ -66,41 +66,65 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <br>
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 mt-4">
+                         <div class="card rounded-lg">
+                             <div class="card-body">
+
                                   <div class="row">
                                       <div class="col-md-4">
                                         <p><b>2. KETERANGAN MENGENAI PELUPUSAN HARTA</b></p>
                                       </div>
                                   </div>
-                                  <!-- <div class="row">
+                                  @if($data_user)
+                                  <div class="row">
+                                    <div class="form-group">
                                       <div class="col-md-4">
                                         <p class="required">Jenis Harta</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}" required>
+                                        <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}" required>
+                                            <option value="" selected disabled hidden>Jenis Harta</option>
+
+                                            @foreach($data_user as $jenisharta)
+                                            <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
+                                            @endforeach
+
+                                            </select>
                                       </div>
-                                  </div> -->
+                                  </div>
+                                  @error('jenis_harta_lupus')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
+                                  </div>
+                                  @else
+                                  <div class="form-group">
                                   <div class="row">
                                       <div class="col-md-4">
                                         <p class="required">Jenis Harta</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}" >
-                                            <option selected hidden></option>
+                                        <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}" required>
+                                            <option value="" selected disabled hidden>Jenis Harta</option>
 
                                             @foreach($jenisHarta as $jenisharta)
                                             @if($jenisharta->status_jenis_harta == "Aktif")
-                                            <option value="{{$jenisharta->jenis_harta}}" {{ old('jenis_harta_lupus') =="$jenisharta->jenis_harta" ? 'selected' :'' }}>{{$jenisharta->jenis_harta}}</option>
+                                            <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
                                             @endif
                                             @endforeach
 
-                                          </select>
-
+                                            </select>
                                       </div>
-                                      @error('jenis_harta_lupus')
-                                         <div class="alert alert-danger">{{ $message }}</div>
-                                     @enderror
                                   </div>
+                                  @error('jenis_harta_lupus')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
+                                  </div>
+                                  @endif
 
                                   <br>
                                 <div class="form-group">
@@ -195,6 +219,10 @@
                                          <div class="alert alert-danger">{{ $message }}</div>
                                      @enderror
                                   </div>
+                                </div>
+                            </div>
+                       </div>
+                   </div>
                                   <br>
                                   <div class="row">
                                     <div class="col-md-1" align="right">
@@ -223,10 +251,7 @@
 
                               </form>
                           </div>
-                      </div>
-               </div>
-           </div>
-         </div>
+
      </div>
      <script type="text/javascript">
      var today = new Date();

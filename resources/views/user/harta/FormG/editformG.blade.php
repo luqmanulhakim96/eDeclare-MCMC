@@ -102,7 +102,14 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 mt-4">
+                           <div class="card rounded-lg">
+                               <div class="card-body">
                                   <div class="row">
                                     <div class="col-md-4">
                                       <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
@@ -200,6 +207,14 @@
                                         </div>
                                       </div>
                                       @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 mt-4">
+                               <div class="card rounded-lg">
+                                   <div class="card-body">
                                       <!-- pendapatan bulanan-->
                                       <div class="row">
                                         <div class="col-md-4">
@@ -369,7 +384,14 @@
                                           <input class="form-control bg-light" type="text" name="pendapatan_pasangan" value="{{ $info->pendapatan_pasangan  }}">
                                         </div>
                                       </div> -->
-                                      <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 mt-4">
+                               <div class="card rounded-lg">
+                                   <div class="card-body">
 
                                       <!-- Tanggungan -->
                                       <div class="row">
@@ -614,7 +636,14 @@
                                             <input class="form-control bg-light" type="text" name="jumlah_bulanan_pasangan" value="{{ $info->jumlah_bulanan_pasangan  }}">
                                         </div>
                                       </div> -->
-                                      <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 mt-4">
+                               <div class="card rounded-lg">
+                                   <div class="card-body">
                                       <div class="row">
                                         <div class="col-md-4">
                                           <p><b>5. BUTIR-BUTIR TANAH YANG TELAH DIBERIMILIK OLEH KERAJAAN DI MANA MANA TEMPAT DI MALAYSIA</b></p>
@@ -721,7 +750,14 @@
                                               </div>
                                           </div>
                                       </div>
-                                      <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 mt-4">
+                               <div class="card rounded-lg">
+                                   <div class="card-body">
                                       <div class="row">
                                         <div class="col-md-4">
                                           <p><b>6. BUTIR-BUTIR TANAH ATAU SAHAM YANG DIPOHON</b></p>
@@ -890,41 +926,37 @@
                                     <br>
                                 </div>
                                 @endforeach
-                                    <br>
-                                    <br>
-
-
-
-                                    <div class="row">
-                                      <div class="col-md-1" align="right">
-                                        <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
-                                      </div>
-                                      <div class="col-md-11">
-                                          <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
-                                      </div>
-                                    </div>
-                                    <div class="hidden">
-                                        <input class="form-control bg-light" type="text" name="status" value="{{ $info->status }}">
-                                    </div>
-                                  <!-- button -->
-                                     <div class="row">
-                                      <div class="col-md-2">
-                                        <!-- <a class="btn btn-primary mt-4" href="">Kembali</a> -->
-                                        <!-- <button type="submit" class="btn btn-primary mt-4">Kembali</button> -->
-                                      </div>
-                                      <div class="col-md-8">
-                                      </div>
-                                      <div class="col-md-2">
-                                        <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
-                                    <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
-                                      </div>
-                                </div>
-                              </form>
+                              </div>
                           </div>
+                        </div>
                       </div>
-               </div>
-           </div>
-          </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-1" align="right">
+                          <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
+                        </div>
+                        <div class="col-md-11">
+                            <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
+                        </div>
+                      </div>
+                      <div class="hidden">
+                          <input class="form-control bg-light" type="text" name="status" value="{{ $info->status }}">
+                      </div>
+                    <!-- button -->
+                       <div class="row">
+                        <div class="col-md-2">
+                          <!-- <a class="btn btn-primary mt-4" href="">Kembali</a> -->
+                          <!-- <button type="submit" class="btn btn-primary mt-4">Kembali</button> -->
+                        </div>
+                        <div class="col-md-8">
+                        </div>
+                        <div class="col-md-2">
+                          <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
+                      <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
+                        </div>
+                  </div>
+                </form>
+            </div>
 
 
 

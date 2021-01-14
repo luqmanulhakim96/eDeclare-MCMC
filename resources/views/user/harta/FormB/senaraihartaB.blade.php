@@ -61,6 +61,8 @@
                                              <div class="d-flex flex-row justify-content-around align-items-center">
                                                @if($data ->status == "Sedang Diproses")
                                                 <a href="{{ route('user.harta.FormB.editformB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                                @elseif($data ->status == "Tidak Lengkap")
+                                                  <a href="{{ route('user.harta.FormB.editformB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
                                                 @else
                                                 <span>-</span>
                                                 @endif
