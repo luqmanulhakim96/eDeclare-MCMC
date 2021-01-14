@@ -76,7 +76,14 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 mt-4">
+                           <div class="card rounded-lg">
+                               <div class="card-body">
                                   <div class="row">
                                       <div class="col-md-6">
                                         <p><b>2. KETERANGAN MENGENAI SYARIKAT / PERNIAGAAN</b></p>
@@ -344,33 +351,32 @@
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
                                  </div>
                              </div>
-                             <br>
-                             <br>
-                             <div class="row">
-                               <div class="col-md-1" align="right">
-                                 <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
-                               </div>
-                               <div class="col-md-11">
-                                   <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
-                               </div>
-                             </div>
-                             <div class="hidden">
-                                 <input class="form-control bg-light" type="text" name="status" value="{{ $info->status }}">
-                             </div>
-                                  <!-- button -->
-                                 <div class="row">
-                                  <div class="col-md-2">
-                                  </div>
-                                  <div class="col-md-8">
-                                  </div>
-                                  <div class="col-md-2">
-                                    <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
-                                    <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
-                                  </div>
-                                </div>
-                              </form>
+                           </div>
+                       </div>
+                     </div>
+                     <br>
+                     <div class="row">
+                       <div class="col-md-1" align="right">
+                         <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
+                       </div>
+                       <div class="col-md-11">
+                           <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
+                       </div>
+                     </div>
+                     <div class="hidden">
+                         <input class="form-control bg-light" type="text" name="status" value="{{ $info->status }}">
+                     </div>
+                          <!-- button -->
+                         <div class="row">
+                          <div class="col-md-2">
                           </div>
-                      </div>
-               </div>
-           </div>
+                          <div class="col-md-8">
+                          </div>
+                          <div class="col-md-2">
+                            <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
+                            <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
+                          </div>
+                        </div>
+                      </form>
+                    </div>
 @endsection

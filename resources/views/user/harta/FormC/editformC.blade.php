@@ -74,7 +74,14 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 mt-4">
+                           <div class="card rounded-lg">
+                               <div class="card-body">
                                   <div class="row">
                                       <div class="col-md-4">
                                         <p><b>2. KETERANGAN MENGENAI PELUPUSAN HARTA</b></p>

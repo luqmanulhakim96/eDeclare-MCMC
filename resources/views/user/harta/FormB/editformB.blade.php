@@ -69,6 +69,14 @@
                                           </div>
                                       </div>
                                   </div>
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 mt-4">
+                         <div class="card rounded-lg">
+                             <div class="card-body">
 
                                   <!-- keluarga -->
                                   @if($maklumat_pasangan->isEmpty())
@@ -168,7 +176,14 @@
                                       </div>
                                       @endforeach
                                       @endif
-
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 mt-4">
+                             <div class="card rounded-lg">
+                                 <div class="card-body">
                                       <!-- pendapatan bulanan-->
                                       <div class="row">
                                         <div class="col-md-4">
@@ -339,8 +354,14 @@
                                             <input class="form-control bg-light" type="text" name="pendapatan_pasangan" value="{{ $info->pendapatan_pasangan  }}">
                                         </div>
                                       </div> -->
-                                      <br>
-
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 mt-4">
+                               <div class="card rounded-lg">
+                                   <div class="card-body">
                                       <!-- Tanggungan -->
                                       <div class="row">
                                         <div class="col-md-4">
@@ -614,7 +635,14 @@
                                             <input class="form-control bg-light" type="text" name="jumlah_bulanan_pasangan" value="{{ $info->jumlah_bulanan_pasangan  }}">
                                         </div>
                                       </div> -->
-                                      <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 mt-4">
+                               <div class="card rounded-lg">
+                                   <div class="card-body">
                                       <div class="row">
                                         <div class="col-md-4">
                                           <p><b>5. KETERANGAN MENGENAI HARTA</b></p>

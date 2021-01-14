@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\FormC;
+use App\FormB;
 use App\PinjamanB;
 use DB;
 use Auth;
@@ -21,13 +22,18 @@ class FormCController extends Controller
   public function formC()
   {
     $jenisHarta = JenisHarta::get();
-    //data ic user
-    $username =strtoupper(Auth::user()->name);
-    $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
-    //data testing
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
+    $userid = Auth::user()->id;
+    $data_user = FormB::where('user_id', $userid) ->get();
 
-    return view('user.harta.FormC.formC', compact('jenisHarta'));
+    if($data_user->isEmpty()){
+      //TANYA LUKE
+      $data_user = null;
+      return view('user.harta.FormC.formCNew', compact('jenisHarta','data_user','jenisHarta'));
+    }
+    else {
+      $data_user = FormB::where('user_id', $userid) ->get();
+      return view('user.harta.FormC.formCNew', compact('jenisHarta','data_user'));
+    }
   }
 public function editformC($id){
     //$info = SenaraiHarga::find(1);

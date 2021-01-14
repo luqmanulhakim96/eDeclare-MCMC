@@ -1307,7 +1307,7 @@ button.close {
 /* The sidebar */
 
 .side-bar {
-  background: linear-gradient(-154deg, #fa048fad, #0082c8) !important;
+  background: #495057 !important;
   height: 100vh !important;
   width: 17rem !important;
   visibility: hidden;
@@ -1326,7 +1326,7 @@ button.close {
 }
 
 .side-bar .side-menu-brand .brand-name {
-  color: #ffffff !important;
+  color: #ffc107 !important;
   font-size: 1.0rem;
 }
 
@@ -1339,7 +1339,7 @@ button.close {
 }
 
 .side-bar .the_menu .side-menu-heading {
-  color: #ffffff !important;
+  color: #ffc107 !important;
   border-bottom: 1px solid #ffffff !important;
 }
 
@@ -1355,7 +1355,7 @@ button.close {
 .side-bar .side-sub-menu-item a {
   font-size: 0.9rem !important;
   display: block;
-  color: #ffffff !important;
+  color: #ffc107 !important;
   transition: all ease 0.3s;
   position: relative !important;
 }
