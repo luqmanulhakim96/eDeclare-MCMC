@@ -156,7 +156,8 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="hidden" name="umur_anak" value="{{Auth::user()->umur_anak }}">{{Auth::user()->umur_anak }}
+                                              <span id="umur_anak"></span>
+                                                <!-- <input type="hidden" name="umur_anak" value="{{Auth::user()->umur_anak }}">{{Auth::user()->umur_anak }} -->
                                             </div>
                                         </div>
                                     </div>
@@ -167,7 +168,8 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                               @if($info->ic_anak != NULL)
-                                                <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}
+                                                <!-- <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}} -->
+                                                <span id="anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}</span>
                                                 @else
                                                 -
                                                 @endif
@@ -1067,4 +1069,24 @@
            document.getElementById("datefield2").setAttribute("max", today);
 
           </script>
+
+          <script type="text/javascript">
+           var MyIDCard = "{{$maklumat_anak->ICNEW}}";//ID number
+           console.log(MyIDCard);
+           var MyAge;//age
+           // Get the birthday, gender, age according to the ID number
+           function IDCardData() {
+                if (MyIDCard != "") {
+                    var MyDate = new Date();
+                    // console.log(parseInt(MyDate.getFullYear()));
+                    var MyAge = parseInt(MyDate.getFullYear()) - (parseInt(MyIDCard.substring(0, 2)) + 1900);
+                }
+                return MyAge;
+           }
+          // IDCardData();
+          console.log(IDCardData());
+          window.onload = function() {
+            document.getElementById("umur_anak").innerHTML = IDCardData();
+          };
+           </script>
 @endsection
