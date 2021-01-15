@@ -24,7 +24,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->name }}
+                                          <input type="hidden" name="nama_pegawai"  value="{{Auth::user()->name }}">{{Auth::user()->name }}
                                           </div>
                                       </div>
                                   </div>
@@ -34,7 +34,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->kad_pengenalan }}
+                                            <input type="hidden" name="kad_pengenalan"  value="{{Auth::user()->kad_pengenalan}}">{{Auth::user()->kad_pengenalan}}
                                           </div>
                                       </div>
                                   </div>
@@ -44,7 +44,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            {{Auth::user()->jawatan }}
+                                          <input type="hidden" name="jawatan"  value="{{Auth::user()->jawatan }}">{{Auth::user()->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -64,7 +64,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->alamat_tempat_bertugas }}
+                                              <input type="hidden" name="alamat_tempat_bertugas" value="{{Auth::user()->alamat_tempat_bertugas }}">{{Auth::user()->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>
@@ -72,12 +72,13 @@
                             </div>
                         </div>
                     </div>
+                    @if($maklumat_pasangan->isEmpty())
+                    @else
                     <div class="row">
                       <div class="col-12 mt-4">
                            <div class="card rounded-lg">
                                <div class="card-body">
-                                 @if($maklumat_pasangan->isEmpty())
-                                 @else
+
                                   <!-- keluarga -->
                                   <div class="row">
                                     <div class="col-md-4">
@@ -172,11 +173,14 @@
                                         </div>
                                       </div>
                                       @endforeach
-                                      @endif
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        @endif
+                        @if($last_data_formb)
                         <div class="row">
                           <div class="col-12 mt-4">
                                <div class="card rounded-lg">
@@ -210,8 +214,6 @@
                                               @endforeach
                                             </div>
                                         </div>
-
-                                        @if($last_data_formb)
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <input class="form-control bg-light" type="text" name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ $last_data_formb->gaji_pasangan}}">
                                             @error('gaji_pasangan')
@@ -622,10 +624,10 @@
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p class="required">Cara Dan Dari Siapa Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
+                                          <p class="required">Cara Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
                                         </div>
-                                        <div class="col-md-4">
-                                            <select id="cara_perolehan" class="custom-select  bg-light" name="cara_perolehan" >
+                                        <div class="col-md-8">
+                                            <select id="cara_perolehan" class="custom-select  bg-light" name="cara_perolehan" onchange="showCaraPerolehan()" required >
                                                 <option value="" selected disabled hidden>Cara Perolehan</option>
                                                 <option value="" selected hidden></option>
                                                 <option value="Dipusakai" {{ old('cara_perolehan') == "Dipusakai" ? 'selected' : '' }}>Dipusakai</option>
@@ -637,137 +639,247 @@
                                         @error('cara_perolehan')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
+                                     </div>
+
+                                     <!-- dipusakai / dihadiahkan -->
+                                       <div id="nama_pemilikan_asal" style="display: none;">
+                                         <div class="row">
+                                           <div class="col-md-4">
+                                             <p class="required"> Dari Siapa Harta Diperolehi</p>
+                                           </div>
+                                           <div class="col-md-8">
+                                             <input class="form-control bg-light" type="text" name="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum" value="{{ old('nama_pemilikan_asal')}}">
+                                             @error('nama_pemilikan_asal')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                           </div>
+                                         </div>
+                                         <br>
+                                       </div>
+
+                                    <!-- lain lain -->
+                                       <div id="lain" style="display:none;">
+                                         <div class="row">
+                                           <div class="col-md-4">
+                                             <p class="required"> Nyatakan,</p>
+                                           </div>
+                                           <div class="col-md-8">
+                                             <input class="form-control bg-light" type="text" name="lain-lain" placeholder="" value="{{ old('lain')}}">
+                                             @error('lain')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                           </div>
+                                         </div>
+                                         <br>
+                                       </div>
+                                       <script type="text/javascript">
+                                        function showCaraPerolehan(){
+                                          var cara_peroleh = $('#cara_perolehan').val();
+
+                                          if(cara_peroleh == "Dipusakai" || cara_peroleh == "Dihadiahkan"){
+                                            document.getElementById('nama_pemilikan_asal').style.display ="block";
+                                          }
+                                          else{
+                                            document.getElementById('nama_pemilikan_asal').style.display ="none";
+                                            document.getElementById('pinjaman').style.display ="none";
+                                            document.getElementById('pelupusan').style.display ="none";
+                                          }
+
+                                          if (cara_peroleh == "Dibeli") {
+                                            document.getElementById('dibeli').style.display ="block";
+                                          }
+                                          else{
+                                            document.getElementById('dibeli').style.display ="none";
+                                            document.getElementById('pinjaman').style.display ="none";
+                                            document.getElementById('pelupusan').style.display ="none";
+                                          }
+
+                                          if (cara_peroleh == "Lain-lain") {
+                                            document.getElementById('lain').style.display ="block";
+                                          }
+                                          else{
+                                            document.getElementById('lain').style.display ="none";
+                                            document.getElementById('pinjaman').style.display ="none";
+                                            document.getElementById('pelupusan').style.display ="none";
+                                          }
+                                        }
+
+                                        </script>
+
+                                      <!-- dibeli -->
+                                        <div id="dibeli" style="display: none;">
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <p class="required"> Cara Pembelian Harta</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <select id="cara_belian" class="custom-select  bg-light" name="cara_belian" onchange="showCaraBelian()" required >
+                                                  <option value="" selected disabled hidden>Cara Belian</option>
+                                                  <option value="" selected hidden></option>
+                                                  <option value="Pinjaman" {{ old('cara_belian') == "Pinjaman" ? 'selected' : '' }}>Pinjaman</option>
+                                                  <option value="Pelupusan" {{ old('cara_belian') == "Pelupusan" ? 'selected' : '' }}>Hasil Pelupusan Harta</option>
+                                              </select>
+                                               @error('cara_belian')
+                                                 <div class="alert alert-danger">{{ $message }}</div>
+                                             @enderror
+                                            </div>
+                                          </div>
+                                          <br>
+                                        </div>
+
+                                        <script type="text/javascript">
+                                         function showCaraBelian(){
+                                           var cara_belian = $('#cara_belian').val();
+
+                                           if(cara_belian == "Pinjaman"){
+                                             document.getElementById('pinjaman').style.display ="block";
+                                           }
+                                           else{
+                                             document.getElementById('pinjaman').style.display ="none";
+                                           }
+
+                                           if(cara_belian == "Pelupusan"){
+                                             document.getElementById('pelupusan').style.display ="block";
+                                           }
+                                           else{
+                                             document.getElementById('pelupusan').style.display ="none";
+                                           }
+                                         }
+
+                                         </script>
                                         <!-- <div class="col-md-4">
-                                          <input class="form-control bg-light" type="text" name="cara_perolehan" value="{{ session()->get('asset.cara_perolehan') }}">
-                                        </div> -->
-                                        <div class="col-md-4">
                                           <input class="form-control bg-light" type="text" name="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum" value="{{ old('nama_pemilikan_asal')}}">
                                         </div>
                                         @error('nama_pemilikan_asal')
                                            <div class="alert alert-danger">{{ $message }}</div>
-                                       @enderror
+                                       @enderror -->
                                       </div>
                                       <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p class="required"><b>Punca-punca Kewangan Bagi Memiliki Harta Dan Jumlahnya</b></p>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p><b>a)	Jika Pinjaman, Nyatakan</b></p>
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>i) Jumlah Pinjaman</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="jumlah_pinjaman" value="{{ old('jumlah_pinjaman')}}">
-                                          @error('jumlah_pinjaman')
-                                             <div class="alert alert-danger">{{ $message }}</div>
-                                         @enderror
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>ii)	Institusi memberi pinjaman</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="institusi_pinjaman" value="{{ old('institusi_pinjaman')}}">
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>iii)	Tempoh bayaran balik</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="tempoh_bayar_balik" value="{{ old('tempoh_bayar_balik')}}">
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>iv) Ansuran bulanan </p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="ansuran_bulanan" value="{{ old('ansuran_bulanan')}}">
-                                          @error('ansuran_bulanan')
-                                             <div class="alert alert-danger">{{ $message }}</div>
-                                         @enderror
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>v)	Tarikh ansuran pertama</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <input class="form-control bg-light" id="datefield1" type="date" name="tarikh_ansuran_pertama" value="{{ old('tarikh_ansuran_pertama')}}">
-                                          @error('tarikh_ansuran_pertama')
-                                             <div class="alert alert-danger">{{ $message }}</div>
-                                         @enderror
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p><b>b) Hasil Pelupusan Harta, Nyatakan</b></p>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>i)	Jenis Harta</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="jenis_harta_pelupusan" value="{{ old('jenis_harta_pelupusan')}}">
-                                        </div>
+                                    <!-- pinjaman -->
+                                    <div id="pinjaman" style="display: none;">
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <p class="required"><b>Punca-punca Kewangan Bagi Memiliki Harta Dan Jumlahnya</b></p>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <p><b>a)	Jika Pinjaman, Nyatakan</b></p>
+                                            </div>
+                                          </div>
+                                          <br>
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <p>i) Jumlah Pinjaman</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <input class="form-control bg-light" type="text" name="jumlah_pinjaman" value="{{ old('jumlah_pinjaman')}}">
+                                              @error('jumlah_pinjaman')
+                                                 <div class="alert alert-danger">{{ $message }}</div>
+                                             @enderror
+                                            </div>
+                                          </div>
+                                          <br>
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <p>ii)	Institusi memberi pinjaman</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <input class="form-control bg-light" type="text" name="institusi_pinjaman" value="{{ old('institusi_pinjaman')}}">
+                                            </div>
+                                          </div>
+                                          <br>
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <p>iii)	Tempoh bayaran balik</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <input class="form-control bg-light" type="text" name="tempoh_bayar_balik" value="{{ old('tempoh_bayar_balik')}}">
+                                            </div>
+                                          </div>
+                                          <br>
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <p>iv) Ansuran bulanan </p>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <input class="form-control bg-light" type="text" name="ansuran_bulanan" value="{{ old('ansuran_bulanan')}}">
+                                              @error('ansuran_bulanan')
+                                                 <div class="alert alert-danger">{{ $message }}</div>
+                                             @enderror
+                                            </div>
+                                          </div>
+                                          <br>
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <p>v)	Tarikh ansuran pertama</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <input class="form-control bg-light" id="datefield1" type="date" name="tarikh_ansuran_pertama" value="{{ old('tarikh_ansuran_pertama')}}">
+                                              @error('tarikh_ansuran_pertama')
+                                                 <div class="alert alert-danger">{{ $message }}</div>
+                                             @enderror
+                                            </div>
+                                          </div>
                                       </div>
                                       <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>ii) Alamat</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="alamat_asset" value="{{ old('alamat_asset')}}">
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>iii) No Pendaftaran Harta</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran')}}">
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>iv) Harga Jualan</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="harga_jualan" value="{{ old('harga_jualan')}}">
-                                          @error('harga_jualan')
-                                             <div class="alert alert-danger">{{ $message }}</div>
-                                         @enderror
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>v)	Tarikh lupus</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <input class="form-control bg-light" id="datefield2" type="date" name="tarikh_lupus" value="{{ old('tarikh_lupus')}}">
-                                          @error('tarikh_lupus')
-                                             <div class="alert alert-danger">{{ $message }}</div>
-                                         @enderror
-                                        </div>
-                                      </div>
+                                      <div id="pelupusan" style="display: none;">
+                                              <div class="row">
+                                                <div class="col-md-4">
+                                                  <p><b>b) Hasil Pelupusan Harta, Nyatakan</b></p>
+                                                </div>
+                                              </div>
+                                              <div class="row">
+                                                <div class="col-md-4">
+                                                  <p>i)	Jenis Harta</p>
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <input class="form-control bg-light" type="text" name="jenis_harta_pelupusan" value="{{ old('jenis_harta_pelupusan')}}">
+                                                </div>
+                                              </div>
+                                              <br>
+                                              <div class="row">
+                                                <div class="col-md-4">
+                                                  <p>ii) Alamat</p>
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <input class="form-control bg-light" type="text" name="alamat_asset" value="{{ old('alamat_asset')}}">
+                                                </div>
+                                              </div>
+                                              <br>
+                                              <div class="row">
+                                                <div class="col-md-4">
+                                                  <p>iii) No Pendaftaran Harta</p>
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <input class="form-control bg-light" type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran')}}">
+                                                </div>
+                                              </div>
+                                              <br>
+                                              <div class="row">
+                                                <div class="col-md-4">
+                                                  <p>iv) Harga Jualan</p>
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <input class="form-control bg-light" type="text" name="harga_jualan" value="{{ old('harga_jualan')}}">
+                                                  @error('harga_jualan')
+                                                     <div class="alert alert-danger">{{ $message }}</div>
+                                                 @enderror
+                                                </div>
+                                              </div>
+                                              <br>
+                                              <div class="row">
+                                                <div class="col-md-4">
+                                                  <p>v)	Tarikh lupus</p>
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <input class="form-control bg-light" id="datefield2" type="date" name="tarikh_lupus" value="{{ old('tarikh_lupus')}}">
+                                                  @error('tarikh_lupus')
+                                                     <div class="alert alert-danger">{{ $message }}</div>
+                                                 @enderror
+                                                </div>
+                                              </div>
+                                            </div>
                                       <!-- <div class="col-md-1">
                                         <button class="add_field_button" id="add_harta_button">Tambah</button>
                                     </div> -->
@@ -777,16 +889,49 @@
                         </div>
                       </div>
                       @else
-                      <div class="col-md-4 mt-2 mt-md-0">
-                        <div class="col-md-4 mt-2 mt-md-0">
-                            <input class="form-control bg-light" type="text" name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ old('gaji_pasangan')}}">
-                            @error('gaji_pasangan')
-                               <div class="alert alert-danger">{{ $message }}</div>
-                           @enderror
-                        </div>
+                      <div class="row">
+                        <div class="col-12 mt-4">
+                             <div class="card rounded-lg">
+                                 <div class="card-body">
+                                    <!-- pendapatan bulanan-->
 
-                      </div>
-                    </br>
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <p><b>3. PENDAPATAN BULANAN</b></p>
+                                      </div>
+                                    </div>
+                                    <!-- Gaji -->
+                                    <div class="row">
+                                      <div class="col-md-3">
+                                      </div>
+                                      <div class="col-md-4">
+                                        <p align="center"> PEGAWAI</p>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <p align="center"> PASANGAN</p>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-3">
+                                        <p> 1) Gaji</p>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <div class="input-group">
+                                            @foreach($salary as $gaji)
+                                              <input type="hidden" name="gaji" value="{{$gaji->SALARY}}">{{$gaji->SALARY}}
+                                            @endforeach
+                                          </div>
+                                      </div>
+                                  <div class="col-md-4 mt-2 mt-md-0">
+                                    <div class="input-group">
+                                    <input class="form-control bg-light" type="text" name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ old('gaji_pasangan')}}">
+                                      @error('gaji_pasangan')
+                                         <div class="alert alert-danger">{{ $message }}</div>
+                                     @enderror
+                                   </div>
+                                 </div>
+                               </div>
+                             </br>
                     <!-- imbuhan -->
                       <div class="row">
                         <div class="col-md-3 mt-2 mt-md-0">
@@ -1264,10 +1409,10 @@
                       <br>
                       <div class="row">
                         <div class="col-md-4">
-                          <p class="required">Cara Dan Dari Siapa Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
+                          <p class="required">Cara Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
                         </div>
-                        <div class="col-md-4">
-                            <select id="cara_perolehan" class="custom-select  bg-light" name="cara_perolehan" >
+                        <div class="col-md-8">
+                            <select id="cara_perolehan" class="custom-select  bg-light" name="cara_perolehan" onchange="showCaraPerolehan()" required >
                                 <option value="" selected disabled hidden>Cara Perolehan</option>
                                 <option value="" selected hidden></option>
                                 <option value="Dipusakai" {{ old('cara_perolehan') == "Dipusakai" ? 'selected' : '' }}>Dipusakai</option>
@@ -1279,137 +1424,247 @@
                         @error('cara_perolehan')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
+                     </div>
+
+                     <!-- dipusakai / dihadiahkan -->
+                       <div id="nama_pemilikan_asal" style="display: none;">
+                         <div class="row">
+                           <div class="col-md-4">
+                             <p class="required"> Dari Siapa Harta Diperolehi</p>
+                           </div>
+                           <div class="col-md-8">
+                             <input class="form-control bg-light" type="text" name="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum" value="{{ old('nama_pemilikan_asal')}}">
+                             @error('nama_pemilikan_asal')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                           </div>
+                         </div>
+                         <br>
+                       </div>
+
+                    <!-- lain lain -->
+                       <div id="lain" style="display:none;">
+                         <div class="row">
+                           <div class="col-md-4">
+                             <p class="required"> Nyatakan,</p>
+                           </div>
+                           <div class="col-md-8">
+                             <input class="form-control bg-light" type="text" name="lain-lain" placeholder="" value="{{ old('lain')}}">
+                             @error('lain')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                           </div>
+                         </div>
+                         <br>
+                       </div>
+                       <script type="text/javascript">
+                        function showCaraPerolehan(){
+                          var cara_peroleh = $('#cara_perolehan').val();
+
+                          if(cara_peroleh == "Dipusakai" || cara_peroleh == "Dihadiahkan"){
+                            document.getElementById('nama_pemilikan_asal').style.display ="block";
+                          }
+                          else{
+                            document.getElementById('nama_pemilikan_asal').style.display ="none";
+                            document.getElementById('pinjaman').style.display ="none";
+                            document.getElementById('pelupusan').style.display ="none";
+                          }
+
+                          if (cara_peroleh == "Dibeli") {
+                            document.getElementById('dibeli').style.display ="block";
+                          }
+                          else{
+                            document.getElementById('dibeli').style.display ="none";
+                            document.getElementById('pinjaman').style.display ="none";
+                            document.getElementById('pelupusan').style.display ="none";
+                          }
+
+                          if (cara_peroleh == "Lain-lain") {
+                            document.getElementById('lain').style.display ="block";
+                          }
+                          else{
+                            document.getElementById('lain').style.display ="none";
+                            document.getElementById('pinjaman').style.display ="none";
+                            document.getElementById('pelupusan').style.display ="none";
+                          }
+                        }
+
+                        </script>
+
+                      <!-- dibeli -->
+                        <div id="dibeli" style="display: none;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required"> Cara Pembelian Harta</p>
+                            </div>
+                            <div class="col-md-8">
+                              <select id="cara_belian" class="custom-select  bg-light" name="cara_belian" onchange="showCaraBelian()" required >
+                                  <option value="" selected disabled hidden>Cara Belian</option>
+                                  <option value="" selected hidden></option>
+                                  <option value="Pinjaman" {{ old('cara_belian') == "Pinjaman" ? 'selected' : '' }}>Pinjaman</option>
+                                  <option value="Pelupusan" {{ old('cara_belian') == "Pelupusan" ? 'selected' : '' }}>Hasil Pelupusan Harta</option>
+                              </select>
+                               @error('cara_belian')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+                          </div>
+                          <br>
+                        </div>
+
+                        <script type="text/javascript">
+                         function showCaraBelian(){
+                           var cara_belian = $('#cara_belian').val();
+
+                           if(cara_belian == "Pinjaman"){
+                             document.getElementById('pinjaman').style.display ="block";
+                           }
+                           else{
+                             document.getElementById('pinjaman').style.display ="none";
+                           }
+
+                           if(cara_belian == "Pelupusan"){
+                             document.getElementById('pelupusan').style.display ="block";
+                           }
+                           else{
+                             document.getElementById('pelupusan').style.display ="none";
+                           }
+                         }
+
+                         </script>
                         <!-- <div class="col-md-4">
-                          <input class="form-control bg-light" type="text" name="cara_perolehan" value="{{ session()->get('asset.cara_perolehan') }}">
-                        </div> -->
-                        <div class="col-md-4">
                           <input class="form-control bg-light" type="text" name="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum" value="{{ old('nama_pemilikan_asal')}}">
                         </div>
                         @error('nama_pemilikan_asal')
                            <div class="alert alert-danger">{{ $message }}</div>
-                       @enderror
+                       @enderror -->
                       </div>
                       <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p class="required"><b>Punca-punca Kewangan Bagi Memiliki Harta Dan Jumlahnya</b></p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p><b>a)	Jika Pinjaman, Nyatakan</b></p>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>i) Jumlah Pinjaman</p>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" name="jumlah_pinjaman" value="{{ old('jumlah_pinjaman')}}">
-                          @error('jumlah_pinjaman')
-                             <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>ii)	Institusi memberi pinjaman</p>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" name="institusi_pinjaman" value="{{ old('institusi_pinjaman')}}">
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>iii)	Tempoh bayaran balik</p>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" name="tempoh_bayar_balik" value="{{ old('tempoh_bayar_balik')}}">
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>iv) Ansuran bulanan </p>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" name="ansuran_bulanan" value="{{ old('ansuran_bulanan')}}">
-                          @error('ansuran_bulanan')
-                             <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>v)	Tarikh ansuran pertama</p>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="form-control bg-light" id="datefield1" type="date" name="tarikh_ansuran_pertama" value="{{ old('tarikh_ansuran_pertama')}}">
-                          @error('tarikh_ansuran_pertama')
-                             <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p><b>b) Hasil Pelupusan Harta, Nyatakan</b></p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>i)	Jenis Harta</p>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" name="jenis_harta_pelupusan" value="{{ old('jenis_harta_pelupusan')}}">
-                        </div>
+                    <!-- pinjaman -->
+                    <div id="pinjaman" style="display: none;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required"><b>Punca-punca Kewangan Bagi Memiliki Harta Dan Jumlahnya</b></p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p><b>a)	Jika Pinjaman, Nyatakan</b></p>
+                            </div>
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p>i) Jumlah Pinjaman</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" name="jumlah_pinjaman" value="{{ old('jumlah_pinjaman')}}">
+                              @error('jumlah_pinjaman')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p>ii)	Institusi memberi pinjaman</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" name="institusi_pinjaman" value="{{ old('institusi_pinjaman')}}">
+                            </div>
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p>iii)	Tempoh bayaran balik</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" name="tempoh_bayar_balik" value="{{ old('tempoh_bayar_balik')}}">
+                            </div>
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p>iv) Ansuran bulanan </p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" name="ansuran_bulanan" value="{{ old('ansuran_bulanan')}}">
+                              @error('ansuran_bulanan')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p>v)	Tarikh ansuran pertama</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" id="datefield1" type="date" name="tarikh_ansuran_pertama" value="{{ old('tarikh_ansuran_pertama')}}">
+                              @error('tarikh_ansuran_pertama')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+                          </div>
                       </div>
                       <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>ii) Alamat</p>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" name="alamat_asset" value="{{ old('alamat_asset')}}">
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>iii) No Pendaftaran Harta</p>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran')}}">
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>iv) Harga Jualan</p>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" name="harga_jualan" value="{{ old('harga_jualan')}}">
-                          @error('harga_jualan')
-                             <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>v)	Tarikh lupus</p>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="form-control bg-light" id="datefield2" type="date" name="tarikh_lupus" value="{{ old('tarikh_lupus')}}">
-                          @error('tarikh_lupus')
-                             <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
-                        </div>
-                      </div>
+                      <div id="pelupusan" style="display: none;">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <p><b>b) Hasil Pelupusan Harta, Nyatakan</b></p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <p>i)	Jenis Harta</p>
+                                </div>
+                                <div class="col-md-8">
+                                  <input class="form-control bg-light" type="text" name="jenis_harta_pelupusan" value="{{ old('jenis_harta_pelupusan')}}">
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <p>ii) Alamat</p>
+                                </div>
+                                <div class="col-md-8">
+                                  <input class="form-control bg-light" type="text" name="alamat_asset" value="{{ old('alamat_asset')}}">
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <p>iii) No Pendaftaran Harta</p>
+                                </div>
+                                <div class="col-md-8">
+                                  <input class="form-control bg-light" type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran')}}">
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <p>iv) Harga Jualan</p>
+                                </div>
+                                <div class="col-md-8">
+                                  <input class="form-control bg-light" type="text" name="harga_jualan" value="{{ old('harga_jualan')}}">
+                                  @error('harga_jualan')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <p>v)	Tarikh lupus</p>
+                                </div>
+                                <div class="col-md-8">
+                                  <input class="form-control bg-light" id="datefield2" type="date" name="tarikh_lupus" value="{{ old('tarikh_lupus')}}">
+                                  @error('tarikh_lupus')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
+                                </div>
+                              </div>
+                            </div>
                     <!-- <div class="col-md-1">
                       <button class="add_field_button" id="add_harta_button">Tambah</button>
                   </div> -->

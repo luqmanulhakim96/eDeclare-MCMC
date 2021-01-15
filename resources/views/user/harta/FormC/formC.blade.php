@@ -70,6 +70,7 @@
                           </div>
                       </div>
                   </div>
+                  @if($data_user)
                   <div class="row">
                     <div class="col-12 mt-4">
                          <div class="card rounded-lg">
@@ -80,18 +81,18 @@
                                         <p><b>2. KETERANGAN MENGENAI PELUPUSAN HARTA</b></p>
                                       </div>
                                   </div>
-                                  @if($data_user)
+                                <div class="form-group">
                                   <div class="row">
-                                    <div class="form-group">
                                       <div class="col-md-4">
                                         <p class="required">Jenis Harta</p>
                                       </div>
+
                                       <div class="col-md-8">
                                         <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}" required>
                                             <option value="" selected disabled hidden>Jenis Harta</option>
 
                                             @foreach($data_user as $jenisharta)
-                                            <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
+                                            <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->maklumat_harta}}</option>
                                             @endforeach
 
                                             </select>
@@ -101,30 +102,6 @@
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
                                   </div>
-                                  @else
-                                  <div class="form-group">
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                        <p class="required">Jenis Harta</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                        <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}" required>
-                                            <option value="" selected disabled hidden>Jenis Harta</option>
-
-                                            @foreach($jenisHarta as $jenisharta)
-                                            @if($jenisharta->status_jenis_harta == "Aktif")
-                                            <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
-                                            @endif
-                                            @endforeach
-
-                                            </select>
-                                      </div>
-                                  </div>
-                                  @error('jenis_harta_lupus')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  </div>
-                                  @endif
 
                                   <br>
                                 <div class="form-group">
@@ -223,6 +200,138 @@
                             </div>
                        </div>
                    </div>
+                   @else
+                   <div class="row">
+                     <div class="col-12 mt-4">
+                          <div class="card rounded-lg">
+                              <div class="card-body">
+
+                                   <div class="row">
+                                       <div class="col-md-4">
+                                         <p><b>2. KETERANGAN MENGENAI PELUPUSAN HARTA</b></p>
+                                       </div>
+                                      </div>
+                                      <div class="form-group">
+                                               <div class="row">
+                                                   <div class="col-md-4">
+                                                     <p class="required">Jenis Harta</p>
+                                                   </div>
+                                                   <div class="col-md-8">
+                                                     <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}" required>
+                                                         <option value="" selected disabled hidden>Jenis Harta</option>
+
+                                                         @foreach($jenisHarta as $jenisharta)
+                                                         @if($jenisharta->status_jenis_harta == "Aktif")
+                                                         <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
+                                                         @endif
+                                                         @endforeach
+
+                                                         </select>
+                                                   </div>
+                                               </div>
+                                               @error('jenis_harta_lupus')
+                                                  <div class="alert alert-danger">{{ $message }}</div>
+                                              @enderror
+                                               </div>
+
+                                               <br>
+                                             <div class="form-group">
+                                               <div class="row">
+                                                   <div class="col-md-4">
+                                                       <p class="required">Pemilik Harta</p>
+                                                   </div>
+                                                   <div class="col-md-8">
+                                                       <input class="form-control bg-light" type="text" name="pemilik_harta_pelupusan" placeholder="Nama Pemilik Sebelum" value="{{ old('pemilik_harta_pelupusan')}}" >
+                                                   </div>
+                                                 </div>
+                                                 @error('pemilik_harta_pelupusan')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
+                                             </div>
+                                             <br>
+                                             <div class="form-group">
+                                                   <div class="row">
+                                                     <div class="col-md-4">
+                                                         <p class="required">Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
+                                                     </div>
+                                                     <div class="col-md-8">
+                                                         <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik_pelupusan" value="{{ old('hubungan_pemilik_pelupusan')}}" >
+                                                           <option value="" selected hidden></option>
+                                                           <option value="Sendiri" {{ old('hubungan_pemilik_pelupusan') == "Sendiri" ? 'selected' : '' }}>Sendiri</option>
+                                                           <option value="Anak" {{ old('hubungan_pemilik_pelupusan') == "Anak" ? 'selected' : '' }}>Anak</option>
+                                                           <option value="Isteri/Suami" {{ old('hubungan_pemilik_pelupusan') == "Isteri/Suami" ? 'selected' : '' }}>Isteri/Suami</option>
+                                                           <option value="Ibu/Ayah" {{ old('hubungan_pemilik_pelupusan') == "Ibu/Ayah" ? 'selected' : '' }}>Ibu/Ayah</option>
+                                                           <option value="Lain-lain" {{ old('hubungan_pemilik_pelupusan') == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
+                                                         </select>
+                                                     </div>
+                                                   </div>
+                                                   @error('hubungan_pemilik_pelupusan')
+                                                      <div class="alert alert-danger">{{ $message }}</div>
+                                                  @enderror
+                                               </div>
+                                                 <div class="row">
+                                                   <div class="col-md-4">
+                                                       <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
+                                                   </div>
+                                                   <div class="col-md-8">
+                                                       <input class="form-control bg-light" type="text" name="no_pendaftaran_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ old('no_pendaftaran_harta')}}" >
+                                                   </div>
+                                                   @error('no_pendaftaran_harta')
+                                                      <div class="alert alert-danger">{{ $message }}</div>
+                                                  @enderror
+                                               </div>
+                                               <br>
+                                               <div class="row">
+                                                   <div class="col-md-4">
+                                                       <p class="required">Tarikh Pemilikan Harta</p>
+                                                   </div>
+                                                   <div class="col-md-8">
+                                                       <input class="form-control bg-light" id="datefield" type="date" name="tarikh_pemilikan" value="{{ old('tarikh_pemilikan')}}" >
+                                                   </div>
+                                                   @error('tarikh_pemilikan')
+                                                      <div class="alert alert-danger">{{ $message }}</div>
+                                                  @enderror
+                                               </div>
+                                               <br>
+                                               <div class="row">
+                                                   <div class="col-md-4">
+                                                       <p class="required">Tarikh Pelupusan Harta</p>
+                                                   </div>
+                                                   <div class="col-md-8">
+                                                       <input class="form-control bg-light" id="datefield1" type="date" name="tarikh_pelupusan" value="{{ old('tarikh_pelupusan')}}" >
+                                                   </div>
+                                                   @error('tarikh_pelupusan')
+                                                      <div class="alert alert-danger">{{ $message }}</div>
+                                                  @enderror
+                                               </div>
+                                               <br>
+                                               <div class="row">
+                                                   <div class="col-md-4">
+                                                       <p class="required">Cara Pelupusan (sama ada dijual, dihadiahkan dan sebagainya). Jika dijual, Nyatakan nilai jualan.</p>
+                                                   </div>
+                                                   <div class="col-md-4">
+                                                       <select id="cara_pelupusan" class="custom-select  bg-light" name="cara_pelupusan" value="{{ old('cara_pelupusan')}}" >
+                                                           <option selected hidden></option>
+                                                           <option value="Dijual" {{ old('cara_pelupusan') == "Dijual" ? 'selected' : '' }}>Dijual</option>
+                                                           <option value="Dihadiahkan" {{ old('cara_pelupusan') == "Dihadiahkan" ? 'selected' : '' }}>Dihadiahkan</option>
+                                                           <option value="Lain-lain" {{ old('cara_pelupusan') == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
+                                                       </select>
+                                                   </div>
+                                                   @error('cara_pelupusan')
+                                                      <div class="alert alert-danger">{{ $message }}</div>
+                                                  @enderror
+                                                   <div class="col-md-4">
+                                                       <input class="form-control bg-light" type="text" name="nilai_pelupusan" placeholder="Nilai Jualan" value="{{ old('nilai_pelupusan')}}">
+                                                   </div>
+                                                   @error('nilai_pelupusan')
+                                                      <div class="alert alert-danger">{{ $message }}</div>
+                                                  @enderror
+                                               </div>
+                                             </div>
+                                         </div>
+                                    </div>
+                                  </div>
+                                  @endif
                                   <br>
                                   <div class="row">
                                     <div class="col-md-1" align="right">
@@ -250,7 +359,7 @@
                                     </div>
 
                               </form>
-                          </div>
+                                </div>
 
      </div>
      <script type="text/javascript">

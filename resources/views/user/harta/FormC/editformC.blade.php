@@ -196,6 +196,10 @@
                                          @enderror
                                       </div>
                                   </div>
+                                </div>
+                            </div>
+                     </div>
+                 </div>
                                   <br>
                                   <div class="row">
                                     <div class="col-md-1" align="right">
@@ -219,10 +223,7 @@
                                   </div>
 
                               </form>
-                          </div>
-                      </div>
-               </div>
-           </div>
+
           </div>
           <script type="text/javascript">
           var today = new Date();

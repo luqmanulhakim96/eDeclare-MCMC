@@ -253,11 +253,15 @@ Route::get('/lampiran/Ulasan-Harta-G/id={id}', 'AdminController@viewUlasanHartaG
 
 Route::get('/senarai-harta', 'AdminController@senaraiAllForm')->name('user.admin.harta.senaraiallharta');
 
+Route::get('/senarai-harta-ketua-jabatan', 'HodivController@senaraiAllForm')->name('user.hodiv.harta.senaraiallharta');
+
 Route::get('/admin/senarai-harta-pengguna/id={id}', 'AdminController@senaraiAllUserForm')->name('user.admin.senaraiallharta1');
 
 Route::get('/admin/senarai-tugasan-harta', 'AdminController@senaraiTugasanHarta')->name('user.admin.harta.senaraitugasanharta');
 
 Route::get('/senarai-hadiah', 'AdminController@senaraiAllHadiah')->name('user.admin.hadiah.senaraiallhadiah');
+
+Route::get('/senarai-hadiah-Ketua-Jabatan', 'HodivController@senaraiAllHadiah')->name('user.hodiv.hadiah.senaraiallhadiah');
 
 Route::get('/admin/senarai-tugasan-hadiah', 'AdminController@senaraiTugasanHadiah')->name('user.admin.hadiah.senaraitugasanhadiah');
 

@@ -28,11 +28,11 @@ class FormCController extends Controller
     if($data_user->isEmpty()){
       //TANYA LUKE
       $data_user = null;
-      return view('user.harta.FormC.formCNew', compact('jenisHarta','data_user','jenisHarta'));
+      return view('user.harta.FormC.formC', compact('jenisHarta','data_user','jenisHarta'));
     }
     else {
       $data_user = FormB::where('user_id', $userid) ->get();
-      return view('user.harta.FormC.formCNew', compact('jenisHarta','data_user'));
+      return view('user.harta.FormC.formC', compact('jenisHarta','data_user'));
     }
   }
 public function editformC($id){

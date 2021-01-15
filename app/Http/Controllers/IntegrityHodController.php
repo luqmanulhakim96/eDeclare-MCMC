@@ -418,14 +418,14 @@ class IntegrityHodController extends Controller
          $this->dispatch(new SendNotificationFormGHod($data, $email, $formgs));
 
       }
-       else {
-         $email = Email::where('jenis', '=', 'Perisytiharan Harta Gagal')->first(); //template email yang diguna
-         // $email = null; // for testing
-         $user = User::where('id', '=', $formgs->user_id)->first(); //get system admin information
-
-         $this->dispatch(new SendNotificationFormGHod($data, $email, $formgs));
-
-     }
+     //   elseif ($request->status == 'Tidak Diterima') {
+     //     $email = Email::where('jenis', '=', 'Perisytiharan Harta Gagal')->first(); //template email yang diguna
+     //     // $email = null; // for testing
+     //     $user = User::where('id', '=', $formgs->user_id)->first(); //get system admin information
+     //
+     //     $this->dispatch(new SendNotificationFormGHod($data, $email, $formgs));
+     //
+     // }
 
        return redirect()->route('user.admin.harta.senaraiallharta');
      }

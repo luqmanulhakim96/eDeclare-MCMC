@@ -299,7 +299,7 @@ return [
     'sync_attributes' => [
         //insert data from ad to users table
 
-        'email' => 'userprincipalname',
+        'email' => 'mail',
         'username' => 'samaccountname',
         // 'samaccountname' => 'userprincipalname',
         'title' => 'title',

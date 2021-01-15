@@ -82,14 +82,6 @@
                           </ul>
                       </div>
                         <!-- Sub menu parent -->
-                        <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu2" aria-expanded="false" aria-controls="table-sub-menu"><b>Senarai Penerimaan Hadiah</b></a></li>
-                        <div id="table-sub-menu2" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                            <ul class="side-sub-menu p-0">
-                                <!-- <li class="side-sub-menu-item px-3"><a href="{{ route('user.harta.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta </a></li> -->
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Atas RM 100</a></li>
-                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiahB') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah RM 100 dan Kebawah</a></li>
-                            </ul>
-                        </div>
                         <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu3" aria-expanded="false" aria-controls="table-sub-menu"><b>Senarai Perisytiharan</b></a></li>
                         <div id="table-sub-menu3" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
@@ -101,6 +93,15 @@
                                 <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiahB') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah RM 100 dan Kebawah</a></li> -->
                             </ul>
                         </div>
+                        <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table-sub-menu2" aria-expanded="false" aria-controls="table-sub-menu"><b>Senarai Penerimaan Hadiah</b></a></li>
+                        <div id="table-sub-menu2" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <ul class="side-sub-menu p-0">
+                                <!-- <li class="side-sub-menu-item px-3"><a href="{{ route('user.harta.senaraiharta') }}" class="w-100 pl-4">Senarai Perisytiharan Harta </a></li> -->
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiah') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah Atas RM 100</a></li>
+                                <li class="side-sub-menu-item px-3"><a href="{{ route('user.hadiah.senaraihadiahB') }}" class="w-100 pl-4">Senarai Penerimaan Hadiah RM 100 dan Kebawah</a></li>
+                            </ul>
+                        </div>
+
                         <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#table" aria-expanded="false" aria-controls="table"><b>Draf</b></a></li>
                         <div id="table" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
@@ -147,8 +148,8 @@
 
                           <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.hadiah.senaraiallhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
                                   <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.harta.senaraiallharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.hadiah.senaraiallhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
                                   <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.senarai_user_declaration') }}" class="w-100 pl-4">Perisytiharan Mengikut Pengguna</a></li>
                               </ul>
                           </div>
@@ -158,8 +159,9 @@
 
                           <div id="menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.hadiah.senaraitugasanhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
                                   <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.harta.senaraitugasanharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.hadiah.senaraitugasanhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+
                               </ul>
                           </div>
                           @elseif(Auth::user()->role == 2 )
@@ -168,15 +170,17 @@
 
                           <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.hadiah.senaraiallhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
                                   <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.harta.senaraiallharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.hadiah.senaraiallhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+
                               </ul>
                           </div>
                           <li class="side-menu-item px-3"><a href="#" class="w-100 py-3 pl-4 sub-menu-parent" data-toggle="collapse" data-target="#menu" aria-expanded="false" aria-controls="menu"><b>Senarai Tugasan</b></a></li>
                           <div id="menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.integrityHOD.hadiah.senaraitugasanhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
                                   <li class="side-sub-menu-item px-5"><a href="{{ route('user.integrityHOD.harta.senaraitugasanharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.integrityHOD.hadiah.senaraitugasanhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+
                               </ul>
                           </div>
                           @elseif(Auth::user()->role == 3 )
@@ -185,8 +189,9 @@
 
                           <div id="table-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-menu-item px-5"><a href="{{ route('user.admin.hadiah.senaraiallhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
-                                  <li class="side-menu-item px-5"><a href="{{ route('user.admin.harta.senaraiallharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.hodiv.harta.senaraiallharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.hodiv.hadiah.senaraiallhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+
                               </ul>
                           </div>
                           <!-- Sub menu parent -->
@@ -194,8 +199,9 @@
 
                           <div id="menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                               <ul class="side-sub-menu p-0">
-                                  <li class="side-menu-item px-5"><a href="{{ route('user.hodiv.hadiah.senaraitugasanhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
-                                  <li class="side-menu-item px-5"><a href="{{ route('user.hodiv.harta.senaraitugasanharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.hodiv.harta.senaraitugasanharta') }}" class="w-100 pl-4">Perisytiharan Harta</a></li>
+                                  <li class="side-sub-menu-item px-5"><a href="{{ route('user.hodiv.hadiah.senaraitugasanhadiah') }}" class="w-100 pl-4">Penerimaan Hadiah </a></li>
+
                               </ul>
                           </div>
 
@@ -260,8 +266,9 @@
 
                         <div id="laporan" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <ul class="side-sub-menu p-0">
-                                <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.hadiah.report') }}" class="w-100 pl-4">Hadiah </a></li>
                                 <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.harta.senarailaporanharta') }}" class="w-100 pl-4">Harta</a></li>
+                                <li class="side-sub-menu-item px-5"><a href="{{ route('user.admin.hadiah.report') }}" class="w-100 pl-4">Hadiah </a></li>
+
                             </ul>
                         </div>
                         @endif
@@ -360,7 +367,7 @@
 
                     </div>
 
-                    
+
 
                     <!-- Profile action dropdown -->
                     <div class="dropdown dropdown-arow-none d-contents text-center mx-2">
@@ -393,7 +400,7 @@
     <footer>
       <br>
       <div class="row">
-        <div class="col-md-10">&copy; Copyright. <a href="https://www.forestry.gov.my/my/" target="_Blank"><font color="black">Malaysian Communications and Multimedia Commission</font></a></div>
+        <div class="col-md-10">&copy; Copyright. <a href="https://www.mcmc.gov.my/en/home" target="_Blank"><font color="black">Malaysian Communications and Multimedia Commission</font></a></div>
         <div class="col-md-2">Version 1.0.0</div>
       </div>
     </footer>
