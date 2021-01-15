@@ -97,6 +97,8 @@
                             </div>
                         </div>
                     </div>
+                    @if($maklumat_pasangan->isEmpty())
+                    @else
                     <div class="row">
                       <div class="col-12 mt-4">
                            <div class="card rounded-lg">
@@ -150,6 +152,10 @@
                                       </div>
                                     </div>
                                     @endforeach
+                                    @endif
+
+                                    @if($maklumat_anak->isEmpty())
+                                    @else
                                     @foreach($maklumat_anak as $maklumat_anak)
                                     <div class="row">
                                         <div class="col-md-4">
@@ -195,6 +201,8 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
+                        @if($last_data_formb)
                         <div class="row">
                           <div class="col-12 mt-4">
                                <div class="card rounded-lg">
@@ -227,7 +235,7 @@
                                               @endforeach
                                             </div>
                                         </div>
-                                        @if($last_data_formb)
+
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <input class="form-control bg-light" type="text" name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ $last_data_formb->gaji_pasangan}}">
                                             @error('gaji_pasangan')
@@ -818,6 +826,38 @@
                         </div>
                     </div>
                     @else
+    <div class="row">
+      <div class="col-12 mt-4">
+           <div class="card rounded-lg">
+               <div class="card-body">
+                  <!-- pendapatan bulanan-->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p><b>3. PENDAPATAN BULANAN</b></p>
+                    </div>
+                  </div>
+                  <!-- Gaji -->
+                  <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-4">
+                      <p align="center"> PEGAWAI</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p align="center"> PASANGAN</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <p> 1) Gaji</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                          @foreach($salary as $gaji)
+                            <input type="hidden" name="gaji" value="{{$gaji->SALARY}}">{{$gaji->SALARY}}
+                          @endforeach
+                        </div>
+                    </div>
                     <div class="col-md-4 mt-2 mt-md-0">
                         <input class="form-control bg-light" type="text" name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ old('gaji_pasangan')}}">
                         @error('gaji_pasangan')
@@ -825,13 +865,9 @@
                        @enderror
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          <div class="row">
-            <div class="col-12 mt-4">
-                 <div class="card rounded-lg">
-                     <div class="card-body">
+                  <br>
+
+
                 <!-- imbuhan -->
                   <div class="row">
                     <div class="col-md-3 mt-2 mt-md-0">

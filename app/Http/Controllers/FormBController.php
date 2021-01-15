@@ -428,7 +428,7 @@ public function add(array $data){
   }
 
   public function submitForm(Request $request){
-
+// dd($request->all());
   if ($request->has('save'))
   {
     $isChecked = $request->has('pengakuan');

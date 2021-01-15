@@ -131,7 +131,7 @@
                       <br>
                       <!-- Text -->
                       <div class="small-card-text w-100 text-center">
-                          <p class="font-weight-normal m-0 text-muted">Lampiran G:</p>
+                          <p class="font-weight-normal m-0 text-muted">Lampiran E:</p>
                           <p class="font-weight-normal m-0 text-primary">Borang Memohon dan Memiliki Saham</p>
                       </div>
                   </div>
