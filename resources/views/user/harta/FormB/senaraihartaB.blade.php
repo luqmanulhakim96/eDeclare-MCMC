@@ -44,6 +44,10 @@
                                              <td>
                                                @if($data ->status == "Sedang Diproses")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Sedang Dikemaskini")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Menunngu Kebenaran Kemaskini")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Tidak Lengkap")
@@ -51,7 +55,7 @@
                                                @elseif($data ->status == "Tidak Diterima")
                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Diterima")
-                                               <span class="badge badge-success badge-pill">Selesai</span>
+                                               <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
 
@@ -59,12 +63,14 @@
                                              </td>
                                              <td class="p-3">
                                              <div class="d-flex flex-row justify-content-around align-items-center">
-                                               @if($data ->status == "Sedang Diproses")
-                                                <a href="{{ route('user.harta.FormB.editformB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                               @if($data ->status == "Sedang Dikemaskini")
+                                                <a href="{{ route('user.harta.FormB.editformBNew', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
                                                 @elseif($data ->status == "Tidak Lengkap")
-                                                  <a href="{{ route('user.harta.FormB.editformB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <a href="{{ route('user.harta.FormB.editformBNew', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                                @elseif($data ->status == "Sedang Diproses")
+                                                <a href="{{ route('statuseditB.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
                                                 @else
-                                                <span>-</span>
+                                                <span><button class="btn btn-dark mr-1" disabled><i class="fas fa-pencil-alt"></i></button></span>
                                                 @endif
                                               </div>
                                              </td>

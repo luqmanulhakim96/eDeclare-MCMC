@@ -67,10 +67,14 @@
                                              <td>
                                                @if($data ->getTable() == "gifts")
                                                  @if($data ->status == "Sedang Diproses")
-                                                 <span class="badge badge-warning badge-pill">Menunggu Ulasan Ketua Jabatan Integriti</span>
+                                                 <span class="badge badge-warning badge-pill">Menunggu Ulasan Ketua Jabatan</span>
+                                                 @elseif($data ->status == "Sedang Dikemaskini")
+                                                 <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                                 @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                                 <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                  @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                  <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                 @elseif($data ->status == "Diproses ke Pentadbir Sistem")
+                                                 @elseif($data ->status == "Proses ke Pentadbir Sistem")
                                                  <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                  @elseif($data ->status == "Tidak Lengkap")
                                                  <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
@@ -81,13 +85,17 @@
                                                  @endif
                                               @elseif($data ->getTable() == "giftbs")
                                                 @if($data ->status == "Sedang Diproses")
+                                                <span class="badge badge-warning badge-pill">Diproses ke Pentadbir Sistem</span>
+                                                @elseif($data ->status == "Sedang Dikemaskini")
                                                 <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                @elseif($data ->status == "Diproses ke Pentadbir Sistem")
+                                                @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
                                                 <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                 @elseif($data ->status == "Tidak Lengkap")
                                                 <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
                                                 @elseif($data ->status == "Tidak Diterima")
                                                 <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
+                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                 @elseif($data ->status == "Diterima")
                                                 <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                 @endif

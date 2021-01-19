@@ -40,6 +40,7 @@ use App\UserExistingStaffInfo;
 use App\UserExistingStaffNextofKin;
 
 use App\Jobs\SendNotificationGift;
+use App\Jobs\SendNotificationGiftB;
 
 use Adldap\Laravel\Facades\Adldap;
 
@@ -681,31 +682,52 @@ class AdminController extends Controller
      $gifts->save();
 
      //send notification to users (status="Diterima" && status="Tidak Diterima" && status="Tidak Lengkap")
+
      if($request->status == 'Tidak Lengkap'){
 
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Hadiah)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+       $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
 
-       $this->dispatch(new SendNotificationGift($user, $email, $gifts));
+       $this->dispatch(new SendNotificationGift($user, $email, $giftbs));
        }
 
-     else if ($request->status == 'Diterima') {
-       $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Diterima')->first(); //template email yang diguna
+       else if($request->status == 'Diproses ke Ketua Jabatan Integriti'){
+       $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Hadiah)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+       $hod_available = User::where('role','=','2')->get(); //get system hodiv information
+       // if ($email) {
+         foreach ($hod_available as $data) {
+           // $giftbs->notify(new UserGiftAdminB($data, $email));
+           $this->dispatch(new SendNotificationGift($data, $email, $gifts));
+         }
+       }
 
-       $this->dispatch(new SendNotificationGift($user, $email, $gifts));
-
-    }
-     else {
-       $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Gagal')->first(); //template email yang diguna
-       // $email = null; // for testing
-       $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
-
-       $this->dispatch(new SendNotificationGift($user, $email, $gifts));
-
-   }
+   //   if($request->status == 'Tidak Lengkap'){
+   //
+   //     $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Hadiah)')->first(); //template email yang diguna
+   //     // $email = null; // for testing
+   //     $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+   //
+   //     $this->dispatch(new SendNotificationGift($user, $email, $gifts));
+   //     }
+   //
+   //   else if ($request->status == 'Proses ke ') {
+   //     $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Diterima')->first(); //template email yang diguna
+   //     // $email = null; // for testing
+   //     $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+   //
+   //     $this->dispatch(new SendNotificationGift($user, $email, $gifts));
+   //
+   //  }
+   //   else {
+   //     $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Gagal')->first(); //template email yang diguna
+   //     // $email = null; // for testing
+   //     $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+   //
+   //     $this->dispatch(new SendNotificationGift($user, $email, $gifts));
+   //
+   // }
 
 
      return redirect()->route('user.admin.hadiah.senaraiallhadiah');
@@ -731,22 +753,45 @@ class AdminController extends Controller
        $this->dispatch(new SendNotificationGift($user, $email, $giftbs));
        }
 
-     else if ($request->status == 'Diterima') {
-       $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Diterima')->first(); //template email yang diguna
+       else if($request->status == 'Diproses ke Ketua Jabatan Integriti'){
+       $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Hadiah)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+       $hod_available = User::where('role','=','2')->get(); //get system hodiv information
+       // if ($email) {
+         foreach ($hod_available as $data) {
+           // $giftbs->notify(new UserGiftAdminB($data, $email));
+           $this->dispatch(new SendNotificationGift($data, $email, $gifts));
+         }
+       }
 
-       $this->dispatch(new SendNotificationGift($user, $email, $giftbs));
+   //   else if ($request->status == 'Diterima') {
+   //     $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Diterima')->first(); //template email yang diguna
+   //     // $email = null; // for testing
+   //     $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+   //
+   //     $this->dispatch(new SendNotificationGift($user, $email, $giftbs));
+   //
+   //  }
+   //   else {
+   //     $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Gagal')->first(); //template email yang diguna
+   //     // $email = null; // for testing
+   //     $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+   //
+   //     $this->dispatch(new SendNotificationGift($user, $email, $giftbs));
+   //
+   // }
+   else {
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
+     // $email = null; // for testing
+     $hod_available = User::where('role','=','2')->get(); //get system hodiv information
+     // if ($email) {
+       foreach ($hod_available as $data) {
+         // $giftbs->notify(new UserGiftAdminB($data, $email));
+         $this->dispatch(new SendNotificationGiftB($data, $email, $giftbs));
+       }
+     }
 
-    }
-     else {
-       $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Gagal')->first(); //template email yang diguna
-       // $email = null; // for testing
-       $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
 
-       $this->dispatch(new SendNotificationGift($user, $email, $giftbs));
-
-   }
 
      return redirect()->route('user.admin.hadiah.senaraiallhadiah');
    }
@@ -855,6 +900,121 @@ class AdminController extends Controller
 
          return view('user.admin.harta.reportG',compact('listG'));
        }
+
+       public function kemaskinigift($id,Request $request){
+         $status = "Sedang Diproses";
+         $status_edit = "Sedang Dikemaskini";
+         $form=Gift::find($id);
+         // dd( $request->all());
+         if ($request->has('edit'))
+         {
+           // dd($id);
+           $form->status = $status_edit;
+           $form->save();
+         }
+         else if ($request->has('takedit'))
+          {
+            $form->status = $status;
+            $form->save();
+          }
+          return redirect()->route('user.admin.hadiah.senaraitugasanhadiah');
+        }
+
+        public function kemaskinigiftB($id,Request $request){
+          $status = "Sedang Diproses";
+          $status_edit = "Sedang Dikemaskini";
+          $form=GiftB::find($id);
+          // dd( $request->all());
+          if ($request->has('edit'))
+          {
+            // dd($id);
+            $form->status = $status_edit;
+            $form->save();
+          }
+          else if ($request->has('takedit'))
+           {
+             $form->status = $status;
+             $form->save();
+           }
+           return redirect()->route('user.admin.hadiah.senaraitugasanhadiah');
+         }
+
+       public function kemaskiniB($id,Request $request){
+         $status = "Sedang Diproses";
+         $status_edit = "Sedang Dikemaskini";
+         $form=FormB::find($id);
+         // dd( $request->all());
+         if ($request->has('edit'))
+         {
+           // dd($id);
+           $form->status = $status_edit;
+           $form->save();
+         }
+         else if ($request->has('takedit'))
+          {
+            $form->status = $status;
+            $form->save();
+          }
+          return redirect()->route('user.admin.harta.senaraitugasanharta');
+        }
+
+      public function kemaskiniC($id,Request $request){
+        $status = "Sedang Diproses";
+        $status_edit = "Sedang Dikemaskini";
+        $form=FormC::find($id);
+        // dd( $request->all());
+        if ($request->has('edit'))
+        {
+          // dd($id);
+          $form->status = $status_edit;
+          $form->save();
+        }
+        else if ($request->has('takedit'))
+         {
+           $form->status = $status;
+           $form->save();
+         }
+         return redirect()->route('user.admin.harta.senaraitugasanharta');
+       }
+
+       public function kemaskiniD($id,Request $request){
+         $status = "Sedang Diproses";
+         $status_edit = "Sedang Dikemaskini";
+         $form=FormD::find($id);
+         // dd( $request->all());
+         if ($request->has('edit'))
+         {
+           // dd($id);
+           $form->status = $status_edit;
+           $form->save();
+         }
+         else if ($request->has('takedit'))
+          {
+            $form->status = $status;
+            $form->save();
+          }
+          return redirect()->route('user.admin.harta.senaraitugasanharta');
+        }
+
+      public function kemaskiniG($id,Request $request){
+        $status = "Sedang Diproses";
+        $status_edit = "Sedang Dikemaskini";
+        $form=FormG::find($id);
+        // dd( $request->all());
+        if ($request->has('edit'))
+        {
+          // dd($id);
+          $form->status = $status_edit;
+          $form->save();
+        }
+        else if ($request->has('takedit'))
+         {
+           $form->status = $status;
+           $form->save();
+         }
+
+       return redirect()->route('user.admin.harta.senaraitugasanharta');
+     }
 
        public function senaraiAllForm(){
          $listallA = Asset::with('users')->select('id','created_at','status', 'user_id')->get();

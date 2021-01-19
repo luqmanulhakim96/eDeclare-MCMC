@@ -27,6 +27,16 @@ class FormDController extends Controller
     return view('user.harta.FormD.formD');
   }
 
+  public function kemaskini($id){
+    $status = "Menunggu Kebenaran Kemaskini";
+    $form=FormD::find($id);
+    // dd($request->all());
+    $form->status = $status;
+    $form->save();
+
+    return redirect()->route('user.harta.FormB.senaraihartaB');
+  }
+
 public function editformD($id){
     //$info = SenaraiHarga::find(1);
     $info = FormD::findOrFail($id);

@@ -35,19 +35,30 @@ class FormCController extends Controller
       return view('user.harta.FormC.formCNew', compact('jenisHarta','data_user'));
     }
   }
-public function editformC($id){
-    //$info = SenaraiHarga::find(1);
-    $info = FormC::findOrFail($id);
-    $jenisHarta = JenisHarta::get();
 
-    //data ic user
-    // $username =strtoupper(Auth::user()->name);
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
-    //data testing
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
-    //dd($info);
-    return view('user.harta.FormC.editformC', compact('info','jenisHarta'));
+  public function kemaskini($id){
+    $status = "Menunggu Kebenaran Kemaskini";
+    $form=FormC::find($id);
+    // dd($request->all());
+    $form->status = $status;
+    $form->save();
+
+    return redirect()->route('user.harta.FormB.senaraihartaB');
   }
+
+  public function editformC($id){
+      //$info = SenaraiHarga::find(1);
+      $info = FormC::findOrFail($id);
+      $jenisHarta = JenisHarta::get();
+
+      //data ic user
+      // $username =strtoupper(Auth::user()->name);
+      // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
+      //data testing
+      // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
+      //dd($info);
+      return view('user.harta.FormC.editformC', compact('info','jenisHarta'));
+    }
 
 public function add(array $data){
   $userid = Auth::user()->id;

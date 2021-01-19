@@ -151,7 +151,7 @@
 
                             <div class="row">
                               <div class="col-md-2">
-                                  <p>Ulasan Ketua Bahagian</p>
+                                  <p>Ulasan Ketua Jabatan</p>
                                </div>
                                <div class="col-md-8">
                                  @if( $listHadiah->ulasan_hodiv == NULL)
@@ -162,6 +162,18 @@
                                  @endif
                                </div>
                              </div>
+                             <div class="row">
+                               <div class="col-md-2">
+                                   <p>Ulasan Pentadbir Sistem</p>
+                                </div>
+                                <div class="col-md-8">
+                                  @if( $listHadiah->ulasan_admin == NULL)
+                                  Tiada
+                                  @else
+                                  <p>{{ $listHadiah->ulasan_admin }} </p><p>( {{ $listHadiah->nama_admin }} , {{ $listHadiah->no_admin}} )</p><br>
+                                  @endif
+                                </div>
+                              </div>
                            <form action="{{route('ulasanHODGift.update', $listHadiah->id)}}" method="post">
                              @csrf
                              <div class="row">
@@ -174,7 +186,7 @@
                               </div>
                               <div class="row">
                                   <div class="col-md-2">
-                                    <p>No Kad Pengenalan</p>
+                                    <p>No Staff</p>
                                   </div>
                                   <div class="col-md-8">
                                     <input type="text" class="form-control bg-light" name="no_hod" value="{{Auth::user()->kad_pengenalan }}" readonly><br>
@@ -182,19 +194,37 @@
                               </div>
                             <div class="row">
                               <div class="col-md-2">
-                                <p>Ulasan Ketua Jabatan Integriti</p>
+                                <p>Ulasan Pentadbir Sistem</p>
                               </div>
                               <div class="col-md-8">
                                    <textarea name="ulasan_hod" class="form-control bg-light" rows="8" cols="30" placeholder="Ulasan Pentadbir Sistem"></textarea><br>
 
-                                   <input type="radio" id="tidak_lengkap" name="status" value="Tidak Lengkap">
-                                       <label for="Tidak Lengkap">Tidak Lengkap</label><br>
-                                   <input type="radio" id="diterima" name="status" value="Diproses ke Pentadbir Sistem">
-                                       <label for="Diterima">Diproses ke Pentadbir Sistem</label><br>
+                                   <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
+                                       <label for="Tidak Diterima">Tidak Diterima</label>
+                                   <input type="radio" id="Diterima" name="status" value="Diterima">
+                                       <label for="Diterima">Diterima</label>
                                      <!-- button -->
-                                   <div class="col-md-2">
-                                       <button type="submit" onclick=" return confirm('Hantar Ulasan?');" class="btn btn-primary mt-4">Hantar</button>
-                                  </div>
+                                     <div class="col-md-2">
+                                       <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Hantar</button>
+                                       </div>
+                                       <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                         <div class="modal-dialog modal-sm" role="document">
+                                         <div class="modal-content">
+                                             <div class="modal-header">
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <span aria-hidden="true">&times;</span>
+                                             </button>
+                                             </div>
+                                             <div class="modal-body">
+                                             <p align="center">Hantar untuk pengesahan?</p>
+                                             </div>
+                                             <div class="modal-footer">
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                             <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                             </div>
+                                         </div>
+                                         </div>
+                                     </div>
                               </div>
                             </div>
                             </form>

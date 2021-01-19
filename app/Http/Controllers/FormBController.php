@@ -15,6 +15,7 @@ use App\Email;
 use App\UserExistingStaff;
 use App\UserExistingStaffInfo;
 use App\UserExistingStaffNextofKin;
+use Carbon\Carbon;
 
 use PDF;
 
@@ -109,6 +110,16 @@ class FormBController extends Controller
 
     }
 
+  }
+
+  public function kemaskini($id){
+    $status = "Menunggu Kebenaran Kemaskini";
+    $form=FormB::find($id);
+    // dd($request->all());
+    $form->status = $status;
+    $form->save();
+
+    return redirect()->route('user.harta.FormB.senaraihartaB');
   }
 
   public function editformB($id){
@@ -520,6 +531,8 @@ public function add(array $data){
      foreach ($admin_available as $data) {
        // $formbs->notify(new UserFormAdminB($data, $email));
        $this->dispatch(new SendNotificationFormB($data, $email, $formbs));
+       $emailJob = (new SendEmailNotification($data))->delay(Carbon::now()->addYears(5));
+       dispatch($emailJob);
      }
      return redirect()->route('user.harta.FormB.senaraihartaB');
   }

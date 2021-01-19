@@ -18,6 +18,7 @@
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <th><p class="mb-0">ID</p></th>
+                                               <th><p class="mb-0">No Staff</p></th>
                                                <th><p class="mb-0">Jenis Lampiran</p></th>
                                                <th><p class="mb-0">Nama</p></th>
                                                <th><p class="mb-0">Jabatan</p></th>
@@ -27,7 +28,7 @@
                                                <th><p class="mb-0">Nama Pemberi</p></th>
                                                <th><p class="mb-0">Alamat Pemberi</p></th>
                                                <th><p class="mb-0">Hubungan Pemberi</p></th>
-                                               <th width="30%"><p class="mb-0">Gambar Hadiah</p></th>
+                                               <!-- <th width="30%"><p class="mb-0">Gambar Hadiah</p></th> -->
                                                <th><p class="mb-0">Status Hadiah (RM)</p></th>
                                                <th><p class="mb-0">Tindakan</p></th>
 
@@ -36,144 +37,126 @@
                                        <tbody align="center">
                                          @foreach($merged as $data)
                                          @if($data ->getTable() == "gifts")
-                                         @if($data ->status == "Diproses ke Pentadbir Sistem")
-                                         <tr>
-                                             <td>{{ $data ->id }}</td>
-                                             <td>
-                                               @if($data ->getTable() == "gifts")
-                                               Lampiran A
-                                               @elseif($data ->getTable() == "giftbs")
-                                               Lampiran B
-                                               @endif
-                                             </td>
-                                             <td>{{ $data ->users->name }}</td>
-                                             <td>{{ $data ->jabatan}}</td>
-                                             <td>{{ $data ->jenis_gift}}</td>
-                                             <td>{{ $data ->nilai_gift}}</td>
-                                             <td>{{ $data ->tarikh_diterima}}</td>
-                                             <td>{{ $data ->nama_pemberi}}</td>
-                                             <td>{{ $data ->alamat_pemberi}}</td>
-                                             <td>{{ $data ->hubungan_pemberi}}</td>
-                                             <td>
-                                               <button type="button" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal2">
-                                                 <img src="{{ asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift)) }}"  class="profile-avatar">
-                                                   </button>
-                                             </td>
-                                             <td>
-                                               @if($data ->getTable() == "gifts")
-                                                 @if($data ->status == "Sedang Diproses")
-                                                 <span class="badge badge-warning badge-pill">Menunggu Ulasan Ketua Jabatan Integriti</span>
-                                                 @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
-                                                 <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                 @elseif($data ->status == "Diproses ke Pentadbir Sistem")
-                                                 <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                 @elseif($data ->status == "Tidak Lengkap")
-                                                 <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
-                                                 @elseif($data ->status == "Tidak Diterima")
-                                                 <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
-                                                 @elseif($data ->status == "Diterima")
-                                                 <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
-                                                 @endif
-                                              @elseif($data ->getTable() == "giftbs")
-                                                @if($data ->status == "Sedang Diproses")
-                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                @elseif($data ->status == "Diproses ke Pentadbir Sistem")
-                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                @elseif($data ->status == "Tidak Lengkap")
-                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
-                                                @elseif($data ->status == "Tidak Diterima")
-                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
-                                                @elseif($data ->status == "Diterima")
-                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
-                                                @endif
-                                              @endif
-                                             </td>
-                                             <td>
-                                               @if($data ->getTable() == "gifts")
-                                                 @if($data ->status == "Diproses ke Pentadbir Sistem")
-                                                 <a href="{{route('user.admin.hadiah.ulasanHadiah',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
-                                                 @elseif($data ->getTable() == "giftbs")
-                                                   @if($data ->status == "Sedang Diproses")
-                                                   <a href="{{route('user.admin.hadiah.ulasanHadiah',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                           @if($data ->status == "Proses ke Pentadbir Sistem" || $data ->status == "Menunggu Kebenaran Kemaskini")
+                                           <tr>
+
+                                               <td>{{ $data ->id }}</td>
+                                               <td>{{ $data ->users->no_staff }}</td>
+                                               <td>
+                                                 Lampiran A
+                                               </td>
+                                               <td>{{ $data ->users->name }}</td>
+                                               <td>{{ $data ->jabatan}}</td>
+                                               <td>{{ $data ->jenis_gift}}</td>
+                                               <td>{{ $data ->nilai_gift}}</td>
+                                               <td>{{ $data ->tarikh_diterima}}</td>
+                                               <td>{{ $data ->nama_pemberi}}</td>
+                                               <td>{{ $data ->alamat_pemberi}}</td>
+                                               <td>{{ $data ->hubungan_pemberi}}</td>
+
+                                               <td>
+                                                   @if($data ->status == "Proses ke Pentadbir Sistem")
+                                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                                   @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                    @endif
-                                                 @endif
-                                                @endif
-                                             </td>
-                                           </tr>
-                                           @endif
-                                          @endif
-                                          @if($data ->getTable() == "giftbs")
-                                          @if($data ->status == "Sedang Diproses")
-                                          <tr>
-                                              <td>{{ $data ->id }}</td>
-                                              <td>
-                                                @if($data ->getTable() == "gifts")
-                                                Lampiran A
-                                                @elseif($data ->getTable() == "giftbs")
-                                                Lampiran B
-                                                @endif
-                                              </td>
-                                              <td>{{ $data ->users->name }}</td>
-                                              <td>{{ $data ->jabatan}}</td>
-                                              <td>{{ $data ->jenis_gift}}</td>
-                                              <td>{{ $data ->nilai_gift}}</td>
-                                              <td>{{ $data ->tarikh_diterima}}</td>
-                                              <td>{{ $data ->nama_pemberi}}</td>
-                                              <td>{{ $data ->alamat_pemberi}}</td>
-                                              <td>{{ $data ->hubungan_pemberi}}</td>
-                                              <td>
-                                                <button type="button" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal2">
-                                                  <img src="{{ asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift)) }}"  class="profile-avatar">
-                                                    </button>
-                                              </td>
-                                              <td>
-                                                @if($data ->getTable() == "gifts")
-                                                  @if($data ->status == "Sedang Diproses")
-                                                  <span class="badge badge-warning badge-pill">Menunggu Ulasan Ketua Jabatan Integriti</span>
-                                                  @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
-                                                  <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                  @elseif($data ->status == "Diproses ke Pentadbir Sistem")
-                                                  <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                  @elseif($data ->status == "Tidak Lengkap")
-                                                  <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
-                                                  @elseif($data ->status == "Tidak Diterima")
-                                                  <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
-                                                  @elseif($data ->status == "Diterima")
-                                                  <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
-                                                  @endif
-                                               @elseif($data ->getTable() == "giftbs")
-                                                 @if($data ->status == "Sedang Diproses")
-                                                 <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                 @elseif($data ->status == "Diproses ke Pentadbir Sistem")
-                                                 <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                 @elseif($data ->status == "Tidak Lengkap")
-                                                 <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
-                                                 @elseif($data ->status == "Tidak Diterima")
-                                                 <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
-                                                 @elseif($data ->status == "Diterima")
-                                                 <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
-                                                 @endif
-                                               @endif
-                                              </td>
-                                              <td>
-                                                @if($data ->getTable() == "gifts")
-                                                  @if($data ->status == "Diproses ke Pentadbir Sistem")
-                                                  <a href="{{route('user.admin.hadiah.ulasanHadiah',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
-                                                  @endif
-                                                @elseif($data ->getTable() == "giftbs")
-                                                    @if($data ->status == "Sedang Diproses")
-                                                    <a href="{{route('user.admin.hadiah.ulasanHadiahB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
-                                                    @endif
-                                                 @endif
-                                              </td>
-                                            </tr>
-                                            @endif
+                                               </td>
+                                               <td>
+                                                   @if($data ->status == "Proses ke Pentadbir Sistem")
+                                                   <a href="{{route('user.admin.hadiah.ulasanHadiah',$data->id)}}" class="btn btn-primary" >Ulasan</button>
+                                                   @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                                   <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanGiftA{{$data-> id}}">Tindakan</button>
+                                                   <div class="modal fade" id="tindakanGiftA{{$data-> id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                       <div class="modal-dialog modal-sm" role="document">
+                                                         <form action="{{route('statusadmineditgift.update',$data-> id)}}" method="get">
+                                                           @csrf
+                                                           <div class="modal-content">
+                                                               <div class="modal-header">
+                                                               <button type="button" class="close" data-dismiss="modal" data-id="{{ $data->id }}" aria-label="Close">
+                                                                   <span aria-hidden="true">&times;</span>
+                                                               </button>
+                                                               </div>
+                                                               <div class="modal-body">
+                                                               <p align="center">Pengesahan untuk memberi akses kemaskini lampiran? A</p>
+                                                               </div>
+                                                               <div class="modal-footer">
+                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                               <button type="submit" class="btn btn-primary" name="edit">Ya</button>
+                                                               <button type="submit" class="btn btn-primary" name="takedit">Tidak</button>
+                                                               </div>
+                                                           </div>
+                                                         </form>
+                                                       </div>
+                                                   </div>
+                                                   @endif
+                                               </td>
+                                             </tr>
+                                             @endif
+
+                                          @elseif($data ->getTable() == "giftbs")
+                                          @if($data ->status == "Sedang Diproses"|| $data ->status == "Menunggu Kebenaran Kemaskini")
+                                            <tr>
+                                                <td>{{ $data ->id }}</td>
+                                                <td>{{ $data ->users->no_staff }}</td>
+                                                <td>
+                                                  Lampiran B
+                                                </td>
+                                                <td>{{ $data ->users->name }}</td>
+                                                <td>{{ $data ->jabatan}}</td>
+                                                <td>{{ $data ->jenis_gift}}</td>
+                                                <td>{{ $data ->nilai_gift}}</td>
+                                                <td>{{ $data ->tarikh_diterima}}</td>
+                                                <td>{{ $data ->nama_pemberi}}</td>
+                                                <td>{{ $data ->alamat_pemberi}}</td>
+                                                <td>{{ $data ->hubungan_pemberi}}</td>
+
+                                                <td>
+                                                   @if($data ->status == "Sedang Diproses")
+                                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                                   @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                                   @endif
+                                                </td>
+                                                <td>
+                                                      @if($data ->status == "Sedang Diproses")
+                                                      <a href="{{route('user.admin.hadiah.ulasanHadiahB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                      @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanGiftB{{$data-> id}}">Tindakan</button>
+                                                      <div class="modal fade" id="tindakanGiftB{{$data-> id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                          <div class="modal-dialog modal-sm" role="document">
+                                                            <form action="{{route('statusadmineditgiftB.update',$data-> id)}}" method="get">
+                                                              @csrf
+                                                              <div class="modal-content">
+                                                                  <div class="modal-header">
+                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                      <span aria-hidden="true">&times;</span>
+                                                                  </button>
+                                                                  </div>
+                                                                  <div class="modal-body">
+                                                                  <p align="center">Pengesahan untuk memberi akses kemaskini lampiran? B</p>
+                                                                  </div>
+                                                                  <div class="modal-footer">
+                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                                  <button type="submit" class="btn btn-primary" name="edit">Ya</button>
+                                                                  <button type="submit" class="btn btn-primary" name="takedit">Tidak</button>
+                                                                  </div>
+                                                              </div>
+                                                            </form>
+                                                          </div>
+                                                      </div>
+                                                      @endif
+                                                </td>
+                                              </tr>
+                                              @endif
                                            @endif
                                           @endforeach
-                                           <!-- Table data -->
-
                                        </tbody>
                                    </table>
+
+
+
+
+
                                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                        <div class="modal-dialog modal-dialog-centered" role="document">
                                        <div class="modal-content">
@@ -201,7 +184,7 @@
              </div>
              <script type="text/javascript">
                function passGambarHadiah(path){
-                 console.log(path);
+                 // console.log(path);
                  $(".modal-body #imageHadiah").attr('src', path);
                  $('.modal-body #imageHadiah').show();
                }
