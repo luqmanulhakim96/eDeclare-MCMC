@@ -136,7 +136,7 @@
                               <div class="row">
                                  <div class="col-md-4">
                                    <div class="img-responsive" alt="Gambar Hadiah" align="center">
-                                     <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  width="100%" height="100%">
+                                     <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  class="imgthumbnail" width="150px" height="150px">
                                   </div>
                                  </div>
                              </div>

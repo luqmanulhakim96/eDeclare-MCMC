@@ -342,7 +342,7 @@
 
 
             <!-- The navbar -->
-            <nav class="navbar navbar-expand navbar-light bg-light py-3">
+            <nav class="navbar navbar-expand navbar-light bg-light py-3" style="background-color:#ff9a2c !important;">
                 <p class="navbar-brand mb-0 pb-0">
                     <span></span>
                     <span></span>

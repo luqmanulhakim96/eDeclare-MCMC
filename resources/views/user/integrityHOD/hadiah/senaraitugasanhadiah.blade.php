@@ -36,8 +36,8 @@
                                        </thead>
                                        <tbody align="center">
                                          @foreach($merged as $data)
-                                         @if($data ->getTable() == "gifts")
-                                         @if($data ->status == "Diproses ke Ketua Jabatan Integriti")
+
+                                         @if($data ->status == "Proses ke Ketua Jabatan Integriti")
                                          <tr>
                                              <td>{{ $data ->id }}</td>
                                              <!-- <td>{{ $data ->users->no_staff }}</td> -->
@@ -62,12 +62,12 @@
                                                    </button>
                                              </td>
                                              <td>
-                                               @if($data ->getTable() == "gifts")
+
                                                  @if($data ->status == "Sedang Diproses")
                                                  <span class="badge badge-warning badge-pill">Menunggu Ulasan Ketua Jabatan Integriti</span>
-                                                 @elseif($data ->status == "Diproses ke Ketua Jabatan Integriti")
+                                                 @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                  <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                                 @elseif($data ->status == "Diproses ke Pentadbir Sistem")
+                                                 @elseif($data ->status == "Proses ke Pentadbir Sistem")
                                                  <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                  @elseif($data ->status == "Tidak Lengkap")
                                                  <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
@@ -76,18 +76,26 @@
                                                  @elseif($data ->status == "Diterima")
                                                  <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                  @endif
-                                               @endif
+
                                              </td>
                                              <td>
-                                               @if($data ->getTable() == "gifts")
-                                                 @if($data ->status == "Diproses ke Ketua Jabatan Integriti")
-                                                 <a href="{{route('user.integrityHOD.hadiah.ulasanHadiah',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+
+
+
+                                                 @if($data ->getTable() == "gifts")
+                                                   @if($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                                   <a href="{{route('user.integrityHOD.hadiah.ulasanHadiah',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                   @endif
+                                                 @elseif($data ->getTable() == "giftbs")
+                                                   @if($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                                   <a href="{{route('user.integrityHOD.hadiah.ulasanHadiahB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                   @endif
                                                  @endif
-                                                @endif
+
                                              </td>
                                            </tr>
                                            @endif
-                                          @endif
+
                                           @endforeach
                                        </tbody>
                                    </table>

@@ -440,26 +440,23 @@ class IntegrityHodController extends Controller
        $gifts->save();
 
        //send notification to admin (ulasan hodiv)
-       if($request->status == 'Diproses ke Pentadbir Sistem'){
-       $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
-       // $email = null; // for testing
-       $hod_admin = User::where('role','=','1')->get(); //get system hodiv information
-       // if ($email) {
-         foreach ($hod_admin as $data) {
-           // $giftbs->notify(new UserGiftAdminB($data, $email));
-           $this->dispatch(new SendNotificationGiftHod($data, $email, $gifts));
-         }
+       if ($request->status == 'Diterima') {
+           $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Diterima')->first(); //template email yang diguna
+           // $email = null; // for testing
+           $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+
+           $this->dispatch(new SendNotificationGiftHod($user, $email, $gifts));
+
+        }
+         else {
+           $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Gagal')->first(); //template email yang diguna
+           // $email = null; // for testing
+           $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+
+           $this->dispatch(new SendNotificationGiftHod($user, $email, $gifts));
+
        }
-       else {
-         $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Hadiah)')->first(); //template email yang diguna
-         // $email = null; // for testing
-         $hod_admin = User::where('role','=','1')->get(); //get system hodiv information
-         // if ($email) {
-           foreach ($hod_admin as $data) {
-             // $giftbs->notify(new UserGiftAdminB($data, $email));
-             $this->dispatch(new SendNotificationGiftHod($data, $email, $gifts));
-       }
-     }
+
 
        return redirect()->route('user.admin.hadiah.senaraiallhadiah');
      }
@@ -471,20 +468,24 @@ class IntegrityHodController extends Controller
        $giftbs->ulasan_hod = $request->ulasan_hod;
        $giftbs->save();
 
-       return redirect()->route('user.admin.hadiah.senaraiallhadiah');
+     if ($request->status == 'Diterima') {
+         $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Diterima')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+
+         $this->dispatch(new SendNotificationGiftHod($user, $email, $giftbs));
+
+      }
+       else {
+         $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Gagal')->first(); //template email yang diguna
+         // $email = null; // for testing
+         $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+
+         $this->dispatch(new SendNotificationGiftHod($user, $email, $giftbs));
+
      }
 
-     public function senaraiTugasanHarta(){
-       $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
-       $listallBTable = FormB::getTableName();
-       $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
-       $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->get();
-       $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->get();
-       $merged = $listallB->mergeRecursive($listallC);
-       $merged = $merged->mergeRecursive($listallD);
-       $merged = $merged->mergeRecursive($listallG)->sortBy('status');
-
-       return view('user.integrityHOD.harta.senaraitugasanharta', compact('merged'));
+       return redirect()->route('user.admin.hadiah.senaraiallhadiah');
      }
 
      public function senaraiTugasanHadiah(){

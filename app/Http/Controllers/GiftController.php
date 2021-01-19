@@ -23,6 +23,17 @@ class GiftController extends Controller
       $jenisHadiah = JenisHadiah::get();
       return view('user.hadiah.gift', compact('nilaiHadiah','jenisHadiah'));
   }
+
+  public function kemaskini($id){
+        $status = "Menunggu Kebenaran Kemaskini";
+        $form=Gift::find($id);
+        // dd($request->all());
+        $form->status = $status;
+        $form->save();
+
+        return redirect()->route('user.hadiah.senaraihadiah');
+      }
+      
   public function editHadiah($id){
       //$info = SenaraiHarga::find(1);
       $info = Gift::findOrFail($id);
