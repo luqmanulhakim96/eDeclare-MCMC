@@ -240,12 +240,18 @@
                                       </div>
                                    </div>
                                    <div class="row">
+                                     <?php $i=0; ?>
                                      @foreach($dokumen_syarikat as $dokumen_syarikat)
-                                       @if($dokumen_syarikat->dokumen_syarikat != NULL)
+                                     <?php $i++; ?>
+                                     <div class="row">
                                       <div class="col-md-4">
-                                           <iframe src="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}" width="400px" height="400px"></iframe>
+                                          @if($dokumen_syarikat->dokumen_syarikat != NULL)
+                                             <!-- <iframe src="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}" width="400px" height="400px"></iframe> -->
+                                             <a href="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}"> Dokumen <?php echo $i; ?></a>
+                                         @endif
                                       </div>
-                                      @endif
+                                    </div>
+
                                     @endforeach
                                    </div>
                                    @endforeach

@@ -161,7 +161,7 @@
                                 @endif
                               </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                               <div class="col-md-2">
                                   <p>Ulasan Ketua Jabtan Integriti</p>
                                </div>
@@ -172,7 +172,7 @@
                                  <p>{{ $listHadiah->ulasan_hod }} </p><p>( {{ $listHadiah->nama_hod }} , {{ $listHadiah->no_hod}} )</p><br>
                                  @endif
                                </div>
-                             </div>
+                             </div> -->
                            <form action="{{route('ulasanadminGift.update', $listHadiah->id)}}" method="post">
                              @csrf
                              <div class="row">
@@ -185,10 +185,18 @@
                               </div>
                               <div class="row">
                                   <div class="col-md-2">
+                                    <p>No Staff</p>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <input type="text" class="form-control bg-light" name="no_admin" value="{{Auth::user()->id }}" readonly><br>
+                                   </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-2">
                                     <p>No Kad Pengenalan</p>
                                   </div>
                                   <div class="col-md-8">
-                                    <input type="text" class="form-control bg-light" name="no_admin" value="{{Auth::user()->kad_pengenalan }}" readonly><br>
+                                    <input type="text" class="form-control bg-light" name="ic" value="{{Auth::user()->kad_pengenalan }}" ><br>
                                    </div>
                               </div>
                             <div class="row">
@@ -200,14 +208,32 @@
 
                                    <input type="radio" id="tidak_lengkap" name="status" value="Tidak Lengkap">
                                        <label for="Tidak Lengkap">Tidak Lengkap</label><br>
-                                   <input type="radio" id="diterima" name="status" value="Diterima">
-                                       <label for="Diterima">Diterima</label><br>
-                                   <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
-                                       <label for="Tidak Diterima">Tidak Diterima</label><br>
+                                   <input type="radio" id="Proses ke Ketua Jabatan Integriti" name="status" value="Proses ke Ketua Jabatan Integriti">
+                                       <label for="Proses ke Ketua Jabatan Integriti">Proses ke Ketua Jabatan Integriti</label><br>
+                                   <!-- <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
+                                       <label for="Tidak Diterima">Tidak Diterima</label><br> -->
                                      <!-- button -->
-                                   <div class="col-md-2">
-                                       <button type="submit" onclick=" return confirm('Hantar Ulasan?');" class="btn btn-primary mt-4">Hantar</button>
-                                  </div>
+                                     <div class="col-md-2">
+                                       <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Hantar</button>
+                                       </div>
+                                       <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                         <div class="modal-dialog modal-sm" role="document">
+                                         <div class="modal-content">
+                                             <div class="modal-header">
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <span aria-hidden="true">&times;</span>
+                                             </button>
+                                             </div>
+                                             <div class="modal-body">
+                                             <p align="center">Hantar untuk pengesahan?</p>
+                                             </div>
+                                             <div class="modal-footer">
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                             <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                             </div>
+                                         </div>
+                                         </div>
+                                     </div>
                               </div>
                             </div>
                             </form>

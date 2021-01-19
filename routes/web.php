@@ -46,6 +46,23 @@ Route::get('/permohonan/hadiah', 'GiftController@giftBaru')->name('user.hadiah.g
 
 Route::get('/permohonanB/hadiah', 'GiftBController@giftBaru')->name('user.hadiah.giftB');
 
+Route::get('/senarai-harta-B/kemaskini-status/id={id}', 'FormBController@kemaskini')->name('statusedit.update');
+
+Route::get('/senarai-harta-C/kemaskini-status/id={id}', 'FormCController@kemaskini')->name('statuseditC.update');
+
+Route::get('/senarai-harta-D/kemaskini-status/id={id}', 'FormDController@kemaskini')->name('statuseditD.update');
+
+Route::get('/senarai-harta-E/kemaskini-status/id={id}', 'FormGController@kemaskini')->name('statuseditG.update');
+
+Route::get('/senarai-hadiah/kemaskini-status/id={id}', 'GiftController@kemaskini')->name('statuseditgift.update');
+
+Route::get('/senarai-hadiah-B/kemaskini-status/id={id}', 'GiftBController@kemaskini')->name('statuseditgiftB.update');
+
+Route::get('/hadiah/kemaskini-status/id={id}', 'AdminController@kemaskinigift')->name('statusadmineditgift.update');
+
+Route::get('/hadiah/kemaskini-statusB/id={id}', 'AdminController@kemaskinigiftB')->name('statusadmineditgiftB.update');
+
+
 Route::get('/permohonanA/pdf/{id}','UserController@createPDFA')->name('user.perakuanharta.formAprint');
 
 Route::get('/form/printA/{id}', 'UserController@printA')->name('user.perakuanharta.print');
@@ -322,6 +339,14 @@ Route::post('/jenis-harta/submit', 'AdminController@submitJenisHarta')->name('je
 Route::post('/jenis-hadiah/delete','AdminController@deleteJenisHadiah')->name('jenishadiah.delete');
 
 Route::post('/jenis-harta/delete','AdminController@deleteJenisHarta')->name('jenisharta.delete');
+
+Route::get('/harta/kemaskini-statusB/id={id}', 'AdminController@kemaskiniB')->name('statuseditadminB.update');
+
+Route::get('/harta/kemaskini-statusC/id={id}', 'AdminController@kemaskiniC')->name('statuseditadminC.update');
+
+Route::get('/harta/kemaskini-statusD/id={id}', 'AdminController@kemaskiniD')->name('statuseditadminD.update');
+
+Route::get('/harta/kemaskini-statusG/id={id}', 'AdminController@kemaskiniG')->name('statuseditadminG.update');
 
 
 

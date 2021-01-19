@@ -8,8 +8,19 @@
             <!-- basic light table card -->
             <div class="card rounded-lg" >
                 <div class="card-body">
-                    <div class="card-title">Maklumat Penerimaan Hadiah RM {{ $nilai_hadiah ->nilai_hadiah }} dan Kebawah</div>
+                    <div class="card-title">Maklumat Penerimaan Hadiah bernilai RM {{ $nilai_hadiah ->nilai_hadiah }} dan Kebawah</div>
                     <div class="card-body">
+                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                          <li class="nav-item">
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lampiran</a>
+                          </li>
+                          <li class="nav-item">
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Ulasan</a>
+                          </li>
+                      </ul>
+                      <div class="tab-content">
+                          <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                          <div class="page-body p-4 text-dark">
 
                           <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                             <div class="row">
@@ -48,7 +59,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        {{ $listHadiah ->jabatan }}
+                                        <b>{{ $listHadiah ->jabatan }}</b>
                                     </div>
                                 </div>
                             </div>
@@ -134,29 +145,89 @@
                             </div>
                            </div>
                        </div>
-                       <form action="{{route('ulasanHODGiftB.update', $listHadiah->id)}}" method="post">
-                         @csrf
-                       <div class="row">
-                          <textarea name="ulasan_hod" rows="8" cols="50" placeholder="Ulasan Ketua Bahagian"></textarea><br>
-                        </div>
-                       <div class="row" align="left">
-                         <input type="radio" id="tidak_lengkap" name="status" value="Tidak Lengkap">
-                             <label for="Tidak Lengkap">Tidak Lengkap</label><br>
-                         <input type="radio" id="diterima" name="status" value="Proses ke Ketua Bahagian">
-                             <label for="Diterima">Proses ke Ketua Bahagian</label><br>
-                         <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
-                             <label for="Tidak Diterima">Tidak Diterima</label><br>
                        </div>
-                       <br>
-                            <!-- button -->
+                       </div>
+                       <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                         <div class="page-body p-4 text-dark">
                            <div class="row">
-                            <div class="col-md-10">
+                             <div class="col-md-2">
+                                 <p>Ulasan Admin</p>
+                              </div>
+                              <div class="col-md-8">
+                                <p>{{ $listHadiah->ulasan_admin }} </p><p>( {{ $listHadiah->nama_admin }} , {{ $listHadiah->no_admin }} )</p><br>
+                              </div>
                             </div>
-                            <div class="col-md-2">
-                              <button type="submit" onclick=" return confirm('Hantar Ulasan?');" class="btn btn-primary mt-4">Hantar</button>
+
+                           <form action="{{route('ulasanHODGiftB.update', $listHadiah->id)}}" method="post">
+                             @csrf
+                             <div class="row">
+                               <div class="col-md-2">
+                                   <p>Nama</p>
+                                </div>
+                                <div class="col-md-8">
+                                  <input type="text" class="form-control bg-light" name="nama_hod" value="{{Auth::user()->name }}" readonly><br>
+                                </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-2">
+                                    <p>No Staff</p>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <input type="text" class="form-control bg-light" name="no_hod" value="{{Auth::user()->id }}" readonly><br>
+                                   </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-2">
+                                    <p>No Kad Pengenalan</p>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <input type="text" class="form-control bg-light" name="ic" value="{{Auth::user()->kad_pengenalan }}"><br>
+                                   </div>
+                              </div>
+                            <div class="row">
+                              <div class="col-md-2">
+                                <p>Ulasan Ketua Jabatan Integriti</p>
+                              </div>
+                              <div class="col-md-8">
+                                   <textarea class="form-control bg-light" name="ulasan_hod" rows="8" cols="30" placeholder="Ulasan Ketua Jabatan Integriti"></textarea><br>
+
+                                   <!-- <input type="radio" id="tidak_lengkap" name="status" value="Tidak Lengkap">
+                                       <label for="Tidak Lengkap">Tidak Lengkap</label><br>
+                                   <input type="radio" id="Proses Ke Ketua Jabatan Integriti" name="status" value="Proses Ke Ketua Jabatan Integriti">
+                                       <label for="Proses Ke Ketua Jabatan Integriti">Proses Ke Ketua Jabatan Integriti</label><br> -->
+                                   <input type="radio" id="diterima" name="status" value="Diterima">
+                                       <label for="Diterima">Diterima</label><br>
+                                   <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
+                                       <label for="Tidak Diterima">Tidak Diterima</label><br>
+                                     <!-- button-->
+                                     <div class="col-md-2">
+                                       <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Hantar</button>
+                                       </div>
+                                       <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                         <div class="modal-dialog modal-sm" role="document">
+                                         <div class="modal-content">
+                                             <div class="modal-header">
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <span aria-hidden="true">&times;</span>
+                                             </button>
+                                             </div>
+                                             <div class="modal-body">
+                                             <p align="center">Hantar untuk pengesahan?</p>
+                                             </div>
+                                             <div class="modal-footer">
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                             <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                             </div>
+                                         </div>
+                                         </div>
+                                     </div>
+                              </div>
                             </div>
+                            </form>
                           </div>
-                        </form>
+                        </div>
+                      </div>
+
                     </div>
 
 

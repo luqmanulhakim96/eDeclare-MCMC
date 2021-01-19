@@ -66,15 +66,23 @@
                                      <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                      @elseif($data ->status == "Proses ke Ketua Bahagian")
                                      <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                     @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                     @elseif($data ->status == "Sedang Dikemaskini")
+                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                      @endif
                                   </td>
                                   <td class="p-3">
                                   <div class="d-flex flex-row justify-content-around align-items-center">
-                                    @if($data ->status == "Sedang Diproses")
-                                      <a href="{{ route('user.hadiah.editgiftB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                      @else
+                                    @if($data ->status == "Sedang Dikemaskini")
+                                     <a href="{{ route('user.hadiah.editgiftB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                    @elseif($data ->status == "Tidak Lengkap")
+                                     <a href="{{ route('user.hadiah.editgiftB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                    @elseif($data ->status == "Sedang Diproses")
+                                        <a href="{{ route('statuseditgiftB.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                                    @else
                                       <a class="btn btn-light mr-1" disabled ><i class="fas fa-pencil-alt"></i></a>
-                                      @endif
+                                    @endif
                                   </div>
                                   </td>
                                 </tr>

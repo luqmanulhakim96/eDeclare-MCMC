@@ -90,6 +90,17 @@ class FormGController extends Controller
         return view('user.harta.FormG.formG', compact('salary','maklumat_pasangan','maklumat_anak','last_data_formb','dividen_user','pinjaman_user'));
     }
   }
+
+  public function kemaskini($id){
+    $status = "Menunggu Kebenaran Kemaskini";
+    $form=FormG::find($id);
+    // dd($request->all());
+    $form->status = $status;
+    $form->save();
+
+    return redirect()->route('user.harta.FormB.senaraihartaB');
+  }
+  
 public function editformG($id){
     //$info = SenaraiHarga::find(1);
     $info = FormG::findOrFail($id);

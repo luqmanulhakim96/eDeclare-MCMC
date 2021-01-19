@@ -29,7 +29,7 @@
                                        </thead>
                                        <tbody align="center">
                                          @foreach($merged as $data)
-                                         @if($data ->status == "Sedang Diproses" || $data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
+                                         @if($data ->status == "Sedang Diproses" || $data ->status == "Proses ke Pentadbir Sistem(Tatatertib)" || $data ->status == "Menunggu Kebenaran Kemaskini")
                                          <tr>
                                              <!-- <td>{{ $data ->id }}</td> -->
                                              <td>{{ $data ->id }}</td>
@@ -67,11 +67,15 @@
                                              <td>
                                                @if($data ->status == "Sedang Diproses")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
                                                <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan</span>
                                                @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Tidak Lengkap")
                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
@@ -81,40 +85,134 @@
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Selesai")
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
-                                               @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
-                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @endif
                                              </td>
                                              <td>
                                                @if($data ->getTable() == "formbs")
                                                  @if($data ->status == "Sedang Diproses")
-                                                 <a href="{{route('user.admin.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                 <button href="{{route('user.admin.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                 @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanB">Tindakan</button>
                                                  @else
                                                  -
                                                  @endif
                                                @elseif($data ->getTable() == "formcs")
                                                  @if($data ->status == "Sedang Diproses")
-                                                 <a href="{{route('user.admin.harta.ulasanHartaC',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                 <button href="{{route('user.admin.harta.ulasanHartaC',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                 @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanC">Tindakan</button>
                                                  @else
                                                  -
                                                  @endif
                                                @elseif($data ->getTable() == "formds")
                                                  @if($data ->status == "Sedang Diproses")
-                                                 <a href="{{route('user.admin.harta.ulasanHartaD',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                 <button href="{{route('user.admin.harta.ulasanHartaD',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                 @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanD">Tindakan</button>
                                                  @else
-                                                 -
                                                  @endif
                                                 @elseif($data ->getTable() == "formgs")
                                                   @if($data ->status == "Sedang Diproses")
-                                                  <a href="{{route('user.admin.harta.ulasanHartaG',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                  <button href="{{route('user.admin.harta.ulasanHartaG',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                  @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanG">Tindakan</button>
                                                   @else
                                                   -
                                                   @endif
                                                 @endif
                                              </td>
+                                             <div class="modal fade" id="tindakanB" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                 <div class="modal-dialog modal-sm" role="document">
+                                                   <form action="{{route('statuseditadminB.update',$data-> id)}}" method="get">
+                                                     @csrf
+                                                     <div class="modal-content">
+                                                         <div class="modal-header">
+                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                             <span aria-hidden="true">&times;</span>
+                                                         </button>
+                                                         </div>
+                                                         <div class="modal-body">
+                                                         <p align="center">Pengesahan untuk memberi akses kemaskini lampiran?</p>
+                                                         </div>
+                                                         <div class="modal-footer">
+                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                         <button type="submit" class="btn btn-primary" name="edit">Ya</button>
+                                                         <button type="submit" class="btn btn-primary" name="takedit">Tidak</button>
+                                                         </div>
+                                                     </div>
+                                                   </form>
+                                                 </div>
+                                             </div>
+                                             <div class="modal fade" id="tindakanC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                 <div class="modal-dialog modal-sm" role="document">
+                                                   <form action="{{route('statuseditadminC.update',$data-> id)}}" method="get">
+                                                     @csrf
+                                                     <div class="modal-content">
+                                                         <div class="modal-header">
+                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                             <span aria-hidden="true">&times;</span>
+                                                         </button>
+                                                         </div>
+                                                         <div class="modal-body">
+                                                         <p align="center">Pengesahan untuk memberi akses kemaskini lampiran?</p>
+                                                         </div>
+                                                         <div class="modal-footer">
+                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                         <button type="submit" class="btn btn-primary" name="edit">Ya</button>
+                                                         <button type="submit" class="btn btn-primary" name="takedit">Tidak</button>
+                                                         </div>
+                                                     </div>
+                                                   </form>
+                                                 </div>
+                                             </div>
+                                             <div class="modal fade" id="tindakanD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                 <div class="modal-dialog modal-sm" role="document">
+                                                   <form action="{{route('statuseditadminD.update',$data-> id)}}" method="get">
+                                                     @csrf
+                                                     <div class="modal-content">
+                                                         <div class="modal-header">
+                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                             <span aria-hidden="true">&times;</span>
+                                                         </button>
+                                                         </div>
+                                                         <div class="modal-body">
+                                                         <p align="center">Pengesahan untuk memberi akses kemaskini lampiran?</p>
+                                                         </div>
+                                                         <div class="modal-footer">
+                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                         <button type="submit" class="btn btn-primary" name="edit">Ya</button>
+                                                         <button type="submit" class="btn btn-primary" name="takedit">Tidak</button>
+                                                         </div>
+                                                     </div>
+                                                   </form>
+                                                 </div>
+                                             </div>
+                                             <div class="modal fade" id="tindakanG" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                 <div class="modal-dialog modal-sm" role="document">
+                                                   <form action="{{route('statuseditadminG.update',$data-> id)}}" method="get">
+                                                     @csrf
+                                                     <div class="modal-content">
+                                                         <div class="modal-header">
+                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                             <span aria-hidden="true">&times;</span>
+                                                         </button>
+                                                         </div>
+                                                         <div class="modal-body">
+                                                         <p align="center">Pengesahan untuk memberi akses kemaskini lampiran?</p>
+                                                         </div>
+                                                         <div class="modal-footer">
+                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                         <button type="submit" class="btn btn-primary" name="edit">Ya</button>
+                                                         <button type="submit" class="btn btn-primary" name="takedit">Tidak</button>
+                                                         </div>
+                                                     </div>
+                                                   </form>
+                                                 </div>
+                                             </div>
                                            </tr>
                                            @elseif($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
                                           <tr>
+
                                               <td>{{ $data ->users->no_staff }}</td>
                                               <td>{{ $data ->users->name }}</td>
                                               <td>
@@ -140,6 +238,7 @@
                                                 </div>
                                                 @endif
                                               </td>
+
                                               <td>{{ $data ->created_at}}</td>
                                               <td>
                                                 @if($data ->status == "Sedang Diproses")
@@ -163,6 +262,7 @@
                                               <td>
                                                 @if($data ->getTable() == "formbs")
                                                   @if($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
+
                                                     <button class="btn btn-success mr-1" type="button" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal2">
                                                       <i class="fa fa-upload"> </i>
                                                    </button>
@@ -176,10 +276,12 @@
                                                            </button>
                                                            </div>
                                                            <div class="modal-body" align="center">
+
                                                            <form action="{{route('dokumenB.submit',$data->id)}}" method="post" enctype="multipart/form-data">
                                                              @csrf
                                                              <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
                                                              <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small><br>
+
                                                                <input type="radio" id="diterima" name="status" value="Diterima">
                                                                    <label for="Diterima">Diterima</label>
                                                                <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
@@ -193,6 +295,7 @@
                                                        </div>
                                                        </div>
                                                    </div>
+
                                                   @else
                                                   -
                                                   @endif
@@ -211,10 +314,12 @@
                                                          </button>
                                                          </div>
                                                          <div class="modal-body" align="center">
+
                                                          <form action="{{route('dokumenC.submit',$data->id)}}" method="post" enctype="multipart/form-data">
                                                            @csrf
                                                            <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
                                                            <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small><br>
+
                                                              <input type="radio" id="diterima" name="status" value="Diterima">
                                                                  <label for="Diterima">Diterima</label>
                                                              <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
@@ -246,10 +351,12 @@
                                                          </button>
                                                          </div>
                                                          <div class="modal-body" align="center">
+
                                                          <form action="{{route('dokumenD.submit',$data->id)}}" method="post" enctype="multipart/form-data">
                                                            @csrf
                                                            <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
                                                            <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small><br>
+
                                                              <input type="radio" id="diterima" name="status" value="Diterima">
                                                                  <label for="Diterima">Diterima</label>
                                                              <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
@@ -281,10 +388,12 @@
                                                           </button>
                                                           </div>
                                                           <div class="modal-body" align="center">
+
                                                           <form action="{{route('dokumenG.submit',$data->id)}}" method="post" enctype="multipart/form-data">
                                                             @csrf
                                                             <input type="file" class="form-control bg-light" id="dokumen_pegawai" name="dokumen_pegawai[]" aria-describedby="dokumen_pegawai" multiple>
                                                             <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small><br>
+
                                                               <input type="radio" id="diterima" name="status" value="Diterima">
                                                                   <label for="Diterima">Diterima</label>
                                                               <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
@@ -305,6 +414,7 @@
                                               </td>
                                                @endif
                                             </tr>
+
                                           @endforeach
                                            <!-- Table data -->
 
