@@ -5,27 +5,27 @@
                                 <!-- Basic tabs card -->
                                 <div class="card rounded-lg">
                                     <div class="card-body">
-                                        <div class="card-title">Konfigurasi Sistem</div>
+                                        <div class="card-title">Tetapan Kandungan Notifikasi</div>
                                         <!-- Nav tabs -->
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                            <li class="nav-item">
+                                        <!-- <ul class="nav nav-tabs" id="myTab" role="tablist"> -->
+                                            <!-- <li class="nav-item">
                                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Tarikh Notifikasi Mengikut Status</a>
-                                            </li>
-                                            <li class="nav-item">
-                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tetapan Kandungan Notifikasi</a>
-                                            </li>
+                                            </li> -->
+                                            <!-- <li class="nav-item"> -->
+                                            <!-- <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tetapan Kandungan Notifikasi</a> -->
+                                            <!-- </li> -->
 
-                                        </ul>
+                                        <!-- </ul> -->
 
                                         <!-- Tab panes -->
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <!-- <div class="tab-content"> -->
+                                            <!-- <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                               <div class="page-body p-4 text-dark">
                                               <div class="row mt-10">
                                                 <div class="col-md-12 mt-4">
-                                                      <!-- Light Bordered Table card -->
+
                                                       <div class="card rounded-lg">
-                                                              <!-- Table -->
+
                                                               <div class="table-responsive">
                                                                   <table class="table table-bordered">
                                                                       <thead>
@@ -41,7 +41,7 @@
                                                                         @foreach($listTempohNotifikasi as $data)
                                                                         <form action ="{{route('tempoh_notifikasi.update', $data->id)}}" method="post">
                                                                           @csrf
-                                                                          <!-- Table data -->
+
                                                                           <tr class="text-center">
                                                                               <td><p class="mb-0 font-weight-bold">{{$data ->id}}</p></td>
                                                                               <td>
@@ -68,9 +68,9 @@
                                                   </div>
                                                 </div>
 
-                                        </div>
+                                        </div> -->
 
-                                      <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                      <!-- <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab"> -->
                                         <div class="page-body p-4 text-dark">
                                           <div class="col-md-12 mt-4" >
                                               <!-- basic light table card -->
@@ -129,7 +129,7 @@
                                       </div>
 
                                       </div>
-                              </div>
-                            </div>
+                              <!-- </div>
+                            </div> -->
 
 @endsection

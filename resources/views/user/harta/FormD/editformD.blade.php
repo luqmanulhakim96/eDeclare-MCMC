@@ -62,7 +62,10 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            {{Auth::user()->jabatan }}
+                                            @foreach($staffinfo as $jabatan)
+                                              <input type="hidden" name="jabatan" value="{{$jabatan->OLEVEL4NAME}}">{{$jabatan->OLEVEL4NAME}}
+                                            @endforeach
+                                            <!-- <input type="hidden" name="jabatan" value="{{Auth::user()->jabatan }}">{{Auth::user()->jabatan }} -->
                                           </div>
                                       </div>
                                   </div>
@@ -330,7 +333,7 @@
 
                                <div class="row">
                                   <div class="col-md-6">
-                                      <p>Bersama-sama in disertakan 'Memorandum And Articles of Association'</p>
+                                      <p>Bersama-sama in disertakan 'Sijil Pendaftaran Syarikat'</p>
                                   </div>
                               </div>
 
@@ -368,14 +371,49 @@
                      </div>
                           <!-- button -->
                          <div class="row">
-                          <div class="col-md-2">
-                          </div>
-                          <div class="col-md-8">
-                          </div>
-                          <div class="col-md-2">
-                            <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
-                            <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
-                          </div>
+                           <div class="col-md-10">
+                             </div>
+                             <div class="col-md-2">
+                               <!-- <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#save" >Simpan</button> -->
+                               <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Hantar</button>
+                               </div>
+                                   <!-- <div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                       <div class="modal-dialog modal-sm" role="document">
+                                       <div class="modal-content">
+                                           <div class="modal-header">
+                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                               <span aria-hidden="true">&times;</span>
+                                           </button>
+                                           </div>
+                                           <div class="modal-body">
+                                           <p align="center">Simpan maklumat perisytiharan?</p>
+                                           </div>
+                                           <div class="modal-footer">
+                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                           <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                                           </div>
+                                       </div>
+                                       </div>
+                                   </div> -->
+
+                                     <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                         <div class="modal-dialog modal-sm" role="document">
+                                         <div class="modal-content">
+                                             <div class="modal-header">
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <span aria-hidden="true">&times;</span>
+                                             </button>
+                                             </div>
+                                             <div class="modal-body">
+                                             <p align="center">Hantar maklumat perisytiharan?</p>
+                                             </div>
+                                             <div class="modal-footer">
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                             <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                             </div>
+                                         </div>
+                                         </div>
+                                     </div>
                         </div>
                       </form>
                     </div>

@@ -64,9 +64,9 @@
                                              <td class="p-3">
                                              <div class="d-flex flex-row justify-content-around align-items-center">
                                                @if($data ->status == "Sedang Dikemaskini")
-                                                <a href="{{ route('user.harta.FormB.editformBNew', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <a href="{{ route('user.harta.FormB.editformB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
                                                 @elseif($data ->status == "Tidak Lengkap")
-                                                <a href="{{ route('user.harta.FormB.editformBNew', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <a href="{{ route('user.harta.FormB.editformB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
                                                 @elseif($data ->status == "Sedang Diproses")
                                                 <a href="{{ route('statuseditB.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
                                                 @else

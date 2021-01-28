@@ -47,14 +47,51 @@
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <p class="required">Jabatan/ Bahagian</p>
+                                          <p class="required">Jabatan</p>
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <input type="text" class="form-control bg-light" value="{{ old('jabatan')}}" placeholder="Jabatan / Bahagian" name="jabatan">
+                                            <select  class="custom-select  bg-light" name="jabatan" value="{{ old('jabatan')}}" required>
+                                                <option value="" selected disabled hidden>Jabatan</option>
+
+                                                @foreach($jabatan as $jabatan)
+
+                                                <option value="{{$jabatan->OLEVEL4NAME}}" {{ old('jabatan') =="$jabatan->OLEVEL4NAME" ? 'selected' :'' }}>{{$jabatan->OLEVEL4NAME}}</option>
+
+                                                @endforeach
+
+                                                </select>
+                                              <!-- <input type="text" class="form-control bg-light" placeholder="Jabatan / Bahagian" name="jabatan" value="{{old('jabatan')}}"> -->
                                               @error('jabatan')
-                                                 <div class="alert alert-danger">{{ $message }}</div>
-                                             @enderror
+                                              <div class="alert alert-danger">
+                                                <strong>{{ $message }}</strong>
+                                              </div>
+                                              @enderror
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <p class="required">Bahagian</p>
+                                      </div>
+                                      <div class="col-md-8">
+                                          <div class="form-group">
+                                            <select id="jenis_harta" class="custom-select  bg-light" name="bahagian" value="{{ old('bahagian')}}" required>
+                                                <option value="" selected disabled hidden>Bahagian</option>
+
+                                                @foreach($bahagian as $bahagian)
+
+                                                <option value="{{$bahagian->OLEVEL3NAME}}" {{ old('bahagian') =="$bahagian->OLEVEL3NAME" ? 'selected' :'' }}>{{$bahagian->OLEVEL3NAME}}</option>
+
+                                                @endforeach
+
+                                                </select>
+                                              <!-- <input type="text" class="form-control bg-light" placeholder="Bahagian" name="bahagian" value="{{old('bahagian')}}"> -->
+                                              @error('bahagian')
+                                              <div class="alert alert-danger">
+                                                <strong>{{ $message }}</strong>
+                                              </div>
+                                              @enderror
                                           </div>
                                       </div>
                                   </div>
@@ -223,13 +260,56 @@
 
                                   <!-- button -->
                                  <div class="row">
-                                  <div class="col-md-9">
+                                  <!-- <div class="col-md-9">
                                   </div>
                                   <div class="col-md-3">
                                     <button type="submit" onclick=" return confirm('Simpan maklumat?');" class="btn btn-primary mt-4" name="save">Simpan</button>
 
                                     <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4" name="publish">Hantar</button>
-                                  </div>
+                                  </div> -->
+                                  <div class="col-md-9">
+                                    </div>
+                                    <div class="col-md-3">
+                                      <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#save" >Simpan</button>
+                                      <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Hantar</button>
+                                      </div>
+                                          <div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog modal-sm" role="document">
+                                              <div class="modal-content">
+                                                  <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                  <p align="center">Simpan maklumat perisytiharan?</p>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                  <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                                                  </div>
+                                              </div>
+                                              </div>
+                                          </div>
+
+                                            <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-sm" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p align="center">Hantar maklumat perisytiharan?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                    <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
                                 </div>
                               </form>
                           </div>

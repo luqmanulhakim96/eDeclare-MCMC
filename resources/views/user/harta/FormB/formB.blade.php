@@ -54,7 +54,10 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <input type="hidden" name="jabatan" value="{{Auth::user()->jabatan }}">{{Auth::user()->jabatan }}
+                                            @foreach($staffinfo as $jabatan)
+                                              <input type="hidden" name="jabatan" value="{{$jabatan->OLEVEL4NAME}}">{{$jabatan->OLEVEL4NAME}}
+                                            @endforeach
+                                            <!-- <input type="hidden" name="jabatan" value="{{Auth::user()->jabatan }}">{{Auth::user()->jabatan }} -->
                                           </div>
                                       </div>
                                   </div>
@@ -128,6 +131,7 @@
                                           </div>
                                       </div>
                                     </div>
+                                    <hr>
                                     @endforeach
                                     @endif
 
@@ -140,7 +144,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                              @if($maklumat_pasangan->NOKNAME != null)
+                                              @if($maklumat_anak->NOKNAME != null)
                                               <input type="hidden" name="nama_anak" value="{{$maklumat_anak->NOKNAME}}">{{$maklumat_anak->NOKNAME}}
                                               @else
                                               -
@@ -154,7 +158,24 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                              <input type="hidden" name="umur_anak" value="{{Auth::user()->umur_anak }}">{{Auth::user()->umur_anak }}
+                                              <span></span>
+                                              <?php
+                                                $ic = $maklumat_anak->ICNEW;
+                                                if($ic != ""){
+                                                    $year = substr($ic, 0, 2);
+                                                    $curYear = Date('Y');
+                                                    $cutoff = Date('Y') - 2000;
+                                                }
+                                                if($year > $cutoff)
+                                                {
+                                                  $above = $curYear - ($year + 1900);
+                                                  echo $above;
+                                                }
+                                                else{
+                                                  $above = $curYear - ($year + 2000);
+                                                  echo $above;
+                                                }
+                                              ?>
                                             </div>
                                         </div>
                                     </div>
@@ -164,14 +185,16 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                              @if($maklumat_anak->ICNEW != NULL)
-                                                <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}
+                                              @if($maklumat_anak->NOKNAME != null)
+                                                <!-- <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}} -->
+                                                <span id = "ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}</span>
                                                 @else
                                                 -
                                                 @endif
                                             </div>
                                         </div>
                                       </div>
+                                      <hr>
                                       @endforeach
 
                                     </div>
@@ -209,8 +232,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                              @foreach($salary as $gaji)
-                                                <input type="hidden" name="gaji" value="{{$gaji->SALARY}}">{{$gaji->SALARY}}
+                                              @foreach($staffinfo as $gaji)
+                                                <input type="hidden" name="gaji" value="{{$staffinfo->SALARY}}">{{$staffinfo->SALARY}}
                                               @endforeach
                                             </div>
                                         </div>
@@ -917,7 +940,7 @@
                                       </div>
                                       <div class="col-md-4">
                                           <div class="input-group">
-                                            @foreach($salary as $gaji)
+                                            @foreach($staffinfo as $gaji)
                                               <input type="hidden" name="gaji" value="{{$gaji->SALARY}}">{{$gaji->SALARY}}
                                             @endforeach
                                           </div>

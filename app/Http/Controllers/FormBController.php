@@ -25,28 +25,28 @@ use App\Jobs\SendNotificationFormB;
 
 class FormBController extends Controller
 {
-  public function split_name($name) {
-    $parts = array();
-
-  while ( strlen( trim($name)) > 0 ) {
-      $name = trim($name);
-      $string = preg_replace('#.*\s([\w-]*)$#', '$1', $name);
-      $parts[] = $string;
-      $name = trim( preg_replace('#'.preg_quote($string,'#').'#', '', $name ) );
-  }
-
-  if (empty($parts)) {
-      return false;
-  }
-
-  $parts = array_reverse($parts);
-  $name = array();
-  $name['first_name'] = $parts[0];
-  $name['middle_name'] = (isset($parts[2])) ? $parts[1] : '';
-  $name['last_name'] = (isset($parts[2])) ? $parts[2] : ( isset($parts[1]) ? $parts[1] : '');
-
-  return $name;
-  }
+  // public function split_name($name) {
+  //   $parts = array();
+  //
+  // while ( strlen( trim($name)) > 0 ) {
+  //     $name = trim($name);
+  //     $string = preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+  //     $parts[] = $string;
+  //     $name = trim( preg_replace('#'.preg_quote($string,'#').'#', '', $name ) );
+  // }
+  //
+  // if (empty($parts)) {
+  //     return false;
+  // }
+  //
+  // $parts = array_reverse($parts);
+  // $name = array();
+  // $name['first_name'] = $parts[0];
+  // $name['middle_name'] = (isset($parts[2])) ? $parts[1] : '';
+  // $name['last_name'] = (isset($parts[2])) ? $parts[2] : ( isset($parts[1]) ? $parts[1] : '');
+  //
+  // return $name;
+  // }
 
   public function formB()
   {
@@ -54,50 +54,50 @@ class FormBController extends Controller
 
 
     //data gaji user (latest)
-    // $username =strtoupper(Auth::user()->username);
-    //  // dd($username);
-    // // $username ="Nik Husna Binti Nik Ali";
-    // // $username =$this->split_name($username);
-    // // dd($username);
-    // $salary = UserExistingStaffInfo::where('USERNAME', $username)->get();
-    // // $salary = UserExistingStaffInfo::where('STAFFNAME','$username')  ->get();
-    // // dd($salary);
-
+    $username =Auth::user()->username;
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    // dd($salary);
 
     //data gaji user
-    $username =strtoupper(Auth::user()->name);
+    // $username =strtoupper(Auth::user()->name);
     // $username ="Nik Husna Binti Nik Ali";
-    $username=$this->split_name($username);
+    // $username=$this->split_name($username);
     // dd($username);
-    $salary = UserExistingStaffInfo::where('STAFFNAME','LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%')->get();
+    // $salary = UserExistingStaffInfo::where('STAFFNAME','LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%')->get();
     // $salary = UserExistingStaffInfo::where('STAFFNAME','$username')  ->get();
     // dd($salary);
 
     //data ic pasangan
-    $username =strtoupper(Auth::user()->name);
+    // $username =strtoupper(Auth::user()->name);
     //data dari form latest
     $userid = Auth::user()->id;
     $data_user = FormB::where('user_id', $userid) ->get();
 
-    $username=$this->split_name($username);
-    $user = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-    // dd($user);
+    // $username=$this->split_name($username);
+    $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
     if($user->isEmpty()){
       if($data_user->isEmpty()){
         $last_data_formb = null;
         $dividen_user= null;
         $pinjaman_user= null;
-        $maklumat_pasangan = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-        $maklumat_anak = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-        return view('user.harta.FormB.formB', compact('jenisHarta','salary','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+        $maklumat_pasangan = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+        $maklumat_anak = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+        return view('user.harta.FormB.formB', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
       }
     }
     else{
-      $data_user = FormB::where('user_id', $userid) ->get();
-      $last_data_formb = collect($data_user)->last();
-      $dividen_user = DividenB::where('formbs_id', $last_data_formb->id) ->get();
-      // dd($dividen_user);
-      $pinjaman_user = PinjamanB::where('formbs_id', $last_data_formb->id) ->get();
+      if($data_user->isEmpty()){
+        $last_data_formb = null;
+        $dividen_user= null;
+        $pinjaman_user= null;
+      }
+      else{
+        $data_user = FormB::where('user_id', $userid) ->get();
+        $last_data_formb = collect($data_user)->last();
+        $dividen_user = DividenB::where('formbs_id', $last_data_formb->id) ->get();
+        // dd($dividen_user);
+        $pinjaman_user = PinjamanB::where('formbs_id', $last_data_formb->id) ->get();
+      }
 
       foreach ($user as $keluarga) {
 
@@ -106,7 +106,7 @@ class FormBController extends Controller
         $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
-        return view('user.harta.FormB.formB', compact('jenisHarta','salary','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+        return view('user.harta.FormB.formB', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
 
     }
 
@@ -129,19 +129,13 @@ class FormBController extends Controller
     $jenisHarta = JenisHarta::get();
 
     //data gaji user
-    $username =strtoupper(Auth::user()->name);
-    $username=$this->split_name($username);
-    $salary = UserExistingStaff::where('STAFFNAME','LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get();
-    //data testing
-    // $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
+    $username =strtoupper(Auth::user()->username);
+    $salary = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
-    $user = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
+    $user =UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
     // dd($user);
     foreach ($user as $pasangan) {
-      $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')
-                                                ->where('STAFFNO',$pasangan->STAFFNO)->get();
-      // dd(UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO','522')->get());
-
+      $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$pasangan->STAFFNO)->get();
       }
 
     //data anak
@@ -157,6 +151,7 @@ class FormBController extends Controller
     $listPinjamanB = PinjamanB::where('formbs_id', $info->id) ->get();
 
     $count_div = DividenB::where('formbs_id', $info->id)->count();
+
     $count_pinjaman = PinjamanB::where('formbs_id', $info->id)->count();
 
 

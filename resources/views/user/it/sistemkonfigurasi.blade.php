@@ -75,7 +75,26 @@
                                                 @endforeach
                                                 <br>
                                                   <div class="row">
-                                                    <button class="btn btn-primary" onclick=" return confirm('Set maklumat?');" type="submit" name="button">Hantar</button>
+                                                    <!-- <button class="btn btn-primary" onclick=" return confirm('Set maklumat?');" type="submit" name="button">Hantar</button> -->
+                                                    <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Set</button>
+                                                  </div>
+                                                  <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog modal-sm" role="document">
+                                                      <div class="modal-content">
+                                                          <div class="modal-header">
+                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                              <span aria-hidden="true">&times;</span>
+                                                          </button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                          <p align="center">Set Maklumat?</p>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                          <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                          </div>
+                                                      </div>
+                                                      </div>
                                                   </div>
                                               </form>
                                               </div>

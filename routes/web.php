@@ -46,7 +46,7 @@ Route::get('/permohonan/hadiah', 'GiftController@giftBaru')->name('user.hadiah.g
 
 Route::get('/permohonanB/hadiah', 'GiftBController@giftBaru')->name('user.hadiah.giftB');
 
-Route::get('/senarai-harta-B/kemaskini-status/id={id}', 'FormBController@kemaskini')->name('statusedit.update');
+Route::get('/senarai-harta-B/kemaskini-status/id={id}', 'FormBController@kemaskini')->name('statuseditB.update');
 
 Route::get('/senarai-harta-C/kemaskini-status/id={id}', 'FormCController@kemaskini')->name('statuseditC.update');
 

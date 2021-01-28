@@ -11,6 +11,9 @@ use App\NilaiHadiah;
 use App\JenisHadiah;
 use App\User;
 use App\Email;
+use App\UserExistingStaffNextofKin;
+use App\UserExistingStaff;
+use App\UserExistingStaffInfo;
 
 // use App\Notifications\Gift\UserGiftAdminB;
 use App\Jobs\SendNotificationGiftB;
@@ -21,7 +24,13 @@ class GiftBController extends Controller
     public function giftBaru(){
       $nilaiHadiah = NilaiHadiah::first();
       $jenisHadiah = JenisHadiah::get();
-      return view('user.hadiah.giftB', compact('nilaiHadiah','jenisHadiah'));
+
+      $bahagian = UserExistingStaffInfo::distinct('OLEVEL3NAME')->ORDERBY('OLEVEL3NAME','asc')->get('OLEVEL3NAME');
+      // dd($bahagia);
+      $jabatan = UserExistingStaffInfo::distinct('OLEVEL4NAME')->ORDERBY('OLEVEL4NAME','asc')->get('OLEVEL4NAME');
+      // dd($jabatan);
+
+      return view('user.hadiah.giftB', compact('nilaiHadiah','jenisHadiah','jabatan','bahagian'));
   }
 
   public function kemaskini($id){
@@ -58,6 +67,7 @@ class GiftBController extends Controller
       return GiftB::create([
         'jawatan' => $data['jawatan'],
         'jabatan' => $data['jabatan'],
+        'bahagian' => $data['bahagian'],
         'jenis_gift' => $data['jenis_gift'],
         'nilai_gift' => $data['nilai_hadiah'],
         'tarikh_diterima' => $data['tarikh_diterima'],
@@ -78,6 +88,7 @@ class GiftBController extends Controller
 
         return GiftB::create([
           'jabatan' => $data['jabatan'],
+          'bahagian' => $data['bahagian'],
           'jenis_gift' => $data['jenis_gift'],
           'nilai_gift' => $data['nilai_hadiah'],
           'tarikh_diterima' => $data['tarikh_diterima'],
@@ -98,6 +109,7 @@ class GiftBController extends Controller
 
           return GiftB::create([
             'jabatan' => $data['jabatan'],
+            'bahagian' => $data['bahagian'],
             'jenis_gift' => $data['jenis_gift'],
             'nilai_gift' => $data['nilai_hadiah'],
             'tarikh_diterima' => $data['tarikh_diterima'],
@@ -116,6 +128,7 @@ class GiftBController extends Controller
       return Validator::make($data, [
         'jawatan' => ['nullable', 'string'],
         'jabatan' => ['required', 'string'],
+        'bahagian' => ['required', 'string'],
         'jenis_gift'=> ['required', 'string'],
         'nilai_hadiah'=> ['required', 'numeric'],
         'tarikh_diterima'=> ['required', 'date'],
@@ -132,6 +145,7 @@ class GiftBController extends Controller
     return Validator::make($data, [
       'jawatan' => ['nullable', 'string'],
       'jabatan' => ['nullable', 'string'],
+      'bahagian' => ['nullable', 'string'],
       'jenis_gift'=> ['nullable', 'string'],
       'nilai_hadiah'=> ['nullable', 'numeric'],
       'tarikh_diterima'=> ['nullable', 'date'],
@@ -183,6 +197,7 @@ class GiftBController extends Controller
   }
 
   public function update($id,$uploaded_gambar_hadiah){
+
     $sedang_proses= "Sedang Diproses";
     $giftbs = GiftB::find($id);
     $giftbs->jabatan = request()->jabatan;
@@ -197,26 +212,25 @@ class GiftBController extends Controller
     $giftbs->save();
   }
 
+
   public function updateHadiah(Request $request,$id){
-    $giftbs = GiftB::find($id);
-    $this->validator(request()->all())->validate();
-    if($request ->status =='Disimpan ke Draf'){
-      //send notification to hodiv (user declare)
-      $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
-      // $email = null; // for testing
-      $admin_available = User::where('role','=','1')->get(); //get system hodiv information
-      // if ($email) {
-        foreach ($admin_available as $data) {
-          // $giftbs->notify(new UserGiftAdminB($data, $email));
-          $this->dispatch(new SendNotificationGiftB($data, $email, $giftbs));
-        }
+   $gifts = GiftB::find($id);
+    $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
+
+    $this->update($id,$uploaded_gambar_hadiah);
+    if($request ->status =='Sedang Diproses'){
+    $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
+    // $email = null; // for testing
+    $admin_available = User::where('role','=','1')->get(); //get system hodiv information
+    // if ($email) {
+      foreach ($admin_available as $data) {
+        // $giftbs->notify(new UserGiftAdminB($data, $email));
+        $this->dispatch(new SendNotificationGiftB($data, $email, $giftbs));
+      }
     }
     else{
 
     }
-    $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
-
-    $this->update($id,$uploaded_gambar_hadiah);
     return redirect()->route('user.hadiah.senaraihadiahB');
   }
 }

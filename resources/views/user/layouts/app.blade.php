@@ -367,6 +367,36 @@
 
                     </div>
 
+                    <!-- Notification dropdown -->
+                    <div class="dropdown dropdown-arow-none d-contents text-center mx-2 pt-1">
+                        <!-- icon -->
+                        <a href="#" class="w-100 dropdown-toggle text-muted position-relative" data-toggle="dropdown">
+                            <!-- Notification -->
+                            <i class="far fa-bell fa-2x"></i>
+                            <span class="badge badge-primary position-absolute notification-badge">{{$count_notification}}</span>
+                        </a>
+                        @if($count_notification != 0)
+                        <!-- Dropdown menu -->
+                        <div class="dropdown-menu dropdown-menu-right p-0 dropdown-menu-max-height">
+                            <!-- Menu item -->
+                            @foreach($permohonan_admin as $permohonan)
+                              @foreach($permohonan->unreadNotifications->sortByDesc('created_at') as $notification)
+                                @if($notification->data['kepada_id'] == Auth::user()->id)
+                                <a href="{{route('notification.mark-as-read', $notification->id)}}" class="dropdown-item text-secondary-light p-0">
+                                      <div class="d-flex flex-row border-bottom">
+                                          <div class="notification-icon bg-secondary-c pt-3 px-3 pb-3"><i class="far fa-envelope text-primary fa-lg pt-3"></i></div>
+                                          <div class="flex-grow-1 px-3 py-3">
+                                              <p class="mb-0"> {{date('H:i:s d-m-Y', strtotime($permohonan->created_at))}} &ensp;<span class="badge badge-pill badge-primary">Baru</span></p>
+                                              <small>{{$notification->data['tajuk'] }}</small>
+                                          </div>
+                                      </div>
+                                  </a>
+                                  @endif
+                                @endforeach
+                              @endforeach
+                        </div>
+                        @endif
+                    </div>
 
 
                     <!-- Profile action dropdown -->
