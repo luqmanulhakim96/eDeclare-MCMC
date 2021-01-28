@@ -147,7 +147,9 @@ class ItAdminController extends Controller
         // $user = UserExistingStaffNextofKin::first();
         // $user = UserExistingStaffNextofKin::where('STAFFNO','522')->get();
         // $user = UserExistingStaffInfo::first();
+        // dd($user);
         // $user = UserExistingStaff::first();
+        // dd($user);
 
         // $username = strtoupper(Auth::user()->name);
         // dd($username);

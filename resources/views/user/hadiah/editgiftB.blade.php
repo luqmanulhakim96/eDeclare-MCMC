@@ -174,7 +174,7 @@
                               @if($info->gambar_gift != NULL)
                               <div class="row">
                                  <div class="col-md-4">
-                                      <iframe src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}" width="400px" height="400px"></iframe>
+                                   <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  class="imgthumbnail" width="150px" height="150px">
                                  </div>
                               </div>
                               @endif
@@ -208,8 +208,26 @@
                                   <div class="col-md-10">
                                   </div>
                                   <div class="col-md-2">
-                                    <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
+                                    <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Hantar</button>
                                   </div>
+                                </div>
+                                <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <p align="center">Hantar maklumat perisytiharan?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Ya</button>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
                               </form>
                           </div>

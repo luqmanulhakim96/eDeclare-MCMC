@@ -38,8 +38,27 @@
                                                       <div class="form-group">
                                                           <input type="text" class="form-control bg-light" name="nilai_hadiah" placeholder="Nilai Hadiah Yang Diterima (RM)">
                                                           <br>
-                                                          <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Kemaskini</button>
+                                                          <!-- <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Kemaskini</button> -->
+                                                          <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#nilaihadiah" >Kemaskini</button>
                                                           <!-- <input type="submit"> -->
+                                                      </div>
+                                                      <div class="modal fade" id="nilaihadiah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                          <div class="modal-dialog modal-sm" role="document">
+                                                          <div class="modal-content">
+                                                              <div class="modal-header">
+                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                  <span aria-hidden="true">&times;</span>
+                                                              </button>
+                                                              </div>
+                                                              <div class="modal-body">
+                                                              <p align="center">Kemaskini Nilai Hadiah ?</p>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                              <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                              </div>
+                                                          </div>
+                                                          </div>
                                                       </div>
                                                     </form>
                                                   </div>
@@ -60,7 +79,26 @@
                                                 <div class="form-group">
                                                     <input type="text" class="form-control bg-light" name="jenis_gift" placeholder="Jenis Hadiah ">
                                                     <br>
-                                                    <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Tambah</button>
+                                                    <!-- <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Tambah</button> -->
+                                                    <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#jenishadiah" >Tambah</button>
+                                                </div>
+                                                <div class="modal fade" id="jenishadiah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <p align="center">Tambah Jenis Hadiah ?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
                                                 </div>
                                               </form>
                                             </div>
@@ -82,9 +120,27 @@
                                                       <td><input type="hidden" name="jenis_gift" value=" {{$data->jenis_gift}}">{{$data->jenis_gift}}
                                                         <input type="hidden" name="status_jenis_hadiah" value=" {{$data->status_jenis_hadiah}}">
                                                       </td>
-                                                      <td><button type="submit" class="btn btn-danger" onclick=" return confirm('Padam maklumat?');"><i class="fas fa-times-circle"></i></a></td>
+                                                      <td><a type="button"  data-toggle="modal" data-target="#padamhadiah{{$data->id}}" ><i class="fas fa-times-circle"></i></a></td>
                                                         @endif
                                                     </tr>
+                                                    <div class="modal fade" id="padamhadiah{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                            <p align="center">Tambah Jenis Harta ?</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
                                                   </form>
                                                     @endforeach
                                                   </table>
@@ -106,7 +162,26 @@
                                                 <div class="form-group">
                                                     <input type="text" class="form-control bg-light" name="jenis_harta" placeholder="Jenis Harta ">
                                                     <br>
-                                                    <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Tambah</button>
+                                                    <!-- <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Tambah</button> -->
+                                                    <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#jenisharta1" >Tambah</button>
+                                                </div>
+                                                <div class="modal fade" id="jenisharta1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <p align="center">Tambah Jenis Harta ?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
                                                 </div>
                                               </form>
                                             </div>
@@ -128,9 +203,27 @@
                                                       <td><input type="hidden" name="jenis_harta" value=" {{$data->jenis_harta}}">{{$data->jenis_harta}}
                                                         <input type="hidden" name="status_jenis_harta" value=" {{$data->status_jenis_harta}}">
                                                       </td>
-                                                      <td><button type="submit" class="btn btn-danger" onclick=" return confirm('Padam maklumat?');"><i class="fas fa-times-circle"></i></a></td>
+                                                      <td><a type="button"  data-toggle="modal" data-target="#padamharta{{$data->id}}" ><i class="fas fa-times-circle"></i></a></td>
                                                         @endif
                                                     </tr>
+                                                    <div class="modal fade" id="padamharta{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                            <p align="center">Tambah Jenis Harta ?</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div
                                                   </form>
                                                     @endforeach
                                                   </table>

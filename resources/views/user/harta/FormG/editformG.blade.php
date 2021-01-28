@@ -49,7 +49,10 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            {{Auth::user()->jabatan }}
+                                            @foreach($staffinfo as $jabatan)
+                                              <input type="hidden" name="jabatan" value="{{$jabatan->OLEVEL4NAME}}">{{$jabatan->OLEVEL4NAME}}
+                                            @endforeach
+                                            <!-- <input type="hidden" name="jabatan" value="{{Auth::user()->jabatan }}">{{Auth::user()->jabatan }} -->
                                           </div>
                                       </div>
                                   </div>
@@ -110,107 +113,128 @@
                       <div class="col-12 mt-4">
                            <div class="card rounded-lg">
                                <div class="card-body">
-                                  <div class="row">
-                                    <div class="col-md-4">
-                                      <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
-                                    </div>
-                                  </div>
-                                  @foreach($maklumat_pasangan as $maklumat_pasangan)
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Nama Suami / Isteri</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
+                                 @if($maklumat_pasangan->isEmpty())
+                                 @else
+                                 @foreach($maklumat_pasangan as $maklumat_pasangan)
+                                 <div class="row">
+                                   <div class="col-md-4">
+                                     <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
+                                   </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col-md-4">
+                                         <p>Nama Suami / Isteri</p>
+                                     </div>
+                                     <div class="col-md-8">
+                                         <div class="form-group">
+                                           @if($maklumat_pasangan->NOKNAME != null)
+                                             <input type="hidden" name="nama_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKNAME}}
+                                             @else
+                                             -
+                                             @endif
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col-md-4">
+                                       <p>No.Kad Pengenalan Suami/Isteri</p>
+                                     </div>
+                                     <div class="col-md-8">
+                                         <div class="form-group">
+                                           @if($maklumat_pasangan->ICNEW != null)
+                                             <input type="hidden" name="ic_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->ICNEW}}
+                                             @else
+                                             -
+                                             @endif
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col-md-4">
+                                       <p>Pekerjaan Suami/Isteri</p>
+                                     </div>
+                                     <div class="col-md-8">
+                                         <div class="form-group">
+                                           @if($maklumat_pasangan->NOKEMLOYER != NULL)
+                                             <input type="hidden" name="pekerjaan_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKEMLOYER}}
+                                             @else
+                                             -
+                                             @endif
 
-                                            @if($maklumat_pasangan->NOKNAME != null)
-                                              <input type="hidden" name="nama_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKNAME}}
-                                              @else
-                                              -
-                                              @endif
+                                         </div>
+                                     </div>
+                                   </div>
+                                   <hr>
+                                   @endforeach
+                                   @endif
 
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                        <p>No.Kad Pengenalan Suami/Isteri</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-                                            @if($maklumat_pasangan->ICNEW != null)
-                                              <input type="hidden" name="ic_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->ICNEW}}
-                                              @else
-                                              -
-                                              @endif
-
-
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                        <p>Pekerjaan Suami/Isteri</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-
-                                            @if($maklumat_pasangan->NOKEMLOYER != NULL)
-                                              <input type="hidden" name="pekerjaan_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKEMLOYER}}
-                                              @else
-                                              -
-                                              @endif
-
-                                          </div>
-                                      </div>
-                                    </div>
-                                    @endforeach
-                                    @foreach($maklumat_anak as $maklumat_anak)
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <p>Nama Anak</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                @if($maklumat_pasangan->NOKNAME != null)
-                                                <input type="hidden" name="nama_anak" value="{{$maklumat_anak->NOKNAME}}">{{$maklumat_anak->NOKNAME}}
-                                                @else
-                                                -
-                                                @endif
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                          <p>Umur Anak/Tanggungan</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <input type="hidden" name="umur_anak" value="{{Auth::user()->umur_anak }}">{{Auth::user()->umur_anak }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                          <p>No.Kad Pengenalan Anak/Tanggungan</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                              @if($maklumat_anak->ICNEW != NULL)
-                                                <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}
-                                                @else
-                                                -
-                                                @endif
-
-                                            </div>
-                                        </div>
-                                      </div>
-                                      @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                   @if($maklumat_anak->isEmpty())
+                                   @else
+                                   @foreach($maklumat_anak as $maklumat_anak)
+                                   <div class="row">
+                                       <div class="col-md-4">
+                                           <p>Nama Anak</p>
+                                       </div>
+                                       <div class="col-md-8">
+                                           <div class="form-group">
+                                             @if($maklumat_anak->NOKNAME != null)
+                                             <input type="hidden" name="nama_anak" value="{{$maklumat_anak->NOKNAME}}">{{$maklumat_anak->NOKNAME}}
+                                             @else
+                                             -
+                                             @endif
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="row">
+                                       <div class="col-md-4">
+                                         <p>Umur Anak/Tanggungan</p>
+                                       </div>
+                                       <div class="col-md-8">
+                                           <div class="form-group">
+                                             <span></span>
+                                             <?php
+                                               $ic = $maklumat_anak->ICNEW;
+                                               if($ic != ""){
+                                                   $year = substr($ic, 0, 2);
+                                                   $curYear = Date('Y');
+                                                   $cutoff = Date('Y') - 2000;
+                                               }
+                                               if($year > $cutoff)
+                                               {
+                                                 $above = $curYear - ($year + 1900);
+                                                 echo $above;
+                                               }
+                                               else{
+                                                 $above = $curYear - ($year + 2000);
+                                                 echo $above;
+                                               }
+                                             ?>
+                                               <!-- <input type="hidden" name="umur_anak" value="{{Auth::user()->umur_anak }}">{{Auth::user()->umur_anak }} -->
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="row">
+                                       <div class="col-md-4">
+                                         <p>No.Kad Pengenalan Anak/Tanggungan</p>
+                                       </div>
+                                       <div class="col-md-8">
+                                           <div class="form-group">
+                                             @if($maklumat_anak->NOKNAME != null)
+                                               <!-- <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}} -->
+                                               <span id = "ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}</span>
+                                               @else
+                                               -
+                                               @endif
+                                           </div>
+                                       </div>
+                                     </div>
+                                     <hr>
+                                     @endforeach
+                                     @endif
+                                   </div>
+                             </div>
+                         </div>
+                     </div>
                         <div class="row">
                           <div class="col-12 mt-4">
                                <div class="card rounded-lg">
@@ -944,16 +968,49 @@
                       </div>
                     <!-- button -->
                        <div class="row">
-                        <div class="col-md-2">
-                          <!-- <a class="btn btn-primary mt-4" href="">Kembali</a> -->
-                          <!-- <button type="submit" class="btn btn-primary mt-4">Kembali</button> -->
-                        </div>
-                        <div class="col-md-8">
-                        </div>
-                        <div class="col-md-2">
-                          <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
-                      <!-- <button type="submit" class="btn btn-primary mt-4">Seterusnya</button> -->
-                        </div>
+                         <div class="col-md-10">
+                           </div>
+                           <div class="col-md-2">
+                             <!-- <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#save" >Simpan</button> -->
+                             <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Hantar</button>
+                             </div>
+                                 <!-- <div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                     <div class="modal-dialog modal-sm" role="document">
+                                     <div class="modal-content">
+                                         <div class="modal-header">
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">&times;</span>
+                                         </button>
+                                         </div>
+                                         <div class="modal-body">
+                                         <p align="center">Simpan maklumat perisytiharan?</p>
+                                         </div>
+                                         <div class="modal-footer">
+                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                         <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                                         </div>
+                                     </div>
+                                     </div>
+                                 </div> -->
+
+                                   <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                       <div class="modal-dialog modal-sm" role="document">
+                                       <div class="modal-content">
+                                           <div class="modal-header">
+                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                               <span aria-hidden="true">&times;</span>
+                                           </button>
+                                           </div>
+                                           <div class="modal-body">
+                                           <p align="center">Hantar maklumat perisytiharan?</p>
+                                           </div>
+                                           <div class="modal-footer">
+                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                           <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                           </div>
+                                       </div>
+                                       </div>
+                                   </div>
                   </div>
                 </form>
             </div>

@@ -12,6 +12,8 @@ use Auth;
 use App\User;
 use App\Email;
 use App\UserExistingStaffNextofKin;
+use App\UserExistingStaff;
+use App\UserExistingStaffInfo;
 
 use App\Jobs\SendNotificationFormD;
 
@@ -19,12 +21,9 @@ class FormDController extends Controller
 {
   public function formD()
   {
-    //data ic user
-    // $username =strtoupper(Auth::user()->name);
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
-    //data testing
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
-    return view('user.harta.FormD.formD');
+    $username =Auth::user()->username;
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    return view('user.harta.FormD.formD',compact('staffinfo'));
   }
 
   public function kemaskini($id){

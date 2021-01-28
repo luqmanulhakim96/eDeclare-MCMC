@@ -64,7 +64,7 @@
                                              <td>
                                                @if($data ->getTable() == "gifts")
                                                  @if($data ->status == "Sedang Diproses")
-                                                 <span class="badge badge-warning badge-pill">Menunggu Ulasan Ketua Jabatan Integriti</span>
+                                                 <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan</span>
                                                  @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                  <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                  @elseif($data ->status == "Diproses ke Pentadbir Sistem")

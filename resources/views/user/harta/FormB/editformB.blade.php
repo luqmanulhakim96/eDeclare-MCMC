@@ -55,7 +55,10 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            {{$info->jabatan}}
+                                            @foreach($staffinfo as $jabatan)
+                                              <input type="hidden" name="jabatan" value="{{$jabatan->OLEVEL4NAME}}">{{$jabatan->OLEVEL4NAME}}
+                                            @endforeach
+                                            <!-- <input type="hidden" name="jabatan" value="{{Auth::user()->jabatan }}">{{Auth::user()->jabatan }} -->
                                           </div>
                                       </div>
                                   </div>
@@ -130,6 +133,7 @@
                                           </div>
                                       </div>
                                     </div>
+                                    <hr>
                                     @endforeach
                                     @endif
 
@@ -142,7 +146,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                              @if($maklumat_pasangan->NOKNAME != null)
+                                              @if($maklumat_anak->NOKNAME != null)
                                               <input type="hidden" name="nama_anak" value="{{$maklumat_anak->NOKNAME}}">{{$maklumat_anak->NOKNAME}}
                                               @else
                                               -
@@ -156,7 +160,24 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                              <span id="umur_anak"></span>
+                                              <span></span>
+                                              <?php
+                                                $ic = $maklumat_anak->ICNEW;
+                                                if($ic != ""){
+                                                    $year = substr($ic, 0, 2);
+                                                    $curYear = Date('Y');
+                                                    $cutoff = Date('Y') - 2000;
+                                                }
+                                                if($year > $cutoff)
+                                                {
+                                                  $above = $curYear - ($year + 1900);
+                                                  echo $above;
+                                                }
+                                                else{
+                                                  $above = $curYear - ($year + 2000);
+                                                  echo $above;
+                                                }
+                                              ?>
                                                 <!-- <input type="hidden" name="umur_anak" value="{{Auth::user()->umur_anak }}">{{Auth::user()->umur_anak }} -->
                                             </div>
                                         </div>
@@ -167,15 +188,16 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                              @if($info->ic_anak != NULL)
+                                              @if($maklumat_anak->NOKNAME != null)
                                                 <!-- <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}} -->
-                                                <span id="anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}</span>
+                                                <span id = "ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}</span>
                                                 @else
                                                 -
                                                 @endif
                                             </div>
                                         </div>
                                       </div>
+                                      <hr>
                                       @endforeach
                                       @endif
                                     </div>
@@ -1013,14 +1035,51 @@
                                   <!-- button -->
                                   <div class="row">
                                     <div class="col-md-10">
-                                    </div>
-                                    <div class="col-md-2">
-                                      <button type="submit" onclick=" return confirm('Hantar maklumat?');" class="btn btn-primary mt-4">Hantar</button>
+                                      </div>
+                                      <div class="col-md-2">
+                                        <!-- <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#save" >Simpan</button> -->
+                                        <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Hantar</button>
+                                        </div>
+                                            <!-- <div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-sm" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p align="center">Simpan maklumat perisytiharan?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                    <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div> -->
 
-                                    </div>
+                                              <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog modal-sm" role="document">
+                                                  <div class="modal-content">
+                                                      <div class="modal-header">
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                      <p align="center">Hantar maklumat perisytiharan?</p>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                      <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                      </div>
+                                                  </div>
+                                                  </div>
+                                              </div>
                               </form>
 
-          </div>
+                              </div>
           <script type="text/javascript">
           var today = new Date();
            var dd = today.getDate();
@@ -1071,15 +1130,23 @@
           </script>
 
           <script type="text/javascript">
-           var MyIDCard = "{{$maklumat_anak->ICNEW}}";//ID number
+           // var MyIDCard = $("#anak.value");//ID number
+           var MyIDCard =document.getElementById("ic_anak").innerText;
            console.log(MyIDCard);
            var MyAge;//age
            // Get the birthday, gender, age according to the ID number
            function IDCardData() {
                 if (MyIDCard != "") {
-                    var MyDate = new Date();
+                    var Year = parseInt(MyIDCard.substring(0, 2));
+                    var Newdate =new Date();
+                    var cutoff = (new Date()).getFullYear() - 2000;
                     // console.log(parseInt(MyDate.getFullYear()));
-                    var MyAge = parseInt(MyDate.getFullYear()) - (parseInt(MyIDCard.substring(0, 2)) + 1900);
+                    if(Year > cutoff){
+                      var MyAge = parseInt(Newdate.getFullYear()) - (parseInt(MyIDCard.substring(0, 2)) + 1900);
+                    }
+                    else{
+                      var MyAge = parseInt(Newdate.getFullYear()) - (parseInt(MyIDCard.substring(0, 2)) + 2000);
+                    }
                 }
                 return MyAge;
            }

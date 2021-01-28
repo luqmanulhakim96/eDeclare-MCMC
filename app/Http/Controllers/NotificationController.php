@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Auth;
-use Illuminate\Notifications\DatabaseNotification as Notification;
+// use Illuminate\Notifications\DatabaseNotification as Notification;
+use App\Notification;
 
 class NotificationController extends Controller
 {
@@ -21,28 +22,28 @@ class NotificationController extends Controller
       if($roles == '1')
       {
         if($hartaBaru){
-          return redirect()->route('user.admin.harta.senaraiallharta');
+          return redirect()->route('user.admin.harta.senaraitugasanharta');
         }
         elseif ($hadiahBaru) {
-          return redirect()->route('user.admin.hadiah.senaraiallhadiah');
+          return redirect()->route('user.admin.hadiah.senaraitugasanhadiah');
         }
       }
       else if($roles == '2')
       {
         if($hartaBaru){
-          return redirect()->route('user.integrityHOD.harta.senaraiallharta');
+          return redirect()->route('user.integrityHOD.harta.senaraitugasanharta');
         }
         elseif ($hadiahBaru) {
-          return redirect()->route('user.integrityHOD.hadiah.senaraiallhadiah');
+          return redirect()->route('user.integrityHOD.hadiah.senaraitugasanhadiah');
         }
       }
       else if($roles == '3')
       {
         if($hartaBaru){
-          return redirect()->route('user.hodiv.harta.senaraiallharta');
+          return redirect()->route('user.hodiv.harta.senaraitugasanharta');
         }
         elseif ($hadiahBaru) {
-          return redirect()->route('user.hodiv.hadiah.senaraiallhadiah');
+          return redirect()->route('user.hodiv.hadiah.senaraitugasanhadiah');
         }
       }
     }

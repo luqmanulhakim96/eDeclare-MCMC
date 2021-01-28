@@ -13,6 +13,8 @@ use App\User;
 use App\JenisHarta;
 use App\Email;
 use App\UserExistingStaffNextofKin;
+use App\UserExistingStaff;
+use App\UserExistingStaffInfo;
 
 // use App\Notifications\Form\UserFormAdminC;
 use App\Jobs\SendNotificationFormC;
@@ -25,14 +27,17 @@ class FormCController extends Controller
     $userid = Auth::user()->id;
     $data_user = FormB::where('user_id', $userid) ->get();
 
+    $username =Auth::user()->username;
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+
     if($data_user->isEmpty()){
       //TANYA LUKE
       $data_user = null;
-      return view('user.harta.FormC.formC', compact('jenisHarta','data_user','jenisHarta'));
+      return view('user.harta.FormC.formC', compact('jenisHarta','data_user','jenisHarta','staffinfo'));
     }
     else {
       $data_user = FormB::where('user_id', $userid) ->get();
-      return view('user.harta.FormC.formC', compact('jenisHarta','data_user'));
+      return view('user.harta.FormC.formC', compact('jenisHarta','data_user','staffinfo'));
     }
   }
 

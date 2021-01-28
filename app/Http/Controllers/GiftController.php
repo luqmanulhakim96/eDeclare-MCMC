@@ -12,6 +12,10 @@ use App\JenisHadiah;
 use App\Email;
 use App\User;
 
+use App\UserExistingStaffNextofKin;
+use App\UserExistingStaff;
+use App\UserExistingStaffInfo;
+
 use App\Jobs\SendNotificationGift;
 
 
@@ -21,7 +25,13 @@ class GiftController extends Controller
     public function giftBaru(){
       $nilaiHadiah = NilaiHadiah::first();
       $jenisHadiah = JenisHadiah::get();
-      return view('user.hadiah.gift', compact('nilaiHadiah','jenisHadiah'));
+
+      $bahagian = UserExistingStaffInfo::distinct('OLEVEL3NAME')->ORDERBY('OLEVEL3NAME','asc')->get('OLEVEL3NAME');
+      // dd($bahagia);
+      $jabatan = UserExistingStaffInfo::distinct('OLEVEL4NAME')->ORDERBY('OLEVEL4NAME','asc')->get('OLEVEL4NAME');
+      // dd($jabatan);
+
+      return view('user.hadiah.gift', compact('nilaiHadiah','jenisHadiah','jabatan','bahagian'));
   }
 
   public function kemaskini($id){
@@ -33,7 +43,7 @@ class GiftController extends Controller
 
         return redirect()->route('user.hadiah.senaraihadiah');
       }
-      
+
   public function editHadiah($id){
       //$info = SenaraiHarga::find(1);
       $info = Gift::findOrFail($id);
@@ -60,6 +70,7 @@ class GiftController extends Controller
       return Gift::create([
         'jawatan' => $data['jawatan'],
         'jabatan' => $data['jabatan'],
+        'bahagian' => $data['bahagian'],
         'jenis_gift' => $data['jenis_gift'],
         'nilai_gift' => $data['nilai_hadiah'],
         'tarikh_diterima' => $data['tarikh_diterima'],
@@ -80,7 +91,9 @@ class GiftController extends Controller
 
 
         return Gift::create([
+          'jawatan' => $data['jawatan'],
           'jabatan' => $data['jabatan'],
+          'bahagian' => $data['bahagian'],
           'jenis_gift' => $data['jenis_gift'],
           'nilai_gift' => $data['nilai_hadiah'],
           'tarikh_diterima' => $data['tarikh_diterima'],
@@ -102,7 +115,9 @@ class GiftController extends Controller
 
 
           return Gift::create([
+            'jawatan' => $data['jawatan'],
             'jabatan' => $data['jabatan'],
+            'bahagian' => $data['bahagian'],
             'jenis_gift' => $data['jenis_gift'],
             'nilai_gift' => $data['nilai_hadiah'],
             'tarikh_diterima' => $data['tarikh_diterima'],
@@ -121,6 +136,7 @@ class GiftController extends Controller
   {
       return Validator::make($data, [
         'jawatan' => ['nullable', 'string'],
+        'bahagian' =>['required', 'string'],
         'jabatan' => ['required', 'string'],
         'jenis_gift'=> ['required', 'string'],
         'nilai_hadiah'=> ['required', 'numeric'],
@@ -138,6 +154,7 @@ class GiftController extends Controller
     return Validator::make($data, [
       'jawatan' => ['nullable', 'string'],
       'jabatan' => ['nullable', 'string'],
+      'bahagian' =>['nullable', 'string'],
       'jenis_gift'=> ['nullable', 'string'],
       'nilai_hadiah'=> ['nullable', 'numeric'],
       'tarikh_diterima'=> ['nullable', 'date'],
@@ -150,6 +167,7 @@ class GiftController extends Controller
 }
 
 public function submitForm(Request $request){
+  // dd($request->all());
   if ($request->has('save'))
   {
     $this->validatordraft($request->all())->validate();
@@ -206,7 +224,9 @@ public function submitForm(Request $request){
   public function updateHadiah(Request $request,$id){
    $gifts = Gift::find($id);
     $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
-    if($request ->status =='Disimpan ke Draf'){
+
+    $this->update($id,$uploaded_gambar_hadiah);
+    if($request ->status =='Sedang Diproses'){
       //send notification to hodiv (user declare)
       $email = Email::where('penerima', '=', 'Ketua Bahagian')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
       // $email = null; // for testing
@@ -220,7 +240,6 @@ public function submitForm(Request $request){
     else{
 
     }
-    $this->update($id,$uploaded_gambar_hadiah);
     return redirect()->route('user.hadiah.senaraihadiah');
   }
 }
