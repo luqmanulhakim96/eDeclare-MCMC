@@ -33,25 +33,20 @@ class FormDController extends Controller
     $form->status = $status;
     $form->save();
 
-    return redirect()->route('user.harta.FormB.senaraihartaB');
+    return redirect()->route('user.harta.FormD.senaraihartaD');
   }
 
 public function editformD($id){
     //$info = SenaraiHarga::find(1);
     $info = FormD::findOrFail($id);
-    // dd($info);
-
-    //data ic user
-    // $username =strtoupper(Auth::user()->name);
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
-    //data testing
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
+    $username =Auth::user()->username;
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
     $keluarga = Keluarga::where('formds_id', $info->id) ->get();
     $count_keluarga = Keluarga::where('formds_id', $info->id)->count();
     $dokumen_syarikat = DokumenSyarikat::where('formds_id', $info->id) ->get();
     // dd($dokumen_syarikat);
-    return view('user.harta.FormD.editformD', compact('info','keluarga','count_keluarga','dokumen_syarikat'));
+    return view('user.harta.FormD.editformD', compact('info','keluarga','count_keluarga','dokumen_syarikat','staffinfo'));
   }
 
 public function add(array $data){
@@ -140,9 +135,9 @@ public function add(array $data){
       'nama_ahli[]' => ['nullable', 'string'],
       'hubungan[]' => ['nullable', 'string'],
       'jawatan_syarikat[]' => ['nullable', 'string'],
-      'jumlah_saham[]' => ['nullable', 'numeric'],
-      'nilai_saham[]' => ['nullable', 'numeric'],
-      'dokumen_syarikat[]' => ['nullable', 'max:100000'],
+      'jumlah_saham[]' => ['nullable', 'string'],
+      'nilai_saham[]' => ['nullable', 'string'],
+      'dokumen_syarikat[]' => ['required', 'max:100000'],
       'pengakuan' => ['required'],
 
     ]);
@@ -160,9 +155,9 @@ protected function validatordraft(array $data)
     'no_pendaftaran_syarikat' => ['nullable', 'string'],
     'alamat_syarikat' =>['nullable', 'string'],
     'jenis_syarikat' =>['nullable', 'string'],
-    'pulangan_tahunan' =>['nullable', 'string'],
-    'modal_syarikat' => ['nullable', 'string'],
-    'modal_dibayar' => ['nullable', 'string'],
+    'pulangan_tahunan' =>['nullable', 'numeric'],
+    'modal_syarikat' => ['nullable', 'numeric'],
+    'modal_dibayar' => ['nullable', 'numeric'],
     'punca_kewangan' => ['nullable', 'string'],
     'nama_ahli[]' => ['nullable', 'string'],
     'hubungan[]' => ['nullable', 'string'],
@@ -176,7 +171,7 @@ protected function validatordraft(array $data)
 }
 
   public function submitForm(Request $request){
-
+// dd($request->all());
   if ($request->has('save'))
   {
       $isChecked = $request->has('pengakuan');

@@ -18,6 +18,7 @@ use App\FormB;
 use App\FormC;
 use App\FormD;
 use App\FormG;
+use App\HartaB;
 use App\Keluarga;
 use App\NilaiHadiah;
 use App\UserExistingStaff;
@@ -205,11 +206,34 @@ class UserController extends Controller
 
       $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();
 
-      // share data to view
-      // view()->share('employee',$data);
-      $pdf = PDF::loadView('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB'));
-      // download PDF file with download method
-      return $pdf->download('Lampiran_B.pdf');
+      $hartaB =HartaB::where('formbs_id',$listHarta->id) ->get();
+
+
+      $user = UserExistingStaffInfo::where('STAFFNO', $listHarta->no_staff) ->get('STAFFNO');
+      foreach ($user as $keluarga) {
+
+          $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+          $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+          }
+
+      if($maklumat_pasangan->isEmpty()){
+          $pdf = PDF::loadView('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB','hartaB'));
+          return $pdf->download('Lampiran_B.pdf');
+      }
+      elseif ($maklumat_anak->isEmpty()) {
+          $pdf = PDF::loadView('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan'));
+          return $pdf->download('Lampiran_B.pdf');
+      }
+      else{
+        $pdf = PDF::loadView('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan'));
+        return $pdf->download('Lampiran_B.pdf');
+      }
+      // // view()->share('employee',$data);
+      // $pdf = PDF::loadView('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB'));
+      // // download PDF file with download method
+      // return $pdf->download('Lampiran_B.pdf');
     }
 
     public function printB($id)
@@ -221,10 +245,31 @@ class UserController extends Controller
 
       $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();
 
-      return view('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB'));
-    }
+      $hartaB =HartaB::where('formbs_id',$listHarta->id) ->get();
 
-  public function viewB($id)
+
+      $user = UserExistingStaffInfo::where('STAFFNO', $listHarta->no_staff) ->get('STAFFNO');
+      foreach ($user as $keluarga) {
+
+          $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+          $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+          }
+
+      if($maklumat_pasangan->isEmpty()){
+        return view('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB','hartaB'));
+      }
+      elseif ($maklumat_anak->isEmpty()) {
+        return view('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan'));
+      }
+      else{
+      return view('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan'));
+      }
+  }
+
+
+    public function viewB($id)
   {
      //dd($id);
     $listHarta = FormB::findOrFail($id);
@@ -233,31 +278,30 @@ class UserController extends Controller
 
     $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();
 
-    $username =strtoupper(Auth::user()->name);
-    $username=$this->split_name($username);
-    $salary = UserExistingStaff::where('STAFFNAME','LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get();
-    //data testing
-    // $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
+    $hartaB =HartaB::where('formbs_id',$listHarta->id) ->get();
 
-    $user = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-    if($user->isEmpty()){
-      $maklumat_pasangan = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-      $maklumat_anak = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-      return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','maklumat_pasangan','maklumat_anak'));
-    }
-    else{
-      // dd($user);
-      foreach ($user as $keluarga) {
+
+    $user = UserExistingStaffInfo::where('STAFFNO', $listHarta->no_staff) ->get('STAFFNO');
+    // dd($user);
+
+    foreach ($user as $keluarga) {
 
         $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
         $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
         $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
-        return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','maklumat_pasangan','maklumat_anak'));
 
+    if($maklumat_pasangan->isEmpty()){
+      return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB'));
     }
-  }
+    elseif ($maklumat_anak->isEmpty()) {
+      return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan'));
+    }
+    else{
+    return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan'));
+    }
+}
 
   public function senaraiHartaC()
   {
@@ -273,29 +317,26 @@ class UserController extends Controller
   {
      //dd($id);
     $listHarta = FormC::findOrFail($id);
-    // dd($listHarta);
-    //data ic user
-    // $username =strtoupper(Auth::user()->name);
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
-    //data testing
-    // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
+    $hartaB =HartaB::where('formcs_id',$listHarta->id)->get();
 
-      return view('user.harta.FormC.viewformC', compact('listHarta'));
+      return view('user.harta.FormC.viewformC', compact('listHarta','hartaB'));
   }
 
   public function printC($id)
   {
 
     $listHarta = FormC::findOrFail($id);
+    $hartaB =HartaB::where('formcs_id',$listHarta->id)->get();
 
-      return view('user.harta.FormC.print', compact('listHarta'));
+      return view('user.harta.FormC.print', compact('listHarta','hartaB'));
   }
 
   public function createPDFC($id) {
 
       $listHarta = FormC::findOrFail($id);
-      $pdf = PDF::loadView('user.harta.FormC.print', compact('listHarta'));
-      // download PDF file with download method
+      $hartaB =HartaB::where('formcs_id',$listHarta->id)->get();
+      $pdf = PDF::loadView('user.harta.FormC.print', compact('listHarta','hartaB'));
+
       return $pdf->download('Lampiran_C.pdf');
     }
 
@@ -314,6 +355,7 @@ class UserController extends Controller
     $listHarta = FormD::findOrFail($id);
     $listKeluarga = Keluarga::where('formds_id', $listHarta->id) ->get();
     $dokumen_syarikat = DokumenSyarikat::where('formds_id', $listHarta->id) ->get();
+    // dd($dokumen_syarikat);
     //data ic user
     // $username =strtoupper(Auth::user()->name);
     // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
@@ -359,33 +401,26 @@ class UserController extends Controller
     $listDividenG = DividenG::where('formgs_id', $listHarta->id) ->get();
     $listPinjamanG = PinjamanG::where('formgs_id', $listHarta->id) ->get();
     $listPinjaman = Pinjaman::where('formgs_id', $listHarta->id) ->get();
-    $username =strtoupper(Auth::user()->name);
-    $username=$this->split_name($username);
-    $salary = UserExistingStaff::where('STAFFNAME','LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get();
-    //data testing
-    // $salary = UserExistingStaff::where('STAFFNAME','THAMILSELVAN S/O MUNYANDY') ->get();
+    $user = UserExistingStaffInfo::where('STAFFNO', $listHarta->no_staff) ->get('STAFFNO');
+    // dd($user);
 
-    $user = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-    if($user->isEmpty()){
-      $maklumat_pasangan = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-      $maklumat_anak = UserExistingStaff::where('STAFFNAME', 'LIKE', strtoupper($username['first_name'].' '.$username['middle_name']).'%') ->get('STAFFNO');
-      return view('user.harta.FormG.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','salary','maklumat_pasangan','maklumat_anak'));
-    }
-    else{
-      // dd($user);
-      foreach ($user as $keluarga) {
-
+    foreach ($user as $keluarga) {
         $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
         $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
         $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
-        return view('user.harta.FormG.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','salary','maklumat_pasangan','maklumat_anak'));
 
+    if($maklumat_pasangan->isEmpty()){
+      return view('user.harta.FormB.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman'));
     }
-
-
-  }
+    elseif ($maklumat_anak->isEmpty()) {
+      return view('user.harta.FormB.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan'));
+    }
+    else{
+      return view('user.harta.FormG.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','maklumat_anak'));
+    }
+}
 
   public function printG($id)
   {

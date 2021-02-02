@@ -1,4 +1,4 @@
-
+<!--Page Body part -->
 <table>
   <tr>
     <td><font style="color:red;">Rahsia</td>
@@ -56,43 +56,36 @@
     <tr>
         <td colspan="3"><h5><b>2.KETERANGAN MENGENAI PELUPUSAN HARTA</b></h5></td>
     </tr>
-    @foreach($hartaB as $data)
-    @if($data->formcs_id)
     <tr>
         <td>i) Jenis Harta</td>
-        <td>{{ $data ->jenis_harta }}</td>
+        <td>{{ $listHarta ->jenis_harta_lupus }}</td>
     </tr>
     <tr>
         <td>ii) Pemilik Harta</td>
-        <td>{{ $data ->pemilik_harta }}</td>
+        <td>{{ $listHarta ->pemilik_harta_pelupusan }}</td>
     </tr>
     <tr>
         <td>iii) Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</td>
-        <td>{{ $data ->hubungan_pemilik}}</td>
+        <td>{{ $listHarta ->hubungan_pemilik_pelupusan }}</td>
     </tr>
     <tr>
         <td>iv) Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</td>
-        <td>{{ $data ->maklumat_harta }}</td>
+        <td>{{ $listHarta ->no_pendaftaran_harta }}</td>
     </tr>
     <tr>
         <td>v) Tarikh Pemilikan Harta</td>
-        <td>{{ $data ->tarikh_pemilikan_hartas}}</td>
+        <td>{{ $listHarta ->tarikh_pemilikan }}</td>
     </tr>
     <tr>
         <td>vi) Tarikh Pelupusan Harta</td>
-        <td>{{ $data ->tarikh_pelupusan }}</td>
+        <td>{{ $listHarta ->tarikh_pelupusan }}</td>
     </tr>
     <tr>
         <td>vii) Cara Pelupusan</td>
-        <td>{{ $data ->cara_pelupusan }}</td>
+        <td>{{ $listHarta ->cara_pelupusan }}</td>
     </tr>
     <tr>
-        <td>viii)Nilai Pelupusan</td>
-        <td>{{ $data ->nilai_pelupusan }}</td>
+        <td>viii) Jika dijual, Nyatakan nilai jualan</td>
+        <td>{{ $listHarta ->nilai_pelupusan }}</td>
     </tr>
-    @endif
-    <tr rowspan = "3">
-      <td><input type="hidden"><br></td>
-    </tr>
-    @endforeach
 </table>

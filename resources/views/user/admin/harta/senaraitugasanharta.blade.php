@@ -18,7 +18,7 @@
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <!-- <th width="10%"><p class="mb-0">ID</p></th> -->
-                                               <th><p class="mb-0">ID</p></th>
+                                               <th><p class="mb-0">No Staff</p></th>
                                                <th><p class="mb-0">Nama</p></th>
                                                <th><p class="mb-0">Lampiran</p></th>
                                                <th><p class="mb-0">Tarikh</p></th>
@@ -90,38 +90,38 @@
                                              <td>
                                                @if($data ->getTable() == "formbs")
                                                  @if($data ->status == "Sedang Diproses")
-                                                 <button href="{{route('user.admin.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                 <a href="{{route('user.admin.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
                                                  @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
-                                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanB">Tindakan</button>
+                                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanB{{$data->id}}">Tindakan</button>
                                                  @else
                                                  -
                                                  @endif
                                                @elseif($data ->getTable() == "formcs")
                                                  @if($data ->status == "Sedang Diproses")
-                                                 <button href="{{route('user.admin.harta.ulasanHartaC',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                 <a href="{{route('user.admin.harta.ulasanHartaC',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
                                                  @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
-                                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanC">Tindakan</button>
+                                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanC{{$data->id}}">Tindakan</button>
                                                  @else
                                                  -
                                                  @endif
                                                @elseif($data ->getTable() == "formds")
                                                  @if($data ->status == "Sedang Diproses")
-                                                 <button href="{{route('user.admin.harta.ulasanHartaD',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                 <a href="{{route('user.admin.harta.ulasanHartaD',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
                                                  @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
-                                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanD">Tindakan</button>
+                                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanD{{$data->id}}">Tindakan</button>
                                                  @else
                                                  @endif
                                                 @elseif($data ->getTable() == "formgs")
                                                   @if($data ->status == "Sedang Diproses")
-                                                  <button href="{{route('user.admin.harta.ulasanHartaG',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                  <a href="{{route('user.admin.harta.ulasanHartaG',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
                                                   @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
-                                                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanG">Tindakan</button>
+                                                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanG{{$data->id}}">Tindakan</button>
                                                   @else
                                                   -
                                                   @endif
                                                 @endif
                                              </td>
-                                             <div class="modal fade" id="tindakanB" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                             <div class="modal fade" id="tindakanB{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                  <div class="modal-dialog modal-sm" role="document">
                                                    <form action="{{route('statuseditadminB.update',$data-> id)}}" method="get">
                                                      @csrf
@@ -143,7 +143,7 @@
                                                    </form>
                                                  </div>
                                              </div>
-                                             <div class="modal fade" id="tindakanC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                             <div class="modal fade" id="tindakanC{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                  <div class="modal-dialog modal-sm" role="document">
                                                    <form action="{{route('statuseditadminC.update',$data-> id)}}" method="get">
                                                      @csrf
@@ -165,7 +165,7 @@
                                                    </form>
                                                  </div>
                                              </div>
-                                             <div class="modal fade" id="tindakanD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                             <div class="modal fade" id="tindakanD{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                  <div class="modal-dialog modal-sm" role="document">
                                                    <form action="{{route('statuseditadminD.update',$data-> id)}}" method="get">
                                                      @csrf
@@ -187,7 +187,7 @@
                                                    </form>
                                                  </div>
                                              </div>
-                                             <div class="modal fade" id="tindakanG" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                             <div class="modal fade" id="tindakanG{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                  <div class="modal-dialog modal-sm" role="document">
                                                    <form action="{{route('statuseditadminG.update',$data-> id)}}" method="get">
                                                      @csrf
@@ -213,7 +213,7 @@
                                            @elseif($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
                                           <tr>
 
-                                              <td>{{ $data ->users->no_staff }}</td>
+                                              <td>{{ $data ->id }}</td>
                                               <td>{{ $data ->users->name }}</td>
                                               <td>
                                                 @if($data ->getTable() == "formbs")

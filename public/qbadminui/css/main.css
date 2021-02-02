@@ -1014,9 +1014,9 @@ label {
 }
 
 .alert-info {
-  background: #ccd6e3 !important;
-  color: #001b3c !important;
-  border-color: #b8c6d8 !important;
+  background: #ff4d40 !important;
+  color: #ffffff !important;
+  border-color: #0000 !important;
 }
 
 .alert-warning {

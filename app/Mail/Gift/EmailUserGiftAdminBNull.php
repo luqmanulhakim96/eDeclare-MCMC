@@ -36,6 +36,6 @@ class EmailUserGiftAdminBNull extends Mailable
                 // ->from(env('MAIL_FROM_ADDRESS'))
                 ->from('system@mcmc.com')
                 ->subject('Lampiran Hadiah Baharu')
-                ->view('mail.template.form_g.emailNull_userFormAdmin');
+                ->view('mail.template.gift_b.emailNull_userFormAdmin');
     }
 }

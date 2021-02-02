@@ -18,7 +18,6 @@
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <th><p class="mb-0">ID</p></th>
-                                               <th><p class="mb-0">No Staff</p></th>
                                                <th><p class="mb-0">Jenis Lampiran</p></th>
                                                <th><p class="mb-0">Nama</p></th>
                                                <th><p class="mb-0">Jabatan</p></th>
@@ -41,7 +40,6 @@
                                            <tr>
 
                                                <td>{{ $data ->id }}</td>
-                                               <td>{{ $data ->users->no_staff }}</td>
                                                <td>
                                                  Lampiran A
                                                </td>
@@ -97,7 +95,6 @@
                                           @if($data ->status == "Sedang Diproses"|| $data ->status == "Menunggu Kebenaran Kemaskini")
                                             <tr>
                                                 <td>{{ $data ->id }}</td>
-                                                <td>{{ $data ->users->no_staff }}</td>
                                                 <td>
                                                   Lampiran B
                                                 </td>

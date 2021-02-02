@@ -2,145 +2,12 @@
 @section('content')
            <!--Page Body part -->
            <div class="page-body p-4 text-dark">
-               <div class="page-heading border-bottom d-flex flex-row">
-                   <h5 class="font-weight-normal">Lampiran C: Borang Pelupusan Harta</h5>
-               </div>
 
-               <!-- All Basic Form elements -->
                <div class="row">
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lampiran</a>
-                                </li>
-                                <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Ulasan</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                              <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Nama</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-                                                {{$listHarta ->formcs->name }}
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>No. Kad Pengenalan</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-                                              {{$listHarta ->formcs->kad_pengenalan }}
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Jawatan / Gred</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-                                                {{$listHarta ->formcs->jawatan }}
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Alamat Tempat Bertugas</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-                                              {{$listHarta ->formcs->alamat_tempat_bertugas }}
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <br>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                        <p><b>2. KETERANGAN MENGENAI PELUPUSAN HARTA</b></p>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                        <p>Jenis Harta</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                        <!-- <input class="form-control bg-light" type="text" name="jenis_harta_lupus" value="{{ old('jenis_harta_lupus')}}"> -->
-                                        {{ $listHarta ->jenis_harta_lupus }}
-                                      </div>
-                                  </div>
-                                      <br>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Pemilik Harta </p>
-                                      </div>
-                                      <div class="col-md-4">
-                                          <!-- <input class="form-control bg-light" type="text" name="pemilik_harta_pelupusan" placeholder="Nama Pemilik Sebelum" value="{{ old('pemilik_harta_pelupusan')}}"> -->
-                                          {{ $listHarta ->pemilik_harta_pelupusan }}
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <p>Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
-                                        </div>
-                                      <div class="col-md-4">
-                                          {{ $listHarta ->hubungan_pemilik_pelupusan }}
-                                      </div>
-                                  </div>
-                                    <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          {{ $listHarta ->no_pendaftaran_harta }}
-                                      </div>
-                                  </div>
-                                  <br>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Tarikh Pemilikan Harta</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          {{ $listHarta ->tarikh_pemilikan }}
-                                      </div>
-                                  </div>
-                                  <br>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Tarikh Pelupusan Harta</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          {{ $listHarta ->tarikh_pelupusan }}
-                                      </div>
-                                  </div>
-                                  <br>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Cara Pelupusan (sama ada dijual, dihadiahkan dan sebagainya). </p>
-                                      </div>
-                                      <div class="col-md-4">
-                                          {{ $listHarta ->cara_pelupusan }}
-                                      </div>
-                                    </div>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                            <p>Jika dijual, Nyatakan nilai jualan.</p>
-                                        </div>
-                                      <div class="col-md-4">
-                                          {{ $listHarta ->nilai_pelupusan }}
-                                      </div>
 
-                                  </div>
-                                  </div>
-                                  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                     <div class="page-body p-4 text-dark">
                                       <form action="{{route('ulasanadminC.update', $listHarta->id)}}" method="post">
                                       @csrf
@@ -157,7 +24,9 @@
                                              <p>No Staff</p>
                                            </div>
                                            <div class="col-md-8">
-                                             <input type="text" class="form-control bg-light" name="no_admin" value="{{Auth::user()->id }}" readonly><br>
+                                             @foreach($staffinfo as $ic)
+                                               <input type="text" class="form-control bg-light" name="no_admin" value="{{$ic->STAFFNO}}" readonly><br>
+                                             @endforeach
                                             </div>
                                        </div>
                                        <div class="row">
@@ -165,7 +34,9 @@
                                              <p>No Kad Pengenalan</p>
                                            </div>
                                            <div class="col-md-8">
-                                             <input type="text" class="form-control bg-light" name="ic" value="{{Auth::user()->kad_pengenalan }}" readonly><br>
+                                             @foreach($staffinfo as $ic)
+                                               <input type="text" class="form-control bg-light" name="kad_pengenalan" value="{{$ic->ICNUMBER}}" readonly><br>
+                                             @endforeach
                                             </div>
                                        </div>
                                            <div class="row">
@@ -207,7 +78,10 @@
                                             </form>
                                        </div>
                               </div>
+                          </div>
                       </div>
                </div>
            </div>
+
+
 @endsection

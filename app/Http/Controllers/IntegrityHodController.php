@@ -178,30 +178,29 @@ class IntegrityHodController extends Controller
     {
        //dd($id);
       $listHarta = FormG::findOrFail($id);
-      $listDividenG = DividenG::where('formgs_id', $listHarta->id) ->get();
-      $listPinjamanG = PinjamanG::where('formgs_id', $listHarta->id) ->get();
-      $listPinjaman = Pinjaman::where('formgs_id', $listHarta->id) ->get();
+      $username =Auth::user()->username;
+      $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
-      return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman'));
+      return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','staffinfo',));
     }
 
     public function viewUlasanHartaB($id)
     {
        //dd($id);
       $listHarta = FormB::findOrFail($id);
-      $listDividenB = DividenB::where('formbs_id', $listHarta->id) ->get();
+      $username =Auth::user()->username;
+      $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
-      $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();
 
-
-      return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB'));
+      return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','staffinfo'));
     }
 
     public function viewUlasanHartaC($id)
     {
        //dd($id);
       $listHarta = FormC::findOrFail($id);
-      $attendance = FormC::with('formcs')->get();
+      $username =Auth::user()->username;
+      $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
       return view('user.integrityHOD.harta.ulasanHartaC', compact('listHarta'));
     }
@@ -210,10 +209,10 @@ class IntegrityHodController extends Controller
     {
        //dd($id);
       $listHarta = FormD::findOrFail($id);
-      $attendance = FormD::with('formds')->get();
-      $listKeluarga = Keluarga::where('formds_id', $listHarta->id) ->get();
+      $username =Auth::user()->username;
+      $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
-      return view('user.integrityHOD.harta.ulasanHartaD', compact('listHarta','listKeluarga'));
+      return view('user.integrityHOD.harta.ulasanHartaD', compact('listHarta','staffinfo'));
     }
 
     public function listformB(){
@@ -494,5 +493,17 @@ class IntegrityHodController extends Controller
        $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
 
        return view('user.integrityHOD.hadiah.senaraitugasanhadiah', compact('merged'));
+     }
+     public function senaraiTugasanHarta(){
+       $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
+       $listallBTable = FormB::getTableName();
+       $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
+       $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->get();
+       $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->get();
+       $merged = $listallB->mergeRecursive($listallC);
+       $merged = $merged->mergeRecursive($listallD);
+       $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+
+       return view('user.integrityHOD.harta.senaraitugasanharta', compact('merged'));
      }
 }

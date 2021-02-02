@@ -183,42 +183,40 @@ class HodivController extends Controller
   {
      //dd($id);
     $listHarta = FormG::findOrFail($id);
-    $listDividenG = DividenG::where('formgs_id', $listHarta->id) ->get();
-    $listPinjamanG = PinjamanG::where('formgs_id', $listHarta->id) ->get();
-    $listPinjaman = Pinjaman::where('formgs_id', $listHarta->id) ->get();
-
-    return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman'));
+    $username =Auth::user()->username;
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','staffinfo'));
   }
 
   public function viewUlasanHartaB($id)
   {
      //dd($id);
     $listHarta = FormB::findOrFail($id);
-    $listDividenB = DividenB::where('formbs_id', $listHarta->id) ->get();
+    $username =Auth::user()->username;
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
-    $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();
 
-
-    return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB'));
+    return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','staffinfo'));
   }
 
   public function viewUlasanHartaC($id)
   {
      //dd($id);
     $listHarta = FormC::findOrFail($id);
-    $attendance = FormC::with('formcs')->get();
+    $username =Auth::user()->username;
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
-    return view('user.hodiv.harta.ulasanHartaC', compact('listHarta'));
+    return view('user.hodiv.harta.ulasanHartaC', compact('listHarta','staffinfo'));
   }
 
   public function viewUlasanHartaD($id)
   {
      //dd($id);
     $listHarta = FormD::findOrFail($id);
-    $attendance = FormD::with('formds')->get();
-    $listKeluarga = Keluarga::where('formds_id', $listHarta->id) ->get();
+    $username =Auth::user()->username;
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
-    return view('user.hodiv.harta.ulasanHartaD', compact('listHarta','listKeluarga'));
+    return view('user.hodiv.harta.ulasanHartaD', compact('listHarta','staffinfo'));
   }
 
   public function listformB(){

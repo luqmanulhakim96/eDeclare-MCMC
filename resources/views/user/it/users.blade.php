@@ -36,7 +36,7 @@
                                     <th class="all">Nama</th>
                                     <th class="all">Email</th>
                                     <th class="all">Peranan</th>
-                                    <th class="all">Kad Pengenalan</th>
+                                    <!-- <th class="all">Kad Pengenalan</th> -->
                                     <th class="all">Butang Tindakan</th>
                                   </tr>
                                 </thead>
@@ -94,7 +94,7 @@
                                     @elseif($data->role == 5)
                                     <td> Pengguna </td>
                                     @endif -->
-                                    <td>{{ $data->kad_pengenalan }}</td>
+                                    <!-- <td>{{ $data->kad_pengenalan }}</td> -->
                                     <td class="p-3">
                                           <div class="d-flex flex-row justify-content-around align-items-center">
                                               @if($currentUser->id != $data->id)

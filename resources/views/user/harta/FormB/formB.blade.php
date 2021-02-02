@@ -233,7 +233,7 @@
                                         <div class="col-md-4">
                                             <div class="input-group">
                                               @foreach($staffinfo as $gaji)
-                                                <input type="hidden" name="gaji" value="{{$staffinfo->SALARY}}">{{$staffinfo->SALARY}}
+                                                <input type="hidden" name="gaji" value="{{$gaji->SALARY}}">{{$gaji->SALARY}}
                                               @endforeach
                                             </div>
                                         </div>

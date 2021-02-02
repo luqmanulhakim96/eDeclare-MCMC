@@ -29,9 +29,9 @@
                                          @foreach($merged as $data)
                                          @if($data->status == "Disimpan ke Draf")
                                          <tr>
-                                             <td>{{ $data ->id }}</td>
-                                             <td>{{Auth::user()->name }}</td>
-                                             <td>{{Auth::user()->kad_pengenalan }}</td>
+                                           <td>{{ $data ->id }}</td>
+                                           <td>{{$data ->nama_pegawai }}</td>
+                                           <td>{{$data ->kad_pengenalan }}</td>
                                              <td>
                                                @if($data ->getTable() == "formbs")
                                                Lampiran B
