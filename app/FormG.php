@@ -28,7 +28,7 @@ class FormG extends Model implements Auditable
       'negeri_perumahan','tarikh_diperolehi','luas', 'lot','mukim','negeri',
       'jenis_tanah', 'nama_syarikat', 'modal_berbayar','jumlah_unit_saham','nilai_saham',
       'sumber_kewangan','pengakuan','user_id','status','nama_admin','no_admin','ulasan_admin','nama_hod','no_hod','ulasan_hod',
-      'nama_hodiv','no_hodiv','ulasan_hodiv','jabatan'
+      'nama_hodiv','no_hodiv','ulasan_hodiv','jabatan','no_staff'
     ];
 
     public static function getTableName()

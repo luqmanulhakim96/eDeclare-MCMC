@@ -32,7 +32,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->name }}
+                                              {{$info->nama_pegawai }}
                                           </div>
                                       </div>
                                   </div>
@@ -42,7 +42,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            {{Auth::user()->kad_pengenalan }}
+                                            {{$info->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -52,7 +52,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{Auth::user()->jawatan }}
+                                              {{$info->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -62,9 +62,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            @foreach($staffinfo as $jabatan)
-                                              <input type="hidden" name="jabatan" value="{{$jabatan->OLEVEL4NAME}}">{{$jabatan->OLEVEL4NAME}}
-                                            @endforeach
+                                            {{$info->jabatan }}
                                             <!-- <input type="hidden" name="jabatan" value="{{Auth::user()->jabatan }}">{{Auth::user()->jabatan }} -->
                                           </div>
                                       </div>
@@ -338,10 +336,12 @@
                               </div>
 
                                 <div class="row">
+                                  <?php $i=0; ?>
                                   @foreach($dokumen_syarikat as $dokumen_syarikat)
                                     @if($dokumen_syarikat->dokumen_syarikat != NULL)
+                                    <?php $i++; ?>
                                    <div class="col-md-4">
-                                        <iframe src="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}" width="400px" height="400px"></iframe>
+                                        <a href="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}"> Dokumen <?php echo $i; ?></a>
                                    </div>
                                    @endif
                                  @endforeach
@@ -352,10 +352,14 @@
                                    <label for="dokumen_syarikat">Muatnaik Dokumen Syarikat:</label>
                                       <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat" aria-describedby="dokumen_syarikat" value="$dokumen_syarikat->dokumen_syarikat[]">
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
+                                        @error('dokumen_syarikat[]')
+                                           <div class="alert alert-danger">{{ $message }}</div>
+                                       @enderror
                                  </div>
                              </div>
                            </div>
                        </div>
+                     </div>
                      </div>
                      <br>
                      <div class="row">

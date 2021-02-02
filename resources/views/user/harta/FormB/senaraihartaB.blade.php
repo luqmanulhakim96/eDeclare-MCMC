@@ -32,9 +32,9 @@
                                          @foreach($listHarta as $data)
                                          @if($data ->status != "Disimpan ke Draf")
                                          <tr>
-                                             <td>{{ $data ->id }}</td>
-                                             <td>{{Auth::user()->name }}</td>
-                                             <td>{{Auth::user()->kad_pengenalan }}</td>
+                                           <td>{{ $data ->id }}</td>
+                                           <td>{{$data ->nama_pegawai }}</td>
+                                           <td>{{$data ->kad_pengenalan }}</td>
                                              <td>
                                                  <div class="d-flex flex-row justify-content-around align-items-center">
                                                      <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
@@ -44,11 +44,17 @@
                                              <td>
                                                @if($data ->status == "Sedang Diproses")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Sedang Dikemaskini")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                               @elseif($data ->status == "Menunngu Kebenaran Kemaskini")
+                                               @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
+                                               <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan</span>
+                                               @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Tidak Lengkap")
                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
@@ -56,9 +62,8 @@
                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Diterima")
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
-                                               @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
-                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-
+                                               @elseif($data ->status == "Selesai")
+                                               <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @endif
                                              </td>
                                              <td class="p-3">

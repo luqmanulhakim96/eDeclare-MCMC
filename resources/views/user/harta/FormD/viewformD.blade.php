@@ -233,28 +233,25 @@
                                    </div>
 
                                    </div>
+                                   @endforeach
                                    <br>
                                    <div class="row">
                                       <div class="col-md-6">
                                           <p><b>3. DOKUMEN SYARIKAT</b></p>
                                       </div>
                                    </div>
-                                   <div class="row">
+
                                      <?php $i=0; ?>
-                                     @foreach($dokumen_syarikat as $dokumen_syarikat)
+                                     @foreach($dokumen_syarikat as $data)
                                      <?php $i++; ?>
                                      <div class="row">
-                                      <div class="col-md-4">
-                                          @if($dokumen_syarikat->dokumen_syarikat != NULL)
-                                             <!-- <iframe src="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}" width="400px" height="400px"></iframe> -->
-                                             <a href="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}"> Dokumen <?php echo $i; ?></a>
-                                         @endif
+                                      <div class="col-md-10">
+                                          <a href="{{ asset( $image_path = str_replace('public', 'storage',  $data->dokumen_syarikat)) }}"> Dokumen <?php echo $i; ?></a>
                                       </div>
                                     </div>
 
                                     @endforeach
-                                   </div>
-                                   @endforeach
+
                               </div>
 
                                   <!-- button -->

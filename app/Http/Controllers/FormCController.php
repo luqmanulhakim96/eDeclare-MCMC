@@ -11,35 +11,51 @@ use DB;
 use Auth;
 use App\User;
 use App\JenisHarta;
+use App\HartaB;
 use App\Email;
 use App\UserExistingStaffNextofKin;
 use App\UserExistingStaff;
 use App\UserExistingStaffInfo;
+use Session;
+use Illuminate\Support\Facades\Redirect;
 
 // use App\Notifications\Form\UserFormAdminC;
 use App\Jobs\SendNotificationFormC;
 
 class FormCController extends Controller
 {
+
+  public function ajaxHarta($jenis_harta_lupus){
+    $harta = HartaB::where('maklumat_harta', $jenis_harta_lupus)->get();
+    echo json_encode($harta);
+    exit;
+  }
+
   public function formC()
   {
     $jenisHarta = JenisHarta::get();
     $userid = Auth::user()->id;
-    $data_user = FormB::where('user_id', $userid) ->get();
+    $data_user = FormB::where('user_id', $userid)->where('status',"Sedang Diproses") ->get();
 
     $username =Auth::user()->username;
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
     if($data_user->isEmpty()){
-      //TANYA LUKE
-      $data_user = null;
-      return view('user.harta.FormC.formC', compact('jenisHarta','data_user','jenisHarta','staffinfo'));
+      // dd('Sila isi Lampiran B');
+      Session::flash('message', "Sila isi Lampiran B terlebih dahulu untuk mengisi Lampiran C");
+      return Redirect::back();
+
     }
     else {
-      $data_user = FormB::where('user_id', $userid) ->get();
-      return view('user.harta.FormC.formC', compact('jenisHarta','data_user','staffinfo'));
+      foreach ($data_user as $data) {
+        $harta[] = HartaB::where('formbs_id',$data->id)->where('formcs_id',null)->get();
+      }
+
+      return view('user.harta.FormC.formC-has-data', compact('jenisHarta','data_user', 'harta','staffinfo'));
     }
   }
+
+
 
   public function kemaskini($id){
     $status = "Menunggu Kebenaran Kemaskini";
@@ -48,22 +64,19 @@ class FormCController extends Controller
     $form->status = $status;
     $form->save();
 
-    return redirect()->route('user.harta.FormB.senaraihartaB');
+    return redirect()->route('user.harta.FormC.senaraihartaC');
   }
 
   public function editformC($id){
-      //$info = SenaraiHarga::find(1);
-      $info = FormC::findOrFail($id);
-      $jenisHarta = JenisHarta::get();
+  // $userid = Auth::user()->id;
+  $data = FormC::findOrFail($id);
+  // dd($data);
+  $harta =HartaB::where('formcs_id',$data->id) ->get();
 
-      //data ic user
-      // $username =strtoupper(Auth::user()->name);
-      // $ic = UserExistingStaffNextofKin::where('NOKNAME',$username) ->get();
-      //data testing
-      // $ic = UserExistingStaffNextofKin::where('NOKNAME','ADZNAN  ABDUL KARIM') ->get();
-      //dd($info);
-      return view('user.harta.FormC.editformC', compact('info','jenisHarta'));
-    }
+  // dd($harta);
+    return view('user.harta.FormC.editformC-latest', compact('data', 'harta'));
+  }
+
 
 public function add(array $data){
   $userid = Auth::user()->id;
@@ -75,14 +88,6 @@ public function add(array $data){
       'jawatan' => $data['jawatan'],
       'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
       'jabatan' => $data['jabatan'],
-      'jenis_harta_lupus' => $data['jenis_harta_lupus'],
-      'pemilik_harta_pelupusan' => $data['pemilik_harta_pelupusan'],
-      'hubungan_pemilik_pelupusan' => $data['hubungan_pemilik_pelupusan'],
-      'no_pendaftaran_harta' => $data['no_pendaftaran_harta'],
-      'tarikh_pemilikan' => $data['tarikh_pemilikan'],
-      'tarikh_pelupusan' => $data['tarikh_pelupusan'],
-      'cara_pelupusan' => $data['cara_pelupusan'],
-      'nilai_pelupusan' => $data['nilai_pelupusan'],
       'pengakuan' => $data['pengakuan'],
       'user_id' => $userid,
       'status' => $sedang_proses,
@@ -91,7 +96,7 @@ public function add(array $data){
     ]);
   }
 
-  public function adddraft(array $data,$isChecked){
+  public function adddraft(array $data){
     $userid = Auth::user()->id;
     $sedang_proses= "Disimpan ke Draf";
 
@@ -101,42 +106,14 @@ public function add(array $data){
         'jawatan' => $data['jawatan'],
         'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
         'jabatan' => $data['jabatan'],
-        'jenis_harta_lupus' => $data['jenis_harta_lupus'],
-        'pemilik_harta_pelupusan' => $data['pemilik_harta_pelupusan'],
-        'hubungan_pemilik_pelupusan' => $data['hubungan_pemilik_pelupusan'],
-        'no_pendaftaran_harta' => $data['no_pendaftaran_harta'],
-        'tarikh_pemilikan' => $data['tarikh_pemilikan'],
-        'tarikh_pelupusan' => $data['tarikh_pelupusan'],
-        'cara_pelupusan' => $data['cara_pelupusan'],
-        'nilai_pelupusan' => $data['nilai_pelupusan'],
         'user_id' => $userid,
-        'pengakuan' =>$isChecked,
         'status' => $sedang_proses,
+        // 'harta_id'=> $data['id_harta_']
 
 
       ]);
     }
 
-  protected function validator(array $data)
-{
-    return Validator::make($data, [
-      'nama_pegawai' =>['nullable', 'string'],
-      'kad_pengenalan' => ['nullable', 'string'],
-      'jawatan' => ['nullable', 'string'],
-      'alamat_tempat_bertugas' => ['nullable', 'string'],
-      'jabatan' =>['nullable', 'string'],
-      'jenis_harta_lupus' =>['required', 'string'],
-      'pemilik_harta_pelupusan' => ['required', 'string'],
-      'hubungan_pemilik_pelupusan' =>['required', 'string'],
-      'no_pendaftaran_harta' =>['required', 'string'],
-      'tarikh_pemilikan' =>['required', 'date'],
-      'tarikh_pelupusan' => ['required', 'date'],
-      'cara_pelupusan' => ['required', 'string'],
-      'nilai_pelupusan' => ['required', 'numeric'],
-      'pengakuan' => ['required'],
-
-    ]);
-}
   protected function validatordraft(array $data)
 {
     return Validator::make($data, [
@@ -145,36 +122,102 @@ public function add(array $data){
       'jawatan' => ['nullable', 'string'],
       'alamat_tempat_bertugas' => ['nullable', 'string'],
       'jabatan' =>['nullable', 'string'],
-      'jenis_harta_lupus' =>['nullable', 'string'],
-      'pemilik_harta_pelupusan' => ['nullable', 'string'],
-      'hubungan_pemilik_pelupusan' =>['nullable', 'string'],
-      'no_pendaftaran_harta' =>['nullable', 'string'],
-      'tarikh_pemilikan' =>['nullable', 'date'],
-      'tarikh_pelupusan' => ['nullable', 'date'],
-      'cara_pelupusan' => ['nullable', 'string'],
-      'nilai_pelupusan' => ['nullable', 'numeric'],
-      'pengakuan' => ['nullable', 'string'],
+      'jenis_harta_lupus_[]' =>['nullable', 'string'],
+      'pemilik_harta_pelupusan_[]' => ['nullable', 'string'],
+      'hubungan_pemilik_pelupusan_[]' =>['nullable', 'string'],
+      'no_pendaftaran_harta_[]' =>['nullable', 'string'],
+      'tarikh_pemilikan_[]' =>['nullable', 'date'],
+      'tarikh_pelupusan_[]' => ['nullable', 'date'],
+      'cara_pelupusan_[]' => ['nullable', 'string'],
+      'nilai_pelupusan_[]' => ['nullable', 'numeric'],
+      'pengakuan' => ['nullable'],
 
     ]);
 }
+protected function validatorpublish(array $data)
+{
+  return Validator::make($data, [
+
+    'jenis_harta_lupus_' => ['array'],
+    'jenis_harta_lupus_.*' => ['required', 'string'],
+    'pemilik_harta_pelupusan_' => ['array'],
+    'pemilik_harta_pelupusan_.*' => ['required', 'string'],
+    'hubungan_pemilik_pelupusan_' =>['array'],
+    'hubungan_pemilik_pelupusan_.*' =>['required', 'string'],
+    'no_pendaftaran_harta_' =>['array'],
+    'no_pendaftaran_harta_.*' =>['required', 'string'],
+    'tarikh_pemilikan_' =>['array'],
+    'tarikh_pemilikan_.*' =>['required', 'date'],
+    'tarikh_pelupusan_' => ['array'],
+    'tarikh_pelupusan_.*' => ['required', 'date'],
+    'cara_pelupusan_' => ['array'],
+    'cara_pelupusan_.*' => ['required', 'string'],
+    'nilai_pelupusan_' => ['array'],
+    'nilai_pelupusan_.*' => ['required', 'numeric'],
+    'pengakuan' => ['required'],
+
+  ]);
+}
 
   public function submitForm(Request $request){
-    // dd($request->all());
+// dd($request->all());
   if ($request->has('save')){
-    $isChecked = $request->has('pengakuan');
 
     $this->validatordraft($request->all())->validate();
     // dd($request->all());
-    event($formcs = $this->adddraft($request->all(),$isChecked));
+    event($formcs = $this->adddraft($request->all()));
 
+    if($request->jenis_harta_lupus_){
+      $count_harta = count($request->jenis_harta_lupus_);
+    }
+    else {
+      $count_harta = 0;
+    }
+    // dd($request->id_harta_);
+    for ($i=0; $i < $count_harta; $i++) {
+
+        // $id= HartaB::where('id', $request->id_harta_[$i])->get('id');
+        // dd($id);
+        $harta = HartaB::findOrFail($request->id_harta_[$i]);
+        // dd($harta);
+        // $harta=HartaB::find();
+        $harta->tarikh_pelupusan = $request->tarikh_pelupusan_[$i];
+        $harta->cara_pelupusan= $request->cara_pelupusan_[$i];
+        $harta->nilai_pelupusan = $request->nilai_pelupusan_[$i];
+        $harta->formcs_id = $formcs-> id;
+        $harta->save();
+      }
+
+      // dd('berjaya');
     return redirect()->route('user.harta.senaraidraft');
   }
   else if ($request->has('publish'))
   {
 
-    $this->validator($request->all())->validate();
+    $this->validatorpublish($request->all())->validate();
     // dd($request->all());
     event($formcs = $this->add($request->all()));
+
+    if($request->jenis_harta_lupus_){
+      $count_harta = count($request->jenis_harta_lupus_);
+    }
+    else {
+      $count_harta = 0;
+    }
+    // dd($request->id_harta_);
+    for ($i=0; $i < $count_harta; $i++) {
+
+        // $id= HartaB::where('id', $request->id_harta_[$i])->get('id');
+        // dd($id);
+        $harta = HartaB::findOrFail($request->id_harta_[$i]);
+        // dd($harta);
+        // $harta=HartaB::find();
+        $harta->tarikh_pelupusan = $request->tarikh_pelupusan_[$i];
+        $harta->cara_pelupusan= $request->cara_pelupusan_[$i];
+        $harta->nilai_pelupusan = $request->nilai_pelupusan_[$i];
+        $harta->formcs_id = $formcs-> id;
+        $harta->save();
+      }
 
     //send notification to admin (noti yang dia dah berjaya declare)
     $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
@@ -193,38 +236,48 @@ public function add(array $data){
 public function update($id){
   $sedang_proses= "Sedang Diproses";
   $formcs = FormC::find($id);
-  $formcs->jenis_harta_lupus = request()->jenis_harta_lupus;
-  $formcs->pemilik_harta_pelupusan = request()->pemilik_harta_pelupusan;
-  $formcs->hubungan_pemilik_pelupusan = request()->hubungan_pemilik_pelupusan;
-  $formcs->no_pendaftaran_harta = request()->no_pendaftaran_harta;
-  $formcs->tarikh_pemilikan = request()->tarikh_pemilikan;
-  $formcs->tarikh_pelupusan = request()->tarikh_pelupusan;
-  $formcs->nilai_pelupusan = request()->nilai_pelupusan;
   $formcs->pengakuan = request()->pengakuan;
   $formcs->status= $sedang_proses;
   $formcs->save();
 }
 
 public function updateformC(Request $request,$id){
-  $this->validator(request()->all())->validate();
+  // dd($request->all());
+  $this->validatorpublish(request()->all())->validate();
   $formcs = FormC::find($id);
-  if($request ->status =='Disimpan ke Draf'){
     //send notification to admin (noti yang dia dah berjaya declare)
-    $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
-    // $email = null; // for testing
-    $admin_available = User::where('role','=','1')->get(); //get system admin information
-    // if ($email) {
-      foreach ($admin_available as $data) {
-        // $formcs->notify(new UserFormAdminC($data, $email));
-        $this->dispatch(new SendNotificationFormC($data, $email, $formcs));
-      }
-
-  }
-  else{
-
-  }
 
   $this->update($id);
+
+  if($request->jenis_harta_lupus_){
+    $count_harta = count($request->jenis_harta_lupus_);
+  }
+  else {
+    $count_harta = 0;
+  }
+  // dd($request->id_harta_);
+  for ($i=0; $i < $count_harta; $i++) {
+
+      // $id= HartaB::where('id', $request->id_harta_[$i])->get('id');
+      // dd($id);
+      $harta = HartaB::findOrFail($request->id_harta_[$i]);
+      // dd($harta);
+      // $harta=HartaB::find();
+      $harta->tarikh_pelupusan = $request->tarikh_pelupusan_[$i];
+      $harta->cara_pelupusan= $request->cara_pelupusan_[$i];
+      $harta->nilai_pelupusan = $request->nilai_pelupusan_[$i];
+      $harta->formcs_id = $formcs-> id;
+      $harta->save();
+    }
+
+  $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
+  // $email = null; // for testing
+  $admin_available = User::where('role','=','1')->get(); //get system admin information
+  // if ($email) {
+    foreach ($admin_available as $data) {
+      // $formcs->notify(new UserFormAdminC($data, $email));
+      $this->dispatch(new SendNotificationFormC($data, $email, $formcs));
+    }
   return redirect()->route('user.harta.FormC.senaraihartaC');
 }
 }

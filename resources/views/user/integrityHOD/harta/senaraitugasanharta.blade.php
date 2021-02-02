@@ -17,7 +17,7 @@
                                    <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                                        <thead class="thead-light">
                                            <tr class="text-center">
-                                               <th><p class="mb-0">No Staff</p></th>
+                                               <th><p class="mb-0">ID</p></th>
                                                <th><p class="mb-0">Nama</p></th>
                                                <th><p class="mb-0">Lampiran</p></th>
                                                <th><p class="mb-0">Tarikh</p></th>
@@ -33,7 +33,7 @@
                                          <tr>
 
 
-                                             <td>{{ $data ->users->no_staff }}</td>
+                                             <td>{{ $data ->id }}</td>
                                              <td>{{ $data ->users->name }}</td>
                                              <td>
                                                @if($data ->getTable() == "formbs")
@@ -63,11 +63,17 @@
                                              <td>
                                                @if($data ->status == "Sedang Diproses")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Sedang Dikemaskini")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
-                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan</span>
                                                @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Tidak Lengkap")
                                                <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>

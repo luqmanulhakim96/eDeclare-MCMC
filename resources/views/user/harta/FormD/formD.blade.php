@@ -33,7 +33,9 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <input type="hidden" name="kad_pengenalan"  value="{{Auth::user()->kad_pengenalan}}">{{Auth::user()->kad_pengenalan}}
+                                            @foreach($staffinfo as $ic)
+                                              <input type="hidden" name="kad_pengenalan" value="{{$ic->ICNUMBER}}">{{$ic->ICNUMBER}}
+                                            @endforeach
                                           </div>
                                       </div>
                                   </div>
@@ -43,7 +45,10 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                          <input type="hidden" name="jawatan"  value="{{Auth::user()->jawatan }}">{{Auth::user()->jawatan }}
+                                            @foreach($staffinfo as $data)
+                                              <input type="hidden" name="jawatan" value="{{$data->ICNUMBER}}">{{$data->GRADE}}
+                                            @endforeach
+                                          <!-- <input type="hidden" name="jawatan"  value="{{Auth::user()->jawatan }}">{{Auth::user()->jawatan }} -->
                                           </div>
                                       </div>
                                   </div>
@@ -56,7 +61,6 @@
                                             @foreach($staffinfo as $jabatan)
                                               <input type="hidden" name="jabatan" value="{{$jabatan->OLEVEL4NAME}}">{{$jabatan->OLEVEL4NAME}}
                                             @endforeach
-                                            <!-- <input type="hidden" name="jabatan" value="{{Auth::user()->jabatan }}">{{Auth::user()->jabatan }} -->
                                           </div>
                                       </div>
                                   </div>
@@ -82,10 +86,11 @@
                                       </div>
                                       <div class="col-md-8">
                                         <input class="form-control bg-light" type="text" name="nama_syarikat" placeholder="Nama Syarikat/Perniagaan" value="{{ old('nama_syarikat')}}" >
+                                        @error('nama_syarikat')
+                                           <div class="alert alert-danger">{{ $message }}</div>
+                                       @enderror
                                       </div>
-                                      @error('nama_syarikat')
-                                         <div class="alert alert-danger">{{ $message }}</div>
-                                     @enderror
+
                                   </div>
                                       <br>
                                   <div class="row">
@@ -93,11 +98,12 @@
                                           <p class="required">ii) No. Pendaftaran</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_syarikat" placeholder="No Pendaftaran Syarikat/Perniagaan" value="{{ old('no_pendaftaran_syarikat')}}" class="required">
+                                          <input class="form-control bg-light" type="text" name="no_pendaftaran_syarikat" placeholder="No Pendaftaran Syarikat/Perniagaan" value="{{ old('no_pendaftaran_syarikat')}}" >
+                                          @error('no_pendaftaran_syarikat')
+                                             <div class="alert alert-danger">{{ $message }}</div>
+                                         @enderror
                                       </div>
-                                      @error('no_pendaftaran_syarikat')
-                                         <div class="alert alert-danger">{{ $message }}</div>
-                                     @enderror
+
                                   </div>
                                   <br>
                                     <div class="row">
@@ -105,11 +111,12 @@
                                           <p class="required">iii) Alamat Syarikat / Perniagaan</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="alamat_syarikat" placeholder="Alamat Syarikat / Perniagaan" value="{{ old('alamat_syarikat')}}" class="required">
+                                          <input class="form-control bg-light" type="text" name="alamat_syarikat" placeholder="Alamat Syarikat / Perniagaan" value="{{ old('alamat_syarikat')}}">
+                                          @error('alamat_syarikat')
+                                             <div class="alert alert-danger">{{ $message }}</div>
+                                         @enderror
                                       </div>
-                                      @error('alamat_syarikat')
-                                         <div class="alert alert-danger">{{ $message }}</div>
-                                     @enderror
+
                                   </div>
                                   <br>
                                   <div class="row">
@@ -117,11 +124,12 @@
                                         <p class="required">iv) Jenis Syarikat / Perniagaan</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="jenis_syarikat" placeholder="Jenis Syarikat / Perniagaan" value="{{ old('jenis_syarikat')}}" class="required">
+                                        <input class="form-control bg-light" type="text" name="jenis_syarikat" placeholder="Jenis Syarikat / Perniagaan" value="{{ old('jenis_syarikat')}}" >
+                                        @error('jenis_syarikat')
+                                           <div class="alert alert-danger">{{ $message }}</div>
+                                       @enderror
                                     </div>
-                                    @error('jenis_syarikat')
-                                       <div class="alert alert-danger">{{ $message }}</div>
-                                   @enderror
+
                                   </div>
                                   <br>
                                   <div class="row">
@@ -129,11 +137,12 @@
                                         <p class="required">v) Pulangan Perniagaan Tahunan</p>
                                     </div>
                                     <div class="col-md-8">
-                                       <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ old('pulangan_tahunan')}}" class="required">
+                                       <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ old('pulangan_tahunan')}}" >
+                                       @error('pulangan_tahunan')
+                                          <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
                                     </div>
-                                    @error('pulangan_tahunan')
-                                       <div class="alert alert-danger">{{ $message }}</div>
-                                   @enderror
+
                                  </div>
                                  <br>
                                  <div class="row">
@@ -141,11 +150,12 @@
                                         <p class="required">vi) Modal Dibenarkan</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ old('modal_syarikat')}}" class="required">
+                                        <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ old('modal_syarikat')}}" >
+                                        @error('modal_syarikat')
+                                           <div class="alert alert-danger">{{ $message }}</div>
+                                       @enderror
                                     </div>
-                                    @error('modal_syarikat')
-                                       <div class="alert alert-danger">{{ $message }}</div>
-                                   @enderror
+
                                 </div>
                                 <br>
                                 <div class="row">
@@ -153,11 +163,12 @@
                                       <p class="required">vii) Modal Berbayar (Paid Up Capital)</p>
                                   </div>
                                   <div class="col-md-8">
-                                      <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ old('modal_dibayar')}}" class="required">
+                                      <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ old('modal_dibayar')}}" >
+                                      @error('modal_dibayar')
+                                         <div class="alert alert-danger">{{ $message }}</div>
+                                     @enderror
                                   </div>
-                                  @error('modal_dibayar')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+
                                </div>
                                <br>
                                <div class="row">
@@ -165,7 +176,10 @@
                                      <p class="required">viii) Punca Kewangan Syarikat / Perniagaan</p>
                                  </div>
                                  <div class="col-md-8">
-                                     <input class="form-control bg-light" type="text" name="punca_kewangan" placeholder="Punca Kewangan Syarikat / Perniagaan"  value="{{ old('punca_kewangan')}}" class="required">
+                                     <input class="form-control bg-light" type="text" name="punca_kewangan" placeholder="Punca Kewangan Syarikat / Perniagaan"  value="{{ old('punca_kewangan')}}" >
+                                     @error('punca_kewangan')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                  </div>
 
                               </div>
@@ -200,6 +214,9 @@
                                 <div class="row">
                                    <div class="col-md-2">
                                        <input class="form-control bg-light" type="text" name="nama_ahli[]" value="{{ old('nama_ahli[]')}}">
+                                       @error('nama_ahli[]')
+                                          <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
                                    </div>
                                    <div class="col-md-2">
                                      <div class="dropdown-example d-flex justify-content-betwen">
@@ -212,6 +229,9 @@
                                                 <option value="Anak" {{ old('hubungan[]') == "Anak" ? 'selected' : '' }}>Anak</option>
                                                 <option value="Lain-lain" {{ old('hubungan[]') == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
                                             </select>
+                                            @error('hubungan[]')
+                                               <div class="alert alert-danger">{{ $message }}</div>
+                                           @enderror
                                     </div>
                                    </div>
                                    </div>
@@ -224,14 +244,23 @@
                                               <option value="Pemilik Saham" {{ old('jawatan_syarikat[]') == "Pemilik Saham" ? 'selected' : '' }}>Pemilik Saham</option>
                                               <option value="Pengarah/ Lembaga Pengarah" {{ old('jawatan_syarikat[]') == "Pengarah/ Lembaga Pengarah" ? 'selected' : '' }}>Pengarah/ Lembaga Pengarah</option>
                                           </select>
+                                          @error('jawatan_syarikat')
+                                             <div class="alert alert-danger">{{ $message }}</div>
+                                         @enderror
                                     </div>
                                    </div>
                                    </div>
                                    <div class="col-md-2">
                                        <input class="form-control bg-light" type="text" name="jumlah_saham[]"value="{{ old('jumlah_saham[]')}}">
+                                       @error('jumlah_saham[]')
+                                          <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
                                    </div>
                                    <div class="col-md-2">
                                        <input class="form-control bg-light" type="text" name="nilai_saham[]" value="{{ old('nilai_saham[]')}}">
+                                       @error('nilai_saham')
+                                          <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
                                    </div>
                                    <button class="add_field_button" >Tambah</button>
                                    </div>
@@ -298,10 +327,11 @@
                                    <label for="dokumen_syarikat">Muatnaik Dokumen Syarikat:</label>
                                       <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat[]" aria-describedby="dokumen_syarikat" multiple>
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
+                                        @error('dokumen_syarikat[]')
+                                           <div class="alert alert-danger">{{ $message }}</div>
+                                       @enderror
                                  </div>
-                                 @error('dokumen_syarikat[]')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+
                              </div>
                              <br>
                              <br>
@@ -311,10 +341,11 @@
                                </div>
                                <div class="col-md-11">
                                    <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
+                                   @error('pengakuan')
+                                      <div class="alert alert-danger">{{ $message }}</div>
+                                  @enderror
                                </div>
-                               @error('pengakuan')
-                                  <div class="alert alert-danger">{{ $message }}</div>
-                              @enderror
+
                              </div>
                                   <!-- button -->
                                   <div class="row">

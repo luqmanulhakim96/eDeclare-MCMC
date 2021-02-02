@@ -34,7 +34,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->nama_pegawai }}
+                                              <b>{{$listHarta ->formbs->name }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -44,7 +44,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->kad_pengenalan }}
+                                              <b>{{$listHarta->kad_pengenalan }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -54,7 +54,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            {{$listHarta->jawatan }}
+                                            <b>{{$listHarta ->formbs->jawatan }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -64,7 +64,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            {{$listHarta ->jabatan }}
+                                            <b>{{$listHarta ->jabatan }}</b>
                                           </div>
                                       </div>
                                   </div>
@@ -74,111 +74,128 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->alamat_tempat_bertugas }}
+                                              <b>{{$listHarta ->formbs->alamat_tempat_bertugas }}</b>
                                           </div>
                                       </div>
                                   </div>
 
                                   @if($maklumat_pasangan->isEmpty())
                                   @else
-                                  <!-- keluarga -->
-                                  <div class="row">
-                                    <div class="col-md-4">
-                                      <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
-                                    </div>
-                                  </div>
-                                  @foreach($maklumat_pasangan as $maklumat_pasangan)
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Nama Suami / Isteri</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-                                              @if($maklumat_pasangan->NOKNAME != null)
-                                                {{$maklumat_pasangan->NOKNAME}}
-                                                @else
-                                                -
-                                                @endif
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                        <p>No.Kad Pengenalan Suami/Isteri</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-                                                @if($maklumat_pasangan->ICNEW != null)
-                                                  {{$maklumat_pasangan->ICNEW}}
-                                                  @else
-                                                  -
-                                                  @endif
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                        <p>Pekerjaan Suami/Isteri</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-                                              @if($maklumat_pasangan->NOKEMLOYER != NULL)
-                                              {{$maklumat_pasangan->NOKEMLOYER}}
-                                                @else
-                                                -
-                                                @endif
-                                          </div>
-                                      </div>
-                                    </div>
-                                    @endforeach
-                                    @endif
 
-                                    @if($maklumat_anak->isEmpty())
-                                    @else
-                                    @foreach($maklumat_anak as $maklumat_anak)
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <p>Nama Anak</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                @if($maklumat_pasangan->NOKNAME != null)
-                                                {{$maklumat_anak->NOKNAME}}
-                                                @else
-                                                -
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                          <p>Umur Anak/Tanggungan</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                @if($maklumat_pasangan->NOKNAME != null)
-                                                {{$maklumat_anak->NOKNAME}}
-                                                @else
-                                                -
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                          <p>No.Kad Pengenalan Anak/Tanggungan</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                            @if($maklumat_anak->ICNEW != NULL)
-                                                <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}
-                                                @else
-                                                -
-                                                @endif
-                                            </div>
-                                        </div>
-                                      </div>
-                                      @endforeach
+                                                <!-- keluarga -->
+                                                <div class="row">
+                                                  <div class="col-md-4">
+                                                    <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
+                                                  </div>
+                                                </div>
+                                                @foreach($maklumat_pasangan as $maklumat_pasangan)
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <p>Nama Suami / Isteri</p>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                          @if($maklumat_pasangan->NOKNAME != null)
+                                                            {{$maklumat_pasangan->NOKNAME}}
+                                                            @else
+                                                            -
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                      <p>No.Kad Pengenalan Suami/Isteri</p>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                          @if($maklumat_pasangan->ICNEW != null)
+                                                            <input type="hidden" name="ic_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->ICNEW}}
+                                                            @else
+                                                            -
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                      <p>Pekerjaan Suami/Isteri</p>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                          @if($maklumat_pasangan->NOKEMLOYER != NULL)
+                                                            <input type="hidden" name="pekerjaan_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKEMLOYER}}
+                                                            @else
+                                                            -
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                                  <hr>
+                                                  @endforeach
+                                                  @endif
+
+                                                  @if($maklumat_anak->isEmpty())
+                                                  @else
+                                                  @foreach($maklumat_anak as $maklumat_anak)
+                                                  <div class="row">
+                                                      <div class="col-md-4">
+                                                          <p>Nama Anak</p>
+                                                      </div>
+                                                      <div class="col-md-8">
+                                                          <div class="form-group">
+                                                            @if($maklumat_anak->NOKNAME != null)
+                                                            <input type="hidden" name="nama_anak" value="{{$maklumat_anak->NOKNAME}}">{{$maklumat_anak->NOKNAME}}
+                                                            @else
+                                                            -
+                                                            @endif
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-md-4">
+                                                        <p>Umur Anak/Tanggungan</p>
+                                                      </div>
+                                                      <div class="col-md-8">
+                                                          <div class="form-group">
+                                                            <span></span>
+                                                            <?php
+                                                              $ic = $maklumat_anak->ICNEW;
+                                                              if($ic != ""){
+                                                                  $year = substr($ic, 0, 2);
+                                                                  $curYear = Date('Y');
+                                                                  $cutoff = Date('Y') - 2000;
+                                                              }
+                                                              if($year > $cutoff)
+                                                              {
+                                                                $above = $curYear - ($year + 1900);
+                                                                echo $above;
+                                                              }
+                                                              else{
+                                                                $above = $curYear - ($year + 2000);
+                                                                echo $above;
+                                                              }
+                                                            ?>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-md-4">
+                                                        <p>No.Kad Pengenalan Anak/Tanggungan</p>
+                                                      </div>
+                                                      <div class="col-md-8">
+                                                          <div class="form-group">
+                                                            @if($maklumat_anak->NOKNAME != null)
+                                                              <!-- <input type="hidden" name="ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}} -->
+                                                              <span id = "ic_anak" value="{{$maklumat_anak->ICNEW}}">{{$maklumat_anak->ICNEW}}</span>
+                                                              @else
+                                                              -
+                                                              @endif
+                                                          </div>
+                                                      </div>
+                                                    </div>
+                                                    <hr>
+                                          @endforeach
                                       @endif
                                       <!-- pendapatan bulanan-->
 
@@ -204,7 +221,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div align="center">
-                                              {{$listHarta ->gaji }}
+                                                {{$listHarta->gaji }}
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
@@ -274,23 +291,6 @@
                                     <br>
                                       @endforeach
 
-                                      <!-- jumlah pendapatan -->
-                                      <div class="row">
-                                        <div class="col-md-3 mt-2 mt-md-0">
-                                          <p><b>JUMLAH</b></p>
-                                        </div>
-                                        <div class="col-md-4 mt-2 mt-md-0">
-                                            <div align="center">
-                                                <!-- <input class="form-control bg-light" type="text" name="pendapatan_pegawai" value="{{ old('pendapatan_pegawai')}}"> -->
-                                                <b>{{ $listHarta ->pendapatan_pegawai }}</b>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 mt-2 mt-md-0" align="center">
-                                            <!-- <input class="form-control bg-light" type="text" name="pendapatan_pasangan" value="{{ old('pendapatan_pasangan')}}"> -->
-                                            <b>{{ $listHarta ->pendapatan_pasangan }}</b>
-                                        </div>
-                                      </div>
-                                      <br>
 
                                       <!-- Tanggungan -->
                                       <div class="row">
@@ -451,245 +451,184 @@
                                       @endforeach
 
                                       <!--JUMLAH PINJAMAN -->
-                                      <div class="row">
-                                        <div class="col-md-3">
-                                          <p><b>JUMLAH</b></p>
-                                        </div>
-                                        <div class="col-md-2" align="center">
-                                          <!-- <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pegawai"> -->
-                                          <b>{{ $listHarta ->jumlah_pinjaman_pegawai }}</b>
-                                        </div>
-                                        <div class="col-md-2" align="center">
-                                          <!-- <input class="form-control bg-light" type="text" name="jumlah_bulanan_pegawai"> -->
-                                          <b>{{ $listHarta ->jumlah_bulanan_pegawai }}</b>
-                                        </div>
-                                          <div class="col-md-2" align="center">
-                                            <!-- <input class="form-control bg-light" type="text" name="jumlah_pinjaman_pasangan"> -->
-                                            <b>{{ $listHarta ->jumlah_pinjaman_pasangan }}</b>
-                                          </div>
-                                          <div class="col-md-2" align="center">
-                                            <!-- <input class="form-control bg-light" type="text" name="jumlah_bulanan_pasangan" required> -->
-                                            <b>{{ $listHarta ->jumlah_bulanan_pasangan }}</b>
-                                        </div>
-                                      </div>
+
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
                                           <p><b>5. KETERANGAN MENGENAI HARTA</b></p>
                                         </div>
                                       </div>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>Jenis Harta</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="jenis_harta"  placeholder="Jenis Harta"  value="{{ old('jenis_harta')}}" required> -->
-                                          {{ $listHarta ->jenis_harta }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>Pemilik Harta</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          @if('{{ $listHarta ->tarikh_lupus }}' == !null)
-                                          {{ $listHarta ->pemilik_harta }}
-                                          @else
-                                          <p>Tiada</p>
-                                          @endif
-                                        </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                          <div class="col-md-4">
-                                            <p> Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
-                                          </div>
-                                        <div class="col-md-8">
-                                            {{ $listHarta ->hubungan_pemilik }}
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="maklumat_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ old('maklumat_harta')}}"> -->
-                                          {{ $listHarta ->maklumat_harta }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>Tarikh Pemilikan Harta</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="date" name="tarikh_pemilikan_harta" value="{{ old('tarikh_pemilikan_harta')}}"> -->
-                                          {{ $listHarta ->tarikh_pemilikan_harta }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="bilangan" placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ old('bilangan')}}"> -->
-                                          {{ $listHarta ->bilangan }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>Nilai Perolehan Harta (RM)</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="nilai_perolehan" placeholder="Nilai Perolehan Harta (RM)" value="{{ old('nilai_perolehan')}}"> -->
-                                          {{ $listHarta ->nilai_perolehan }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>Cara Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            {{ $listHarta ->cara_perolehan }}
-                                        </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                          <div class="col-md-4">
-                                            <p>Dari Siapa Harta Diperolehi</p>
-                                          </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum" value="{{ old('nama_pemilikan_asal')}}"> -->
-                                            {{ $listHarta ->nama_pemilikan_asal }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p><b>Punca-punca Kewangan Bagi Memiliki Harta Dan Jumlahnya</b></p>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p><b>a)	Jika Pinjaman, Nyatakan</b></p>
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>i) Jumlah Pinjaman</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="jumlah_pinjaman" value="{{ old('jumlah_pinjaman')}}"> -->
-                                          {{ $listHarta ->jumlah_pinjaman }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>ii)	Institusi memberi pinjaman</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="institusi_pinjaman" value="{{ old('institusi_pinjaman')}}"> -->
-                                          {{ $listHarta ->institusi_pinjaman }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>iii)	Tempoh bayaran balik</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="tempoh_bayar_balik" value="{{ old('tempoh_bayar_balik')}}"> -->
-                                          {{ $listHarta ->tempoh_bayar_balik }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>iv) Ansuran bulanan </p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="ansuran_bulanan" value="{{ old('ansuran_bulanan')}}"> -->
-                                          {{ $listHarta ->ansuran_bulanan }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>v)	Tarikh ansuran pertama</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="date" name="tarikh_ansuran_pertama" value="{{ old('tarikh_ansuran_pertama')}}"> -->
-                                          {{ $listHarta ->tarikh_ansuran_pertama }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p><b>b) Hasil Pelupusan Harta, Nyatakan</b></p>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>i)	Jenis Harta</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="jenis_harta_pelupusan" value="{{ old('jenis_harta_pelupusan')}}"> -->
-                                          {{ $listHarta ->jenis_harta_pelupusan }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>ii) Alamat</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="alamat_asset" value="{{ old('alamat_asset')}}"> -->
-                                          {{ $listHarta ->alamat_asset }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>iii) No Pendaftaran Harta</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <!-- <input class="form-control bg-light" type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran')}}"> -->
-                                          {{ $listHarta ->no_pendaftaran }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>iv) Harga Jualan</p>
-                                        </div>
-                                        <div class="col-md-8">
-                                          @if('{{ $listHarta ->tarikh_lupus }}' == !null)
-                                          {{ $listHarta ->harga_jualan }}
-                                          @else
-                                          <p>Tiada</p>
-                                          @endif
-                                        </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>v)	Tarikh lupus</p>
-                                        </div>
-                                        <div class="col-md-8">
 
-                                          @if('{{ $listHarta ->tarikh_lupus }}' == NULL)
-                                          <p>Tiada</p>
-                                          @else
-                                          {{ $listHarta ->tarikh_lupus }}
-                                          @endif
+                                      <div class="row">
+                                          <div class="col-md-12">
+                                            <table class="table table-bordered">
+                                              <th width="5%">ID</th>
+                                              <th width="5%">Jenis Harta</th>
+                                              <th width="5%">Pemilik Harta</th>
+                                              <th width="5%">Hubungan Pemilik</th>
+                                              <th width="5%">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</th>
+                                              <th width="5%">Tarikh Pemilikan Harta</th>
+                                              <th width="5%">Bilangan / Ekar / kaki Persegi / Unit</th>
+                                              <th width="5%">Nilai Perolehan Harta (RM)</th>
+                                              <th width="5%">Cara Perolehan Harta</th>
+
+                                              @foreach($hartaB as $data)
+                                              <tr>
+                                                <td>{{ $data ->id }}</td>
+                                                <td>{{ $data ->jenis_harta }}</td>
+                                                <td>{{ $data ->pemilik_harta }}</td>
+                                                <td>{{ $data ->hubungan_pemilik }}</td>
+                                                <td>{{ $data ->maklumat_harta }}</td>
+                                                <td>{{ $data ->tarikh_pemilikan_harta }}</td>
+                                                <td>{{ $data ->bilangan}}</td>
+                                                <td>{{ $data ->nilai_perolehan}}</td>
+                                                <td>{{ $data ->cara_perolehan}}</td>
+                                              </tr>
+                                              @endforeach
+                                            </table>
+                                          </div>
+                                      </div>
+                                      <br>
+                                      @foreach($hartaB as $data)
+                                        @if($data->cara_perolehan == "Dipusakai"||$data->cara_perolehan == "Dihadiahkan")
+                                        <div class="row">
+                                          <div class="col-md-4">
+                                            <p>Dari Siapa Harta Diperolehi ({{$data->id}})</p>
+                                          </div>
+                                        <div class="col-md-4">
+                                            {{ $data ->nama_pemilikan_asal }}
                                         </div>
                                       </div>
+                                      <br>
+                                      @elseif($data->cara_perolehan == "Lain-lain")
+                                      <div class="row">
+                                        <div class="col-md-4">
+                                          <p>Nyatakan lain lain ({{$data->id}})</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ $data ->lain_lain }}
+                                        </div>
+                                      </div>
+                                      <br>
+                                      @elseif($data->cara_perolehan == "Dibeli")
+                                          @if($data->cara_belian == "Pinjaman")
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p><b>Punca-punca Kewangan Bagi Memiliki Harta Dan Jumlahnya ({{$data->id}})</b></p>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p><b>a)	Jika Pinjaman, Nyatakan</b></p>
+                                              </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p>i) Jumlah Pinjaman</p>
+                                              </div>
+                                              <div class="col-md-8">
+                                                <!-- <input class="form-control bg-light" type="text" name="jumlah_pinjaman" value="{{ old('jumlah_pinjaman')}}"> -->
+                                                {{ $data ->jumlah_pinjaman }}
+                                              </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p>ii)	Institusi memberi pinjaman</p>
+                                              </div>
+                                              <div class="col-md-8">
+                                                <!-- <input class="form-control bg-light" type="text" name="institusi_pinjaman" value="{{ old('institusi_pinjaman')}}"> -->
+                                                {{ $data ->institusi_pinjaman }}
+                                              </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p>iii)	Tempoh bayaran balik</p>
+                                              </div>
+                                              <div class="col-md-8">
+                                                <!-- <input class="form-control bg-light" type="text" name="tempoh_bayar_balik" value="{{ old('tempoh_bayar_balik')}}"> -->
+                                                {{ $data ->tempoh_bayar_balik }}
+                                              </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p>iv) Ansuran bulanan </p>
+                                              </div>
+                                              <div class="col-md-8">
+                                                <!-- <input class="form-control bg-light" type="text" name="ansuran_bulanan" value="{{ old('ansuran_bulanan')}}"> -->
+                                                {{ $data ->ansuran_bulanan }}
+                                              </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p>v)	Tarikh ansuran pertama</p>
+                                              </div>
+                                              <div class="col-md-8">
+                                                <!-- <input class="form-control bg-light" type="date" name="tarikh_ansuran_pertama" value="{{ old('tarikh_ansuran_pertama')}}"> -->
+                                                {{ $data ->tarikh_ansuran_pertama }}
+                                              </div>
+                                            </div>
+                                            <br>
+                                            @else if($data->cara_belian == "Pelupusan")
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p><b>b) Hasil Pelupusan Harta, Nyatakan ({{$data->id}})</b></p>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p>i)	Jenis Harta</p>
+                                              </div>
+                                              <div class="col-md-8">
+                                                <!-- <input class="form-control bg-light" type="text" name="jenis_harta_pelupusan" value="{{ old('jenis_harta_pelupusan')}}"> -->
+                                                {{ $data ->jenis_harta_pelupusan }}
+                                              </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p>ii) Alamat</p>
+                                              </div>
+                                              <div class="col-md-8">
+                                                <!-- <input class="form-control bg-light" type="text" name="alamat_asset" value="{{ old('alamat_asset')}}"> -->
+                                                {{ $data ->alamat_asset }}
+                                              </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p>iii) No Pendaftaran Harta</p>
+                                              </div>
+                                              <div class="col-md-8">
+                                                <!-- <input class="form-control bg-light" type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran')}}"> -->
+                                                {{ $data ->no_pendaftaran }}
+                                              </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p>iv) Harga Jualan</p>
+                                              </div>
+                                              <div class="col-md-8">
+                                                {{ $data ->harga_jualan }}
+                                              </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <p>v)	Tarikh lupus</p>
+                                              </div>
+                                              <div class="col-md-8">
+                                                {{ $data ->tarikh_lupus }}
+                                              </div>
+                                            </div>
+                                            @endif
+                                      @endif
+                                      @endforeach
                                       <br>
                                       <br>
                                         <a class="btn btn-primary mt-4"href="{{url()->previous() }}">Kembali</a>

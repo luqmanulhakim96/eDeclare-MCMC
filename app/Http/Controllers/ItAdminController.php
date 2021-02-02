@@ -142,8 +142,8 @@ class ItAdminController extends Controller
       public function audit(){
         // testing data get from mcmc databases
 
-        $userldap = Adldap::search()->users()->find('SITI RAFIDAH AHMAD FUAD'); //active directory testing
-        dd($userldap);
+        // $userldap = Adldap::search()->users()->find('SITI RAFIDAH AHMAD FUAD'); //active directory testing
+        // dd($userldap);
         // $user = UserExistingStaffNextofKin::first();
         // $user = UserExistingStaffNextofKin::where('STAFFNO','522')->get();
         // $user = UserExistingStaffInfo::first();

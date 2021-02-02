@@ -7,7 +7,9 @@
 
 <div class="page-body p-4 text-dark">
 
-  <!-- Small card component -->
+  @if (Session::has('message'))
+       <div class="alert alert-info">{{ Session::get('message') }}</div>
+    @endif
 
   <div class="small-cards mt-5 mb-4" >
     <div class="row">

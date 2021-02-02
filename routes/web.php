@@ -24,6 +24,8 @@ Auth::routes();
 Route::get('/notifikasi/baca/{id}', 'NotificationController@redirectNotification')->name('notification.mark-as-read');
 // Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/Lampiran-C/ajax/get-harta/{data}', [App\Http\Controllers\FormCController::class, 'ajaxHarta'])->name('formc.ajax.harta');
+
 Route::get('/menu-utama', 'UserController@index')->name('menu-utama');
 
 Route::get('/permohonan/senarai-borang-harta', 'UserController@senaraiborang')->name('user.form');
@@ -146,6 +148,8 @@ Route::post('/perakuan-harta', 'PerakuanController@submitForm')->name('perakuan.
 Route::post('/lampiran-B/hantar', 'FormBController@submitForm')->name('b.submit');
 
 Route::get('/lampiran-B/edit/id={id}', 'FormBController@editformB')->name('user.harta.FormB.editformB');
+
+Route::get('/harta-b/padam/id={id}','FormBController@deleteHartaB')->name('hartaB.delete');
 
 Route::post('/lampiran-B/kemaskini/id={id}', 'FormBController@updateFormB')->name('b.update');
 

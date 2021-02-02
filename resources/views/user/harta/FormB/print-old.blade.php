@@ -9,7 +9,7 @@
                <td><img src="{{asset('qbadminui/img/MCMC.png')}}" height="20%" width="20%"></td>
              </tr>
                <tr>
-                   <td align="center" colspan="5"><b>BORANG PERISYTIHARAN HARTA</b></td>
+                   <td align="center" colspan="5"><b>BORANG PERISYTHARAN HARTA</b></td>
                </tr>
                <tr>
                  <td colspan="4"><h5>1.KETERANGAN MENGENAI PEGAWAI</h5></td>
@@ -18,23 +18,23 @@
                     <td>
                         Nama
                     </td>
-                    <td colspan="4">
+                    <td>
                         {{$listHarta ->formbs->name }}
                     </td>
                 </tr>
                 <tr>
                     <td>
                         No. Kad Pengenalan
-                    </td colspan="4">
+                    </td>
                     <td>
-                        {{$listHarta->kad_pengenalan }}
+                        {{$listHarta ->formbs->kad_pengenalan }}
                     </td>
                 </tr>
                 <tr>
                     <td>
                         Jawatan / Gred
                     </td>
-                    <td colspan="4">
+                    <td>
                         {{$listHarta ->formbs->jawatan }}
                     </td>
                 </tr>
@@ -42,7 +42,7 @@
                     <td>
                         Jabatan
                     </td>
-                    <td colspan="4">
+                    <td>
                         {{$listHarta ->jabatan }}
                     </td>
                 </tr>
@@ -50,13 +50,10 @@
                     <td>
                         Alamat Tempat Bertugas
                     </td>
-                    <td colspan="4">
+                    <td>
                         {{$listHarta ->formbs->alamat_tempat_bertugas }}
                     </td>
                 </tr>
-                @if($maklumat_pasangan->isEmpty())
-                @else
-                @foreach($maklumat_pasangan as $maklumat_pasangan)
                 <tr>
                   <td colspan="4">
                     <h5>2.KETERANGAN MENGENAI KELUARGA</h5>
@@ -66,75 +63,50 @@
                     <td>
                         Nama Suami / Isteri
                     </td>
-                    <td colspan="4">
-                        {{$maklumat_pasangan->NOKNAME}}
+                    <td>
+                        {{$listHarta ->formbs->nama_pasangan }}
                     </td>
                 </tr>
                 <tr>
                     <td>
                       No.Kad Pengenalan Suami/Isteri
                     </td>
-                    <td colspan="4">
-                      {{$maklumat_pasangan->ICNEW}}
+                    <td>
+                      {{$listHarta ->formbs->kad_pengenalan_pasangan }}
                     </td>
                 </tr>
                 <tr>
                     <td>
                       Pekerjaan Suami/Isteri
                     </td>
-                    <td colspan="4">
-                    {{$maklumat_pasangan->NOKEMLOYER}}
+                    <td>
+                      {{$listHarta ->formbs->pekerjaan_pasangan }}
                     </td>
                 </tr>
-                @endforeach
-                @endif
-
-                @if($maklumat_anak->isEmpty())
-                @else
-
-                @foreach($maklumat_anak as $maklumat_anak)
                 <tr>
                     <td>
                       Nama Anak
                     </td>
-                    <td colspan="4">
-                      {{$maklumat_anak->NOKNAME}}
+                    <td>
+                      {{$listHarta ->formbs->nama_anak }}
                     </td>
                 </tr>
                 <tr>
                     <td>
                       Umur Anak/Tanggungan
                     </td>
-                    <td colspan="4">
-                      <?php
-                        $ic = $maklumat_anak->ICNEW;
-                        if($ic != ""){
-                            $year = substr($ic, 0, 2);
-                            $curYear = Date('Y');
-                            $cutoff = Date('Y') - 2000;
-                        }
-                        if($year > $cutoff)
-                        {
-                          $above = $curYear - ($year + 1900);
-                          echo $above;
-                        }
-                        else{
-                          $above = $curYear - ($year + 2000);
-                          echo $above;
-                        }
-                      ?>
+                    <td>
+                      {{$listHarta ->formbs->umur_anak }}
                     </td>
                 </tr>
                 <tr>
                     <td>
                       No.Kad Pengenalan Anak/Tanggungan
                     </td>
-                    <td colspan="4">
-                      {{$maklumat_anak->ICNEW}}
+                    <td>
+                      {{$listHarta ->formbs->no_kad_pengenalan_anak }}
                     </td>
                 </tr>
-            @endforeach
-            @endif
                 <tr>
                   <td colspan="4">
                     <h5>3. PENDAPATAN BULANAN</h5>
@@ -148,7 +120,7 @@
                   </tr>
                   <tr>
                     <td>1) Gaji</td>
-                    <td colspan="2" align="center">{{$listHarta ->gaji }}</td>
+                    <td colspan="2" align="center">{{$listHarta ->formbs->gaji }}</td>
                     <td colspan="2" align="center">{{ $listHarta ->gaji_pasangan }}</td>
                   </tr>
                 <!-- imbuhan -->
@@ -174,6 +146,13 @@
                     <td colspan="2" align="center">{{ $data ->dividen_1_pasangan }}</td>
                   </tr>
                   @endforeach
+
+                  <!-- jumlah pendapatan -->
+                  <tr>
+                    <td><b><h5>JUMLAH</h5></b></td>
+                    <td colspan="2" align="center"><b>{{ $listHarta ->pendapatan_pegawai }}</b></td>
+                    <td colspan="2" align="center"><b>{{ $listHarta ->pendapatan_pasangan }}</b></td>
+                  </tr>
 
                   <!-- Tanggungan -->
                   <tr>
@@ -232,7 +211,13 @@
                     <td align="center">{{ $datas ->bulanan_pasangan }}</td>
                   </tr>
                   @endforeach
-
+                  <tr>
+                    <td><b><h5>JUMLAH</h5></b></td>
+                    <td align="center"><b>{{ $listHarta ->jumlah_pinjaman_pegawai }}</b></td>
+                    <td align="center"><b>{{ $listHarta ->jumlah_bulanan_pegawai }}</b></td>
+                    <td align="center"><b>{{ $listHarta ->jumlah_pinjaman_pasangan }}</b></td>
+                    <td align="center"><b>{{ $listHarta ->jumlah_bulanan_pasangan }}</b></td>
+                  </tr>
 
 
                   <!-- Harta -->
@@ -240,99 +225,106 @@
                     <td colspan="2"><b><h5>5. KETERANGAN MENGENAI HARTA</h5></b></td>
                   </tr>
                   <tr>
-                    @foreach($hartaB as $data)
                     <td colspan="2">Jenis Harta</td>
-                    <td colspan="3">{{ $data ->jenis_harta }}</td>
+                    <td>{{ $listHarta ->jenis_harta }}</td>
                   </tr>
                   <tr>
                     <td colspan="2">Pemilik Harta</td>
-                    <td colspan="3">{{ $data ->pemilik_harta }}</td>
+                    <td>
+                      @if('{{ $listHarta ->tarikh_lupus }}' == !null)
+                      {{ $listHarta ->pemilik_harta }}
+                      @else
+                      Tiada
+                      @endif
+                    </td>
                   </tr>
                   <tr>
                     <td colspan="2">Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</td>
-                    <td colspan="3">{{ $data ->hubungan_pemilik }}</td>
+                    <td>{{ $listHarta ->hubungan_pemilik }}</td>
                   </tr>
                   <tr>
                     <td colspan="2">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</td>
-                    <td colspan="3">{{ $data ->maklumat_harta }}</td>
+                    <td>{{ $listHarta ->maklumat_harta }}</td>
                   </tr>
                   <tr>
                     <td colspan="2">Tarikh Pemilikan Harta</td>
-                    <td colspan="3">{{ $data ->tarikh_pemilikan_harta }}</td>
+                    <td>{{ $listHarta ->tarikh_pemilikan_harta }}</td>
                   </tr>
                   <tr>
                     <td colspan="2">Bilangan / Ekar / kaki Persegi / Unit (jika rumah, nyatakan keluasan tanah tapak rumah itu)</td>
-                    <td colspan="3">{{ $data ->bilangan }}</td>
+                    <td>{{ $listHarta ->bilangan }}</td>
                   </tr>
                   <tr>
                     <td colspan="2">Nilai Perolehan Harta (RM)</td>
-                    <td colspan="3">{{ $data ->nilai_perolehan }}</td>
+                    <td>{{ $listHarta ->nilai_perolehan }}</td>
                   </tr>
                   <tr>
                     <td colspan="2">Cara Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</td>
-                    <td colspan="3">{{ $data ->cara_perolehan }}</td>
+                    <td>{{ $listHarta ->cara_perolehan }}</td>
                   </tr>
-
-                  @endforeach
-                  @foreach($hartaB as $data)
-                    @if($data->cara_perolehan == "Dipusakai"||$data->cara_perolehan == "Dihadiahkan")
-                    <tr>
-                      <td colspan="2">Dari Siapa Harta Diperolehi</td>
-                      <td colspan="3">{{$data ->nama_pemilikan_asal}}</td>
-                    </tr>
-                    @elseif($data->cara_perolehan == "Lain-lain")
-                    <tr>
-                      <td colspan="2">Nyatakan,</td>
-                      <td colspan="3">{{ $data ->lain_lain }}</td>
-                    </tr>
-                    @elseif($data->cara_perolehan == "Dibeli")
-                      @if($data->cara_belian == "Pinjaman")
-
-                        <tr>
-                          <td colspan="2">i) Jumlah Pinjaman</td>
-                          <td colspan="3">{{ $data ->jumlah_pinjaman }}</td>
-                        </tr>
-                        <tr>
-                          <td colspan="2">ii)	Institusi memberi pinjaman</td>
-                          <td colspan="3">{{ $data ->institusi_pinjaman }}</td>
-                        </tr>
-                        <tr>
-                          <td colspan="2">iii)	Tempoh bayaran balik</td>
-                          <td colspan="3">{{ $data ->tempoh_bayar_balik }}</td>
-                        </tr>
-                        <tr>
-                          <td colspan="2">iv) Ansuran bulanan</td>
-                          <td colspan="3">{{ $data ->ansuran_bulanan }}</td>
-                        </tr>
-                        <tr>
-                          <td colspan="2">v)	Tarikh ansuran pertama</td>
-                          <td colspan="3">{{ $data ->tarikh_ansuran_pertama }}</td>
-                        </tr>
-                      @elseif($data->cara_belian == "Pelupusan")
-                          <tr>
-                            <td colspan="2">i)	Jenis Harta</td>
-                            <td colspan="3">{{ $data ->jenis_harta_pelupusan }}</td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">ii) Alamat</td>
-                            <td colspan="3">  {{ $data ->alamat_asset }}</td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">iii) No Pendaftaran Harta</td>
-                            <td colspan="3">{{ $data ->no_pendaftaran }}</td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">iv) Harga Jualan</td>
-                            <td colspan="3">{{ $data ->harga_jualan }}</td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">v)	Tarikh lupus</td>
-                            <td colspan="3">{{ $data ->tarikh_lupus }}</td>
-                          </tr>
-                      @endif
+                  <tr>
+                    <td colspan="2">Dari Siapa Harta Diperolehi</td>
+                    <td>{{ $listHarta ->nama_pemilikan_asal }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><b><h5>PUNCA-PUNCA KEWANGAN BAGI MEMILIKI HARTA DAN JUMLAHNYA</h5></b></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><b><h5>a)	Jika Pinjaman, Nyatakan</h5></b></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">i) Jumlah Pinjaman</td>
+                    <td>{{ $listHarta ->jumlah_pinjaman }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">ii)	Institusi memberi pinjaman</td>
+                    <td>{{ $listHarta ->institusi_pinjaman }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">iii)	Tempoh bayaran balik</td>
+                    <td>{{ $listHarta ->tempoh_bayar_balik }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">iv) Ansuran bulanan</td>
+                    <td>{{ $listHarta ->ansuran_bulanan }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">v)	Tarikh ansuran pertama</td>
+                    <td>{{ $listHarta ->tarikh_ansuran_pertama }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4"><b><h5>b) Hasil Pelupusan Harta, Nyatakan</h5></b></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">i)	Jenis Harta</td>
+                    <td>{{ $listHarta ->jenis_harta_pelupusan }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">ii) Alamat</td>
+                    <td>  {{ $listHarta ->alamat_asset }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">iii) No Pendaftaran Harta</td>
+                    <td>{{ $listHarta ->no_pendaftaran }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">iv) Harga Jualan</td>
+                    <td>
+                    @if('{{ $listHarta ->tarikh_lupus }}' == !null)
+                    {{ $listHarta ->harga_jualan }}
+                    @else
+                    <p>Tiada</p>
                     @endif
-                    <tr>
-                      <td><br></td>
-                    </tr>
-                  @endforeach
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">v)	Tarikh lupus</td>
+                    <td>
+                      @if('{{ $listHarta ->tarikh_lupus }}' == NULL)
+                      <p>Tiada</p>
+                      @else
+                      {{ $listHarta ->tarikh_lupus }}
+                      @endif
+                    </td>
+                  </tr>
                 </table>

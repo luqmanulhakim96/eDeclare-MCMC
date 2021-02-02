@@ -61,27 +61,50 @@ class FormGController extends Controller
     //data pasangan
     $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
 
-    if($user->isEmpty()){
-      if($data_user->isEmpty()){
-        $last_data_formb = null;
-        $dividen_user= null;
-        $pinjaman_user= null;
-        $maklumat_pasangan = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
-        $maklumat_anak =UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
-      return view('user.harta.FormG.formG', compact('staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
-      }
-    }
-    else{
-      if($data_user->isEmpty()){
-        $last_data_formb = null;
-        $dividen_user= null;
-        $pinjaman_user= null;
+    if($data_user->isEmpty()){
+
+      $last_data_formb = null;
+      $dividen_user= null;
+      $pinjaman_user= null;
+      $maklumat_pasangan = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+      $maklumat_anak = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+
+      if($maklumat_pasangan->isEmpty()){
+        $maklumat_pasangan = null;
       }
       else{
+        foreach ($user as $keluarga) {
+        $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        }
+      }
+
+      if($maklumat_anak->isEmpty()){
+        $maklumat_anak = null;
+      }
+      else{
+        foreach ($user as $keluarga) {
+
+          $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+          $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+          }
+
+
+        }
+
+        return view('user.harta.FormG.formGNew', compact('staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+      }
+
+
+      else{
+
         $last_data_formb = collect($data_user)->last();
         $dividen_user = DividenB::where('formbs_id', $last_data_formb->id) ->get();
+        // dd($dividen_user);
         $pinjaman_user = PinjamanB::where('formbs_id', $last_data_formb->id) ->get();
-      }
+        // dd($pinjaman_user);
+
 
       foreach ($user as $keluarga) {
 
@@ -90,8 +113,9 @@ class FormGController extends Controller
         $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
-        return view('user.harta.FormG.formG', compact('staffinfo','maklumat_pasangan','maklumat_anak','last_data_formb','dividen_user','pinjaman_user'));
-    }
+        return view('user.harta.FormG.formGNew', compact('staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+
+      }
   }
 
   public function kemaskini($id){
@@ -101,7 +125,7 @@ class FormGController extends Controller
     $form->status = $status;
     $form->save();
 
-    return redirect()->route('user.harta.FormB.senaraihartaB');
+    return redirect()->route('user.harta.FormG.senaraihartaG');
   }
 
 public function editformG($id){
@@ -129,6 +153,7 @@ public function editformG($id){
     $listPinjamanG = PinjamanG::where('formgs_id', $info->id) ->get();
 
     $listPinjaman = Pinjaman::where('formgs_id', $info->id) ->get();
+    // dd($listPinjaman);
 
     $count_div = DividenG::where('formgs_id', $info->id)->count();
 
@@ -145,7 +170,7 @@ public function editformG($id){
       return FormG::create([
         'nama_pegawai' => $data['nama_pegawai'],
         'kad_pengenalan' => $data['kad_pengenalan'],
-        'jawatan' => $data['jawatan'],
+        'no_staff' => $data['no_staff'],
         'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
         'jabatan' => $data['jabatan'],
         'tarikh_lantikan' => $data['tarikh_lantikan'],
@@ -157,9 +182,9 @@ public function editformG($id){
         'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
         'sewa' => $data['sewa'],
         'sewa_pasangan' => $data['sewa_pasangan'],
-        'dividen_1' => $data['dividen_1'],
-        'dividen_1_pegawai' => $data['dividen_1_pegawai'],
-        'dividen_1_pasangan' => $data['dividen_1_pasangan'],
+        // 'dividen_1' => $data['dividen_1'],
+        // 'dividen_1_pegawai' => $data['dividen_1_pegawai'],
+        // 'dividen_1_pasangan' => $data['dividen_1_pasangan'],
         'pinjaman_perumahan_pegawai' => $data['pinjaman_perumahan_pegawai'],
         'bulanan_perumahan_pegawai' => $data['bulanan_perumahan_pegawai'],
         'pinjaman_perumahan_pasangan' => $data['pinjaman_perumahan_pasangan'],
@@ -176,11 +201,11 @@ public function editformG($id){
         'bulanan_koperasi_pegawai' => $data['bulanan_koperasi_pegawai'],
         'jumlah_koperasi_pasangan' => $data['jumlah_koperasi_pasangan'],
         'bulanan_koperasi_pasangan' => $data['bulanan_koperasi_pasangan'],
-        'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
-        'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
-        'bulanan_pegawai'=> $data['bulanan_pegawai'],
-        'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
-        'bulanan_pasangan'=> $data['bulanan_pasangan'],
+        // 'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
+        // 'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
+        // 'bulanan_pegawai'=> $data['bulanan_pegawai'],
+        // 'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
+        // 'bulanan_pasangan'=> $data['bulanan_pasangan'],
         'luas_pertanian' => $data['luas_pertanian'],
         'lot_pertanian' => $data['lot_pertanian'],
         'mukim_pertanian' => $data['mukim_pertanian'],
@@ -194,7 +219,7 @@ public function editformG($id){
         'lot' => $data['lot'],
         'mukim' => $data['mukim'],
         'negeri' => $data['negeri'],
-        'jenis_tanah' => $data['jenis_tanah'],
+        // 'jenis_tanah' => $data['jenis_tanah'],
         'nama_syarikat' => $data['nama_syarikat'],
         'modal_berbayar' => $data['modal_berbayar'],
         'jumlah_unit_saham' => $data['jumlah_unit_saham'],
@@ -219,7 +244,10 @@ public function add(array $data){
   $sedang_proses= "Sedang Diproses";
 
     return FormG::create([
-
+      'nama_pegawai' => $data['nama_pegawai'],
+      'kad_pengenalan' => $data['kad_pengenalan'],
+      'no_staff' => $data['no_staff'],
+      'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
       'jabatan' => $data['jabatan'],
       'tarikh_lantikan' => $data['tarikh_lantikan'],
       'nama_perkhidmatan' => $data['nama_perkhidmatan'],
@@ -234,9 +262,9 @@ public function add(array $data){
       'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
       'sewa' => $data['sewa'],
       'sewa_pasangan' => $data['sewa_pasangan'],
-      'dividen_1' => $data['dividen_1'],
-      'dividen_1_pegawai' => $data['dividen_1_pegawai'],
-      'dividen_1_pasangan' => $data['dividen_1_pasangan'],
+      // 'dividen_1' => $data['dividen_1'],
+      // 'dividen_1_pegawai' => $data['dividen_1_pegawai'],
+      // 'dividen_1_pasangan' => $data['dividen_1_pasangan'],
       'pinjaman_perumahan_pegawai' => $data['pinjaman_perumahan_pegawai'],
       'bulanan_perumahan_pegawai' => $data['bulanan_perumahan_pegawai'],
       'pinjaman_perumahan_pasangan' => $data['pinjaman_perumahan_pasangan'],
@@ -253,11 +281,11 @@ public function add(array $data){
       'bulanan_koperasi_pegawai' => $data['bulanan_koperasi_pegawai'],
       'jumlah_koperasi_pasangan' => $data['jumlah_koperasi_pasangan'],
       'bulanan_koperasi_pasangan' => $data['bulanan_koperasi_pasangan'],
-      'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
-      'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
-      'bulanan_pegawai'=> $data['bulanan_pegawai'],
-      'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
-      'bulanan_pasangan'=> $data['bulanan_pasangan'],
+      // 'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
+      // 'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
+      // 'bulanan_pegawai'=> $data['bulanan_pegawai'],
+      // 'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
+      // 'bulanan_pasangan'=> $data['bulanan_pasangan'],
       'luas_pertanian' => $data['luas_pertanian'],
       'lot_pertanian' => $data['lot_pertanian'],
       'mukim_pertanian' => $data['mukim_pertanian'],
@@ -296,7 +324,6 @@ public function add(array $data){
     return Validator::make($data, [
       'nama_pegawai' =>['nullable', 'string'],
       'kad_pengenalan' => ['nullable', 'string'],
-      'jawatan' => ['nullable', 'string'],
       'alamat_tempat_bertugas' => ['nullable', 'string'],
       'gaji' =>['nullable', 'string'],
       'jabatan' =>['nullable', 'string'],
@@ -364,7 +391,7 @@ public function add(array $data){
     return Validator::make($data, [
       'nama_pegawai' =>['nullable', 'string'],
       'kad_pengenalan' => ['nullable', 'string'],
-      'jawatan' => ['nullable', 'string'],
+
       'alamat_tempat_bertugas' => ['nullable', 'string'],
       'gaji' =>['nullable', 'string'],
       'jabatan' =>['nullable', 'string'],
@@ -428,7 +455,7 @@ public function add(array $data){
   }
 
   public function submitForm(Request $request){
-
+    // dd($request->all());
   if ($request->has('save')){
       $isChecked = $request->has('pengakuan');
 
@@ -438,11 +465,11 @@ public function add(array $data){
        //dd($request->all());
        // dd($request->dividen_1);
 
-       $count = count($request->dividen_1);
+       $count_dividen = count($request->dividen_1);
        // dd($request->dividen_1);
        $count_id = 0;
 
-       for ($i=0; $i < $count; $i++) {
+       for ($i=0; $i < $count_dividen; $i++) {
             $count_id++;
         	  $dividen_gs = new DividenG();
         	  $dividen_gs->dividen_1 = $request->dividen_1[$i];
@@ -454,11 +481,11 @@ public function add(array $data){
             $dividen_gs->save();
           }
 
-        $count = count($request->lain_lain_pinjaman);
+        $count_pinjaman = count($request->lain_lain_pinjaman);
         // dd($request->dividen_1);
         $count_id_pinjaman = 0;
 
-         for ($i=0; $i < $count; $i++) {
+         for ($i=0; $i < $count_pinjaman; $i++) {
             $count_id_pinjaman++;
          	  $pinjaman_gs = new PinjamanG();
          	  $pinjaman_gs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
@@ -472,11 +499,12 @@ public function add(array $data){
              $pinjaman_gs->save();
            }
 
-         $count = count($request->institusi);
+         $count_saham = count($request->institusi);
+         // dd($count_saham);
          // dd($request->dividen_1);
          $count_id_pinjam = 0;
 
-          for ($i=0; $i < $count; $i++) {
+          for ($i=0; $i < $count_saham; $i++) {
           $count_id_pinjam++;
         	 $pinjaman = new Pinjaman();
         	 $pinjaman->institusi = $request->institusi[$i];
@@ -487,7 +515,6 @@ public function add(array $data){
            $pinjaman->formgs_id = $formgs-> id;
            $pinjaman->pinjaman_id = $count_id_pinjam;
            $pinjaman->save();
-
           }
 
       return redirect()->route('user.harta.senaraidraft');
@@ -504,7 +531,7 @@ public function add(array $data){
      // dd($request->dividen_1);
      $count_id = 0;
 
-     for ($i=0; $i < $count; $i++) {
+     for ($i=0; $i <$count; $i++) {
           $count_id++;
           $dividen_gs = new DividenG();
           $dividen_gs->dividen_1 = $request->dividen_1[$i];
@@ -621,6 +648,7 @@ public function update($id){
 }
 
 public function updateFormG(Request $request,$id){
+  // dd($request->all());
   $this->validator(request()->all())->validate();
 
   $formgs = FormG::find($id);
