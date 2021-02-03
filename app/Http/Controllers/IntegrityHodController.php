@@ -20,6 +20,7 @@ use App\NilaiHadiah;
 use Auth;
 use DB;
 use App\Email;
+use App\UserExistingStaffInfo;
 
 use App\Jobs\SendNotificationFormBHod;
 use App\Jobs\SendNotificationFormCHod;
