@@ -26,12 +26,15 @@ class GiftController extends Controller
       $nilaiHadiah = NilaiHadiah::first();
       $jenisHadiah = JenisHadiah::get();
 
-      $bahagian = UserExistingStaffInfo::distinct('OLEVEL3NAME')->ORDERBY('OLEVEL3NAME','asc')->get('OLEVEL3NAME');
+      $bahagian = UserExistingStaffInfo::distinct('OLEVEL4NAME')->ORDERBY('OLEVEL4NAME','asc')->get('OLEVEL4NAME');
       // dd($bahagia);
-      $jabatan = UserExistingStaffInfo::distinct('OLEVEL4NAME')->ORDERBY('OLEVEL4NAME','asc')->get('OLEVEL4NAME');
+      $jabatan = UserExistingStaffInfo::distinct('OLEVEL5NAME')->ORDERBY('OLEVEL5NAME','asc')->get('OLEVEL5NAME');
       // dd($jabatan);
 
-      return view('user.hadiah.gift', compact('nilaiHadiah','jenisHadiah','jabatan','bahagian'));
+      $username =Auth::user()->username;
+      $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+
+      return view('user.hadiah.gift', compact('nilaiHadiah','jenisHadiah','jabatan','bahagian','staffinfo'));
   }
 
   public function kemaskini($id){
@@ -47,10 +50,13 @@ class GiftController extends Controller
   public function editHadiah($id){
       //$info = SenaraiHarga::find(1);
       $info = Gift::findOrFail($id);
+      // dd($info);
       $nilaiHadiah = NilaiHadiah::first();
       $jenisHadiah = JenisHadiah::get();
+      $bahagian = UserExistingStaffInfo::distinct('OLEVEL4NAME')->ORDERBY('OLEVEL4NAME','asc')->get('OLEVEL4NAME');
+      $jabatan = UserExistingStaffInfo::distinct('OLEVEL5NAME')->ORDERBY('OLEVEL5NAME','asc')->get('OLEVEL5NAME');
       // dd($info);
-      return view('user.hadiah.editgift', compact('info','nilaiHadiah','jenisHadiah'));
+      return view('user.hadiah.editgift', compact('info','nilaiHadiah','jenisHadiah','bahagian','jabatan'));
     }
     public function viewHadiah($id){
         //$info = SenaraiHarga::find(1);
@@ -68,6 +74,8 @@ class GiftController extends Controller
 
 
       return Gift::create([
+        'nama_pegawai'=> $data['nama_pegawai'],
+        'no_kad_pengenalan'=> $data['no_kad_pengenalan'],
         'jawatan' => $data['jawatan'],
         'jabatan' => $data['jabatan'],
         'bahagian' => $data['bahagian'],
@@ -88,9 +96,24 @@ class GiftController extends Controller
         $userid = Auth::user()->id;
         $sedang_proses= "Disimpan ke Draf";
 
+        if(!isset($data['jabatan']))
+        {
+          $data['jabatan'] = null;
+        }
 
+        if(!isset($data['bahagian']))
+        {
+          $data['bahagian'] = null;
+        }
+
+        if(!isset($data['jenis_gift']))
+        {
+          $data['jenis_gift'] = null;
+        }
 
         return Gift::create([
+          'nama_pegawai'=> $data['nama_pegawai'],
+          'no_kad_pengenalan'=> $data['no_kad_pengenalan'],
           'jawatan' => $data['jawatan'],
           'jabatan' => $data['jabatan'],
           'bahagian' => $data['bahagian'],
@@ -112,9 +135,24 @@ class GiftController extends Controller
           $userid = Auth::user()->id;
           $sedang_proses= "Disimpan ke Draf";
 
+          if(!isset($data['jabatan']))
+          {
+            $data['jabatan'] = null;
+          }
 
+          if(!isset($data['bahagian']))
+          {
+            $data['bahagian'] = null;
+          }
+
+          if(!isset($data['jenis_gift']))
+          {
+            $data['jenis_gift'] = null;
+          }
 
           return Gift::create([
+            'nama_pegawai'=> $data['nama_pegawai'],
+            'no_kad_pengenalan'=> $data['no_kad_pengenalan'],
             'jawatan' => $data['jawatan'],
             'jabatan' => $data['jabatan'],
             'bahagian' => $data['bahagian'],
@@ -206,26 +244,43 @@ public function submitForm(Request $request){
       return redirect()->route('user.hadiah.senaraihadiah');
   }
 
-  public function update($id,$uploaded_gambar_hadiah){
-    $sedang_proses= "Sedang Diproses";
+  public function update($id,$uploaded_gambar_hadiah,$sedang_proses){
     $gifts = Gift::find($id);
     $gifts->jabatan = request()->jabatan;
+    $gifts->bahagian = request()->bahagian;
     $gifts->jenis_gift = request()->jenis_gift;
     $gifts->nilai_gift = request()->nilai_hadiah;
     $gifts->tarikh_diterima = request()->tarikh_diterima;
+    $gifts->nama_pemberi = request()->nama_pemberi;
     $gifts->alamat_pemberi = request()->alamat_pemberi;
     $gifts->hubungan_pemberi = request()->hubungan_pemberi;
     $gifts->sebab_gift = request()->sebab_diberi;
-    $gifts->gambar_gift = $uploaded_gambar_hadiah;
+    if($uploaded_gambar_hadiah != null){
+      $gifts->gambar_gift = $uploaded_gambar_hadiah;
+    }
     $gifts->status= $sedang_proses;
     $gifts->save();
   }
 
   public function updateHadiah(Request $request,$id){
-   $gifts = Gift::find($id);
-    $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
 
-    $this->update($id,$uploaded_gambar_hadiah);
+   $gifts = Gift::find($id);
+   if($request->hasFile('gambar_hadiah')) {
+     $uploaded_gambar_hadiah = $request->file('gambar_hadiah')->store('public/uploads/gambar_hadiah');
+   }
+   else {
+     $uploaded_gambar_hadiah = null;
+   }
+   if ($request->has('save')){
+     $sedang_proses ="Disimpan ke Draf";
+     $this->update($id,$uploaded_gambar_hadiah,$sedang_proses);
+
+     return redirect()->route('user.hadiah.senaraidraft');
+   }
+   else if($request->has('publish')){
+     $sedang_proses ="Sedang Diproses";
+     $this->update($id,$uploaded_gambar_hadiah,$sedang_proses);
+
     if($request ->status =='Sedang Diproses'){
       //send notification to hodiv (user declare)
       $email = Email::where('penerima', '=', 'Ketua Bahagian')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
@@ -241,5 +296,7 @@ public function submitForm(Request $request){
 
     }
     return redirect()->route('user.hadiah.senaraihadiah');
+  }
+
   }
 }

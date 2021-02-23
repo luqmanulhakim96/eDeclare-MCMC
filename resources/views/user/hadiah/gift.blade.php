@@ -21,7 +21,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{Auth::user()->name }}</b>
+                                              <input type="hidden" name="nama_pegawai" value="{{Auth::user()->name }}">{{Auth::user()->name }}
                                           </div>
                                       </div>
                                   </div>
@@ -31,7 +31,9 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{Auth::user()->kad_pengenalan }}</b>
+                                            @foreach($staffinfo as $ic)
+                                              <input type="hidden" name="no_kad_pengenalan" value="{{$ic->ICNUMBER}}">{{$ic->ICNUMBER}}
+                                            @endforeach
                                           </div>
                                       </div>
                                   </div>
@@ -41,7 +43,9 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                          <b><input type="hidden" name="jawatan" value="{{Auth::user()->jawatan }}">{{Auth::user()->jawatan }}</b>
+                                            @foreach($staffinfo as $ic)
+                                              <input type="hidden" name="jawatan" value="{{$ic->GRADE}}">{{$ic->GRADE}}
+                                            @endforeach
                                           </div>
                                       </div>
                                   </div>
@@ -51,12 +55,12 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <select  class="custom-select  bg-light" name="jabatan" value="{{ old('jabatan')}}" required>
+                                            <select  class="custom-select  bg-light" name="jabatan" value="{{ old('jabatan')}}" >
                                                 <option value="" selected disabled hidden>Jabatan</option>
 
                                                 @foreach($jabatan as $jabatan)
 
-                                                <option value="{{$jabatan->OLEVEL4NAME}}" {{ old('jabatan') =="$jabatan->OLEVEL4NAME" ? 'selected' :'' }}>{{$jabatan->OLEVEL4NAME}}</option>
+                                                <option value="{{$jabatan->OLEVEL5NAME}}" {{ old('jabatan') =="$jabatan->OLEVEL5NAME" ? 'selected' :'' }}>{{ucwords(strtolower($jabatan->OLEVEL5NAME))}}</option>
 
                                                 @endforeach
 
@@ -76,12 +80,12 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <select id="jenis_harta" class="custom-select  bg-light" name="bahagian" value="{{ old('bahagian')}}" required>
+                                            <select id="jenis_harta" class="custom-select  bg-light" name="bahagian" value="{{ old('bahagian')}}" >
                                                 <option value="" selected disabled hidden>Bahagian</option>
 
                                                 @foreach($bahagian as $bahagian)
 
-                                                <option value="{{$bahagian->OLEVEL3NAME}}" {{ old('bahagian') =="$bahagian->OLEVEL3NAME" ? 'selected' :'' }}>{{$bahagian->OLEVEL3NAME}}</option>
+                                                <option value="{{$bahagian->OLEVEL4NAME}}" {{ old('bahagian') =="$bahagian->OLEVEL4NAME" ? 'selected' :'' }}>{{ucwords(strtolower($bahagian->OLEVEL4NAME))}}</option>
 
                                                 @endforeach
 
@@ -119,16 +123,17 @@
                                         <p class="required">i) Jenis</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <select id="jenis_gift" class="custom-select  bg-light" name="jenis_gift" value="{{old('jenis_gift')}}" >
-                                            <option value="" selected hidden></option>
+                                        <input id="jenis_gift" list="hadiah" class="custom-select  bg-light" name="jenis_gift" value="{{ old('jenis_gift')}}" placeholder="Sila masukan jenis hadiah" autocomplete="off" >
+                                          <datalist id="hadiah">
+                                            <option value="" selected disabled hidden>Jenis Hadiah</option>
 
                                             @foreach($jenisHadiah as $data)
                                             @if($data->status_jenis_hadiah == "Aktif")
-                                            <option value="{{$data->jenis_gift}}"  {{ old('jenis_gift') =="$data->jenis_gift" ? 'selected' :'' }}>{{$data->jenis_gift}}</option>
+                                            <option value="{{$data->jenis_gift}}">{{$data->jenis_gift}}</option>
                                             @endif
                                             @endforeach
-
-                                            </select>
+                                          </datalist>
+                                        </input>
                                       </div>
                                       @error('jenis_gift')
                                       <div class="alert alert-danger">
@@ -247,7 +252,7 @@
                                    <input type="checkbox" name="pengakuan" value="pengakuan_pegawai" ></div>
                                    <div class="col-md-11">
                                    <label for="pengakuan"> Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar.
-                                      Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan dirujuk kepada Jawatankuasa Tatatertib MCMC</label><br>
+                                      Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</label><br>
                                  </div>
                                  @error('pengakuan')
                                  <div class="alert alert-danger">

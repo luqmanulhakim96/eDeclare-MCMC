@@ -38,7 +38,7 @@ class CreateFormbsTable extends Migration
             $table->decimal('bulanan_koperasi_pegawai',10,2)->nullable();
             $table->decimal('jumlah_koperasi_pasangan',10,2)->nullable();
             $table->decimal('bulanan_koperasi_pasangan',10,2)->nullable();
-            $table->decimal('jumlah_pinjaman_pegawai',10,2,10,2)->nullable();
+            $table->decimal('jumlah_pinjaman_pegawai',10,2)->nullable();
             $table->decimal('jumlah_bulanan_pegawai',10,2)->nullable();
             $table->decimal('jumlah_pinjaman_pasangan',10,2)->nullable();
             $table->decimal('jumlah_bulanan_pasangan',10,2)->nullable();

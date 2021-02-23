@@ -53,7 +53,7 @@
                                 <input id="samaccountname" type="text" class="form-control badge-pill bg-light" name="samaccountname" value="{{ old('samaccountname') }}" required autocomplete="samaccountname" autofocus>
                                 @error('samaccountname')
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>These credential does not match our records</strong>
                                     </span>
                                 @enderror
                                 <!-- <label for="username" class="text-muted">Username</label>
@@ -78,15 +78,15 @@
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>These credential does not match our records</strong>
                                     </span>
                                 @enderror
                             </div>
                             <!-- Remember me checkbox -->
-                            <div class="custom-control custom-checkbox">
+                            <!-- <div class="custom-control custom-checkbox">
                                 <input id="my-input" class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                 <label for="my-input" class="custom-control-label">Remember me</label>
-                            </div>
+                            </div> -->
 
                             <button type="submit" class="btn btn-primary btn-outline-primary badge-pill btn-block w-75 m-auto">Sign in</button>
 

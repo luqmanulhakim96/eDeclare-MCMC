@@ -12,7 +12,7 @@ use romanzipp\QueueMonitor\Traits\IsMonitored;
 
 use App\Notifications\Form\AdminFormHodivG;
 
-class SendNotificationFormCHodiv implements ShouldQueue
+class SendNotificationFormGHodiv implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     use IsMonitored;

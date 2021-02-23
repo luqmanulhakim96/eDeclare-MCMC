@@ -180,7 +180,7 @@
                                          @enderror
                                       </div>
                                       <div class="col-md-4">
-                                          <input id="nilai_pelupusan" class="form-control bg-light" type="text" placeholder="Nilai Jualan" value="{{ old('nilai_pelupusan')}}">
+                                          <input id="nilai_pelupusan" class="form-control bg-light"  onkeypress="return onlyNumberKey(event)" type="text" placeholder="Nilai Jualan" value="{{ old('nilai_pelupusan')}}">
                                           @error('nilai_pelupusan_')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
@@ -239,8 +239,27 @@
                           <div class="col-md-9">
                           </div>
                           <div class="col-md-3">
+                            <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#save" >Simpan</button>
                             <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Hantar</button>
                             </div>
+                                  <div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-sm" role="document">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                          </div>
+                                          <div class="modal-body">
+                                          <p align="center">Simpan maklumat perisytiharan?</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                          <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                                          </div>
+                                      </div>
+                                      </div>
+                                  </div>
                                   <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                       <div class="modal-dialog modal-sm" role="document">
                                       <div class="modal-content">
@@ -308,7 +327,7 @@ function keterangan(){
  tarikh_pemilikan_to_append = '<input type="hidden" id="tarikh_pemilikan'+ increment_keterangan +'" name="tarikh_pemilikan_[]"  value="'+ tarikh_pemilikan +'" readonly>';
  tarikh_pelupusan_to_append = '<input type="hidden" id="tarikh_pelupusan'+ increment_keterangan +'" name="tarikh_pelupusan_[]"  value="'+ tarikh_pelupusan +'" readonly>';
  cara_pelupusan_to_append = '<input type="hidden" id="cara_pelupusan'+ increment_keterangan +'" name="cara_pelupusan_[]"  value="'+ cara_pelupusan +'" readonly>';
- nilai_pelupusan_to_append = '<input type="hidden" id="nilai_pelupusan'+ increment_keterangan +'" name="nilai_pelupusan_[]"  value="'+ nilai_pelupusan +'" readonly>';
+ nilai_pelupusan_to_append = '<input type="hidden" id="nilai_pelupusan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)" name="nilai_pelupusan_[]"  value="'+ nilai_pelupusan +'" readonly>';
  id_harta_to_append = '<input type="hidden" id="id_harta'+ increment_keterangan +'" name="id_harta_[]"  value="'+ id_harta +'" readonly>';
 
  increment_keterangan++;
@@ -479,5 +498,15 @@ var today = new Date();
  today = yyyy+'-'+mm+'-'+dd;
  document.getElementById("tarikh_pemilikan").setAttribute("max", today);
 
+</script>
+<script>
+function onlyNumberKey(evt) {
+
+    // Only ASCII charactar in that range allowed
+    var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+        return false;
+    return true;
+}
 </script>
 @endsection

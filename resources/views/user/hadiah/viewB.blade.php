@@ -23,7 +23,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$info->users->name }}
+                                              {{$info->nama_pegawai }}
                                           </div>
                                       </div>
                                   </div>
@@ -33,7 +33,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$info->users->kad_pengenalan }}
+                                              {{$info->no_kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -43,17 +43,28 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                          {{$info->users->jawatan }}
+                                          {{$info->jawatan }}
                                           </div>
                                       </div>
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                        Jabatan/ Bahagian
+                                        Jabatan
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{ $info->jabatan}}
+                                              {{ ucwords(strtolower($info->jabatan))}}
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                        Bahagian
+                                      </div>
+                                      <div class="col-md-8">
+                                          <div class="form-group">
+                                              {{ ucwords(strtolower($info->bahagian))}}
                                           </div>
                                       </div>
                                   </div>

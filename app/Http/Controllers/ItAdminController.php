@@ -146,8 +146,9 @@ class ItAdminController extends Controller
         // dd($userldap);
         // $user = UserExistingStaffNextofKin::first();
         // $user = UserExistingStaffNextofKin::where('STAFFNO','522')->get();
-        // $user = UserExistingStaffInfo::first();
-        // dd($user);
+        // $user = UserExistingStaffInfo::get()->groupBy('DESCRIPTION');
+        $user = UserExistingStaffInfo::where('USERNAME','NIKHUSNA')->get();
+        dd($user);
         // $user = UserExistingStaff::first();
         // dd($user);
 

@@ -115,7 +115,13 @@ class FormBController extends Controller
         $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
-        return view('user.harta.FormB.formB-has-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+
+        foreach ($data_user as $data) {
+        // dd($data->id);
+        $harta[]= HartaB::where('formbs_id',$data->id)->get();
+        // dd($harta);
+      }
+        return view('user.harta.FormB.formB-has-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user','harta'));
 
       }
 
@@ -133,7 +139,7 @@ class FormBController extends Controller
   }
 
   public function editformB($id){
-    //$info = SenaraiHarga::find(1);
+    // $info = SenaraiHarga::find(1);
     $info = FormB::findOrFail($id);
     // dd($info);
     $jenisHarta = JenisHarta::get();
@@ -226,7 +232,7 @@ public function add(array $data){
   public function adddraft(array $data){
     $userid = Auth::user()->id;
     $sedang_proses= "Disimpan ke Draf";
-    // dd($sedang_proses);
+    // dd($data);
 
       return FormB::create([
         'no_staff' => $data['no_staff'],
@@ -289,14 +295,14 @@ public function add(array $data){
       'dividen_1_pasangan[]' => ['nullable', 'numeric'],
       'pendapatan_pegawai' => ['nullable', 'numeric'],
       'pendapatan_pasangan' => ['nullable', 'numeric'],
-      'pinjaman_perumahan_pegawai' => ['nullable', 'numeric'],
-      'bulanan_perumahan_pegawai' =>['nullable', 'numeric'],
-      'pinjaman_perumahan_pasangan' => ['nullable', 'numeric'],
-      'bulanan_perumahan_pasangan' => ['nullable', 'numeric'],
-      'pinjaman_kenderaan_pegawai' => ['nullable', 'numeric'],
-      'bulanan_kenderaan_pegawai' => ['nullable', 'numeric'],
-      'pinjaman_kenderaan_pasangan' => ['nullable', 'numeric'],
-      'bulanan_kenderaan_pasangan' =>['nullable', 'numeric'],
+      'pinjaman_perumahan_pegawai' => ['nullable'],
+      'bulanan_perumahan_pegawai' =>['nullable'],
+      'pinjaman_perumahan_pasangan' => ['nullable'],
+      'bulanan_perumahan_pasangan' => ['nullable'],
+      'pinjaman_kenderaan_pegawai' => ['nullable'],
+      'bulanan_kenderaan_pegawai' => ['nullable'],
+      'pinjaman_kenderaan_pasangan' => ['nullable'],
+      'bulanan_kenderaan_pasangan' =>['nullable'],
       'jumlah_cukai_pegawai' =>['nullable', 'numeric'],
       'bulanan_cukai_pegawai' => ['nullable', 'numeric'],
       'jumlah_cukai_pasangan' => ['nullable', 'numeric'],
@@ -386,14 +392,14 @@ public function add(array $data){
         }
       }
     }
-    if ($validator->fails())
-    {
-        foreach ($validator->messages()->getMessages() as $field_name => $messages)
-        {
-            $message[] = $messages; // messages are retrieved (publicly)
-        }
-        dd($message);
-    }
+    // if ($validator->fails())
+    // {
+    //     foreach ($validator->messages()->getMessages() as $field_name => $messages)
+    //     {
+    //         $message[] = $messages; // messages are retrieved (publicly)
+    //     }
+    //     dd($message);
+    // }
   }
 
 
@@ -411,14 +417,14 @@ public function add(array $data){
       'dividen_1_pasangan[]' => ['nullable', 'numeric'],
       'pendapatan_pegawai' => ['nullable', 'numeric'],
       'pendapatan_pasangan' => ['nullable', 'numeric'],
-      'pinjaman_perumahan_pegawai' => ['nullable', 'numeric'],
-      'bulanan_perumahan_pegawai' =>['nullable', 'numeric'],
-      'pinjaman_perumahan_pasangan' => ['nullable', 'numeric'],
-      'bulanan_perumahan_pasangan' => ['nullable', 'numeric'],
-      'pinjaman_kenderaan_pegawai' => ['nullable', 'numeric'],
-      'bulanan_kenderaan_pegawai' => ['nullable', 'numeric'],
-      'pinjaman_kenderaan_pasangan' => ['nullable', 'numeric'],
-      'bulanan_kenderaan_pasangan' =>['nullable', 'numeric'],
+      'pinjaman_perumahan_pegawai' => ['nullable'],
+      'bulanan_perumahan_pegawai' =>['nullable'],
+      'pinjaman_perumahan_pasangan' => ['nullable'],
+      'bulanan_perumahan_pasangan' => ['nullable'],
+      'pinjaman_kenderaan_pegawai' => ['nullable'],
+      'bulanan_kenderaan_pegawai' => ['nullable'],
+      'pinjaman_kenderaan_pasangan' => ['nullable'],
+      'bulanan_kenderaan_pasangan' =>['nullable'],
       'jumlah_cukai_pegawai' =>['nullable', 'numeric'],
       'bulanan_cukai_pegawai' => ['nullable', 'numeric'],
       'jumlah_cukai_pasangan' => ['nullable', 'numeric'],
@@ -436,15 +442,6 @@ public function add(array $data){
       'jumlah_bulanan_pegawai' =>['nullable', 'numeric'],
       'jumlah_pinjaman_pasangan' => ['nullable', 'numeric'],
       'jumlah_bulanan_pasangan' => ['nullable', 'numeric'],
-      'jenis_harta_[]' => ['nullable', 'string'],
-      'pemilik_harta_[]' => ['nullable', 'string'],
-      'select_hubungan_[]' => ['nullable', 'string'],
-      'maklumat_harta_[]' =>['nullable', 'string'],
-      'tarikh_pemilikan_harta_[]' =>['nullable', 'string'],
-      'bilangan_[]' =>['nullable', 'string'],
-      'nilai_perolehan_[]' => ['nullable', 'string'],
-      'cara_perolehan_[]' => ['nullable', 'string'],
-      'nama_pemilikan_asal_[]' => ['nullable', 'string'],
       // 'company_name' => 'required_if:is_company,1',
       'jenis_harta_' => ['nullable', 'array'],
       'jenis_harta_.*' => ['nullable', 'string'],
@@ -462,33 +459,32 @@ public function add(array $data){
       'nilai_perolehan_.*' => ['nullable', 'numeric'],
       'cara_perolehan_' => ['nullable', 'array'],
       'cara_perolehan_.*' => ['nullable', 'string'],
-
       'nama_pemilikan_asal_' => ['array'],
       'nama_pemilikan_asal_.*' => ['nullable', 'string'],
-'lain_lain_' => ['array'],
+      'lain_lain_' => ['array'],
       'lain_lain_.*' => ['nullable', 'string'],
-'cara_belian_' => ['array'],
-          'cara_belian_.*' => ['nullable', 'string'],
-          'jumlah_pinjaman_' => ['array'],
-          'jumlah_pinjaman_.*' => ['nullable', 'string'],
-          'institusi_pinjaman_' => ['array'],
-          'institusi_pinjaman_.*' => ['nullable', 'string'],
-          'tempoh_bayar_balik_' => ['array'],
-          'tempoh_bayar_balik_.*' => ['nullable', 'string'],
-          'ansuran_bulanan_' => ['array'],
-          'ansuran_bulanan_.*' => ['nullable', 'string'],
-          'tarikh_ansuran_pertama_' => ['array'],
-          'tarikh_ansuran_pertama_.*' => ['nullable', 'date'],
-'jenis_harta_pelupusan_' => ['array'],
-          'jenis_harta_pelupusan_.*' => ['nullable', 'string'],
-          'alamat_asset_' => ['array'],
-          'alamat_asset_.*' => ['nullable', 'string'],
-          'no_pendaftaran_' => ['array'],
-          'no_pendaftaran_.*' => ['nullable', 'string'],
-          'harga_jualan_' => ['array'],
-          'harga_jualan_.*' => ['nullable', 'string'],
-          'tarikh_lupus_' => ['array'],
-          'tarikh_lupus_.*' => ['nullable', 'date'],
+      'cara_belian_' => ['array'],
+      'cara_belian_.*' => ['nullable', 'string'],
+      'jumlah_pinjaman_' => ['array'],
+      'jumlah_pinjaman_.*' => ['nullable', 'string'],
+      'institusi_pinjaman_' => ['array'],
+      'institusi_pinjaman_.*' => ['nullable', 'string'],
+      'tempoh_bayar_balik_' => ['array'],
+      'tempoh_bayar_balik_.*' => ['nullable', 'string'],
+      'ansuran_bulanan_' => ['array'],
+      'ansuran_bulanan_.*' => ['nullable', 'string'],
+      'tarikh_ansuran_pertama_' => ['array'],
+      'tarikh_ansuran_pertama_.*' => ['nullable', 'date'],
+      'jenis_harta_pelupusan_' => ['array'],
+      'jenis_harta_pelupusan_.*' => ['nullable', 'string'],
+      'alamat_asset_' => ['array'],
+      'alamat_asset_.*' => ['nullable', 'string'],
+      'no_pendaftaran_' => ['array'],
+      'no_pendaftaran_.*' => ['nullable', 'string'],
+      'harga_jualan_' => ['array'],
+      'harga_jualan_.*' => ['nullable', 'string'],
+      'tarikh_lupus_' => ['array'],
+      'tarikh_lupus_.*' => ['nullable', 'date'],
 
     ]);
   }
@@ -680,10 +676,9 @@ public function add(array $data){
   }
 }
 
-    public function update($id){
+    public function update($id,$sedang_proses){
       // dd($request->all());
       $formbs = FormB::find($id);
-      $sedang_proses= "Sedang Diproses";
       $formbs->gaji_pasangan  = request()->gaji_pasangan;
       $formbs->jumlah_imbuhan  = request()->jumlah_imbuhan;
       $formbs->jumlah_imbuhan_pasangan = request()->jumlah_imbuhan_pasangan;
@@ -715,6 +710,130 @@ public function add(array $data){
 
      public function updateFormB(Request $request,$id){
        // dd(request()->all());
+       if ($request->has('save')){
+        $this->validatorsave(request()->all())->validate();
+        $formbs = FormB::find($id);
+        $count_div = DividenB::where('formbs_id', $formbs->id)->get();
+        $count = count($count_div);
+
+        for ($i=0; $i < $count; $i++) {
+        $id_dividen = DividenB::where('formbs_id', $formbs->id)->get();
+        // dd(count($id_dividen));
+        for ($i=0; $i < count($id_dividen) ; $i++) {
+          // dd($id_dividen[$i]->id);
+          $dividen_b = DividenB::findOrFail($id_dividen[$i]->id);
+          // dd($dividen_b);
+          $dividen_b->delete();
+        }
+      }
+
+        // $formbs = FormB::find($id);
+        $count_pinjaman = PinjamanB::where('formbs_id', $formbs->id)->get();
+        $count_loan = count($count_pinjaman);
+
+        for ($i=0; $i < $count_loan; $i++) {
+        $id_pinjaman = PinjamanB::where('formbs_id', $formbs->id)->get();
+        // dd(count($id_dividen));
+        for ($i=0; $i < count($id_pinjaman) ; $i++) {
+          // dd($id_dividen[$i]->id);
+          $pinjaman_b = PinjamanB::findOrFail($id_pinjaman[$i]->id);
+           // dd($pinjaman_b);
+          $pinjaman_b->delete();
+        }
+      }
+
+
+        $count1 = count($request->dividen_1);
+        // dd($request->dividen_1);
+        // dd($count1);
+        $count = 0;
+        // for ($i=key($request->dividen_1); $i <= $count1; $i++) {
+        for ($i=0; $i < $count1; $i++) {
+          $count++;
+          $dividen_bs = new DividenB();
+          $dividen_bs->dividen_1 = $request->dividen_1[$i];
+          $dividen_bs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
+          $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+          $dividen_bs->formbs_id = $formbs-> id;
+          $dividen_bs->dividen_id = $count;
+          //dd($request->all());
+          $dividen_bs->save();
+      }
+
+      $count2 = count($request->lain_lain_pinjaman);
+      $count = 0;
+
+      // for ($i=key($request->lain_lain_pinjaman); $i <= $count2; $i++) {
+      for ($i=0; $i < $count2; $i++) {
+        $count++;
+        $pinjaman_bs = new PinjamanB();
+        $pinjaman_bs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
+        $pinjaman_bs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
+        $pinjaman_bs->bulanan_pegawai = $request->bulanan_pegawai[$i];
+        $pinjaman_bs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
+        $pinjaman_bs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+        $pinjaman_bs->formbs_id = $formbs-> id;
+        $pinjaman_bs->pinjaman_id = $count;
+        $pinjaman_bs->save();
+            // dd($this->all());
+      }
+
+      //HartaB
+      $hartaB= HartaB::where('formbs_id',$formbs->id)->get();
+      // dd($hartaB);
+      foreach ($hartaB as $data) {
+        $data=HartaB::findOrFail($data->id);
+        $data->delete();
+        // $data->save();
+      }
+
+      if($request->jenis_harta_){
+        $count_harta = count($request->jenis_harta_);
+      }
+      else {
+        $count_harta = 0;
+      }
+
+      // $hartaB= HartaB::where('formbs_id',$formbs->id)->get();
+      // dd($hartaB);
+
+      for ($i=0; $i < $count_harta; $i++) {
+
+        $hartaB = new HartaB();
+        $hartaB->jenis_harta = $request->jenis_harta_[$i];
+        $hartaB->pemilik_harta = $request->pemilik_harta_[$i];
+        $hartaB->hubungan_pemilik = $request->select_hubungan_[$i];
+        $hartaB->maklumat_harta = $request->maklumat_harta_[$i];
+        $hartaB->tarikh_pemilikan_harta = $request->tarikh_pemilikan_harta_[$i];
+        $hartaB->bilangan = $request->bilangan_[$i];
+        $hartaB->nilai_perolehan = $request->nilai_perolehan_[$i];
+        $hartaB->cara_perolehan = $request->cara_perolehan_[$i];
+        $hartaB->lain_lain = $request->lain_lain_[$i];
+        $hartaB->cara_belian = $request->cara_belian_[$i];
+        $hartaB->nama_pemilikan_asal = $request->nama_pemilikan_asal_[$i];
+        $hartaB->jumlah_pinjaman = $request->jumlah_pinjaman_[$i];
+        $hartaB->institusi_pinjaman = $request->institusi_pinjaman_[$i];
+        $hartaB->tempoh_bayar_balik = $request->tempoh_bayar_balik_[$i];
+        $hartaB->ansuran_bulanan = $request->ansuran_bulanan_[$i];
+        $hartaB->tarikh_ansuran_pertama = $request->tarikh_ansuran_pertama_[$i];
+        $hartaB->jenis_harta_pelupusan = $request->jenis_harta_pelupusan_[$i];
+        $hartaB->alamat_asset = $request->alamat_asset_[$i];
+        $hartaB->no_pendaftaran = $request->no_pendaftaran_[$i];
+        $hartaB->harga_jualan = $request->harga_jualan_[$i];
+        $hartaB->tarikh_lupus = $request->tarikh_lupus_[$i];
+        $hartaB->formbs_id = $formbs-> id;
+        $hartaB->save();
+      }
+
+      $sedang_proses ="Disimpan ke Draf";
+      //ni masuk update function
+      $this->update($id,$sedang_proses);
+
+
+      return redirect()->route('user.harta.senaraidraft');
+    }
+
+       else if($request->has('publish')){
         $this->validatorpublish(request()->all())->validate();
 
         $formbs = FormB::find($id);
@@ -830,8 +949,9 @@ public function add(array $data){
         $hartaB->save();
       }
 
+      $sedang_proses ="Sedang Diproses";
       //ni masuk update function
-      $this->update($id);
+      $this->update($id,$sedang_proses);
 
       //send notification to admin (noti yang dia dah berjaya declare)
       $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
@@ -846,5 +966,7 @@ public function add(array $data){
 
       return redirect()->route('user.harta.FormB.senaraihartaB');
     }
+  }
+
 
 }

@@ -23,7 +23,7 @@
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-                              <form action="{{route('d.update', $info->id)}}" method="POST">
+                              <form action="{{route('d.update', $info->id)}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
@@ -143,7 +143,7 @@
                                         <p class="required">v) Pulangan Perniagaan Tahunan</p>
                                     </div>
                                     <div class="col-md-8">
-                                       <input class="form-control bg-light" type="text" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ $info->pulangan_tahunan  }}" required>
+                                       <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ $info->pulangan_tahunan  }}" required>
                                        @error('pulangan_tahunan')
                                           <div class="alert alert-danger">{{ $message }}</div>
                                       @enderror
@@ -155,7 +155,7 @@
                                         <p class="required">vi) Modal Dibenarkan</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ $info->modal_syarikat  }}" required>
+                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ $info->modal_syarikat  }}" required>
                                         @error('modal_syarikat')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
@@ -167,7 +167,7 @@
                                       <p class="required">vii) Modal Berbayar (Paid Up Capital)</p>
                                   </div>
                                   <div class="col-md-8">
-                                      <input class="form-control bg-light" type="text" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ $info->modal_dibayar  }}" required>
+                                      <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ $info->modal_dibayar  }}" required>
                                       @error('modal_dibayar')
                                          <div class="alert alert-danger">{{ $message }}</div>
                                      @enderror
@@ -259,13 +259,13 @@
                                    </div>
                                    </div>
                                    <div class="col-md-2">
-                                       <input class="form-control bg-light" type="text" name="jumlah_saham[]" placeholder=" "  value="{{ $data->jumlah_saham  }}">
+                                       <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_saham[]" placeholder=" "  value="{{ $data->jumlah_saham  }}">
                                        @error('jumlah_saham[]')
                                           <div class="alert alert-danger">{{ $message }}</div>
                                       @enderror
                                    </div>
                                    <div class="col-md-2">
-                                       <input class="form-control bg-light" type="text" name="nilai_saham[]" placeholder=" "  value="{{ $data->nilai_saham  }}">
+                                       <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="nilai_saham[]" placeholder=" "  value="{{ $data->nilai_saham  }}">
                                        @error('nilai_saham[]')
                                           <div class="alert alert-danger">{{ $message }}</div>
                                       @enderror
@@ -301,7 +301,7 @@
                                   counter_keluarga++;
                                   console.log(counter_keluarga);
 
-                                  $(wrapper).append('<div id="keluarga_add'+counter_keluarga+'" class="row"><div class="col-md-2"><input class="form-control bg-light" type="text" name="nama_ahli[]" placeholder=" "></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="hubungan[]"><option value="" selected disabled hidden>Pilih Hubungan</option><option value="Isteri">Isteri</option><option value="Suami">Suami</option><option value="Anak">Anak</option><option value="Lain-Lain">Lain-Lain</option></select></div></div></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat[]"><option value=" " selected disabled hidden>Pilih Jawatan</option><option value="Pemilik Saham">Pemilik Saham</option><option value="Pengarah/ Lembaga Pengarah">Pengarah/ Lembaga Pengarah</option></select></div></div></div><div class="col-md-2"><input class="form-control bg-light" type="text" name="jumlah_saham[]" placeholder=" "></div><div class="col-md-2"> <input class="form-control bg-light" type="text" name="nilai_saham[]" placeholder=" "></div><div class="col-md-1"><a onClick="removeData(this, '+
+                                  $(wrapper).append('<div id="keluarga_add'+counter_keluarga+'" class="row"><div class="col-md-2"><input class="form-control bg-light" type="text" name="nama_ahli[]" placeholder=" "></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="hubungan[]"><option value="" selected disabled hidden>Pilih Hubungan</option><option value="Isteri">Isteri</option><option value="Suami">Suami</option><option value="Anak">Anak</option><option value="Lain-Lain">Lain-Lain</option></select></div></div></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat[]"><option value=" " selected disabled hidden>Pilih Jawatan</option><option value="Pemilik Saham">Pemilik Saham</option><option value="Pengarah/ Lembaga Pengarah">Pengarah/ Lembaga Pengarah</option></select></div></div></div><div class="col-md-2"><input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_saham[]" placeholder=" "></div><div class="col-md-2"> <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="nilai_saham[]" placeholder=" "></div><div class="col-md-1"><a onClick="removeData(this, '+
                                   counter_keluarga+
                                   ' ); return false;" id ="button'+counter_keluarga+'"class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a><br><br></div></div></div>');
 
@@ -335,22 +335,26 @@
                                   </div>
                               </div>
 
-                                <div class="row">
+
                                   <?php $i=0; ?>
                                   @foreach($dokumen_syarikat as $dokumen_syarikat)
                                     @if($dokumen_syarikat->dokumen_syarikat != NULL)
                                     <?php $i++; ?>
+                                    <div class="row">
                                    <div class="col-md-4">
                                         <a href="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}"> Dokumen <?php echo $i; ?></a>
+
                                    </div>
+                                   </div>
+
                                    @endif
                                  @endforeach
-                                </div>
+
 
                               <div class="row">
                                  <div class="col-md-4">
                                    <label for="dokumen_syarikat">Muatnaik Dokumen Syarikat:</label>
-                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat" aria-describedby="dokumen_syarikat" value="$dokumen_syarikat->dokumen_syarikat[]">
+                                      <input type="file" class="form-control bg-light" id="dokumen_syarikat" name="dokumen_syarikat[]" aria-describedby="dokumen_syarikat" multiple>
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
                                         @error('dokumen_syarikat[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
@@ -364,7 +368,7 @@
                      <br>
                      <div class="row">
                        <div class="col-md-1" align="right">
-                         <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
+                         <input type="checkbox" name="pengakuan" value="pengakuan pegawai" >
                        </div>
                        <div class="col-md-11">
                            <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
@@ -378,10 +382,10 @@
                            <div class="col-md-10">
                              </div>
                              <div class="col-md-2">
-                               <!-- <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#save" >Simpan</button> -->
+                               <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#save" >Simpan</button>
                                <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Hantar</button>
                                </div>
-                                   <!-- <div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                   <div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                        <div class="modal-dialog modal-sm" role="document">
                                        <div class="modal-content">
                                            <div class="modal-header">
@@ -398,8 +402,7 @@
                                            </div>
                                        </div>
                                        </div>
-                                   </div> -->
-
+                                   </div>
                                      <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                          <div class="modal-dialog modal-sm" role="document">
                                          <div class="modal-content">
@@ -421,4 +424,14 @@
                         </div>
                       </form>
                     </div>
+                    <script>
+                    function onlyNumberKey(evt) {
+
+                        // Only ASCII charactar in that range allowed
+                        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+                        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                            return false;
+                        return true;
+                    }
+                    </script>
 @endsection

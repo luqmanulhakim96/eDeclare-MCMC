@@ -131,6 +131,7 @@ class FormGController extends Controller
 public function editformG($id){
     //$info = SenaraiHarga::find(1);
     $info = FormG::findOrFail($id);
+    // dd($info);
     $username =strtoupper(Auth::user()->username);
     $salary = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
@@ -174,7 +175,6 @@ public function editformG($id){
         'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
         'jabatan' => $data['jabatan'],
         'tarikh_lantikan' => $data['tarikh_lantikan'],
-        'nama_perkhidmatan' => $data['nama_perkhidmatan'],
         'gelaran' => $data['gelaran'],
         'gaji' => $data['gaji'],
         'gaji_pasangan' => $data['gaji_pasangan'],
@@ -250,7 +250,6 @@ public function add(array $data){
       'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
       'jabatan' => $data['jabatan'],
       'tarikh_lantikan' => $data['tarikh_lantikan'],
-      'nama_perkhidmatan' => $data['nama_perkhidmatan'],
       'gelaran' => $data['gelaran'],
       'nama_pegawai' => $data['nama_pegawai'],
       'kad_pengenalan' => $data['kad_pengenalan'],
@@ -328,7 +327,6 @@ public function add(array $data){
       'gaji' =>['nullable', 'string'],
       'jabatan' =>['nullable', 'string'],
       'tarikh_lantikan'  =>['nullable', 'date'],
-      'nama_perkhidmatan' =>['nullable', 'string'],
       'gelaran'  =>['nullable', 'string'],
       'gaji_pasangan' =>['nullable', 'numeric'],
       'jumlah_imbuhan' => ['nullable', 'numeric'],
@@ -396,8 +394,7 @@ public function add(array $data){
       'gaji' =>['nullable', 'string'],
       'jabatan' =>['nullable', 'string'],
       'tarikh_lantikan'  =>['required', 'date'],
-      'nama_perkhidmatan' =>['required', 'string'],
-      'gelaran'  =>['required', 'string'],
+      'gelaran'  =>['nullable', 'string'],
       'gaji_pasangan' =>['nullable', 'numeric'],
       'jumlah_imbuhan' => ['nullable', 'numeric'],
       'jumlah_imbuhan_pasangan' =>['nullable', 'numeric'],
@@ -592,10 +589,8 @@ public function add(array $data){
   }
 }
 
-public function update($id){
-  $sedang_proses= "Sedang Diproses";
+public function update($id,$sedang_proses){
   $formgs = FormG::find($id);
-  $formgs->nama_perkhidmatan  = request()->nama_perkhidmatan;
   $formgs->gelaran  = request()->gelaran;
   $formgs->gaji_pasangan  = request()->gaji_pasangan;
   $formgs->jumlah_imbuhan  = request()->jumlah_imbuhan;
@@ -649,6 +644,117 @@ public function update($id){
 
 public function updateFormG(Request $request,$id){
   // dd($request->all());
+  if($request->has('save')){
+    $this->validatordraft(request()->all())->validate();
+
+    $formgs = FormG::find($id);
+
+    $count_div = DividenG::where('formgs_id', $formgs->id)->get();
+    $count = count($count_div);
+
+    for ($i=0; $i < $count; $i++) {
+    $id_dividen = DividenG::where('formgs_id', $formgs->id)->get();
+     // dd($id_dividen);
+     for ($i=0; $i < count($id_dividen) ; $i++) {
+       // dd($id_dividen[$i]->id);
+       $dividen_g = DividenG::findOrFail($id_dividen[$i]->id);
+       // dd($dividen_b);
+       $dividen_g->delete();
+     }
+  }
+
+    $count_pinjaman = PinjamanG::where('formgs_id', $formgs->id)->get();
+    $count_loan = count($count_pinjaman);
+
+    for ($i=0; $i < $count_loan; $i++) {
+    $id_pinjaman = PinjamanG::where('formgs_id', $formgs->id)->get();
+    // dd(count($id_dividen));
+    for ($i=0; $i < count($id_pinjaman) ; $i++) {
+      // dd($id_dividen[$i]->id);
+      $pinjaman_g = PinjamanG::findOrFail($id_pinjaman[$i]->id);
+       // dd($pinjaman_b);
+      $pinjaman_g->delete();
+    }
+  }
+
+    $count_pinjam = Pinjaman::where('formgs_id', $formgs->id)->get();
+    $count_loan1 = count($count_pinjam);
+
+    for ($i=0; $i < $count_loan1; $i++) {
+    $id_pinjam = Pinjaman::where('formgs_id', $formgs->id)->get();
+    // dd(count($id_dividen));
+    for ($i=0; $i < count($id_pinjam) ; $i++) {
+      // dd($id_dividen[$i]->id);
+      $pinjaman = Pinjaman::findOrFail($id_pinjam[$i]->id);
+       // dd($pinjaman_b);
+      $pinjaman->delete();
+    }
+  }
+
+  $count1 = count($request->dividen_1);
+  // dd($request->dividen_1);
+  // dd($count1);
+  $count = 0;
+  for ($i=0; $i < $count1; $i++) {
+  $count++;
+  $dividen_gs = new DividenG();
+  $dividen_gs->dividen_1 = $request->dividen_1[$i];
+  $dividen_gs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
+  $dividen_gs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+  $dividen_gs->formgs_id = $formgs-> id;
+  $dividen_gs->dividen_id = $count;
+  $dividen_gs->save();
+
+  }
+
+  $count2 = count($request->lain_lain_pinjaman);
+  $count = 0;
+  for ($i=0; $i < $count2; $i++) {
+  $count++;
+  $pinjaman_gs = new PinjamanG();
+  $pinjaman_gs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
+  $pinjaman_gs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
+  $pinjaman_gs->bulanan_pegawai = $request->bulanan_pegawai[$i];
+  $pinjaman_gs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
+  $pinjaman_gs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+  $pinjaman_gs->formgs_id = $formgs-> id;
+  $pinjaman_gs->pinjaman_id = $count;
+  $pinjaman_gs->save();
+  // dd($this->all());
+  }
+
+  $count3 = count($request->institusi);
+  $count = 0;
+  for ($i=0; $i < $count3; $i++) {
+  $count++;
+  $pinjaman = new Pinjaman();
+  $pinjaman->institusi = $request->institusi[$i];
+  $pinjaman->alamat_institusi = $request->alamat_institusi[$i];
+  $pinjaman->ansuran_bulanan = $request->ansuran_bulanan[$i];
+  $pinjaman->tarikh_ansuran = $request->tarikh_ansuran[$i];
+  $pinjaman->tempoh_pinjaman = $request->tempoh_pinjaman[$i];
+  $pinjaman->formgs_id = $formgs-> id;
+  $pinjaman->pinjaman_id = $count;
+  $pinjaman->save();
+  // dd($this->all());
+  }
+
+    if($request ->status =='Disimpan ke Draf'){
+      //send notification to admin (noti yang dia dah berjaya declare)
+      $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
+      // $email = null; // for testing
+      $admin_available = User::where('role','=','1')->get(); //get system admin information
+      // if ($email) {
+        foreach ($admin_available as $data) {
+          // $formgs->notify(new UserFormAdminG($data, $email));
+          $this->dispatch(new SendNotificationFormG($data, $email, $formgs));
+        }
+    }
+    $sedang_proses="Disimpan ke Draf";
+    $this->update($id,$sedang_proses);
+    return redirect()->route('user.harta.senaraidraft');
+  }
+  else if($request->has('publish')){
   $this->validator(request()->all())->validate();
 
   $formgs = FormG::find($id);
@@ -743,7 +849,7 @@ $pinjaman->save();
 // dd($this->all());
 }
 
-  if($request ->status =='Disimpan ke Draf'){
+
     //send notification to admin (noti yang dia dah berjaya declare)
     $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
     // $email = null; // for testing
@@ -753,12 +859,12 @@ $pinjaman->save();
         // $formgs->notify(new UserFormAdminG($data, $email));
         $this->dispatch(new SendNotificationFormG($data, $email, $formgs));
       }
-  }
 
-  $this->update($id);
+  $sedang_proses="Sedang Diproses";
+  $this->update($id,$sedang_proses);
   return redirect()->route('user.harta.FormG.senaraihartaG');
 }
 
-
+}
 
 }
