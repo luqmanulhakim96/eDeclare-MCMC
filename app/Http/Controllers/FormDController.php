@@ -137,7 +137,7 @@ public function add(array $data){
       'jawatan_syarikat[]' => ['nullable', 'string'],
       'jumlah_saham[]' => ['nullable', 'string'],
       'nilai_saham[]' => ['nullable', 'string'],
-      'dokumen_syarikat[]' => ['required', 'max:100000'],
+      'dokumen_syarikat' => ['required', 'max:100000'],
       'pengakuan' => ['required'],
 
     ]);
@@ -213,6 +213,8 @@ protected function validatordraft(array $data)
   }
   else if ($request->has('publish'))
   {
+    // dd($request->all());
+
     $this->validator($request->all())->validate();
     // dd($request->all());
 
@@ -260,8 +262,7 @@ protected function validatordraft(array $data)
   }
 
 }
-public function update($id){
-  $sedang_proses= "Sedang Diproses";
+public function update($id,$sedang_proses){
   $formds = FormD::find($id);
   $formds->nama_syarikat = request()->nama_syarikat;
   $formds->no_pendaftaran_syarikat = request()->no_pendaftaran_syarikat;
@@ -271,7 +272,6 @@ public function update($id){
   $formds->modal_syarikat = request()->modal_syarikat;
   $formds->modal_dibayar = request()->modal_dibayar;
   $formds->punca_kewangan = request()->punca_kewangan;
-  $formds->dokumen_syarikat = request()->dokumen_syarikat;
   $formds->pengakuan = request()->pengakuan;
   $formds->status= $sedang_proses;
   $formds->save();
@@ -280,54 +280,151 @@ public function update($id){
 }
 
 public function updateFormD(Request $request,$id){
-  $this->validator(request()->all())->validate();
-  //dd($request->all());
+// dd($request->all());
 
-  $formds = FormD::find($id);
+  if($request->has('save')){
+    $this->validatordraft(request()->all())->validate();
 
-  $count_d = Keluarga::where('formds_id', $formds->id)->get();
-  $count = count($count_d);
-  // dd($count);
+    $formds = FormD::find($id);
 
-  for ($i=0; $i < $count; $i++) {
-  $id_keluarga = Keluarga::where('formds_id', $formds->id)->get('id');
-  // dd($id_d);
-  for ($i=0; $i < count($id_keluarga) ; $i++) {
+    $count_d = Keluarga::where('formds_id', $formds->id)->get();
+    $count = count($count_d);
+    // dd($count);
 
-  $keluargas = Keluarga::findOrFail($id_keluarga[$i]->id);
-  $keluargas->delete();
+    for ($i=0; $i < $count; $i++) {
+    $id_keluarga = Keluarga::where('formds_id', $formds->id)->get('id');
+    // dd($id_d);
+    for ($i=0; $i < count($id_keluarga) ; $i++) {
+
+    $keluargas = Keluarga::findOrFail($id_keluarga[$i]->id);
+    $keluargas->delete();
+    }
   }
-}
 
-  $count1 = count($request->nama_ahli);
-  $count = 0;
+    $count1 = count($request->nama_ahli);
+    $count = 0;
 
-  for ($i=0; $i < $count1; $i++) {
-  $count++;
-  $keluargas = new Keluarga();
-  $keluargas->nama_ahli = $request->nama_ahli[$i];
-  $keluargas->hubungan = $request->hubungan[$i];
-  $keluargas->jawatan_syarikat = $request->jawatan_syarikat[$i];
-  $keluargas->jumlah_saham = $request->jumlah_saham[$i];
-  $keluargas->nilai_saham = $request->nilai_saham[$i];
-  $keluargas->formds_id = $formds-> id;
-  $keluargas->keluarga_id = $count;
-  //dd($request->all());
-  $keluargas->save();
+    for ($i=0; $i < $count1; $i++) {
+    $count++;
+    $keluargas = new Keluarga();
+    $keluargas->nama_ahli = $request->nama_ahli[$i];
+    $keluargas->hubungan = $request->hubungan[$i];
+    $keluargas->jawatan_syarikat = $request->jawatan_syarikat[$i];
+    $keluargas->jumlah_saham = $request->jumlah_saham[$i];
+    $keluargas->nilai_saham = $request->nilai_saham[$i];
+    $keluargas->formds_id = $formds-> id;
+    $keluargas->keluarga_id = $count;
+    $keluargas->save();
+  }
+  if($request->hasFile('dokumen_syarikat')) {
+    $count_file = DokumenSyarikat::where('formds_id', $formds->id)->get();
+    $count = count($count_file);
+    // dd($count);
 
-}
-  if($request ->status =='Disimpan ke Draf'){
-    //send notification to admin (noti yang dia dah berjaya declare)
-    $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
-    // $email = null; // for testing
-    $admin_available = User::where('role','=','1')->get(); //get system admin information
-    // if ($email) {
-      foreach ($admin_available as $data) {
-        $this->dispatch(new SendNotificationFormD($data, $email, $formds));
-        // $formds->notify(new UserFormAdminC($data, $email));
+    for ($i=0; $i < $count; $i++) {
+    $id_file = DokumenSyarikat::where('formds_id', $formds->id)->get('id');
+    // dd($id_d);
+    for ($i=0; $i < count($id_file) ; $i++) {
+
+    $dokumen = DokumenSyarikat::findOrFail($id_file[$i]->id);
+    $dokumen->delete();
+    }
+  }
+    foreach($request->dokumen_syarikat as $file)
+    {
+      // dd($file);
+        $file_syarikat = new DokumenSyarikat();
+        $file_syarikat->dokumen_syarikat = $file->store('public/uploads/dokumen_syarikat');
+        $file_syarikat->formds_id = $formds->id;
+        $file_syarikat->save();
+        // dd($file_syarikat);
+    }
+  }
+  else {
+
+
+  }
+
+
+    $sedang_proses="Disimpan ke Draf";
+    $this->update($id,$sedang_proses);
+    return redirect()->route('user.harta.senaraidraft');
+
+  }
+  else if($request->has('publish')){
+
+        $this->validator(request()->all())->validate();
+
+        $formds = FormD::find($id);
+
+        $count_d = Keluarga::where('formds_id', $formds->id)->get();
+        $count = count($count_d);
+        // dd($count);
+
+        for ($i=0; $i < $count; $i++) {
+        $id_keluarga = Keluarga::where('formds_id', $formds->id)->get('id');
+        // dd($id_d);
+        for ($i=0; $i < count($id_keluarga) ; $i++) {
+
+        $keluargas = Keluarga::findOrFail($id_keluarga[$i]->id);
+        $keluargas->delete();
+        }
       }
-  }
-  $this->update($id);
-  return redirect()->route('user.harta.FormD.senaraihartaD');
-}
+
+        $count1 = count($request->nama_ahli);
+        $count = 0;
+
+        for ($i=0; $i < $count1; $i++) {
+        $count++;
+        $keluargas = new Keluarga();
+        $keluargas->nama_ahli = $request->nama_ahli[$i];
+        $keluargas->hubungan = $request->hubungan[$i];
+        $keluargas->jawatan_syarikat = $request->jawatan_syarikat[$i];
+        $keluargas->jumlah_saham = $request->jumlah_saham[$i];
+        $keluargas->nilai_saham = $request->nilai_saham[$i];
+        $keluargas->formds_id = $formds-> id;
+        $keluargas->keluarga_id = $count;
+        //dd($request->all());
+        $keluargas->save();
+
+      }
+
+      $count_dokumen = DokumenSyarikat::where('formds_id', $formds->id)->get();
+      $count = count($count_dokumen);
+
+      for ($i=0; $i < $count; $i++) {
+      $id_dokumen = DokumenSyarikat::where('formds_id', $formds->id)->get('id');
+      // dd($id_d);
+      for ($i=0; $i < count($id_dokumen) ; $i++) {
+
+      $dokumen = DokumenSyarikat::findOrFail($id_dokumen[$i]->id);
+      $dokumen->delete();
+      }
+    }
+      $count2 = count($request->dokumen_syarikat);
+      $count = 0;
+
+      foreach($request->dokumen_syarikat as $file)
+      {
+        // dd($file);
+          $file_syarikat = new DokumenSyarikat();
+          $file_syarikat->dokumen_syarikat = $file->store('public/uploads/dokumen_syarikat');
+          $file_syarikat->formds_id = $formds->id;
+          $file_syarikat->save();
+          // dd($file_syarikat);
+      }
+          //send notification to admin (noti yang dia dah berjaya declare)
+          $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
+          // $email = null; // for testing
+          $admin_available = User::where('role','=','1')->get(); //get system admin information
+          // if ($email) {
+            foreach ($admin_available as $data) {
+              $this->dispatch(new SendNotificationFormD($data, $email, $formds));
+              // $formds->notify(new UserFormAdminC($data, $email));
+            }
+        $sedang_proses="Sedang Diproses";
+        $this->update($id,$sedang_proses);
+        return redirect()->route('user.harta.FormD.senaraihartaD');
+      }
+    }
 }

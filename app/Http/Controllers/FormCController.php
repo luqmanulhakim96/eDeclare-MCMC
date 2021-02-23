@@ -35,7 +35,7 @@ class FormCController extends Controller
   {
     $jenisHarta = JenisHarta::get();
     $userid = Auth::user()->id;
-    $data_user = FormB::where('user_id', $userid)->where('status',"Sedang Diproses") ->get();
+    $data_user = FormB::where('user_id', $userid)->where('status',"Diterima") ->get();
 
     $username =Auth::user()->username;
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
@@ -233,8 +233,7 @@ protected function validatorpublish(array $data)
   }
 }
 
-public function update($id){
-  $sedang_proses= "Sedang Diproses";
+public function update($id,$sedang_proses){
   $formcs = FormC::find($id);
   $formcs->pengakuan = request()->pengakuan;
   $formcs->status= $sedang_proses;
@@ -243,11 +242,36 @@ public function update($id){
 
 public function updateformC(Request $request,$id){
   // dd($request->all());
+  if ($request->has('save')){
+    $this->validatordraft(request()->all())->validate();
+    $formcs = FormC::find($id);
+    $sedang_proses = "Disimpan ke Draf";
+    $this->update($id,$sedang_proses);
+
+    if($request->jenis_harta_lupus_){
+      $count_harta = count($request->jenis_harta_lupus_);
+    }
+    else {
+      $count_harta = 0;
+    }
+    // dd($request->id_harta_);
+    for ($i=0; $i < $count_harta; $i++) {
+        $harta = HartaB::findOrFail($request->id_harta_[$i]);
+        $harta->tarikh_pelupusan = $request->tarikh_pelupusan_[$i];
+        $harta->cara_pelupusan= $request->cara_pelupusan_[$i];
+        $harta->nilai_pelupusan = $request->nilai_pelupusan_[$i];
+        $harta->formcs_id = $formcs-> id;
+        $harta->save();
+      }
+
+    return redirect()->route('user.harta.senaraidraft');
+  }
+  else if ($request->has('publish')){
   $this->validatorpublish(request()->all())->validate();
   $formcs = FormC::find($id);
     //send notification to admin (noti yang dia dah berjaya declare)
-
-  $this->update($id);
+  $sedang_proses="Sedang Diproses";
+  $this->update($id,$sedang_proses);
 
   if($request->jenis_harta_lupus_){
     $count_harta = count($request->jenis_harta_lupus_);
@@ -270,14 +294,15 @@ public function updateformC(Request $request,$id){
       $harta->save();
     }
 
-  $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
-  // $email = null; // for testing
-  $admin_available = User::where('role','=','1')->get(); //get system admin information
-  // if ($email) {
-    foreach ($admin_available as $data) {
-      // $formcs->notify(new UserFormAdminC($data, $email));
-      $this->dispatch(new SendNotificationFormC($data, $email, $formcs));
+    $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
+    // $email = null; // for testing
+    $admin_available = User::where('role','=','1')->get(); //get system admin information
+    // if ($email) {
+      foreach ($admin_available as $data) {
+        // $formcs->notify(new UserFormAdminC($data, $email));
+        $this->dispatch(new SendNotificationFormC($data, $email, $formcs));
+      }
+    return redirect()->route('user.harta.FormC.senaraihartaC');
     }
-  return redirect()->route('user.harta.FormC.senaraihartaC');
-}
+  }
 }

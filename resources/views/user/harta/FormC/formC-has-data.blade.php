@@ -50,7 +50,7 @@
                                       <div class="col-md-8">
                                           <div class="form-group">
                                             @foreach($staffinfo as $data)
-                                              <input type="hidden" name="jawatan" value="{{$data->ICNUMBER}}">{{$data->GRADE}}
+                                              <input type="hidden" name="jawatan" value="{{$data->GRADE}}">{{$data->GRADE}}
                                             @endforeach
                                           <!-- <input type="hidden" name="jawatan"  value="{{Auth::user()->jawatan }}">{{Auth::user()->jawatan }} -->
                                           </div>
@@ -63,7 +63,7 @@
                                       <div class="col-md-8">
                                           <div class="form-group">
                                             @foreach($staffinfo as $jabatan)
-                                              <input type="hidden" name="jabatan" value="{{$jabatan->OLEVEL4NAME}}">{{$jabatan->OLEVEL4NAME}}
+                                              <input type="hidden" name="jabatan" value="{{$jabatan->OLEVEL5NAME}}">{{$jabatan->OLEVEL5NAME}}
                                             @endforeach
                                           </div>
                                       </div>
@@ -189,7 +189,7 @@
                                          @enderror
                                       </div>
                                       <div class="col-md-4">
-                                          <input id="nilai_pelupusan" class="form-control bg-light" type="text" placeholder="Nilai Jualan" value="{{ old('nilai_pelupusan')}}">
+                                          <input id="nilai_pelupusan" class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" placeholder="Nilai Jualan" value="{{ old('nilai_pelupusan')}}">
                                           @error('nilai_pelupusan_')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
@@ -337,7 +337,7 @@ function keterangan(){
  tarikh_pemilikan_to_append = '<input type="hidden" id="tarikh_pemilikan'+ increment_keterangan +'" name="tarikh_pemilikan_[]"  value="'+ tarikh_pemilikan +'" readonly>';
  tarikh_pelupusan_to_append = '<input type="hidden" id="tarikh_pelupusan'+ increment_keterangan +'" name="tarikh_pelupusan_[]"  value="'+ tarikh_pelupusan +'" readonly>';
  cara_pelupusan_to_append = '<input type="hidden" id="cara_pelupusan'+ increment_keterangan +'" name="cara_pelupusan_[]"  value="'+ cara_pelupusan +'" readonly>';
- nilai_pelupusan_to_append = '<input type="hidden" id="nilai_pelupusan'+ increment_keterangan +'" name="nilai_pelupusan_[]"  value="'+ nilai_pelupusan +'" readonly>';
+ nilai_pelupusan_to_append = '<input type="hidden" id="nilai_pelupusan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)" name="nilai_pelupusan_[]"  value="'+ nilai_pelupusan +'" readonly>';
  id_harta_to_append = '<input type="hidden" id="id_harta'+ increment_keterangan +'" name="id_harta_[]"  value="'+ id_harta +'" readonly>';
 
  increment_keterangan++;
@@ -505,5 +505,15 @@ var today = new Date();
  today = yyyy+'-'+mm+'-'+dd;
  document.getElementById("tarikh_pemilikan").setAttribute("max", today);
 
+</script>
+<script>
+function onlyNumberKey(evt) {
+
+    // Only ASCII charactar in that range allowed
+    var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+        return false;
+    return true;
+}
 </script>
 @endsection

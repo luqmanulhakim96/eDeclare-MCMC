@@ -60,17 +60,7 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Nama Perkhidmatan</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-                                              <!-- <input type="text" class="form-control bg-light" name="nama_perkhidmatan" placeholder="Nama Perkhidmatan" value="{{ old('nama_perkhidmatan')}}"> -->
-                                              {{ $listHarta ->nama_perkhidmatan }}
-                                          </div>
-                                      </div>
-                                  </div>
+
                                   <div class="row">
                                       <div class="col-md-4">
                                           <p>Kumpulan Perkhidmatan,Gred/ Tingkatan Hakiki dan Gelaran Jawatan</p>
@@ -110,7 +100,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                           @if($maklumat_pasangan->NOKNAME != null)
-                                                            {{$maklumat_pasangan->NOKNAME}}
+                                                            {{ucwords(strtolower($maklumat_pasangan->NOKNAME))}}
                                                             @else
                                                             -
                                                             @endif
@@ -159,7 +149,7 @@
                                                       <div class="col-md-8">
                                                           <div class="form-group">
                                                             @if($maklumat_anak->NOKNAME != null)
-                                                            <input type="hidden" name="nama_anak" value="{{$maklumat_anak->NOKNAME}}">{{$maklumat_anak->NOKNAME}}
+                                                            <input type="hidden" name="nama_anak" value="{{ucwords(strtolower($maklumat_anak->NOKNAME))}}">{{ucwords(strtolower($maklumat_anak->NOKNAME))}}
                                                             @else
                                                             -
                                                             @endif

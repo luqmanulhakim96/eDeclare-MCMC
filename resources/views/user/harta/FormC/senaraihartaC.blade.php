@@ -22,6 +22,7 @@
                                                <th width="10%"><p class="mb-0">Lampiran C</p></th>
                                                <th width="70%"><p class="mb-0">Tarikh</p></th>
                                                <th width="30%"><p class="mb-0">Status</p></th>
+                                               <th width="30%"><p class="mb-0">Catatan</p></th>
                                                <th width="30%"><p class="mb-0">Tindakan</p></th>
                                            </tr>
                                        </thead>
@@ -50,7 +51,7 @@
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
                                                <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan</span>
-                                               @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
+                                               @elseif($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
@@ -62,7 +63,34 @@
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Selesai")
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Lampiran A")
+                                               <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @endif
+                                             </td>
+                                             <td>
+                                             @if($data ->status == "Sedang Diproses")
+                                             {{ $data ->status }}
+                                             @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                             {{ $data ->status }}
+                                             @elseif($data ->status == "Sedang Dikemaskini")
+                                             {{ $data ->status }}
+                                             @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                             {{ $data ->status }}
+                                             @elseif($data ->status == "Proses ke Ketua Bahagian")
+                                             {{ $data ->status }}
+                                             @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
+                                             {{ $data ->status }}
+                                             @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
+                                             {{ $data ->status }}
+                                             @elseif($data ->status == "Tidak Lengkap")
+                                              {{$data->ulasan_admin}}
+                                             @elseif($data ->status == "Tidak Diterima")
+                                              {{$data->ulasan_hod}}
+                                             @elseif($data ->status == "Diterima")
+                                             {{ $data ->status }}
+                                             @elseif($data ->status == "Selesai")
+                                             {{ $data ->status }}
+                                             @endif
                                              </td>
                                              <td class="p-3">
                                                <div class="d-flex flex-row justify-content-around align-items-center">

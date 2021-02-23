@@ -26,7 +26,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                                {{$listHarta ->formcs->name }}
+                                                {{$listHarta ->nama_pegawai }}
                                           </div>
                                       </div>
                                   </div>
@@ -46,7 +46,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                                {{$listHarta ->formcs->jawatan }}
+                                                {{$listHarta->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -56,7 +56,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            {{$listHarta ->formcs->jabatan }}
+                                            {{$listHarta ->jabatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -66,7 +66,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$listHarta ->formcs->alamat_tempat_bertugas }}
+                                              {{$listHarta ->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>

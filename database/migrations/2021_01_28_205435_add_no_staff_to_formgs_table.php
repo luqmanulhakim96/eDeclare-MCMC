@@ -26,7 +26,7 @@ class AddNoStaffToFormgsTable extends Migration
     public function down()
     {
         Schema::table('formgs', function (Blueprint $table) {
-            //
+            $table->dropColumn('no_staff');
         });
     }
 }

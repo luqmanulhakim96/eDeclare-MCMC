@@ -86,6 +86,8 @@
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Selesai")
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Lampiran A")
+                                               <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @endif
                                              </td>
                                            </tr>

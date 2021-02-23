@@ -1,5 +1,13 @@
 @extends('user.layouts.app')
 @section('content')
+<head>
+  <style media="screen">
+  .modal-dialog1 {
+    max-width: 700px;
+    height: 550px;
+}
+  </style>
+</head>
 <!--Page Body part -->
 <div class="page-body p-4 text-dark">
 <div class="row mt-10">
@@ -26,6 +34,7 @@
                                     <th class="all"><p>Hubungan Pemberi</p></th>
                                     <th class="all"><p class="all">Gambar Hadiah</p></th>
                                     <th class="all"><p>Status Penerimaan Hadiah</p></th>
+                                    <th class="all"><p>Catatan</p></th>
                                     <th class="all"><p>Tindakan</p></th>
                                 </tr>
                             </thead>
@@ -50,9 +59,12 @@
 
 
                                   <td>
-                                    <button type="button" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal2">
-                                      <img src="{{ asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift)) }}"  class="profile-avatar">
-                                        </button>
+                                      <!-- <button class="btn btn-primary mr-1" onclick="passGambarHadiah('{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}')" data-toggle="modal" data-target="#exampleModal{{$data->id}}">Lampiran Hadiah</button> -->
+                                      @if(pathinfo(asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift)), PATHINFO_EXTENSION) == "docx")
+                                      <a class="btn btn-primary mr-1" href="{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}">Muat Turun Lampiran Hadiah</a>
+                                      @else
+                                      <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#exampleModal{{$data->id}}">Lampiran Hadiah</button>
+                                      @endif
                                   </td>
                                   <!-- <td>$image_path</td> -->
 
@@ -77,6 +89,31 @@
                                      <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                      @endif
                                   </td>
+                                  <td>
+                                    @if($data ->status == "Sedang Diproses")
+                                    {{ $data ->status }}
+                                    @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                    {{ $data ->status }}
+                                    @elseif($data ->status == "Sedang Dikemaskini")
+                                    {{ $data ->status }}
+                                    @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                    {{ $data ->status }}
+                                    @elseif($data ->status == "Proses ke Ketua Bahagian")
+                                    {{ $data ->status }}
+                                    @elseif($data ->status == "Menunggu Ulasan Ketua Bahagian")
+                                    {{ $data ->status }}
+                                    @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
+                                    {{ $data ->status }}
+                                    @elseif($data ->status == "Tidak Lengkap")
+                                     {{$data->ulasan_admin}}
+                                    @elseif($data ->status == "Tidak Diterima")
+                                     {{$data->ulasan_hod}}
+                                    @elseif($data ->status == "Diterima")
+                                    {{ $data ->status }}
+                                    @elseif($data ->status == "Selesai")
+                                    {{ $data ->status }}
+                                    @endif
+                                  </td>
 
                                   <td class="p-3">
                                   <div class="d-flex flex-row justify-content-around align-items-center">
@@ -95,43 +132,50 @@
                                   </td>
                                 </tr>
                                 @endif
+                                <div class="modal fade" id="exampleModal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                    <div class="modal-dialog modal-dialog-centered" role="document" >
+                                    <div class="modal-content" style="width:100%; height:100%;">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Lampiran Hadiah</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+
+
+                                          @if(pathinfo(asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift)), PATHINFO_EXTENSION) == "pdf")
+                                          <div class="modal-body modal-dialog1" align="center"  >
+                                          <iframe id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}" alt="Gambar Hadiah" width="100%" height="100%"></iframe>
+                                          </div>
+                                          @else
+                                          <div class="modal-body" align="center" >
+                                          <img id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $data ->gambar_gift))}}" alt="Gambar Hadiah" width="100%" height="100%"></img>
+                                        </div>
+                                        @endif
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        </div>
+
+                                    </div>
+                                </div>
                                @endforeach
-
+                             </div>
                         </table>
-                        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Gambar Hadiah</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                </div>
 
-                                <div class="modal-body" align="center">
-
-                                  <img id="imageHadiah" class="img-responsive" src="" alt="Gambar Hadiah" width="50%" height="50%">
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>
         </div>
       </div>
   </div>
-  <script type="text/javascript">
+  </div>
+  <!-- <script type="text/javascript">
     function passGambarHadiah(path){
       console.log(path);
       $(".modal-body #imageHadiah").attr('src', path);
       $('.modal-body #imageHadiah').show();
     }
-  </script>
+  </script> -->
   <script type="text/javascript">
   $(document).ready(function() {
       var buttonCommon = {

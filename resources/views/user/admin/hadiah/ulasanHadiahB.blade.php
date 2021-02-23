@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="col-md-8">
                                      <div class="form-group">
-                                        <b>{{Auth::user()->name }}</b>
+                                        {{$listHadiah->nama_pegawai }}
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <b>{{Auth::user()->kad_pengenalan }}</b>
+                                        {{$listHadiah->no_kad_pengenalan }}
                                     </div>
                                 </div>
                             </div>
@@ -49,17 +49,27 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                    <b>{{Auth::user()->jawatan }}</b>
+                                    {{$listHadiah->jawatan }}
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <p>Jabatan/ Bahagian</p>
+                                    <p>Jabatan</p>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <b>{{ $listHadiah ->jabatan }}</b>
+                                        {{ $listHadiah ->jabatan }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p>Bahagian</p>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        {{ $listHadiah ->bahagian }}
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +174,9 @@
                                     <p>No Staff</p>
                                   </div>
                                   <div class="col-md-8">
-                                    <input type="text" class="form-control bg-light" name="no_admin" value="{{Auth::user()->id }}" readonly><br>
+                                    @foreach($staffinfo as $ic)
+                                      <input type="text" class="form-control bg-light" name="no_admin" value="{{$ic->STAFFNO}}" readonly><br>
+                                    @endforeach
                                    </div>
                               </div>
                               <div class="row">
@@ -172,7 +184,9 @@
                                     <p>No Kad Pengenalan</p>
                                   </div>
                                   <div class="col-md-8">
-                                    <input type="text" class="form-control bg-light" name="ic" value="{{Auth::user()->kad_pengenalan }}"><br>
+                                    @foreach($staffinfo as $ic)
+                                      <input type="text" class="form-control bg-light" name="kad_pengenalan" value="{{$ic->ICNUMBER}}" readonly><br>
+                                    @endforeach
                                    </div>
                               </div>
                             <div class="row">

@@ -22,6 +22,9 @@ use Auth;
 use DB;
 use App\Email;
 use App\UserExistingStaffInfo;
+use App\HartaB;
+use App\UserExistingStaffNextofKin;
+use App\DokumenSyarikat;
 
 use App\Jobs\SendNotificationFormBHodiv;
 use App\Jobs\SendNotificationFormCHodiv;
@@ -162,21 +165,24 @@ class HodivController extends Controller
   public function viewUlasanHadiahB($id)
   {
      //dd($id);
-    $listHadiah = GiftB::findOrFail($id);
-    $attendance = GiftB::with('giftbs')->get();
-    $nilai_hadiah = NilaiHadiah::first();
+     $listHadiah = GiftB::findOrFail($id);
+     $attendance = GiftB::with('giftbs')->get();
+     $username =Auth::user()->username;
+     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+     $nilai_hadiah = NilaiHadiah::first();
 
-    return view('user.hodiv.hadiah.ulasanHadiahB', compact('listHadiah','nilai_hadiah'));
+     return view('user.hodiv.hadiah.ulasanHadiahB', compact('listHadiah','nilai_hadiah','staffinfo'));
   }
 
   public function viewUlasanHadiah($id)
   {
-     //dd($id);
     $listHadiah = Gift::findOrFail($id);
     $attendance = Gift::with('gifts')->get();
+    $username =Auth::user()->username;
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
     $nilai_hadiah = NilaiHadiah::first();
 
-    return view('user.hodiv.hadiah.ulasanHadiah', compact('listHadiah','nilai_hadiah'));
+    return view('user.hodiv.hadiah.ulasanHadiah', compact('listHadiah','nilai_hadiah','staffinfo'));
   }
 
   public function viewUlasanHartaG($id)
@@ -185,38 +191,86 @@ class HodivController extends Controller
     $listHarta = FormG::findOrFail($id);
     $username =Auth::user()->username;
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
-    return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','staffinfo'));
+    // dd($staffinfo);
+    $listDividenG = DividenG::where('formgs_id', $listHarta->id) ->get();
+    $listPinjamanG = PinjamanG::where('formgs_id', $listHarta->id) ->get();
+    $listPinjaman = Pinjaman::where('formgs_id', $listHarta->id) ->get();
+    $user = UserExistingStaffInfo::where('STAFFNO', $listHarta->no_staff) ->get('STAFFNO');
+    // dd($user);
+
+    foreach ($user as $keluarga) {
+        $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+        $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+        }
+
+    if($maklumat_pasangan->isEmpty()){
+      return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','staffinfo'));
+    }
+    elseif ($maklumat_anak->isEmpty()) {
+      return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','staffinfo'));
+    }
+    else{
+      return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','maklumat_anak','staffinfo'));
+    }
   }
 
   public function viewUlasanHartaB($id)
   {
-     //dd($id);
     $listHarta = FormB::findOrFail($id);
+     // dd($listHarta);
+    $listDividenB = DividenB::where('formbs_id', $listHarta->id) ->get();
+
+    $listPinjamanB = PinjamanB::where('formbs_id', $listHarta->id) ->get();
+
+    $hartaB =HartaB::where('formbs_id',$listHarta->id) ->get();
+
     $username =Auth::user()->username;
+
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
+    $user = UserExistingStaffInfo::where('STAFFNO', $listHarta->no_staff) ->get('STAFFNO');
+    // dd($user);
 
-    return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','staffinfo'));
+    foreach ($user as $keluarga) {
+
+        $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+        $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+        }
+
+    if($maklumat_pasangan->isEmpty()){
+      return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo'));
+    }
+    elseif ($maklumat_anak->isEmpty()) {
+      return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo'));
+    }
+    else{
+    return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan','staffinfo'));
+    }
   }
 
   public function viewUlasanHartaC($id)
   {
-     //dd($id);
     $listHarta = FormC::findOrFail($id);
     $username =Auth::user()->username;
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    $hartaB =HartaB::where('formcs_id',$listHarta->id)->get();
 
-    return view('user.hodiv.harta.ulasanHartaC', compact('listHarta','staffinfo'));
+    return view('user.hodiv.harta.ulasanHartaC', compact('listHarta','staffinfo','hartaB'));
   }
 
   public function viewUlasanHartaD($id)
   {
-     //dd($id);
     $listHarta = FormD::findOrFail($id);
     $username =Auth::user()->username;
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    $listKeluarga = Keluarga::where('formds_id', $listHarta->id) ->get();
+    $dokumen_syarikat = DokumenSyarikat::where('formds_id', $listHarta->id) ->get();
+    return view('user.hodiv.harta.ulasanHartaD', compact('listHarta','staffinfo','listKeluarga','dokumen_syarikat'));
 
-    return view('user.hodiv.harta.ulasanHartaD', compact('listHarta','staffinfo'));
   }
 
   public function listformB(){
@@ -447,9 +501,9 @@ class HodivController extends Controller
 
    public function senaraiAllForm(){
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL4NAME');
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL5NAME');
      foreach($bahagian as $division){
-       $div=$division->OLEVEL4NAME;
+       $div=$division->OLEVEL5NAME;
      }
      // $listallA = Asset::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $bahagian )->get();
       // dd($listallA);
@@ -469,9 +523,9 @@ class HodivController extends Controller
 
    public function senaraiAllHadiah(){
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL3NAME');
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL4NAME');
      foreach($bahagian as $division){
-       $div=$division->OLEVEL3NAME;
+       $div=$division->OLEVEL4NAME;
      }
      // $bahagian =Auth::user()->jabatan;
      $listallA = Gift::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian', $div )->get();
@@ -483,11 +537,11 @@ class HodivController extends Controller
 
    public function senaraiTugasanHarta(){
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL4NAME');
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL5NAME');
      foreach($bahagian as $division){
-       $div=$division->OLEVEL4NAME;
+       $div=$division->OLEVEL5NAME;
      }
-     // dd($bahagian);
+     // dd($div);
      $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
      // dd($listallB);
      $listallBTable = FormB::getTableName();
@@ -516,11 +570,11 @@ class HodivController extends Controller
 
    public function senaraiTugasanHadiah(){
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL3NAME');
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL4NAME');
      foreach($bahagian as $division){
-       $div=$division->OLEVEL3NAME;
+       $div=$division->OLEVEL4NAME;
      }
-     // dd($bahagian);
+     // dd($div);
      $listallA = Gift::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian',$div)->get();
      // dd($listallA );
      $listallB = GiftB::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian',$div)->get();

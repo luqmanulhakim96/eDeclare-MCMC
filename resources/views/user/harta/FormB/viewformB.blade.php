@@ -34,7 +34,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->formbs->name }}</b>
+                                              {{$listHarta->nama_pegawai }}
                                           </div>
                                       </div>
                                   </div>
@@ -44,7 +44,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta->kad_pengenalan }}</b>
+                                              {{$listHarta->kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -54,7 +54,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <b>{{$listHarta ->formbs->jawatan }}</b>
+                                            {{$listHarta->jawatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -64,7 +64,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <b>{{$listHarta ->jabatan }}</b>
+                                            {{$listHarta ->jabatan }}
                                           </div>
                                       </div>
                                   </div>
@@ -74,7 +74,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              <b>{{$listHarta ->formbs->alamat_tempat_bertugas }}</b>
+                                              {{$listHarta ->alamat_tempat_bertugas }}
                                           </div>
                                       </div>
                                   </div>
@@ -96,7 +96,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                           @if($maklumat_pasangan->NOKNAME != null)
-                                                            {{$maklumat_pasangan->NOKNAME}}
+                                                            {{ucwords(strtolower($maklumat_pasangan->NOKNAME))}}
                                                             @else
                                                             -
                                                             @endif
@@ -110,7 +110,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                           @if($maklumat_pasangan->ICNEW != null)
-                                                            <input type="hidden" name="ic_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->ICNEW}}
+                                                            <input type="hidden" name="ic_pasangan" value="{{$maklumat_pasangan->ICNEW}}">{{$maklumat_pasangan->ICNEW}}
                                                             @else
                                                             -
                                                             @endif
@@ -145,7 +145,7 @@
                                                       <div class="col-md-8">
                                                           <div class="form-group">
                                                             @if($maklumat_anak->NOKNAME != null)
-                                                            <input type="hidden" name="nama_anak" value="{{$maklumat_anak->NOKNAME}}">{{$maklumat_anak->NOKNAME}}
+                                                            <input type="hidden" name="nama_anak" value="{{$maklumat_anak->NOKNAME}}">{{ucwords(strtolower($maklumat_anak->NOKNAME))}}
                                                             @else
                                                             -
                                                             @endif

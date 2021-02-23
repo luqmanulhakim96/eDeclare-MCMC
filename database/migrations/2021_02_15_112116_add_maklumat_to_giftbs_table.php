@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNoStaffToFormbsTable extends Migration
+class AddMaklumatToGiftbsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddNoStaffToFormbsTable extends Migration
      */
     public function up()
     {
-        Schema::table('formbs', function (Blueprint $table) {
-            $table->string('no_staff')->nullable();
+        Schema::table('giftbs', function (Blueprint $table) {
+          $table->string('nama_pegawai')->nullable();
+          $table->string('no_kad_pengenalan')->nullable();
         });
     }
 
@@ -25,8 +26,9 @@ class AddNoStaffToFormbsTable extends Migration
      */
     public function down()
     {
-        Schema::table('formbs', function (Blueprint $table) {
-            $table->dropColumn('no_staff');
+        Schema::table('giftbs', function (Blueprint $table) {
+          $table->dropColumn('nama_pegawai');
+          $table->dropColumn('no_kad_pengenalan');
         });
     }
 }

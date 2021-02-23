@@ -24,7 +24,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$info->users->name }}
+                                              {{$info->nama_pegawai }}
                                           </div>
                                       </div>
                                   </div>
@@ -34,7 +34,7 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{$info->users->kad_pengenalan }}
+                                              {{$info->no_kad_pengenalan }}
                                           </div>
                                       </div>
                                   </div>
@@ -44,17 +44,28 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                          {{$info->users->jawatan }}
+                                          {{$info->jawatan }}
                                           </div>
                                       </div>
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                        Jabatan/ Bahagian
+                                        Jabatan
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                              {{ $info->jabatan}}
+                                              {{ucwords(strtolower( $info->jabatan))}}
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                        Bahagian
+                                      </div>
+                                      <div class="col-md-8">
+                                          <div class="form-group">
+                                              {{ ucwords(strtolower($info->bahagian))}}
                                           </div>
                                       </div>
                                   </div>
@@ -136,7 +147,23 @@
                               <div class="row">
                                  <div class="col-md-4">
                                    <div class="img-responsive" alt="Gambar Hadiah" align="center">
-                                     <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  class="imgthumbnail" width="150px" height="150px">
+                                     @if($info->gambar_gift != NULL)
+                                     @if(pathinfo(asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift)), PATHINFO_EXTENSION) == "pdf")
+                                     <div class="modal-body modal-dialog1" >
+                                     <iframe id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="150px" height="150px"></iframe>
+                                     </div>
+                                     @else
+                                     <div class="modal-body"  >
+                                     <img id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="150px" height="150px"></img>
+                                   </div>
+                                   @endif
+                                     <!-- <div class="row">
+                                        <div class="col-md-4">
+                                          <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  class="imgthumbnail" width="150px" height="150px">
+                                        </div>
+                                     </div> -->
+                                     @endif
+                                     <!-- <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  class="imgthumbnail" width="150px" height="150px"> -->
                                   </div>
                                  </div>
                              </div>

@@ -20,7 +20,7 @@ class Gift extends Model implements Auditable
     protected $fillable = [
       'jawatan','jabatan','jenis_gift', 'nilai_gift', 'tarikh_diterima', 'nama_pemberi', 'alamat_pemberi','bahagian',
       'hubungan_pemberi', 'sebab_gift', 'ulasan_jabatan', 'gambar_gift',
-      'status_gift', 'user_id','status','nama_admin','no_admin','ulasan_admin','nama_hod','no_hod','ulasan_hod','nama_hodiv','no_hodiv','ulasan_hodiv'
+      'status_gift', 'user_id','status','nama_admin','no_admin','ulasan_admin','nama_hod','no_hod','ulasan_hod','nama_hodiv','no_hodiv','ulasan_hodiv','nama_pegawai','no_kad_pengenalan'
     ];
 
     public function gifts(){
