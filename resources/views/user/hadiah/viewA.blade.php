@@ -3,7 +3,7 @@
            <!--Page Body part -->
            <div class="page-body p-4 text-dark">
                <div class="page-heading border-bottom d-flex flex-row">
-                   <p class="font-weight-normal">Lampiran A: PERMOHONAN BAGI MENDAPATKAN KEBENARAN PENERIMAAN HADIAH DI BAWAH PERATURAN 10, PERATURAN-PERATURAN TATATERTIB SKMM 2007 DAN SURAT PEKELILING PERKHIDMATAN DAN SOKONGAN
+                   <p class="font-weight-normal">Borang A: PERMOHONAN BAGI MENDAPATKAN KEBENARAN PENERIMAAN HADIAH DI BAWAH PERATURAN 10, PERATURAN-PERATURAN TATATERTIB SKMM 2007 DAN SURAT PEKELILING PERKHIDMATAN DAN SOKONGAN
                                                 BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI LEBIH DARIPADA RM {{ $nilaiHadiah ->nilai_hadiah }}</p>
                </div>
 
@@ -122,7 +122,7 @@
                                  <br>
                                  <div class="row">
                                    <div class="col-md-4">
-                                       <p>v) Hubungan Pemberi</p>
+                                       <p>vi) Hubungan Pemberi</p>
                                    </div>
                                    <div class="col-md-8">
                                       {{ $info->hubungan_pemberi  }}
@@ -131,7 +131,7 @@
                                  <br>
                                  <div class="row">
                                     <div class="col-md-4">
-                                        <p>vi)Sebab Diberi</p>
+                                        <p>vii)Sebab Diberi</p>
                                     </div>
                                     <div class="col-md-8">
                                         {{ $info->sebab_gift  }}
@@ -150,11 +150,11 @@
                                      @if($info->gambar_gift != NULL)
                                      @if(pathinfo(asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift)), PATHINFO_EXTENSION) == "pdf")
                                      <div class="modal-body modal-dialog1" >
-                                     <iframe id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="150px" height="150px"></iframe>
+                                     <iframe id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="300px" height="300px"></iframe>
                                      </div>
                                      @else
                                      <div class="modal-body"  >
-                                     <img id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="150px" height="150px"></img>
+                                     <img id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="300px" height="300px"></img>
                                    </div>
                                    @endif
                                      <!-- <div class="row">

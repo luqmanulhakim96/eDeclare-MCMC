@@ -223,16 +223,33 @@
                                       </div>
                                    </div>
 
-                                     <?php $i=0; ?>
-                                     @foreach($dokumen_syarikat as $data)
-                                     <?php $i++; ?>
-                                     <div class="row">
-                                      <div class="col-md-10">
-                                          <a href="{{ asset( $image_path = str_replace('public', 'storage',  $data->dokumen_syarikat)) }}"> Dokumen <?php echo $i; ?></a>
-                                      </div>
-                                    </div>
+                                   <div class="table-responsive">
+                                       <table class="table table-bordered" id="table_keterangan">
+                                           <thead>
+                                               <tr class="text-center">
 
-                                    @endforeach
+                                                   <th width="50%"><p class="mb-0">Nama Fail</p></th>
+                                                   <!-- <th width="5%"><p class="mb-0">Tindakan</p></th> -->
+                                               </tr>
+                                           </thead>
+                                           @foreach($dokumen_syarikat as $dokumen_syarikat)
+                                             @if($dokumen_syarikat->dokumen_syarikat != NULL)
+
+                                           <tbody>
+
+                                             <tr id="{{$dokumen_syarikat->id}}">
+
+                                               <td align="left"><a target="_blank" rel="noopener noreferrer" href="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}"> {{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}</a></td>
+
+
+                                             </tr>
+
+                                           </tbody>
+                                           @endif
+
+                                         @endforeach
+                                       </table>
+                                   </div>
 
                               </div>
                                    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -273,7 +290,7 @@
                                               </div>
                                               <div class="col-md-8">
 
-                                                           <textarea class="form-control bg-light" name="ulasan_admin" rows="4" cols="50" placeholder="Ulasan Admin"></textarea><br>
+                                                           <textarea maxlength="100" class="form-control bg-light" name="ulasan_admin" rows="4" cols="50" placeholder="Ulasan Admin"></textarea><br>
 
                                                            <input type="radio" id="tidak_lengkap" name="status" value="Tidak Lengkap">
                                                                <label for="Tidak Lengkap">Tidak Lengkap</label><br>
@@ -295,14 +312,43 @@
                                                                      <p align="center">Hantar untuk pengesahan?</p>
                                                                      </div>
                                                                      <div class="modal-footer">
-                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                     <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                                     <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                                      </div>
                                                                  </div>
                                                                  </div>
                                                              </div>
                                                    </div>
                                                  </div>
+                                                 <br>
+                                                 <br>
+                                                 <div class="row">
+                                                       @if($ulasanAdmin)
+                                                         <div class="col-md-2">
+                                                             Sejarah Ulasan Admin
+                                                          </div>
+                                                          @foreach($ulasanAdmin as $data)
+                                                          <div class="col-md-3">
+                                                              <p>- {{ $data->ulasan_admin }} </p>
+                                                              <p>( {{ $data->nama_admin }} , {{ $data->no_admin }} )</p>
+                                                          </div>
+                                                          @endforeach
+                                                       @endif
+                                                  </div>
+                                                  <hr>
+                                                  <div class="row">
+                                                         @if($ulasanHOD)
+                                                           <div class="col-md-2">
+                                                               <p>Sejarah Ulasan HOD</p>
+                                                            </div>
+                                                              @foreach($ulasanHOD as $data)
+                                                              <div class="col-md-3">
+                                                                <p>- {{ $data->ulasan_hod }} </p>
+                                                                <p>( {{ $data->nama_hod }} , {{ $data->no_hod }} )</p>
+                                                              </div>
+                                                              @endforeach
+                                                        @endif
+                                                    </div>
                                              </form>
                                         </div>
                                </div>

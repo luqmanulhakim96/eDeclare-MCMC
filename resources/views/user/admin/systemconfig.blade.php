@@ -54,8 +54,8 @@
                                                               <p align="center">Kemaskini Nilai Hadiah ?</p>
                                                               </div>
                                                               <div class="modal-footer">
-                                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                              <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                              <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                               </div>
                                                           </div>
                                                           </div>
@@ -94,8 +94,8 @@
                                                         <p align="center">Tambah Jenis Hadiah ?</p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                        <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                        <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                         </div>
                                                     </div>
                                                     </div>
@@ -135,8 +135,8 @@
                                                             <p align="center">Tambah Jenis Harta ?</p>
                                                             </div>
                                                             <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                            <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                            <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                             </div>
                                                         </div>
                                                         </div>
@@ -177,8 +177,8 @@
                                                         <p align="center">Tambah Jenis Harta ?</p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                        <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                        <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                         </div>
                                                     </div>
                                                     </div>
@@ -218,8 +218,8 @@
                                                             <p align="center">Tambah Jenis Harta ?</p>
                                                             </div>
                                                             <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                            <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                            <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                             </div>
                                                         </div>
                                                         </div>

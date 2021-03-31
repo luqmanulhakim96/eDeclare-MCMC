@@ -61,17 +61,7 @@
                                       </div>
                                   </div>
 
-                                  <div class="row">
-                                      <div class="col-md-4">
-                                          <p>Kumpulan Perkhidmatan,Gred/ Tingkatan Hakiki dan Gelaran Jawatan</p>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <div class="form-group">
-                                              <!-- <input type="text" class="form-control bg-light" name="gelaran" placeholder="Kumpulan Perkhidmatan,Gred/ Tingkatan Hakiki dan Gelaran Jawatan" value="{{ old('gelaran')}}"> -->
-                                              {{ $listHarta ->gelaran }}
-                                          </div>
-                                      </div>
-                                  </div>
+
                                   <div class="row">
                                       <div class="col-md-4">
                                           <p>Alamat Tempat Bertugas</p>

@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    // 'failed' => 'These credentials do not match our records.',
+    'failed' => 'Maklumat yang dimasukan adalah tidak sah.',
+    // 'throttle' => 'Too many login attempts. Please try again in :seconds seconds.'
+    'throttle' => 'Terlalu banyak percubaan log masuk. Sila cuba lagi dalam :seconds saat.',
 
 ];

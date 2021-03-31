@@ -146,7 +146,7 @@
                                              </div>
                                              <div class="col-md-8">
 
-                                                          <textarea class="form-control bg-light" name="ulasan_admin" rows="4" cols="50" placeholder="Ulasan Admin"></textarea><br>
+                                                          <textarea maxlength="100" class="form-control bg-light" name="ulasan_admin" rows="4" cols="50" placeholder="Ulasan Admin"></textarea><br>
 
                                                           <input type="radio" id="tidak_lengkap" name="status" value="Tidak Lengkap">
                                                               <label for="Tidak Lengkap">Tidak Lengkap</label><br>
@@ -168,14 +168,43 @@
                                                                     <p align="center">Hantar untuk pengesahan?</p>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                    <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                                    <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                                     </div>
                                                                 </div>
                                                                 </div>
                                                             </div>
                                                   </div>
                                                 </div>
+                                                <br>
+                                                <br>
+                                                <div class="row">
+                                                      @if($ulasanAdmin)
+                                                        <div class="col-md-2">
+                                                            Sejarah Ulasan Admin
+                                                         </div>
+                                                         @foreach($ulasanAdmin as $data)
+                                                         <div class="col-md-3">
+                                                             <p>- {{ $data->ulasan_admin }} </p>
+                                                             <p>( {{ $data->nama_admin }} , {{ $data->no_admin }} )</p>
+                                                         </div>
+                                                         @endforeach
+                                                      @endif
+                                                 </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                        @if($ulasanHOD)
+                                                          <div class="col-md-2">
+                                                              <p>Sejarah Ulasan HOD</p>
+                                                           </div>
+                                                             @foreach($ulasanHOD as $data)
+                                                             <div class="col-md-3">
+                                                               <p>- {{ $data->ulasan_hod }} </p>
+                                                               <p>( {{ $data->nama_hod }} , {{ $data->no_hod }} )</p>
+                                                             </div>
+                                                             @endforeach
+                                                       @endif
+                                                   </div>
                                             </form>
                                        </div>
                               </div>

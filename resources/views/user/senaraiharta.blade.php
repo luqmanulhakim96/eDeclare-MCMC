@@ -13,14 +13,14 @@
           <!-- Col sm 6, col md 6, col lg 3 -->
           <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.harta.FormB.senaraihartaB')}}">
               <!-- Card -->
-              <div class="card border-0 rounded-lg">
+              <div class="card border rounded-lg">
                   <!-- Card body -->
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
                           <!-- Icon -->
                           <div class="small-card-icon" align="center">
-                              <i><img src="{{ asset('qbadminui/img/formB.png') }}" alt="img" class="w-50"></i>
+                              <i><img src="{{ asset('qbadminui/img/formB.png') }}" alt="img" width="20%"></i>
                           </div>
                           <br>
                           <!-- Text -->
@@ -37,14 +37,14 @@
           <!-- Col sm 6, col md 6, col lg 3 -->
           <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.harta.FormC.senaraihartaC')}}">
               <!-- Card -->
-              <div class="card border-0 rounded-lg">
+              <div class="card border rounded-lg">
                   <!-- Card body -->
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
                           <!-- Icon -->
                           <div class="small-card-icon" align="center">
-                              <i><img src="{{ asset('qbadminui/img/formC.png') }}" alt="img" class="w-50"></i>
+                              <i><img src="{{ asset('qbadminui/img/formC.png') }}" alt="img" width="20%"></i>
                           </div>
                           <br>
                           <!-- Text -->
@@ -61,20 +61,20 @@
       <!-- Col sm 6, col md 6, col lg 3 -->
       <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.harta.FormD.senaraihartaD')}}">
           <!-- Card -->
-          <div class="card border-0 rounded-lg">
+          <div class="card border rounded-lg">
               <!-- Card body -->
               <div class="card-body">
 
                   <div class="d-flex flex-column justify-content-center align-items-center">
                       <!-- Icon -->
                       <div class="small-card-icon" align="center">
-                          <i><img src="{{ asset('qbadminui/img/formD.png') }}" alt="img" class="w-50"></i>
+                          <i><img src="{{ asset('qbadminui/img/formD.png') }}" alt="img" width="20%"></i>
                       </div>
                       <br>
                       <!-- Text -->
                       <div class="small-card-text w-100 text-center" >
                           <!-- <p class="font-weight-normal m-0 text-muted">Lampiran D:</p> -->
-                          <p class="font-weight-normal m-0 text-primary">Senarai Perisytiharan Syarikat dan Perniagaan Sendiri</p>
+                          <p class="font-weight-normal m-0 text-primary">Senarai Perisytiharan Syarikat</p>
                       </div>
                   </div>
 
@@ -84,14 +84,14 @@
 
       <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.harta.FormG.senaraihartaG')}}">
           <!-- Card -->
-          <div class="card border-0 rounded-lg">
+          <div class="card border rounded-lg">
               <!-- Card body -->
               <div class="card-body">
 
                   <div class="d-flex flex-column justify-content-center align-items-center">
                       <!-- Icon -->
                       <div class="small-card-icon" align="center">
-                          <i><img src="{{ asset('qbadminui/img/formG.png') }}" alt="img" class="w-50"></i>
+                          <i><img src="{{ asset('qbadminui/img/formG.png') }}" alt="img" width="20%"></i>
                       </div>
                       <br>
                       <!-- Text -->

@@ -223,16 +223,33 @@
                                       </div>
                                    </div>
 
-                                     <?php $i=0; ?>
-                                     @foreach($dokumen_syarikat as $data)
-                                     <?php $i++; ?>
-                                     <div class="row">
-                                      <div class="col-md-10">
-                                          <a href="{{ asset( $image_path = str_replace('public', 'storage',  $data->dokumen_syarikat)) }}"> Dokumen <?php echo $i; ?></a>
-                                      </div>
-                                    </div>
+                                   <div class="table-responsive">
+                                       <table class="table table-bordered" id="table_keterangan">
+                                           <thead>
+                                               <tr class="text-center">
 
-                                    @endforeach
+                                                   <th width="50%"><p class="mb-0">Nama Fail</p></th>
+                                                   <!-- <th width="5%"><p class="mb-0">Tindakan</p></th> -->
+                                               </tr>
+                                           </thead>
+                                           @foreach($dokumen_syarikat as $dokumen_syarikat)
+                                             @if($dokumen_syarikat->dokumen_syarikat != NULL)
+
+                                           <tbody>
+
+                                             <tr id="{{$dokumen_syarikat->id}}">
+
+                                               <td align="left"><a target="_blank" rel="noopener noreferrer" href="{{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}"> {{ asset( $image_path = str_replace('public', 'storage',  $dokumen_syarikat->dokumen_syarikat)) }}</a></td>
+
+
+                                             </tr>
+
+                                           </tbody>
+                                           @endif
+
+                                         @endforeach
+                                       </table>
+                                   </div>
 
                               </div>
                                    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -288,7 +305,7 @@
                                                 <p>Ulasan Ketua Bahagian</p>
                                               </div>
                                                 <div class="col-md-8">
-                                                     <textarea class="form-control bg-light" name="ulasan_hodiv" rows="4" cols="50" placeholder="Ulasan Ketua Bahagian"></textarea><br>
+                                                     <textarea maxlength="100" class="form-control bg-light" name="ulasan_hodiv" rows="4" cols="50" placeholder="Ulasan Ketua Bahagian"></textarea><br>
 
 
                                                      <input type="radio" id="diterima" name="status" value="Proses ke Ketua Jabatan Integriti">
@@ -310,8 +327,8 @@
                                                                <p align="center">Hantar untuk pengesahan?</p>
                                                                </div>
                                                                <div class="modal-footer">
-                                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                               <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                               <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                               <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                                </div>
                                                            </div>
                                                            </div>

@@ -25,9 +25,9 @@ class GiftBController extends Controller
       $nilaiHadiah = NilaiHadiah::first();
       $jenisHadiah = JenisHadiah::get();
 
-      $bahagian = UserExistingStaffInfo::distinct('OLEVEL4NAME')->ORDERBY('OLEVEL4NAME','asc')->get('OLEVEL4NAME');
+      $bahagian = UserExistingStaffInfo::distinct('OLEVEL4NAME')->where('STAFFSTATUS','Active')->ORDERBY('OLEVEL4NAME','asc')->get('OLEVEL4NAME');
       // dd($bahagia);
-      $jabatan = UserExistingStaffInfo::distinct('OLEVEL5NAME')->ORDERBY('OLEVEL5NAME','asc')->get('OLEVEL5NAME');
+      $jabatan = UserExistingStaffInfo::distinct('OLEVEL5NAME')->where('STAFFSTATUS','Active')->ORDERBY('OLEVEL5NAME','asc')->get('OLEVEL5NAME');
       // dd($jabatan);
       $username =Auth::user()->username;
       $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();

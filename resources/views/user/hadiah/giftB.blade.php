@@ -3,7 +3,7 @@
            <!--Page Body part -->
            <div class="page-body p-4 text-dark">
                <div class="page-heading border-bottom d-flex flex-row">
-                   <p class="font-weight-normal">Lampiran B: LAPORAN PENERIMAAN HADIAH DIBAWAH SURAT PEKELILING PERKHIDMATAN DAN SOKONGAN BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI RM {{ $nilaiHadiah ->nilai_hadiah }} DAN KE BAWAH</p>
+                   <p class="font-weight-normal">Borang B: LAPORAN PENERIMAAN HADIAH DIBAWAH SURAT PEKELILING PERKHIDMATAN DAN SOKONGAN BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI RM {{ $nilaiHadiah ->nilai_hadiah }} DAN KE BAWAH</p>
                </div>
 
                <!-- All Basic Form elements -->
@@ -106,10 +106,10 @@
                                   </div>
                                   <div class="row">
                                       <div class="col-md-4">
-                                        <p class="required">i) Jenis</p>
+                                        <p class="required">i) Jenis Hadiah</p>
                                       </div>
                                       <div class="col-md-8">
-                                        <input id="jenis_gift" list="hadiah" class="custom-select  bg-light" name="jenis_gift" value="{{ old('jenis_gift')}}" placeholder="Sila masukan jenis hadiah" autocomplete="off" >
+                                        <input id="jenis_gift" list="hadiah" class="custom-select  bg-light" name="jenis_gift" value="{{ old('jenis_gift')}}" placeholder="Sila masukkan jenis hadiah" autocomplete="off" >
                                           <datalist id="hadiah">
                                             <option value="" selected disabled hidden>Jenis Hadiah</option>
 
@@ -133,7 +133,7 @@
                                           <p class="required">ii) Nilai/ Anggaran Nilai</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" name="nilai_hadiah" value="{{old('nilai_hadiah')}}" id="nilai_hadiah" placeholder="Nilai Hadiah/ Anggaran Nilai" >
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="nilai_hadiah" value="{{old('nilai_hadiah')}}" id="nilai_hadiah" placeholder="Nilai Hadiah/ Anggaran Nilai" >
                                       </div>
                                       @error('nilai_hadiah')
                                       <div class="alert alert-danger">
@@ -186,10 +186,17 @@
                                  <br>
                                  <div class="row">
                                    <div class="col-md-4">
-                                       <p class="required">v) Hubungan Pemberi</p>
+                                       <p class="required">vi) Hubungan Pemberi</p>
                                    </div>
                                    <div class="col-md-8">
-                                      <input class="form-control bg-light" type="text" name="hubungan_pemberi" value="{{old('hubungan_pemberi')}}" id="hubungan_pemberi" placeholder="Hubungan Pemberi" >
+                                     <input id="hubungan_pemberi" list="hubungan" class="custom-select  bg-light" name="hubungan_pemberi" value="{{ old('hubungan_pemberi')}}" placeholder="Hubungan Pemberi" autocomplete="off" >
+                                       <datalist id="hubungan">
+                                         <option value="" selected disabled hidden>Pilih Hubungan</option>
+                                         <option value="Suami/Isteri">Suami/Isteri</option>
+                                         <option value="Rakan">Rakan</option>
+                                       </datalist>
+                                     </input>
+                                      <!-- <input class="form-control bg-light" type="text" name="hubungan_pemberi" value="{{ old('hubungan_pemberi')}}" id="hubungan_pemberi" placeholder="Hubungan Pemberi" > -->
                                    </div>
                                    @error('hubungan_pemberi')
                                    <div class="alert alert-danger">
@@ -200,7 +207,7 @@
                                  <br>
                                  <div class="row">
                                     <div class="col-md-4">
-                                        <p class="required">vi)Sebab Diberi</p>
+                                        <p class="required">vii)Sebab Diberi</p>
                                     </div>
                                     <div class="col-md-8">
                                         <input class="form-control bg-light" type="text" name="sebab_diberi" value="{{old('sebab_diberi')}}" id="sebab_diberi" placeholder="Sebab Diberi" >
@@ -265,8 +272,8 @@
                                                    <p align="center">Simpan maklumat perisytiharan?</p>
                                                    </div>
                                                    <div class="modal-footer">
-                                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                   <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                                                   <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                   <button type="submit" class="btn btn-danger" name="save">Ya</button>
                                                    </div>
                                                </div>
                                                </div>
@@ -284,8 +291,8 @@
                                                      <p align="center">Hantar maklumat perisytiharan?</p>
                                                      </div>
                                                      <div class="modal-footer">
-                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                     <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                     <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                      </div>
                                                  </div>
                                                  </div>
@@ -328,5 +335,15 @@
 
            today = yyyy+'-'+mm+'-'+dd;
            document.getElementById("datefield").setAttribute("max", today);
+           </script>
+           <script>
+           function onlyNumberKey(evt) {
+
+               // Only ASCII charactar in that range allowed
+               var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+               if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                   return false;
+               return true;
+           }
            </script>
 @endsection

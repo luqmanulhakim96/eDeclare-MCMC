@@ -6,7 +6,7 @@ Author's custom styles
 
 body {
   font-size: 0.8rem;
-  font-family: "Verdana", sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 a {
@@ -40,7 +40,7 @@ input::placeholder {
 html {
   font-size: 1em;
   line-height: 1.4;
-  font-family: "Verdana", sans-serif !important;
+  font-family: "Open Sans", sans-serif !important;
 }
 
 ::-moz-selection {
@@ -532,6 +532,7 @@ label {
 
 .card {
   box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.08) !important;
+  background-color: #efefef;
 }
 
 .btn {
@@ -1014,8 +1015,8 @@ label {
 }
 
 .alert-info {
-  background: #ff4d40 !important;
-  color: #ffffff !important;
+  background: #ff4d40  !important;
+  color: #ffffff  !important;
   border-color: #0000 !important;
 }
 
@@ -1044,7 +1045,7 @@ button.close {
 .badge-primary,
 .badge-rounded-primary,
 .badge-square-primary {
-  background-color: #0082c8 !important;
+  background-color: #663399 !important;
 }
 
 .badge-secondary,
@@ -1297,7 +1298,7 @@ button.close {
 }
 
 .theme-option .side-nav-themes .side-nav-theme-primary {
-  background: linear-gradient(-154deg, #fa048fad, #0082c8) !important
+  background: linear-gradient(-154deg, #639, #33214b) !important;
 }
 
 .theme-option .side-nav-themes .side-nav-theme-light {
@@ -1307,7 +1308,7 @@ button.close {
 /* The sidebar */
 
 .side-bar {
-  background: #495057 !important;
+  background: linear-gradient(-154deg, #000000, #000000) !important;
   height: 100vh !important;
   width: 17rem !important;
   visibility: hidden;
@@ -1318,6 +1319,7 @@ button.close {
   transition: all ease 0.5s;
   z-index: 99;
   overflow: auto;
+  margin-top: 6%;
 }
 
 .side-bar .side-menu-brand {
@@ -1326,8 +1328,8 @@ button.close {
 }
 
 .side-bar .side-menu-brand .brand-name {
-  color: #ffc107 !important;
-  font-size: 1.0rem;
+  color: #ffffff !important;
+  font-size: 1.5rem;
 }
 
 .side-bar .side-menu-brand .brand-img {
@@ -1339,7 +1341,7 @@ button.close {
 }
 
 .side-bar .the_menu .side-menu-heading {
-  color: #ffc107 !important;
+  color: #ffffff !important;
   border-bottom: 1px solid #ffffff !important;
 }
 
@@ -1355,7 +1357,7 @@ button.close {
 .side-bar .side-sub-menu-item a {
   font-size: 0.9rem !important;
   display: block;
-  color: #ffc107 !important;
+  color: #ffffff !important;
   transition: all ease 0.3s;
   position: relative !important;
 }
@@ -1479,11 +1481,8 @@ button.close {
 
 .profile-avatar {
   width: 50%;
-  border: 2px solid #000000;
   border-radius: 50%;
   margin-top: -0.2rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
 }
 
 .search-round input {
@@ -1525,7 +1524,7 @@ main {
 
 .login-page {
   height: 100vh;
-  background: #ffffff;
+  background: #4f4f4f;
 }
 
 .login-brand {
@@ -1579,24 +1578,16 @@ main {
 
   .main-full-body,
   .footer-full-body {
-    width: calc( 100% - 70px - 200px ) !important;
+    /* width: calc( 100% - 70px - 200px ) !important; */
   }
 }
 
 footer {
+  background-color: #000;
   width: 100%;
   float: right;
   overflow: hidden;
-  position: relative;
-}
+  /* position: relative; */
+  position: fixed;
 
-imgthumbnail {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  width: 150px;
-}
-
-imgthumbnail:hover {
-  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }

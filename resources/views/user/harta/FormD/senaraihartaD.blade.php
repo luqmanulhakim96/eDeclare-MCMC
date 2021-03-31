@@ -16,14 +16,14 @@
                                    <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                                        <thead class="thead-light">
                                            <tr class="text-center">
-                                               <th width="10%"><p class="mb-0">ID</p></th>
-                                               <th width="30%"><p class="mb-0">Nama</p></th>
-                                               <th width="30"><p class="mb-0">No Kad Pengenalan</p></th>
-                                               <th width="10%"><p class="mb-0">Lampiran D</p></th>
-                                               <th width="70%"><p class="mb-0">Tarikh</p></th>
-                                               <th width="30%"><p class="mb-0">Status</p></th>
-                                               <th width="30%"><p class="mb-0">Catatan</p></th>
-                                               <th width="30%"><p class="mb-0">Tindakan</p></th>
+                                             <th width="10%"><p class="mb-0">ID</p></th>
+                                             <th width="30%"><p class="mb-0">Nama</p></th>
+                                             <th width="30"><p class="mb-0">No Kad Pengenalan</p></th>
+                                             <th width="10%"><p class="mb-0">Lampiran D</p></th>
+                                             <th width="10%"><p class="mb-0">Tarikh</p></th>
+                                             <th width="10%"><p class="mb-0">Status</p></th>
+                                             <th width="70%"><p class="mb-0">Catatan</p></th>
+                                             <th width="30%"><p class="mb-0">Tindakan</p></th>
                                            </tr>
                                        </thead>
                                        <tbody align="center">
@@ -50,7 +50,7 @@
                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
-                                               <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan</span>
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
@@ -83,9 +83,17 @@
                                              @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
                                              {{ $data ->status }}
                                              @elseif($data ->status == "Tidak Lengkap")
-                                              {{$data->ulasan_admin}}
+                                                @foreach($ulasanAdmin as $admin)
+                                                @if($admin->formds_id == $data->id)
+                                                  <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                                                @endif
+                                                @endforeach
                                              @elseif($data ->status == "Tidak Diterima")
-                                              {{$data->ulasan_hod}}
+                                               @foreach($ulasanHOD as $hod)
+                                                 @if($hod->formds_id == $data->id)
+                                                   <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                                                 @endif
+                                               @endforeach
                                              @elseif($data ->status == "Diterima")
                                              {{ $data ->status }}
                                              @elseif($data ->status == "Selesai")

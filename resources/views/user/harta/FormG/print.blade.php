@@ -11,6 +11,52 @@
     </tr>
     <tr>
       <td colspan="4">
+        <h5>2.KETERANGAN MENGENAI PEGAWAI</h5>
+      </td>
+    </tr>
+    <tr>
+        <td>
+            Nama
+        </td>
+        <td>
+            {{$listHarta ->nama_pegawai }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+          No.Kad Pengenalan
+        </td>
+        <td>
+          {{$listHarta ->kad_pengenalan }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+          Jabatan
+        </td>
+        <td>
+          {{$listHarta ->jabatan }}
+        </td>
+      </tr>
+      <tr>
+          <td>
+          Tarikh Lantikan Ke Perkhidmatan Sekarang
+          </td>
+          <td>
+            {{ $listHarta ->tarikh_lantikan }}
+          </td>
+        </tr>
+        <tr>
+            <td>
+            Alamat Tempat Bertugas
+            </td>
+            <td>
+              {{$listHarta->alamat_tempat_bertugas }}
+            </td>
+          </tr>
+
+    <tr>
+      <td colspan="4">
         <h5>2.KETERANGAN MENGENAI KELUARGA</h5>
       </td>
     </tr>

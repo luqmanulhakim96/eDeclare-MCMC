@@ -36,7 +36,7 @@
                                        <tbody align="center">
                                          @foreach($merged as $data)
                                          @if($data ->getTable() == "gifts")
-                                           @if($data ->status == "Proses ke Pentadbir Sistem" || $data ->status == "Menunggu Kebenaran Kemaskini")
+                                           @if($data ->status == "Sedang Diproses" || $data ->status == "Menunggu Kebenaran Kemaskini")
                                            <tr>
 
                                                <td>{{ $data ->id }}</td>
@@ -53,14 +53,14 @@
                                                <td>{{ $data ->hubungan_pemberi}}</td>
 
                                                <td>
-                                                   @if($data ->status == "Proses ke Pentadbir Sistem")
+                                                   @if($data ->status == "Sedang Diproses")
                                                      <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                    @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
                                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                    @endif
                                                </td>
                                                <td>
-                                                   @if($data ->status == "Proses ke Pentadbir Sistem")
+                                                   @if($data ->status == "Sedang Diproses")
                                                    <a href="{{route('user.admin.hadiah.ulasanHadiah',$data->id)}}" class="btn btn-primary" >Ulasan</button>
                                                    @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
                                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanGiftA{{$data-> id}}">Tindakan</button>

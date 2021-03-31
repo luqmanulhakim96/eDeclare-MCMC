@@ -17,8 +17,8 @@
                                    <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                                        <thead class="thead-light">
                                            <tr class="text-center">
-                                               <!-- <th width="10%"><p class="mb-0">ID</p></th> -->
-                                               <th><p class="mb-0">No Staff</p></th>
+                                               <th width="10%"><p class="mb-0">ID</p></th>
+                                               <!-- <th><p class="mb-0">No Staff</p></th> -->
                                                <th><p class="mb-0">Nama</p></th>
                                                <th><p class="mb-0">Lampiran</p></th>
                                                <th><p class="mb-0">Tarikh</p></th>
@@ -41,22 +41,22 @@
                                              </td> -->
                                              <td>
                                                @if($data ->getTable() == "formbs")
-                                               Lampiran B
+                                               Lampiran B : Perisytiharan Harta
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                </div>
                                                @elseif($data ->getTable() == "formcs")
-                                               Lampiran C
+                                               Lampiran C : Pelupusan Harta
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormC.viewformC', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                </div>
                                                @elseif($data ->getTable() == "formds")
-                                               Lampiran D
+                                               Lampiran D : Perisytiharan Syarikat
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormD.viewformD', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                </div>
                                                @elseif($data ->getTable() == "formgs")
-                                               Lampiran E
+                                               Lampiran E : Perisytiharan Memiliki Saham
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormG.viewformG', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                </div>
@@ -72,7 +72,7 @@
                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
-                                               <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan</span>
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
@@ -198,7 +198,7 @@
                                                          </button>
                                                          </div>
                                                          <div class="modal-body">
-                                                         <p align="center">Pengesahan untuk memberi akses kemaskini lampiran?</p>
+                                                         <p align="center">Pengesahan untuk memberi kebenaran mengemaskini lampiran?</p>
                                                          </div>
                                                          <div class="modal-footer">
                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

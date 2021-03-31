@@ -100,9 +100,17 @@
                                   @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
                                   {{ $data ->status }}
                                   @elseif($data ->status == "Tidak Lengkap")
-                                   {{$data->ulasan_admin}}
+                                     @foreach($ulasanAdmin as $admin)
+                                     @if($admin->giftb_id == $data->id)
+                                       <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                                     @endif
+                                     @endforeach
                                   @elseif($data ->status == "Tidak Diterima")
-                                   {{$data->ulasan_hod}}
+                                    @foreach($ulasanHOD as $hod)
+                                      @if($hod->giftb_id == $data->id)
+                                        <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                                      @endif
+                                    @endforeach
                                   @elseif($data ->status == "Diterima")
                                   {{ $data ->status }}
                                   @elseif($data ->status == "Selesai")

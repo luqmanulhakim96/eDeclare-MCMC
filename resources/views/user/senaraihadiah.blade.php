@@ -15,14 +15,14 @@
           <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{ route('user.hadiah.senaraihadiah') }}">
           <!-- <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0"> -->
               <!-- Card -->
-              <div class="card border-0 rounded-lg">
+              <div class="card border rounded-lg">
                   <!-- Card body -->
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
                           <!-- Icon -->
                           <div class="small-card-icon" align="center">
-                              <i><img src="{{ asset('qbadminui/img/checkA1.png') }}" alt="img" class="w-50"></i>
+                              <i><img src="{{ asset('qbadminui/img/checkA1.png') }}" alt="img" width="20%"></i>
                           </div>
                           <br>
                           <!-- Text -->
@@ -39,14 +39,14 @@
           <!-- Col sm 6, col md 6, col lg 3 -->
           <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{ route('user.hadiah.senaraihadiahB') }}">
               <!-- Card -->
-              <div class="card border-0 rounded-lg">
+              <div class="card border rounded-lg">
                   <!-- Card body -->
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
                           <!-- Icon -->
                           <div class="small-card-icon" align="center">
-                              <i><img src="{{ asset('qbadminui/img/checkB1.png') }}" alt="img" class="w-50"></i>
+                              <i><img src="{{ asset('qbadminui/img/checkB1.png') }}" alt="img" width="20%"></i>
                           </div>
                           <br>
                           <!-- Text -->

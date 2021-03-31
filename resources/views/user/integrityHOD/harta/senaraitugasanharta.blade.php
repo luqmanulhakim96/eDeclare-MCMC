@@ -37,22 +37,22 @@
                                              <td>{{ $data ->users->name }}</td>
                                              <td>
                                                @if($data ->getTable() == "formbs")
-                                               Lampiran B
+                                               Lampiran B : Perisytiharan Harta
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                </div>
                                                @elseif($data ->getTable() == "formcs")
-                                               Lampiran C
+                                               Lampiran C : Pelupusan Harta
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormC.viewformC', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                </div>
                                                @elseif($data ->getTable() == "formds")
-                                               Lampiran D
+                                               Lampiran D : Perisytiharan Syarikat
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormD.viewformD', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                </div>
                                                @elseif($data ->getTable() == "formgs")
-                                               Lampiran G
+                                               Lampiran E : Perisytiharan Memiliki Saham
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormG.viewformG', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                </div>
@@ -70,7 +70,7 @@
                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
-                                               <span class="badge badge-warning badge-pill">Proses ke Ketua Jabatan</span>
+                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")

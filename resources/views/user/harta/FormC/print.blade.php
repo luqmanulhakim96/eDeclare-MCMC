@@ -18,7 +18,7 @@
             Nama
         </td>
         <td>
-            {{$listHarta ->formcs->name }}
+            {{$listHarta ->nama_pegawai }}
         </td>
     </tr>
     <tr>
@@ -26,7 +26,7 @@
             No. Kad Pengenalan
         </td>
         <td>
-            {{$listHarta ->formcs->kad_pengenalan }}
+            {{$listHarta ->kad_pengenalan }}
         </td>
     </tr>
     <tr>
@@ -34,7 +34,7 @@
             Jawatan / Gred
         </td>
         <td>
-            {{$listHarta ->formcs->jawatan }}
+            {{$listHarta ->jawatan }}
         </td>
     </tr>
     <tr>
@@ -50,7 +50,7 @@
             Alamat Tempat Bertugas
         </td>
         <td>
-            {{$listHarta ->formcs->alamat_tempat_bertugas }}
+            {{$listHarta ->alamat_tempat_bertugas }}
         </td>
     </tr>
     <tr>

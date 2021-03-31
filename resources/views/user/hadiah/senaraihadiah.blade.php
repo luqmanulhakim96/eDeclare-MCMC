@@ -79,9 +79,13 @@
                                      <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
                                      @elseif($data ->status == "Diproses ke Ketua Jabatan Integriti")
                                      <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                     @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                      @elseif($data ->status == "Diproses ke Ketua Bahagian")
                                      <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                     @elseif($data ->status == "Diproses ke Pentadbir Sistem")
+                                     @elseif($data ->status == "Proses ke Ketua Bahagian")
+                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                     @elseif($data ->status == "Proses ke Pentadbir Sistem")
                                      <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                      @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
                                      <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
@@ -102,12 +106,20 @@
                                     {{ $data ->status }}
                                     @elseif($data ->status == "Menunggu Ulasan Ketua Bahagian")
                                     {{ $data ->status }}
-                                    @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
+                                    @elseif($data ->status == "Proses ke Pentadbir Sistem")
                                     {{ $data ->status }}
                                     @elseif($data ->status == "Tidak Lengkap")
-                                     {{$data->ulasan_admin}}
+                                       @foreach($ulasanAdmin as $admin)
+                                       @if($admin->gift_id == $data->id)
+                                         <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                                       @endif
+                                       @endforeach
                                     @elseif($data ->status == "Tidak Diterima")
-                                     {{$data->ulasan_hod}}
+                                      @foreach($ulasanHOD as $hod)
+                                        @if($hod->gift_id == $data->id)
+                                          <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                                        @endif
+                                      @endforeach
                                     @elseif($data ->status == "Diterima")
                                     {{ $data ->status }}
                                     @elseif($data ->status == "Selesai")

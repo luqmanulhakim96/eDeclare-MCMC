@@ -195,6 +195,17 @@ table.dataTable.table-sm .sorting_desc:after {
 table.table-bordered.dataTable {
   border-right-width: 0;
 }
+.table-bordered {
+    border: 1px solid #b3b3b3;
+}
+.table-bordered td, .table-bordered th {
+    border: 1px solid #b3b3b3;
+}
+.table .thead-light th {
+    color: #495057;
+    background-color: #e9ecef;
+    border-color:  #b3b3b3;
+}
 table.table-bordered.dataTable th,
 table.table-bordered.dataTable td {
   border-left-width: 0;
@@ -493,6 +504,7 @@ table.dataTable.dtr-column > tbody > tr > th.control:before {
   position: absolute;
   color: white;
   border: 2px solid white;
+  /* border-color: black; */
   border-radius: 14px;
   box-shadow: 0 0 3px #444;
   box-sizing: content-box;
@@ -960,5 +972,3 @@ div.dtsp-hidden {
     min-width: 98% !important;
   }
 }
-
-

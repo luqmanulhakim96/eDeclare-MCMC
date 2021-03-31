@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Audit;
 use App\User;
+use App\SettingAuth;
 use App\UserExistingStaff;
 use App\UserExistingStaffInfo;
 use App\UserExistingStaffNextofKin;
@@ -246,7 +247,8 @@ class ItAdminController extends Controller
         $itadmin = json_decode($test1->layout);
         // dd($admin);
         $route=Route::get();
-        return view('user.it.sistemkonfigurasi',compact('route','admin','itadmin'));
+        $auth = SettingAuth::first();
+        return view('user.it.sistemkonfigurasi',compact('route','admin','itadmin','auth'));
       }
 
       // public function addlayout(array $data){
@@ -415,4 +417,12 @@ class ItAdminController extends Controller
           fclose($fp);
 
       }
+      public function submitauth(Request $request,$id){
+          $auths=SettingAuth::find($id);
+          $auths->max_attempts = $request->max_attempts;
+          $auths->decay_minutes = $request->decay_minutes;
+          $auths->save();
+
+          return redirect()->route('user.it.sistemkonfigurasi');
+        }
 }

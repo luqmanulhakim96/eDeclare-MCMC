@@ -19,7 +19,7 @@
                         Nama
                     </td>
                     <td colspan="4">
-                        {{$listHarta ->formbs->name }}
+                        {{$listHarta->nama_pegawai }}
                     </td>
                 </tr>
                 <tr>
@@ -35,7 +35,7 @@
                         Jawatan / Gred
                     </td>
                     <td colspan="4">
-                        {{$listHarta ->formbs->jawatan }}
+                        {{$listHarta ->jawatan }}
                     </td>
                 </tr>
                 <tr>
@@ -51,7 +51,7 @@
                         Alamat Tempat Bertugas
                     </td>
                     <td colspan="4">
-                        {{$listHarta ->formbs->alamat_tempat_bertugas }}
+                        {{$listHarta ->alamat_tempat_bertugas }}
                     </td>
                 </tr>
                 @if($maklumat_pasangan->isEmpty())

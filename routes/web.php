@@ -142,6 +142,12 @@ Route::get('/hadiah/lampiran-B/id={id}', 'GiftBController@viewHadiahB')->name('u
 Route::get('/hadiah-B/padam/id={id}','GiftBController@deleteHadiah')->name('giftB.delete');
 
 
+Route::get('/Dokumen/padam/id={id}','FormDController@delete')->name('dokumen.delete');
+
+Route::get('/delete/dokumen/{id}','FormDController@ajaxDeleteDokumen')->name('ajax.dokumen.delete');
+
+
+
 
 Route::post('/perakuan-harta', 'PerakuanController@submitForm')->name('perakuan.submit');
 
@@ -508,6 +514,8 @@ Route::post('/itadmin/sistem-konfigurasi/kemaskini', 'ItAdminController@updateLa
 Route::get('/itadmin/configure', 'ItAdminController@konfigurasiSistem')->name('user.it.konfigurasi');
 
 Route::post('/itadmin/configure/edit', 'ItAdminController@editKonfigurasiSistem')->name('user.it.konfigurasi.edit');
+
+Route::post('/tetapan/logmasuk/{id}', 'ItAdminController@submitauth')->name('auth.submit');
 
 
 // Route::prefix('jobs')->group(function () {

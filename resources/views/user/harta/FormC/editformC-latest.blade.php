@@ -181,7 +181,7 @@
                                       </div>
                                       <div class="col-md-4">
                                           <input id="nilai_pelupusan" class="form-control bg-light"  onkeypress="return onlyNumberKey(event)" type="text" placeholder="Nilai Jualan" value="{{ old('nilai_pelupusan')}}">
-                                          @error('nilai_pelupusan_')
+                                        @error('nilai_pelupusan_')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                       </div>
@@ -254,8 +254,8 @@
                                           <p align="center">Simpan maklumat perisytiharan?</p>
                                           </div>
                                           <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                          <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                                          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                          <button type="submit" class="btn btn-danger" name="save">Ya</button>
                                           </div>
                                       </div>
                                       </div>
@@ -272,8 +272,8 @@
                                           <p align="center">Hantar maklumat perisytiharan?</p>
                                           </div>
                                           <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                          <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                          <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                           </div>
                                       </div>
                                       </div>
