@@ -7,19 +7,22 @@ use Illuminate\Http\Request;
 use App\Asset;
 use DB;
 use Auth;
+use App\UserExistingStaffInfo;
 
 class PerakuanController extends Controller
 {
     //
     public function perakuanBaru(){
-
-      return view('user.perakuanharta.formA');
+      $username =Auth::user()->username;
+      $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+      return view('user.perakuanharta.formA',compact('staffinfo'));
   }
 
   public function add(array $data){
     $userid = Auth::user()->id;
     $status = "Lampiran A";
       return Asset::create([
+        'no_staff' => $data['no_staff'],
         'nama_pegawai' => $data['nama_pegawai'],
         'kad_pengenalan' => $data['kad_pengenalan'],
         'jawatan' => $data['jawatan'],

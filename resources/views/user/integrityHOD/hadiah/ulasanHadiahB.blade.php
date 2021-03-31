@@ -151,7 +151,18 @@
                           <div class="row">
                              <div class="col-md-4">
                                <div class="img-responsive" alt="Gambar Hadiah" align="center">
-                                 <img src="{{ asset( $image_path = str_replace('public', 'storage',  $listHadiah ->gambar_gift)) }}"  width="100%" height="100%">
+                                 @if($listHadiah->gambar_gift != NULL)
+                                 @if(pathinfo(asset( $image_path = str_replace('public', 'storage',  $listHadiah ->gambar_gift)), PATHINFO_EXTENSION) == "pdf")
+                                 <div class="modal-body modal-dialog1" >
+                                 <iframe id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $listHadiah ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="300px" height="300px"></iframe>
+                                 </div>
+                                 @else
+                                 <div class="modal-body"  >
+                                 <img id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $listHadiah ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="300px" height="300px"></img>
+                               </div>
+                               @endif
+
+                                 @endif
                               </div>
                              </div>
                          </div>
@@ -164,7 +175,11 @@
                                  <p>Ulasan Admin</p>
                               </div>
                               <div class="col-md-8">
-                                <p>{{ $listHadiah->ulasan_admin }} </p><p>( {{ $listHadiah->nama_admin }} , {{ $listHadiah->no_admin }} )</p><br>
+                                @foreach($ulasanAdmin as $data)
+                                   @if($loop->last)
+                                     <p>{{ $data->ulasan_admin }} </p><p>( {{ $data->nama_admin }} , {{ $data->no_admin }} )</p><br>
+                                   @endif
+                                @endforeach
                               </div>
                             </div>
 
@@ -205,7 +220,7 @@
                                 <p>Ulasan Ketua Jabatan Integriti</p>
                               </div>
                               <div class="col-md-8">
-                                   <textarea class="form-control bg-light" name="ulasan_hod" rows="8" cols="30" placeholder="Ulasan Ketua Jabatan Integriti"></textarea><br>
+                                   <textarea maxlength="100" class="form-control bg-light" name="ulasan_hod" rows="8" cols="30" placeholder="Ulasan Ketua Jabatan Integriti"></textarea><br>
 
                                    <!-- <input type="radio" id="tidak_lengkap" name="status" value="Tidak Lengkap">
                                        <label for="Tidak Lengkap">Tidak Lengkap</label><br>
@@ -231,13 +246,28 @@
                                              <p align="center">Hantar untuk pengesahan?</p>
                                              </div>
                                              <div class="modal-footer">
-                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                             <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                             <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                              </div>
                                          </div>
                                          </div>
                                      </div>
                               </div>
+                            </div>
+                            <br><br>
+                            <div class="row">
+                              @if($ulasanAdmin)
+                                  <div class="col-md-2">
+                                      <p>Sejarah Ulasan Admin</p>
+                                   </div>
+                                    @foreach($ulasanAdmin as $data)
+                                     <div class="col-md-3">
+                                      @if(!$loop->last)
+                                        <p>- {{ $data->ulasan_admin }} </p><p>( {{ $data->nama_admin }} , {{ $data->no_admin }} )</p><br>
+                                      @endif
+                                      </div>
+                                    @endforeach
+                              @endif
                             </div>
                             </form>
                           </div>

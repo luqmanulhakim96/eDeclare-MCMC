@@ -1125,8 +1125,24 @@
                                         </div>
                                       </div>
                                       <div class="row">
+                                          <div class="col-md-4">
+                                            <p class="required">Jenis-jenis</p>
+                                          </div>
+                                          <div class="col-md-8">
+                                              <div class="form-group">
+                                                <select id="jenis" class="custom-select bg-light" name="jenis" onchange="showJenis()">
+                                                    <option value="" selected disabled hidden>Pilih jenis</option>
+                                                    <option value="Tanah" {{ old('jenis')   == "Tanah" ? 'selected' : '' }}>Tanah</option>
+                                                    <option value="Saham" {{ old('jenis')   == "Saham" ? 'selected' : '' }}>Saham</option>
+                                                    <option value="Semua" {{ old('jenis')   == "Semua" ? 'selected' : '' }}>Tanah dan Saham</option>
+                                                </select>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div id="tanah_container" style="display: none;">
+                                      <div class="row">
                                         <div class="col-md-4">
-                                          <p><b>i) Butir- butir lengkap mengenai tanah Kerajaan yang hendak dipohon dan dimiliki: </b></p>
+                                          <p><b> Butir- butir lengkap mengenai tanah Kerajaan yang hendak dipohon dan dimiliki: </b></p>
                                         </div>
                                       </div>
                                       <div class="row">
@@ -1193,9 +1209,11 @@
                                           </div>
                                       </div>
                                       <br>
+                                    </div>
+                                    <div id="saham_container" style="display: none;">
                                       <div class="row">
                                         <div class="col-md-8">
-                                        <p><b>ii) Butir- butir saham yang dipohon </b></p>
+                                        <p><b> Butir- butir saham yang dipohon </b></p>
                                       </div>
                                     </div>
                                     <br>
@@ -1264,10 +1282,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                  </div>
 
                                     <div class="row">
                                       <div class="col-md-8">
-                                        <p><b>iii) Jika melibatkan pinjaman, Nyatakan: </b></p>
+                                        <p><b> Jika melibatkan pinjaman, Nyatakan: </b></p>
                                       </div>
                                     </div>
                                     <div class="row">
@@ -1362,8 +1381,8 @@
                                                   <p align="center">Simpan maklumat perisytiharan?</p>
                                                   </div>
                                                   <div class="modal-footer">
-                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                  <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                                                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                  <button type="submit" class="btn btn-danger" name="save">Ya</button>
                                                   </div>
                                               </div>
                                               </div>
@@ -1381,8 +1400,8 @@
                                                     <p align="center">Hantar maklumat perisytiharan?</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                    <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                    <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -1685,4 +1704,52 @@
                 return true;
             }
             </script>
+            <script type="text/javascript">
+           function showJenis(){
+             var jenis= $('#jenis').val();
+             console.log(jenis,'jenis');
+
+             if(jenis == "Tanah"){
+               document.getElementById('tanah_container').style.display ="block";
+             }
+             else{
+               document.getElementById('tanah_container').style.display ="none";
+             }
+
+             if(jenis == "Saham"){
+               document.getElementById('saham_container').style.display ="block";
+             }
+             else{
+               document.getElementById('saham_container').style.display ="none";
+             }
+
+             if(jenis == "Semua"){
+               document.getElementById('tanah_container').style.display ="block";
+               document.getElementById('saham_container').style.display ="block";
+             }
+             // else{
+             //   document.getElementById('tanah_container').style.display ="none";
+             //   document.getElementById('saham_container').style.display ="none";
+             // }
+
+
+
+           }
+           </script>
+           <script type="text/javascript">
+           var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+             if(dd<10){
+                    dd='0'+dd
+                }
+                if(mm<10){
+                    mm='0'+mm
+                }
+
+            today = yyyy+'-'+mm+'-'+dd;
+            document.getElementById("datefield").setAttribute("max", today);
+
+           </script>
 @endsection

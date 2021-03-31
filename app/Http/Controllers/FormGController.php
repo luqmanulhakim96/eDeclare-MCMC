@@ -243,6 +243,44 @@ public function add(array $data){
   $userid = Auth::user()->id;
   $sedang_proses= "Sedang Diproses";
 
+
+    if($data['jenis'] == "Tanah"){
+      $luas_tanah = $data['luas'];
+      $lot_tanah = $data['lot'];
+      $mukim_tanah = $data['mukim'];
+      $negeri_tanah = $data['negeri'];
+      $jenis_tanah = $data['jenis_tanah'];
+      $nama_syarikat= null;
+      $modal_berbayar = null;
+      $jumlah_unit_saham = null;
+      $nilai_saham = null;
+      $sumber_kewangan = null;
+    }
+    else if($data['jenis'] == "Saham"){
+      $luas_tanah = null;
+      $lot_tanah = null;
+      $mukim_tanah = null;
+      $negeri_tanah = null;
+      $jenis_tanah = null;
+      $nama_syarikat= $data['nama_syarikat'];
+      $modal_berbayar = $data['modal_berbayar'];
+      $jumlah_unit_saham = $data['jumlah_unit_saham'];
+      $nilai_saham = $data['nilai_saham'];
+      $sumber_kewangan = $data['sumber_kewangan'];
+    }
+    else if($data['jenis'] == "Semua"){
+      $luas_tanah = $data['luas'];
+      $lot_tanah = $data['lot'];
+      $mukim_tanah = $data['mukim'];
+      $negeri_tanah = $data['negeri'];
+      $jenis_tanah = $data['jenis_tanah'];
+      $nama_syarikat= $data['nama_syarikat'];
+      $modal_berbayar = $data['modal_berbayar'];
+      $jumlah_unit_saham = $data['jumlah_unit_saham'];
+      $nilai_saham = $data['nilai_saham'];
+      $sumber_kewangan = $data['sumber_kewangan'];
+    }
+
     return FormG::create([
       'nama_pegawai' => $data['nama_pegawai'],
       'kad_pengenalan' => $data['kad_pengenalan'],
@@ -280,11 +318,6 @@ public function add(array $data){
       'bulanan_koperasi_pegawai' => $data['bulanan_koperasi_pegawai'],
       'jumlah_koperasi_pasangan' => $data['jumlah_koperasi_pasangan'],
       'bulanan_koperasi_pasangan' => $data['bulanan_koperasi_pasangan'],
-      // 'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
-      // 'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
-      // 'bulanan_pegawai'=> $data['bulanan_pegawai'],
-      // 'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
-      // 'bulanan_pasangan'=> $data['bulanan_pasangan'],
       'luas_pertanian' => $data['luas_pertanian'],
       'lot_pertanian' => $data['lot_pertanian'],
       'mukim_pertanian' => $data['mukim_pertanian'],
@@ -294,16 +327,23 @@ public function add(array $data){
       'mukim_perumahan' => $data['mukim_perumahan'],
       'negeri_perumahan' => $data['negeri_perumahan'],
       'tarikh_diperolehi' => $data['tarikh_diperolehi'],
-      'luas' => $data['luas'],
-      'lot' => $data['lot'],
-      'mukim' => $data['mukim'],
-      'negeri' => $data['negeri'],
-      'jenis_tanah' => $data['jenis_tanah'],
-      'nama_syarikat' => $data['nama_syarikat'],
-      'modal_berbayar' => $data['modal_berbayar'],
-      'jumlah_unit_saham' => $data['jumlah_unit_saham'],
-      'nilai_saham' => $data['nilai_saham'],
-      'sumber_kewangan' => $data['sumber_kewangan'],
+      // 'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
+      // 'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
+      // 'bulanan_pegawai'=> $data['bulanan_pegawai'],
+      // 'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
+      // 'bulanan_pasangan'=> $data['bulanan_pasangan'],
+      'luas' => $luas_tanah,
+      'lot' => $lot_tanah,
+      'mukim' => $mukim_tanah,
+      'negeri' => $negeri_tanah,
+      'jenis_tanah' => $jenis_tanah,
+
+      'nama_syarikat' => $nama_syarikat,
+      'modal_berbayar' => $modal_berbayar,
+      'jumlah_unit_saham' => $jumlah_unit_saham,
+      'nilai_saham' => $nilai_saham,
+      'sumber_kewangan' => $sumber_kewangan,
+
       'institusi' => $data['institusi'],
       'alamat_institusi' => $data['alamat_institusi'],
       'ansuran_bulanan' => $data['ansuran_bulanan'],
@@ -432,23 +472,60 @@ public function add(array $data){
       'mukim_perumahan' => ['nullable', 'string'],
       'negeri_perumahan' => ['nullable', 'string'],
       'tarikh_diperolehi' => ['nullable', 'date'],
-      'luas' => ['required', 'string'],
-      'lot'=> ['required', 'string'],
-      'mukim' => ['required', 'string'],
-      'negeri' => ['required', 'string'],
-      'jenis_tanah' => ['required', 'string'],
-      'nama_syarikat' => ['required', 'string'],
-      'modal_berbayar' => ['required', 'numeric'],
-      'jumlah_unit_saham'=> ['required', 'string'],
-      'nilai_saham' => ['required', 'numeric'],
-      'sumber_kewangan' => ['required', 'string'],
+
+      // 'luas' => ['required', 'string'],
+      // 'lot'=> ['required', 'string'],
+      // 'mukim' => ['required', 'string'],
+      // 'negeri' => ['required', 'string'],
+      // 'jenis_tanah' => ['required', 'string'],
+      // 'nama_syarikat' => ['required', 'string'],
+      // 'modal_berbayar' => ['required', 'numeric'],
+      // 'jumlah_unit_saham'=> ['required', 'string'],
+      // 'nilai_saham' => ['required', 'numeric'],
+      // 'sumber_kewangan' => ['required', 'string'],
       'institusi[]'=> ['nullable', 'string'],
       'alamat_institusi[]' => ['nullable', 'string'],
       'ansuran_bulanan[]' => ['nullable', 'string'],
       'tarikh_ansuran[]' => ['nullable', 'date'],
       'tempoh_pinjaman[]' => ['nullable', 'string'],
       'pengakuan' => ['required'],
+      'jenis'=> ['required', 'string'],
     ]);
+  }
+  protected function validatorsaham(array $data){
+
+    if($data['jenis'] == "Tanah"){
+      return Validator::make($data, [
+      'luas' => ['required_with:jenis,Tanah', 'string'],
+      'lot' => ['required_with:jenis,Tanah', 'string'],
+      'mukim' => ['required_with:jenis,Tanah', 'string'],
+      'negeri' => ['required_with:jenis,Tanah', 'string'],
+      'jenis_tanah' => ['required_with:jenis,Tanah', 'string'],
+      ]);
+    }
+    else if($data['jenis']== "Saham"){
+      return Validator::make($data, [
+      'nama_syarikat' => ['required_if:jenis,==,Saham', 'string'],
+      'modal_berbayar' => ['required_if:jenis,==,Saham', 'numeric'],
+      'jumlah_unit_saham' => ['required_if:jenis,==,Saham', 'numeric'],
+      'nilai_saham' => ['required_if:jenis,==,Saham', 'numeric'],
+      'sumber_kewangan' => ['required_if:jenis,==,Saham', 'string'],
+      ]);
+    }
+    else if($data['jenis'] == "Semua"){
+      return Validator::make($data, [
+      'luas' => ['required_with:jenis,Semua', 'string'],
+      'lot' => ['required_with:jenis,Semua', 'string'],
+      'mukim' => ['required_with:jenis,Semua', 'string'],
+      'negeri' => ['required_with:jenis,Semua', 'string'],
+      'jenis_tanah' => ['required_with:jenis,Semua', 'string'],
+      'nama_syarikat' => ['required_if:jenis,==,Semua', 'string'],
+      'modal_berbayar' => ['required_if:jenis,==,Semua', 'numeric'],
+      'jumlah_unit_saham' => ['required_if:jenis,==,Semua', 'numeric'],
+      'nilai_saham' => ['required_if:jenis,==,Semua', 'numeric'],
+      'sumber_kewangan' => ['required_if:jenis,==,Semua', 'string'],
+      ]);
+    }
   }
 
   public function submitForm(Request $request){
@@ -519,6 +596,7 @@ public function add(array $data){
   else if ($request->has('publish'))
   {
     $this->validator($request->all())->validate();
+    $this->validatorsaham($request->all())->validate();
    // dd($request->all());
     event($formgs = $this->add($request->all()));
      //dd($request->all());
@@ -756,6 +834,8 @@ public function updateFormG(Request $request,$id){
   }
   else if($request->has('publish')){
   $this->validator(request()->all())->validate();
+  $this->validatorsaham(request()->all())->validate();
+
 
   $formgs = FormG::find($id);
 

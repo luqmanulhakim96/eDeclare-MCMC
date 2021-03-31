@@ -404,344 +404,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="row">
-                      <div class="col-12 mt-4">
-                           <div class="card rounded-lg">
-                               <div class="card-body">
 
-                              <!-- Tanggungan -->
-                              <div class="row">
-                                <div class="col-md-8">
-                                  <p><b>4. TANGGUNGAN / ANSURAN BULANAN ATAS HUTANG / PINJAMAN</b></p>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-md-3">
-                                </div>
-                                <div class="col-md-4">
-                                  <p align="center"> PEGAWAI</p>
-                                </div>
-                                <div class="col-md-4">
-                                    <p align="center"> PASANGAN</p>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-3">
-                                </div>
-                                <div class="col-md-2">
-                                  <p align="center">Jumlah Pinjaman / Tanggungan (RM)</p>
-                                </div>
-                                <div class="col-md-2">
-                                  <p align="center">Jumlah Bayaran Bulanan (RM)</p>
-                                </div>
-                                  <div class="col-md-2">
-                                    <p align="center">Jumlah Pinjaman / Tanggungan (RM)</p>
-                                  </div>
-                                  <div class="col-md-2">
-                                    <p align="center">Jumlah Bayaran Bulanan (RM)</p>
-                                </div>
-                              </div>
-                              <!--PINJAMAN PERUMAHAN -->
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>i) Jumlah Pinjaman Perumahan</p>
-                                </div>
-                                <div class="col-md-2">
-                                  @if($info->pinjaman_perumahan_pegawai)
-                                  <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{$info->pinjaman_perumahan_pegawai}}">
-                                  @else
-                                    @if(old('pinjaman_perumahan_pegawai'))
-                                    <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{old('pinjaman_perumahan_pegawai')}}">
-                                    @else
-                                    <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value=0>
-                                    @endif
-                                  @endif
-                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_perumahan_pegawai" value="{{ $info->pinjaman_perumahan_pegawai}}"> -->
-
-                                </div>
-                                @error('pinjaman_perumahan_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  @if($info->bulanan_perumahan_pegawai)
-                                  <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{$info->bulanan_perumahan_pegawai}}">
-                                  @else
-                                    @if(old('bulanan_perumahan_pegawai'))
-                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{old('bulanan_perumahan_pegawai')}}">
-                                    @else
-                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value=0>
-                                    @endif
-                                  @endif
-
-                                </div>
-                                @error('bulanan_perumahan_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    @if($info->pinjaman_perumahan_pasangan)
-                                    <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{$info->pinjaman_perumahan_pasangan}}">
-                                    @else
-                                      @if(old('pinjaman_perumahan_pasangan'))
-                                      <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{old('pinjaman_perumahan_pasangan')}}">
-                                      @else
-                                      <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value=0>
-                                      @endif
-                                    @endif
-                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_perumahan_pasangan" value="{{ $info->pinjaman_perumahan_pasangan}}"> -->
-                                  </div>
-                                  @error('pinjaman_perumahan_pasangan')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    @if($info->bulanan_perumahan_pasangan)
-                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{$info->bulanan_perumahan_pasangan}}">
-                                    @else
-                                      @if(old('bulanan_perumahan_pasangan'))
-                                      <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{old('bulanan_perumahan_pasangan')}}">
-                                      @else
-                                      <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value=0>
-                                      @endif
-                                    @endif
-                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_perumahan_pasangan" value="{{ $info->bulanan_perumahan_pasangan}}"> -->
-                                </div>
-                                @error('bulanan_perumahan_pasangan')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                              </div>
-                              <br>
-                              <!--PINJAMAN KENDERAAN -->
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>ii) Jumlah Pinjaman Kenderaan</p>
-                                </div>
-                                <div class="col-md-2">
-                                  @if($info->pinjaman_kenderaan_pegawai)
-                                  <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="{{$info->pinjaman_kenderaan_pegawai}}">
-                                  @else
-                                    @if(old('pinjaman_kenderaan_pegawai'))
-                                    <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="{{old('pinjaman_kenderaan_pegawai')}}">
-                                    @else
-                                    <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value=0>
-                                    @endif
-                                  @endif
-                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_kenderaan_pegawai" value="{{ $info->pinjaman_kenderaan_pegawai}}"> -->
-                                </div>
-                                @error('pinjaman_kenderaan_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  @if($info->bulanan_kenderaan_pegawai)
-                                  <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="{{$info->bulanan_kenderaan_pegawai}}">
-                                  @else
-                                    @if(old('bulanan_kenderaan_pegawai'))
-                                    <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="{{old('bulanan_kenderaan_pegawai')}}">
-                                    @else
-                                    <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value=0>
-                                    @endif
-                                  @endif
-                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_kenderaan_pegawai" value="{{ $info->bulanan_kenderaan_pegawai}}"> -->
-                                </div>
-                                @error('bulanan_kenderaan_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    @if($info->pinjaman_kenderaan_pasangan)
-                                    <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="{{$info->pinjaman_kenderaan_pasangan}}">
-                                    @else
-                                      @if(old('pinjaman_kenderaan_pasangan'))
-                                      <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="{{old('pinjaman_kenderaan_pasangan')}}">
-                                      @else
-                                      <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value=0>
-                                      @endif
-                                    @endif
-                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_kenderaan_pasangan" value="{{ $info->pinjaman_kenderaan_pasangan}}"> -->
-                                  </div>
-                                  @error('pinjaman_kenderaan_pasangan')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    @if($info->bulanan_kenderaan_pasangan)
-                                    <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_perumbulanan_kenderaan_pasanganahan_pasangan" value="{{$info->bulanan_kenderaan_pasangan}}">
-                                    @else
-                                      @if(old('bulanan_kenderaan_pasangan'))
-                                      <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value="{{old('bulanan_kenderaan_pasangan')}}">
-                                      @else
-                                      <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value=0>
-                                      @endif
-                                    @endif
-                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_kenderaan_pasangan" value="{{ $info->bulanan_kenderaan_pasangan}}"> -->
-                                </div>
-                                @error('bulanan_kenderaan_pasangan')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                              </div>
-                              <br>
-                              <!--CUKAI PENDAPATAN -->
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>iii) Cukai Pendapatan</p>
-                                </div>
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_cukai_pegawai" value="{{ $info->jumlah_cukai_pegawai}}">
-                                </div>
-                                @error('jumlah_cukai_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_cukai_pegawai" value="{{ $info->bulanan_cukai_pegawai}}">
-                                </div>
-                                @error('bulanan_cukai_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_cukai_pasangan" value="{{ $info->jumlah_cukai_pasangan}}">
-                                  </div>
-                                  @error('jumlah_cukai_pasangan')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_cukai_pasangan" value="{{ $info->bulanan_cukai_pasangan}}">
-                                </div>
-                                @error('bulanan_cukai_pasangan')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                              </div>
-                              <br>
-                              <!--PINJAMAN KOPERASI -->
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>iv) Pinjaman Koperasi</p>
-                                </div>
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" onkeyup="findTotalPinjamanPegawai()" onkeypress="return onlyNumberKey(event)" name="jumlah_koperasi_pegawai" value="{{ $info->jumlah_koperasi_pegawai}}" id="jumlah_koperasi_pegawai">
-                                </div>
-                                @error('jumlah_koperasi_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" onkeyup="findTotalBulananPegawai()" onkeypress="return onlyNumberKey(event)" name="bulanan_koperasi_pegawai" value="{{ $info->bulanan_koperasi_pegawai}}" id="bulanan_koperasi_pegawai">
-                                </div>
-                                @error('bulanan_koperasi_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" onkeyup="findTotalPinjamanPasangan()" onkeypress="return onlyNumberKey(event)" name="jumlah_koperasi_pasangan" value="{{ $info->jumlah_koperasi_pasangan}}" id="jumlah_koperasi_pasangan">
-                                  </div>
-                                  @error('jumlah_koperasi_pasangan')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" onkeyup="findTotalBulananPasangan()" onkeypress="return onlyNumberKey(event)" name="bulanan_koperasi_pasangan" value="{{ $info->bulanan_koperasi_pasangan}}" id="bulanan_koperasi_pasangan">
-                                </div>
-                              </div>
-                              <br>
-
-                              <!--LAIN2 PINJAMAN -->
-                              <input type="hidden" name="counter" value="0" id="counter1">
-                              @if($listPinjamanB->isEmpty())
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>v) Lain-Lain Pinjaman</p>
-                                </div>
-                              </div>
-                              <div class="table_lain" id="table_lain">
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman"  value="{{ old('lain_lain_pinjaman[]')}}">
-                                </div>
-                                @error('lain_lain_pinjaman[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pegawai[]" value="{{ old('pinjaman_pegawai[]')}}">
-                                </div>
-                                @error('pinjaman_pegawai[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pegawai[]" value="{{ old('bulanan_pegawai[]')}}">
-                                </div>
-                                @error('bulanan_pegawai[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pasangan[]" value="{{ old('pinjaman_pasangan[]')}}">
-                                  </div>
-                                  @error('pinjaman_pasangan[]')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pasangan[]" value="{{ old('bulanan_pasangan[]')}}">
-                                </div>
-                                @error('bulanan_pasangan[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-1">
-                                  <button class="add_field_button" id="add_pinjaman_button">Tambah</button>
-                              </div>
-                              </div>
-                              <br>
-                              </div>
-                              @else
-                              <!--LAIN2 PINJAMAN -->
-
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>v) Lain-Lain Pinjaman</p>
-                                </div>
-                              </div>
-                              <input type="hidden" name="counter_pinjaman" value="{{$count_pinjaman}}" id="counter_pinjaman">
-
-                              <div class="table_lain" id="table_lain">
-                                @foreach($listPinjamanB as $pinjaman)
-                                <div class="row">
-                                  <div class="col-md-3">
-                                    <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman" value="{{ $pinjaman->lain_lain_pinjaman}}">
-                                  </div>
-                                  @error('lain_lain_pinjaman[]')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pegawai[]" value="{{ $pinjaman->pinjaman_pegawai}}">
-                                  </div>
-                                  @error('pinjaman_pegawai[]')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pegawai[]" value="{{ $pinjaman->bulanan_pegawai}}">
-                                  </div>
-                                  @error('bulanan_pegawai[]')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                    <div class="col-md-2">
-                                      <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pasangan[]" value="{{$pinjaman->pinjaman_pasangan}}">
-                                    </div>
-                                    @error('pinjaman_pasangan[]')
-                                       <div class="alert alert-danger">{{ $message }}</div>
-                                   @enderror
-                                    <div class="col-md-2">
-                                      <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pasangan[]" value="{{ $pinjaman->bulanan_pasangan}}">
-                                  </div>
-                                  @error('bulanan_pasangan[]')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                 @if($loop->last)
-                                  <div class="col-md-1">
-                                    <button class="add_field_button" id="add_pinjaman_button">Tambah</button>
-                                </div>
-                                @endif
-                                </div>
-                                <br>
-                                @endforeach
-                                </div>
-
-                                @endif
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                    @endif
 
                 <div class="row">
                   <div class="col-12 mt-4">
@@ -751,7 +414,7 @@
 
                           <div class="row">
                             <div class="col-md-4">
-                              <p><b>5. KETERANGAN MENGENAI HARTA</b></p>
+                              <p><b>4. KETERANGAN MENGENAI HARTA</b></p>
                             </div>
                           </div>
                           <!-- <div class="row">
@@ -768,16 +431,16 @@
                                 <p class="required">Jenis Harta</p>
                               </div>
                               <div class="col-md-8">
-                                <select id="jenis_harta" class="custom-select  bg-light" name="jenis_harta" value="{{ old('jenis_harta')}}" >
+                                <input id="jenis_harta" list="harta" class="custom-select  bg-light" name="jenis_harta" value="{{ old('jenis_harta')}}" placeholder="Sila masukan harta" autocomplete="off">
+                                    <datalist id="harta">
+                                      @foreach($jenisHarta as $jenisharta)
+                                      @if($jenisharta->status_jenis_harta == "Aktif")
+                                      <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
+                                      @endif
+                                      @endforeach
+                                    </datalist>
                                     <option value="" selected disabled hidden>Jenis Harta</option>
-
-                                    @foreach($jenisHarta as $jenisharta)
-                                    @if($jenisharta->status_jenis_harta == "Aktif")
-                                    <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
-                                    @endif
-                                    @endforeach
-
-                                    </select>
+                                  </input>
                                     @error('jenis_harta_')
                                        <div class="alert alert-danger">{{ $message }}</div>
                                    @enderror
@@ -791,7 +454,7 @@
                               <p class="required">Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
                             </div>
                             <div class="col-md-4">
-                              <input class="form-control bg-light" type="text" id="pemilik_harta"  placeholder="Nama Pemilik Sebelum" value="{{ $info->pemilik_harta  }}" >
+                              <input class="form-control bg-light" type="text" id="pemilik_harta"  placeholder="Nama Pemilik" value="{{ $info->pemilik_harta  }}" >
                               @error('pemilik_harta_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -809,7 +472,7 @@
                                    <div class="alert alert-danger">{{ $message }}</div>
                                @enderror
                             </div>
-
+                            <br>
                           </div>
                           <div class="row">
                             <div class="col-md-4">
@@ -867,7 +530,7 @@
                               <p class="required">Cara Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
                             </div>
                             <div class="col-md-8">
-                                <select id="cara_perolehan" class="custom-select  bg-light"  onchange="showCaraPerolehan()" >
+                                <select id="cara_perolehan" class="custom-select  bg-light"  onchange="showCaraPerolehan1()" >
                                     <option value="" selected disabled hidden>Cara Perolehan</option>
                                     <option value="Dipusakai" {{ $info->cara_perolehan   == "Dipusakai" ? 'selected' : '' }}>Dipusakai</option>
                                     <option value="Dibeli" {{ $info->cara_perolehan   == "Dibeli" ? 'selected' : '' }}>Dibeli</option>
@@ -920,7 +583,7 @@
                                   <p class="required"> Cara Pembelian Harta</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <select id="cara_belian" class="custom-select  bg-light"  onchange="showCaraBelian()" >
+                                  <select id="cara_belian" class="custom-select  bg-light"  onchange="showCaraBelian1()" >
                                       <option value="" selected disabled hidden>Cara Pembelian Harta</option>
                                       <option value="Pinjaman" {{ $info->cara_belian   == "Pinjaman" ? 'selected' : '' }}>Pinjaman</option>
                                       <option value="Pelupusan" {{ $info->cara_belian   == "Pelupusan" ? 'selected' : '' }}>Pelupusan</option>
@@ -1071,7 +734,7 @@
                             </div>
 
                             <script type="text/javascript">
-                            function showCaraPerolehan(){
+                            function showCaraPerolehan1(){
                               var cara_peroleh = $('#cara_perolehan').val();
 
                               if(cara_peroleh == "Dipusakai" || cara_peroleh == "Dihadiahkan"){
@@ -1099,7 +762,7 @@
                             </script>
 
                             <script type="text/javascript">
-                            function showCaraBelian(){
+                            function showCaraBelian1(){
                               var cara_belian = $('#cara_belian').val();
 
                               if(cara_belian == "Pinjaman"){
@@ -1145,20 +808,21 @@
                                       <th width="10%"><p class="mb-0">Tarikh Pemilikan Harta</p></th>
                                       <th width="30%"><p class="mb-0">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p></th>
                                       <th width="15%"><p class="mb-0">Nilai Perolehan Harta (RM)</p></th>
-                                      <th width="5%"><p class="mb-0">Buang</p></th>
+                                      <th width="5%"><p class="mb-0">Tindakan</p></th>
                                   </tr>
                               </thead>
                               <tbody>
 
                                   @foreach($hartaB as $data)
                                   <tr>
-                                      <td><p class="mb-0 " style="text-align: center;">{{$data->jenis_harta}}</p></td>
-                                      <td><p class="mb-0 " style="text-align: center;">{{$data->pemilik_harta}}</p></td>
-                                      <td><p class="mb-0 " style="text-align: center;">{{$data->tarikh_pemilikan_harta}}</p></td>
-                                      <td><p class="mb-0 " style="text-align: center;">{{$data->bilangan}}</p></td>
-                                      <td><p class="mb-0 " style="text-align: center;">{{$data->nilai_perolehan}}</p></td>
+                                      <td><p class="mb-0 " style="text-align: center;" id="jenis_harta_table{{$data->id}}">{{$data->jenis_harta}}</p></td>
+                                      <td><p class="mb-0 " style="text-align: center;" id="pemilik_harta_table{{$data->id}}">{{$data->pemilik_harta}}</p></td>
+                                      <td><p class="mb-0 " style="text-align: center;" id="tarikh_pemilikan_harta_table{{$data->id}}">{{$data->tarikh_pemilikan_harta}}</p></td>
+                                      <td><p class="mb-0 " style="text-align: center;" id="bilangan_table{{$data->id}}">{{$data->bilangan}}</p></td>
+                                      <td><p class="mb-0 " style="text-align: center;" id="nilai_perolehan_table{{$data->id}}">{{$data->nilai_perolehan}}</p></td>
                                       <!-- <td><a href="{{route('hartaB.delete',$data->id)}}"><i class="fas fa-trash-alt"></i></td> -->
-                                      <td style="text-align: center; vertical-align: middle;">
+                                      <td>
+                                        <a class="btn btn-success mr-1" onClick="clearData({{$data->id}});updateData({{$data->id}});"><i class="fa fa-pencil-alt" ></i></a>
                                         <a class="btn btn-danger mr-1" onClick="removeJumlahPinjaman({{$data->id}});removeData(this,'{{$data->id}}'); return false;"><i class="fa fa-trash" ></i></a>
                                       </td>
                                   </tr>
@@ -1171,6 +835,734 @@
                 </div>
               </div>
           </div>
+          <div class="row">
+            <div class="col-12 mt-4">
+                 <div class="card rounded-lg">
+                     <div class="card-body">
+
+                    <!-- Tanggungan -->
+                    <div class="row">
+                      <div class="col-md-8">
+                        <p><b>5. TANGGUNGAN / ANSURAN BULANAN ATAS HUTANG / PINJAMAN</b></p>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-3">
+                      </div>
+                      <div class="col-md-4">
+                        <p align="center"> PEGAWAI</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p align="center"> PASANGAN</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-3">
+                      </div>
+                      <div class="col-md-2">
+                        <p align="center">Jumlah Pinjaman / Tanggungan (RM)</p>
+                      </div>
+                      <div class="col-md-2">
+                        <p align="center">Jumlah Bayaran Bulanan (RM)</p>
+                      </div>
+                        <div class="col-md-2">
+                          <p align="center">Jumlah Pinjaman / Tanggungan (RM)</p>
+                        </div>
+                        <div class="col-md-2">
+                          <p align="center">Jumlah Bayaran Bulanan (RM)</p>
+                      </div>
+                    </div>
+                    <!--PINJAMAN PERUMAHAN -->
+                    <div class="row">
+                      <div class="col-md-3">
+                        <p>i) Jumlah Pinjaman Perumahan</p>
+                      </div>
+                      <div class="col-md-2">
+                        @if($info->pinjaman_perumahan_pegawai)
+                        <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{$info->pinjaman_perumahan_pegawai}}" readonly>
+                        @else
+                          @if(old('pinjaman_perumahan_pegawai'))
+                          <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{old('pinjaman_perumahan_pegawai')}}" readonly>
+                          @else
+                          <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value=0 readonly>
+                          @endif
+                        @endif
+                        <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_perumahan_pegawai" value="{{ $info->pinjaman_perumahan_pegawai}}"> -->
+
+                      </div>
+                      @error('pinjaman_perumahan_pegawai')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                      <div class="col-md-2">
+                        @if($info->bulanan_perumahan_pegawai)
+                        <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{$info->bulanan_perumahan_pegawai}}" readonly>
+                        @else
+                          @if(old('bulanan_perumahan_pegawai'))
+                          <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{old('bulanan_perumahan_pegawai')}}" readonly>
+                          @else
+                          <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value=0 readonly>
+                          @endif
+                        @endif
+
+                      </div>
+                      @error('bulanan_perumahan_pegawai')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                        <div class="col-md-2">
+                          @if($info->pinjaman_perumahan_pasangan)
+                          <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{$info->pinjaman_perumahan_pasangan}}" readonly>
+                          @else
+                            @if(old('pinjaman_perumahan_pasangan'))
+                            <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{old('pinjaman_perumahan_pasangan')}}" readonly>
+                            @else
+                            <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value=0 readonly>
+                            @endif
+                          @endif
+                          <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_perumahan_pasangan" value="{{ $info->pinjaman_perumahan_pasangan}}"> -->
+                        </div>
+                        @error('pinjaman_perumahan_pasangan')
+                           <div class="alert alert-danger">{{ $message }}</div>
+                       @enderror
+                        <div class="col-md-2">
+                          @if($info->bulanan_perumahan_pasangan)
+                          <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{$info->bulanan_perumahan_pasangan}}" readonly>
+                          @else
+                            @if(old('bulanan_perumahan_pasangan'))
+                            <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{old('bulanan_perumahan_pasangan')}}" readonly>
+                            @else
+                            <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value=0 readonly>
+                            @endif
+                          @endif
+                          <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_perumahan_pasangan" value="{{ $info->bulanan_perumahan_pasangan}}"> -->
+                      </div>
+                      @error('bulanan_perumahan_pasangan')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                    </div>
+                    <br>
+                    <!--PINJAMAN KENDERAAN -->
+                    <div class="row">
+                      <div class="col-md-3">
+                        <p>ii) Jumlah Pinjaman Kenderaan</p>
+                      </div>
+                      <div class="col-md-2">
+                        @if($info->pinjaman_kenderaan_pegawai)
+                        <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="{{$info->pinjaman_kenderaan_pegawai}}" readonly>
+                        @else
+                          @if(old('pinjaman_kenderaan_pegawai'))
+                          <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="{{old('pinjaman_kenderaan_pegawai')}}" readonly>
+                          @else
+                          <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value=0 readonly>
+                          @endif
+                        @endif
+                        <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_kenderaan_pegawai" value="{{ $info->pinjaman_kenderaan_pegawai}}"> -->
+                      </div>
+                      @error('pinjaman_kenderaan_pegawai')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                      <div class="col-md-2">
+                        @if($info->bulanan_kenderaan_pegawai)
+                        <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="{{$info->bulanan_kenderaan_pegawai}}" readonly>
+                        @else
+                          @if(old('bulanan_kenderaan_pegawai'))
+                          <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="{{old('bulanan_kenderaan_pegawai')}}" readonly>
+                          @else
+                          <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value=0 readonly>
+                          @endif
+                        @endif
+                        <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_kenderaan_pegawai" value="{{ $info->bulanan_kenderaan_pegawai}}"> -->
+                      </div>
+                      @error('bulanan_kenderaan_pegawai')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                        <div class="col-md-2">
+                          @if($info->pinjaman_kenderaan_pasangan)
+                          <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="{{$info->pinjaman_kenderaan_pasangan}}" readonly>
+                          @else
+                            @if(old('pinjaman_kenderaan_pasangan'))
+                            <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="{{old('pinjaman_kenderaan_pasangan')}}" readonly>
+                            @else
+                            <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value=0 readonly>
+                            @endif
+                          @endif
+                          <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_kenderaan_pasangan" value="{{ $info->pinjaman_kenderaan_pasangan}}"> -->
+                        </div>
+                        @error('pinjaman_kenderaan_pasangan')
+                           <div class="alert alert-danger">{{ $message }}</div>
+                       @enderror
+                        <div class="col-md-2">
+                          @if($info->bulanan_kenderaan_pasangan)
+                          <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_perumbulanan_kenderaan_pasanganahan_pasangan" value="{{$info->bulanan_kenderaan_pasangan}}" readonly>
+                          @else
+                            @if(old('bulanan_kenderaan_pasangan'))
+                            <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value="{{old('bulanan_kenderaan_pasangan')}}" readonly>
+                            @else
+                            <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value=0 readonly>
+                            @endif
+                          @endif
+                          <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_kenderaan_pasangan" value="{{ $info->bulanan_kenderaan_pasangan}}"> -->
+                      </div>
+                      @error('bulanan_kenderaan_pasangan')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                    </div>
+                    <br>
+                    <!--CUKAI PENDAPATAN -->
+                    <div class="row">
+                      <div class="col-md-3">
+                        <p>iii) Cukai Pendapatan</p>
+                      </div>
+                      <div class="col-md-2">
+                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_cukai_pegawai" value="{{ $info->jumlah_cukai_pegawai}}">
+                      </div>
+                      @error('jumlah_cukai_pegawai')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                      <div class="col-md-2">
+                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_cukai_pegawai" value="{{ $info->bulanan_cukai_pegawai}}">
+                      </div>
+                      @error('bulanan_cukai_pegawai')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                        <div class="col-md-2">
+                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_cukai_pasangan" value="{{ $info->jumlah_cukai_pasangan}}">
+                        </div>
+                        @error('jumlah_cukai_pasangan')
+                           <div class="alert alert-danger">{{ $message }}</div>
+                       @enderror
+                        <div class="col-md-2">
+                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_cukai_pasangan" value="{{ $info->bulanan_cukai_pasangan}}">
+                      </div>
+                      @error('bulanan_cukai_pasangan')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                    </div>
+                    <br>
+                    <!--PINJAMAN KOPERASI -->
+                    <div class="row">
+                      <div class="col-md-3">
+                        <p>iv) Pinjaman Koperasi</p>
+                      </div>
+                      <div class="col-md-2">
+                        <input class="form-control bg-light" onkeyup="findTotalPinjamanPegawai()" onkeypress="return onlyNumberKey(event)" name="jumlah_koperasi_pegawai" value="{{ $info->jumlah_koperasi_pegawai}}" id="jumlah_koperasi_pegawai">
+                      </div>
+                      @error('jumlah_koperasi_pegawai')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                      <div class="col-md-2">
+                        <input class="form-control bg-light" onkeyup="findTotalBulananPegawai()" onkeypress="return onlyNumberKey(event)" name="bulanan_koperasi_pegawai" value="{{ $info->bulanan_koperasi_pegawai}}" id="bulanan_koperasi_pegawai">
+                      </div>
+                      @error('bulanan_koperasi_pegawai')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                        <div class="col-md-2">
+                          <input class="form-control bg-light" onkeyup="findTotalPinjamanPasangan()" onkeypress="return onlyNumberKey(event)" name="jumlah_koperasi_pasangan" value="{{ $info->jumlah_koperasi_pasangan}}" id="jumlah_koperasi_pasangan">
+                        </div>
+                        @error('jumlah_koperasi_pasangan')
+                           <div class="alert alert-danger">{{ $message }}</div>
+                       @enderror
+                        <div class="col-md-2">
+                          <input class="form-control bg-light" onkeyup="findTotalBulananPasangan()" onkeypress="return onlyNumberKey(event)" name="bulanan_koperasi_pasangan" value="{{ $info->bulanan_koperasi_pasangan}}" id="bulanan_koperasi_pasangan">
+                      </div>
+                    </div>
+                    <br>
+
+                    <!--LAIN2 PINJAMAN -->
+                    <input type="hidden" name="counter" value="0" id="counter1">
+                    @if($listPinjamanB->isEmpty())
+                    <div class="row">
+                      <div class="col-md-3">
+                        <p>v) Lain-Lain Pinjaman</p>
+                      </div>
+                    </div>
+                    <div class="table_lain" id="table_lain">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman"  value="{{ old('lain_lain_pinjaman[]')}}">
+                      </div>
+                      @error('lain_lain_pinjaman[]')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                      <div class="col-md-2">
+                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pegawai[]" value="{{ old('pinjaman_pegawai[]')}}">
+                      </div>
+                      @error('pinjaman_pegawai[]')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                      <div class="col-md-2">
+                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pegawai[]" value="{{ old('bulanan_pegawai[]')}}">
+                      </div>
+                      @error('bulanan_pegawai[]')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                        <div class="col-md-2">
+                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pasangan[]" value="{{ old('pinjaman_pasangan[]')}}">
+                        </div>
+                        @error('pinjaman_pasangan[]')
+                           <div class="alert alert-danger">{{ $message }}</div>
+                       @enderror
+                        <div class="col-md-2">
+                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pasangan[]" value="{{ old('bulanan_pasangan[]')}}">
+                      </div>
+                      @error('bulanan_pasangan[]')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                     @enderror
+                      <div class="col-md-1">
+                        <button class="add_field_button" id="add_pinjaman_button">Tambah</button>
+                    </div>
+                    </div>
+                    <br>
+                    </div>
+                    @else
+                    <!--LAIN2 PINJAMAN -->
+
+                    <div class="row">
+                      <div class="col-md-3">
+                        <p>v) Lain-Lain Pinjaman</p>
+                      </div>
+                    </div>
+                    <input type="hidden" name="counter_pinjaman" value="{{$count_pinjaman}}" id="counter_pinjaman">
+
+                    <div class="table_lain" id="table_lain">
+                      @foreach($listPinjamanB as $pinjaman)
+                      <div class="row">
+                        <div class="col-md-3">
+                          <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman" value="{{ $pinjaman->lain_lain_pinjaman}}">
+                        </div>
+                        @error('lain_lain_pinjaman[]')
+                           <div class="alert alert-danger">{{ $message }}</div>
+                       @enderror
+                        <div class="col-md-2">
+                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pegawai[]" value="{{ $pinjaman->pinjaman_pegawai}}">
+                        </div>
+                        @error('pinjaman_pegawai[]')
+                           <div class="alert alert-danger">{{ $message }}</div>
+                       @enderror
+                        <div class="col-md-2">
+                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pegawai[]" value="{{ $pinjaman->bulanan_pegawai}}">
+                        </div>
+                        @error('bulanan_pegawai[]')
+                           <div class="alert alert-danger">{{ $message }}</div>
+                       @enderror
+                          <div class="col-md-2">
+                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pasangan[]" value="{{$pinjaman->pinjaman_pasangan}}">
+                          </div>
+                          @error('pinjaman_pasangan[]')
+                             <div class="alert alert-danger">{{ $message }}</div>
+                         @enderror
+                          <div class="col-md-2">
+                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pasangan[]" value="{{ $pinjaman->bulanan_pasangan}}">
+                        </div>
+                        @error('bulanan_pasangan[]')
+                           <div class="alert alert-danger">{{ $message }}</div>
+                       @enderror
+                       @if($loop->last)
+                        <div class="col-md-1">
+                          <button class="add_field_button" id="add_pinjaman_button">Tambah</button>
+                      </div>
+                      @endif
+                      </div>
+                      <br>
+                      @endforeach
+                      </div>
+
+                      @endif
+                  </div>
+                </div>
+              </div>
+          </div>
+          @endif
+
+          <div id="harta_container" style="display: none;">
+            <div class="row">
+              <div class="col-12 mt-4">
+
+                   <div class="card rounded-lg">
+                       <div class="card-body">
+
+                      <div class="row">
+                        <div class="col-md-4">
+                          <p><b> KEMASKINI HARTA</b></p>
+                        </div>
+                      </div>
+
+                      <input class="form-control bg-light" type="hidden" id="id_harta_hidden" >
+
+                      <div class="row">
+                          <div class="col-md-4">
+                            <p class="required">Jenis Harta</p>
+                          </div>
+                          <div class="col-md-8">
+                            <input id="jenis_harta1" list="harta" class="custom-select  bg-light" name="jenis_harta" value="{{ old('jenis_harta')}}" placeholder="Sila masukan harta" autocomplete="off">
+                                <datalist id="harta">
+                                  @foreach($jenisHarta as $jenisharta)
+                                  @if($jenisharta->status_jenis_harta == "Aktif")
+                                  <option value="{{$jenisharta->jenis_harta}}">{{$jenisharta->jenis_harta}}</option>
+                                  @endif
+                                  @endforeach
+                                </datalist>
+                                <option value="" selected disabled hidden>Jenis Harta</option>
+                              </input>
+                                @error('jenis_harta_')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                          </div>
+
+                      </div>
+
+                      <br>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <p class="required">Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
+                        </div>
+                        <div class="col-md-4">
+                          <input class="form-control bg-light" type="text" id="pemilik_harta1"  placeholder="Nama Pemilik" value="{{ $info->pemilik_harta  }}">
+                          @error('pemilik_harta_')
+                             <div class="alert alert-danger">{{ $message }}</div>
+                         @enderror
+                        </div>
+                        <div class="col-md-4">
+                            <select id="hubungan_pemilik1" class="custom-select  bg-light" >
+                                <option value="Sendiri" {{ $info->hubungan_pemilik   == "Sendiri" ? 'selected' : '' }}>Sendiri</option>
+                                <option value="Anak" {{ $info->hubungan_pemilik   == "Anak" ? 'selected' : '' }}>Anak</option>
+                                <option value="Isteri/Suami" {{ $info->hubungan_pemilik   == "Isteri/Suami" ? 'selected' : '' }}>Isteri/Suami</option>
+                                <option value="Ibu/Ayah" {{ $info->hubungan_pemilik   == "Ibu/Ayah" ? 'selected' : '' }}>Ibu/Ayah</option>
+                                <option value="Lain-lain" {{ $info->hubungan_pemilik   == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
+                            </select>
+                            @error('select_hubungan_')
+                               <div class="alert alert-danger">{{ $message }}</div>
+                           @enderror
+                        </div>
+
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
+                        </div>
+                        <div class="col-md-8">
+                          <input class="form-control bg-light" type="text" id="maklumat_harta1"  placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->maklumat_harta  }}" >
+                          @error('maklumat_harta_')
+                             <div class="alert alert-danger">{{ $message }}</div>
+                         @enderror
+                        </div>
+
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <p class="required">Tarikh Pemilikan Harta</p>
+                        </div>
+                        <div class="col-md-8">
+                          <input class="form-control bg-light" type="date" id="tarikh_pemilikan_harta1"  value="{{ $info->tarikh_pemilikan_harta  }}" >
+                          @error('tarikh_pemilikan_harta_')
+                             <div class="alert alert-danger">{{ $message }}</div>
+                         @enderror
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <p class="required">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
+                        </div>
+                        <div class="col-md-8">
+                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="bilangan1"  placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}" >
+                          @error('bilangan_')
+                             <div class="alert alert-danger">{{ $message }}</div>
+                         @enderror
+                        </div>
+
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <p class="required">Nilai Perolehan Harta (RM)</p>
+                        </div>
+                        <div class="col-md-8">
+                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="nilai_perolehan1"  placeholder="Nilai Perolehan Harta (RM)" value="{{ $info->nilai_perolehan  }}" >
+                          @error('nilai_perolehan_')
+                             <div class="alert alert-danger">{{ $message }}</div>
+                         @enderror
+                        </div>
+
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <p class="required">Cara Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
+                        </div>
+                        <div class="col-md-8">
+                            <select id="cara_perolehan1" class="custom-select  bg-light"  onchange="showCaraPerolehan()" >
+                                <option value="" selected disabled hidden>Cara Perolehan</option>
+                                <option value="Dipusakai" {{ $info->cara_perolehan   == "Dipusakai" ? 'selected' : '' }}>Dipusakai</option>
+                                <option value="Dibeli" {{ $info->cara_perolehan   == "Dibeli" ? 'selected' : '' }}>Dibeli</option>
+                                <option value="Dihadiahkan" {{ $info->cara_perolehan   == "Dihadiahkan" ? 'selected' : '' }}>Dihadiahkan</option>
+                                <option value="Lain-lain" {{ $info->cara_perolehan   == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
+                            </select>
+                            @error('cara_perolehan_')
+                               <div class="alert alert-danger">{{ $message }}</div>
+                           @enderror
+                        </div>
+
+                        </div>
+                        <br>
+
+
+                        <div id="nama_pemilikan_asal_container1" style="display: none;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required"> Dari Siapa Harta Diperolehi</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" id="nama_pemilikan_asal1"  placeholder="Nama Pemilik Sebelum" value="{{ $info->nama_pemilikan_asal  }}">
+                              @error('nama_pemilikan_asal_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                        </div>
+
+                        <div id="lain-lain_container1" style="display: none;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required"> Nyatakan,</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" id="lain_lain1"  value="{{ $info->lain_lain  }}">
+                              @error('lain_lain_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                        </div>
+
+                        <div id="cara_belian_container1" style="display: none;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required"> Cara Pembelian Harta</p>
+                            </div>
+                            <div class="col-md-8">
+                              <select id="cara_belian1" class="custom-select  bg-light"  onchange="showCaraBelian()" >
+                                  <option value="" selected disabled hidden>Cara Pembelian Harta</option>
+                                  <option value="Pinjaman" {{ $info->cara_belian   == "Pinjaman" ? 'selected' : '' }}>Pinjaman</option>
+                                  <option value="Pelupusan" {{ $info->cara_belian   == "Pelupusan" ? 'selected' : '' }}>Pelupusan</option>
+                              </select>
+                              @error('cara_belian_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                        </div>
+
+                        <div id="pinjaman_container1" style="display: none;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required">i) Jumlah Pinjaman</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="jumlah_pinjaman1"  value="{{ $info->jumlah_pinjaman  }}">
+                              @error('jumlah_pinjaman_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required">ii)	Institusi memberi pinjaman</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" id="institusi_pinjaman1"  value="{{ $info->institusi_pinjaman  }}">
+                              @error('institusi_pinjaman_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required">iii)	Tempoh bayaran balik</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" id="tempoh_bayar_balik1"  value="{{ $info->tempoh_bayar_balik  }}">
+                              @error('tempoh_bayar_balik_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required">iv) Ansuran bulanan </p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="ansuran_bulanan1"  value="{{ $info->ansuran_bulanan  }}">
+                              @error('ansuran_bulanan_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required">v)	Tarikh ansuran pertama</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="date" id="tarikh_ansuran_pertama1"  value="{{ $info->tarikh_ansuran_pertama  }}">
+                              @error('tarikh_ansuran_pertama_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                        </div>
+
+                        <div id="pelupusan_container1" style="display: none;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required">i)	Jenis Harta</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" id="jenis_harta_pelupusan1"  value="{{ $info->jenis_harta_pelupusan  }}">
+                              @error('jenis_harta_pelupusan_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required">ii) Alamat</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" id="alamat_asset1"  value="{{ $info->alamat_asset  }}">
+                              @error('alamat_asset_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required">iii) No Pendaftaran Harta</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" id="no_pendaftaran1"  value="{{ $info->no_pendaftaran  }}">
+                              @error('no_pendaftaran_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required">iv) Harga Jualan</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="harga_jualan1"  value="{{ $info->harga_jualan  }}">
+                              @error('harga_jualan_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required">v)	Tarikh lupus</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="date" id="tarikh_lupus1"  value="{{ $info->tarikh_lupus  }}">
+                              @error('tarikh_lupus_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                          </div>
+                        </div>
+                        </div>
+
+                        <script type="text/javascript">
+                        function showCaraPerolehan(){
+                          var cara_peroleh = $('#cara_perolehan1').val();
+
+                          if(cara_peroleh == "Dipusakai" || cara_peroleh == "Dihadiahkan"){
+                            document.getElementById('nama_pemilikan_asal_container1').style.display ="block";
+                          }
+                          else{
+                            document.getElementById('nama_pemilikan_asal_container1').style.display ="none";
+                          }
+
+                          if(cara_peroleh == "Dibeli"){
+                            document.getElementById('cara_belian_container1').style.display ="block";
+                          }
+                          else{
+                            document.getElementById('cara_belian_container1').style.display ="none";
+                          }
+
+                          if(cara_peroleh == "Lain-lain"){
+                            document.getElementById('lain-lain_container1').style.display ="block";
+                          }
+                          else{
+                            document.getElementById('lain-lain_container1').style.display ="none";
+                          }
+
+                        }
+                        </script>
+
+                        <script type="text/javascript">
+                        function showCaraBelian(){
+                          var cara_belian = $('#cara_belian1').val();
+
+                          if(cara_belian == "Pinjaman"){
+                            document.getElementById('pinjaman_container1').style.display ="block";
+                          }
+                          else{
+                            document.getElementById('pinjaman_container1').style.display ="none";
+                          }
+
+                          if(cara_belian == "Pelupusan"){
+                            document.getElementById('pelupusan_container1').style.display ="block";
+                          }
+                          else{
+                            document.getElementById('pelupusan_container1').style.display ="none";
+                          }
+
+                        }
+                        </script>
+
+                      <div class="row">
+                          <div class="col-md-5">
+
+                          </div>
+                          <div class="col-md-4">
+                            <button class="btn btn-primary" type="button" value="" id="kemaskiniHarta" onclick="DataUpdate(this.value);clearContainer(this.value); calculatePinjamanPerumahan();">Kemaskini</button>
+                          </div>
+                      </div>
+                      <br>
+                    <br>
+                  </div>
+                  <br>
+                </div>
+              </div>
+          </div>
+
+
+
                     <br>
                     <br>
                     <div class="row">
@@ -1205,8 +1597,8 @@
                               <p align="center">Simpan maklumat perisytiharan?</p>
                               </div>
                               <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                              <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                              <button type="submit" class="btn btn-danger" name="save">Ya</button>
                               </div>
                           </div>
                           </div>
@@ -1223,8 +1615,8 @@
                               <p align="center">Hantar maklumat perisytiharan?</p>
                               </div>
                               <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                              <button type="submit" class="btn btn-primary" name="publish" onclick="submitForm()">Ya</button>
+                              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                              <button type="submit" class="btn btn-danger" name="publish" onclick="submitForm()">Ya</button>
                               </div>
                           </div>
                           </div>
@@ -1234,6 +1626,187 @@
             </div>
 
            <!--script-->
+           <script type="text/javascript">
+           function updateData(e){
+               document.getElementById('harta_container').style.display ="block";
+               @foreach($hartaB as $data)
+               if({{$data->id}} == e){
+                 console.log("{{$data->pemilik_harta}}");
+                 document.getElementById("id_harta_hidden").value = "{{$data->id}}";
+                 document.getElementById("kemaskiniHarta").value = "{{$data->id}}";
+                 document.getElementById("jenis_harta1").value = "{{$data->jenis_harta}}";
+                 document.getElementById("pemilik_harta1").value = "{{$data->pemilik_harta}}";
+
+                 $("hubungan_pemilik1 select").val("{{$data->select_hubungan}}");
+                 // document.getElementById("hubungan_pemilik1").value = "{{$data->select_hubungan}}";
+
+                 document.getElementById("maklumat_harta1").value = "{{$data->maklumat_harta}}";
+                 document.getElementById("tarikh_pemilikan_harta1").value = "{{$data->tarikh_pemilikan_harta}}";
+                 document.getElementById("bilangan1").value = "{{$data->bilangan}}";
+                 document.getElementById("nilai_perolehan1").value = "{{$data->nilai_perolehan}}";
+                 document.getElementById("cara_perolehan1").value = "{{$data->cara_perolehan}}";
+                 if("{{$data->cara_perolehan}}" == "Dipusakai" || "{{$data->cara_perolehan}}" == "Dihadiahkan"){
+                   document.getElementById("nama_pemilikan_asal_container1").style="display: block;";
+                   document.getElementById("nama_pemilikan_asal1").value = "{{$data->nama_pemilikan_asal}}";
+                 }
+                 else if("{{$data->cara_perolehan}}" == "Lain-lain"){
+                   document.getElementById("lain-lain_container1").style="display: block;";
+                   document.getElementById("lain_lain1").value = "{{$data->lain_lain}}";
+                }
+                else if("{{$data->cara_perolehan}}" == "Dibeli"){
+                  document.getElementById("cara_belian_container1").style="display: block;";
+                  document.getElementById("cara_belian1").value = "{{$data->cara_belian}}";
+                  if("{{$data->cara_belian}}" == "Pinjaman"){
+                      document.getElementById("pinjaman_container1").style="display: block;";
+                      document.getElementById("jumlah_pinjaman1").value = "{{$data->jumlah_pinjaman}}";
+                      document.getElementById("institusi_pinjaman1").value = "{{$data->institusi_pinjaman}}";
+                      document.getElementById("tempoh_bayar_balik1").value = "{{$data->tempoh_bayar_balik}}";
+                      document.getElementById("ansuran_bulanan1").value = "{{$data->ansuran_bulanan}}";
+                      document.getElementById("tarikh_ansuran_pertama1").value = "{{$data->tarikh_ansuran_pertama}}";
+                  }
+                  else if("{{$data->cara_belian}}" == "Pelupusan"){
+                    document.getElementById("pelupusan_container1").style="display: block;";
+                    document.getElementById("jenis_harta_pelupusan1").value = "{{$data->jenis_harta_pelupusan}}";
+                    document.getElementById("alamat_asset1").value = "{{$data->alamat_asset}}";
+                    document.getElementById("no_pendaftaran1").value = "{{$data->no_pendaftaran}}";
+                    document.getElementById("harga_jualan1").value = "{{$data->harga_jualan}}";
+                    document.getElementById("tarikh_lupus1").value = "{{$data->tarikh_lupus}}";
+                  }
+
+                }
+               }
+               @endforeach
+
+            }
+          </script>
+
+          <script>
+             function clearData(e){
+               @foreach($hartaB as $data)
+               if({{$data->id}} == e){
+               $("#tarikh_pemilikan_harta1").val("")
+               $("#jenis_harta1").prop('selectedIndex', 0);
+               $("#hubungan_pemilik1").prop('selectedIndex', 0);
+               $("#cara_perolehan1").prop('selectedIndex', 0);
+               $("#cara_belian1").prop('selectedIndex', 0);
+               $("#tarikh_lupus1").val("")
+               $("#tarikh_ansuran_pertama1").val("")
+
+
+               document.getElementById("jenis_harta1").value = "";
+               document.getElementById("pemilik_harta1").value = "";
+               document.getElementById("maklumat_harta1").value = "";
+               document.getElementById("bilangan1").value = "";
+               document.getElementById("nilai_perolehan1").value = "";
+               document.getElementById("nama_pemilikan_asal1").value = "";
+               document.getElementById("jumlah_pinjaman1").value = "";
+               document.getElementById("institusi_pinjaman1").value = "";
+               document.getElementById("cara_belian_container1").style="display: none;";
+               document.getElementById("nama_pemilikan_asal_container1").style="display: none;";
+               document.getElementById("lain-lain_container1").style="display: none;";
+               document.getElementById("pinjaman_container1").style="display: none;";
+               document.getElementById("pelupusan_container1").style="display: none;";
+               document.getElementById("tempoh_bayar_balik1").value = "";
+               document.getElementById("ansuran_bulanan1").value = "";
+               document.getElementById("jenis_harta_pelupusan1").value = "";
+               document.getElementById("alamat_asset1").value = "";
+               document.getElementById("no_pendaftaran1").value = "";
+               document.getElementById("harga_jualan1").value = "";
+               document.getElementById("lain_lain1").value = "";
+             }
+             @endforeach
+           }
+
+           </script>
+
+           <script>
+              function clearContainer(e){
+                @foreach($hartaB as $data)
+                if({{$data->id}} == e){
+                $("#tarikh_pemilikan_harta1").val("")
+                $("#jenis_harta1").prop('selectedIndex', 0);
+                $("#hubungan_pemilik1").prop('selectedIndex', 0);
+                $("#cara_perolehan1").prop('selectedIndex', 0);
+                $("#cara_belian1").prop('selectedIndex', 0);
+                $("#tarikh_lupus1").val("")
+                $("#tarikh_ansuran_pertama1").val("")
+
+
+                document.getElementById("jenis_harta1").value = "";
+                document.getElementById("pemilik_harta1").value = "";
+                document.getElementById("maklumat_harta1").value = "";
+                document.getElementById("bilangan1").value = "";
+                document.getElementById("nilai_perolehan1").value = "";
+                document.getElementById("nama_pemilikan_asal1").value = "";
+                document.getElementById("jumlah_pinjaman1").value = "";
+                document.getElementById("institusi_pinjaman1").value = "";
+                document.getElementById("cara_belian_container1").style="display: none;";
+                document.getElementById("nama_pemilikan_asal_container1").style="display: none;";
+                document.getElementById("lain-lain_container1").style="display: none;";
+                document.getElementById("pinjaman_container1").style="display: none;";
+                document.getElementById("pelupusan_container1").style="display: none;";
+                document.getElementById("tempoh_bayar_balik1").value = "";
+                document.getElementById("ansuran_bulanan1").value = "";
+                document.getElementById("jenis_harta_pelupusan1").value = "";
+                document.getElementById("alamat_asset1").value = "";
+                document.getElementById("no_pendaftaran1").value = "";
+                document.getElementById("harga_jualan1").value = "";
+                document.getElementById("lain_lain1").value = "";
+              }
+              @endforeach
+              document.getElementById('harta_container').style.display ="none";
+            }
+
+            </script>
+
+           <script>
+           function DataUpdate(e){
+             console.log(e)
+
+             // update table
+               document.getElementById("jenis_harta_table"+e).value = document.getElementById("jenis_harta1").value;
+               document.getElementById("pemilik_harta_table"+e).innerHTML  = document.getElementById("pemilik_harta1").value;
+               document.getElementById("tarikh_pemilikan_harta_table"+e).value = "{{$data->tarikh_pemilikan_harta}}";
+               document.getElementById("bilangan_table"+e).value = "{{$data->bilangan}}";
+               document.getElementById("nilai_perolehan_table"+e).value = "{{$data->nilai_perolehan}}";
+
+            // update hidden input
+            document.getElementById("jenis_harta"+e).value = document.getElementById("jenis_harta1").value;
+            document.getElementById("pemilik_harta"+e).value = document.getElementById("pemilik_harta1").value;
+            document.getElementById("select_hubungan"+e).value = document.getElementById("hubungan_pemilik1").value;
+            document.getElementById("maklumat_harta"+e).value = document.getElementById("maklumat_harta1").value;
+            document.getElementById("tarikh_pemilikan_harta"+e).value = document.getElementById("tarikh_pemilikan_harta1").value;
+            document.getElementById("bilangan"+e).value = document.getElementById("bilangan1").value;
+            document.getElementById("nilai_perolehan"+e).value = document.getElementById("nilai_perolehan1").value;
+            document.getElementById("cara_perolehan"+e).value = document.getElementById("cara_perolehan1").value;
+            if(document.getElementById("cara_perolehan1").value == "Dipusakai" || document.getElementById("cara_perolehan1").value == "Dihadiahkan" ){
+              document.getElementById("nama_pemilikan_asal"+e).value = document.getElementById("nama_pemilikan_asal1").value;
+            }
+            else if(document.getElementById("cara_perolehan1").value == "Lain-lain"){
+              document.getElementById("lain_lain"+e).value = document.getElementById("lain_lain1").value;
+            }
+            else if(document.getElementById("cara_perolehan1").value == "Dibeli"){
+              document.getElementById("cara_belian"+e).value = document.getElementById("cara_belian1").value;
+
+                if(document.getElementById("cara_belian1").value == "Pinjaman"){
+                  document.getElementById("jumlah_pinjaman"+e).value =   document.getElementById("jumlah_pinjaman1").value;
+                  document.getElementById("institusi_pinjaman"+e).value = document.getElementById("institusi_pinjaman1").value;
+                  document.getElementById("tempoh_bayar_balik"+e).value = document.getElementById("tempoh_bayar_balik1").value;
+                  document.getElementById("ansuran_bulanan"+e).value = document.getElementById("ansuran_bulanan1").value;
+                }
+                else if(document.getElementById("cara_belian1").value == "Pelupusan"){
+                  document.getElementById("jenis_harta_pelupusan"+e).value =   document.getElementById("jenis_harta_pelupusan1").value;
+                  document.getElementById("alamat_asset"+e).value = document.getElementById("alamat_asset1").value;
+                  document.getElementById("no_pendaftaran"+e).value = document.getElementById("no_pendaftaran1").value;
+                  document.getElementById("harga_jualan"+e).value = document.getElementById("harga_jualan1").value;
+                  document.getElementById("tarikh_lupus"+e).value = document.getElementById("tarikh_lupus1").value;
+                }
+            }
+
+           }
+           </script>
+
+
 
            <script type="text/javascript">
            //for user to fill up the pinjaman
@@ -1553,6 +2126,11 @@
             document.getElementById("nama_pemilikan_asal").value = "";
             // document.getElementById("jumlah_pinjaman").value = "";
             document.getElementById("institusi_pinjaman").value = "";
+            document.getElementById("cara_belian_container").style="display: none;";
+            document.getElementById("nama_pemilikan_asal_container").style="display: none;";
+            document.getElementById("lain-lain_container").style="display: none;";
+            document.getElementById("pinjaman_container").style="display: none;";
+            document.getElementById("pelupusan_container").style="display: none;";
             document.getElementById("tempoh_bayar_balik").value = "";
             // document.getElementById("ansuran_bulanan").value = "";
             document.getElementById("jenis_harta_pelupusan").value = "";
@@ -1700,7 +2278,8 @@
                      document.getElementById("jenis_harta").value = "";
                      document.getElementById("ansuran_bulanan").value = "";
                      document.getElementById("jumlah_pinjaman").value = "";
-                     $("#cara_belian").prop('selectedIndex', 0);
+                     document.getElementById("cara_belian").value = "";
+                     // $("#cara_belian").prop('selectedIndex', 0);
                      document.getElementById('pinjaman_perumahan_pasangan').value = +parseFloat(pinjaman_rumah_semasa).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
                      document.getElementById('bulanan_perumahan_pasangan').value = +parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
                    }
@@ -1718,7 +2297,8 @@
                      document.getElementById("jenis_harta").value = "";
                      document.getElementById("ansuran_bulanan").value = "";
                      document.getElementById("jumlah_pinjaman").value = "";
-                     $("#cara_belian").prop('selectedIndex', 0);
+                     // $("#cara_belian").prop('selectedIndex', 0);
+                     document.getElementById("cara_belian").value = "";
                      $("#select_hubungan").prop('selectedIndex', 0);
                      document.getElementById('pinjaman_perumahan_pegawai').value = +parseFloat(pinjaman_rumah_semasa).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
                      document.getElementById('bulanan_perumahan_pegawai').value = +parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
@@ -1741,7 +2321,8 @@
                      document.getElementById("jenis_harta").value = "";
                      document.getElementById("ansuran_bulanan").value = "";
                      document.getElementById("jumlah_pinjaman").value = "";
-                     $("#cara_belian").prop('selectedIndex', 0);
+                     // $("#cara_belian").prop('selectedIndex', 0);
+                     document.getElementById("cara_belian").value = "";
                      $("#select_hubungan").prop('selectedIndex', 0);
                      document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(pinjaman_kenderaan_pegawai).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
                      document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
@@ -1759,16 +2340,19 @@
                  document.getElementById("jenis_harta").value = "";
                  document.getElementById("ansuran_bulanan").value = "";
                  document.getElementById("jumlah_pinjaman").value = "";
-                 $("#cara_belian").prop('selectedIndex', 0);
+                 // $("#cara_belian").prop('selectedIndex', 0);
+                 document.getElementById("cara_belian").value = "";
                  $("#select_hubungan").prop('selectedIndex', 0);
                  document.getElementById('pinjaman_kenderaan_pegawai').value = +parseFloat(pinjaman_kenderaan_pegawai).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
                  document.getElementById('bulanan_kenderaan_pegawai').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
 
                }
              }
+             document.getElementById("cara_belian").value = "";
            }
            else{
-             $("#cara_belian").prop('selectedIndex', 0);
+             // $("#cara_belian").prop('selectedIndex', 0);
+             document.getElementById("cara_belian").value = "";
              $("#select_hubungan").prop('selectedIndex', 0);
              document.getElementById("jenis_harta").value = "";
              document.getElementById("ansuran_bulanan").value = "";

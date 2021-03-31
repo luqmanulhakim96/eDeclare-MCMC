@@ -7,12 +7,16 @@
                </div>
 
                <!-- All Basic Form elements -->
+
                <div class="row">
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
                               <form action="{{route('perakuan.submit')}}" method="post" id="perakuan.submit">
                                 @csrf
+                                @foreach($staffinfo as $data)
+                                  <input type="hidden" name="no_staff" value="{{$data->STAFFNO}}">
+                                @endforeach
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
                                       <div class="col-md-4">
@@ -30,7 +34,9 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            <input type="hidden" name="kad_pengenalan"  value="{{Auth::user()->kad_pengenalan}}">{{Auth::user()->kad_pengenalan}}
+                                            @foreach($staffinfo as $ic)
+                                              <input type="hidden" name="kad_pengenalan" value="{{$ic->ICNUMBER}}">{{$ic->ICNUMBER}}
+                                            @endforeach
                                           </div>
                                       </div>
                                   </div>

@@ -5,15 +5,16 @@
                                 <!-- Basic tabs card -->
                                 <div class="card rounded-lg">
                                     <div class="card-body">
-                                        <div class="card-title">Susun Atur Sistem</div>
+                                        <div class="card-title">Sistem Konfigurasi</div>
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item">
-                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Susun Atur Sistem</a>
+                                              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Susun Atur Sistem</a>
                                             </li>
-                                            <!-- <li class="nav-item">
-                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tetapan Jenis Hadiah</a>
+                                            <li class="nav-item">
+                                             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tetapan Log Masuk</a>
                                             </li>
+                                            <!--
                                             <li class="nav-item">
                                             <a class="nav-link" id="jenisharta-tab" data-toggle="tab" href="#jenisharta" role="tab" aria-controls="jenisharta" aria-selected="false">Tetapan Jenis Harta</a>
                                             </li> -->
@@ -75,52 +76,43 @@
                                                 @endforeach
                                                 <br>
                                                   <div class="row">
-                                                    <!-- <button class="btn btn-primary" onclick=" return confirm('Set maklumat?');" type="submit" name="button">Hantar</button> -->
-                                                    <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Set</button>
-                                                  </div>
-                                                  <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                      <div class="modal-dialog modal-sm" role="document">
-                                                      <div class="modal-content">
-                                                          <div class="modal-header">
-                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                              <span aria-hidden="true">&times;</span>
-                                                          </button>
-                                                          </div>
-                                                          <div class="modal-body">
-                                                          <p align="center">Set Maklumat?</p>
-                                                          </div>
-                                                          <div class="modal-footer">
-                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                          <button type="submit" class="btn btn-primary" name="publish">Ya</button>
-                                                          </div>
-                                                      </div>
-                                                      </div>
+                                                    <button class="btn btn-primary" type="submit" name="button">Hantar</button>
                                                   </div>
                                               </form>
                                               </div>
                                         </div>
 
-                                      <!-- <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                       <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="page-body p-4 text-dark">
                                           <div class="col mt-10">
                                             <br>
-                                            <div class="col-md-12">
-                                                <p>Tambah Jenis Hadiah</p>
-                                            </div>
+
                                             <div class="col-md-4">
-                                              <form action="{{route('jenishadiah.submit')}}" method="POST">
+                                              <form action="{{route('auth.submit', $auth->id) }}" method="POST">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control bg-light" name="jenis_gift" placeholder="Jenis Hadiah ">
-                                                    <br>
-                                                    <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Tambah</button>
+                                                  <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p>Had Percubaan</p>
+                                                        <input type="text" class="form-control bg-light" value="{{$auth->max_attempts}}" name="max_attempts" placeholder="Had Percubaan ">
+                                                    </div>
+                                                  </div>
+                                                  <br>
+                                                  <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p>Tempoh Percubaan Semula (Minit)</p>
+                                                        <input type="text" class="form-control bg-light" value="{{$auth->decay_minutes}}" name="decay_minutes" placeholder="Tempoh Percubaan Semula ">
+                                                    </div>
+                                                  </div>
+                                                  <br>
+                                                  <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Tambah</button>
                                                 </div>
                                               </form>
                                             </div>
                                             </div>
                                           </div>
                                       </div>
-
+                                      <!--
                                       <div class="tab-pane" id="jenisharta" role="tabpanel" aria-labelledby="jenisharta-tab">
                                         <div class="page-body p-4 text-dark">
                                           <div class="col mt-10">
@@ -146,5 +138,6 @@
                               </div>
                             </div>
                         </div>
+                        <br><br>
 
 @endsection

@@ -868,7 +868,7 @@
                                                <p>Ulasan Ketua Bahagian</p>
                                              </div>
                                                <div class="col-md-8">
-                                                    <textarea class="form-control bg-light" name="ulasan_hodiv" rows="4" cols="50" placeholder="Ulasan Ketua Bahagian"></textarea><br>
+                                                    <textarea maxlength="100" class="form-control bg-light" name="ulasan_hodiv" rows="4" cols="50" placeholder="Ulasan Ketua Bahagian"></textarea><br>
 
 
                                                     <input type="radio" id="diterima" name="status" value="Proses ke Ketua Jabatan Integriti">
@@ -890,8 +890,8 @@
                                                               <p align="center">Hantar untuk pengesahan?</p>
                                                               </div>
                                                               <div class="modal-footer">
-                                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                              <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                              <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                                               </div>
                                                           </div>
                                                           </div>

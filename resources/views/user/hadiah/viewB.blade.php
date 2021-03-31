@@ -3,7 +3,7 @@
            <!--Page Body part -->
            <div class="page-body p-4 text-dark">
                <div class="page-heading border-bottom d-flex flex-row">
-                   <p class="font-weight-normal">Lampiran B: LAPORAN PENERIMAAN HADIAH DIBAWAH SURAT PEKELILING PERKHIDMATAN DAN SOKONGAN BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI RM {{ $nilaiHadiah ->nilai_hadiah }} DAN KE BAWAH</p>
+                   <p class="font-weight-normal">Borang B: LAPORAN PENERIMAAN HADIAH DIBAWAH SURAT PEKELILING PERKHIDMATAN DAN SOKONGAN BILANGAN 2 TAHUN 2015 BAGI HADIAH-HADIAH YANG BERNILAI RM {{ $nilaiHadiah ->nilai_hadiah }} DAN KE BAWAH</p>
                </div>
 
                <!-- All Basic Form elements -->
@@ -121,7 +121,7 @@
                                  <br>
                                  <div class="row">
                                    <div class="col-md-4">
-                                       <p>v) Hubungan Pemberi</p>
+                                       <p>vi) Hubungan Pemberi</p>
                                    </div>
                                    <div class="col-md-8">
                                       {{ $info->hubungan_pemberi  }}
@@ -130,7 +130,7 @@
                                  <br>
                                  <div class="row">
                                     <div class="col-md-4">
-                                        <p>vi)Sebab Diberi</p>
+                                        <p>vii)Sebab Diberi</p>
                                     </div>
                                     <div class="col-md-8">
                                         {{ $info->sebab_gift  }}
@@ -146,7 +146,23 @@
                               <div class="row">
                                  <div class="col-md-4">
                                    <div class="img-responsive" alt="Gambar Hadiah" align="center">
-                                     <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  class="imgthumbnail" width="150px" height="150px">
+                                     @if($info->gambar_gift != NULL)
+                                     @if(pathinfo(asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift)), PATHINFO_EXTENSION) == "pdf")
+                                     <div class="modal-body modal-dialog1" >
+                                     <iframe id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="300px" height="300px"></iframe>
+                                     </div>
+                                     @else
+                                     <div class="modal-body"  >
+                                     <img id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $info ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="300px" height="300px"></img>
+                                   </div>
+                                   @endif
+                                     <!-- <div class="row">
+                                        <div class="col-md-4">
+                                          <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  class="imgthumbnail" width="150px" height="150px">
+                                        </div>
+                                     </div> -->
+                                     @endif
+                                     <!-- <img src="{{ asset( $image_path = str_replace('public', 'storage',  $info->gambar_gift)) }}"  class="imgthumbnail" width="150px" height="150px"> -->
                                   </div>
                                  </div>
                              </div>

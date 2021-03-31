@@ -20,6 +20,9 @@
                                   <input type="hidden" id="counter_keterangan" name="counter_keterangan" value="0">
                                   <input type="hidden" id="increment_keterangan" name="increment_keterangan" value="0">
                                 </div>
+                                @foreach($staffinfo as $data)
+                                  <input type="hidden" name="no_staff" value="{{$data->STAFFNO}}">
+                                @endforeach
                                 <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
                                       <div class="col-md-4">
@@ -106,7 +109,7 @@
                                             @endforeach
 
                                             </select>
-                                            @error('jenis_harta_lupus_')
+                                            @error('jenis_harta_lupus_[]')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
                                       </div>
@@ -263,8 +266,8 @@
                                         <p align="center">Simpan maklumat perisytiharan?</p>
                                         </div>
                                         <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                        <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                        <button type="submit" class="btn btn-danger" name="save">Ya</button>
                                         </div>
                                     </div>
                                     </div>
@@ -282,8 +285,8 @@
                                           <p align="center">Hantar maklumat perisytiharan?</p>
                                           </div>
                                           <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                          <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                          <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                           </div>
                                       </div>
                                       </div>

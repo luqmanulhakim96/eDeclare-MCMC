@@ -24,6 +24,9 @@ use DB;
 use App\Email;
 use App\UserExistingStaffInfo;
 use App\UserExistingStaffNextofKin;
+use App\UlasanHod;
+use App\UlasanAdmin;
+use App\UlasanHodiv;
 
 use App\Jobs\SendNotificationFormBHod;
 use App\Jobs\SendNotificationFormCHod;
@@ -166,8 +169,10 @@ class IntegrityHodController extends Controller
       $username =Auth::user()->username;
       $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
       $nilai_hadiah = NilaiHadiah::first();
+      $ulasanAdmin = UlasanAdmin::where('giftb_id', $listHadiah->id) ->get();
+      // $ulasanHodiv = UlasanHodiv::where('giftb_id', $listHadiah->id) ->get();
 
-      return view('user.integrityHOD.hadiah.ulasanHadiahB', compact('listHadiah','nilai_hadiah','staffinfo'));
+      return view('user.integrityHOD.hadiah.ulasanHadiahB', compact('listHadiah','nilai_hadiah','staffinfo','ulasanAdmin'));
     }
 
     public function viewUlasanHadiah($id)
@@ -177,8 +182,10 @@ class IntegrityHodController extends Controller
       $username =Auth::user()->username;
       $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
       $nilai_hadiah = NilaiHadiah::first();
+      $ulasanAdmin = UlasanAdmin::where('gift_id', $listHadiah->id) ->get();
+      $ulasanHodiv = UlasanHodiv::where('gift_id', $listHadiah->id) ->get();
 
-      return view('user.integrityHOD.hadiah.ulasanHadiah', compact('listHadiah','nilai_hadiah','staffinfo'));
+      return view('user.integrityHOD.hadiah.ulasanHadiah', compact('listHadiah','nilai_hadiah','staffinfo','ulasanAdmin','ulasanHodiv'));
     }
 
     public function viewUlasanHartaG($id)
@@ -192,6 +199,9 @@ class IntegrityHodController extends Controller
       $listPinjamanG = PinjamanG::where('formgs_id', $listHarta->id) ->get();
       $listPinjaman = Pinjaman::where('formgs_id', $listHarta->id) ->get();
       $user = UserExistingStaffInfo::where('STAFFNO', $listHarta->no_staff) ->get('STAFFNO');
+      $ulasanAdmin = UlasanAdmin::where('formgs_id', $listHarta->id) ->get();
+      $ulasanHodiv = UlasanHodiv::where('formgs_id', $listHarta->id) ->get();
+      $ulasanHOD = UlasanHod::where('formgs_id', $listHarta->id) ->get();
       // dd($user);
 
       foreach ($user as $keluarga) {
@@ -202,13 +212,13 @@ class IntegrityHodController extends Controller
           }
 
       if($maklumat_pasangan->isEmpty()){
-        return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','staffinfo'));
+        return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
       }
       elseif ($maklumat_anak->isEmpty()) {
-        return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','staffinfo'));
+        return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
       }
       else{
-        return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','maklumat_anak','staffinfo'));
+        return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','maklumat_anak','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
       }
     }
 
@@ -229,6 +239,9 @@ class IntegrityHodController extends Controller
       $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
 
       $user = UserExistingStaffInfo::where('STAFFNO', $listHarta->no_staff) ->get('STAFFNO');
+      $ulasanAdmin = UlasanAdmin::where('formbs_id', $listHarta->id) ->get();
+      $ulasanHodiv = UlasanHodiv::where('formbs_id', $listHarta->id) ->get();
+        $ulasanHOD = UlasanHod::where('formbs_id', $listHarta->id) ->get();
       // dd($user);
 
       foreach ($user as $keluarga) {
@@ -240,13 +253,13 @@ class IntegrityHodController extends Controller
           }
 
       if($maklumat_pasangan->isEmpty()){
-        return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo'));
+        return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
       }
       elseif ($maklumat_anak->isEmpty()) {
-        return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo'));
+        return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
       }
       else{
-      return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan','staffinfo'));
+      return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
       }
     }
 
@@ -256,8 +269,11 @@ class IntegrityHodController extends Controller
       $username =Auth::user()->username;
       $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
       $hartaB =HartaB::where('formcs_id',$listHarta->id)->get();
+      $ulasanAdmin = UlasanAdmin::where('formcs_id', $listHarta->id) ->get();
+      $ulasanHodiv = UlasanHodiv::where('formcs_id', $listHarta->id) ->get();
+        $ulasanHOD = UlasanHod::where('formcs_id', $listHarta->id) ->get();
 
-      return view('user.integrityHOD.harta.ulasanHartaC', compact('listHarta','staffinfo','hartaB'));
+      return view('user.integrityHOD.harta.ulasanHartaC', compact('listHarta','staffinfo','hartaB','ulasanAdmin','ulasanHodiv','ulasanHOD'));
 
     }
 
@@ -268,8 +284,11 @@ class IntegrityHodController extends Controller
       $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
       $listKeluarga = Keluarga::where('formds_id', $listHarta->id) ->get();
       $dokumen_syarikat = DokumenSyarikat::where('formds_id', $listHarta->id) ->get();
+      $ulasanAdmin = UlasanAdmin::where('formds_id', $listHarta->id) ->get();
+      $ulasanHodiv = UlasanHodiv::where('formds_id', $listHarta->id) ->get();
+        $ulasanHOD = UlasanHod::where('formds_id', $listHarta->id) ->get();
 
-      return view('user.integrityHOD.harta.ulasanHartaD', compact('listHarta','staffinfo','listKeluarga','dokumen_syarikat'));
+      return view('user.integrityHOD.harta.ulasanHartaD', compact('listHarta','staffinfo','listKeluarga','dokumen_syarikat','ulasanAdmin','ulasanHodiv','ulasanHOD'));
 
     }
 
@@ -313,11 +332,15 @@ class IntegrityHodController extends Controller
 
      public function updateStatusUlasanHODB(Request $request,$id){
 
-       $formbs = FormB::find($id);
+       $statusb = FormB::find($id);
+       $statusb->status = $request->status;
+       $statusb->save();
+
+       $formbs = new UlasanHod();
        $formbs->nama_hod = $request->nama_hod;
        $formbs->no_hod = $request->no_hod;
-       $formbs->status = $request->status;
        $formbs->ulasan_hod = $request->ulasan_hod;
+       $formbs->formbs_id = $id;
        $formbs->save();
 
 
@@ -349,7 +372,7 @@ class IntegrityHodController extends Controller
 
       }
        else {
-         $email = Email::where('jenis', '=', 'Perisytiharan Harta Gagal')->first(); //template email yang diguna
+         $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
          $user = User::where('id', '=', $formbs->user_id)->first(); //get system admin information
 
@@ -363,11 +386,15 @@ class IntegrityHodController extends Controller
 
      public function updateStatusUlasanHODC(Request $request,$id){
 
-       $formcs = FormC::find($id);
+       $statusc = FormC::find($id);
+       $statusc->status = $request->status;
+       $statusc->save();
+
+       $formcs = new UlasanHod();
        $formcs->nama_hod = $request->nama_hod;
        $formcs->no_hod = $request->no_hod;
-       $formcs->status = $request->status;
        $formcs->ulasan_hod = $request->ulasan_hod;
+       $formcs->formcs_id = $id;
        $formcs->save();
 
        //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
@@ -393,7 +420,7 @@ class IntegrityHodController extends Controller
 
       }
        else {
-         $email = Email::where('jenis', '=', 'Perisytiharan Harta Gagal')->first(); //template email yang diguna
+         $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
          $user = User::where('id', '=', $formcs->user_id)->first(); //get system admin information
          $this->dispatch(new SendNotificationFormCHod($user,$email, $formcs));
@@ -405,11 +432,15 @@ class IntegrityHodController extends Controller
 
      public function updateStatusUlasanHODD(Request $request,$id){
 
-       $formds = FormD::find($id);
+       $statusd = FormD::find($id);
+       $statusd->status = $request->status;
+       $statusd->save();
+
+       $formds = new UlasanHod();
        $formds->nama_hod = $request->nama_hod;
        $formds->no_hod = $request->no_hod;
-       $formds->status = $request->status;
        $formds->ulasan_hod = $request->ulasan_hod;
+       $formds->formds_id = $id;
        $formds->save();
 
        //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
@@ -434,7 +465,7 @@ class IntegrityHodController extends Controller
 
       }
        else {
-         $email = Email::where('jenis', '=', 'Perisytiharan Harta Gagal')->first(); //template email yang diguna
+         $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
          $user = User::where('id', '=', $formds->user_id)->first(); //get system admin information
          $this->dispatch(new SendNotificationFormCHod($user, $email, $formds));
@@ -446,12 +477,16 @@ class IntegrityHodController extends Controller
 
      public function updateStatusUlasanHODG(Request $request,$id){
 
-       $formgs = FormG::find($id);
-       $formgs->nama_hod = $request->nama_hod;
-       $formgs->no_hod = $request->no_hod;
-       $formgs->status = $request->status;
-       $formgs->ulasan_hod = $request->ulasan_hod;
-       $formgs->save();
+       $statusg = FormG::find($id);
+      $statusg->status = $request->status;
+      $statusg->save();
+
+      $formgs = new UlasanHod();
+      $formgs->nama_hod = $request->nama_hod;
+      $formgs->no_hod = $request->no_hod;
+      $formgs->ulasan_hod = $request->ulasan_hod;
+      $formgs->formgs_id = $id;
+      $formgs->save();
 
        //send notification to hodiv (kalau ada keraguan(status="Diproses ke Ketua Bahagian"))
        //send notification to users (status="Diterima" && status="Tidak Diterima")
@@ -476,7 +511,7 @@ class IntegrityHodController extends Controller
 
       }
        elseif ($request->status == 'Tidak Diterima') {
-         $email = Email::where('jenis', '=', 'Perisytiharan Harta Gagal')->first(); //template email yang diguna
+         $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
          $user = User::where('id', '=', $formgs->user_id)->first(); //get system admin information
 
@@ -489,28 +524,32 @@ class IntegrityHodController extends Controller
 
      public function updateStatusUlasanHODGift(Request $request,$id){
 
-       $gifts = Gift::find($id);
-       $gifts->nama_hod = $request->nama_hod;
-       $gifts->no_hod = $request->no_hod;
-       $gifts->status = $request->status;
-       $gifts->ulasan_hod = $request->ulasan_hod;
-       $gifts->save();
+       $statusgift = Gift::find($id);
+       $statusgift->status = $request->status;
+       $statusgift->save();
+
+       $gift = new UlasanHod();
+       $gift->nama_hod = $request->nama_hod;
+       $gift->no_hod = $request->no_hod;
+       $gift->ulasan_hod = $request->ulasan_hod;
+       $gift->gift_id = $id;
+       $gift->save();
 
        //send notification to admin (ulasan hodiv)
        if ($request->status == 'Diterima') {
            $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Diterima')->first(); //template email yang diguna
            // $email = null; // for testing
-           $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+           $user = User::where('id', '=', $statusgift->user_id)->first(); //get system admin information
 
-           $this->dispatch(new SendNotificationGiftHod($user, $email, $gifts));
+           $this->dispatch(new SendNotificationGiftHod($user, $email, $statusgift));
 
         }
          else {
            $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Gagal')->first(); //template email yang diguna
            // $email = null; // for testing
-           $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+           $user = User::where('id', '=', $statusgift->user_id)->first(); //get system admin information
 
-           $this->dispatch(new SendNotificationGiftHod($user, $email, $gifts));
+           $this->dispatch(new SendNotificationGiftHod($user, $email, $statusgift));
 
        }
 
@@ -520,25 +559,31 @@ class IntegrityHodController extends Controller
 
      public function updateStatusUlasanHODGiftB(Request $request,$id){
 
-       $giftbs = GiftB::find($id);
-       $giftbs->status = $request->status;
-       $giftbs->ulasan_hod = $request->ulasan_hod;
-       $giftbs->save();
+       $statusgiftb = GiftB::find($id);
+       $statusgiftb->status = $request->status;
+       $statusgiftb->save();
+
+       $giftb = new UlasanHod();
+       $giftb->nama_hod = $request->nama_hod;
+       $giftb->no_hod = $request->no_hod;
+       $giftb->ulasan_hod = $request->ulasan_hod;
+       $giftb->giftb_id = $id;
+       $giftb->save();
 
      if ($request->status == 'Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Diterima')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusgiftb->user_id)->first(); //get system admin information
 
-         $this->dispatch(new SendNotificationGiftHod($user, $email, $giftbs));
+         $this->dispatch(new SendNotificationGiftHod($user, $email, $statusgiftb));
 
       }
        else {
          $email = Email::where('jenis', '=', 'Perisytiharan Hadiah Gagal')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusgiftb->user_id)->first(); //get system admin information
 
-         $this->dispatch(new SendNotificationGiftHod($user, $email, $giftbs));
+         $this->dispatch(new SendNotificationGiftHod($user, $email, $statusgiftb));
 
      }
 

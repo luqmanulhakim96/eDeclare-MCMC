@@ -151,7 +151,18 @@
                           <div class="row">
                              <div class="col-md-4">
                                <div class="img-responsive" alt="Gambar Hadiah" align="center">
-                                 <img src="{{ asset( $image_path = str_replace('public', 'storage',  $listHadiah ->gambar_gift)) }}"  width="100%" height="100%">
+                                 @if($listHadiah->gambar_gift != NULL)
+                                 @if(pathinfo(asset( $image_path = str_replace('public', 'storage',  $listHadiah ->gambar_gift)), PATHINFO_EXTENSION) == "pdf")
+                                 <div class="modal-body modal-dialog1" >
+                                 <iframe id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $listHadiah ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="300px" height="300px"></iframe>
+                                 </div>
+                                 @else
+                                 <div class="modal-body"  >
+                                 <img id="" class="img-responsive" src="{{asset( $image_path = str_replace('public', 'storage',  $listHadiah ->gambar_gift))}}" alt="Gambar Hadiah" class="imgthumbnail" width="300px" height="300px"></img>
+                               </div>
+                               @endif
+
+                                 @endif
                               </div>
                              </div>
                          </div>
@@ -165,12 +176,11 @@
                                   <p>Ulasan Ketua Jabatan</p>
                                </div>
                                <div class="col-md-8">
-                                 @if( $listHadiah->ulasan_hodiv == NULL)
-                                 Tiada
-                                 @else
-                                 <p>{{ $listHadiah->ulasan_hodiv }} </p><p>( {{ $listHadiah->nama_hodiv }} , {{ $listHadiah->no_hodiv }} )</p><br>
-
-                                 @endif
+                                 @foreach($ulasanHodiv as $data)
+                                    @if($loop->last)
+                                      <p>{{ $data->ulasan_hodiv }} </p><p>( {{ $data->nama_hodiv }} , {{ $data->no_hodiv }} )</p><br>
+                                    @endif
+                                 @endforeach
                                </div>
                              </div>
                              <div class="row">
@@ -178,11 +188,11 @@
                                    <p>Ulasan Pentadbir Sistem</p>
                                 </div>
                                 <div class="col-md-8">
-                                  @if( $listHadiah->ulasan_admin == NULL)
-                                  Tiada
-                                  @else
-                                  <p>{{ $listHadiah->ulasan_admin }} </p><p>( {{ $listHadiah->nama_admin }} , {{ $listHadiah->no_admin}} )</p><br>
-                                  @endif
+                                  @foreach($ulasanAdmin as $data)
+                                     @if($loop->last)
+                                       <p>{{ $data->ulasan_admin }} </p><p>( {{ $data->nama_admin }} , {{ $data->no_admin }} )</p><br>
+                                     @endif
+                                  @endforeach
                                 </div>
                               </div>
                            <form action="{{route('ulasanHODGift.update', $listHadiah->id)}}" method="post">
@@ -222,7 +232,7 @@
                                 <p>Ulasan Ketua Jabatan Integriti</p>
                               </div>
                               <div class="col-md-8">
-                                   <textarea name="ulasan_hod" class="form-control bg-light" rows="8" cols="30" placeholder="Ulasan Ketua Jabatan Integriti"></textarea><br>
+                                   <textarea maxlength="100" name="ulasan_hod" class="form-control bg-light" rows="8" cols="30" placeholder="Ulasan Ketua Jabatan Integriti"></textarea><br>
 
                                    <input type="radio" id="tidak_diterima" name="status" value="Tidak Diterima">
                                        <label for="Tidak Diterima">Tidak Diterima</label>
@@ -244,13 +254,43 @@
                                              <p align="center">Hantar untuk pengesahan?</p>
                                              </div>
                                              <div class="modal-footer">
-                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                             <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                             <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                              </div>
                                          </div>
                                          </div>
                                      </div>
                               </div>
+                            </div>
+                            <br><br>
+                            <div class="row">
+                              @if($ulasanAdmin)
+                                  <div class="col-md-2">
+                                      <p>Sejarah Ulasan Admin</p>
+                                   </div>
+                                    @foreach($ulasanAdmin as $data)
+                                     <div class="col-md-3">
+                                      @if(!$loop->last)
+                                        <p>- {{ $data->ulasan_admin }} </p><p>( {{ $data->nama_admin }} , {{ $data->no_admin }} )</p><br>
+                                      @endif
+                                      </div>
+                                    @endforeach
+                              @endif
+                            </div>
+                            <hr>
+                            <div class="row">
+                                   @if($ulasanHodiv)
+                                     <div class="col-md-2">
+                                         <p>Sejarah Ulasan Ketua Bahagian</p>
+                                      </div>
+                                      @foreach($ulasanHodiv as $data)
+                                       <div class="col-md-3">
+                                        @if(!$loop->last)
+                                          <p>- {{ $data->ulasan_hodiv }} </p><p>( {{ $data->nama_hodiv }} , {{ $data->no_hodiv }} )</p><br>
+                                        @endif
+                                        </div>
+                                      @endforeach
+                                  @endif
                             </div>
                             </form>
                           </div>

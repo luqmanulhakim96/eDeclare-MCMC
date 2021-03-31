@@ -104,7 +104,7 @@
                     @else
                     <div class="row">
                       <div class="col-12 mt-4">
-                           <div class="card rounded-lg">
+                           <div class="card rounded-lg" >
                                <div class="card-body">
 
                                   <!-- keluarga -->
@@ -230,7 +230,7 @@
                         @endif
                       <div class="row">
                         <div class="col-12 mt-4">
-                             <div class="card rounded-lg">
+                             <div class="card rounded-lg" >
                                  <div class="card-body">
                                     <!-- pendapatan bulanan-->
                                     @if($last_data_formb)
@@ -262,7 +262,7 @@
                                           </div>
                                       </div>
                                       <div class="col-md-4 mt-2 mt-md-0">
-                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ $last_data_formb->gaji_pasangan}}">
+                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ $last_data_formb->gaji_pasangan}}" autocomplete="off">
                                       </div>
                                       @error('gaji_pasangan')
                                          <div class="alert alert-danger">{{ $message }}</div>
@@ -276,14 +276,14 @@
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
                                         <div class="input-group">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="jumlah_imbuhan" placeholder="Imbuhan Pegawai" value="{{ $last_data_formb->jumlah_imbuhan}}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="jumlah_imbuhan" placeholder="Imbuhan Pegawai" value="{{ $last_data_formb->jumlah_imbuhan}}" autocomplete="off">
                                         </div>
                                         @error('jumlah_imbuhan')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
-                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="jumlah_imbuhan_pasangan" placeholder="Imbuhan Pasangan" value="{{ $last_data_formb->jumlah_imbuhan_pasangan}}">
+                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="jumlah_imbuhan_pasangan" placeholder="Imbuhan Pasangan" value="{{ $last_data_formb->jumlah_imbuhan_pasangan}}" autocomplete="off">
                                     </div>
                                     @error('jumlah_imbuhan_pasangan')
                                        <div class="alert alert-danger">{{ $message }}</div>
@@ -297,14 +297,14 @@
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
                                         <div class="input-group">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="sewa" placeholder="Sewa Pegawai" value="{{ $last_data_formb->sewa}}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="sewa" placeholder="Sewa Pegawai" value="{{ $last_data_formb->sewa}}" autocomplete="off">
                                         </div>
                                         @error('sewa')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
-                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="sewa_pasangan" placeholder="Sewa Pasangan" value="{{ $last_data_formb->sewa_pasangan}}">
+                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="sewa_pasangan" placeholder="Sewa Pasangan" value="{{ $last_data_formb->sewa_pasangan}}" autocomplete="off">
                                     </div>
                                   </div>
 
@@ -320,7 +320,7 @@
                                   <div class="row">
                                     <div class="col-md-3 mt-2 mt-md-0">
                                         <div class="input-group">
-                                            <input class="form-control bg-light" type="text" name="dividen_1[]" placeholder="Nyatakan Dividen" value="{{ old('dividen_1[]')}}">
+                                            <input class="form-control bg-light" type="text" name="dividen_1[]" placeholder="Nyatakan Dividen" value="{{ old('dividen_1[]')}}" autocomplete="off">
                                         </div>
                                         @error('dividen_1[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
@@ -328,14 +328,14 @@
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
                                         <div class="input-group">
-                                            <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"   name="dividen_1_pegawai[]" id="dividen0" placeholder="Dividen Pegawai"  value="{{ old('dividen_1_pegawai[]')}}">
+                                            <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"   name="dividen_1_pegawai[]" id="dividen0" placeholder="Dividen Pegawai"  value="{{ old('dividen_1_pegawai[]')}}" autocomplete="off">
                                         </div>
                                         @error('dividen_1_pegawai[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
-                                        <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"   name="dividen_1_pasangan[]" id="dividen0" placeholder="Dividen Pasangan"  value="{{ old('dividen_1_pasangan[]')}}">
+                                        <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"   name="dividen_1_pasangan[]" id="dividen0" placeholder="Dividen Pasangan"  value="{{ old('dividen_1_pasangan[]')}}" autocomplete="off">
                                     </div>
                                     @error('dividen_1_pasangan[]')
                                        <div class="alert alert-danger">{{ $message }}</div>
@@ -360,19 +360,19 @@
                                       <div class="row">
                                         <div class="col-md-3 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" type="text" name="dividen_1[]" placeholder="Nyatakan Dividen" value="{{ $dividen->dividen_1 }}">
+                                                <input class="form-control bg-light" type="text" name="dividen_1[]" placeholder="Nyatakan Dividen" value="{{ $dividen->dividen_1 }}" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"   name="dividen_1_pegawai[]" placeholder="Dividen Pegawai" value="{{$dividen->dividen_1_pegawai}}">
+                                                <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"   name="dividen_1_pegawai[]" placeholder="Dividen Pegawai" value="{{$dividen->dividen_1_pegawai}}" autocomplete="off">
                                                 @error('dividen_1_pegawai[]')
                                                    <div class="alert alert-danger">{{ $message }}</div>
                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"   name="dividen_1_pasangan[]" placeholder="Dividen Pasangan" value="{{ $dividen->dividen_1_pasangan}}">
+                                            <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"   name="dividen_1_pasangan[]" placeholder="Dividen Pasangan" value="{{ $dividen->dividen_1_pasangan}}" autocomplete="off">
                                             @error('dividen_1_pasangan[]')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
@@ -391,343 +391,16 @@
                           </div>
                         </div>
                     </div>
-                    <div class="row">
-                      <div class="col-12 mt-4">
-                           <div class="card rounded-lg">
-                               <div class="card-body">
 
-                              <!-- Tanggungan -->
-                              <div class="row">
-                                <div class="col-md-8">
-                                  <p><b>4. TANGGUNGAN / ANSURAN BULANAN ATAS HUTANG / PINJAMAN</b></p>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-md-3">
-                                </div>
-                                <div class="col-md-4">
-                                  <p align="center"> PEGAWAI</p>
-                                </div>
-                                <div class="col-md-4">
-                                    <p align="center"> PASANGAN</p>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-3">
-                                </div>
-                                <div class="col-md-2">
-                                  <p align="center">Jumlah Pinjaman / Tanggungan (RM)</p>
-                                </div>
-                                <div class="col-md-2">
-                                  <p align="center">Jumlah Bayaran Bulanan (RM)</p>
-                                </div>
-                                  <div class="col-md-2">
-                                    <p align="center">Jumlah Pinjaman / Tanggungan (RM)</p>
-                                  </div>
-                                  <div class="col-md-2">
-                                    <p align="center">Jumlah Bayaran Bulanan (RM)</p>
-                                </div>
-                              </div>
-                              <!--PINJAMAN PERUMAHAN -->
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>i) Jumlah Pinjaman Perumahan</p>
-                                </div>
-                                <div class="col-md-2">
-                                @if($last_data_formb->pinjaman_perumahan_pegawai)
-                                <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{$last_data_formb->pinjaman_perumahan_pegawai}}">
-                                @else
-                                  @if(old('pinjaman_perumahan_pegawai'))
-                                  <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{old('pinjaman_perumahan_pegawai')}}">
-                                  @else
-                                  <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value=0>
-                                  @endif
-                                @endif
-                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_perumahan_pegawai" value="{{ $last_data_formb->pinjaman_perumahan_pegawai}}"> -->
-                                </div>
-                                @error('pinjaman_perumahan_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  @if($last_data_formb->bulanan_perumahan_pegawai)
-                                  <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{$last_data_formb->bulanan_perumahan_pegawai}}">
-                                  @else
-                                    @if(old('bulanan_perumahan_pegawai'))
-                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{old('bulanan_perumahan_pegawai')}}">
-                                    @else
-                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value=0>
-                                    @endif
-                                  @endif
-                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_perumahan_pegawai" value="{{ $last_data_formb->bulanan_perumahan_pegawai}}"> -->
-                                </div>
-                                @error('bulanan_perumahan_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    @if($last_data_formb->pinjaman_perumahan_pasangan)
-                                    <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{$last_data_formb->pinjaman_perumahan_pasangan}}">
-                                    @else
-                                      @if(old('pinjaman_perumahan_pasangan'))
-                                      <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{old('pinjaman_perumahan_pasangan')}}">
-                                      @else
-                                      <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value=0>
-                                      @endif
-                                    @endif
-                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_perumahan_pasangan" value="{{ $last_data_formb->pinjaman_perumahan_pasangan}}"> -->
-                                  </div>
-                                  @error('pinjaman_perumahan_pasangan')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    @if($last_data_formb->bulanan_perumahan_pasangan)
-                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{$last_data_formb->bulanan_perumahan_pasangan}}">
-                                    @else
-                                      @if(old('bulanan_perumahan_pasangan'))
-                                      <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{old('bulanan_perumahan_pasangan')}}">
-                                      @else
-                                      <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value=0>
-                                      @endif
-                                    @endif
-                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_perumahan_pasangan" value="{{ $last_data_formb->bulanan_perumahan_pasangan}}"> -->
-                                </div>
-                                @error('bulanan_perumahan_pasangan')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                              </div>
-                              <br>
-                              <!--PINJAMAN KENDERAAN -->
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>ii) Jumlah Pinjaman Kenderaan</p>
-                                </div>
-                                <div class="col-md-2">
-                                  @if($last_data_formb->pinjaman_kenderaan_pegawai)
-                                  <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="{{$last_data_formb->pinjaman_kenderaan_pegawai}}">
-                                  @else
-
-                                    <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value=0>
-
-                                  @endif
-                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_kenderaan_pegawai" value="{{ $last_data_formb->pinjaman_kenderaan_pegawai}}"> -->
-                                </div>
-                                @error('pinjaman_kenderaan_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  @if($last_data_formb->bulanan_kenderaan_pegawai)
-                                  <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="{{$last_data_formb->bulanan_kenderaan_pegawai}}">
-                                  @else
-
-                                    <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value=0>
-
-                                  @endif
-                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_kenderaan_pegawai" value="{{ $last_data_formb->bulanan_kenderaan_pegawai}}"> -->
-                                </div>
-                                @error('bulanan_kenderaan_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    @if($last_data_formb->pinjaman_kenderaan_pasangan)
-                                    <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="{{$last_data_formb->pinjaman_kenderaan_pasangan}}">
-                                    @else
-
-                                      <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value=0>
-
-                                    @endif
-                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_kenderaan_pasangan" value="{{ $last_data_formb->pinjaman_kenderaan_pasangan}}"> -->
-                                  </div>
-                                  @error('pinjaman_kenderaan_pasangan')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    @if($last_data_formb->bulanan_kenderaan_pasangan)
-                                    <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value="{{$last_data_formb->bulanan_kenderaan_pasangan}}">
-                                    @else
-
-                                      <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value=0>
-
-                                    @endif
-                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_kenderaan_pasangan" value="{{ $last_data_formb->bulanan_kenderaan_pasangan}}"> -->
-                                </div>
-                                @error('bulanan_kenderaan_pasangan')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                              </div>
-                              <br>
-                              <!--CUKAI PENDAPATAN -->
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>iii) Cukai Pendapatan</p>
-                                </div>
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="jumlah_cukai_pegawai" value="{{ $last_data_formb->jumlah_cukai_pegawai}}">
-                                </div>
-                                @error('jumlah_cukai_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_cukai_pegawai" value="{{ $last_data_formb->bulanan_cukai_pegawai}}">
-                                </div>
-                                @error('bulanan_cukai_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="jumlah_cukai_pasangan" value="{{ $last_data_formb->jumlah_cukai_pasangan}}">
-                                  </div>
-                                  @error('jumlah_cukai_pasangan')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_cukai_pasangan" value="{{ $last_data_formb->bulanan_cukai_pasangan}}">
-                                </div>
-                                @error('bulanan_cukai_pasangan')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                              </div>
-                              <br>
-                              <!--PINJAMAN KOPERASI -->
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>iv) Pinjaman Koperasi</p>
-                                </div>
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  name="jumlah_koperasi_pegawai" value="{{ $last_data_formb->jumlah_koperasi_pegawai}}" id="jumlah_koperasi_pegawai">
-                                </div>
-                                @error('jumlah_koperasi_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  name="bulanan_koperasi_pegawai" value="{{ $last_data_formb->bulanan_koperasi_pegawai}}" id="bulanan_koperasi_pegawai">
-                                </div>
-                                @error('bulanan_koperasi_pegawai')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"   name="jumlah_koperasi_pasangan" value="{{ $last_data_formb->jumlah_koperasi_pasangan}}" id="jumlah_koperasi_pasangan">
-                                  </div>
-                                  @error('jumlah_koperasi_pasangan')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  name="bulanan_koperasi_pasangan" value="{{ $last_data_formb->bulanan_koperasi_pasangan}}" id="bulanan_koperasi_pasangan">
-                                </div>
-                              </div>
-                              <br>
-
-                              <!--LAIN2 PINJAMAN -->
-                              <input type="hidden" name="counter" value="0" id="counter1">
-                              @if($pinjaman_user->isEmpty())
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>v) Lain-Lain Pinjaman</p>
-                                </div>
-                              </div>
-                              <div class="table_lain" id="table_lain">
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman"  value="{{ old('lain_lain_pinjaman[]')}}">
-                                </div>
-                                @error('lain_lain_pinjaman[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_pegawai[]" value="{{ old('pinjaman_pegawai[]')}}">
-                                </div>
-                                @error('pinjaman_pegawai[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_pegawai[]" value="{{ old('bulanan_pegawai[]')}}">
-                                </div>
-                                @error('bulanan_pegawai[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_pasangan[]" value="{{ old('pinjaman_pasangan[]')}}">
-                                  </div>
-                                  @error('pinjaman_pasangan[]')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_pasangan[]" value="{{ old('bulanan_pasangan[]')}}">
-                                </div>
-                                @error('bulanan_pasangan[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-1">
-                                  <button class="add_field_button" id="add_pinjaman_button">Tambah</button>
-                              </div>
-                              </div>
-                              <br>
-                              </div>
-                              @else
-                              <!--LAIN2 PINJAMAN -->
-
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <p>v) Lain-Lain Pinjaman</p>
-                                </div>
-                              </div>
-                              <div class="table_lain" id="table_lain">
-                              @foreach($pinjaman_user as $pinjaman)
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman" value="{{ $pinjaman->lain_lain_pinjaman}}">
-                                </div>
-                                @error('lain_lain_pinjaman[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_pegawai[]" value="{{ $pinjaman->pinjaman_pegawai}}">
-                                </div>
-                                @error('pinjaman_pegawai[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                <div class="col-md-2">
-                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_pegawai[]" value="{{ $pinjaman->bulanan_pegawai}}">
-                                </div>
-                                @error('bulanan_pegawai[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_pasangan[]" value="{{$pinjaman->pinjaman_pasangan}}">
-                                  </div>
-                                  @error('pinjaman_pasangan[]')
-                                     <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
-                                  <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_pasangan[]" value="{{ $pinjaman->bulanan_pasangan}}">
-                                </div>
-                                @error('bulanan_pasangan[]')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
-                                 @if($loop->last)
-                                  <div class="col-md-1">
-                                    <button class="add_field_button" id="add_pinjaman_button">Tambah</button>
-                                  </div>
-                                @endif
-                              </div>
-                              <br>
-                              @endforeach
-                              </div>
-
-                              @endif
-
-                    @endif
-                  </div>
-                </div>
-              </div>
-              </div>
                 <div class="row">
                   <div class="col-12 mt-4">
 
-                       <div class="card rounded-lg">
+                       <div class="card rounded-lg" >
                            <div class="card-body">
 
                           <div class="row">
                             <div class="col-md-4">
-                              <p><b>5. KETERANGAN MENGENAI HARTA</b></p>
+                              <p><b>4. KETERANGAN MENGENAI HARTA</b></p>
                             </div>
                           </div>
                           <!-- <div class="row">
@@ -768,7 +441,7 @@
                               <p class="required">Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
                             </div>
                             <div class="col-md-4">
-                              <input class="form-control bg-light" type="text" id="pemilik_harta" name="pemilik_harta" placeholder="Nama Pemilik Sebelum" value="{{ old('pemilik_harta')}}" >
+                              <input class="form-control bg-light" type="text" id="pemilik_harta" name="pemilik_harta" placeholder="Nama Pemilik" value="{{ old('pemilik_harta')}}" autocomplete="off">
                               @error('pemilik_harta_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -788,12 +461,14 @@
                             </div>
 
                           </div>
+                          <br>
+                          
                           <div class="row">
                             <div class="col-md-4">
                               <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="maklumat_harta" name="maklumat_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ old('maklumat_harta')}}" >
+                              <input class="form-control bg-light" type="text" id="maklumat_harta" name="maklumat_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ old('maklumat_harta')}}" autocomplete="off" >
                               @error('maklumat_harta_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -806,7 +481,7 @@
                               <p class="required">Tarikh Pemilikan Harta</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="date" id="tarikh_pemilikan_harta" name="tarikh_pemilikan_harta" value="{{ old('tarikh_pemilikan_harta')}}" >
+                              <input class="form-control bg-light" type="date" id="tarikh_pemilikan_harta" name="tarikh_pemilikan_harta" value="{{ old('tarikh_pemilikan_harta')}}" autocomplete="off">
                               @error('tarikh_pemilikan_harta_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -818,7 +493,7 @@
                               <p class="required">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="bilangan" onkeypress="return onlyNumberKey(event)"  name="bilangan" placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ old('bilangan')}}" >
+                              <input class="form-control bg-light" type="text" id="bilangan" onkeypress="return onlyNumberKey(event)"  name="bilangan" placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ old('bilangan')}}" autocomplete="off">
                               @error('bilangan_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -831,7 +506,7 @@
                               <p class="required">Nilai Perolehan Harta (RM)</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="nilai_perolehan" onkeypress="return onlyNumberKey(event)"  name="nilai_perolehan" placeholder="Nilai Perolehan Harta (RM)" value="{{ old('nilai_perolehan')}}" >
+                              <input class="form-control bg-light" type="text" id="nilai_perolehan" onkeypress="return onlyNumberKey(event)"  name="nilai_perolehan" placeholder="Nilai Perolehan Harta (RM)" value="{{ old('nilai_perolehan')}}" autocomplete="off">
                               @error('nilai_perolehan_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -865,7 +540,7 @@
                                   <p class="required"> Dari Siapa Harta Diperolehi</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="nama_pemilikan_asal" name="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum" value="{{ old('nama_pemilikan_asal')}}">
+                                  <input class="form-control bg-light" type="text" id="nama_pemilikan_asal" name="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum" value="{{ old('nama_pemilikan_asal')}}" autocomplete="off">
                                   @error('nama_pemilikan_asal_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -881,7 +556,7 @@
                                   <p class="required"> Nyatakan,</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="lain_lain" name="lain_lain" value="{{ old('lain_lain')}}">
+                                  <input class="form-control bg-light" type="text" id="lain_lain" name="lain_lain" value="{{ old('lain_lain')}}" autocomplete="off">
                                   @error('lain_lain_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -917,7 +592,7 @@
                                   <p class="required">i) Jumlah Pinjaman</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  type="text" id="jumlah_pinjaman"  value="{{ old('jumlah_pinjaman')}}">
+                                  <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  type="text" id="jumlah_pinjaman"  value="{{ old('jumlah_pinjaman')}}" autocomplete="off">
                                   @error('jumlah_pinjaman_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -930,7 +605,7 @@
                                   <p class="required">ii)	Institusi memberi pinjaman</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="institusi_pinjaman"  value="{{ old('institusi_pinjaman')}}">
+                                  <input class="form-control bg-light" type="text" id="institusi_pinjaman"  value="{{ old('institusi_pinjaman')}}" autocomplete="off">
                                   @error('institusi_pinjaman_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -943,7 +618,7 @@
                                   <p class="required">iii)	Tempoh bayaran balik</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="tempoh_bayar_balik" value="{{ old('tempoh_bayar_balik')}}">
+                                  <input class="form-control bg-light" type="text" id="tempoh_bayar_balik" value="{{ old('tempoh_bayar_balik')}}" autocomplete="off">
                                   @error('tempoh_bayar_balik_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -956,7 +631,7 @@
                                   <p class="required">iv) Ansuran bulanan </p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  type="text" id="ansuran_bulanan" value="{{ old('ansuran_bulanan')}}">
+                                  <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  type="text" id="ansuran_bulanan" value="{{ old('ansuran_bulanan')}}" autocomplete="off">
                                   @error('ansuran_bulanan_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -969,7 +644,7 @@
                                   <p class="required">v)	Tarikh ansuran pertama</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="date" id="tarikh_ansuran_pertama" value="{{ old('tarikh_ansuran_pertama')}}">
+                                  <input class="form-control bg-light" type="date" id="tarikh_ansuran_pertama" value="{{ old('tarikh_ansuran_pertama')}}" autocomplete="off">
                                   @error('tarikh_ansuran_pertama_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -985,7 +660,7 @@
                                   <p class="required">i)	Jenis Harta</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="jenis_harta_pelupusan"  value="{{ old('jenis_harta_pelupusan')}}">
+                                  <input class="form-control bg-light" type="text" id="jenis_harta_pelupusan"  value="{{ old('jenis_harta_pelupusan')}}" autocomplete="off">
                                   @error('jenis_harta_pelupusan_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -998,7 +673,7 @@
                                   <p class="required">ii) Alamat</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="alamat_asset"  value="{{ old('alamat_asset')}}">
+                                  <input class="form-control bg-light" type="text" id="alamat_asset"  value="{{ old('alamat_asset')}}" autocomplete="off">
                                   @error('alamat_asset_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -1011,7 +686,7 @@
                                   <p class="required">iii) No Pendaftaran Harta</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="no_pendaftaran"  value="{{ old('no_pendaftaran')}}">
+                                  <input class="form-control bg-light" type="text" id="no_pendaftaran"  value="{{ old('no_pendaftaran')}}" autocomplete="off">
                                   @error('no_pendaftaran_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -1024,7 +699,7 @@
                                   <p class="required">iv) Harga Jualan</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  type="text" id="harga_jualan"  value="{{ old('harga_jualan')}}">
+                                  <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  type="text" id="harga_jualan"  value="{{ old('harga_jualan')}}" autocomplete="off">
                                   @error('harga_jualan_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror
@@ -1112,7 +787,7 @@
                       </div>
                       <br>
 
-                <div class="card rounded-lg">
+                <div class="card rounded-lg" >
                     <div class="card-body">
                       <div class="card-title" style="text-align: center;">Keterangan Mengenai Harta</div>
                       <!-- Table -->
@@ -1125,27 +800,28 @@
                                       <th width="10%"><p class="mb-0">Tarikh Pemilikan Harta</p></th>
                                       <th width="30%"><p class="mb-0">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p></th>
                                       <th width="15%"><p class="mb-0">Nilai Perolehan Harta (RM)</p></th>
-                                      <th width="5%"><p class="mb-0">Buang</p></th>
+                                      <th width="5%"><p class="mb-0">Tindakan</p></th>
                                   </tr>
                               </thead>
                               <tbody>
                                 @if($harta)
-                                @foreach($harta as $form)
-                                @foreach($form as $data)
-                                <tr>
-                                    <td>{{$data->jenis_harta}}</td>
-                                    <td>{{$data->pemilik_harta}}</td>
-                                    <td>{{$data->tarikh_pemilikan_harta}}</td>
-                                    <td>{{$data->bilangan}}</td>
-                                    <td>{{$data->nilai_perolehan}}</td>
-                                    <!-- <td><a href="{{route('hartaB.delete',$data->id)}}"><i class="fas fa-trash-alt"></i></td> -->
-                                    <td style="text-align: center; vertical-align: middle;">
-                                      <button class="btn btn-dark mr-1" disabled><i class="fa fa-trash" ></i></button>
-                                    </td>
-                                </tr>
+                                  @foreach($harta as $form)
+                                  @foreach($form as $data)
+                                  <tr>
+                                      <td style="text-align: center; vertical-align: middle;">{{$data->jenis_harta}}</td>
+                                      <td style="text-align: center; vertical-align: middle;">{{$data->pemilik_harta}}</td>
+                                      <td style="text-align: center; vertical-align: middle;">{{$data->tarikh_pemilikan_harta}}</td>
+                                      <td style="text-align: center; vertical-align: middle;">{{$data->bilangan}}</td>
+                                      <td style="text-align: center; vertical-align: middle;">{{$data->nilai_perolehan}}</td>
+                                      <!-- <td><a href="{{route('hartaB.delete',$data->id)}}"><i class="fas fa-trash-alt"></i></td> -->
+                                      <td style="text-align: center; vertical-align: middle;">
+                                        <button class="btn btn-dark mr-1" disabled><i class="fa fa-trash" ></i></button>
+                                      </td>
+                                  </tr>
                                   @endforeach
                                   @endforeach
-                                  @endif
+                                @endif
+
 
                               </tbody>
                           </table>
@@ -1155,8 +831,336 @@
 
               </div>
           </div>
-                    <br>
-                    <br>
+                    <div class="row">
+                      <div class="col-12 mt-4">
+                           <div class="card rounded-lg"  >
+                               <div class="card-body">
+
+                              <!-- Tanggungan -->
+                              <div class="row">
+                                <div class="col-md-8">
+                                  <p><b>5. TANGGUNGAN / ANSURAN BULANAN ATAS HUTANG / PINJAMAN</b></p>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-4">
+                                  <p align="center"> PEGAWAI</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p align="center"> PASANGAN</p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-2">
+                                  <p align="center">Jumlah Pinjaman / Tanggungan (RM)</p>
+                                </div>
+                                <div class="col-md-2">
+                                  <p align="center">Jumlah Bayaran Bulanan (RM)</p>
+                                </div>
+                                  <div class="col-md-2">
+                                    <p align="center">Jumlah Pinjaman / Tanggungan (RM)</p>
+                                  </div>
+                                  <div class="col-md-2">
+                                    <p align="center">Jumlah Bayaran Bulanan (RM)</p>
+                                </div>
+                              </div>
+                              <!--PINJAMAN PERUMAHAN -->
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <p>i) Jumlah Pinjaman Perumahan</p>
+                                </div>
+                                <div class="col-md-2">
+                                @if($last_data_formb->pinjaman_perumahan_pegawai)
+                                <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{$last_data_formb->pinjaman_perumahan_pegawai}}" readonly>
+                                @else
+                                  @if(old('pinjaman_perumahan_pegawai'))
+                                  <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{old('pinjaman_perumahan_pegawai')}}" readonly>
+                                  @else
+                                  <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value=0 readonly>
+                                  @endif
+                                @endif
+                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_perumahan_pegawai" value="{{ $last_data_formb->pinjaman_perumahan_pegawai}}"> -->
+                                </div>
+                                @error('pinjaman_perumahan_pegawai')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                <div class="col-md-2">
+                                  @if($last_data_formb->bulanan_perumahan_pegawai)
+                                  <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{$last_data_formb->bulanan_perumahan_pegawai}}" readonly>
+                                  @else
+                                    @if(old('bulanan_perumahan_pegawai'))
+                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{old('bulanan_perumahan_pegawai')}}" readonly>
+                                    @else
+                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value=0 readonly>
+                                    @endif
+                                  @endif
+                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_perumahan_pegawai" value="{{ $last_data_formb->bulanan_perumahan_pegawai}}"> -->
+                                </div>
+                                @error('bulanan_perumahan_pegawai')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                  <div class="col-md-2">
+                                    @if($last_data_formb->pinjaman_perumahan_pasangan)
+                                    <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{$last_data_formb->pinjaman_perumahan_pasangan}}" readonly>
+                                    @else
+                                      @if(old('pinjaman_perumahan_pasangan'))
+                                      <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{old('pinjaman_perumahan_pasangan')}}" readonly>
+                                      @else
+                                      <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value=0 readonly>
+                                      @endif
+                                    @endif
+                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_perumahan_pasangan" value="{{ $last_data_formb->pinjaman_perumahan_pasangan}}"> -->
+                                  </div>
+                                  @error('pinjaman_perumahan_pasangan')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
+                                  <div class="col-md-2">
+                                    @if($last_data_formb->bulanan_perumahan_pasangan)
+                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{$last_data_formb->bulanan_perumahan_pasangan}}" readonly>
+                                    @else
+                                      @if(old('bulanan_perumahan_pasangan'))
+                                      <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{old('bulanan_perumahan_pasangan')}}" readonly>
+                                      @else
+                                      <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value=0 readonly>
+                                      @endif
+                                    @endif
+                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_perumahan_pasangan" value="{{ $last_data_formb->bulanan_perumahan_pasangan}}"> -->
+                                </div>
+                                @error('bulanan_perumahan_pasangan')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                              </div>
+                              <br>
+                              <!--PINJAMAN KENDERAAN -->
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <p>ii) Jumlah Pinjaman Kenderaan</p>
+                                </div>
+                                <div class="col-md-2">
+                                  @if($last_data_formb->pinjaman_kenderaan_pegawai)
+                                  <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="{{$last_data_formb->pinjaman_kenderaan_pegawai}}" readonly>
+                                  @else
+
+                                    <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value=0 readonly>
+
+                                  @endif
+                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_kenderaan_pegawai" value="{{ $last_data_formb->pinjaman_kenderaan_pegawai}}"> -->
+                                </div>
+                                @error('pinjaman_kenderaan_pegawai')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                <div class="col-md-2">
+                                  @if($last_data_formb->bulanan_kenderaan_pegawai)
+                                  <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="{{$last_data_formb->bulanan_kenderaan_pegawai}}" readonly>
+                                  @else
+
+                                    <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value=0 readonly>
+
+                                  @endif
+                                  <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_kenderaan_pegawai" value="{{ $last_data_formb->bulanan_kenderaan_pegawai}}"> -->
+                                </div>
+                                @error('bulanan_kenderaan_pegawai')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                  <div class="col-md-2">
+                                    @if($last_data_formb->pinjaman_kenderaan_pasangan)
+                                    <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="{{$last_data_formb->pinjaman_kenderaan_pasangan}}" readonly>
+                                    @else
+
+                                      <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value=0 readonly>
+
+                                    @endif
+                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_kenderaan_pasangan" value="{{ $last_data_formb->pinjaman_kenderaan_pasangan}}"> -->
+                                  </div>
+                                  @error('pinjaman_kenderaan_pasangan')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
+                                  <div class="col-md-2">
+                                    @if($last_data_formb->bulanan_kenderaan_pasangan)
+                                    <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value="{{$last_data_formb->bulanan_kenderaan_pasangan}}" readonly>
+                                    @else
+
+                                      <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value=0 readonly>
+
+                                    @endif
+                                    <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_kenderaan_pasangan" value="{{ $last_data_formb->bulanan_kenderaan_pasangan}}"> -->
+                                </div>
+                                @error('bulanan_kenderaan_pasangan')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                              </div>
+                              <br>
+                              <!--CUKAI PENDAPATAN -->
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <p>iii) Cukai Pendapatan</p>
+                                </div>
+                                <div class="col-md-2">
+                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="jumlah_cukai_pegawai" value="{{ $last_data_formb->jumlah_cukai_pegawai}}" autocomplete="off">
+                                </div>
+                                @error('jumlah_cukai_pegawai')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                <div class="col-md-2">
+                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_cukai_pegawai" value="{{ $last_data_formb->bulanan_cukai_pegawai}}" autocomplete="off">
+                                </div>
+                                @error('bulanan_cukai_pegawai')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                  <div class="col-md-2">
+                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="jumlah_cukai_pasangan" value="{{ $last_data_formb->jumlah_cukai_pasangan}}" autocomplete="off">
+                                  </div>
+                                  @error('jumlah_cukai_pasangan')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
+                                  <div class="col-md-2">
+                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_cukai_pasangan" value="{{ $last_data_formb->bulanan_cukai_pasangan}}" autocomplete="off">
+                                </div>
+                                @error('bulanan_cukai_pasangan')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                              </div>
+                              <br>
+                              <!--PINJAMAN KOPERASI -->
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <p>iv) Pinjaman Koperasi</p>
+                                </div>
+                                <div class="col-md-2">
+                                  <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  name="jumlah_koperasi_pegawai" value="{{ $last_data_formb->jumlah_koperasi_pegawai}}" id="jumlah_koperasi_pegawai" autocomplete="off">
+                                </div>
+                                @error('jumlah_koperasi_pegawai')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                <div class="col-md-2">
+                                  <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  name="bulanan_koperasi_pegawai" value="{{ $last_data_formb->bulanan_koperasi_pegawai}}" id="bulanan_koperasi_pegawai" autocomplete="off">
+                                </div>
+                                @error('bulanan_koperasi_pegawai')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                  <div class="col-md-2">
+                                    <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"   name="jumlah_koperasi_pasangan" value="{{ $last_data_formb->jumlah_koperasi_pasangan}}" id="jumlah_koperasi_pasangan" autocomplete="off">
+                                  </div>
+                                  @error('jumlah_koperasi_pasangan')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
+                                  <div class="col-md-2">
+                                    <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  name="bulanan_koperasi_pasangan" value="{{ $last_data_formb->bulanan_koperasi_pasangan}}" id="bulanan_koperasi_pasangan" autocomplete="off">
+                                </div>
+                              </div>
+                              <br>
+
+                              <!--LAIN2 PINJAMAN -->
+                              <input type="hidden" name="counter" value="0" id="counter1">
+                              @if($pinjaman_user->isEmpty())
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <p>v) Lain-Lain Pinjaman</p>
+                                </div>
+                              </div>
+                              <div class="table_lain" id="table_lain">
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman"  value="{{ old('lain_lain_pinjaman[]')}}" autocomplete="off">
+                                </div>
+                                @error('lain_lain_pinjaman[]')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                <div class="col-md-2">
+                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_pegawai[]" value="{{ old('pinjaman_pegawai[]')}}" autocomplete="off">
+                                </div>
+                                @error('pinjaman_pegawai[]')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                <div class="col-md-2">
+                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_pegawai[]" value="{{ old('bulanan_pegawai[]')}}" autocomplete="off">
+                                </div>
+                                @error('bulanan_pegawai[]')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                  <div class="col-md-2">
+                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_pasangan[]" value="{{ old('pinjaman_pasangan[]')}}" autocomplete="off">
+                                  </div>
+                                  @error('pinjaman_pasangan[]')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
+                                  <div class="col-md-2">
+                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_pasangan[]" value="{{ old('bulanan_pasangan[]')}}" autocomplete="off">
+                                </div>
+                                @error('bulanan_pasangan[]')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                <div class="col-md-1">
+                                  <button class="add_field_button" id="add_pinjaman_button">Tambah</button>
+                              </div>
+                              </div>
+                              <br>
+                              </div>
+                              @else
+                              <!--LAIN2 PINJAMAN -->
+
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <p>v) Lain-Lain Pinjaman</p>
+                                </div>
+                              </div>
+                              <div class="table_lain" id="table_lain">
+                              @foreach($pinjaman_user as $pinjaman)
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <input class="form-control bg-light" type="text" name="lain_lain_pinjaman[]" placeholder="Nyatakan Lain-Lain Pinjaman" value="{{ $pinjaman->lain_lain_pinjaman}}" autocomplete="off">
+                                </div>
+                                @error('lain_lain_pinjaman[]')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                <div class="col-md-2">
+                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_pegawai[]" value="{{ $pinjaman->pinjaman_pegawai}}" autocomplete="off">
+                                </div>
+                                @error('pinjaman_pegawai[]')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                <div class="col-md-2">
+                                  <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_pegawai[]" value="{{ $pinjaman->bulanan_pegawai}}" autocomplete="off">
+                                </div>
+                                @error('bulanan_pegawai[]')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                  <div class="col-md-2">
+                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="pinjaman_pasangan[]" value="{{$pinjaman->pinjaman_pasangan}}" autocomplete="off">
+                                  </div>
+                                  @error('pinjaman_pasangan[]')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror
+                                  <div class="col-md-2">
+                                    <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="bulanan_pasangan[]" value="{{ $pinjaman->bulanan_pasangan}}" autocomplete="off">
+                                </div>
+                                @error('bulanan_pasangan[]')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                                 @if($loop->last)
+                                  <div class="col-md-1">
+                                    <button class="add_field_button" id="add_pinjaman_button">Tambah</button>
+                                  </div>
+                                @endif
+                              </div>
+                              <br>
+                              @endforeach
+                              </div>
+
+                              @endif
+
+                    @endif
+                  </div>
+                </div>
+              </div>
+              </div>
+              <br>
+              <br>
                     <div class="row">
                       <div class="col-md-1" align="right">
                         <input type="checkbox" name="pengakuan" value="pengakuan pegawai" >
@@ -1189,8 +1193,8 @@
                               <p align="center">Simpan maklumat perisytiharan?</p>
                               </div>
                               <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                              <button type="submit" class="btn btn-primary" name="save">Ya</button>
+                              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                              <button type="submit" class="btn btn-danger" name="save">Ya</button>
                               </div>
                           </div>
                           </div>
@@ -1207,8 +1211,8 @@
                               <p align="center">Hantar maklumat perisytiharan?</p>
                               </div>
                               <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                              <button type="submit" class="btn btn-primary" name="publish" onclick="submitForm()">Ya</button>
+                              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                              <button type="submit" class="btn btn-danger" name="publish" onclick="submitForm()">Ya</button>
                               </div>
                           </div>
                           </div>
@@ -1216,6 +1220,7 @@
 
                 </form>
             </div>
+            <br>
 
            <!--script-->
 
@@ -1555,6 +1560,11 @@
             document.getElementById("bilangan").value = "";
             document.getElementById("nilai_perolehan").value = "";
             document.getElementById("nama_pemilikan_asal").value = "";
+            document.getElementById("cara_belian_container").style="display: none;";
+            document.getElementById("nama_pemilikan_asal_container").style="display: none;";
+            document.getElementById("lain-lain_container").style="display: none;";
+            document.getElementById("pinjaman_container").style="display: none;";
+            document.getElementById("pelupusan_container").style="display: none;";
             // document.getElementById("jumlah_pinjaman").value = "";
             document.getElementById("institusi_pinjaman").value = "";
             document.getElementById("tempoh_bayar_balik").value = "";
@@ -1701,17 +1711,18 @@
                      ansuran_bulanan = document.getElementById("ansuran_bulanan").value;
                      TotalValue_bulanan = parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) + parseFloat(ansuran_bulanan).toFixed(2);
 
-                     $("#select_hubungan").prop('selectedIndex', 0);
+
                      document.getElementById("jenis_harta").value = "";
                      document.getElementById("ansuran_bulanan").value = "";
                      document.getElementById("jumlah_pinjaman").value = "";
                      $("#cara_belian").prop('selectedIndex', 0);
+                     $("#select_hubungan").prop('selectedIndex', 0);
                      document.getElementById('pinjaman_perumahan_pasangan').value = +parseFloat(pinjaman_rumah_semasa).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
                      document.getElementById('bulanan_perumahan_pasangan').value = +parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
                    }
 
-                   else{
-                     console.log('masuk');
+                   else if(pasangan == "Sendiri"){
+                     console.log('masuk sendiri');
                      pinjaman_rumah_semasa = document.getElementById('pinjaman_perumahan_pegawai').value;
                      jumlah_pinjaman = document.getElementById("jumlah_pinjaman").value;
                      TotalValue = parseFloat(pinjaman_rumah_semasa).toFixed(2) + parseFloat(jumlah_pinjaman).toFixed(2);
@@ -1720,6 +1731,7 @@
                      ansuran_bulanan = document.getElementById("ansuran_bulanan").value;
                      TotalValue_bulanan = parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) + parseFloat(ansuran_bulanan).toFixed(2);
 
+                     $
                      document.getElementById("jenis_harta").value = "";
                      document.getElementById("ansuran_bulanan").value = "";
                      document.getElementById("jumlah_pinjaman").value = "";
@@ -1729,11 +1741,19 @@
                      document.getElementById('bulanan_perumahan_pegawai').value = +parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
 
                    }
+                   else{
+                     $("#cara_belian").prop('selectedIndex', 0);
+                     $("#select_hubungan").prop('selectedIndex', 0);
+                     document.getElementById("jenis_harta").value = "";
+                     document.getElementById("ansuran_bulanan").value = "";
+                     document.getElementById("jumlah_pinjaman").value = "";
+                   }
                  }
                  else if (jenis_harta == "Kenderaan") {
-
+                   console.log('masuk kenderaan');
                    if(pasangan == "Isteri/Suami"){
                      //pinjaman_perumahan_pasangan
+                     console.log('masuk suami isteri');
                      pinjaman_kenderaan_pegawai = document.getElementById('pinjaman_kenderaan_pasangan').value;
                      jumlah_pinjaman = document.getElementById("jumlah_pinjaman").value;
                      TotalValue = parseFloat(pinjaman_kenderaan_pegawai).toFixed(2) + parseFloat(jumlah_pinjaman).toFixed(2);
@@ -1742,17 +1762,16 @@
                      ansuran_bulanan = document.getElementById("ansuran_bulanan").value;
                      TotalValue_bulanan = parseFloat(pinjaman_bulanan_kenderaan_semasa).toFixed(2) + parseFloat(ansuran_bulanan).toFixed(2);
 
+                     $("#cara_belian").prop('selectedIndex', 0);
                      $("#select_hubungan").prop('selectedIndex', 0);
                      document.getElementById("jenis_harta").value = "";
                      document.getElementById("ansuran_bulanan").value = "";
                      document.getElementById("jumlah_pinjaman").value = "";
-                     $("#cara_belian").prop('selectedIndex', 0);
-                     $("#select_hubungan").prop('selectedIndex', 0);
                      document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(pinjaman_kenderaan_pegawai).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
                      document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
                    }
 
-               else{
+               else if(pasangan == "Sendiri"){
                  pinjaman_kenderaan_pegawai = document.getElementById('pinjaman_kenderaan_pegawai').value;
                  jumlah_pinjaman = document.getElementById("jumlah_pinjaman").value;
                  TotalValue = parseFloat(pinjaman_kenderaan_pegawai).toFixed(2) + parseFloat(jumlah_pinjaman).toFixed(2);
@@ -1761,18 +1780,35 @@
                  ansuran_bulanan = document.getElementById("ansuran_bulanan").value;
                  TotalValue_bulanan = parseFloat(pinjaman_bulanan_kenderaan_semasa).toFixed(2) + parseFloat(ansuran_bulanan).toFixed(2);
 
+                 $("#cara_belian").prop('selectedIndex', 0);
+                 $("#select_hubungan").prop('selectedIndex', 0);
                  document.getElementById("jenis_harta").value = "";
                  document.getElementById("ansuran_bulanan").value = "";
                  document.getElementById("jumlah_pinjaman").value = "";
-                 $("#cara_belian").prop('selectedIndex', 0);
-                 $("#select_hubungan").prop('selectedIndex', 0);
                  document.getElementById('pinjaman_kenderaan_pegawai').value = +parseFloat(pinjaman_kenderaan_pegawai).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
                  document.getElementById('bulanan_kenderaan_pegawai').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
 
                }
+               else{
+                 console.log('masuk la sini');
+                 $("#cara_belian").prop('selectedIndex', 0);
+                 $("#select_hubungan").prop('selectedIndex', 0);
+                 document.getElementById("jenis_harta").value = "";
+                 document.getElementById("ansuran_bulanan").value = "";
+                 document.getElementById("jumlah_pinjaman").value = "";
+               }
+             }
+             else{
+               console.log('masuk la sini');
+               $("#cara_belian").prop('selectedIndex', 0);
+               $("#select_hubungan").prop('selectedIndex', 0);
+               document.getElementById("jenis_harta").value = "";
+               document.getElementById("ansuran_bulanan").value = "";
+               document.getElementById("jumlah_pinjaman").value = "";
              }
            }
            else{
+             console.log('masuk la sini');
              $("#cara_belian").prop('selectedIndex', 0);
              $("#select_hubungan").prop('selectedIndex', 0);
              document.getElementById("jenis_harta").value = "";
@@ -1785,6 +1821,8 @@
           function removeJumlahPinjaman(e){
               jenis_harta = document.getElementById("jenis_harta"+ e +"").value;
               pasangan = document.getElementById("select_hubungan"+ e +"").value;
+              cara_belian= document.getElementById("cara_belian"+ e +"").value;
+              if(cara_belian== "Pinjaman"){
               if(jenis_harta == "Rumah"){
 
                 if(pasangan == "Isteri/Suami"){
@@ -1796,7 +1834,7 @@
                   document.getElementById('pinjaman_perumahan_pasangan').value = +parseFloat(pinjaman_rumah_semasa).toFixed(2) - +parseFloat(jumlah_pinjaman).toFixed(2);
                   document.getElementById('bulanan_perumahan_pasangan').value = +parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) - +parseFloat(ansuran_bulanan).toFixed(2);
                 }
-                else {
+                else if(pasangan == "Sendiri"){
                   pinjaman_rumah_semasa = document.getElementById('pinjaman_perumahan_pegawai').value;
                   jumlah_pinjaman = document.getElementById("jumlah_pinjaman"+ e +"").value;
                   pinjaman_bulanan_rumah_semasa = document.getElementById('bulanan_perumahan_pegawai').value;
@@ -1816,7 +1854,7 @@
                   document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(pinjaman_rumah_semasa).toFixed(2) - +parseFloat(jumlah_pinjaman).toFixed(2);
                   document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) - +parseFloat(ansuran_bulanan).toFixed(2);
                 }
-                else {
+                else if(pasangan == "Sendiri"){
                   pinjaman_rumah_semasa = document.getElementById('pinjaman_kenderaan_pegawai').value;
                   jumlah_pinjaman = document.getElementById("jumlah_pinjaman"+ e +"").value;
                   pinjaman_bulanan_rumah_semasa = document.getElementById('bulanan_kenderaan_pegawai').value;
@@ -1827,5 +1865,7 @@
                 }
               }
             }
+          }
         </script>
+      </div>
 @endsection

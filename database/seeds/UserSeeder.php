@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         'nilai_hadiah' => '100',
       ]
     );
+    
 
       DB::table('tempoh_notifikasis')-> insert(
       [

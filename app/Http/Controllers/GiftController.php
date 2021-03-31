@@ -26,9 +26,9 @@ class GiftController extends Controller
       $nilaiHadiah = NilaiHadiah::first();
       $jenisHadiah = JenisHadiah::get();
 
-      $bahagian = UserExistingStaffInfo::distinct('OLEVEL4NAME')->ORDERBY('OLEVEL4NAME','asc')->get('OLEVEL4NAME');
+      $bahagian = UserExistingStaffInfo::distinct('OLEVEL4NAME')->where('STAFFSTATUS','Active')->ORDERBY('OLEVEL4NAME','asc')->get('OLEVEL4NAME');
       // dd($bahagia);
-      $jabatan = UserExistingStaffInfo::distinct('OLEVEL5NAME')->ORDERBY('OLEVEL5NAME','asc')->get('OLEVEL5NAME');
+      $jabatan = UserExistingStaffInfo::distinct('OLEVEL5NAME')->where('STAFFSTATUS','Active')->ORDERBY('OLEVEL5NAME','asc')->get('OLEVEL5NAME');
       // dd($jabatan);
 
       $username =Auth::user()->username;
@@ -226,11 +226,11 @@ public function submitForm(Request $request){
     event($gifts = $this->add($request->all(),$uploaded_gambar_hadiah));
 
     //send notification to hodiv (user declare)
-    $email = Email::where('penerima', '=', 'Ketua Bahagian')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
+    $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
     // $email = null; // for testing
-    $hodiv_available = User::where('role','=','3')->get(); //get system hodiv information
+    $admin_available = User::where('role','=','1')->get(); //get system hodiv information
     // if ($email) {
-      foreach ($hodiv_available as $data) {
+      foreach ($admin_available as $data) {
         // $giftbs->notify(new UserGiftAdminB($data, $email));
         $this->dispatch(new SendNotificationGift($data, $email, $gifts));
       }
@@ -283,11 +283,11 @@ public function submitForm(Request $request){
 
     if($request ->status =='Sedang Diproses'){
       //send notification to hodiv (user declare)
-      $email = Email::where('penerima', '=', 'Ketua Bahagian')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
+      $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Hadiah Baharu')->first(); //template email yang diguna
       // $email = null; // for testing
-      $hodiv_available = User::where('role','=','3')->get(); //get system hodiv information
+      $admin_available = User::where('role','=','3')->get(); //get system hodiv information
       // if ($email) {
-        foreach ($hodiv_available as $data) {
+        foreach ($admin_available as $data) {
           // $giftbs->notify(new UserGiftAdminB($data, $email));
           $this->dispatch(new SendNotificationGift($data, $email, $gifts));
         }

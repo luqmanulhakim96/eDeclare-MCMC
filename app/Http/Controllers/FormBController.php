@@ -116,12 +116,15 @@ class FormBController extends Controller
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
 
-        foreach ($data_user as $data) {
+        $data_form = FormB::where('user_id', $userid) ->where('status', "Diterima")->get();
+        $harta = null;
+        foreach ($data_form as $data) {
         // dd($data->id);
-        $harta[]= HartaB::where('formbs_id',$data->id)->get();
+        $harta[]= HartaB::where('formbs_id',$data->id)->where('formcs_id',null)->get();
         // dd($harta);
       }
-        return view('user.harta.FormB.formB-has-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user','harta'));
+ // dd($harta);
+        return view('user.harta.FormB.formB-has-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user','harta','data_form'));
 
       }
 

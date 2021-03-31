@@ -6,7 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Auth\Request as Request;
+
+use Illuminate\Http\Request as Requests;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\ValidationException;
+
 use App\UserExistingStaffInfo;
+use App\SettingAuth;
 
 class LoginController extends Controller
 {
@@ -31,6 +38,22 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
+     * lockout Response
+     *
+     * @var string
+     */
+    protected function sendLockoutResponse(Requests $request)
+    {
+        $seconds = $this->limiter()->availableIn(
+            $this->throttleKey($request)
+        );
+
+        throw ValidationException::withMessages([
+            'throttle' => [Lang::get('auth.throttle', ['seconds' => $seconds])],
+        ])->status(Response::HTTP_TOO_MANY_REQUESTS);
+    }
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -38,6 +61,9 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $setting = SettingAuth::first();
+        $this->maxAttempts = $setting->max_attempts;
+        $this->decayMinutes = $setting->decay_minutes;
     }
 
     public function username(){

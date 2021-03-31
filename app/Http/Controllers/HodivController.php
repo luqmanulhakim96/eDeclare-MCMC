@@ -20,11 +20,14 @@ use App\Pinjaman;
 use App\NilaiHadiah;
 use Auth;
 use DB;
+use App\UlasanAdmin;
+use App\UlasanHodiv;
 use App\Email;
 use App\UserExistingStaffInfo;
 use App\HartaB;
 use App\UserExistingStaffNextofKin;
 use App\DokumenSyarikat;
+// use App\UlasanHodiv;
 
 use App\Jobs\SendNotificationFormBHodiv;
 use App\Jobs\SendNotificationFormCHodiv;
@@ -181,8 +184,10 @@ class HodivController extends Controller
     $username =Auth::user()->username;
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
     $nilai_hadiah = NilaiHadiah::first();
+    $ulasanAdmin = UlasanAdmin::where('gift_id', $listHadiah->id) ->get();
+    $ulasanHodiv = UlasanHodiv::where('gift_id', $listHadiah->id) ->get();
 
-    return view('user.hodiv.hadiah.ulasanHadiah', compact('listHadiah','nilai_hadiah','staffinfo'));
+    return view('user.hodiv.hadiah.ulasanHadiah', compact('listHadiah','nilai_hadiah','staffinfo','ulasanAdmin','ulasanHodiv'));
   }
 
   public function viewUlasanHartaG($id)
@@ -313,12 +318,16 @@ class HodivController extends Controller
 
    public function updateStatusUlasanHODivB(Request $request,$id){
 
-     $formbs = FormB::find($id);
-     $formbs->nama_hodiv = $request->nama_hodiv;
-     $formbs->no_hodiv = $request->no_hodiv;
-     $formbs->status = $request->status;
-     $formbs->ulasan_hodiv = $request->ulasan_hodiv;
-     $formbs->save();
+     $statusb = FormB::find($id);
+      $statusb->status = $request->status;
+      $statusb->save();
+
+      $formbs = new UlasanHodiv();
+      $formbs->nama_hodiv = $request->nama_hodiv;
+      $formbs->no_hodiv = $request->no_hodiv;
+      $formbs->ulasan_hodiv = $request->ulasan_hodiv;
+      $formbs->formbs_id = $id;
+      $formbs->save();
 
      if($request->status == 'Proses ke Ketua Jabatan Integriti'){
 
@@ -347,12 +356,16 @@ class HodivController extends Controller
 
    public function updateStatusUlasanHODivC(Request $request,$id){
 
-     $formbs = FormC::find($id);
-     $formbs->nama_hodiv = $request->nama_hodiv;
-     $formbs->no_hodiv = $request->no_hodiv;
-     $formbs->status = $request->status;
-     $formbs->ulasan_hodiv = $request->ulasan_hodiv;
-     $formbs->save();
+     $statusc = FormC::find($id);
+     $statusc->status = $request->status;
+     $statusc->save();
+
+     $formcs = new UlasanHodiv();
+     $formcs->nama_hodiv = $request->nama_hodiv;
+     $formcs->no_hodiv = $request->no_hodiv;
+     $formcs->ulasan_hodiv = $request->ulasan_hodiv;
+     $formcs->formcs_id = $id;
+     $formcs->save();
 
      //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
 
@@ -383,12 +396,16 @@ class HodivController extends Controller
 
    public function updateStatusUlasanHODivD(Request $request,$id){
 
-     $formbs = FormD::find($id);
-     $formbs->nama_hodiv = $request->nama_hodiv;
-     $formbs->no_hodiv = $request->no_hodiv;
-     $formbs->status = $request->status;
-     $formbs->ulasan_hodiv = $request->ulasan_hodiv;
-     $formbs->save();
+     $statusd = FormD::find($id);
+     $statusd->status = $request->status;
+     $statusd->save();
+
+     $formds = new UlasanHodiv();
+     $formds->nama_hodiv = $request->nama_hodiv;
+     $formds->no_hodiv = $request->no_hodiv;
+     $formds->ulasan_hodiv = $request->ulasan_hodiv;
+     $formds->formds_id = $id;
+     $formds->save();
 
      //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
 
@@ -419,12 +436,16 @@ class HodivController extends Controller
 
    public function updateStatusUlasanHODivG(Request $request,$id){
 
-     $formbs = FormG::find($id);
-     $formbs->nama_hodiv = $request->nama_hodiv;
-     $formbs->no_hodiv = $request->no_hodiv;
-     $formbs->status = $request->status;
-     $formbs->ulasan_hodiv = $request->ulasan_hodiv;
-     $formbs->save();
+     $statusg = FormG::find($id);
+     $statusg->status = $request->status;
+     $statusg->save();
+
+     $formgs = new UlasanHodiv();
+     $formgs->nama_hodiv = $request->nama_hodiv;
+     $formgs->no_hodiv = $request->no_hodiv;
+     $formgs->ulasan_hodiv = $request->ulasan_hodiv;
+     $formgs->formgs_id = $id;
+     $formgs->save();
 
      //send notification to hod (kalau diterima(status="Proses ke Ketua Jabatan Integriti"))
 
@@ -455,21 +476,25 @@ class HodivController extends Controller
 
    public function updateStatusUlasanHODivGift(Request $request,$id){
 
-     $gifts = Gift::find($id);
-     $gifts->nama_hodiv = $request->nama_hodiv;
-     $gifts->no_hodiv = $request->no_hodiv;
-     $gifts->status = $request->status;
-     $gifts->ulasan_hodiv = $request->ulasan_hodiv;
-     $gifts->save();
+     $statusgift = Gift::find($id);
+     $statusgift->status = $request->status;
+     $statusgift->save();
+
+     $gift = new UlasanHodiv();
+     $gift->nama_hodiv = $request->nama_hodiv;
+     $gift->no_hodiv = $request->no_hodiv;
+     $gift->ulasan_hodiv = $request->ulasan_hodiv;
+     $gift->gift_id = $id;
+     $gift->save();
 
      //send notification to hod (ulasan hodiv)
      // dd($request->status);
-     if($request->status == 'Proses ke Pentadbir Sistem'){
-     $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Proses ke Pentadbir Sistem (Hadiah)')->first(); //template email yang diguna
+     if($request->status == 'Proses ke Ketua Jabatan Integriti'){
+     $email = Email::where('penerima', '=', 'Ketua Jabatan Integriti')->where('jenis', '=', 'Proses ke Ketua Jabatan Integriti (Hadiah)')->first(); //template email yang diguna
      // $email = null; // for testing
-     $admin_available = User::where('role','=','1')->get(); //get system hodiv information
+     $hod_available = User::where('role','=','2')->get(); //get system hodiv information
      // if ($email) {
-       foreach ($admin_available as $data) {
+       foreach ($hod_available as $data) {
          // $giftbs->notify(new UserGiftAdminB($data, $email));
          $this->dispatch(new SendNotificationGiftHodiv($data, $email, $gifts));
        }
@@ -478,9 +503,9 @@ class HodivController extends Controller
 
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Hadiah)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $user = User::where('id', '=', $giftbs->user_id)->first(); //get system admin information
+       $user = User::where('id', '=', $statusgift->user_id)->first(); //get system admin information
 
-       $this->dispatch(new SendNotificationGiftHodiv($user, $email, $giftbs));
+       $this->dispatch(new SendNotificationGiftHodiv($user, $email, $statusgift));
        }
 
 
@@ -489,12 +514,16 @@ class HodivController extends Controller
 
    public function updateStatusUlasanHODivGiftB(Request $request,$id){
 
-     $giftbs = GiftB::find($id);
-     $giftbs->nama_hodiv = $request->nama_hodiv;
-     $giftbs->no_hodiv = $request->no_hodiv;
-     $giftbs->status = $request->status;
-     $giftbs->ulasan_hodiv = $request->ulasan_hodiv;
-     $giftbs->save();
+     $statusgiftb = GiftB::find($id);
+     $statusgiftb->status = $request->status;
+     $statusgiftb->save();
+
+     $giftb = new UlasanHodiv();
+     $giftb->nama_hodiv = $request->nama_hodiv;
+     $giftb->no_hodiv = $request->no_hodiv;
+     $giftb->ulasan_hodiv = $request->ulasan_hodiv;
+     $giftb->giftb_id = $id;
+     $giftb->save();
 
      return redirect()->route('user.admin.hadiah.senaraiallhadiah');
    }

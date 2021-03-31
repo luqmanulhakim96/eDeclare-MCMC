@@ -58,6 +58,7 @@ public function add(array $data){
   }
 
     return FormD::create([
+      'no_staff' => $data['no_staff'],
       'nama_pegawai' => $data['nama_pegawai'],
       'kad_pengenalan' => $data['kad_pengenalan'],
       'jawatan' => $data['jawatan'],
@@ -143,6 +144,34 @@ public function add(array $data){
     ]);
 }
 
+
+protected function validatorNoAttachement(array $data)
+{
+    return Validator::make($data, [
+      'nama_pegawai' =>['nullable', 'string'],
+      'kad_pengenalan' => ['nullable', 'string'],
+      'jawatan' => ['nullable', 'string'],
+      'alamat_tempat_bertugas' => ['nullable', 'string'],
+      'jabatan' =>['nullable', 'string'],
+      'nama_syarikat' =>['required', 'string'],
+      'no_pendaftaran_syarikat' => ['required', 'string'],
+      'alamat_syarikat' =>['required'],
+      'jenis_syarikat' =>['required', 'string'],
+      'pulangan_tahunan' =>['required', 'numeric'],
+      'modal_syarikat' => ['required', 'numeric'],
+      'modal_dibayar' => ['required', 'numeric'],
+      'punca_kewangan' => ['required', 'string'],
+      'nama_ahli[]' => ['nullable', 'string'],
+      'hubungan[]' => ['nullable', 'string'],
+      'jawatan_syarikat[]' => ['nullable', 'string'],
+      'jumlah_saham[]' => ['nullable', 'string'],
+      'nilai_saham[]' => ['nullable', 'string'],
+      'dokumen_syarikat' => ['max:100000'],
+      'pengakuan' => ['required'],
+
+    ]);
+}
+
 protected function validatordraft(array $data)
 {
   return Validator::make($data, [
@@ -184,10 +213,19 @@ protected function validatordraft(array $data)
          // dd($request->all());
         // dd($request->dokumen_syarikat);
         if($request->dokumen_syarikat != NULL){
+        // foreach($request->dokumen_syarikat as $file)
+        // {
+        //     $file_syarikat = new DokumenSyarikat();
+        //     $file_syarikat->dokumen_syarikat = $file->store('public/uploads/dokumen_syarikat');
+        //     $file_syarikat->formds_id = $formds->id;
+        //     $file_syarikat->save();
+        //     // dd($file_syarikat);
+        // }
         foreach($request->dokumen_syarikat as $file)
         {
             $file_syarikat = new DokumenSyarikat();
-            $file_syarikat->dokumen_syarikat = $file->store('public/uploads/dokumen_syarikat');
+            $originalname = $file->getClientOriginalName();
+            $file_syarikat->dokumen_syarikat = $file->storeAs('public/uploads/', $originalname);
             $file_syarikat->formds_id = $formds->id;
             $file_syarikat->save();
             // dd($file_syarikat);
@@ -225,9 +263,9 @@ protected function validatordraft(array $data)
       // dd($request->dokumen_syarikat);
       foreach($request->dokumen_syarikat as $file)
       {
-        // dd($file);
           $file_syarikat = new DokumenSyarikat();
-          $file_syarikat->dokumen_syarikat = $file->store('public/uploads/dokumen_syarikat');
+          $originalname = $file->getClientOriginalName();
+          $file_syarikat->dokumen_syarikat = $file->storeAs('public/uploads/', $originalname);
           $file_syarikat->formds_id = $formds->id;
           $file_syarikat->save();
           // dd($file_syarikat);
@@ -278,10 +316,24 @@ public function update($id,$sedang_proses){
 
 
 }
+public function delete(Request $request,$id){
+  // dd($id);
+      $formds = FormD::find($id);
+      // dd($formds);
+      $count_dokumen = DokumenSyarikat::where('formds_id', $formds->id)->get();
+      $count = count($count_dokumen);
 
+      for ($i=0; $i < $count; $i++) {
+      $id_dokumen = DokumenSyarikat::where('formds_id', $formds->id)->get('id');
+      // dd($id_dokumen);
+      $dokumen = DokumenSyarikat::findOrFail($id_dokumen[$i]->id);
+      $dokumen->delete();
+      return redirect()->back();
+    }
+
+}
 public function updateFormD(Request $request,$id){
-// dd($request->all());
-
+// dd($id);
   if($request->has('save')){
     $this->validatordraft(request()->all())->validate();
 
@@ -301,6 +353,7 @@ public function updateFormD(Request $request,$id){
     }
   }
 
+ if($request->nama_ahli != NULL){
     $count1 = count($request->nama_ahli);
     $count = 0;
 
@@ -316,35 +369,31 @@ public function updateFormD(Request $request,$id){
     $keluargas->keluarga_id = $count;
     $keluargas->save();
   }
+}
+
   if($request->hasFile('dokumen_syarikat')) {
     $count_file = DokumenSyarikat::where('formds_id', $formds->id)->get();
     $count = count($count_file);
     // dd($count);
 
-    for ($i=0; $i < $count; $i++) {
-    $id_file = DokumenSyarikat::where('formds_id', $formds->id)->get('id');
-    // dd($id_d);
-    for ($i=0; $i < count($id_file) ; $i++) {
-
-    $dokumen = DokumenSyarikat::findOrFail($id_file[$i]->id);
-    $dokumen->delete();
-    }
-  }
+    // for ($i=0; $i < $count; $i++) {
+    //   $id_file = DokumenSyarikat::where('formds_id', $formds->id)->get('id');
+    //   // dd($id_d);
+    //   for ($i=0; $i < count($id_file) ; $i++) {
+    //   $dokumen = DokumenSyarikat::findOrFail($id_file[$i]->id);
+    //   $dokumen->delete();
+    //   }
+    // }
     foreach($request->dokumen_syarikat as $file)
     {
-      // dd($file);
         $file_syarikat = new DokumenSyarikat();
-        $file_syarikat->dokumen_syarikat = $file->store('public/uploads/dokumen_syarikat');
+        $originalname = $file->getClientOriginalName();
+        $file_syarikat->dokumen_syarikat = $file->storeAs('public/uploads/', $originalname);
         $file_syarikat->formds_id = $formds->id;
         $file_syarikat->save();
         // dd($file_syarikat);
     }
   }
-  else {
-
-
-  }
-
 
     $sedang_proses="Disimpan ke Draf";
     $this->update($id,$sedang_proses);
@@ -352,8 +401,14 @@ public function updateFormD(Request $request,$id){
 
   }
   else if($request->has('publish')){
-
-        $this->validator(request()->all())->validate();
+        $count_dokumen = DokumenSyarikat::where('formds_id', $id)->get();
+        // dd($count_dokumen);
+        if(count($count_dokumen)){
+          $this->validatorNoAttachement(request()->all())->validate();
+        }
+        else{
+          $this->validator(request()->all())->validate();
+        }
 
         $formds = FormD::find($id);
 
@@ -389,18 +444,19 @@ public function updateFormD(Request $request,$id){
 
       }
 
-      $count_dokumen = DokumenSyarikat::where('formds_id', $formds->id)->get();
-      $count = count($count_dokumen);
+    if($request->hasFile('dokumen_syarikat')) {
+        $count_dokumen = DokumenSyarikat::where('formds_id', $formds->id)->get();
+        $count = count($count_dokumen);
 
-      for ($i=0; $i < $count; $i++) {
-      $id_dokumen = DokumenSyarikat::where('formds_id', $formds->id)->get('id');
-      // dd($id_d);
-      for ($i=0; $i < count($id_dokumen) ; $i++) {
-
-      $dokumen = DokumenSyarikat::findOrFail($id_dokumen[$i]->id);
-      $dokumen->delete();
-      }
-    }
+      //   for ($i=0; $i < $count; $i++) {
+      //   $id_dokumen = DokumenSyarikat::where('formds_id', $formds->id)->get('id');
+      //   // dd($id_d);
+      //   for ($i=0; $i < count($id_dokumen) ; $i++) {
+      //
+      //   $dokumen = DokumenSyarikat::findOrFail($id_dokumen[$i]->id);
+      //   $dokumen->delete();
+      //   }
+      // }
       $count2 = count($request->dokumen_syarikat);
       $count = 0;
 
@@ -413,6 +469,7 @@ public function updateFormD(Request $request,$id){
           $file_syarikat->save();
           // dd($file_syarikat);
       }
+    }
           //send notification to admin (noti yang dia dah berjaya declare)
           $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
           // $email = null; // for testing
@@ -426,5 +483,11 @@ public function updateFormD(Request $request,$id){
         $this->update($id,$sedang_proses);
         return redirect()->route('user.harta.FormD.senaraihartaD');
       }
+    }
+
+    public function ajaxDeleteDokumen($id){
+      $dokumen = DokumenSyarikat::findOrFail($id);
+      $dokumen->delete();
+      exit;
     }
 }

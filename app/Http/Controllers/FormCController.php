@@ -42,7 +42,7 @@ class FormCController extends Controller
 
     if($data_user->isEmpty()){
       // dd('Sila isi Lampiran B');
-      Session::flash('message', "Sila isi Lampiran B terlebih dahulu untuk mengisi Lampiran C");
+      Session::flash('message', "Lampiran C tidak tersedia kerana masih tiada harta yang telah diluluskan di dalam sistem.");
       return Redirect::back();
 
     }
@@ -72,6 +72,11 @@ class FormCController extends Controller
   $data = FormC::findOrFail($id);
   // dd($data);
   $harta =HartaB::where('formcs_id',$data->id) ->get();
+  // $userid = Auth::user()->id;
+  // $data_user = FormB::where('user_id', $userid)->where('status',"Diterima") ->get();
+  // foreach ($data_user as $data) {
+  //   $harta[] = HartaB::where('formbs_id',$data->id)->where('formcs_id',null)->get();
+  // }
 
   // dd($harta);
     return view('user.harta.FormC.editformC-latest', compact('data', 'harta'));
@@ -83,6 +88,7 @@ public function add(array $data){
   $sedang_proses= "Sedang Diproses";
 
     return FormC::create([
+      'no_staff' => $data['no_staff'],
       'nama_pegawai' => $data['nama_pegawai'],
       'kad_pengenalan' => $data['kad_pengenalan'],
       'jawatan' => $data['jawatan'],
@@ -181,11 +187,14 @@ protected function validatorpublish(array $data)
         $harta = HartaB::findOrFail($request->id_harta_[$i]);
         // dd($harta);
         // $harta=HartaB::find();
+
         $harta->tarikh_pelupusan = $request->tarikh_pelupusan_[$i];
         $harta->cara_pelupusan= $request->cara_pelupusan_[$i];
         $harta->nilai_pelupusan = $request->nilai_pelupusan_[$i];
         $harta->formcs_id = $formcs-> id;
         $harta->save();
+
+
       }
 
       // dd('berjaya');
@@ -259,7 +268,16 @@ public function updateformC(Request $request,$id){
         $harta = HartaB::findOrFail($request->id_harta_[$i]);
         $harta->tarikh_pelupusan = $request->tarikh_pelupusan_[$i];
         $harta->cara_pelupusan= $request->cara_pelupusan_[$i];
-        $harta->nilai_pelupusan = $request->nilai_pelupusan_[$i];
+        $harta->cara_pelupusan= $request->nilai_pelupusan_[$i];
+        // if($request->tarikh_pelupusan_[$i] != null){
+        //   $harta->tarikh_pelupusan = $request->tarikh_pelupusan_[$i];
+        // }
+        // if($request->cara_pelupusan_[$i] != null){
+        //   $harta->cara_pelupusan= $request->cara_pelupusan_[$i];
+        // }
+        // if($request->nilai_pelupusan_[$i] != null){
+        //   $harta->cara_pelupusan= $request->nilai_pelupusan_[$i];
+        // }
         $harta->formcs_id = $formcs-> id;
         $harta->save();
       }

@@ -20,7 +20,7 @@ class FormC extends Model implements Auditable
     protected $fillable = [
       'nama_pegawai','kad_pengenalan','jawatan','alamat_tempat_bertugas','jenis_harta_lupus','pemilik_harta_pelupusan','hubungan_pemilik_pelupusan', 'no_pendaftaran_harta','tarikh_pemilikan',
       'tarikh_pelupusan', 'cara_pelupusan', 'nilai_pelupusan','pengakuan','user_id','status',
-      'nama_admin','no_admin','ulasan_admin','nama_hod','no_hod','ulasan_hod','nama_hodiv','no_hodiv','ulasan_hodiv','jabatan'
+      'nama_admin','no_admin','ulasan_admin','nama_hod','no_hod','ulasan_hod','nama_hodiv','no_hodiv','ulasan_hodiv','jabatan','no_staff'
     ];
 
     public static function getTableName()

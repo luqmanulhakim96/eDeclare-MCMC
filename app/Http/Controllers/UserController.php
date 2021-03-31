@@ -19,6 +19,8 @@ use App\FormC;
 use App\FormD;
 use App\FormG;
 use App\HartaB;
+use App\UlasanHod;
+use App\UlasanAdmin;
 use App\Keluarga;
 use App\NilaiHadiah;
 use App\UserExistingStaff;
@@ -93,13 +95,29 @@ class UserController extends Controller
 
   public function senaraiborang()
   {
-    return view('user.form');
+    $userid = Auth::user()->id;
+    $listallA = Asset::with('users')->select('id','created_at','status', 'user_id')->where('user_id', $userid)->get();
+    $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('user_id', $userid)->get();
+    $listallBTable = FormB::getTableName();
+    $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('user_id', $userid)->get();
+    $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('user_id', $userid)->get();
+    $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('user_id', $userid)->get();
+    $merged = $listallA->mergeRecursive($listallB);
+    $merged = $merged->mergeRecursive($listallC);
+    $merged = $merged->mergeRecursive($listallD);
+    $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+// dd($merged);
+    return view('user.form', compact('merged'));
   }
 
   public function senaraiboranghadiah()
   {
     $nilai_hadiah = NilaiHadiah::first();
-    return view('user.hadiah', compact('nilai_hadiah'));
+    $userid = Auth::user()->id;
+    $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('user_id', $userid)->get();
+    $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('user_id', $userid)->get();
+    $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
+    return view('user.hadiah', compact('nilai_hadiah','merged'));
   }
 
   public function senaraisemuaharta()
@@ -134,8 +152,10 @@ class UserController extends Controller
     $userid = Auth::user()->id;
     $listHadiah = Gift::where('user_id', $userid)->get();
     $nilaiHadiah = NilaiHadiah::first();
+    $ulasanAdmin = UlasanAdmin::get();
+    $ulasanHOD = UlasanHod::get();
 
-    return view('user.hadiah.senaraihadiah', compact('listHadiah','nilaiHadiah'));
+    return view('user.hadiah.senaraihadiah', compact('listHadiah','nilaiHadiah','ulasanAdmin','ulasanHOD'));
   }
 
   public function senaraiHadiahB()
@@ -143,8 +163,10 @@ class UserController extends Controller
     $userid = Auth::user()->id;
     $listHadiahB = GiftB::where('user_id', $userid)->get();
     $nilaiHadiah = NilaiHadiah::first();
+    $ulasanAdmin = UlasanAdmin::get();
+    $ulasanHOD = UlasanHod::get();
     // $listHadiah = GiftB::get();
-    return view('user.hadiah.senaraihadiahB', compact('listHadiahB','nilaiHadiah'));
+    return view('user.hadiah.senaraihadiahB', compact('listHadiahB','nilaiHadiah','ulasanAdmin','ulasanHOD'));
   }
 
 
@@ -153,7 +175,11 @@ class UserController extends Controller
     $userid = Auth::user()->id;
     $listHarta = FormB::where('user_id', $userid)->get();
 
-    return view('user.harta.FormB.senaraihartaB', compact('listHarta'));
+    $ulasanAdmin = UlasanAdmin::get();
+    $ulasanHOD = UlasanHod::get();
+
+
+    return view('user.harta.FormB.senaraihartaB', compact('listHarta','ulasanAdmin','ulasanHOD'));
   }
 
   public function senaraiDraftHarta()
@@ -307,10 +333,12 @@ class UserController extends Controller
   {
     $userid = Auth::user()->id;
     $listHarta = FormC::where('user_id', $userid)->get();
-    // $listHarta = FormC::get();
+    $ulasanAdmin = UlasanAdmin::get();
+    $ulasanHOD = UlasanHod::get();
 
 
-    return view('user.harta.FormC.senaraihartaC', compact('listHarta'));
+
+    return view('user.harta.FormC.senaraihartaC', compact('listHarta','ulasanAdmin','ulasanHOD'));
   }
 
   public function viewC($id)
@@ -344,9 +372,11 @@ class UserController extends Controller
   {
     $userid = Auth::user()->id;
     $listHarta = FormD::where('user_id', $userid)->get();
-    // $listHarta = FormD::get();
+    $ulasanAdmin = UlasanAdmin::get();
+    $ulasanHOD = UlasanHod::get();
 
-    return view('user.harta.FormD.senaraihartaD', compact('listHarta'));
+
+    return view('user.harta.FormD.senaraihartaD', compact('listHarta','ulasanAdmin','ulasanHOD'));
   }
 
   public function viewD($id)
@@ -388,9 +418,16 @@ class UserController extends Controller
   {
     $userid = Auth::user()->id;
     $listHarta = FormG::where('user_id', $userid)->get();
-    // $listHarta = FormG::get();
 
-    return view('user.harta.FormG.senaraihartaG', compact('listHarta'));
+      $ulasanAdmin = UlasanAdmin::get();
+      $ulasanHOD = UlasanHod::get();
+
+
+
+  // dd($ulasanHOD);
+  // dd($ulasanAdmin);
+
+    return view('user.harta.FormG.senaraihartaG', compact('listHarta','ulasanAdmin','ulasanHOD'));
   }
 
   public function viewG($id)
