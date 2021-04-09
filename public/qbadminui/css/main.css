@@ -6,7 +6,7 @@ Author's custom styles
 
 body {
   font-size: 0.8rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Poppins";
 }
 
 a {
@@ -40,7 +40,7 @@ input::placeholder {
 html {
   font-size: 1em;
   line-height: 1.4;
-  font-family: "Open Sans", sans-serif !important;
+  font-family: "Poppins" !important;
 }
 
 ::-moz-selection {
@@ -402,7 +402,7 @@ textarea {
 }
 
 .accordion-right-icon a::after {
-  font-family: "Font Awesome 5 Free";
+  font-family: "Poppins";
   font-weight: 900;
   content: "\F078";
   margin: 0 8px;
@@ -1259,7 +1259,8 @@ button.close {
 }
 
 .bootstrap-icon {
-  font-family: "Font Awesome 5 Free";
+  /* font-family: "Font Awesome 5 Free"; */
+  font-family: "Poppins";
   font-weight: 900;
 }
 
@@ -1400,7 +1401,8 @@ button.close {
 }
 
 .side-bar .sub-menu-parent::before {
-  font-family: "Font Awesome 5 Free";
+  /* font-family: "Font Awesome 5 Free"; */
+  font-family: "Poppins";
   font-weight: 900;
   content: "\F107";
   color: #ffffff;
