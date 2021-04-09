@@ -708,8 +708,9 @@
 
     <!-- Footer section -->
     <footer style="margin-left: -5%;">
+      <br>
       <div class="row">
-        <div class="col-md-12" style="text-align:center;"><a href="" target="_Blank" ><font color="white">MALAYSIAN COMMUNICATIONS AND MULTIMEDIA COMMISION</font></a></div>
+        <div class="col-md-12" style="text-align:center;"><a href="" target="_Blank" ><font color="white">MALAYSIAN COMMUNICATION AND MULTIMEDIA COMMISION</font></a></div>
         <!-- <div class="col-md-2"><font color="white">Version 1.0.0</font></div> -->
       </div>
     </footer>

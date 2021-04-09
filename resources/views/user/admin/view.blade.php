@@ -206,7 +206,7 @@
                                   <!-- Chart -->
                                   <center>
                                   <div class="" id="chart-wrap">
-                                      <div id="columnchart_value" style="width: 380px; height:400px;" ></div>
+                                      <div id="columnchart_value" style="width: 350px; height:400px;" ></div>
                                   </div>
                                 </center>
                             </div>
@@ -221,7 +221,7 @@
                                   <div class="card-title" align="center">Statistik Penerimaan Hadiah</div>
                                   <!-- Chart -->
                                   <center>
-                                  <div id="donutchart" style="width: 380px; height: 400px;"></div>
+                                  <div id="donutchart" style="width: 350px; height: 400px;"></div>
                                 </center>
                                   <!-- <div id="echartPie" style="width:100%;height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div> -->
                               </div>
@@ -243,7 +243,7 @@
                                         <!-- Card title -->
                                         <div class="card-title" align="center">Statistik Pegawai Yang Telah Mengisytihar dan Tidak Mengisytihar Harta/Hadiah</div><br><br>
                                         <!-- Chart -->
-                                          <div id="columnchart_material" style="width: 100%; height: 860px;"></div>
+                                          <div id="columnchart_material" ></div>
                                         <!-- <div id="echartBar" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div> -->
                                     </div>
 
@@ -274,7 +274,8 @@
         ]);
 
         var options = {
-          width: 730,
+          width: 500,
+          height: 860,
           backgroundColor: {
            fill: '#efefef',
            // fillOpacity: 0.1
@@ -341,7 +342,7 @@
        },
      },
         // title: "Statistik Perisytiharan Harta",
-        width: 380,
+        width: 350,
         height: 400,
         var: {groupWidth: "98%"},
         legend: { position: "none" },
