@@ -83,9 +83,19 @@
                                 <div class="col-md-4">
                                   <p>i) Jenis</p>
                                 </div>
-                                <div class="col-md-8">
-                                    {{ $listHadiah ->jenis_gift }}
+
+
+                                <div class="col-md-5">
+                                  <form action="{{route('userhadiahB.update', $listHadiah ->id)}}" method="POST">
+                                    @csrf
+                                  <input class="form-control" type="text" name="jenis_gift" value="{{ $listHadiah ->jenis_gift }}">
                                 </div>
+                                <div class="col-md-3">
+                                  <button class="btn btn-primary" type="submit">Kemaskini</button>
+                                </div>
+                                </form>
+
+
                             </div>
                                 <br>
                             <div class="row">

@@ -64,6 +64,12 @@ Route::get('/hadiah/kemaskini-status/id={id}', 'AdminController@kemaskinigift')-
 
 Route::get('/hadiah/kemaskini-statusB/id={id}', 'AdminController@kemaskinigiftB')->name('statusadmineditgiftB.update');
 
+Route::post('/kemaskini-jenis_harta/id={id}', 'AdminController@kemaskiniHarta')->name('userharta.update');
+
+Route::post('/kemaskini-jenis_hadiah-A/id={id}', 'AdminController@kemaskiniHadiahA')->name('userhadiahA.update');
+
+Route::post('/kemaskini-jenis_hadiah-B/id={id}', 'AdminController@kemaskiniHadiahB')->name('userhadiahB.update');
+
 
 Route::get('/permohonanA/pdf/{id}','UserController@createPDFA')->name('user.perakuanharta.formAprint');
 
@@ -94,6 +100,8 @@ Route::get('/permohonan_hadiah_b/pdf/{id}','UserController@createPDFGiftB')->nam
 Route::get('/form/printGiftB/{id}', 'UserController@printGiftB')->name('user.hadiah.printGiftB');
 
 Route::get('/senarai/permohonan/pengguna', 'AdminController@listAllUserDeclaration')->name('user.admin.senarai_user_declaration');
+
+Route::get('/senarai/permohonan/pengguna/ajax', 'AdminController@listAllUserDeclarationAjax')->name('user.admin.senarai_user_declaration.ajax');
 
 
 Route::get('/permohonan/senarai/harta', 'UserController@senaraiHarta')->name('user.harta.senaraiharta');
@@ -500,6 +508,8 @@ Route::get('/itadmin/audit/user', 'ItAdminController@auditTrailLogUser')->name('
 
 Route::get('/itadmin/users', 'ItAdminController@users')->name('user.it.users');
 
+Route::get('/itadmin/users/import', 'ItAdminController@importuser')->name('user.it.users-import');
+
 Route::get('/itadmin/users/deactivate/{id}', 'ItAdminController@userDelete')->name('user.it.users.deactivate');
 
 Route::post('/itadmin/users/id={id}', 'ItAdminController@updateUserRole')->name('user.update');
@@ -516,6 +526,8 @@ Route::get('/itadmin/configure', 'ItAdminController@konfigurasiSistem')->name('u
 Route::post('/itadmin/configure/edit', 'ItAdminController@editKonfigurasiSistem')->name('user.it.konfigurasi.edit');
 
 Route::post('/tetapan/logmasuk/{id}', 'ItAdminController@submitauth')->name('auth.submit');
+
+Route::post('/tempoh/notifikasi', 'ItAdminController@submitTempohNotifikasi')->name('duration.submit');
 
 
 // Route::prefix('jobs')->group(function () {

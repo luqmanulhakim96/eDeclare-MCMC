@@ -12,120 +12,194 @@
     @endif
 
   <div class="small-cards mt-5 mb-4" >
-    <div class="row">
+    <div class="row" style="justify-content: space-between;">
           <!-- Col sm 6, col md 6, col lg 3 -->
-          <a class="col-sm-6 col-md-6 col-lg-1 mt-4 mt-lg-0"></a>
+          <!-- <a class="col-sm-6 col-md-6 col-lg-1 mt-4 mt-lg-0"></a> -->
           <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.perakuanharta.formA')}}">
-          <!-- <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0"> -->
-              <!-- Card -->
-              <div class="card border rounded-lg">
-                  <!-- Card body -->
+          <div class="card rounded-lg" style="width: 110%;">
+              <!-- Card body -->
+              <div class="card-body">
+
+                  <div class="d-flex flex-row justify-content-center align-items-center">
+                      <!-- Icon -->
+                      <div class="small-card-icon">
+                         <p class="font-weight-normal m-0 text-muted" style="font-size:70%" >Perakuan Tiada Penambahan Harta</p>
+                      </div>
+                      <!-- Text -->
+                      <div class="small-card-text w-100 text-center">
+                          <i><img src="{{ asset('qbadminui/img/formA.png') }}" alt="img"  width="50%"></i>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+          </a>
+          <!-- <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.perakuanharta.formA')}}">
+              <div class="card border-1 rounded-lg">
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
-                          <!-- Icon -->
                           <div class="small-card-icon" align="center">
                               <i><img src="{{ asset('qbadminui/img/formA.png') }}" alt="img" width="30%"></i>
                           </div>
                           <br>
-                          <!-- Text -->
                           <div class="small-card-text w-100 text-center">
                               <p class="font-weight-normal m-0 text-muted">Lampiran A:</p>
-                              <p class="font-weight-normal m-0 text-primary">Perakuan Tiada Penambahan Harta</p>
+                              <p class="font-weight-normal m-0 text-primary">Perakuan Tiada <br>Penambahan Harta</p>
                           </div>
                       </div>
 
                   </div>
               </div>
-          <!-- </div> -->
-        </a>
+        </a> -->
 
-          <!-- Col sm 6, col md 6, col lg 3 -->
-          <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormB.formB')}}">
-              <!-- Card -->
-              <div class="card border rounded-lg">
-                  <!-- Card body -->
+        <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormB.formB')}}">
+        <div class="card rounded-lg" style="width: 110%;">
+            <!-- Card body -->
+            <div class="card-body">
+
+                <div class="d-flex flex-row justify-content-center align-items-center">
+                    <!-- Icon -->
+                    <div class="small-card-icon">
+                       <p class="font-weight-normal m-0 text-muted" style="font-size:70%" > Borang Perisytiharan Harta Baharu</p>
+                    </div>
+                    <!-- Text -->
+                    <div class="small-card-text w-100 text-center">
+                        <i><img src="{{ asset('qbadminui/img/formB.png') }}" alt="img"  width="50%"></i>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </a>
+          <!-- <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormB.formB')}}">
+              <div class="card border-1 rounded-lg">
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
-                          <!-- Icon -->
                           <div class="small-card-icon" align="center">
                               <i><img src="{{ asset('qbadminui/img/formB.png') }}" alt="img" width="30%"></i>
                           </div>
                           <br>
-                          <!-- Text -->
                           <div class="small-card-text w-100 text-center">
                               <p class="font-weight-normal m-0 text-muted">Lampiran B:</p>
-                              <p class="font-weight-normal m-0 text-primary">Borang Perisytiharan Harta Baharu</p>
+                              <p class="font-weight-normal m-0 text-primary">Borang Perisytiharan<br> Harta Baharu</p>
                           </div>
                       </div>
 
                   </div>
               </div>
-          </a>
+          </a> -->
 
-          <!-- Col sm 6, col md 6, col lg 3 -->
           <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormC.formC')}}">
-              <!-- Card -->
-              <div class="card border rounded-lg">
-                  <!-- Card body -->
+          <div class="card rounded-lg" style="width: 110%;">
+              <!-- Card body -->
+              <div class="card-body">
+
+                  <div class="d-flex flex-row justify-content-center align-items-center">
+                      <!-- Icon -->
+                      <div class="small-card-icon">
+                         <p class="font-weight-normal m-0 text-muted" style="font-size:70%" >Borang Pelupusan Harta Baharu</p>
+                      </div>
+                      <!-- Text -->
+                      <div class="small-card-text w-100 text-center">
+                          <i><img src="{{ asset('qbadminui/img/formC.png') }}" alt="img"  width="50%"></i>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+          </a>
+          <!-- <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormC.formC')}}">
+              <div class="card border-1 rounded-lg">
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
-                          <!-- Icon -->
                           <div class="small-card-icon" align="center">
                               <i><img src="{{ asset('qbadminui/img/formC.png') }}" alt="img" width="30%"></i>
                           </div>
                           <br>
-                          <!-- Text -->
                           <div class="small-card-text w-100 text-center">
                               <p class="font-weight-normal m-0 text-muted">Lampiran C:</p>
-                              <p class="font-weight-normal m-0 text-primary">Borang Pelupusan Harta Baharu</p>
+                              <p class="font-weight-normal m-0 text-primary">Borang Pelupusan<br> Harta Baharu</p>
                           </div>
                       </div>
 
                   </div>
               </div>
-          </a>
+          </a> -->
 
-          <!-- Col sm 6, col md 6, col lg 3 -->
-          <!-- <div class="col-sm-8 col-md-8 col-lg-2 mt-2 mt-lg-0"></div> -->
           <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormD.formD')}}">
-              <!-- Card -->
-              <div class="card border rounded-lg">
-                  <!-- Card body -->
+          <div class="card rounded-lg" style="width: 110%;">
+              <!-- Card body -->
+              <div class="card-body">
+
+                  <div class="d-flex flex-row justify-content-center align-items-center">
+                      <!-- Icon -->
+                      <div class="small-card-icon">
+                         <p class="font-weight-normal m-0 text-muted" style="font-size:70%" > Borang Perisytiharan Syarikat</p>
+                      </div>
+                      <!-- Text -->
+                      <div class="small-card-text w-100 text-center">
+                          <i><img src="{{ asset('qbadminui/img/formD.png') }}" alt="img"  width="45%"></i>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </a>
+          <!-- <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormD.formD')}}">
+
+              <div class="card border-1 rounded-lg">
+
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
-                          <!-- Icon -->
+
                           <div class="small-card-icon" align="center">
                               <i><img src="{{ asset('qbadminui/img/formD.png') }}" alt="img" width="30%"></i>
                           </div>
                           <br>
-                          <!-- Text -->
+
                           <div class="small-card-text w-100 text-center">
                               <p class="font-weight-normal m-0 text-muted">Lampiran D:</p>
-                              <p class="font-weight-normal m-0 text-primary">Perisytiharan Syarikat/ Perniagaan Sendiri</p>
+                              <p class="font-weight-normal m-0 text-primary">Perisytiharan Syarikat /Perniagaan Sendiri</p>
                           </div>
                       </div>
 
                   </div>
               </div>
-          </a>
+          </a> -->
 
           <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormG.formG')}}">
-              <!-- Card -->
-              <div class="card border rounded-lg">
-                  <!-- Card body -->
+          <div class="card rounded-lg" style="width: 110%;">
+              <!-- Card body -->
+              <div class="card-body">
+
+                  <div class="d-flex flex-row justify-content-center align-items-center">
+                      <!-- Icon -->
+                      <div class="small-card-icon">
+                         <p class="font-weight-normal m-0 text-muted" style="font-size:70%" >Borang Memohon dan Memiliki Saham</p>
+                      </div>
+                      <!-- Text -->
+                      <div class="small-card-text w-100 text-center">
+                          <i><img src="{{ asset('qbadminui/img/formG.png') }}" alt="img"  width="50%"></i>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </a>
+          <!-- <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormG.formG')}}">
+
+              <div class="card border-1 rounded-lg">
+
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
-                          <!-- Icon -->
+
                           <div class="small-card-icon" align="center">
                               <i><img src="{{ asset('qbadminui/img/formG.png') }}" alt="img" width="30%"></i>
                           </div>
                           <br>
-                          <!-- Text -->
+
                           <div class="small-card-text w-100 text-center">
                               <p class="font-weight-normal m-0 text-muted">Lampiran E:</p>
                               <p class="font-weight-normal m-0 text-primary">Borang Memohon dan Memiliki Saham</p>
@@ -134,8 +208,8 @@
 
                   </div>
               </div>
-          </a>
-          <a class="col-sm-6 col-md-6 col-lg-1 mt-4 mt-lg-0"></a>
+          </a> -->
+
         </div>
         </div>
 
@@ -145,7 +219,7 @@
           <!-- Col md 6 -->
           <div class="col-md-12 mt-4" >
               <!-- basic light table card -->
-              <div class="card rounded-lg" >
+              <div class="card rounded-lg" style="width: 102%;" >
                   <div class="card-body">
                       <div class="card-title">Senarai Sejarah Perisytiharan Harta</div>
                       <!-- Description -->

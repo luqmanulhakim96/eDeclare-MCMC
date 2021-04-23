@@ -86,33 +86,28 @@ class LoginController extends Controller
 
       $staffinfo = UserExistingStaffInfo::where('USERNAME', $user->username)->first();
       // dd($staffinfo);
-      if(!$staffinfo){
-
-      }
-      else{
-      if($staffinfo->OLEVEL5NAME == "INTEGRITY AND EMPLOYEE RELATION"){
-        if($staffinfo->DESCRIPTION == "HEAD OF DEPARTMENT"){
-          $user->role =2;
+      if($staffinfo){
+        if($staffinfo->OLEVEL5NAME == "INTEGRITY AND EMPLOYEE RELATION"){
+          if($staffinfo->DESCRIPTION == "HEAD OF DEPARTMENT"){
+            $user->role =2;
+            $user->save();
+          }
+        }
+        else if($staffinfo->DESCRIPTION == "HEAD OF DIVISION"){
+          $user->role =3;
+          $user->save();
+        }
+        else if($user->name == 'Siti Rafidah Ahmad Fuad')
+        {
+          $user->role = 4;
+          $user->save();
+        }
+        else {
+          $user->role =5;
           $user->save();
         }
       }
-      else if($staffinfo->DESCRIPTION == "HEAD OF DIVISION"){
-        $user->role =3;
-        $user->save();
-      }
-      else if($user->name == 'Siti Rafidah Ahmad Fuad')
-      {
-        $user->role = 4;
-        $user->save();
-      }
-      else {
-        $user->role =5;
-        $user->save();
-      }
-    }
-
-
-
+      
         $user->should_re_login = false;
         $user->save();
 

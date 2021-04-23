@@ -30,10 +30,9 @@
     </div>
     @endif
 
-    <div class="row d-flex justify-content-center align-items-center" style="padding-top:6%; padding-bottom:5%;">
-      <div class="col-md-3">
-      </div>
-      <div class="col-md-6">
+    <div class="row d-flex justify-content-center align-items-center">
+
+      <div class="col-md-5">
         <center>
         <div class="" style="background:white;" >
             <!-- Login card -->
@@ -46,7 +45,7 @@
                         <div class="col-md-12 border-0">
                             <!-- Brand -->
                             <div class=" m-3 m-md-0 d-flex justify-content-center align-items-center">
-                                <h5 style="font-size: 1.15rem;">Sila masukkan username dan kata laluan anda.</h5>
+                                <h5 style="font-size: 1.15rem;">Sila masukkan nama pengguna dan kata laluan anda.</h5>
                             </div>
                             <br>
 
@@ -66,7 +65,7 @@
                                     <!-- <label for="email" class="text-muted">Username</label> -->
                                     <div class="row">
                                       <div class="col-md-4">
-                                        <h5 style="font-size: 1.15rem;">Username:</h5>
+                                        <h5 style="font-size: 1.15rem;">Nama Pengguna:</h5>
                                       </div>
                                       <div class="col md-6">
                                         <input id="samaccountname" type="text" class="form-control" name="samaccountname" value="{{ old('samaccountname') }}" required autocomplete="samaccountname" autofocus>
@@ -92,7 +91,7 @@
                                       <div class="col-md-7">
                                       </div>
                                       <div class="col md-3">
-                                          <button style="width:100%;" type="submit" class="btn btn-danger">Log Masuk</button>
+                                          <button style="width:100%;background-color: #606060;color:white;" type="submit" class="btn">Log Masuk</button>
                                       </div>
                                       <div class="col-md-2">
 
@@ -108,7 +107,10 @@
         </div>
       </center>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-7" style="background-image:url({{ asset('qbadminui/img/bg-6.jpg')}}); background-size:cover; background-repeat:no-repeat;width:100%;height:74vh;">
+        <div class="row" style="padding-top:20%; padding-left:10%;">
+          <span style="color:white;font-size:40px;"> <b>Selamat Datang ke <br> Sistem Perisytiharan <br> Harta & Hadiah</b></span>
+        </div>
       </div>
     </div>
 

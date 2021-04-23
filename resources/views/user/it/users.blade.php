@@ -10,11 +10,19 @@
 
                 <div class="card rounded-lg">
                   <div class="card-body">
-                      <div class="card-title">Senarai Pengguna</div>
-                      <!-- <div class="col">
-                        <button type="submit" onclick="return confirm('Anda pasti maklumat ini tepat? ');" class="btn btn-primary mb" id="submit-form" style="float: right;">Kemaskini Maklumat</button>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="card-title">Senarai Pengguna</div>
                       </div>
-                      <br> -->
+                      <div class="col-md-6">
+
+                      </div>
+                      <div class="col-md-3" style="text-align:end;">
+                        <a class="btn btn-primary" href="{{route('user.it.users-import')}}">Import Data Pengguna Dari AD</a>
+                      </div>
+                    </div>
+
+
                         <!-- Tab nav -->
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
@@ -33,11 +41,10 @@
 
                                 <thead>
                                   <tr>
-                                    <th class="all">Nama</th>
-                                    <th class="all">Email</th>
-                                    <th class="all">Peranan</th>
-                                    <!-- <th class="all">Kad Pengenalan</th> -->
-                                    <th class="all">Butang Tindakan</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Peranan</th>
+                                    <th>Butang Tindakan</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -59,8 +66,9 @@
                                         </select>
                                       </div>
                                       <div class="col-md-2">
+                                          <button type="submit" class="btn btn-primary mt-4" onclick="return confirm('Set Peranan?')" >Set</button>
                                         <!-- <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Set</button> -->
-                                        <button type="submit" name="submit" onclick=" return confirm('Set Peranan ?');" class="btn btn-primary mt-4">Set</button>
+
                                       </div>
                                       </div>
                                       <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -76,7 +84,7 @@
                                               </div>
                                               <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                              <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                              <button type="submit" class="btn btn-danger" name="publish">Ya</button>
                                               </div>
                                           </div>
                                           </div>

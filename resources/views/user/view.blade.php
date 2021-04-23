@@ -15,14 +15,14 @@
                         <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0" >
                            <!-- Card -->
                            <a href="{{route('user.harta.FormB.senaraihartaB')}}">
-                           <div class="card rounded-lg" style="background-image: url({{ asset('qbadminui/design/card1.png') }}); background-repeat: no-repeat; background-position: 50% 67%; ">
+                           <div class="card rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-01.png') }}); background-repeat: no-repeat; background-position: 23% 77%; ">
                                <!-- Card body -->
                                <div class="card-body">
 
                                    <div class="d-flex flex-row justify-content-center align-items-center">
                                        <!-- Icon -->
                                        <div class="small-card-icon">
-                                          <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah Perisytiharan Harta Pegawai</p>
+                                          <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah<br>Perisytiharan Harta Pegawai</p>
                                        </div>
                                        <!-- Text -->
                                        <div class="small-card-text w-100 text-center">
@@ -39,14 +39,14 @@
                         <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0" >
                            <!-- Card -->
                            <a href="{{route('user.harta.FormC.senaraihartaC')}}">
-                           <div class="card rounded-lg" style="background-image: url({{ asset('qbadminui/design/card2.png') }}); background-repeat: no-repeat; background-position: 50% 71%;" >
+                           <div class="card rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-02.png') }}); background-repeat: no-repeat; background-position: 23% 77%; " >
                                <!-- Card body -->
                                <div class="card-body">
 
                                    <div class="d-flex flex-row justify-content-center align-items-center">
                                        <!-- Icon -->
                                        <div class="small-card-icon">
-                                          <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah Pelupusan Harta Pegawai</p>
+                                          <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah <br>Pelupusan Harta Pegawai</p>
                                        </div>
                                        <!-- Text -->
                                        <div class="small-card-text w-100 text-center">
@@ -63,14 +63,14 @@
                         <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0" >
                            <!-- Card -->
                            <a href="{{route('user.harta.FormD.senaraihartaD')}}">
-                           <div class="card rounded-lg" style="background-image: url({{ asset('qbadminui/design/card3.png') }}); background-repeat: no-repeat; background-position: 33% 71%; ">
+                           <div class="card rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-03.png') }}); background-repeat: no-repeat; background-position: 23% 77%; ">
                                <!-- Card body -->
                                <div class="card-body">
 
                                    <div class="d-flex flex-row justify-content-center align-items-center">
                                        <!-- Icon -->
                                        <div class="small-card-icon">
-                                          <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah Perisytiharan Syarikat</p>
+                                          <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah<br>Perisytiharan Syarikat</p>
                                        </div>
                                        <!-- Text -->
                                        <div class="small-card-text w-100 text-center">
@@ -88,14 +88,14 @@
                         <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0" >
                            <!-- Card -->
                            <a href="{{route('user.harta.FormG.senaraihartaG')}}">
-                           <div class="card rounded-lg" style="background-image: url({{ asset('qbadminui/design/card4.png') }}); background-repeat: no-repeat; background-position: 30% 75%; ">
+                           <div class="card rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-04.png') }}); background-repeat: no-repeat; background-position: 23% 77%;">
                                <!-- Card body -->
                                <div class="card-body">
 
                                    <div class="d-flex flex-row justify-content-center align-items-center">
                                        <!-- Icon -->
                                        <div class="small-card-icon">
-                                          <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah Perisytiharan Saham Pegawai</p>
+                                          <p class="font-weight-normal m-0 text-muted" style="font-size:95%" >Jumlah<br>Perisytiharan Saham Pegawai</p>
                                        </div>
                                        <!-- Text -->
                                        <div class="small-card-text w-100 text-center">
@@ -120,7 +120,7 @@
                       <div class="card rounded-lg">
                           <div class="card-body">
                             <div  align="center">
-                              <img src="{{ asset('qbadminui/design/harta.png') }}" alt="img" width="70%">
+                              <img src="{{ asset('qbadminui/img/tatacara-harta.png') }}" alt="img" width="70%">
                             </div>
                           </div>
                       </div>
@@ -129,7 +129,7 @@
                       <div class="card rounded-lg">
                           <div class="card-body">
                             <div  align="center">
-                              <img src="{{ asset('qbadminui/design/hadiah .png') }}" alt="img" width="70%">
+                              <img src="{{ asset('qbadminui/img/tatacara-hadiah.png') }}" alt="img" width="70%">
                             </div>
                           </div>
                       </div>
@@ -301,7 +301,7 @@
                 <br>
                   <div class="row">
                     <center>
-                      <div class="col-md-6">                        
+                      <div class="col-md-6">
                         <a href="{{route('user.harta.FormG.formG')}}">
                         <div class="card rounded-lg" style="background-color: #ffff;">
                             <!-- Card body -->

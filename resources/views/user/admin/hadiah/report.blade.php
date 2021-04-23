@@ -13,7 +13,7 @@
                     <!-- Col lg 8, col md 12 -->
                     <div class="col-lg-6 col-md-12 mt-4 mt-lg-0">
                         <!-- Card -->
-                        <div class="card border-0 rounded-lg">
+                        <div class="card border-1 rounded-lg">
                             <!-- Card body -->
                             <div class="card-body">
 
@@ -21,7 +21,9 @@
                                 <div align="center">Statistik Penerimaan Hadiah Bernilai Lebih Daripada RM {{$nilaiHadiah->nilai_hadiah}} dan Bernilai RM {{$nilaiHadiah->nilai_hadiah}} Kebawah </div>
                                 <!-- Chart -->
                                 <div class="" id="chart-wrap">
+                                  <center>
                                     <div id="columnchart_values" style="width: 100%; height: 400px;" ></div>
+                                  </center>
                                 </div><!-- <div id="echartBar" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;"></div> -->
                             </div>
 
@@ -31,7 +33,7 @@
                     <!-- Col lg 4, col md 12 -->
                     <div class="col-lg-6 col-md-12 mt-4 mt-lg-0">
                         <!-- Card -->
-                        <div class="card border-0 rounded-lg">
+                        <div class="card border-1 rounded-lg">
                             <!-- Card body -->
                             <div class="card-body">
                                 <!-- Card title -->

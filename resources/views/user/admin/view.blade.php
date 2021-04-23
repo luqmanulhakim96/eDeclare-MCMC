@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
                     <!-- Card -->
-                    <div class="card border rounded-lg" style="background-image: url({{ asset('qbadminui/design/card3.png') }}); background-repeat: no-repeat; background-position: 33% 67%; ">
+                    <div class="card border-01 rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-01.png') }}); background-repeat: no-repeat; background-position: 23% 77%; ">
                         <!-- Card body -->
                         <div class="card-body">
 
@@ -44,7 +44,7 @@
                 <!-- Col sm 6, col md 6, col lg 3 -->
                 <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
                     <!-- Card -->
-                    <div class="card border rounded-lg" style="background-image: url({{ asset('qbadminui/design/card4.png') }}); background-repeat: no-repeat; background-position: 33% 71%; ">
+                    <div class="card border-01 rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-02.png') }}); background-repeat: no-repeat; background-position: 23% 77%; ">
                         <!-- Card body -->
                         <div class="card-body">
 
@@ -71,7 +71,7 @@
                 <!-- Col sm 6, col md 6, col lg 3 -->
                 <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
                     <!-- Card -->
-                    <div class="card border rounded-lg" style="background-image: url({{ asset('qbadminui/design/card1.png') }}); background-repeat: no-repeat; background-position: 33% 64%; ">
+                    <div class="card border-01 rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-03.png') }}); background-repeat: no-repeat; background-position: 23% 77%; ">
                         <!-- Card body -->
                         <div class="card-body">
 
@@ -79,7 +79,7 @@
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <!-- Icon -->
                                 <div class="small-card-icon" align="center" style="opacity: 70%;">
-                                    <i><img src="{{ asset('qbadminui/img/formD.png') }}" alt="img" style="width:35%; height:35%;"></i>
+                                    <i><img src="{{ asset('qbadminui/img/formD.png') }}" alt="img" style="width:33%; height:35%;"></i>
                                 </div>
                                 <!-- Text -->
 
@@ -108,7 +108,7 @@
                   </div>
                   <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
                       <!-- Card -->
-                      <div class="card border rounded-lg" style="background-image: url({{ asset('qbadminui/design/card2.png') }}); background-repeat: no-repeat; background-position: 33% 67%; ">
+                      <div class="card border-01 rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-04.png') }}); background-repeat: no-repeat; background-position: 23% 77%; ">
                           <!-- Card body -->
                           <div class="card-body">
 
@@ -134,11 +134,11 @@
                   <!-- Col sm 6, col md 6, col lg 3 -->
                   <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
                       <!-- Card -->
-                      <div class="card border rounded-lg" style="background-image: url({{ asset('qbadminui/design/card3.png') }}); background-repeat: no-repeat; background-position: 33% 67%; ">
+                      <div class="card border-01 rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-01.png') }}); background-repeat: no-repeat; background-position: 23% 77%; ">
                           <!-- Card body -->
                           <div class="card-body">
 
-                            <a href="{{route('user.admin.hadiah.HadiahA.listDiterima')}}">
+                            <a href="{{route('user.admin.hadiah.senaraiallhadiah')}}">
                               <div class="d-flex flex-row justify-content-center align-items-center">
                                   <!-- Icon -->
                                   <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -162,11 +162,11 @@
                   <!-- Col sm 6, col md 6, col lg 3 -->
                   <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0">
                       <!-- Card -->
-                      <div class="card border rounded-lg" style="background-image: url({{ asset('qbadminui/design/card4.png') }}); background-repeat: no-repeat; background-position: 33% 71%; ">
+                      <div class="card border-01 rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-02.png') }}); background-repeat: no-repeat; background-position: 23% 77%; ">
                           <!-- Card body -->
                           <div class="card-body">
 
-                            <a href="{{route('user.admin.hadiah.HadiahB.listDiterima')}}">
+                            <a href="{{route('user.admin.hadiah.senaraiallhadiah')}}">
                               <div class="d-flex flex-row justify-content-center align-items-center">
                                   <!-- Icon -->
                                   <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -197,7 +197,7 @@
                     <div class="col-lg-4 col-md-12 mt-4 mt-lg-0">
                         <!-- Card -->
                         <div class="row">
-                          <div class="card border rounded-lg">
+                          <div class="card border-01 rounded-lg">
                               <!-- Card body -->
                               <div class="card-body" style="width:100%;">
 
@@ -214,7 +214,7 @@
                           </div>
 
                           <div class="row" style="padding-top: 4%;">
-                            <div class="card border rounded-lg">
+                            <div class="card border-01 rounded-lg">
                               <!-- Card body -->
                               <div class="card-body" style="width: 100%;">
                                   <!-- Card title -->
@@ -236,7 +236,7 @@
                             <!-- Col lg 8, col md 12 -->
                             <div class="col-lg-12 col-md-12 mt-4 mt-lg-0">
                                 <!-- Card -->
-                                <div class="card border rounded-lg" >
+                                <div class="card border-01 rounded-lg" >
                                     <!-- Card body -->
                                     <div class="card-body" align="center">
 
