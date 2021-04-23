@@ -11,6 +11,7 @@ use App\FormD;
 use App\FormG;
 use App\Gift;
 use App\GiftB;
+use Adldap\Laravel\Facades\Adldap;
 
 use Auth;
 
@@ -92,9 +93,17 @@ class AppServiceProvider extends ServiceProvider
               }
             }
           }
+
+          // $userldap = Adldap::search()->users()->find('SITI RAFIDAH AHMAD FUAD'); //active directory testing
+          // dd($userldap->thumbnailphoto[0]);
+
+          $userldap = Adldap::search()->select('thumbnailphoto')->where('samaccountname',auth()->user()->username)->first();
+          // dd($userldap);
           // return view('home', compact('nama', 'permohonan_admin' ,'count_notification'));
           $view->with('permohonan_admin', $collections);
           $view->with('count_notification', $count_notification);
+          $view->with('thumbnailphoto', $userldap->thumbnailphoto[0] ?? null);
+
           // view()->compact('nama', 'permohonan_admin' ,'count_notification');
         }
       });

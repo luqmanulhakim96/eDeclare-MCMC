@@ -13,7 +13,7 @@
           <!-- Col sm 6, col md 6, col lg 3 -->
           <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.reportB')}}">
               <!-- Card -->
-              <div class="card border-0 rounded-lg">
+              <div class="card border-1 rounded-lg">
                   <!-- Card body -->
                   <div class="card-body">
 
@@ -37,7 +37,7 @@
           <!-- Col sm 6, col md 6, col lg 3 -->
           <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.reportC')}}">
               <!-- Card -->
-              <div class="card border-0 rounded-lg">
+              <div class="card border-1 rounded-lg">
                   <!-- Card body -->
                   <div class="card-body">
 
@@ -61,7 +61,7 @@
       <!-- Col sm 6, col md 6, col lg 3 -->
       <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.reportD')}}">
           <!-- Card -->
-          <div class="card border-0 rounded-lg">
+          <div class="card border-1 rounded-lg">
               <!-- Card body -->
               <div class="card-body">
 
@@ -84,7 +84,7 @@
 
       <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{route('user.admin.harta.reportG')}}">
           <!-- Card -->
-          <div class="card border-0 rounded-lg">
+          <div class="card border-1 rounded-lg">
               <!-- Card body -->
               <div class="card-body">
 

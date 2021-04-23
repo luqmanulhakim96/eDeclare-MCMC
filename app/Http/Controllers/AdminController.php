@@ -57,40 +57,24 @@ class AdminController extends Controller
 {
     //
     public function adminDashboard(){
-      // $user = UserExistingStaffInfo::first();
-      // $user = UserExistingStaff::first();
-      //
-      // $userldap = Adldap::search()->users()->find('siti rafidah'); //active directory testing
-      // dd($userldap);
 
-      // $username = strtoupper(Auth::user()->name);
-      // dd($username);
-      // $user = UserExistingStaff::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD')->get();
-      // $user = UserExistingStaffInfo::where('STAFFNAME','SITI RAFIDAH BINTI AHMAD FUAD')->get();
-      // dd($user);
-
-    // $adan= json_decode(Auth::user()->layouts->layout);
-    // dd($adan);
-  //   foreach($adan as $route){
-  //   dd($route);
-  // }
       $listB = FormB::where('status','Sedang Diproses')->get();
       $attendance = FormB::with('formbs')->get();
       $listHadiah = Gift::where('status','Diproses ke Pentadbir Sistem')->get();
       $attendance = Gift::with('gifts')->get();
 
-      $list = FormB::count();
-      $listC = FormC::count();
-      $listD = FormD::count();
-      $listG = FormG::count();
+      $list = FormB::where('status','!=','Disimpan ke Draf')->count();
+      $listC = FormC::where('status','!=','Disimpan ke Draf')->count();
+      $listD = FormD::where('status','!=','Disimpan ke Draf')->count();
+      $listG = FormG::where('status','!=','Disimpan ke Draf')->count();
 
       $listBDiterima = FormB::where('status','Diterima')->count();
       $listCDiterima = FormC::where('status','Diterima')->count();
       $listDDiterima = FormD::where('status','Diterima')->count();
       $listGDiterima = FormG::where('status','Diterima')->count();
 
-      $listHadiahA = Gift::where('status','Diterima')->count();
-      $listHadiahB = GiftB::where('status','Diterima')->count();
+      $listHadiahA = Gift::where('status','!=','Disimpan ke Draf')->count();
+      $listHadiahB = GiftB::where('status','!=','Disimpan ke Draf')->count();
       $nilaiHadiah = NilaiHadiah::first();
 
       $pegawai_dah_declare_Bs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id)"));
@@ -1322,19 +1306,71 @@ class AdminController extends Controller
            return redirect()->route('user.admin.notification');
          }
 
-
          public function listAllUserDeclaration(){
-           $alluser = User::get();
-           // dd($alluser);
+           return view('user.admin.senarai_user_declaration');
+         }
 
-           foreach ($alluser as $user) {
-             // $nostaff = UserExistingStaff::where('STAFFNAME',$user->name)->get();
-             $nostaff = UserExistingStaff::where('STAFFNAME','LIKE', strtoupper($user->name).'%')->get();
+         public function listAllUserDeclarationAjax(Request $request){
 
-             // dd($nostaff);
+           $draw = $request->get('draw');
+           $start = $request->get("start");
+           $rowperpage = $request->get("length"); // Rows display per page
+
+           $columnIndex_arr = $request->get('order');
+           $columnName_arr = $request->get('columns');
+           $order_arr = $request->get('order');
+           $search_arr = $request->get('search');
+
+           $columnIndex = $columnIndex_arr[0]['column']; // Column index
+           $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+           $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+           $searchValue = $search_arr['value']; // Search value
+
+           // Total records
+           $totalRecords = User::select('count(*) as allcount')->count();
+           $totalRecordswithFilter = User::select('count(*) as allcount')->where('name', 'like', '%' .$searchValue . '%')->count();
+
+           $records = User::orderBy($columnName,$columnSortOrder)
+            ->where('users.name', 'like', '%' .$searchValue . '%')
+            ->select('users.*')
+            ->skip($start)
+            ->take($rowperpage)
+            ->get();
+
+            $data_arr = array();
+            $sno = $start+1;
+
+            foreach($records as $record){
+                $id = $record->id;
+                $name = $record->name;
+                $link = route('user.admin.senaraiallharta1', $record->id);
+
+                $data_arr[] = array(
+                    "id" => $id,
+                    "name" => $name,
+                    "link" => $link,
+                );
             }
 
-           return view('user.admin.senarai_user_declaration', compact('alluser','nostaff'));
+            $response = array(
+                "draw" => intval($draw),
+                "iTotalRecords" => $totalRecords,
+                "iTotalDisplayRecords" => $totalRecordswithFilter,
+                "aaData" => $data_arr
+            );
+
+            echo json_encode($response);
+            exit;
+
+           // $alluser = User::paginate(10);
+           // // dd($alluser);
+           //
+           // foreach ($alluser as $user) {
+           //   // $nostaff = UserExistingStaff::where('STAFFNAME',$user->name)->get();
+           //   $nostaff = UserExistingStaff::where('STAFFNAME','LIKE', strtoupper($user->name).'%')->get();
+           //
+           //   // dd($nostaff);
+           //  }
          }
 
          public function senaraiAllUserForm($id){
@@ -1353,6 +1389,36 @@ class AdminController extends Controller
            $merged = $merged->mergeRecursive($listallG)->sortBy('status');
 
            return view('user.admin.senaraiallharta1', compact('merged'));
+         }
+
+         public function kemaskiniHarta(Request $request,$id){
+           // dd($request->all());
+           $harta=HartaB::find($id);
+           $harta->jenis_harta = $request->jenis_harta;
+           $harta->save();
+
+           return redirect()->back()->with("success","Berjaya Kemaskini Jenis Harta");
+
+         }
+
+         public function kemaskiniHadiahA(Request $request,$id){
+           // dd($request->all());
+           $gifts=Gift::find($id);
+           $gifts->jenis_gift = $request->jenis_gift;
+           $gifts->save();
+
+           return redirect()->back()->with("success","Berjaya Kemaskini Jenis Hadiah");
+
+         }
+
+         public function kemaskiniHadiahB(Request $request,$id){
+           // dd($request->all());
+           $gifts=GiftB::find($id);
+           $gifts->jenis_gift = $request->jenis_gift;
+           $gifts->save();
+
+           return redirect()->back()->with("success","Berjaya Kemaskini Jenis Hadiah");
+
          }
 
 

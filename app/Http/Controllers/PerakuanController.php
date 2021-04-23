@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Asset;
 use DB;
 use Auth;
+use Session;
+use App\FormB;
 use App\UserExistingStaffInfo;
+use Illuminate\Support\Facades\Redirect;
 
 class PerakuanController extends Controller
 {
@@ -15,7 +18,16 @@ class PerakuanController extends Controller
     public function perakuanBaru(){
       $username =Auth::user()->username;
       $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
-      return view('user.perakuanharta.formA',compact('staffinfo'));
+      $userid = Auth::user()->id;
+      $data_user = FormB::where('user_id', $userid)->get();
+
+      if($data_user->isEmpty()){
+        Session::flash('message', "Lampiran A tidak tersedia kerana masih tiada harta yang telah diisytihar di dalam sistem.");
+        return Redirect::back();
+      }
+      else {
+        return view('user.perakuanharta.formA',compact('staffinfo'));
+      }
   }
 
   public function add(array $data){

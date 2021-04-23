@@ -17,6 +17,7 @@ use App\UserExistingStaff;
 use App\UserExistingStaffInfo;
 use App\UserExistingStaffNextofKin;
 use Carbon\Carbon;
+use App\Duration;
 
 use PDF;
 
@@ -671,8 +672,10 @@ public function add(array $data){
        $this->dispatch(new SendNotificationFormB($data, $email, $formbs));
        // dd($data);
 
+       $table = Duration::first();
+       // dd($table->duration);
        // $this->dispatch(new SendEmailNotification($data)->delay(Carbon::now()->addSeconds(5)));
-       $emailJob = (new SendEmailNotification($data))->delay(Carbon::now()->addYears(5));
+       $emailJob = (new SendEmailNotification($data))->delay(Carbon::now()->addDays($table->duration));
        dispatch($emailJob);
      }
      return redirect()->route('user.harta.FormB.senaraihartaB');

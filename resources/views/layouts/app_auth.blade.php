@@ -10,16 +10,24 @@
     <title>{{ config('app.name', 'MCMC - Asset & Gift System') }}</title>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+    <!-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> -->
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('qbadminui/css/main.css') }}">
+
     <link rel="stylesheet" href="{{ asset('qbadminui/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('qbadminui/css/vendor/bootstrap-4.3.1/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('qbadminui/css/main.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&display=swap');
+    html {
+      font-size: 1em;
+      line-height: 1.4;
 
+      font-family: 'Poppins', sans-serif;
+    }
     </style>
 </head>
 <body class="position-relative">
@@ -29,7 +37,7 @@
           <img style="width:100%;" src="{{ asset('qbadminui/img/MCMC.png') }}" alt="bran_name" class="brand-img" >
         </div>
         <div class="col-md-10"  style="padding-top:2%;">
-          <a href="{{ route('menu-utama') }}" class="font-weight-bold" style="font-size: 1.75rem;  color: #000000 !important;">Sistem Perisytiharan Harta & Hadiah</a>
+          <!-- <a href="{{ route('menu-utama') }}" class="font-weight-bold" style="font-size: 1.75rem;  color: #000000 !important;">Sistem Perisytiharan Harta & Hadiah</a> -->
         </div>
       </div>
       <br>
@@ -40,7 +48,8 @@
       </div>
       <div class="row">
         <div class="col-md-12"  style="background:#ebd702;text-align:left;">
-          <h4 style="color:#ffff;padding-left:2%;">SELAMAT DATANG</h4>
+          <span style="color:#ebd702;">- </span>
+          <!-- <h4 style="color:#ffff;padding-left:2%;">SELAMAT DATANG</h4> -->
         </div>
       </div>
 
@@ -49,7 +58,7 @@
 
     <footer style="bottom:0 !important; position:fixed !important;">
       <div class="row">
-        <div class="col-md-12" style="text-align:center;"><a href="" target="_Blank" ><font color="white">MALAYSIAN COMMUNICATIONS AND MULTIMEDIA COMMISION</font></a></div>
+        <div class="col-md-12" style="text-align:center;"><a href="" target="_Blank" ><font color="white">MALAYSIAN COMMUNICATIONS AND MULTIMEDIA COMMISSION</font></a></div>
         <!-- <div class="col-md-2"><font color="white">Version 1.0.0</font></div> -->
       </div>
     </footer>

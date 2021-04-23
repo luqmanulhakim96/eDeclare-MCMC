@@ -469,11 +469,18 @@
                                               <th width="5%">Bilangan / Ekar / kaki Persegi / Unit</th>
                                               <th width="5%">Nilai Perolehan Harta (RM)</th>
                                               <th width="5%">Cara Perolehan Harta</th>
+                                              <th width="5%">Tindakan</th>
+
 
                                               @foreach($hartaB as $data)
                                               <tr>
+                                                <form action="{{route('userharta.update', $data ->id)}}" method="POST">
+                                                  @csrf
                                                 <td>{{ $data ->id }}</td>
-                                                <td>{{ $data ->jenis_harta }}</td>
+                                                <td>
+                                                  <input class="form-control" type="text" name="jenis_harta" value="{{ $data ->jenis_harta }}">
+                                                </td>
+                                                <!-- <td>{{ $data ->jenis_harta }}</td> -->
                                                 <td>{{ $data ->pemilik_harta }}</td>
                                                 <td>{{ $data ->hubungan_pemilik }}</td>
                                                 <td>{{ $data ->maklumat_harta }}</td>
@@ -481,8 +488,14 @@
                                                 <td>{{ $data ->bilangan}}</td>
                                                 <td>{{ $data ->nilai_perolehan}}</td>
                                                 <td>{{ $data ->cara_perolehan}}</td>
+                                                <td>
+                                                  <button class="btn btn-primary" type="submit">Kemaskini</button>
+                                                </td>
+                                                </form>
                                               </tr>
                                               @endforeach
+
+
                                             </table>
                                           </div>
                                       </div>

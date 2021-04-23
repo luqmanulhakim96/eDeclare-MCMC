@@ -48,10 +48,10 @@ class UserController extends Controller
       // $user = User::find(1);
       $nilai_hadiah = NilaiHadiah::first();
       $userid = Auth::user()->id;
-      $listB = FormB::where('user_id', $userid)->count();
-      $listC = FormC::where('user_id', $userid)->count();
-      $listD = FormD::where('user_id', $userid)->count();
-      $listG = FormG::where('user_id', $userid)->count();
+      $listB = FormB::where('user_id', $userid)->where('status','!=','Disimpan ke Draf')->count();
+      $listC = FormC::where('user_id', $userid)->where('status','!=','Disimpan ke Draf')->count();
+      $listD = FormD::where('user_id', $userid)->where('status','!=','Disimpan ke Draf')->count();
+      $listG = FormG::where('user_id', $userid)->where('status','!=','Disimpan ke Draf')->count();
       // dd($listHadiah);
       // dd($user);
       // dd($user[0]->name);

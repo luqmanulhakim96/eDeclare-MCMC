@@ -9,6 +9,7 @@ use App\SettingAuth;
 use App\UserExistingStaff;
 use App\UserExistingStaffInfo;
 use App\UserExistingStaffNextofKin;
+use App\Duration;
 
 use romanzipp\QueueMonitor\Models\Monitor;
 use Artisan;
@@ -141,15 +142,34 @@ class ItAdminController extends Controller
       }
 
       public function audit(){
-        // testing data get from mcmc databases
 
+        /* php artisan import user dari ldap */
+        \Artisan::call('adldap:import --no-interaction');
+
+        // testing data get from mcmc databases
         // $userldap = Adldap::search()->users()->find('SITI RAFIDAH AHMAD FUAD'); //active directory testing
-        // dd($userldap);
+        // $users = Adldap::search()->users()->get();
+        // dd($users);
+
+        // 'sync_attributes' => [
+        //     //insert data from ad to users table
+        //
+        //     'email' => 'mail',
+        //     'username' => 'samaccountname',
+        //     // 'samaccountname' => 'userprincipalname',
+        //     'title' => 'title',
+        //     'alamat_tempat_bertugas' => 'l',
+        //     'jawatan' => 'title',
+        //     'jabatan' => 'department',
+        //     'name' => 'cn',
+        //
+        // ],
+
         // $user = UserExistingStaffNextofKin::first();
         // $user = UserExistingStaffNextofKin::where('STAFFNO','522')->get();
         // $user = UserExistingStaffInfo::get()->groupBy('DESCRIPTION');
-        $user = UserExistingStaffInfo::where('USERNAME','NIKHUSNA')->get();
-        dd($user);
+        // $user = UserExistingStaffInfo::where('USERNAME','NIKHUSNA')->get();
+        // dd($user);
         // $user = UserExistingStaff::first();
         // dd($user);
 
@@ -240,6 +260,9 @@ class ItAdminController extends Controller
 
 
       public function SistemKonfigurasi(){
+        // $table = Duration::first();
+        // dd($table->duration);
+
         $test = Route::findOrFail(1);
         $admin = json_decode($test->layout);
 
@@ -248,7 +271,10 @@ class ItAdminController extends Controller
         // dd($admin);
         $route=Route::get();
         $auth = SettingAuth::first();
-        return view('user.it.sistemkonfigurasi',compact('route','admin','itadmin','auth'));
+
+        $duration = Duration::first();
+        // dd($duration);
+        return view('user.it.sistemkonfigurasi',compact('route','admin','itadmin','auth','duration'));
       }
 
       // public function addlayout(array $data){
@@ -425,4 +451,68 @@ class ItAdminController extends Controller
 
           return redirect()->route('user.it.sistemkonfigurasi');
         }
+
+      public function importuser(){
+        // dd('tes');
+        \Artisan::call('adldap:import --no-interaction'); //call php artisan adldap:import
+
+        $users = User::get();
+        foreach ($users as $user) {
+          $staffinfo = UserExistingStaffInfo::where('USERNAME', $user->username)->first();
+          if($staffinfo){
+            if($staffinfo->OLEVEL5NAME == "INTEGRITY AND EMPLOYEE RELATION"){
+              if($staffinfo->DESCRIPTION == "HEAD OF DEPARTMENT"){
+                $user->role =2;
+                $user->save();
+                // dd('HEAD OF DEPARTMENT');
+              }
+            }
+            else if($staffinfo->DESCRIPTION == "HEAD OF DIVISION"){
+              $user->role =3;
+              $user->save();
+              // dd('HEAD OF DIVISION');
+            }
+            else if($user->name == 'Siti Rafidah Ahmad Fuad')
+            {
+              $user->role = 4;
+              $user->save();
+            }
+            else {
+              $user->role =5;
+              $user->save();
+            }
+          }
+        }
+
+        return redirect()->back()->with('success','Operasi Berjaya!');
+      }
+
+      public function submitTempohNotifikasi(request $request){
+          $years = ($request->years ?? 0) * 365;
+          $month = ($request->months ?? 0) *30;
+          $days = $request->days ?? 0;
+          $duration = $years + $month + $days;
+
+          $table = Duration::first();
+          // dd($table);
+
+          if(!$table){
+            Duration::create([
+              'duration' => $duration,
+              'years' => $years,
+              'months' => $month,
+              'days' => $days,
+            ]);
+          }else {
+          // dd('update');
+
+          $table->days = $days;
+          $table->years = $years;
+          $table->months = $month;
+          $table->duration = $duration;
+
+          $table->save();
+        }
+        return redirect()->back();
+      }
 }

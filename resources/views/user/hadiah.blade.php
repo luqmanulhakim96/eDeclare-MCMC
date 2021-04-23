@@ -10,24 +10,37 @@
   <!-- Small card component -->
   <div class="small-cards mt-5 mb-4">
       <div class="row">
-        <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{ route('user.hadiah.giftB') }}">
+        <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0">
 
         </a>
-          <!-- Col sm 6, col md 6, col lg 3 -->
-          <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{ route('user.hadiah.gift') }}">
-          <!-- <div class="col-sm-6 col-md-6 col-lg-3 mt-3 mt-lg-0"> -->
-              <!-- Card -->
-              <div class="card border-0 rounded-lg">
-                  <!-- Card body -->
+        <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{ route('user.hadiah.gift') }}">
+        <div class="card rounded-lg">
+            <!-- Card body -->
+            <div class="card-body">
+
+                <div class="d-flex flex-row justify-content-center align-items-center">
+                    <!-- Icon -->
+                    <div class="small-card-icon">
+                       <p class="font-weight-normal m-0 text-muted" style="font-size:70%" >Lampiran A:<br> Hadiah Bernilai Lebih Dari RM {{ $nilai_hadiah->nilai_hadiah}}</p>
+                    </div>
+                    <!-- Text -->
+                    <div class="small-card-text w-100 text-center">
+                        <i><img src="{{ asset('qbadminui/img/prize_A icon.png') }}" alt="img"  width="50%"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </a>
+          <!-- <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{ route('user.hadiah.gift') }}">
+              <div class="card border-1 rounded-lg">
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
-                          <!-- Icon -->
                           <div class="small-card-icon" align="center">
                               <i><img src="{{ asset('qbadminui/img/prize_A icon.png') }}" alt="img" width="20%"></i>
                           </div>
                           <br>
-                          <!-- Text -->
                           <div class="small-card-text w-100 text-center">
                               <p class="font-weight-normal m-0 text-muted">Borang A:</p>
                               <p class="font-weight-normal m-0 text-primary"> HADIAH BERNILAI LEBIH DARIPADA RM {{ $nilai_hadiah->nilai_hadiah}}</p>
@@ -36,46 +49,49 @@
 
                   </div>
               </div>
-          <!-- </div> -->
-        </a>
+        </a> -->
 
-          <!-- Col sm 6, col md 6, col lg 3 -->
-          <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{ route('user.hadiah.giftB') }}">
-              <!-- Card -->
-              <div class="card border-0 rounded-lg">
-                  <!-- Card body -->
+        <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{ route('user.hadiah.giftB') }}">
+        <div class="card rounded-lg">
+            <!-- Card body -->
+            <div class="card-body">
+
+                <div class="d-flex flex-row justify-content-center align-items-center">
+                    <!-- Icon -->
+                    <div class="small-card-icon">
+                       <p class="font-weight-normal m-0 text-muted" style="font-size:70%" >Lampiran B:<br>Hadiah Bernilai RM {{ $nilai_hadiah->nilai_hadiah}} dan Ke Bawah</p>
+                    </div>
+                    <!-- Text -->
+                    <div class="small-card-text w-100 text-center">
+                        <i><img src="{{ asset('qbadminui/img/prize_A icon.png') }}" alt="img"  width="51%"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </a>
+          <!-- <a class="col-sm-6 col-md-6 col-lg-3 mt-4 mt-lg-0" href="{{ route('user.hadiah.giftB') }}">
+              <div class="card border-1 rounded-lg">
                   <div class="card-body">
 
                       <div class="d-flex flex-column justify-content-center align-items-center">
-                          <!-- Icon -->
                           <div class="small-card-icon" align="center">
                               <i><img src="{{ asset('qbadminui/img/prize_B icon.png') }}" alt="img" width="20%"></i>
                           </div>
                           <br>
-                          <!-- Text -->
                           <div class="small-card-text w-100 text-center">
                               <p class="font-weight-normal m-0 text-muted">Borang B:</p>
                               <p class="font-weight-normal m-0 text-primary"> HADIAH BERNILAI RM {{ $nilai_hadiah->nilai_hadiah}} DAN KE BAWAH</p>
                           </div>
                       </div>
-
                   </div>
               </div>
-          </a>
-
-          <!-- Col sm 6, col md 6, col lg 3 -->
-
-
+          </a> -->
       </div>
       <br>
       <div class="row">
-
-      <!-- Col sm 6, col md 6, col lg 3 -->
-      <div class="col-sm-8 col-md-8 col-lg-2 mt-2 mt-lg-0"></div>
-
-
-
-  </div>
+        <div class="col-sm-8 col-md-8 col-lg-2 mt-2 mt-lg-0"></div>
+      </div>
   </div>
   <div class="row mt-10">
           <!-- Col md 6 -->
@@ -210,7 +226,7 @@
                                           </div>
                                           @endif
                                           <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                          <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                                           </div>
 
                                       </div>

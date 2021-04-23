@@ -84,6 +84,5 @@ class User extends Authenticatable implements Auditable
 
     public function layouts(){
       return $this->belongsTo('App\Route', 'route_id');
-
     }
 }

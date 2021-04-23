@@ -13,6 +13,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ asset('qbadminui/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('qbadminui/css/vendor/bootstrap-4.3.1/bootstrap.min.css') }}">
@@ -26,6 +27,9 @@
     <meta name="theme-color" content="#fafafa">
 
     <style>
+
+
+
     .required:after {
     content:" *";
     color: red;
@@ -67,7 +71,7 @@
     <div class="container-fluid px-0" style="padding:5%;">
         <!-- The side bar -->
         <!-- <div class="side-bar side-bar-lg" data-theme="purple"> -->
-        <div class="side-bar side-bar-lg">
+        <div class="side-bar side-bar-lg-active">
           <div class="nav-left-sidebar sidebar-dark">
           <div class="menu-list">
               <nav class="navbar navbar-expand-lg navbar-light">
@@ -258,6 +262,20 @@
                                   @break
                                 @endif
                               @endfor
+                              <li class="nav-item">
+                                  <a class="nav-link text-secondary-side" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-report" aria-controls="submenu-report"><i class="fas fa-dot-circle"></i> Laporan</a>
+                                  <div id="submenu-report" class="collapse submenu" style="padding-left:15%;">
+                                      <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-secondary-side"  href="{{ route('user.admin.harta.senarailaporanharta') }}"><i class="fas fa-chevron-right"></i>  Harta </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-secondary-side" href="{{ route('user.admin.hadiah.report') }}"><i class="fas fa-chevron-right"></i>  Hadiah </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
 
                               @endif
                               @if(Auth::user()->role == 2)
@@ -445,9 +463,9 @@
                                       <a class="nav-link text-secondary-side" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-kawalan" aria-controls="submenu-kawalan"><i class="fas fa-dot-circle"></i> Kawalan Sistem</a>
                                       <div id="submenu-kawalan" class="collapse submenu" style="padding-left:15%;">
                                           <ul class="nav flex-column">
-                                                <li class="nav-item">
+                                                <!-- <li class="nav-item">
                                                     <a class="nav-link text-secondary-side"  href="{{ route('user.it.backup') }}"><i class="fas fa-chevron-right"></i> Pemulihan dan Sokongan Sistem</a>
-                                                </li>
+                                                </li> -->
                                                 <li class="nav-item">
                                                     <a class="nav-link text-secondary-side"  href="{{ route('user.it.errorlog') }}"><i class="fas fa-chevron-right"></i> Ralat dan Sistem Log</a>
                                                 </li>
@@ -517,7 +535,7 @@
       </div>
     </div>
         <!-- Main section -->
-        <main class="main-full-body" style="background-color:#ffffff;width: 100% !important;padding-top: 2% ;padding-left: 5%;padding-right: 5%;">
+        <main class="main-full-body" style="background-color:#ffffff;padding-top: 2% ;padding-left: 5%;padding-right: 5%;">
 
             <!-- Theme changer -->
             <!-- <div class="theme-option p-4">
@@ -600,56 +618,7 @@
                     </form>
                 </div> -->
                 <!-- Navbar right menu section -->
-                <div class="navb-menu ml-auto d-flex flex-row">
-                    <!-- Message dropdown -->
-                    <div class="dropdown dropdown-arow-none d-contents text-center mx-2 pt-1">
-                        <!-- Icon -->
-                        <a href="#" class="w-100 dropdown-toggle text-muted position-relative" data-toggle="dropdown">
-                            <!-- Message -->
-                            <!-- <i class="far fa-envelope fa-2x"></i> -->
-                            <!-- <span class="badge badge-danger position-absolute notification-badge">3</span> -->
-                        </a>
-                        <!-- Dropdown menu -->
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-max-height p-0">
-                            <!-- Dropdown item -->
-                            <a href="#" class="dropdown-item text-secondary-light p-0">
-                                <div class="d-flex flex-row border-bottom">
-                                    <!-- Profile image -->
-                                    <div class="notification-icon bg-secondary-c pt-3"><img src="{{ asset('qbadminui/img/profile.jpg') }}" alt="img" class="w-75 img-round"></div>
-                                    <!-- Message notification -->
-                                    <div class="flex-grow-1 px-3 py-3">
-                                        <p class="mb-0">James <span class="badge badge-pill badge-primary">1</span></p>
-                                        <small>James : Hey! Are you busy?</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <!-- Dropdown item -->
-                            <a href="#" class="dropdown-item text-secondary-light p-0">
-                                <div class="d-flex flex-row border-bottom">
-                                    <!-- Profile image -->
-                                    <div class="notification-icon bg-secondary-c pt-3"><img src="{{ asset('qbadminui/img/profile.jpg') }}" alt="img" class="w-75 img-round"></div>
-                                    <!-- Message notification -->
-                                    <div class="flex-grow-1 px-3 py-3">
-                                        <p class="mb-0">Jhone <span class="badge badge-pill badge-primary">1</span></p>
-                                        <small>Jhone : Hey! I need help.</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <!-- Dropdown item -->
-                            <a href="#" class="dropdown-item text-secondary-light p-0">
-                                <div class="d-flex flex-row border-bottom">
-                                    <!-- Profile image -->
-                                    <div class="notification-icon bg-secondary-c pt-3"><img src="{{ asset('qbadminui/img/profile.jpg') }}" alt="img" class="w-75 img-round"></div>
-                                    <!-- Message notification -->
-                                    <div class="flex-grow-1 px-3 py-3">
-                                        <p class="mb-0">Mariam <span class="badge badge-pill badge-primary">1</span></p>
-                                        <small>Mariam : information</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
+                <div class="navb-menu ml-auto d-flex flex-row" style="width:9%;">
                     <!-- Notification dropdown -->
                     <div class="dropdown dropdown-arow-none d-contents text-center mx-2 pt-1">
                         <!-- icon -->
@@ -684,7 +653,13 @@
                     <!-- Profile action dropdown -->
                     <div class="dropdown dropdown-arow-none d-contents text-center mx-2">
                         <!-- Icon -->
-                        <a href="#" class="w-100 dropdown-toggle text-muted" data-toggle="dropdown"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcScbyaC694UuDqfOSQEwPZrKBXESLtdOn74Iw&usqp=CAU" alt="profile" class="profile-avatar"></a>
+                        <a href="#" class="w-100 dropdown-toggle text-muted" data-toggle="dropdown"><img  class="profile-avatar"
+                          @if($thumbnailphoto)
+                          src="data:image/jpeg;base64,{{ base64_encode($thumbnailphoto)}}"
+                          @else
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcScbyaC694UuDqfOSQEwPZrKBXESLtdOn74Iw&usqp=CAU"
+                          @endif
+                          /></a>
                         <!-- Dropdown Menu -->
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-max-height">
                             <!-- Menu items -->
@@ -706,14 +681,15 @@
 
     @yield('content')
 
-    <!-- Footer section -->
-    <footer style="margin-left: -5%;">
-      <div class="row">
-        <div class="col-md-12" style="text-align:center;"><a href="" target="_Blank" ><font color="white">MALAYSIAN COMMUNICATIONS AND MULTIMEDIA COMMISION</font></a></div>
-        <!-- <div class="col-md-2"><font color="white">Version 1.0.0</font></div> -->
-      </div>
-    </footer>
+
   </div>
+  <!-- Footer section -->
+  <!-- <footer> -->
+    <!-- <div class="row"> -->
+      <!-- <div class="col-md" style="text-align:center;"><a href="" target="_Blank" ><font color="white">MALAYSIAN COMMUNICATIONS AND MULTIMEDIA COMMISSION</font></a></div> -->
+      <!-- <div class="col-md-2"><font color="white">Version 1.0.0</font></div> -->
+    <!-- </div> -->
+  <!-- </footer> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script> -->
 

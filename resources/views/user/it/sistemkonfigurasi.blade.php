@@ -14,10 +14,10 @@
                                             <li class="nav-item">
                                              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tetapan Log Masuk</a>
                                             </li>
-                                            <!--
+
                                             <li class="nav-item">
-                                            <a class="nav-link" id="jenisharta-tab" data-toggle="tab" href="#jenisharta" role="tab" aria-controls="jenisharta" aria-selected="false">Tetapan Jenis Harta</a>
-                                            </li> -->
+                                            <a class="nav-link" id="jenisharta-tab" data-toggle="tab" href="#jenisharta" role="tab" aria-controls="jenisharta" aria-selected="false">Tetapan Tempoh Notifikasi</a>
+                                            </li>
                                         </ul>
 
                                         <!-- Tab panes -->
@@ -112,28 +112,38 @@
                                             </div>
                                           </div>
                                       </div>
-                                      <!--
+
                                       <div class="tab-pane" id="jenisharta" role="tabpanel" aria-labelledby="jenisharta-tab">
                                         <div class="page-body p-4 text-dark">
                                           <div class="col mt-10">
                                             <br>
                                             <div class="col-md-12">
-                                                <p>Tambah Jenis Harta</p>
+                                                <p>Sila setkan tempoh masa notifikasi yang akan dihantar ke setiap pengguna.</p>
                                             </div>
-                                            <div class="col-md-4">
-                                              <form action="{{route('jenisharta.submit')}}" method="POST">
+
+                                              <form action="{{route('duration.submit')}}" method="POST">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control bg-light" name="jenis_harta" placeholder="Jenis Harta ">
-                                                    <br>
-                                                    <button type="submit" class="btn btn-ripple btn-raised btn-info m-2">Tambah</button>
+                                                  <div class="row">
+                                                  <div class="col-md-2">
+                                                    <label for="years">Tahun</label>
+                                                    <input type="text" class="form-control bg-light" name="years" placeholder="Tahun" value="{{ $duration->years/365 }}">
+                                                  </div>
+                                                  <div class="col-md-2">
+                                                    <label for="months">Bulan</label>
+                                                    <input type="text" class="form-control bg-light" name="months" placeholder="Bulan" value="{{ $duration->months/30 }}">
+                                                  </div>
+                                                  <div class="col-md-2">
+                                                    <label for="days">Hari</label>
+                                                    <input type="text" class="form-control bg-light" name="days" placeholder="Hari" value="{{ $duration->days }}">
+                                                  </div>
+                                                  <button type="submit" class="btn btn-ripple btn-raised btn-info m-3">Set</button>
+                                                </div>
                                                 </div>
                                               </form>
                                             </div>
-
-                                            </div>
                                           </div>
-                                      </div> -->
+                                      </div>
                                   </div>
                               </div>
                             </div>

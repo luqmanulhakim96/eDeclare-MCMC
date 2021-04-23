@@ -20,18 +20,9 @@
                                                <!-- <th width="10%"><p class="mb-0">ID</p></th> -->
                                                <th width="10%"><p class="mb-0">ID</p></th>
                                                <th><p class="mb-0">Nama</p></th>
+                                               <th><p class="mb-0">Link</p></th>
                                            </tr>
                                        </thead>
-                                       <tbody align="center">
-                                         @foreach($alluser as $data)
-                                           <tr>
-                                               <td>{{ $data ->id }}</td>
-                                               <td><a href="{{route('user.admin.senaraiallharta1', $data->id)}} " >{{ $data ->name }}</a></td>
-                                          </tr>
-                                          @endforeach
-                                           <!-- Table data -->
-
-                                       </tbody>
                                    </table>
 
                                </div>
@@ -52,6 +43,28 @@
                  var groupColumn = 1;
                  var table = $('#example').DataTable({
                       dom: 'Bfrtip',
+                      processing: true,
+                      serverSide: true,
+                      ajax: "{{route('user.admin.senarai_user_declaration.ajax')}}",
+                      columns: [
+                         { data: 'id' },
+                         { data: 'name',
+                              "render": function(data, type, row, meta){
+                              if(type === 'display'){
+                                  data = '<a href="' + row.link + '">' + data + '</a>';
+                              }
+                              return data;
+                            }
+                         },
+                         { data: 'link' }
+                      ],
+                      columnDefs: [
+                          {
+                              "targets": [ 2 ],
+                              "visible": false,
+                              "searchable": false
+                          },
+                      ],
                       buttons: [
                       $.extend( true, {}, buttonCommon, {
                           extend: 'copyHtml5'
