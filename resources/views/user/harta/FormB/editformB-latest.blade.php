@@ -822,7 +822,7 @@
                                       <td><p class="mb-0 " style="text-align: center;" id="nilai_perolehan_table{{$data->id}}">{{$data->nilai_perolehan}}</p></td>
                                       <!-- <td><a href="{{route('hartaB.delete',$data->id)}}"><i class="fas fa-trash-alt"></i></td> -->
                                       <td>
-                                        <a class="btn btn-success mr-1" onClick="clearData({{$data->id}});updateData({{$data->id}});"><i class="fa fa-pencil-alt" ></i></a>
+                                        <a class="btn btn-success mr-1" id="editHarta{{$data->id}}" onClick="clearData({{$data->id}});updateData({{$data->id}});"><i class="fa fa-pencil-alt" ></i></a>
                                         <a class="btn btn-danger mr-1" onClick="removeJumlahPinjaman({{$data->id}});removeData(this,'{{$data->id}}'); return false;"><i class="fa fa-trash" ></i></a>
                                       </td>
                                   </tr>
@@ -1570,7 +1570,7 @@
                         <input type="checkbox" name="pengakuan" value="pengakuan pegawai" >
                       </div>
                       <div class="col-md-11">
-                          <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
+                          <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang palsu atau meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC.</b></label><br>
                       </div>
                       @error('pengakuan')
                          <div class="alert alert-danger">{{ $message }}</div>
@@ -1762,7 +1762,8 @@
            <script>
            function DataUpdate(e){
              console.log(e)
-
+             @foreach($hartaB as $data)
+             if({{$data->id}} == e){
              // update table
                document.getElementById("jenis_harta_table"+e).value = document.getElementById("jenis_harta1").value;
                document.getElementById("pemilik_harta_table"+e).innerHTML  = document.getElementById("pemilik_harta1").value;
@@ -1803,7 +1804,9 @@
                 }
             }
 
-           }
+          }
+        }
+        @endforeach
            </script>
 
 
@@ -2409,5 +2412,15 @@
               }
             }
         </script>
+        @foreach($hartaB as $data)
+        <script type="text/javascript">
+          $("#editHarta{{$data->id}}").click(function() {
+              $('html, body').animate({
+                  scrollTop: $("#harta_container").offset().top
+              }, 2000);
+          });
+        </script>
+        @endforeach
+
 
 @endsection

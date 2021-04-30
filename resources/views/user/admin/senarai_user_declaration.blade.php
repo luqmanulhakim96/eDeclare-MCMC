@@ -75,7 +75,22 @@
                       $.extend( true, {}, buttonCommon, {
                           extend: 'pdfHtml5'
                       } )
-                  ]
+                  ],
+                  "language": {
+                      "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
+                      "zeroRecords": "Maaf, tiada rekod.",
+                      "info": "Memaparkan halaman _PAGE_ daripada _PAGES_",
+                      "infoEmpty": "Tidak ada rekod yang tersedia",
+                      "infoFiltered": "(Ditapis dari _MAX_ jumlah rekod)",
+                      "search": "Carian",
+                      "previous": "Sebelum",
+                      "paginate": {
+                          "first":      "Pertama",
+                          "last":       "Terakhir",
+                          "next":       "Seterusnya",
+                          "previous":   "Sebelumnya"
+                      },
+                  },
                   } );
               } );
               </script>

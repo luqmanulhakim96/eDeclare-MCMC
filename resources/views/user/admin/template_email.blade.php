@@ -22,7 +22,7 @@
                               </div>
                               <div class="row">
                                 <div class="col-md-6">
-                                  <select id="jenis" class="custom-select  bg-light" name="jenis" value="{{ old('jenis')}}" required>
+                                  <select id="jenis" class="custom-select  bg-light" name="jenis" value="{{ old('jenis')}}" onchange="gettype(this);" required>
                                       <option value="" selected disabled hidden>Pilih Jenis Templat</option>
                                       <option value="Perisytiharan Harta Baharu">Perisytiharan Harta Baharu</option>
                                       <option value="Perisytiharan Hadiah Baharu">Perisytiharan Hadiah Baharu</option>
@@ -39,16 +39,18 @@
                                       </select>
                                 </div>
                                 <div class="col-md-6">
-                                  <select id="penerima" class="custom-select  bg-light" name="penerima" value="{{ old('penerima')}}" required>
+
+                                  <input type="text" id="penerima" class="form-control bg-light" name="penerima" value="{{ old('penerima')}}" style="display: none;" readonly>
+                                  <select id="select_penerima" class="custom-select  bg-light" name="penerima" value="{{ old('penerima')}}" style="display: block;" >
                                       <option value="" selected disabled hidden>Pilih Penerima</option>
                                       <option value="Pentadbir Sistem">Pentadbir Sistem</option>
                                       <option value="Ketua Jabatan Integriti">Ketua Jabatan Integriti</option>
                                       <option value="Ketua Bahagian">Ketua Bahagian</option>
-                                      <option value="Pengguna">Pengguna</option>
-                                      </select>
+                                  </select>
                                 </div>
                               </div>
                               <br>
+
                               <div class="row">
                                 <div class="col-md-6">
                                   <p>Subjek</p>
@@ -93,6 +95,70 @@
               // width: 794,
               height: 700,
           });
+        </script>
+        <script type="text/javascript">
+        function gettype(sel)
+        {
+          // alert(sel.value);
+          if(sel.value == "Perisytiharan Harta Baharu"){
+            document.getElementById("select_penerima").style.display ="block";
+            document.getElementById("penerima").style.display ="none";
+          }
+          else if(sel.value == "Perisytiharan Hadiah Baharu"){
+            document.getElementById("select_penerima").style.display ="block";
+            document.getElementById("penerima").style.display ="none";
+          }
+          else if(sel.value == "Perisytiharan Tidak Lengkap (Harta)"){
+            document.getElementById("penerima").style.display ="block";
+            document.getElementById("select_penerima").style.display ="none";
+            document.getElementById("penerima").value = "Pengguna";
+          }
+          else if(sel.value == "Perisytiharan Tidak Lengkap (Hadiah)"){
+            document.getElementById("penerima").style.display ="block";
+            document.getElementById("select_penerima").style.display ="none";
+            document.getElementById("penerima").value = "Pengguna";
+          }
+          else if(sel.value == "Proses ke Ketua Jabatan Integriti (Harta)"){
+            document.getElementById("penerima").style.display ="block";
+            document.getElementById("select_penerima").style.display ="none";
+            document.getElementById("penerima").value = "Ketua Jabatan Integriti";
+          }
+          else if(sel.value == "Proses ke Ketua Jabatan Integriti (Hadiah)"){
+            document.getElementById("penerima").style.display ="block";
+            document.getElementById("select_penerima").style.display ="none";
+            document.getElementById("penerima").value = "Ketua Jabatan Integriti";
+          }
+          else if(sel.value == "Proses ke Ketua Bahagian (Harta)"){
+            document.getElementById("penerima").style.display ="block";
+            document.getElementById("select_penerima").style.display ="none";
+            document.getElementById("penerima").value = "Ketua Bahagian";
+          }
+          else if(sel.value == "Proses ke Ketua Bahagian (Hadiah)"){
+            document.getElementById("penerima").style.display ="block";
+            document.getElementById("select_penerima").style.display ="none";
+            document.getElementById("penerima").value = "Ketua Bahagian";
+          }
+          else if(sel.value == "Perisytiharan Harta Diterima"){
+            document.getElementById("penerima").style.display ="block";
+            document.getElementById("select_penerima").style.display ="none";
+            document.getElementById("penerima").value = "Pengguna";
+          }
+          else if(sel.value == "Perisytiharan Harta Gagal"){
+            document.getElementById("penerima").style.display ="block";
+            document.getElementById("select_penerima").style.display ="none";
+            document.getElementById("penerima").value = "Pengguna";
+          }
+          else if(sel.value == "Perisytiharan Hadiah Diterima"){
+            document.getElementById("penerima").style.display ="block";
+            document.getElementById("select_penerima").style.display ="none";
+            document.getElementById("penerima").value = "Pengguna";
+          }
+          else if(sel.value == "Perisytiharan Hadiah Gagal"){
+            document.getElementById("penerima").style.display ="block";
+            document.getElementById("select_penerima").style.display ="none";
+            document.getElementById("penerima").value = "Pengguna";
+          }
+        }
         </script>
 
 @endsection

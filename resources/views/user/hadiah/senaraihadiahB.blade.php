@@ -32,7 +32,7 @@
                                   <th class="all" width="30%"><p class="all">Nama Pemberi</p></th>
                                   <th class="all" width="30%"><p class="all">Alamat Pemberi</p></th>
                                   <th class="all" width="30%"><p>Hubungan Pemberi</p></th>
-                                  <th class="all" width="70%"><p class="all">Gambar Hadiah</p></th>
+                                  <th class="all" width="70%"><p class="all">Lampiran Hadiah</p></th>
                                   <th class="all" width="30%"><p>Status Penerimaan Hadiah</p></th>
                                   <th class="all" width="30%"><p>Catatan</p></th>
                                   <th class="all" width="30%"><p>Tindakan</p></th>
@@ -176,19 +176,69 @@
         },
       };
       var groupColumn = 1;
+      var tableTitle = $('.card-title').html();
       var table = $('#example').DataTable({
            dom: 'Bfrtip',
-           buttons: [
-           $.extend( true, {}, buttonCommon, {
-               extend: 'copyHtml5'
-           } ),
-           $.extend( true, {}, buttonCommon, {
-               extend: 'excelHtml5'
-           } ),
-           $.extend( true, {}, buttonCommon, {
-               extend: 'pdfHtml5'
-           } )
-       ]
+           "buttons": [
+               {
+                   extend: 'excel',
+                   orientation: 'landscape',
+                   pageSize: 'A4',
+                   title: tableTitle,
+               },
+               {
+                   extend: 'pdfHtml5',
+                   orientation: 'landscape',
+                   pageSize: 'A4',
+                   title: tableTitle,
+               },
+               {
+                   extend: 'print',
+                   text: 'Cetak',
+                   pageSize: 'LEGAL',
+                   title: tableTitle,
+                   customize: function(win)
+                   {
+
+                       var last = null;
+                       var current = null;
+                       var bod = [];
+
+                       var css = '@page { size: landscape; }',
+                           head = win.document.head || win.document.getElementsByTagName('head')[0],
+                           style = win.document.createElement('style');
+
+                       style.type = 'text/css';
+                       style.media = 'print';
+
+                       if (style.styleSheet)
+                       {
+                         style.styleSheet.cssText = css;
+                       }
+                       else
+                       {
+                         style.appendChild(win.document.createTextNode(css));
+                       }
+
+                       head.appendChild(style);
+                },
+               },
+           ],
+       "language": {
+           "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
+           "zeroRecords": "Maaf, tiada rekod.",
+           "info": "Memaparkan halaman _PAGE_ daripada _PAGES_",
+           "infoEmpty": "Tidak ada rekod yang tersedia",
+           "infoFiltered": "(Ditapis dari _MAX_ jumlah rekod)",
+           "search": "Carian",
+           "previous": "Sebelum",
+           "paginate": {
+               "first":      "Pertama",
+               "last":       "Terakhir",
+               "next":       "Seterusnya",
+               "previous":   "Sebelumnya"
+           },
+       },
        } );
    } );
    </script>

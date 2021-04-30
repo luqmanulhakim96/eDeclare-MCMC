@@ -462,7 +462,7 @@
 
                           </div>
                           <br>
-                          
+
                           <div class="row">
                             <div class="col-md-4">
                               <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
@@ -1166,7 +1166,7 @@
                         <input type="checkbox" name="pengakuan" value="pengakuan pegawai" >
                       </div>
                       <div class="col-md-11">
-                          <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</b></label><br>
+                          <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang palsu atau meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC.</b></label><br>
                       </div>
                       @error('pengakuan')
                          <div class="alert alert-danger">{{ $message }}</div>

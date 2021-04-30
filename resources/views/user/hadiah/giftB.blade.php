@@ -222,12 +222,12 @@
                               <!--upload gambar hadiah-->
                               <div class="row">
                                  <div class="col-md-6">
-                                     <p class="required"><b>3. GAMBAR HADIAH YANG DITERIMA</b></p>
+                                     <p class="required"><b>3. LAMPIRAN HADIAH YANG DITERIMA</b></p>
                                  </div>
                               </div>
                               <div class="row">
                                  <div class="col-md-4">
-                                   <label for="dokumen_syarikat">Sila lampirkan gambar hadiah yang diterima:</label>
+                                   <label for="dokumen_syarikat">Sila lampirkan gambar/dokumen mengenai hadiah yang diterima:</label>
                                       <input type="file" class="form-control bg-light" id="gambar_hadiah" name="gambar_hadiah" aria-describedby="dokumen_syarikat"  >
                                         <small id="saiz_data" class="form-text text-secondary">Muat naik fail tidak melebihi 120MB</small>
                                  </div>
@@ -244,7 +244,7 @@
                                     <input type="checkbox" name="pengakuan" value="pengakuan_pegawai" ></div>
                                     <div class="col-md-11">
                                     <label for="pengakuan"> Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar.
-                                       Sekiranya terdapat sebarang maklumat yang meragukan, perisytiharan saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</label><br>
+                                       Sekiranya terdapat sebarang maklumat yang palsu dan meragukan, perisytiharan saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC</label><br>
                                        @error('pengakuan')
                                        <div class="alert alert-danger">
                                          <strong>{{ $message }}</strong>

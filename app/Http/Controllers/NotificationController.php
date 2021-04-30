@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use Auth;
 // use Illuminate\Notifications\DatabaseNotification as Notification;
 use App\Notification;
+use Session;
+use Illuminate\Support\Facades\Redirect;
 
 class NotificationController extends Controller
 {
   public function redirectNotification($id){
-
+    // dd($id);
     $markAsRead = Notification::where('id', $id)->first();
     // dd($markAsRead);
     $hartaBaru = str_contains($markAsRead, 'Harta');
@@ -45,6 +47,10 @@ class NotificationController extends Controller
         elseif ($hadiahBaru) {
           return redirect()->route('user.hodiv.hadiah.senaraitugasanhadiah');
         }
+      }
+      else {
+        Session::flash('message', "Anda tidak mempunyai akses untuk melihat permohonan yang dipilih");
+        return Redirect::back();
       }
     }
 }

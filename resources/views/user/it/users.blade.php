@@ -56,22 +56,23 @@
                                       <form action="{{route('user.update', $data->id)}}" method="POST">
                                       @csrf
                                       <div class="row">
-                                      <div class="col-md-8">
-                                        <select id="role" class="custom-select  bg-light" name="role" value="{{ old('role', $data->role) }}">
-                                            <option value="1" {{ old('role',$data->role)=='1' ? 'selected' : ''  }}>Pentadbir Sistem</option>
-                                            <option value="2" {{ old('role',$data->role)=='2' ? 'selected' : ''  }}>Ketua Jabatan Integriti</option>
-                                            <option value="3" {{ old('role',$data->role)=='3' ? 'selected' : ''  }}>Ketua Bahagian</option>
-                                            <option value="4"{{ old('role',$data->role)=='4' ? 'selected' : ''  }}>IT Admin</option>
-                                            <option value="5"{{ old('role',$data->role)=='5' ? 'selected' : ''  }}>Pengguna</option>
-                                        </select>
-                                      </div>
-                                      <div class="col-md-2">
-                                          <button type="submit" class="btn btn-primary mt-4" onclick="return confirm('Set Peranan?')" >Set</button>
-                                        <!-- <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#publish" >Set</button> -->
+                                      <div class="form-row align-items-end p-3">
+                                        <div class="form-group col">
+                                          <select id='role' class="custom-select bg-light" name="role" value="{{ old('role', $data->role) }}">
+                                              <option value="1" {{ old('role',$data->role)=='1' ? 'selected' : ''  }}>Pentadbir Sistem</option>
+                                              <option value="2" {{ old('role',$data->role)=='2' ? 'selected' : ''  }}>Ketua Jabatan Integriti</option>
+                                              <option value="3" {{ old('role',$data->role)=='3' ? 'selected' : ''  }}>Ketua Bahagian</option>
+                                              <option value="4"{{ old('role',$data->role)=='4' ? 'selected' : ''  }}>IT Admin</option>
+                                              <option value="5"{{ old('role',$data->role)=='5' ? 'selected' : ''  }}>Pengguna</option>
+                                          </select>
+                                        </div>
 
+                                        <div class="form-group col-auto">
+                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#publish{{$data->id}}">Set</button>
+                                        </div>
                                       </div>
                                       </div>
-                                      <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal fade" id="publish{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                           <div class="modal-dialog modal-sm" role="document">
                                           <div class="modal-content">
                                               <div class="modal-header">

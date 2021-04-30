@@ -26,6 +26,8 @@ use App\NilaiHadiah;
 use App\UserExistingStaff;
 use App\UserExistingStaffInfo;
 use App\UserExistingStaffNextofKin;
+
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use PDF;
@@ -122,13 +124,30 @@ class UserController extends Controller
 
   public function senaraisemuaharta()
   {
-    return view('user.senaraiharta');
+    $user= Auth::user()->id;
+    // dd($user);
+    $listallA = Asset::with('users')->select('id','created_at','status', 'user_id')->where('user_id',$user)->get();
+    $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('user_id',$user)->get();
+    $listallBTable = FormB::getTableName();
+    $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('user_id',$user)->get();
+    $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('user_id',$user)->get();
+    $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('user_id',$user)->get();
+    $merged = $listallA->mergeRecursive($listallB);
+    $merged = $merged->mergeRecursive($listallC);
+    $merged = $merged->mergeRecursive($listallD);
+    $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+    return view('user.senaraiharta',compact('merged'));
   }
 
   public function senaraisemuahadiah()
   {
     $nilai_hadiah = NilaiHadiah::first();
-    return view('user.senaraihadiah', compact('nilai_hadiah'));
+    $user= Auth::user()->id;
+
+    $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('user_id',$user)->get();
+    $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('user_id',$user)->get();
+    $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
+    return view('user.senaraihadiah', compact('nilai_hadiah','merged'));
   }
 
   public function senaraiHarta()

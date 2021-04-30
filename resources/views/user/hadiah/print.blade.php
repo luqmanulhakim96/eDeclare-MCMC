@@ -69,7 +69,7 @@
                                 </tr>
                               <!--upload gambar hadiah-->
                               <tr>
-                                 <td><p><b>3. GAMBAR HADIAH YANG DITERIMA</b></p></td>
+                                 <td><p><b>3. LAMPIRAN HADIAH YANG DITERIMA</b></p></td>
                               </tr>
                               <tr>
                                  <td align="center" colspan="2">

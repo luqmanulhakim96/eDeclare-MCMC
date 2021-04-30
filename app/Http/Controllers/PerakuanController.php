@@ -19,10 +19,10 @@ class PerakuanController extends Controller
       $username =Auth::user()->username;
       $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
       $userid = Auth::user()->id;
-      $data_user = FormB::where('user_id', $userid)->get();
+      $data_user = FormB::where('user_id', $userid)->where('status',"Diterima") ->get();
 
       if($data_user->isEmpty()){
-        Session::flash('message', "Lampiran A tidak tersedia kerana masih tiada harta yang telah diisytihar di dalam sistem.");
+        Session::flash('message', "Borang A tidak tersedia kerana masih tiada harta yang telah diisytihar di dalam sistem.");
         return Redirect::back();
       }
       else {
