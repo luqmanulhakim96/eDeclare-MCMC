@@ -22,7 +22,9 @@
                               </div>
                               <div class="row">
                                 <div class="col-md-6">
-                                  <select id="jenis" class="custom-select  bg-light" name="jenis">
+
+                                    <input type="text" class="form-control bg-light" name="jenis" value="{{$info->jenis}}" readonly>{{$info->jenis}}
+                                  <!-- <select id="jenis" class="custom-select  bg-light" name="jenis" disabled>
                                       <option value="" selected disabled hidden>Pilih Jenis Templat</option>
                                       <option value="Perisytiharan Harta Baharu" {{ $info->jenis == "Perisytiharan Harta Baharu" ? 'selected' : '' }}>Perisytiharan Harta Baharu</option>
                                       <option value="Perisytiharan Hadiah Baharu" {{ $info->jenis == "Perisytiharan Hadiah Baharu" ? 'selected' : '' }}>Perisytiharan Hadiah Baharu</option>
@@ -36,16 +38,17 @@
                                       <option value="Perisytiharan Harta Gagal"{{ $info->jenis == "Perisytiharan Harta Gagal" ? 'selected' : '' }}>Perisytiharan Harta Gagal</option>
                                       <option value="Perisytiharan Hadiah Diterima"{{ $info->jenis == "Perisytiharan Hadiah Diterima" ? 'selected' : '' }}>Perisytiharan Hadiah Diterima</option>
                                       <option value="Perisytiharan Hadiah Gagal"{{ $info->jenis == "Perisytiharan Hadiah Gagal" ? 'selected' : '' }}>Perisytiharan Hadiah Gagal</option>
-                                      </select>
+                                      </select> -->
                                 </div>
                                 <div class="col-md-6">
-                                  <select id="penerima" class="custom-select  bg-light" name="penerima" value="{{ old('penerima')}}" >
+                                  <input type="text" class="form-control bg-light" name="penerima" value="{{$info->penerima}}" readonly>{{$info->penerima}}
+                                  <!-- <select id="penerima" class="custom-select  bg-light" name="penerima" value="{{ old('penerima')}}" disabled>
                                       <option value="" selected disabled hidden>Pilih Penerima</option>
                                       <option value="Pentadbir Sistem" {{ $info->penerima == "Pentadbir Sistem" ? 'selected' : '' }}>Pentadbir Sistem</option>
                                       <option value="Ketua Jabatan Integriti"{{ $info->penerima == "Ketua Jabatan Integriti" ? 'selected' : '' }}>Ketua Jabatan Integriti</option>
                                       <option value="Ketua Bahagian"{{ $info->penerima == "Ketua Bahagian" ? 'selected' : '' }}>Ketua Bahagian</option>
                                       <option value="Pengguna"{{ $info->penerima == "Pengguna" ? 'selected' : '' }}>Pengguna</option>
-                                      </select>
+                                      </select> -->
                                 </div>
                               </div>
                               <br>
@@ -94,5 +97,6 @@
               height: 700,
           });
         </script>
+
 
 @endsection

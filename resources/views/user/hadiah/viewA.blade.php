@@ -141,7 +141,7 @@
                               <!--upload gambar hadiah-->
                               <div class="row">
                                  <div class="col-md-6">
-                                     <p><b>3. GAMBAR HADIAH YANG DITERIMA</b></p>
+                                     <p><b>3. LAMPIRAN HADIAH YANG DITERIMA</b></p>
                                  </div>
                               </div>
                               <div class="row">

@@ -1271,8 +1271,6 @@ class AdminController extends Controller
 
          public function editemel($id){
              $info = Email::findOrFail($id);
-
-             // dd($info);
              return view('user.admin.edit_email', compact('info'));
            }
 

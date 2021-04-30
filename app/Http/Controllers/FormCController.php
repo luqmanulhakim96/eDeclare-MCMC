@@ -42,7 +42,7 @@ class FormCController extends Controller
 
     if($data_user->isEmpty()){
       // dd('Sila isi Lampiran B');
-      Session::flash('message', "Lampiran C tidak tersedia kerana masih tiada harta yang telah diluluskan di dalam sistem.");
+      Session::flash('message', "Borang C tidak tersedia kerana masih tiada harta yang telah diluluskan di dalam sistem.");
       return Redirect::back();
 
     }
