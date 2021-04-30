@@ -22,5 +22,11 @@ class AttemptSeeder extends Seeder
           'decay_minutes' => '1'
         ]
       );
+
+      DB::table('durations')-> insert(
+        [
+          'years' => '5'
+        ]
+      );
     }
 }
