@@ -41,10 +41,10 @@
 
                                 <thead>
                                   <tr>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>Peranan</th>
-                                    <th>Butang Tindakan</th>
+                                    <th width="20">Nama</th>
+                                    <th width="10">Email</th>
+                                    <th width="50">Peranan</th>
+                                    <th width="5">Butang Tindakan</th>
                                   </tr>
                                 </thead>
                                 <tbody>

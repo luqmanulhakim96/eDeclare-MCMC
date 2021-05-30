@@ -479,7 +479,7 @@
                               <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="maklumat_harta"  placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->maklumat_harta  }}" >
+                              <input class="form-control bg-light" type="text" id="maklumat_harta"  placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->maklumat_harta  }}" autocomplete="nope" >
                               @error('maklumat_harta_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -501,10 +501,10 @@
                           <br>
                           <div class="row">
                             <div class="col-md-4">
-                              <p class="required">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
+                              <p class="required">Bilangan / Ekar / Kapasiti Enjin / Kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="bilangan"  placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}" >
+                              <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="bilangan"  placeholder="Bilangan / Ekar / Kapasiti Enjin / Kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}" autocomplete="nope" >
                               @error('bilangan_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1194,7 +1194,7 @@
                             <p class="required">Jenis Harta</p>
                           </div>
                           <div class="col-md-8">
-                            <input id="jenis_harta1" list="harta" class="custom-select  bg-light" name="jenis_harta" value="{{ old('jenis_harta')}}" placeholder="Sila masukan harta" autocomplete="off">
+                            <input id="jenis_harta_edit" list="harta" class="custom-select  bg-light" name="jenis_harta" value="{{ old('jenis_harta')}}" placeholder="Sila masukan harta" autocomplete="off">
                                 <datalist id="harta">
                                   @foreach($jenisHarta as $jenisharta)
                                   @if($jenisharta->status_jenis_harta == "Aktif")
@@ -1217,18 +1217,19 @@
                           <p class="required">Pemilik Harta  dan Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</p>
                         </div>
                         <div class="col-md-4">
-                          <input class="form-control bg-light" type="text" id="pemilik_harta1"  placeholder="Nama Pemilik" value="{{ $info->pemilik_harta  }}">
+                          <input class="form-control bg-light" type="text" id="pemilik_harta_edit"  placeholder="Nama Pemilik" value="{{ $info->pemilik_harta  }}">
                           @error('pemilik_harta_')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
                         </div>
                         <div class="col-md-4">
-                            <select id="hubungan_pemilik1" class="custom-select  bg-light" >
-                                <option value="Sendiri" {{ $info->hubungan_pemilik   == "Sendiri" ? 'selected' : '' }}>Sendiri</option>
-                                <option value="Anak" {{ $info->hubungan_pemilik   == "Anak" ? 'selected' : '' }}>Anak</option>
-                                <option value="Isteri/Suami" {{ $info->hubungan_pemilik   == "Isteri/Suami" ? 'selected' : '' }}>Isteri/Suami</option>
-                                <option value="Ibu/Ayah" {{ $info->hubungan_pemilik   == "Ibu/Ayah" ? 'selected' : '' }}>Ibu/Ayah</option>
-                                <option value="Lain-lain" {{ $info->hubungan_pemilik   == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
+                            <select id="hubungan_pemilik_edit" class="custom-select  bg-light" >
+                                <!-- <option value="" {{ $info->hubungan_pemilik   == "" ? '' : 'selected disabled hidden' }} >Hubungan dengan Pemilik</option> -->
+                                <option value="Sendiri" {{ $info->hubungan_pemilik == "Sendiri" ? 'selected' : '' }}>Sendiri</option>
+                                <option value="Anak" {{ $info->hubungan_pemilik == "Anak" ? 'selected' : '' }}>Anak</option>
+                                <option value="Isteri/Suami" {{ $info->hubungan_pemilik == "Isteri/Suami" ? 'selected' : '' }}>Isteri/Suami</option>
+                                <option value="Ibu/Ayah" {{ $info->hubungan_pemilik == "Ibu/Ayah" ? 'selected' : '' }}>Ibu/Ayah</option>
+                                <option value="Lain-lain" {{ $info->hubungan_pemilik == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
                             </select>
                             @error('select_hubungan_')
                                <div class="alert alert-danger">{{ $message }}</div>
@@ -1241,7 +1242,7 @@
                           <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
                         </div>
                         <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" id="maklumat_harta1"  placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->maklumat_harta  }}" >
+                          <input class="form-control bg-light" type="text" id="maklumat_harta_edit"  placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->maklumat_harta  }}" autocomplete="nope">
                           @error('maklumat_harta_')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1254,7 +1255,7 @@
                           <p class="required">Tarikh Pemilikan Harta</p>
                         </div>
                         <div class="col-md-8">
-                          <input class="form-control bg-light" type="date" id="tarikh_pemilikan_harta1"  value="{{ $info->tarikh_pemilikan_harta  }}" >
+                          <input class="form-control bg-light" type="date" id="tarikh_pemilikan_harta_edit"  value="{{ $info->tarikh_pemilikan_harta  }}" >
                           @error('tarikh_pemilikan_harta_')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1266,7 +1267,7 @@
                           <p class="required">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
                         </div>
                         <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="bilangan1"  placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}" >
+                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="bilangan_edit"  placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}" autocomplete="nope">
                           @error('bilangan_')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1279,7 +1280,7 @@
                           <p class="required">Nilai Perolehan Harta (RM)</p>
                         </div>
                         <div class="col-md-8">
-                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="nilai_perolehan1"  placeholder="Nilai Perolehan Harta (RM)" value="{{ $info->nilai_perolehan  }}" >
+                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="nilai_perolehan_edit"  placeholder="Nilai Perolehan Harta (RM)" value="{{ $info->nilai_perolehan  }}" >
                           @error('nilai_perolehan_')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1292,7 +1293,7 @@
                           <p class="required">Cara Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</p>
                         </div>
                         <div class="col-md-8">
-                            <select id="cara_perolehan1" class="custom-select  bg-light"  onchange="showCaraPerolehan()" >
+                            <select id="cara_perolehan_edit" class="custom-select  bg-light"  onchange="showCaraPerolehan()" >
                                 <option value="" selected disabled hidden>Cara Perolehan</option>
                                 <option value="Dipusakai" {{ $info->cara_perolehan   == "Dipusakai" ? 'selected' : '' }}>Dipusakai</option>
                                 <option value="Dibeli" {{ $info->cara_perolehan   == "Dibeli" ? 'selected' : '' }}>Dibeli</option>
@@ -1308,13 +1309,13 @@
                         <br>
 
 
-                        <div id="nama_pemilikan_asal_container1" style="display: none;">
+                        <div id="nama_pemilikan_asal_container_edit" style="display: none;">
                           <div class="row">
                             <div class="col-md-4">
                               <p class="required"> Dari Siapa Harta Diperolehi</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="nama_pemilikan_asal1"  placeholder="Nama Pemilik Sebelum" value="{{ $info->nama_pemilikan_asal  }}">
+                              <input class="form-control bg-light" type="text" id="nama_pemilikan_asal_edit"  placeholder="Nama Pemilik Sebelum" value="{{ $info->nama_pemilikan_asal  }}">
                               @error('nama_pemilikan_asal_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1324,13 +1325,13 @@
                           <br>
                         </div>
 
-                        <div id="lain-lain_container1" style="display: none;">
+                        <div id="lain-lain_container_edit" style="display: none;">
                           <div class="row">
                             <div class="col-md-4">
                               <p class="required"> Nyatakan,</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="lain_lain1"  value="{{ $info->lain_lain  }}">
+                              <input class="form-control bg-light" type="text" id="lain_lain_edit"  value="{{ $info->lain_lain  }}">
                               @error('lain_lain_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1340,13 +1341,13 @@
                           <br>
                         </div>
 
-                        <div id="cara_belian_container1" style="display: none;">
+                        <div id="cara_belian_container_edit" style="display: none;">
                           <div class="row">
                             <div class="col-md-4">
                               <p class="required"> Cara Pembelian Harta</p>
                             </div>
                             <div class="col-md-8">
-                              <select id="cara_belian1" class="custom-select  bg-light"  onchange="showCaraBelian()" >
+                              <select id="cara_belian_edit" class="custom-select  bg-light"  onchange="showCaraBelian()" >
                                   <option value="" selected disabled hidden>Cara Pembelian Harta</option>
                                   <option value="Pinjaman" {{ $info->cara_belian   == "Pinjaman" ? 'selected' : '' }}>Pinjaman</option>
                                   <option value="Pelupusan" {{ $info->cara_belian   == "Pelupusan" ? 'selected' : '' }}>Pelupusan</option>
@@ -1360,13 +1361,13 @@
                           <br>
                         </div>
 
-                        <div id="pinjaman_container1" style="display: none;">
+                        <div id="pinjaman_container_edit" style="display: none;">
                           <div class="row">
                             <div class="col-md-4">
                               <p class="required">i) Jumlah Pinjaman</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="jumlah_pinjaman1"  value="{{ $info->jumlah_pinjaman  }}">
+                              <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="jumlah_pinjaman_edit"  value="{{ $info->jumlah_pinjaman  }}">
                               @error('jumlah_pinjaman_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1379,7 +1380,7 @@
                               <p class="required">ii)	Institusi memberi pinjaman</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="institusi_pinjaman1"  value="{{ $info->institusi_pinjaman  }}">
+                              <input class="form-control bg-light" type="text" id="institusi_pinjaman_edit"  value="{{ $info->institusi_pinjaman  }}">
                               @error('institusi_pinjaman_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1392,7 +1393,7 @@
                               <p class="required">iii)	Tempoh bayaran balik</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="tempoh_bayar_balik1"  value="{{ $info->tempoh_bayar_balik  }}">
+                              <input class="form-control bg-light" type="text" id="tempoh_bayar_balik_edit"  value="{{ $info->tempoh_bayar_balik  }}">
                               @error('tempoh_bayar_balik_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1405,7 +1406,7 @@
                               <p class="required">iv) Ansuran bulanan </p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="ansuran_bulanan1"  value="{{ $info->ansuran_bulanan  }}">
+                              <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="ansuran_bulanan_edit"  value="{{ $info->ansuran_bulanan  }}">
                               @error('ansuran_bulanan_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1418,7 +1419,7 @@
                               <p class="required">v)	Tarikh ansuran pertama</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="date" id="tarikh_ansuran_pertama1"  value="{{ $info->tarikh_ansuran_pertama  }}">
+                              <input class="form-control bg-light" type="date" id="tarikh_ansuran_pertama_edit"  value="{{ $info->tarikh_ansuran_pertama  }}">
                               @error('tarikh_ansuran_pertama_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1428,13 +1429,13 @@
                           <br>
                         </div>
 
-                        <div id="pelupusan_container1" style="display: none;">
+                        <div id="pelupusan_container_edit" style="display: none;">
                           <div class="row">
                             <div class="col-md-4">
                               <p class="required">i)	Jenis Harta</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="jenis_harta_pelupusan1"  value="{{ $info->jenis_harta_pelupusan  }}">
+                              <input class="form-control bg-light" type="text" id="jenis_harta_pelupusan_edit"  value="{{ $info->jenis_harta_pelupusan  }}">
                               @error('jenis_harta_pelupusan_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1447,7 +1448,7 @@
                               <p class="required">ii) Alamat</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="alamat_asset1"  value="{{ $info->alamat_asset  }}">
+                              <input class="form-control bg-light" type="text" id="alamat_asset_edit"  value="{{ $info->alamat_asset  }}">
                               @error('alamat_asset_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1460,7 +1461,7 @@
                               <p class="required">iii) No Pendaftaran Harta</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="no_pendaftaran1"  value="{{ $info->no_pendaftaran  }}">
+                              <input class="form-control bg-light" type="text" id="no_pendaftaran_edit"  value="{{ $info->no_pendaftaran  }}">
                               @error('no_pendaftaran_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1473,7 +1474,7 @@
                               <p class="required">iv) Harga Jualan</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="harga_jualan1"  value="{{ $info->harga_jualan  }}">
+                              <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="harga_jualan_edit"  value="{{ $info->harga_jualan  }}">
                               @error('harga_jualan_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1486,7 +1487,7 @@
                               <p class="required">v)	Tarikh lupus</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="date" id="tarikh_lupus1"  value="{{ $info->tarikh_lupus  }}">
+                              <input class="form-control bg-light" type="date" id="tarikh_lupus_edit"  value="{{ $info->tarikh_lupus  }}">
                               @error('tarikh_lupus_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
@@ -1498,27 +1499,27 @@
 
                         <script type="text/javascript">
                         function showCaraPerolehan(){
-                          var cara_peroleh = $('#cara_perolehan1').val();
+                          var cara_peroleh = $('#cara_perolehan_edit').val();
 
                           if(cara_peroleh == "Dipusakai" || cara_peroleh == "Dihadiahkan"){
-                            document.getElementById('nama_pemilikan_asal_container1').style.display ="block";
+                            document.getElementById('nama_pemilikan_asal_container_edit').style.display ="block";
                           }
                           else{
-                            document.getElementById('nama_pemilikan_asal_container1').style.display ="none";
+                            document.getElementById('nama_pemilikan_asal_container_edit').style.display ="none";
                           }
 
                           if(cara_peroleh == "Dibeli"){
-                            document.getElementById('cara_belian_container1').style.display ="block";
+                            document.getElementById('cara_belian_container_edit').style.display ="block";
                           }
                           else{
-                            document.getElementById('cara_belian_container1').style.display ="none";
+                            document.getElementById('cara_belian_container_edit').style.display ="none";
                           }
 
                           if(cara_peroleh == "Lain-lain"){
-                            document.getElementById('lain-lain_container1').style.display ="block";
+                            document.getElementById('lain-lain_container_edit').style.display ="block";
                           }
                           else{
-                            document.getElementById('lain-lain_container1').style.display ="none";
+                            document.getElementById('lain-lain_container_edit').style.display ="none";
                           }
 
                         }
@@ -1526,20 +1527,20 @@
 
                         <script type="text/javascript">
                         function showCaraBelian(){
-                          var cara_belian = $('#cara_belian1').val();
+                          var cara_belian = $('#cara_belian_edit').val();
 
                           if(cara_belian == "Pinjaman"){
-                            document.getElementById('pinjaman_container1').style.display ="block";
+                            document.getElementById('pinjaman_container_edit').style.display ="block";
                           }
                           else{
-                            document.getElementById('pinjaman_container1').style.display ="none";
+                            document.getElementById('pinjaman_container_edit').style.display ="none";
                           }
 
                           if(cara_belian == "Pelupusan"){
-                            document.getElementById('pelupusan_container1').style.display ="block";
+                            document.getElementById('pelupusan_container_edit').style.display ="block";
                           }
                           else{
-                            document.getElementById('pelupusan_container1').style.display ="none";
+                            document.getElementById('pelupusan_container_edit').style.display ="none";
                           }
 
                         }
@@ -1550,7 +1551,7 @@
 
                           </div>
                           <div class="col-md-4">
-                            <button class="btn btn-primary" type="button" value="" id="kemaskiniHarta" onclick="DataUpdate(this.value);clearContainer(this.value); calculatePinjamanPerumahan();">Kemaskini</button>
+                            <button class="btn btn-primary" type="button" value="" id="kemaskiniHarta" onclick="calculatePinjamanPerumahan_edit();DataUpdate(this.value);clearContainer(this.value);">Kemaskini</button>
                           </div>
                       </div>
                       <br>
@@ -1630,47 +1631,49 @@
            function updateData(e){
                document.getElementById('harta_container').style.display ="block";
                @foreach($hartaB as $data)
+
                if({{$data->id}} == e){
-                 console.log("{{$data->pemilik_harta}}");
+                 // console.log("{{$data->hubungan_pemilik}}");
                  document.getElementById("id_harta_hidden").value = "{{$data->id}}";
                  document.getElementById("kemaskiniHarta").value = "{{$data->id}}";
-                 document.getElementById("jenis_harta1").value = "{{$data->jenis_harta}}";
-                 document.getElementById("pemilik_harta1").value = "{{$data->pemilik_harta}}";
+                 document.getElementById("jenis_harta_edit").value = "{{$data->jenis_harta}}";
+                 document.getElementById("pemilik_harta_edit").value = "{{$data->pemilik_harta}}";
 
-                 $("hubungan_pemilik1 select").val("{{$data->select_hubungan}}");
-                 // document.getElementById("hubungan_pemilik1").value = "{{$data->select_hubungan}}";
+                 // $("hubungan_pemilik_edit select").val("{{$data->hubungan_pemilik}}");
+                 document.getElementById('hubungan_pemilik_edit').value = '{{$data->hubungan_pemilik}}';
+                 // document.getElementById("hubungan_pemilik_edit").value = "{{$data->select_hubungan}}";
 
-                 document.getElementById("maklumat_harta1").value = "{{$data->maklumat_harta}}";
-                 document.getElementById("tarikh_pemilikan_harta1").value = "{{$data->tarikh_pemilikan_harta}}";
-                 document.getElementById("bilangan1").value = "{{$data->bilangan}}";
-                 document.getElementById("nilai_perolehan1").value = "{{$data->nilai_perolehan}}";
-                 document.getElementById("cara_perolehan1").value = "{{$data->cara_perolehan}}";
+                 document.getElementById("maklumat_harta_edit").value = "{{$data->maklumat_harta}}";
+                 document.getElementById("tarikh_pemilikan_harta_edit").value = "{{$data->tarikh_pemilikan_harta}}";
+                 document.getElementById("bilangan_edit").value = "{{$data->bilangan}}";
+                 document.getElementById("nilai_perolehan_edit").value = "{{$data->nilai_perolehan}}";
+                 document.getElementById("cara_perolehan_edit").value = "{{$data->cara_perolehan}}";
                  if("{{$data->cara_perolehan}}" == "Dipusakai" || "{{$data->cara_perolehan}}" == "Dihadiahkan"){
-                   document.getElementById("nama_pemilikan_asal_container1").style="display: block;";
-                   document.getElementById("nama_pemilikan_asal1").value = "{{$data->nama_pemilikan_asal}}";
+                   document.getElementById("nama_pemilikan_asal_container_edit").style="display: block;";
+                   document.getElementById("nama_pemilikan_asal_edit").value = "{{$data->nama_pemilikan_asal}}";
                  }
                  else if("{{$data->cara_perolehan}}" == "Lain-lain"){
-                   document.getElementById("lain-lain_container1").style="display: block;";
-                   document.getElementById("lain_lain1").value = "{{$data->lain_lain}}";
+                   document.getElementById("lain-lain_container_edit").style="display: block;";
+                   document.getElementById("lain_lain_edit").value = "{{$data->lain_lain}}";
                 }
                 else if("{{$data->cara_perolehan}}" == "Dibeli"){
-                  document.getElementById("cara_belian_container1").style="display: block;";
-                  document.getElementById("cara_belian1").value = "{{$data->cara_belian}}";
+                  document.getElementById("cara_belian_container_edit").style="display: block;";
+                  document.getElementById("cara_belian_edit").value = "{{$data->cara_belian}}";
                   if("{{$data->cara_belian}}" == "Pinjaman"){
-                      document.getElementById("pinjaman_container1").style="display: block;";
-                      document.getElementById("jumlah_pinjaman1").value = "{{$data->jumlah_pinjaman}}";
-                      document.getElementById("institusi_pinjaman1").value = "{{$data->institusi_pinjaman}}";
-                      document.getElementById("tempoh_bayar_balik1").value = "{{$data->tempoh_bayar_balik}}";
-                      document.getElementById("ansuran_bulanan1").value = "{{$data->ansuran_bulanan}}";
-                      document.getElementById("tarikh_ansuran_pertama1").value = "{{$data->tarikh_ansuran_pertama}}";
+                      document.getElementById("pinjaman_container_edit").style="display: block;";
+                      document.getElementById("jumlah_pinjaman_edit").value = "{{$data->jumlah_pinjaman}}";
+                      document.getElementById("institusi_pinjaman_edit").value = "{{$data->institusi_pinjaman}}";
+                      document.getElementById("tempoh_bayar_balik_edit").value = "{{$data->tempoh_bayar_balik}}";
+                      document.getElementById("ansuran_bulanan_edit").value = "{{$data->ansuran_bulanan}}";
+                      document.getElementById("tarikh_ansuran_pertama_edit").value = "{{$data->tarikh_ansuran_pertama}}";
                   }
                   else if("{{$data->cara_belian}}" == "Pelupusan"){
-                    document.getElementById("pelupusan_container1").style="display: block;";
-                    document.getElementById("jenis_harta_pelupusan1").value = "{{$data->jenis_harta_pelupusan}}";
-                    document.getElementById("alamat_asset1").value = "{{$data->alamat_asset}}";
-                    document.getElementById("no_pendaftaran1").value = "{{$data->no_pendaftaran}}";
-                    document.getElementById("harga_jualan1").value = "{{$data->harga_jualan}}";
-                    document.getElementById("tarikh_lupus1").value = "{{$data->tarikh_lupus}}";
+                    document.getElementById("pelupusan_container_edit").style="display: block;";
+                    document.getElementById("jenis_harta_pelupusan_edit").value = "{{$data->jenis_harta_pelupusan}}";
+                    document.getElementById("alamat_asset_edit").value = "{{$data->alamat_asset}}";
+                    document.getElementById("no_pendaftaran_edit").value = "{{$data->no_pendaftaran}}";
+                    document.getElementById("harga_jualan_edit").value = "{{$data->harga_jualan}}";
+                    document.getElementById("tarikh_lupus_edit").value = "{{$data->tarikh_lupus}}";
                   }
 
                 }
@@ -1684,35 +1687,35 @@
              function clearData(e){
                @foreach($hartaB as $data)
                if({{$data->id}} == e){
-               $("#tarikh_pemilikan_harta1").val("")
-               $("#jenis_harta1").prop('selectedIndex', 0);
-               $("#hubungan_pemilik1").prop('selectedIndex', 0);
-               $("#cara_perolehan1").prop('selectedIndex', 0);
-               $("#cara_belian1").prop('selectedIndex', 0);
-               $("#tarikh_lupus1").val("")
-               $("#tarikh_ansuran_pertama1").val("")
+               $("#tarikh_pemilikan_harta_edit").val("")
+               $("#jenis_harta_edit").prop('selectedIndex', 0);
+               $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+               $("#cara_perolehan_edit").prop('selectedIndex', 0);
+               $("#cara_belian_edit").prop('selectedIndex', 0);
+               $("#tarikh_lupus_edit").val("")
+               $("#tarikh_ansuran_pertama_edit").val("")
 
 
-               document.getElementById("jenis_harta1").value = "";
-               document.getElementById("pemilik_harta1").value = "";
-               document.getElementById("maklumat_harta1").value = "";
-               document.getElementById("bilangan1").value = "";
-               document.getElementById("nilai_perolehan1").value = "";
-               document.getElementById("nama_pemilikan_asal1").value = "";
-               document.getElementById("jumlah_pinjaman1").value = "";
-               document.getElementById("institusi_pinjaman1").value = "";
-               document.getElementById("cara_belian_container1").style="display: none;";
-               document.getElementById("nama_pemilikan_asal_container1").style="display: none;";
-               document.getElementById("lain-lain_container1").style="display: none;";
-               document.getElementById("pinjaman_container1").style="display: none;";
-               document.getElementById("pelupusan_container1").style="display: none;";
-               document.getElementById("tempoh_bayar_balik1").value = "";
-               document.getElementById("ansuran_bulanan1").value = "";
-               document.getElementById("jenis_harta_pelupusan1").value = "";
-               document.getElementById("alamat_asset1").value = "";
-               document.getElementById("no_pendaftaran1").value = "";
-               document.getElementById("harga_jualan1").value = "";
-               document.getElementById("lain_lain1").value = "";
+               document.getElementById("jenis_harta_edit").value = "";
+               document.getElementById("pemilik_harta_edit").value = "";
+               document.getElementById("maklumat_harta_edit").value = "";
+               document.getElementById("bilangan_edit").value = "";
+               document.getElementById("nilai_perolehan_edit").value = "";
+               document.getElementById("nama_pemilikan_asal_edit").value = "";
+               document.getElementById("jumlah_pinjaman_edit").value = "";
+               document.getElementById("institusi_pinjaman_edit").value = "";
+               document.getElementById("cara_belian_container_edit").style="display: none;";
+               document.getElementById("nama_pemilikan_asal_container_edit").style="display: none;";
+               document.getElementById("lain-lain_container_edit").style="display: none;";
+               document.getElementById("pinjaman_container_edit").style="display: none;";
+               document.getElementById("pelupusan_container_edit").style="display: none;";
+               document.getElementById("tempoh_bayar_balik_edit").value = "";
+               document.getElementById("ansuran_bulanan_edit").value = "";
+               document.getElementById("jenis_harta_pelupusan_edit").value = "";
+               document.getElementById("alamat_asset_edit").value = "";
+               document.getElementById("no_pendaftaran_edit").value = "";
+               document.getElementById("harga_jualan_edit").value = "";
+               document.getElementById("lain_lain_edit").value = "";
              }
              @endforeach
            }
@@ -1723,35 +1726,35 @@
               function clearContainer(e){
                 @foreach($hartaB as $data)
                 if({{$data->id}} == e){
-                $("#tarikh_pemilikan_harta1").val("")
-                $("#jenis_harta1").prop('selectedIndex', 0);
-                $("#hubungan_pemilik1").prop('selectedIndex', 0);
-                $("#cara_perolehan1").prop('selectedIndex', 0);
-                $("#cara_belian1").prop('selectedIndex', 0);
-                $("#tarikh_lupus1").val("")
-                $("#tarikh_ansuran_pertama1").val("")
+                $("#tarikh_pemilikan_harta_edit").val("")
+                $("#jenis_harta_edit").prop('selectedIndex', 0);
+                $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+                $("#cara_perolehan_edit").prop('selectedIndex', 0);
+                $("#cara_belian_edit").prop('selectedIndex', 0);
+                $("#tarikh_lupus_edit").val("")
+                $("#tarikh_ansuran_pertama_edit").val("")
 
 
-                document.getElementById("jenis_harta1").value = "";
-                document.getElementById("pemilik_harta1").value = "";
-                document.getElementById("maklumat_harta1").value = "";
-                document.getElementById("bilangan1").value = "";
-                document.getElementById("nilai_perolehan1").value = "";
-                document.getElementById("nama_pemilikan_asal1").value = "";
-                document.getElementById("jumlah_pinjaman1").value = "";
-                document.getElementById("institusi_pinjaman1").value = "";
-                document.getElementById("cara_belian_container1").style="display: none;";
-                document.getElementById("nama_pemilikan_asal_container1").style="display: none;";
-                document.getElementById("lain-lain_container1").style="display: none;";
-                document.getElementById("pinjaman_container1").style="display: none;";
-                document.getElementById("pelupusan_container1").style="display: none;";
-                document.getElementById("tempoh_bayar_balik1").value = "";
-                document.getElementById("ansuran_bulanan1").value = "";
-                document.getElementById("jenis_harta_pelupusan1").value = "";
-                document.getElementById("alamat_asset1").value = "";
-                document.getElementById("no_pendaftaran1").value = "";
-                document.getElementById("harga_jualan1").value = "";
-                document.getElementById("lain_lain1").value = "";
+                document.getElementById("jenis_harta_edit").value = "";
+                document.getElementById("pemilik_harta_edit").value = "";
+                document.getElementById("maklumat_harta_edit").value = "";
+                document.getElementById("bilangan_edit").value = "";
+                document.getElementById("nilai_perolehan_edit").value = "";
+                document.getElementById("nama_pemilikan_asal_edit").value = "";
+                document.getElementById("jumlah_pinjaman_edit").value = "";
+                document.getElementById("institusi_pinjaman_edit").value = "";
+                document.getElementById("cara_belian_container_edit").style="display: none;";
+                document.getElementById("nama_pemilikan_asal_container_edit").style="display: none;";
+                document.getElementById("lain-lain_container_edit").style="display: none;";
+                document.getElementById("pinjaman_container_edit").style="display: none;";
+                document.getElementById("pelupusan_container_edit").style="display: none;";
+                document.getElementById("tempoh_bayar_balik_edit").value = "";
+                document.getElementById("ansuran_bulanan_edit").value = "";
+                document.getElementById("jenis_harta_pelupusan_edit").value = "";
+                document.getElementById("alamat_asset_edit").value = "";
+                document.getElementById("no_pendaftaran_edit").value = "";
+                document.getElementById("harga_jualan_edit").value = "";
+                document.getElementById("lain_lain_edit").value = "";
               }
               @endforeach
               document.getElementById('harta_container').style.display ="none";
@@ -1765,42 +1768,42 @@
              @foreach($hartaB as $data)
              if({{$data->id}} == e){
              // update table
-               document.getElementById("jenis_harta_table"+e).value = document.getElementById("jenis_harta1").value;
-               document.getElementById("pemilik_harta_table"+e).innerHTML  = document.getElementById("pemilik_harta1").value;
+               document.getElementById("jenis_harta_table"+e).value = document.getElementById("jenis_harta_edit").value;
+               document.getElementById("pemilik_harta_table"+e).innerHTML  = document.getElementById("pemilik_harta_edit").value;
                document.getElementById("tarikh_pemilikan_harta_table"+e).value = "{{$data->tarikh_pemilikan_harta}}";
                document.getElementById("bilangan_table"+e).value = "{{$data->bilangan}}";
                document.getElementById("nilai_perolehan_table"+e).value = "{{$data->nilai_perolehan}}";
 
             // update hidden input
-            document.getElementById("jenis_harta"+e).value = document.getElementById("jenis_harta1").value;
-            document.getElementById("pemilik_harta"+e).value = document.getElementById("pemilik_harta1").value;
-            document.getElementById("select_hubungan"+e).value = document.getElementById("hubungan_pemilik1").value;
-            document.getElementById("maklumat_harta"+e).value = document.getElementById("maklumat_harta1").value;
-            document.getElementById("tarikh_pemilikan_harta"+e).value = document.getElementById("tarikh_pemilikan_harta1").value;
-            document.getElementById("bilangan"+e).value = document.getElementById("bilangan1").value;
-            document.getElementById("nilai_perolehan"+e).value = document.getElementById("nilai_perolehan1").value;
-            document.getElementById("cara_perolehan"+e).value = document.getElementById("cara_perolehan1").value;
-            if(document.getElementById("cara_perolehan1").value == "Dipusakai" || document.getElementById("cara_perolehan1").value == "Dihadiahkan" ){
-              document.getElementById("nama_pemilikan_asal"+e).value = document.getElementById("nama_pemilikan_asal1").value;
+            document.getElementById("jenis_harta"+e).value = document.getElementById("jenis_harta_edit").value;
+            document.getElementById("pemilik_harta"+e).value = document.getElementById("pemilik_harta_edit").value;
+            document.getElementById("select_hubungan"+e).value = document.getElementById("hubungan_pemilik_edit").value;
+            document.getElementById("maklumat_harta"+e).value = document.getElementById("maklumat_harta_edit").value;
+            document.getElementById("tarikh_pemilikan_harta"+e).value = document.getElementById("tarikh_pemilikan_harta_edit").value;
+            document.getElementById("bilangan"+e).value = document.getElementById("bilangan_edit").value;
+            document.getElementById("nilai_perolehan"+e).value = document.getElementById("nilai_perolehan_edit").value;
+            document.getElementById("cara_perolehan"+e).value = document.getElementById("cara_perolehan_edit").value;
+            if(document.getElementById("cara_perolehan_edit").value == "Dipusakai" || document.getElementById("cara_perolehan_edit").value == "Dihadiahkan" ){
+              document.getElementById("nama_pemilikan_asal"+e).value = document.getElementById("nama_pemilikan_asal_edit").value;
             }
-            else if(document.getElementById("cara_perolehan1").value == "Lain-lain"){
-              document.getElementById("lain_lain"+e).value = document.getElementById("lain_lain1").value;
+            else if(document.getElementById("cara_perolehan_edit").value == "Lain-lain"){
+              document.getElementById("lain_lain"+e).value = document.getElementById("lain_lain_edit").value;
             }
-            else if(document.getElementById("cara_perolehan1").value == "Dibeli"){
-              document.getElementById("cara_belian"+e).value = document.getElementById("cara_belian1").value;
+            else if(document.getElementById("cara_perolehan_edit").value == "Dibeli"){
+              document.getElementById("cara_belian"+e).value = document.getElementById("cara_belian_edit").value;
 
-                if(document.getElementById("cara_belian1").value == "Pinjaman"){
-                  document.getElementById("jumlah_pinjaman"+e).value =   document.getElementById("jumlah_pinjaman1").value;
-                  document.getElementById("institusi_pinjaman"+e).value = document.getElementById("institusi_pinjaman1").value;
-                  document.getElementById("tempoh_bayar_balik"+e).value = document.getElementById("tempoh_bayar_balik1").value;
-                  document.getElementById("ansuran_bulanan"+e).value = document.getElementById("ansuran_bulanan1").value;
+                if(document.getElementById("cara_belian_edit").value == "Pinjaman"){
+                  document.getElementById("jumlah_pinjaman"+e).value =   document.getElementById("jumlah_pinjaman_edit").value;
+                  document.getElementById("institusi_pinjaman"+e).value = document.getElementById("institusi_pinjaman_edit").value;
+                  document.getElementById("tempoh_bayar_balik"+e).value = document.getElementById("tempoh_bayar_balik_edit").value;
+                  document.getElementById("ansuran_bulanan"+e).value = document.getElementById("ansuran_bulanan_edit").value;
                 }
-                else if(document.getElementById("cara_belian1").value == "Pelupusan"){
-                  document.getElementById("jenis_harta_pelupusan"+e).value =   document.getElementById("jenis_harta_pelupusan1").value;
-                  document.getElementById("alamat_asset"+e).value = document.getElementById("alamat_asset1").value;
-                  document.getElementById("no_pendaftaran"+e).value = document.getElementById("no_pendaftaran1").value;
-                  document.getElementById("harga_jualan"+e).value = document.getElementById("harga_jualan1").value;
-                  document.getElementById("tarikh_lupus"+e).value = document.getElementById("tarikh_lupus1").value;
+                else if(document.getElementById("cara_belian_edit").value == "Pelupusan"){
+                  document.getElementById("jenis_harta_pelupusan"+e).value =   document.getElementById("jenis_harta_pelupusan_edit").value;
+                  document.getElementById("alamat_asset"+e).value = document.getElementById("alamat_asset_edit").value;
+                  document.getElementById("no_pendaftaran"+e).value = document.getElementById("no_pendaftaran_edit").value;
+                  document.getElementById("harga_jualan"+e).value = document.getElementById("harga_jualan_edit").value;
+                  document.getElementById("tarikh_lupus"+e).value = document.getElementById("tarikh_lupus_edit").value;
                 }
             }
 
@@ -2363,6 +2366,117 @@
            }
          }
     </script>
+    <!-- edit harta -->
+      <script type="text/javascript">
+      function calculatePinjamanPerumahan_edit(){
+        var TotalValue_edit = 0;
+        var TotalValue_bulanan_edit = 0;
+
+        jenis_harta_edit = document.getElementById("jenis_harta_edit").value;
+        pasangan_edit = document.getElementById("hubungan_pemilik_edit").value;
+        cara_belian_edit = document.getElementById("cara_belian_edit").value;
+        if(cara_belian_edit == "Pinjaman"){
+          console.log('pinjaman');
+            if(jenis_harta_edit == "Rumah"){
+              console.log('rumah');
+              console.log(pasangan_edit);
+              if(pasangan_edit == "Isteri/Suami"){
+                console.log('masuk rumah isteri');
+                //pinjaman_perumahan_pasangan
+                pinjaman_rumah_semasa_edit = document.getElementById('pinjaman_perumahan_pasangan').value;
+                jumlah_pinjaman_edit = document.getElementById("jumlah_pinjaman_edit").value;
+                TotalValue_edit = parseFloat(pinjaman_rumah_semasa_edit).toFixed(2) + parseFloat(jumlah_pinjaman_edit).toFixed(2);
+
+                pinjaman_bulanan_rumah_semasa_edit = document.getElementById('bulanan_perumahan_pasangan').value;
+                ansuran_bulanan_edit = document.getElementById("ansuran_bulanan_edit").value;
+                TotalValue_bulanan_edit = parseFloat(pinjaman_bulanan_rumah_semasa_edit).toFixed(2) + parseFloat(ansuran_bulanan_edit).toFixed(2);
+
+                $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+                document.getElementById("jenis_harta_edit").value = "";
+                document.getElementById("ansuran_bulanan_edit").value = "";
+                document.getElementById("jumlah_pinjaman_edit").value = "";
+                document.getElementById("cara_belian_edit").value = "";
+                // $("#cara_belian").prop('selectedIndex', 0);
+                document.getElementById('pinjaman_perumahan_pasangan').value = +parseFloat(pinjaman_rumah_semasa_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+                document.getElementById('bulanan_perumahan_pasangan').value = +parseFloat(pinjaman_bulanan_rumah_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+              }
+
+              else{
+                console.log('masuk');
+                pinjaman_rumah_semasa_edit = document.getElementById('pinjaman_perumahan_pegawai').value;
+                jumlah_pinjaman_edit = document.getElementById("jumlah_pinjaman_edit").value;
+                TotalValue_edit = parseFloat(pinjaman_rumah_semasa_edit).toFixed(2) + parseFloat(jumlah_pinjaman_edit).toFixed(2);
+
+                pinjaman_bulanan_rumah_semasa_edit = document.getElementById('bulanan_perumahan_pegawai').value;
+                ansuran_bulanan_edit = document.getElementById("ansuran_bulanan_edit").value;
+                TotalValue_bulanan_edit = parseFloat(pinjaman_bulanan_rumah_semasa_edit).toFixed(2) + parseFloat(ansuran_bulanan_edit).toFixed(2);
+
+                document.getElementById("jenis_harta_edit").value = "";
+                document.getElementById("ansuran_bulanan_edit").value = "";
+                document.getElementById("jumlah_pinjaman_edit").value = "";
+                // $("#cara_belian").prop('selectedIndex', 0);
+                document.getElementById("cara_belian_edit").value = "";
+                $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+                document.getElementById('pinjaman_perumahan_pegawai').value = +parseFloat(pinjaman_rumah_semasa_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+                document.getElementById('bulanan_perumahan_pegawai').value = +parseFloat(pinjaman_bulanan_rumah_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+
+              }
+            }
+            else if (jenis_harta_edit == "Kenderaan") {
+
+              if(pasangan_edit == "Isteri/Suami"){
+                //pinjaman_perumahan_pasangan
+                pinjaman_kenderaan_pegawai_edit = document.getElementById('pinjaman_kenderaan_pasangan').value;
+                jumlah_pinjaman_edit = document.getElementById("jumlah_pinjaman_edit").value;
+                TotalValue_edit = parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + parseFloat(jumlah_pinjaman_edit).toFixed(2);
+
+                pinjaman_bulanan_kenderaan_semasa_edit = document.getElementById('bulanan_kenderaan_pasangan').value;
+                ansuran_bulanan_edit = document.getElementById("ansuran_bulanan_edit").value;
+                TotalValue_bulanan_edit = parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + parseFloat(ansuran_bulanan_edit).toFixed(2);
+
+                $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+                document.getElementById("jenis_harta_edit").value = "";
+                document.getElementById("ansuran_bulanan_edit").value = "";
+                document.getElementById("jumlah_pinjaman_edit").value = "";
+                // $("#cara_belian").prop('selectedIndex', 0);
+                document.getElementById("cara_belian_edit").value = "";
+                $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+                document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+                document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+              }
+
+          else{
+            pinjaman_kenderaan_pegawai_edit = document.getElementById('pinjaman_kenderaan_pegawai').value;
+            jumlah_pinjaman_edit = document.getElementById("jumlah_pinjaman_edit").value;
+            TotalValue_edit = parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + parseFloat(jumlah_pinjaman_edit).toFixed(2);
+
+            pinjaman_bulanan_kenderaan_semasa_edit = document.getElementById('bulanan_kenderaan_pegawai').value;
+            ansuran_bulanan_edit = document.getElementById("ansuran_bulanan_edit").value;
+            TotalValue_bulanan_edit = parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + parseFloat(ansuran_bulanan_edit).toFixed(2);
+
+            document.getElementById("jenis_harta_edit").value = "";
+            document.getElementById("ansuran_bulanan_edit").value = "";
+            document.getElementById("jumlah_pinjaman_edit").value = "";
+            // $("#cara_belian").prop('selectedIndex', 0);
+            document.getElementById("cara_belian_edit").value = "";
+            $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+            document.getElementById('pinjaman_kenderaan_pegawai').value = +parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+            document.getElementById('bulanan_kenderaan_pegawai').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+
+          }
+        }
+        document.getElementById("cara_belian_edit").value = "";
+      }
+      else{
+        // $("#cara_belian").prop('selectedIndex', 0);
+        document.getElementById("cara_belian_edit").value = "";
+        $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+        document.getElementById("jenis_harta_edit").value = "";
+        document.getElementById("ansuran_bulanan_edit").value = "";
+        document.getElementById("jumlah_pinjaman_edit").value = "";
+      }
+    }
+  </script>
     <script>
           function removeJumlahPinjaman(e){
               jenis_harta = document.getElementById("jenis_harta"+ e +"").value;

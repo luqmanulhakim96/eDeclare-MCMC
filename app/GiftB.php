@@ -6,12 +6,15 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class GiftB extends Model implements Auditable
 // class GiftB extends Model
 {
     use \OwenIt\Auditing\Auditable;
     use Notifiable;
+    use SoftDeletes;
     protected $connection = 'sqlsrv';
 
 

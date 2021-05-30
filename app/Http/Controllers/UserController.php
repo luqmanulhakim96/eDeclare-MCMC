@@ -216,6 +216,66 @@ class UserController extends Controller
     return view('user.harta.senaraidraft', compact('merged'));
   }
 
+  public function deleteDrafHarta(Request $request,$id)
+  {
+       if($request->form == "formbs"){
+        $formB = FormB::findOrFail($id);
+        $formB->delete(); //delete form
+
+        // if ($formB->trashed()) { //cek if form deleted or not
+        //     dd('test');
+        // }
+      }
+      else if($request->form == "formcs"){
+       $formC = FormC::findOrFail($id);
+       $formC->delete(); //delete form
+
+       // if ($formB->trashed()) { //cek if form deleted or not
+       //     dd('test');
+       // }
+     }
+     else if($request->form == "formds"){
+      $formD = FormD::findOrFail($id);
+      $formD->delete(); //delete form
+
+      // if ($formB->trashed()) { //cek if form deleted or not
+      //     dd('test');
+      // }
+    }
+    else if($request->form == "formgs"){
+     $formG = FormG::findOrFail($id);
+     $formG->delete(); //delete form
+
+     // if ($formB->trashed()) { //cek if form deleted or not
+     //     dd('test');
+     // }
+   }
+
+    return redirect()->back();
+  }
+
+  public function deleteDrafHadiah(Request $request,$id)
+  {
+       if($request->form == "gifts"){
+        $gifts = Gift::findOrFail($id);
+        $gifts->delete(); //delete form
+
+        // if ($formB->trashed()) { //cek if form deleted or not
+        //     dd('test');
+        // }
+      }
+      else if($request->form == "giftbs"){
+       $giftbs = GiftB::findOrFail($id);
+       $giftbs->delete(); //delete form
+
+       // if ($formB->trashed()) { //cek if form deleted or not
+       //     dd('test');
+       // }
+     }
+
+    return redirect()->back();
+  }
+
   public function printA($id)
     {
        //dd($id);

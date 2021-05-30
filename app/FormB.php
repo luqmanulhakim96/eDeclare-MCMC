@@ -5,12 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FormB extends Model implements Auditable
 // class FormB extends Model
 {
     use \OwenIt\Auditing\Auditable;
     use Notifiable;
+    use SoftDeletes;
     protected $connection = 'sqlsrv';
     //
     protected $table = 'formbs';

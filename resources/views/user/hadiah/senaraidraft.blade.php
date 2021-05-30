@@ -37,7 +37,9 @@
                                                <th width="10%"><p class="mb-0">Hubungan Pemberi</p></th>
                                                <th width="70%"><p class="mb-0">Lampiran Hadiah</p></th>
                                                <th width="30%"><p class="mb-0">Status Hadiah</p></th>
-                                               <th width="30%"><p class="mb-0">Tindakan</p></th>
+                                               <th width="30%"><p class="mb-0">Edit</p></th>
+                                               <th width="30%"><p class="mb-0">Padam</p></th>
+
 
                                            </tr>
                                        </thead>
@@ -97,6 +99,27 @@
                                                  -
                                                  @endif
                                                 @endif
+                                             </td>
+                                             <td>
+                                             <div class="d-flex flex-row justify-content-around align-items-center">
+                                               @if($data ->getTable() == "gifts")
+                                                @if($data ->status == "Disimpan ke Draf")
+                                                <form action="{{ route('drafhadiah.delete', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="form" value="{{$data ->getTable()}}">
+                                                    <button type="submit" class="mr-1 btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                                @endif
+                                              @elseif($data ->getTable() == "giftbs")
+                                                @if($data ->status == "Disimpan ke Draf")
+                                                <form action="{{ route('drafhadiah.delete', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="form" value="{{$data ->getTable()}}">
+                                                    <button type="submit" class="mr-1 btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                                @endif
+                                              @endif
+                                              </div>
                                              </td>
                                            </tr>
 
