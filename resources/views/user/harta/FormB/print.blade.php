@@ -308,7 +308,7 @@
                           <td colspan="2">v)	Tarikh ansuran pertama</td>
                           <td colspan="3">{{ $data ->tarikh_ansuran_pertama }}</td>
                         </tr>
-                      @elseif($data->cara_belian == "Pelupusan")
+                        @elseif($data->cara_belian == "Pelupusan")
                           <tr>
                             <td colspan="2">i)	Jenis Harta</td>
                             <td colspan="3">{{ $data ->jenis_harta_pelupusan }}</td>

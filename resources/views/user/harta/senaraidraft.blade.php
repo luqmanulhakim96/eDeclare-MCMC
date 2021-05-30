@@ -22,7 +22,8 @@
                                                <th width="10%"><p class="mb-0">Lampiran</p></th>
                                                <th width="70%"><p class="mb-0">Tarikh</p></th>
                                                <th width="30%"><p class="mb-0">Status</p></th>
-                                               <th width="30%"><p class="mb-0">Tindakan</p></th>
+                                               <th width="30%"><p class="mb-0">Edit</p></th>
+                                               <th width="30%"><p class="mb-0">Padam</p></th>
                                            </tr>
                                        </thead>
                                        <tbody align="center">
@@ -78,6 +79,44 @@
                                               @elseif($data ->getTable() == "formgs")
                                                 @if($data ->status == "Disimpan ke Draf")
                                                 <a href="{{ route('user.harta.FormG.editformG', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                                                @endif
+                                              @endif
+                                              </div>
+                                             </td>
+
+                                             <td class="p-3">
+                                             <div class="d-flex flex-row justify-content-around align-items-center">
+                                               @if($data ->getTable() == "formbs")
+                                                @if($data ->status == "Disimpan ke Draf")
+                                                <form action="{{ route('drafharta.delete', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="form" value="{{$data ->getTable()}}">
+                                                    <button type="submit" class="mr-1 btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                                @endif
+                                              @elseif($data ->getTable() == "formcs")
+                                                @if($data ->status == "Disimpan ke Draf")
+                                                <form action="{{ route('drafharta.delete', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="form" value="{{$data ->getTable()}}">
+                                                    <button type="submit" class="mr-1 btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                                @endif
+                                              @elseif($data ->getTable() == "formds")
+                                                @if($data ->status == "Disimpan ke Draf")
+                                                <form action="{{ route('drafharta.delete', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="form" value="{{$data ->getTable()}}">
+                                                    <button type="submit" class="mr-1 btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                                @endif
+                                              @elseif($data ->getTable() == "formgs")
+                                                @if($data ->status == "Disimpan ke Draf")
+                                                <form action="{{ route('drafharta.delete', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="form" value="{{$data ->getTable()}}">                                                    
+                                                    <button type="submit" class="mr-1 btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                </form>
                                                 @endif
                                               @endif
                                               </div>

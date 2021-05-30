@@ -128,6 +128,11 @@ Route::post('/permohonan/hantar', 'UserController@submitForm')->name('permohonan
 
 Route::get('/profil/edit', 'UserController@editProfile')->name('user.profile');
 
+Route::post('/padam/draf/harta/{id}', 'UserController@deleteDrafHarta')->name('drafharta.delete');
+
+Route::post('/padam/draf/hadiah/{id}', 'UserController@deleteDrafHadiah')->name('drafhadiah.delete');
+
+
 
 Route::post('/hadiah-A/hantar', 'GiftController@submitForm')->name('gift.submit');
 

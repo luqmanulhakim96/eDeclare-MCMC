@@ -9,13 +9,11 @@
                <div class="page-heading border-bottom d-flex flex-row">
                    <h5 class="font-weight-normal">Lampiran B: Borang Perisytiharan Harta</h5>
                </div>
-
                <!-- All Basic Form elements -->
                <div class="row">
                  <div class="col-12 mt-4">
                       <div class="card rounded-lg">
                           <div class="card-body">
-
                               <form id="formB_submit" action="{{route('b.submit')}}" method="POST">
                                 @csrf
 
@@ -397,7 +395,11 @@
 
                        <div class="card rounded-lg" >
                            <div class="card-body">
-
+                             <!-- @foreach ($errors->all() as $message)
+                               <div class="alert alert-danger">
+                                   {{ $message }}
+                               </div>
+                             @endforeach -->
                           <div class="row">
                             <div class="col-md-4">
                               <p><b>4. KETERANGAN MENGENAI HARTA</b></p>
@@ -418,7 +420,7 @@
                               </div>
                               <!-- input select with text -->
                               <div class="col-md-8">
-                                <input id="jenis_harta" list="harta" class="custom-select  bg-light" name="jenis_harta" value="{{ old('jenis_harta')}}" placeholder="Sila masukan harta" autocomplete="off">
+                                <input id="jenis_harta" list="harta" class="custom-select  bg-light" name="jenis_harta" value="{{ old('jenis_harta')}}" placeholder="Sila masukan harta" autocomplete="off" >
                                     <datalist id="harta">
                                       @foreach($jenisHarta as $jenisharta)
                                       @if($jenisharta->status_jenis_harta == "Aktif")
@@ -428,9 +430,11 @@
                                     </datalist>
                                     <option value="" selected disabled hidden>Jenis Harta</option>
                                   </input>
-                                    @error('jenis_harta_')
-                                       <div class="alert alert-danger">{{ $message }}</div>
-                                   @enderror
+                                   @foreach ($errors->get('jenis_harta_.*') as $messages)
+                                    @foreach($messages as $message)
+                                      <div class="alert alert-danger">{{ $message }}</div>
+                                    @endforeach
+                                   @endforeach
                               </div>
 
                           </div>
@@ -442,9 +446,11 @@
                             </div>
                             <div class="col-md-4">
                               <input class="form-control bg-light" type="text" id="pemilik_harta" name="pemilik_harta" placeholder="Nama Pemilik" value="{{ old('pemilik_harta')}}" autocomplete="off">
-                              @error('pemilik_harta_')
+                              @foreach ($errors->get('pemilik_harta_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
                             <div class="col-md-4">
                                 <select id="select_hubungan" class="custom-select  bg-light" name="hubungan_pemilik" >
@@ -455,9 +461,11 @@
                                     <option value="Ibu/Ayah" {{ old('hubungan_pemilik') == "Ibu/Ayah" ? 'selected' : '' }}>Ibu/Ayah</option>
                                     <option value="Lain-lain" {{ old('hubungan_pemilik') == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
                                 </select>
-                                @error('select_hubungan_')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
+                               @foreach ($errors->get('select_hubungan_.*') as $messages)
+                                @foreach($messages as $message)
+                                  <div class="alert alert-danger">{{ $message }}</div>
+                                @endforeach
+                               @endforeach
                             </div>
 
                           </div>
@@ -468,10 +476,15 @@
                               <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="maklumat_harta" name="maklumat_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ old('maklumat_harta')}}" autocomplete="off" >
-                              @error('maklumat_harta_')
+                              <input class="form-control bg-light" type="text" id="maklumat_harta" name="maklumat_harta" placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" autocomplete="off" >
+                              <!-- @error('maklumat_harta_')
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                             @enderror -->
+                             @foreach ($errors->get('maklumat_harta_.*') as $messages)
+                              @foreach($messages as $message)
+                                <div class="alert alert-danger">{{ $message }}</div>
+                              @endforeach
+                             @endforeach
                             </div>
 
                           </div>
@@ -482,21 +495,31 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="date" id="tarikh_pemilikan_harta" name="tarikh_pemilikan_harta" value="{{ old('tarikh_pemilikan_harta')}}" autocomplete="off">
-                              @error('tarikh_pemilikan_harta_')
+                              <!-- @error('tarikh_pemilikan_harta_')
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                             @enderror -->
+                             @foreach ($errors->get('tarikh_pemilikan_harta_.*') as $messages)
+                              @foreach($messages as $message)
+                                <div class="alert alert-danger">{{ $message }}</div>
+                              @endforeach
+                             @endforeach
                             </div>
                           </div>
                           <br>
                           <div class="row">
                             <div class="col-md-4">
-                              <p class="required">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
+                              <p class="required">Bilangan / Ekar / Kapasiti Enjin / Kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="bilangan" onkeypress="return onlyNumberKey(event)"  name="bilangan" placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ old('bilangan')}}" autocomplete="off">
-                              @error('bilangan_')
+                              <input class="form-control bg-light" type="text" id="bilangan" onkeypress="return onlyNumberKey(event)"  name="bilangan" placeholder="Bilangan / Ekar / Kapasiti Enjin / Kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" autocomplete="nope">
+                              <!-- @error('bilangan_')
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                             @enderror -->
+                             @foreach ($errors->get('bilangan_.*') as $messages)
+                              @foreach($messages as $message)
+                                <div class="alert alert-danger">{{ $message }}</div>
+                              @endforeach
+                             @endforeach
                             </div>
 
                           </div>
@@ -507,9 +530,14 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="text" id="nilai_perolehan" onkeypress="return onlyNumberKey(event)"  name="nilai_perolehan" placeholder="Nilai Perolehan Harta (RM)" value="{{ old('nilai_perolehan')}}" autocomplete="off">
-                              @error('nilai_perolehan_')
+                              <!-- @error('nilai_perolehan_')
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                             @enderror -->
+                             @foreach ($errors->get('nilai_perolehan_.*') as $messages)
+                              @foreach($messages as $message)
+                                <div class="alert alert-danger">{{ $message }}</div>
+                              @endforeach
+                             @endforeach
                             </div>
 
                           </div>
@@ -526,9 +554,14 @@
                                     <option value="Dihadiahkan" {{ old('cara_perolehan') == "Dihadiahkan" ? 'selected' : '' }}>Dihadiahkan</option>
                                     <option value="Lain-lain" {{ old('cara_perolehan') == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
                                 </select>
-                                @error('cara_perolehan_')
+                                <!-- @error('cara_perolehan_')
                                    <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
+                               @enderror -->
+                               @foreach ($errors->get('cara_perolehan_.*') as $messages)
+                                @foreach($messages as $message)
+                                  <div class="alert alert-danger">{{ $message }}</div>
+                                @endforeach
+                               @endforeach
                             </div>
 
                             </div>
@@ -541,9 +574,14 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="nama_pemilikan_asal" name="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum" value="{{ old('nama_pemilikan_asal')}}" autocomplete="off">
-                                  @error('nama_pemilikan_asal_')
+                                  <!-- @error('nama_pemilikan_asal_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('nama_pemilikan_asal_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -557,9 +595,14 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="lain_lain" name="lain_lain" value="{{ old('lain_lain')}}" autocomplete="off">
-                                  @error('lain_lain_')
+                                  <!-- @error('lain_lain_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('lain_lain_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -577,9 +620,14 @@
                                       <option value="Pinjaman" {{ old('cara_belian') == "Pinjaman" ? 'selected' : '' }}>Pinjaman</option>
                                       <option value="Pelupusan" {{ old('cara_belian') == "Pelupusan" ? 'selected' : '' }}>Pelupusan</option>
                                   </select>
-                                  @error('cara_belian_')
+                                  <!-- @error('cara_belian_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('cara_belian_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -593,9 +641,14 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  type="text" id="jumlah_pinjaman"  value="{{ old('jumlah_pinjaman')}}" autocomplete="off">
-                                  @error('jumlah_pinjaman_')
+                                  <!-- @error('jumlah_pinjaman_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('jumlah_pinjaman_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -606,9 +659,14 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="institusi_pinjaman"  value="{{ old('institusi_pinjaman')}}" autocomplete="off">
-                                  @error('institusi_pinjaman_')
+                                  <!-- @error('institusi_pinjaman_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('institusi_pinjaman_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -619,9 +677,16 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="tempoh_bayar_balik" value="{{ old('tempoh_bayar_balik')}}" autocomplete="off">
-                                  @error('tempoh_bayar_balik_')
+                                  <label for="tempoh_bayar_balik">Sila sertakan bulan atau tahun. cth: (9 Tahun / 10 Bulan)</label>
+
+                                  <!-- @error('tempoh_bayar_balik_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('tempoh_bayar_balik_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -632,9 +697,14 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  type="text" id="ansuran_bulanan" value="{{ old('ansuran_bulanan')}}" autocomplete="off">
-                                  @error('ansuran_bulanan_')
+                                  <!-- @error('ansuran_bulanan_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('ansuran_bulanan_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -645,9 +715,14 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="date" id="tarikh_ansuran_pertama" value="{{ old('tarikh_ansuran_pertama')}}" autocomplete="off">
-                                  @error('tarikh_ansuran_pertama_')
+                                  <!-- @error('tarikh_ansuran_pertama_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('tarikh_ansuran_pertama_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -661,9 +736,16 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="jenis_harta_pelupusan"  value="{{ old('jenis_harta_pelupusan')}}" autocomplete="off">
-                                  @error('jenis_harta_pelupusan_')
+                                  <!-- @error('jenis_harta_pelupusan_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('jenis_harta_pelupusan_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
+
+
                                 </div>
 
                               </div>
@@ -673,10 +755,15 @@
                                   <p class="required">ii) Alamat</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="alamat_asset"  value="{{ old('alamat_asset')}}" autocomplete="off">
-                                  @error('alamat_asset_')
+                                  <input class="form-control bg-light" type="text" id="alamat_asset"  value="{{ old('alamat_asset')}}" autocomplete="nope">
+                                  <!-- @error('alamat_asset_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('alamat_asset_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -687,9 +774,14 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="no_pendaftaran"  value="{{ old('no_pendaftaran')}}" autocomplete="off">
-                                  @error('no_pendaftaran_')
+                                  <!-- @error('no_pendaftaran_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('no_pendaftaran_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -700,9 +792,14 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  type="text" id="harga_jualan"  value="{{ old('harga_jualan')}}" autocomplete="off">
-                                  @error('harga_jualan_')
+                                  <!-- @error('harga_jualan_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('harga_jualan_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -713,9 +810,14 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="date" id="tarikh_lupus"  value="{{ old('tarikh_lupus')}}">
-                                  @error('tarikh_lupus_')
+                                  <!-- @error('tarikh_lupus_')
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 @foreach ($errors->get('tarikh_lupus_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
                                 </div>
 
                               </div>
@@ -776,6 +878,7 @@
 
                               </div>
                               <div class="col-md-4">
+                                <!-- <input class="btn btn-primary" type="button" value=" Tambah Data Harta"  onclick="keterangan();calculatePinjamanPerumahan();"> -->
                                 <input class="btn btn-primary" type="button" value=" Tambah Data Harta" onclick="keterangan();calculatePinjamanPerumahan();">
                               </div>
                           </div>
@@ -1163,7 +1266,7 @@
               <br>
                     <div class="row">
                       <div class="col-md-1" align="right">
-                        <input type="checkbox" name="pengakuan" value="pengakuan pegawai" >
+                        <input type="checkbox" name="pengakuan" value="pengakuan pegawai" required>
                       </div>
                       <div class="col-md-11">
                           <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang palsu atau meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC.</b></label><br>
@@ -1217,9 +1320,9 @@
                           </div>
                           </div>
                       </div>
-
+                    </div>
                 </form>
-            </div>
+
             <br>
 
            <!--script-->
@@ -1867,5 +1970,4 @@
             }
           }
         </script>
-      </div>
 @endsection

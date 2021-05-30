@@ -26,7 +26,7 @@ class AttemptSeeder extends Seeder
       DB::table('durations')-> insert(
         [
           'duration' => '1826',
-          'years' => '5'
+          'years' => '1826'
         ]
       );
     }

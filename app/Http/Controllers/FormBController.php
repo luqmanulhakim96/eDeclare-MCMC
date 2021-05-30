@@ -284,11 +284,57 @@ public function add(array $data){
 
     }
 
+    public function adddraftbackend(array $data){
+      $userid = Auth::user()->id;
+      $sedang_proses= "";
+      // dd($data);
+
+        return FormB::create([
+          'no_staff' => $data['no_staff'],
+          'nama_pegawai' => $data['nama_pegawai'],
+          'kad_pengenalan' => $data['kad_pengenalan'],
+          'jawatan' => $data['jawatan'],
+          'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
+          'jabatan' => $data['jabatan'],
+          'gaji' => $data['gaji'],
+          'gaji_pasangan' => $data['gaji_pasangan'],
+          'jumlah_imbuhan' => $data['jumlah_imbuhan'],
+          'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
+          'sewa' => $data['sewa'],
+          'sewa_pasangan' => $data['sewa_pasangan'],
+          'dividen_1' => $data['dividen_1'],
+          'dividen_1_pegawai' => $data['dividen_1_pegawai'],
+          'dividen_1_pasangan' => $data['dividen_1_pasangan'],
+          'pinjaman_perumahan_pegawai' => $data['pinjaman_perumahan_pegawai'],
+          'bulanan_perumahan_pegawai' => $data['bulanan_perumahan_pegawai'],
+          'pinjaman_perumahan_pasangan' => $data['pinjaman_perumahan_pasangan'],
+          'bulanan_perumahan_pasangan' => $data['bulanan_perumahan_pasangan'],
+          'pinjaman_kenderaan_pegawai' => $data['pinjaman_kenderaan_pegawai'],
+          'bulanan_kenderaan_pegawai' => $data['bulanan_kenderaan_pegawai'],
+          'pinjaman_kenderaan_pasangan' => $data['pinjaman_kenderaan_pasangan'],
+          'bulanan_kenderaan_pasangan' => $data['bulanan_kenderaan_pasangan'],
+          'jumlah_cukai_pegawai' => $data['jumlah_cukai_pegawai'],
+          'bulanan_cukai_pegawai' => $data['bulanan_cukai_pegawai'],
+          'jumlah_cukai_pasangan' => $data['jumlah_cukai_pasangan'],
+          'bulanan_cukai_pasangan' => $data['bulanan_cukai_pasangan'],
+          'jumlah_koperasi_pegawai' => $data['jumlah_koperasi_pegawai'],
+          'bulanan_koperasi_pegawai' => $data['bulanan_koperasi_pegawai'],
+          'jumlah_koperasi_pasangan' => $data['jumlah_koperasi_pasangan'],
+          'bulanan_koperasi_pasangan' => $data['bulanan_koperasi_pasangan'],
+          'lain_lain_pinjaman'=> $data['lain_lain_pinjaman'],
+          'pinjaman_pegawai'=>$data['pinjaman_pegawai'],
+          'bulanan_pegawai'=> $data['bulanan_pegawai'],
+          'pinjaman_pasangan'=> $data['pinjaman_pasangan'],
+          'bulanan_pasangan'=> $data['bulanan_pasangan'],
+          'user_id' => $userid,
+          'status' => $sedang_proses,
+        ]);
+
+      }
   protected function validatorpublish(array $data)
   {
-    return Validator::make($data, [
-    // $validator =  Validator::make($data, [
-      'jabatan' =>[ 'string'],
+    // dd($data);
+     return Validator::make($data, [
       'gaji_pasangan' =>['nullable', 'numeric'],
       'jumlah_imbuhan' => ['nullable', 'numeric'],
       'jumlah_imbuhan_pasangan' =>['nullable', 'numeric'],
@@ -324,6 +370,7 @@ public function add(array $data){
       'jumlah_bulanan_pegawai' =>['nullable', 'numeric'],
       'jumlah_pinjaman_pasangan' => ['nullable', 'numeric'],
       'jumlah_bulanan_pasangan' => ['nullable', 'numeric'],
+
       // 'jenis_harta_[]' => ['required', 'string'],
       'jenis_harta_' => ['required', 'array'],
       'jenis_harta_.*' => ['required', 'string'],
@@ -343,7 +390,6 @@ public function add(array $data){
       'cara_perolehan_.*' => ['required', 'string'],
       'pengakuan'=> ['required'],
     ]);
-
   }
 
   protected function validatorharta(array $data){
@@ -583,18 +629,94 @@ public function add(array $data){
 
   else if ($request->has('publish'))
   {
-  // dd($request->all());
+    //save draft backend
+    // $this->validatorsave($request->all())->validate();
+    // // dd($request->all());
+    // event($formbs = $this->adddraftbackend($request->all()));
+    //
+    // $count = count($request->dividen_1);
+    // // dd($request->dividen_1); //get the index number of the first array
+    // // dd($count);
+    // $count_id = 0;
+    //
+    // // for ($i=1; $i < $count; $i++) {
+    // // for ($i=key($request->dividen_1); $i <= $count; $i++) {
+    // for ($i=0; $i < $count; $i++) {
+    //   $count_id++;
+    //   // dd($i);
+  	//   $dividen_bs = new DividenB();
+  	//   $dividen_bs->dividen_1 = $request->dividen_1[$i];
+  	//   $dividen_bs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
+    //   $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
+    //   $dividen_bs->formbs_id = $formbs-> id;
+    //   $dividen_bs->dividen_id = $count_id;
+    //   $dividen_bs->save();
+    // }
+    //
+    // $count1 = count($request->lain_lain_pinjaman);
+    // // dd($count1);
+    // $count_id_pinjaman = 0;
+    // // dd(key($request->lain_lain_pinjaman));//get the index number of the first array
+    //
+    // for ($i=0; $i < $count1; $i++) {
+    //
+    //     $count_id_pinjaman++;
+    //  	  $pinjaman_bs = new PinjamanB();
+    //  	  $pinjaman_bs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
+    //  	  $pinjaman_bs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
+    //     $pinjaman_bs->bulanan_pegawai = $request->bulanan_pegawai[$i];
+    //     $pinjaman_bs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
+    //     $pinjaman_bs->bulanan_pasangan = $request->bulanan_pasangan[$i];
+    //     $pinjaman_bs->formbs_id = $formbs-> id;
+    //     $pinjaman_bs->pinjaman_id = $count_id_pinjaman;
+    //      //dd($request->all());
+    //     $pinjaman_bs->save();
+    //  }
+    //
+    //  if($request->jenis_harta_){
+    //    $count_harta = count($request->jenis_harta_);
+    //  }
+    //  else {
+    //    $count_harta = 0;
+    //  }
+    //
+    //  for ($i=0; $i < $count_harta; $i++) {
+    //
+   	//    $hartaB = new HartaB();
+   	//    $hartaB->jenis_harta = $request->jenis_harta_[$i];
+   	//    $hartaB->pemilik_harta = $request->pemilik_harta_[$i];
+    //    $hartaB->hubungan_pemilik = $request->select_hubungan_[$i];
+    //    $hartaB->maklumat_harta = $request->maklumat_harta_[$i];
+    //    $hartaB->tarikh_pemilikan_harta = $request->tarikh_pemilikan_harta_[$i];
+    //    $hartaB->bilangan = $request->bilangan_[$i];
+   	//    $hartaB->nilai_perolehan = $request->nilai_perolehan_[$i];
+    //    $hartaB->cara_perolehan = $request->cara_perolehan_[$i];
+    //    $hartaB->lain_lain = $request->lain_lain_[$i];
+    //    $hartaB->cara_belian = $request->cara_belian_[$i];
+    //    $hartaB->nama_pemilikan_asal = $request->nama_pemilikan_asal_[$i];
+   	//    $hartaB->jumlah_pinjaman = $request->jumlah_pinjaman_[$i];
+    //    $hartaB->institusi_pinjaman = $request->institusi_pinjaman_[$i];
+    //    $hartaB->tempoh_bayar_balik = $request->tempoh_bayar_balik_[$i];
+    //    $hartaB->ansuran_bulanan = $request->ansuran_bulanan_[$i];
+    //    $hartaB->tarikh_ansuran_pertama = $request->tarikh_ansuran_pertama_[$i];
+    //    $hartaB->jenis_harta_pelupusan = $request->jenis_harta_pelupusan_[$i];
+   	//    $hartaB->alamat_asset = $request->alamat_asset_[$i];
+    //    $hartaB->no_pendaftaran = $request->no_pendaftaran_[$i];
+    //    $hartaB->harga_jualan = $request->harga_jualan_[$i];
+    //    $hartaB->tarikh_lupus = $request->tarikh_lupus_[$i];
+    //    $hartaB->formbs_id = $formbs-> id;
+    //    $hartaB->save();
+    //  }
+
+  // submit form
     $this->validatorpublish($request->all())->validate();
-    // dd($request->all());
     $this->validatorharta($request->all())->validate();
-    // dd("berhaya");
     event($formbs = $this->add($request->all()));
 
     $count = count($request->dividen_1);
 
     $count_id = 0;
 
-    // for ($i=key($request->dividen_1); $i < $count; $i++) {
     for ($i=0; $i < $count; $i++) {
       $count_id++;
   	  $dividen_bs = new DividenB();
@@ -609,7 +731,6 @@ public function add(array $data){
     $count1 = count($request->lain_lain_pinjaman);
     $count_id_pinjaman = 0;
 
-    // for ($i=key($request->lain_lain_pinjaman); $i < $count1; $i++) {
     for ($i=0; $i < $count1; $i++) {
         $count_id_pinjaman++;
      	  $pinjaman_bs = new PinjamanB();
@@ -620,7 +741,6 @@ public function add(array $data){
         $pinjaman_bs->bulanan_pasangan = $request->bulanan_pasangan[$i];
         $pinjaman_bs->formbs_id = $formbs-> id;
         $pinjaman_bs->pinjaman_id = $count_id_pinjaman;
-         //dd($request->all());
         $pinjaman_bs->save();
      }
 
