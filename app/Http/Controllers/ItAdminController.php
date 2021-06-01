@@ -50,7 +50,7 @@ class ItAdminController extends Controller
       public function audit(){
 
         /* php artisan import user dari ldap */
-        \Artisan::call('adldap:import --no-interaction');
+        // \Artisan::call('adldap:import --no-interaction');
 
         // testing data get from mcmc databases
         // $userldap = Adldap::search()->users()->find('SITI RAFIDAH AHMAD FUAD'); //active directory testing

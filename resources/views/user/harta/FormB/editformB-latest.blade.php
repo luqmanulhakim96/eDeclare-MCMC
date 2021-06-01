@@ -21,8 +21,9 @@
 
                                 <div id="hidden_input" name="hidden_input">
 
-                                  @foreach($hartaB as $data)
+                                  @forelse($hartaB as $data)
                                     @if($loop->last)
+
                                     <input type="hidden" id="counter_keterangan" name="counter_keterangan" value="{{$data->id}}">
                                     <input type="hidden" id="increment_keterangan" name="increment_keterangan" value="{{$data->id}}">
                                     @endif
@@ -32,6 +33,7 @@
                                       <input type="hidden" id="maklumat_harta{{$data->id}}" name="maklumat_harta_[]"  value="{{$data->maklumat_harta}}" readonly>
                                       <input type="hidden" id="tarikh_pemilikan_harta{{$data->id}}" name="tarikh_pemilikan_harta_[]"  value="{{$data->tarikh_pemilikan_harta}}" readonly>
                                       <input type="hidden" id="bilangan{{$data->id}}" name="bilangan_[]"  value="{{$data->bilangan}}" readonly>
+                                      <input type="hidden" id="unit_bilangan{{$data->id}}" name="unit_bilangan_[]"  value="{{$data->unit_bilangan}}" readonly>
                                       <input type="hidden" id="nilai_perolehan{{$data->id}}" name="nilai_perolehan_[]"  value="{{$data->nilai_perolehan}}" readonly>
                                       <input type="hidden" id="cara_perolehan{{$data->id}}" name="cara_perolehan_[]"  value="{{$data->cara_perolehan}}" readonly>
                                       <input type="hidden" id="nama_pemilikan_asal{{$data->id}}" name="nama_pemilikan_asal_[]"  value="{{$data->nama_pemilikan_asal}}" readonly>
@@ -47,8 +49,12 @@
                                       <input type="hidden" id="tarikh_lupus{{$data->id}}" name="tarikh_lupus_[]"  value="{{$data->tarikh_lupus}}" readonly>
                                       <input type="hidden" id="lain_lain{{$data->id}}" name="lain_lain_[]"  value="{{$data->lain_lain}}" readonly>
                                       <input type="hidden" id="cara_belian{{$data->id}}" name="cara_belian_[]"  value="{{$data->cara_belian}}" readonly>
-                                    @endforeach
+                                    @empty
+                                    <input type="hidden" id="counter_keterangan" name="counter_keterangan" value="0">
 
+                                    <input type="hidden" id="increment_keterangan" name="increment_keterangan" value="0">
+
+                                    @endforelse
                                 </div>
 
                                 <div id="hidden_dividen" name="hidden_dividen">
@@ -503,13 +509,18 @@
                             <div class="col-md-4">
                               <p class="required">Bilangan / Ekar / Kapasiti Enjin / Kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                               <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="bilangan"  placeholder="Bilangan / Ekar / Kapasiti Enjin / Kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}" autocomplete="nope" >
                               @error('bilangan_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
                             </div>
-
+                            <div class="col-md-4">
+                              <input class="form-control bg-light" type="text" id="unit_bilangan" onkeypress=""  name="unit_bilangan" placeholder="Sila Masukkan Unit (Meter Persegi , Ekar , CC)" value="{{ $info->unit_bilangan  }}" autocomplete="nope">
+                              @error('unit_bilangan_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror
+                            </div>
                           </div>
                           <br>
                           <div class="row">
@@ -818,7 +829,7 @@
                                       <td><p class="mb-0 " style="text-align: center;" id="jenis_harta_table{{$data->id}}">{{$data->jenis_harta}}</p></td>
                                       <td><p class="mb-0 " style="text-align: center;" id="pemilik_harta_table{{$data->id}}">{{$data->pemilik_harta}}</p></td>
                                       <td><p class="mb-0 " style="text-align: center;" id="tarikh_pemilikan_harta_table{{$data->id}}">{{$data->tarikh_pemilikan_harta}}</p></td>
-                                      <td><p class="mb-0 " style="text-align: center;" id="bilangan_table{{$data->id}}">{{$data->bilangan}}</p></td>
+                                      <td><p class="mb-0 " style="text-align: center;" id="bilangan_table{{$data->id}}">{{$data->bilangan}} {{$data->unit_bilangan}}</p></td>
                                       <td><p class="mb-0 " style="text-align: center;" id="nilai_perolehan_table{{$data->id}}">{{$data->nilai_perolehan}}</p></td>
                                       <!-- <td><a href="{{route('hartaB.delete',$data->id)}}"><i class="fas fa-trash-alt"></i></td> -->
                                       <td>
@@ -880,12 +891,12 @@
                       </div>
                       <div class="col-md-2">
                         @if($info->pinjaman_perumahan_pegawai)
-                        <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{$info->pinjaman_perumahan_pegawai}}" readonly>
+                        <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{$info->pinjaman_perumahan_pegawai}}" >
                         @else
                           @if(old('pinjaman_perumahan_pegawai'))
-                          <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{old('pinjaman_perumahan_pegawai')}}" readonly>
+                          <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="{{old('pinjaman_perumahan_pegawai')}}" >
                           @else
-                          <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value=0 readonly>
+                          <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value=0 >
                           @endif
                         @endif
                         <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_perumahan_pegawai" value="{{ $info->pinjaman_perumahan_pegawai}}"> -->
@@ -896,12 +907,12 @@
                      @enderror
                       <div class="col-md-2">
                         @if($info->bulanan_perumahan_pegawai)
-                        <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{$info->bulanan_perumahan_pegawai}}" readonly>
+                        <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{$info->bulanan_perumahan_pegawai}}" >
                         @else
                           @if(old('bulanan_perumahan_pegawai'))
-                          <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{old('bulanan_perumahan_pegawai')}}" readonly>
+                          <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="{{old('bulanan_perumahan_pegawai')}}" >
                           @else
-                          <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value=0 readonly>
+                          <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value=0 >
                           @endif
                         @endif
 
@@ -911,12 +922,12 @@
                      @enderror
                         <div class="col-md-2">
                           @if($info->pinjaman_perumahan_pasangan)
-                          <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{$info->pinjaman_perumahan_pasangan}}" readonly>
+                          <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{$info->pinjaman_perumahan_pasangan}}" >
                           @else
                             @if(old('pinjaman_perumahan_pasangan'))
-                            <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{old('pinjaman_perumahan_pasangan')}}" readonly>
+                            <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="{{old('pinjaman_perumahan_pasangan')}}" >
                             @else
-                            <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value=0 readonly>
+                            <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value=0 >
                             @endif
                           @endif
                           <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_perumahan_pasangan" value="{{ $info->pinjaman_perumahan_pasangan}}"> -->
@@ -926,12 +937,12 @@
                        @enderror
                         <div class="col-md-2">
                           @if($info->bulanan_perumahan_pasangan)
-                          <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{$info->bulanan_perumahan_pasangan}}" readonly>
+                          <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{$info->bulanan_perumahan_pasangan}}" >
                           @else
                             @if(old('bulanan_perumahan_pasangan'))
-                            <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{old('bulanan_perumahan_pasangan')}}" readonly>
+                            <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="{{old('bulanan_perumahan_pasangan')}}" >
                             @else
-                            <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value=0 readonly>
+                            <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value=0 >
                             @endif
                           @endif
                           <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_perumahan_pasangan" value="{{ $info->bulanan_perumahan_pasangan}}"> -->
@@ -948,12 +959,12 @@
                       </div>
                       <div class="col-md-2">
                         @if($info->pinjaman_kenderaan_pegawai)
-                        <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="{{$info->pinjaman_kenderaan_pegawai}}" readonly>
+                        <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="{{$info->pinjaman_kenderaan_pegawai}}" >
                         @else
                           @if(old('pinjaman_kenderaan_pegawai'))
-                          <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="{{old('pinjaman_kenderaan_pegawai')}}" readonly>
+                          <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="{{old('pinjaman_kenderaan_pegawai')}}" >
                           @else
-                          <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value=0 readonly>
+                          <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value=0 >
                           @endif
                         @endif
                         <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_kenderaan_pegawai" value="{{ $info->pinjaman_kenderaan_pegawai}}"> -->
@@ -963,12 +974,12 @@
                      @enderror
                       <div class="col-md-2">
                         @if($info->bulanan_kenderaan_pegawai)
-                        <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="{{$info->bulanan_kenderaan_pegawai}}" readonly>
+                        <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="{{$info->bulanan_kenderaan_pegawai}}" >
                         @else
                           @if(old('bulanan_kenderaan_pegawai'))
-                          <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="{{old('bulanan_kenderaan_pegawai')}}" readonly>
+                          <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="{{old('bulanan_kenderaan_pegawai')}}" >
                           @else
-                          <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value=0 readonly>
+                          <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value=0 >
                           @endif
                         @endif
                         <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_kenderaan_pegawai" value="{{ $info->bulanan_kenderaan_pegawai}}"> -->
@@ -978,12 +989,12 @@
                      @enderror
                         <div class="col-md-2">
                           @if($info->pinjaman_kenderaan_pasangan)
-                          <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="{{$info->pinjaman_kenderaan_pasangan}}" readonly>
+                          <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="{{$info->pinjaman_kenderaan_pasangan}}" >
                           @else
                             @if(old('pinjaman_kenderaan_pasangan'))
-                            <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="{{old('pinjaman_kenderaan_pasangan')}}" readonly>
+                            <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="{{old('pinjaman_kenderaan_pasangan')}}" >
                             @else
-                            <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value=0 readonly>
+                            <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value=0 >
                             @endif
                           @endif
                           <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_kenderaan_pasangan" value="{{ $info->pinjaman_kenderaan_pasangan}}"> -->
@@ -993,12 +1004,12 @@
                        @enderror
                         <div class="col-md-2">
                           @if($info->bulanan_kenderaan_pasangan)
-                          <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_perumbulanan_kenderaan_pasanganahan_pasangan" value="{{$info->bulanan_kenderaan_pasangan}}" readonly>
+                          <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value="{{$info->bulanan_kenderaan_pasangan}}" >
                           @else
                             @if(old('bulanan_kenderaan_pasangan'))
-                            <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value="{{old('bulanan_kenderaan_pasangan')}}" readonly>
+                            <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value="{{old('bulanan_kenderaan_pasangan')}}" >
                             @else
-                            <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value=0 readonly>
+                            <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value=0 >
                             @endif
                           @endif
                           <!-- <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_kenderaan_pasangan" value="{{ $info->bulanan_kenderaan_pasangan}}"> -->
@@ -1266,9 +1277,15 @@
                         <div class="col-md-4">
                           <p class="required">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                           <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="bilangan_edit"  placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}" autocomplete="nope">
                           @error('bilangan_')
+                             <div class="alert alert-danger">{{ $message }}</div>
+                         @enderror
+                        </div>
+                        <div class="col-md-4">
+                          <input class="form-control bg-light" type="text" id="unit_bilangan_edit" onkeypress=""  name="unit_bilangan_edit" placeholder="Sila Masukkan Unit (Meter Persegi , Ekar , CC)" value="{{ $info->unit_bilangan  }}" autocomplete="nope">
+                          @error('unit_bilangan_')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
                         </div>
@@ -1646,6 +1663,7 @@
                  document.getElementById("maklumat_harta_edit").value = "{{$data->maklumat_harta}}";
                  document.getElementById("tarikh_pemilikan_harta_edit").value = "{{$data->tarikh_pemilikan_harta}}";
                  document.getElementById("bilangan_edit").value = "{{$data->bilangan}}";
+                 document.getElementById("unit_bilangan_edit").value = "{{$data->unit_bilangan}}";
                  document.getElementById("nilai_perolehan_edit").value = "{{$data->nilai_perolehan}}";
                  document.getElementById("cara_perolehan_edit").value = "{{$data->cara_perolehan}}";
                  if("{{$data->cara_perolehan}}" == "Dipusakai" || "{{$data->cara_perolehan}}" == "Dihadiahkan"){
@@ -1700,6 +1718,7 @@
                document.getElementById("pemilik_harta_edit").value = "";
                document.getElementById("maklumat_harta_edit").value = "";
                document.getElementById("bilangan_edit").value = "";
+               document.getElementById("unit_bilangan_edit").value = "";
                document.getElementById("nilai_perolehan_edit").value = "";
                document.getElementById("nama_pemilikan_asal_edit").value = "";
                document.getElementById("jumlah_pinjaman_edit").value = "";
@@ -1739,6 +1758,7 @@
                 document.getElementById("pemilik_harta_edit").value = "";
                 document.getElementById("maklumat_harta_edit").value = "";
                 document.getElementById("bilangan_edit").value = "";
+                document.getElementById("unit_bilangan_edit").value = "";
                 document.getElementById("nilai_perolehan_edit").value = "";
                 document.getElementById("nama_pemilikan_asal_edit").value = "";
                 document.getElementById("jumlah_pinjaman_edit").value = "";
@@ -1772,6 +1792,7 @@
                document.getElementById("pemilik_harta_table"+e).innerHTML  = document.getElementById("pemilik_harta_edit").value;
                document.getElementById("tarikh_pemilikan_harta_table"+e).value = "{{$data->tarikh_pemilikan_harta}}";
                document.getElementById("bilangan_table"+e).value = "{{$data->bilangan}}";
+               // document.getElementById("unit_bilangan_table"+e).value = "{{$data->unit_bilangan}}";
                document.getElementById("nilai_perolehan_table"+e).value = "{{$data->nilai_perolehan}}";
 
             // update hidden input
@@ -1781,6 +1802,7 @@
             document.getElementById("maklumat_harta"+e).value = document.getElementById("maklumat_harta_edit").value;
             document.getElementById("tarikh_pemilikan_harta"+e).value = document.getElementById("tarikh_pemilikan_harta_edit").value;
             document.getElementById("bilangan"+e).value = document.getElementById("bilangan_edit").value;
+            document.getElementById("unit_bilangan"+e).value = document.getElementById("unit_bilangan_edit").value;
             document.getElementById("nilai_perolehan"+e).value = document.getElementById("nilai_perolehan_edit").value;
             document.getElementById("cara_perolehan"+e).value = document.getElementById("cara_perolehan_edit").value;
             if(document.getElementById("cara_perolehan_edit").value == "Dipusakai" || document.getElementById("cara_perolehan_edit").value == "Dihadiahkan" ){
@@ -1808,8 +1830,8 @@
             }
 
           }
-        }
         @endforeach
+        }
            </script>
 
 
@@ -2025,6 +2047,7 @@
             var maklumat_harta = document.getElementById("maklumat_harta").value;
             var tarikh_pemilikan_harta = document.getElementById("tarikh_pemilikan_harta").value;
             var bilangan = document.getElementById("bilangan").value;
+            var unit_bilangan = document.getElementById("unit_bilangan").value;
             var nilai_perolehan = document.getElementById("nilai_perolehan").value;
             var cara_perolehan = document.getElementById("cara_perolehan").value;
             var nama_pemilikan_asal = document.getElementById("nama_pemilikan_asal").value;
@@ -2041,8 +2064,6 @@
             var harga_jualan = document.getElementById("harga_jualan").value;
             var tarikh_lupus = document.getElementById("tarikh_lupus").value;
 
-
-
             var counter_keterangan = document.getElementById("counter_keterangan").value;
             var increment_keterangan = document.getElementById("increment_keterangan").value;
             increment_keterangan++;
@@ -2056,7 +2077,7 @@
               '</td><td><p class="mb-0 " style="text-align: center;">' +
               tarikh_pemilikan_harta +
               '</td><td><p class="mb-0 " style="text-align: center;">' +
-              bilangan +
+              bilangan + " " + unit_bilangan.toUpperCase()+
               '</td><td><p class="mb-0 " style="text-align: center;">' +
               nilai_perolehan +
               '</td><td><a onClick="removeJumlahPinjaman('+ increment_keterangan  +');removeData(this,'+ increment_keterangan  +'); return false;" class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a></td></tr>'
@@ -2068,6 +2089,7 @@
             maklumat_harta_to_append = '<input type="hidden" id="maklumat_harta'+ increment_keterangan +'" name="maklumat_harta_[]"  value="'+ maklumat_harta +'" readonly>';
             tarikh_pemilikan_harta_to_append = '<input type="hidden" id="tarikh_pemilikan_harta'+ increment_keterangan +'" name="tarikh_pemilikan_harta_[]"  value="'+ tarikh_pemilikan_harta +'" readonly>';
             bilangan_to_append = '<input type="hidden" id="bilangan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)" name="bilangan_[]"  value="'+ bilangan +'" readonly>';
+            unit_bilangan_to_append = '<input type="hidden" id="unit_bilangan'+ increment_keterangan +'" onkeypress="" name="unit_bilangan_[]"  value="'+ unit_bilangan +'" readonly>'
             nilai_perolehan_to_append = '<input type="hidden" id="nilai_perolehan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)" name="nilai_perolehan_[]"  value="'+ nilai_perolehan +'" readonly>';
             cara_perolehan_to_append = '<input type="hidden" id="cara_perolehan'+ increment_keterangan +'" name="cara_perolehan_[]"  value="'+ cara_perolehan +'" readonly>';
             nama_pemilikan_asal_to_append = '<input type="hidden" id="nama_pemilikan_asal'+ increment_keterangan +'" name="nama_pemilikan_asal_[]"  value="'+ nama_pemilikan_asal +'" readonly>';
@@ -2097,6 +2119,7 @@
             $("#hidden_input").append(maklumat_harta_to_append);
             $("#hidden_input").append(tarikh_pemilikan_harta_to_append);
             $("#hidden_input").append(bilangan_to_append);
+            $("#hidden_input").append(unit_bilangan_to_append);
             $("#hidden_input").append(nilai_perolehan_to_append);
             $("#hidden_input").append(cara_perolehan_to_append);
             $("#hidden_input").append(nama_pemilikan_asal_to_append);
@@ -2128,6 +2151,7 @@
             document.getElementById("pemilik_harta").value = "";
             document.getElementById("maklumat_harta").value = "";
             document.getElementById("bilangan").value = "";
+            document.getElementById("unit_bilangan").value = "";
             document.getElementById("nilai_perolehan").value = "";
             document.getElementById("nama_pemilikan_asal").value = "";
             // document.getElementById("jumlah_pinjaman").value = "";
@@ -2159,6 +2183,7 @@
            $('#maklumat_harta'+counter+'').remove();
            $('#tarikh_pemilikan_harta'+counter+'').remove();
            $('#bilangan'+counter+'').remove();
+           $('#unit_bilangan'+counter+'').remove();
            $('#nilai_perolehan'+counter+'').remove();
            $('#cara_perolehan'+counter+'').remove();
            $('#nama_pemilikan_asal'+counter+'').remove();
@@ -2411,12 +2436,12 @@
                 ansuran_bulanan_edit = document.getElementById("ansuran_bulanan_edit").value;
                 TotalValue_bulanan_edit = parseFloat(pinjaman_bulanan_rumah_semasa_edit).toFixed(2) + parseFloat(ansuran_bulanan_edit).toFixed(2);
 
-                document.getElementById("jenis_harta_edit").value = "";
-                document.getElementById("ansuran_bulanan_edit").value = "";
-                document.getElementById("jumlah_pinjaman_edit").value = "";
-                // $("#cara_belian").prop('selectedIndex', 0);
-                document.getElementById("cara_belian_edit").value = "";
-                $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+                // document.getElementById("jenis_harta_edit").value = "";
+                // document.getElementById("ansuran_bulanan_edit").value = "";
+                // document.getElementById("jumlah_pinjaman_edit").value = "";
+                // // $("#cara_belian").prop('selectedIndex', 0);
+                // document.getElementById("cara_belian_edit").value = "";
+                // $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
                 document.getElementById('pinjaman_perumahan_pegawai').value = +parseFloat(pinjaman_rumah_semasa_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
                 document.getElementById('bulanan_perumahan_pegawai').value = +parseFloat(pinjaman_bulanan_rumah_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
 
@@ -2434,13 +2459,13 @@
                 ansuran_bulanan_edit = document.getElementById("ansuran_bulanan_edit").value;
                 TotalValue_bulanan_edit = parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + parseFloat(ansuran_bulanan_edit).toFixed(2);
 
-                $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
-                document.getElementById("jenis_harta_edit").value = "";
-                document.getElementById("ansuran_bulanan_edit").value = "";
-                document.getElementById("jumlah_pinjaman_edit").value = "";
-                // $("#cara_belian").prop('selectedIndex', 0);
-                document.getElementById("cara_belian_edit").value = "";
-                $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+                // $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+                // document.getElementById("jenis_harta_edit").value = "";
+                // document.getElementById("ansuran_bulanan_edit").value = "";
+                // document.getElementById("jumlah_pinjaman_edit").value = "";
+                // // $("#cara_belian").prop('selectedIndex', 0);
+                // document.getElementById("cara_belian_edit").value = "";
+                // $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
                 document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
                 document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
               }
@@ -2454,26 +2479,26 @@
             ansuran_bulanan_edit = document.getElementById("ansuran_bulanan_edit").value;
             TotalValue_bulanan_edit = parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + parseFloat(ansuran_bulanan_edit).toFixed(2);
 
-            document.getElementById("jenis_harta_edit").value = "";
-            document.getElementById("ansuran_bulanan_edit").value = "";
-            document.getElementById("jumlah_pinjaman_edit").value = "";
-            // $("#cara_belian").prop('selectedIndex', 0);
-            document.getElementById("cara_belian_edit").value = "";
-            $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+            // document.getElementById("jenis_harta_edit").value = "";
+            // document.getElementById("ansuran_bulanan_edit").value = "";
+            // document.getElementById("jumlah_pinjaman_edit").value = "";
+            // // $("#cara_belian").prop('selectedIndex', 0);
+            // document.getElementById("cara_belian_edit").value = "";
+            // $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
             document.getElementById('pinjaman_kenderaan_pegawai').value = +parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
             document.getElementById('bulanan_kenderaan_pegawai').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
 
           }
         }
-        document.getElementById("cara_belian_edit").value = "";
+        // document.getElementById("cara_belian_edit").value = "";
       }
       else{
         // $("#cara_belian").prop('selectedIndex', 0);
-        document.getElementById("cara_belian_edit").value = "";
-        $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
-        document.getElementById("jenis_harta_edit").value = "";
-        document.getElementById("ansuran_bulanan_edit").value = "";
-        document.getElementById("jumlah_pinjaman_edit").value = "";
+        // document.getElementById("cara_belian_edit").value = "";
+        // $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
+        // document.getElementById("jenis_harta_edit").value = "";
+        // document.getElementById("ansuran_bulanan_edit").value = "";
+        // document.getElementById("jumlah_pinjaman_edit").value = "";
       }
     }
   </script>

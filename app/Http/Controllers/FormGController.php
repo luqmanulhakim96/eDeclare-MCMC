@@ -56,6 +56,7 @@ class FormGController extends Controller
     //data gaji user
     $username =strtoupper(Auth::user()->username);
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    $draft_exist = FormG::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
 
 
     //data pasangan
@@ -93,7 +94,7 @@ class FormGController extends Controller
 
         }
 
-        return view('user.harta.FormG.formGNew', compact('staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+        return view('user.harta.FormG.formGNew', compact('staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user', 'draft_exist'));
       }
 
 
@@ -113,7 +114,7 @@ class FormGController extends Controller
         $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
-        return view('user.harta.FormG.formGNew', compact('staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+        return view('user.harta.FormG.formGNew', compact('staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user', 'draft_exist'));
 
       }
   }

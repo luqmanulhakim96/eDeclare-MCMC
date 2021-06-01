@@ -398,14 +398,17 @@ class UserController extends Controller
         }
 
     if($maklumat_pasangan->isEmpty()){
-      return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB'));
+      $maklumat_pasangan = null;
+      // dd('test');
+      // return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan'));
     }
-    elseif ($maklumat_anak->isEmpty()) {
-      return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan'));
+
+    if ($maklumat_anak->isEmpty()) {
+      $maklumat_anak = null;
+      // return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan'));
     }
-    else{
     return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan'));
-    }
+
 }
 
   public function senaraiHartaC()

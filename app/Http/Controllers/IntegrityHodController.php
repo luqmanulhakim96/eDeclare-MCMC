@@ -363,7 +363,7 @@ class IntegrityHodController extends Controller
        elseif ($request->status == 'Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formbs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusb->user_id)->first(); //get system admin information
          // dd($user);
          $this->dispatch(new SendNotificationFormBHod($user, $email, $formbs));
          SendNotificationFormBHod::dispatch($user, $email, $formbs)->delay(now()->addMinutes(1));
@@ -374,7 +374,7 @@ class IntegrityHodController extends Controller
        else {
          $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formbs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusb->user_id)->first(); //get system admin information
 
          $this->dispatch(new SendNotificationFormBHod($user, $email, $formbs));
 
@@ -414,7 +414,7 @@ class IntegrityHodController extends Controller
        elseif ($request->status == 'Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formcs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusc->user_id)->first(); //get system admin information
 
          $this->dispatch(new SendNotificationFormCHod($user,$email, $formcs));
 
@@ -422,7 +422,7 @@ class IntegrityHodController extends Controller
        else {
          $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formcs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusc->user_id)->first(); //get system admin information
          $this->dispatch(new SendNotificationFormCHod($user,$email, $formcs));
 
      }
@@ -460,14 +460,14 @@ class IntegrityHodController extends Controller
        elseif ($request->status == 'Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formds->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusd->user_id)->first(); //get system admin information
          $this->dispatch(new SendNotificationFormCHod($user, $email, $formds));
 
       }
        else {
          $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formds->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusd->user_id)->first(); //get system admin information
          $this->dispatch(new SendNotificationFormCHod($user, $email, $formds));
 
      }
@@ -505,7 +505,7 @@ class IntegrityHodController extends Controller
        elseif ($request->status == 'Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formgs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusg->user_id)->first(); //get system admin information
 
          $this->dispatch(new SendNotificationFormGHod($user, $email, $formgs));
 
@@ -513,7 +513,7 @@ class IntegrityHodController extends Controller
        elseif ($request->status == 'Tidak Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formgs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusg->user_id)->first(); //get system admin information
 
          $this->dispatch(new SendNotificationFormGHod($user, $email, $formgs));
 

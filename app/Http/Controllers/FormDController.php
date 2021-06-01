@@ -23,7 +23,9 @@ class FormDController extends Controller
   {
     $username =Auth::user()->username;
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
-    return view('user.harta.FormD.formD',compact('staffinfo'));
+    $draft_exist = FormD::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
+
+    return view('user.harta.FormD.formD',compact('staffinfo', 'draft_exist'));
   }
 
   public function kemaskini($id){

@@ -39,6 +39,8 @@ class FormCController extends Controller
 
     $username =Auth::user()->username;
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    $draft_exist = FormC::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
+
 
     if($data_user->isEmpty()){
       // dd('Sila isi Lampiran B');
@@ -51,7 +53,7 @@ class FormCController extends Controller
         $harta[] = HartaB::where('formbs_id',$data->id)->where('formcs_id',null)->get();
       }
 
-      return view('user.harta.FormC.formC-has-data', compact('jenisHarta','data_user', 'harta','staffinfo'));
+      return view('user.harta.FormC.formC-has-data', compact('jenisHarta','data_user', 'harta','staffinfo', 'draft_exist'));
     }
   }
 

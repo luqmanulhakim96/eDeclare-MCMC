@@ -79,8 +79,7 @@
                                       </div>
                                   </div>
 
-                                  @if($maklumat_pasangan->isEmpty())
-                                  @else
+                                  @if($maklumat_pasangan)
 
                                                 <!-- keluarga -->
                                                 <div class="row">
@@ -133,10 +132,9 @@
                                                   </div>
                                                   <hr>
                                                   @endforeach
-                                                  @endif
+                                      @endif
 
-                                                  @if($maklumat_anak->isEmpty())
-                                                  @else
+                                                  @if($maklumat_anak)
                                                   @foreach($maklumat_anak as $maklumat_anak)
                                                   <div class="row">
                                                       <div class="col-md-4">
@@ -480,91 +478,84 @@
                                                 <td>{{ $data ->hubungan_pemilik }}</td>
                                                 <td>{{ $data ->maklumat_harta }}</td>
                                                 <td>{{ $data ->tarikh_pemilikan_harta }}</td>
-                                                <td>{{ $data ->bilangan}}</td>
+                                                <td>{{ $data ->bilangan}} {{ $data ->unit_bilangan}}</td>
                                                 <td>{{ $data ->nilai_perolehan}}</td>
-                                                <td>{{ $data ->cara_perolehan}}</td>
+                                                <td>
+                                                  {{ $data ->cara_perolehan}}<br><br>
+                                                  @if($data->cara_perolehan == "Dipusakai"|| $data->cara_perolehan == "Dihadiahkan")
+                                                  Dari Siapa Harta Diperolehi :{{ $data ->nama_pemilikan_asal }}
+                                                  @elseif($data->cara_perolehan == "Lain-lain")
+                                                  Nyatakan lain lain : {{ $data ->lain_lain }}
+                                                  @endif
+
+                                                </td>
                                               </tr>
                                               @endforeach
                                             </table>
                                           </div>
                                       </div>
                                       <br>
+                                      @foreach($hartaB as $data)
 
-                                        @if($data->cara_perolehan == "Dipusakai"|| $data->cara_perolehan == "Dihadiahkan")
+                                      @if($data->cara_perolehan == "Dibeli")
+
+                                        @if($loop->first)
                                         <div class="row">
                                           <div class="col-md-4">
-                                            <p>Dari Siapa Harta Diperolehi ({{$data->id}})</p>
+                                            <p><b>6. PUNCA PUNCA KEWANGAN BAGI MEMILIKI HARTA DAN JUMLAHNYA</b></p>
                                           </div>
-                                        <div class="col-md-4">
-                                            {{ $data ->nama_pemilikan_asal }}
                                         </div>
-                                      </div>
-                                      <br>
-                                      @elseif($data->cara_perolehan == "Lain-lain")
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p>Nyatakan lain lain ({{$data->id}})</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            {{ $data ->lain_lain }}
-                                        </div>
-                                      </div>
-                                      <br>
-                                      @elseif($data->cara_perolehan == "Dibeli")
-                                      <div class="row">
-                                        <div class="col-md-4">
-                                          <p><b>6. PUNCA PUNCA KEWANGAN BAGI MEMILIKI HARTA DAN JUMLAHNYA</b></p>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                          <div class="col-md-12">
-                                            <table class="table table-bordered">
-                                              <th rowspan="2" width="5%">ID</th>
-                                              <th rowspan="2" width="15%">Jenis Harta</th>
-                                              <th rowspan="2" width="30%">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</th>
-                                              <th colspan="2" width="40%" style="text-align:center;">Dibeli</th>
-                                              <tr>
-                                                <th width="20%">Pinjaman</th>
-                                                <th width="20%">Pelupusan</th>
-                                              </tr>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                              <table class="table table-bordered">
+                                                <th rowspan="2" width="5%">ID</th>
+                                                <th rowspan="2" width="15%">Jenis Harta</th>
+                                                <th rowspan="2" width="20%">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</th>
+                                                <th colspan="2" width="50%" style="text-align:center;">Dibeli</th>
+                                                <tr>
+                                                  <th width="25%">Pinjaman</th>
+                                                  <th width="25%">Pelupusan</th>
+                                                </tr>
 
 
 
-                                              @foreach($hartaB as $data)
-                                              <tr>
-                                                @if($data->cara_belian == "Pinjaman")
-                                                  <td>{{ $data ->id }}</td>
-                                                  <td>{{ $data ->jenis_harta }}</td>
-                                                  <td>{{ $data ->maklumat_harta }}</td>
-                                                  <td>
-                                                    i) Jumlah Pinjaman : <b>{{ $data ->jumlah_pinjaman }}</b><br>
-                                                    ii)	Institusi memberi pinjaman : <b>{{ $data ->institusi_pinjaman }}</b><br>
-                                                    iii) Tempoh bayaran balik : <b>{{ $data ->tempoh_bayar_balik }}</b><br>
-                                                    iv) Ansuran bulanan : <b>{{ $data ->ansuran_bulanan }}</b><br>
-                                                    v)	Tarikh ansuran pertama : <b>{{ $data ->tarikh_ansuran_pertama }}</b>
-                                                  </td>
-                                                  <td></td>
-                                                  @elseif($data->cara_belian == "Pelupusan")
+                                                @foreach($hartaB as $data)
+                                                <tr>
+                                                  @if($data->cara_belian == "Pinjaman")
                                                     <td>{{ $data ->id }}</td>
                                                     <td>{{ $data ->jenis_harta }}</td>
                                                     <td>{{ $data ->maklumat_harta }}</td>
-                                                    <td></td>
                                                     <td>
-
-                                                      i)	Jenis Harta : <b>{{ $data ->jenis_harta_pelupusan }}</b><br>
-                                                      ii) Alamat : <b>{{ $data ->alamat_asset }}</b><br>
-                                                      iii) No Pendaftaran Harta : <b>{{ $data ->no_pendaftaran }}</b><br>
-                                                      iv) Harga Jualan : <b>{{ $data ->harga_jualan }}</b><br>
-                                                      v)	Tarikh lupus : <b>{{ $data ->tarikh_lupus }}</b><br>
-
+                                                      i) Jumlah Pinjaman : <b>{{ $data ->jumlah_pinjaman }}</b><br>
+                                                      ii)	Institusi memberi pinjaman : <b>{{ $data ->institusi_pinjaman }}</b><br>
+                                                      iii) Tempoh bayaran balik : <b>{{ $data ->tempoh_bayar_balik }}</b><br>
+                                                      iv) Ansuran bulanan : <b>{{ $data ->ansuran_bulanan }}</b><br>
+                                                      v)	Tarikh ansuran pertama : <b>{{ $data ->tarikh_ansuran_pertama }}</b>
                                                     </td>
-                                                @endif
-                                              </tr>
-                                              @endforeach
-                                            </table>
-                                          </div>
-                                      </div>
+                                                    <td></td>
+                                                    @elseif($data->cara_belian == "Pelupusan")
+                                                      <td>{{ $data ->id }}</td>
+                                                      <td>{{ $data ->jenis_harta }}</td>
+                                                      <td>{{ $data ->maklumat_harta }}</td>
+                                                      <td></td>
+                                                      <td>
+
+                                                        i)	Jenis Harta : <b>{{ $data ->jenis_harta_pelupusan }}</b><br>
+                                                        ii) Alamat : <b>{{ $data ->alamat_asset }}</b><br>
+                                                        iii) No Pendaftaran Harta : <b>{{ $data ->no_pendaftaran }}</b><br>
+                                                        iv) Harga Jualan : <b>{{ $data ->harga_jualan }}</b><br>
+                                                        v)	Tarikh lupus : <b>{{ $data ->tarikh_lupus }}</b><br>
+
+                                                      </td>
+                                                  @endif
+                                                </tr>
+                                                @endforeach
+                                              </table>
+                                            </div>
+                                        </div>
+                                        @endif
                                       @endif
+                                      @endforeach
                                       <br>
                                       <br>
                                         <a class="btn btn-primary mt-4"href="{{url()->previous() }}">Kembali</a>

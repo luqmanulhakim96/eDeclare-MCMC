@@ -34,7 +34,7 @@ class EmailUserFormHODivDNull extends Mailable
 
         return $this->to($this->hodiv->email , $this->hodiv->name)
                 // ->from(env('MAIL_FROM_ADDRESS'))
-                ->from('system@mcmc.com')
+                ->from('declare@mcmc.gov.my')
                 ->subject('Lampiran D Baharu')
                 ->view('mail.template.form_d.emailNull_userFormAdmin');
     }

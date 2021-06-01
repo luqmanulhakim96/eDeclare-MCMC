@@ -64,7 +64,11 @@ class FormBController extends Controller
     //data dari form latest
     $userid = Auth::user()->id;
     $data_user = FormB::where('user_id', $userid) ->get();
+
+    $draft_exist = FormB::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
+
     $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+    // if(!$data_user->isEmpty()){ // user for to view no data blade if user has already has data
     if($data_user->isEmpty()){
 
       $last_data_formb = null;
@@ -96,7 +100,7 @@ class FormBController extends Controller
 
         }
 
-        return view('user.harta.FormB.formB-no-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+        return view('user.harta.FormB.formB-no-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user', 'draft_exist'));
       }
 
 
@@ -125,7 +129,7 @@ class FormBController extends Controller
         // dd($harta);
       }
  // dd($harta);
-        return view('user.harta.FormB.formB-has-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user','harta','data_form'));
+        return view('user.harta.FormB.formB-has-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user','harta','data_form', 'draft_exist'));
 
       }
 
@@ -384,6 +388,8 @@ public function add(array $data){
       'tarikh_pemilikan_harta_.*' => ['required', 'date'],
       'bilangan_' => ['required', 'array'],
       'bilangan_.*' => ['required', 'numeric'],
+      'unit_bilangan_' => ['nullable', 'array'],
+      'unit_bilangan_.*' => ['nullable', 'string'],
       'nilai_perolehan_' => ['required', 'array'],
       'nilai_perolehan_.*' => ['required', 'numeric'],
       'cara_perolehan_' => ['required', 'array'],
@@ -505,6 +511,8 @@ public function add(array $data){
       'tarikh_pemilikan_harta_.*' => ['nullable', 'date'],
       'bilangan_' => ['nullable', 'array'],
       'bilangan_.*' => ['nullable', 'numeric'],
+      'unit_bilangan_' => ['nullable', 'array'],
+      'unit_bilangan_.*' => ['nullable', 'string'],
       'nilai_perolehan_' => ['nullable', 'array'],
       'nilai_perolehan_.*' => ['nullable', 'numeric'],
       'cara_perolehan_' => ['nullable', 'array'],
@@ -603,6 +611,7 @@ public function add(array $data){
        $hartaB->maklumat_harta = $request->maklumat_harta_[$i];
        $hartaB->tarikh_pemilikan_harta = $request->tarikh_pemilikan_harta_[$i];
        $hartaB->bilangan = $request->bilangan_[$i];
+       $hartaB->unit_bilangan = $request->unit_bilangan_[$i];
    	   $hartaB->nilai_perolehan = $request->nilai_perolehan_[$i];
        $hartaB->cara_perolehan = $request->cara_perolehan_[$i];
        $hartaB->lain_lain = $request->lain_lain_[$i];
@@ -760,6 +769,7 @@ public function add(array $data){
        $hartaB->maklumat_harta = $request->maklumat_harta_[$i];
        $hartaB->tarikh_pemilikan_harta = $request->tarikh_pemilikan_harta_[$i];
        $hartaB->bilangan = $request->bilangan_[$i];
+       $hartaB->unit_bilangan = $request->unit_bilangan_[$i];
    	   $hartaB->nilai_perolehan = $request->nilai_perolehan_[$i];
        $hartaB->cara_perolehan = $request->cara_perolehan_[$i];
        $hartaB->lain_lain = $request->lain_lain_[$i];
@@ -932,6 +942,7 @@ public function add(array $data){
         $hartaB->maklumat_harta = $request->maklumat_harta_[$i];
         $hartaB->tarikh_pemilikan_harta = $request->tarikh_pemilikan_harta_[$i];
         $hartaB->bilangan = $request->bilangan_[$i];
+        $hartaB->unit_bilangan = $request->unit_bilangan_[$i];
         $hartaB->nilai_perolehan = $request->nilai_perolehan_[$i];
         $hartaB->cara_perolehan = $request->cara_perolehan_[$i];
         $hartaB->lain_lain = $request->lain_lain_[$i];
@@ -1056,6 +1067,7 @@ public function add(array $data){
         $hartaB->maklumat_harta = $request->maklumat_harta_[$i];
         $hartaB->tarikh_pemilikan_harta = $request->tarikh_pemilikan_harta_[$i];
         $hartaB->bilangan = $request->bilangan_[$i];
+        $hartaB->unit_bilangan = $request->unit_bilangan_[$i];
     	  $hartaB->nilai_perolehan = $request->nilai_perolehan_[$i];
         $hartaB->cara_perolehan = $request->cara_perolehan_[$i];
         $hartaB->lain_lain = $request->lain_lain_[$i];

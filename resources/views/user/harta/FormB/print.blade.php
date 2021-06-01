@@ -262,7 +262,7 @@
                   </tr>
                   <tr>
                     <td colspan="2">Bilangan / Ekar / kaki Persegi / Unit (jika rumah, nyatakan keluasan tanah tapak rumah itu)</td>
-                    <td colspan="3">{{ $data ->bilangan }}</td>
+                    <td colspan="3">{{ $data ->bilangan }} {{ $data ->unit_bilangan }}</td>
                   </tr>
                   <tr>
                     <td colspan="2">Nilai Perolehan Harta (RM)</td>

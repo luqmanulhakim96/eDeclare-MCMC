@@ -619,7 +619,7 @@ class AdminController extends Controller
      }
      else{
      $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
-     $user = User::where('id', '=', $formbs->user_id)->first(); //get system admin information
+     $user = User::where('id', '=', $statusb->user_id)->first();
 
      $this->dispatch(new SendNotificationFormB($user, $email, $statusb));
 
@@ -655,7 +655,7 @@ class AdminController extends Controller
      else{
 
      $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
-     $user = User::where('id', '=', $formcs->user_id)->first(); //get system admin information
+     $user = User::where('id', '=', $statusc->user_id)->first(); //get system admin information
 
      $this->dispatch(new SendNotificationFormC($user, $email, $statusc));
 
@@ -690,7 +690,7 @@ class AdminController extends Controller
      }
      else{
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
-       $user = User::where('id', '=', $formds->user_id)->first(); //get system admin information
+       $user = User::where('id', '=', $statusd->user_id)->first(); //get system admin information
 
        $this->dispatch(new SendNotificationFormD($user, $email, $statusd));
     }
@@ -724,7 +724,7 @@ class AdminController extends Controller
      }
      else{
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
-       $user = User::where('id', '=', $formgs->user_id)->first(); //get system admin information
+       $user = User::where('id', '=', $statusg->user_id)->first(); //get system admin information
 
        $this->dispatch(new SendNotificationFormG($user, $email, $statusg));
     }
@@ -751,7 +751,7 @@ class AdminController extends Controller
 
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Hadiah)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $user = User::where('id', '=', $gifts->user_id)->first(); //get system admin information
+       $user = User::where('id', '=', $statusgift->user_id)->first(); //get system admin information
 
        $this->dispatch(new SendNotificationGift($user, $email, $statusgift));
        }

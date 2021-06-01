@@ -38,7 +38,7 @@ class EmailUserFormAdminG extends Mailable
       // dd($this->email);
       return $this->to($this->admin->email , $this->admin->name)
               // ->from(env('MAIL_FROM_ADDRESS'))
-              ->from('system@mcmc.com')
+              ->from('declare@mcmc.gov.my')
               ->subject($this->email->subjek)
               ->view('mail.template.form_g.email_userFormAdmin', compact('email'));
   }

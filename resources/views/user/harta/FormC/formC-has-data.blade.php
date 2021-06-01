@@ -263,11 +263,20 @@
                                         </button>
                                         </div>
                                         <div class="modal-body">
+                                        @if($draft_exist)
+                                        <p align="center">Anda telah mempunyai draf perisytiharan, adakah anda ingin mengemaskini draf sedia ada?</p>
+                                        @else
                                         <p align="center">Simpan maklumat perisytiharan?</p>
+                                        @endif
                                         </div>
                                         <div class="modal-footer">
-                                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
-                                        <button type="submit" class="btn btn-danger" name="save">Ya</button>
+                                        @if($draft_exist)
+                                          <a type="button" class="btn btn-danger" href="{{route('user.harta.senaraidraft')}}" >Ya</a>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        @else
+                                          <button type="submit" class="btn btn-danger" name="save">Ya</button>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        @endif
                                         </div>
                                     </div>
                                     </div>

@@ -343,12 +343,8 @@ class HodivController extends Controller
      else{
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $hod_available = User::where('role','=','2')->get(); //get system admin information
-       // if ($email) {
-         foreach ($hod_available as $data) {
-           // $formcs->notify(new UserFormAdminC($data, $email));
-           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
-         }
+       $user = User::where('id', '=', $statusb->user_id)->first();
+       $this->dispatch(new SendNotificationFormBHodiv($user, $email, $formbs));
      }
 
      return redirect()->route('user.admin.harta.senaraiallharta');
@@ -383,12 +379,9 @@ class HodivController extends Controller
      else{
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $hod_available = User::where('role','=','2')->get(); //get system admin information
-       // if ($email) {
-         foreach ($hod_available as $data) {
-           // $formcs->notify(new UserFormAdminC($data, $email));
-           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
-         }
+       $user = User::where('id', '=', $statusc->user_id)->first();
+       $this->dispatch(new SendNotificationFormCHodiv($user, $email, $formcs));
+
      }
 
      return redirect()->route('user.admin.harta.senaraiallharta');
@@ -423,12 +416,8 @@ class HodivController extends Controller
      else{
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $hod_available = User::where('role','=','2')->get(); //get system admin information
-       // if ($email) {
-         foreach ($hod_available as $data) {
-           // $formcs->notify(new UserFormAdminC($data, $email));
-           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
-         }
+       $user = User::where('id', '=', $statusd->user_id)->first();
+       $this->dispatch(new SendNotificationFormDHodiv($user, $email, $formds));
      }
 
      return redirect()->route('user.admin.harta.senaraiallharta');
@@ -463,12 +452,8 @@ class HodivController extends Controller
      else{
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $hod_available = User::where('role','=','2')->get(); //get system admin information
-       // if ($email) {
-         foreach ($hod_available as $data) {
-           // $formcs->notify(new UserFormAdminC($data, $email));
-           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
-         }
+       $user = User::where('id', '=', $statusg->user_id)->first();
+       $this->dispatch(new SendNotificationFormDHodiv($user, $email, $formgs));
      }
 
      return redirect()->route('user.admin.harta.senaraiallharta');
