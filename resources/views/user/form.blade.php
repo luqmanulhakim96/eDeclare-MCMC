@@ -62,7 +62,7 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                <p align="center">Permohonan sedang diproses. Adakah anda ingin mengemaskini borang?</p>
+                <p align="center">Permohonan sedang diproses. Adakah anda ingin mengemaskini borang sedia ada?</p>
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>

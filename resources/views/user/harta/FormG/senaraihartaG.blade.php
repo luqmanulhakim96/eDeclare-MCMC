@@ -6,6 +6,11 @@
                    <!-- Col md 6 -->
                    <div class="col-md-12 mt-4" >
                        <!-- basic light table card -->
+                       <div class="">
+                         <a href="{{route('user.senaraiharta')}}" class="btn btn-primary" name="button">Kembali</a>
+                       </div>
+
+                       <br>
                        <div class="card rounded-lg" >
                            <div class="card-body">
                                <div class="card-title">Senarai Sejarah Memohon dan Memiliki Saham</div>

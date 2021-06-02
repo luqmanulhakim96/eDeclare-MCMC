@@ -1328,19 +1328,10 @@
                               </button>
                               </div>
                               <div class="modal-body">
-                                @if($status_form->status == 'Proses ke Ketua Jabatan Integriti' || $status_form->status == 'Proses ke Ketua Bahagian')
-                                  <p align="center">Permohonan sedia ada anda sedang diproses. Sila simpan sebagai draf.</p>
-                                @else
                                   <p align="center">Hantar maklumat perisytiharan?</p>
-                                @endif
                               </div>
                               <div class="modal-footer">
-                                @if($status_form->status == 'Proses ke Ketua Jabatan Integriti' || $status_form->status == 'Proses ke Ketua Bahagian')
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                @else
-                                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
-                                  <button type="submit" class="btn btn-danger" name="publish" onclick="submitForm()">Ya</button>
-                                @endif
+                                  <button type="submit" class="btn btn-danger" name="publish" onclick="submitForm()">Ya</button>                              
                               </div>
                           </div>
                           </div>

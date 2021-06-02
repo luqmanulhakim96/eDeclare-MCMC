@@ -13,6 +13,10 @@
 <div class="row mt-10">
         <!-- Col md 6 -->
         <div class="col-md-12 mt-4" >
+          <div class="">
+            <a class="btn btn-primary mt-4"href="{{url()->previous() }}">Kembali</a>
+          </div>
+          <br>
             <!-- basic light table card -->
             <div class="card rounded-lg" >
                 <div class="card-body">
