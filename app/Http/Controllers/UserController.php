@@ -108,8 +108,10 @@ class UserController extends Controller
     $merged = $merged->mergeRecursive($listallC);
     $merged = $merged->mergeRecursive($listallD);
     $merged = $merged->mergeRecursive($listallG)->sortBy('status');
-// dd($merged);
-    return view('user.form', compact('merged'));
+
+    $status_form = FormB::where('user_id', auth()->user()->id)->latest()->first();
+    // dd($status_form);
+    return view('user.form', compact('merged','status_form'));
   }
 
   public function senaraiboranghadiah()

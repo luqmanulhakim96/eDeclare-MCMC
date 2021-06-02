@@ -54,8 +54,6 @@ class FormBController extends Controller
   public function formB()
   {
     $jenisHarta = JenisHarta::get();
-
-
     //data gaji user (latest)
     $username =Auth::user()->username;
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
@@ -64,8 +62,11 @@ class FormBController extends Controller
     //data dari form latest
     $userid = Auth::user()->id;
     $data_user = FormB::where('user_id', $userid) ->get();
+    // $status_sedang_diproses = FormB::where('user_id', $userid)->where('status',"Sedang Diproses") ->get();
 
     $draft_exist = FormB::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
+    $status_form = FormB::where('user_id', auth()->user()->id)->latest()->first();
+
 
     $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
     // if(!$data_user->isEmpty()){ // user for to view no data blade if user has already has data
@@ -100,7 +101,7 @@ class FormBController extends Controller
 
         }
 
-        return view('user.harta.FormB.formB-no-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user', 'draft_exist'));
+        return view('user.harta.FormB.formB-no-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user', 'draft_exist', 'status_form'));
       }
 
 
@@ -129,10 +130,9 @@ class FormBController extends Controller
         // dd($harta);
       }
  // dd($harta);
-        return view('user.harta.FormB.formB-has-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user','harta','data_form', 'draft_exist'));
+        return view('user.harta.FormB.formB-has-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user','harta','data_form', 'draft_exist', 'status_form'));
 
       }
-
 
   }
 

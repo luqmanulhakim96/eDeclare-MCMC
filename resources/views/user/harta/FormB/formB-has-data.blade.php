@@ -1302,9 +1302,9 @@
                               </div>
                               <div class="modal-body">
                               @if($draft_exist)
-                              <p align="center">Anda telah mempunyai draf perisytiharan, adakah anda ingin mengemaskini draf sedia ada?</p>
+                                <p align="center">Anda telah mempunyai draf perisytiharan, adakah anda ingin mengemaskini draf sedia ada?</p>
                               @else
-                              <p align="center">Simpan maklumat perisytiharan?</p>
+                                <p align="center">Simpan maklumat perisytiharan?</p>
                               @endif
                               </div>
                               <div class="modal-footer">
@@ -1328,11 +1328,19 @@
                               </button>
                               </div>
                               <div class="modal-body">
-                              <p align="center">Hantar maklumat perisytiharan?</p>
+                                @if($status_form->status == 'Proses ke Ketua Jabatan Integriti' || $status_form->status == 'Proses ke Ketua Bahagian')
+                                  <p align="center">Permohonan sedia ada anda sedang diproses. Sila simpan sebagai draf.</p>
+                                @else
+                                  <p align="center">Hantar maklumat perisytiharan?</p>
+                                @endif
                               </div>
                               <div class="modal-footer">
-                              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
-                              <button type="submit" class="btn btn-danger" name="publish" onclick="submitForm()">Ya</button>
+                                @if($status_form->status == 'Proses ke Ketua Jabatan Integriti' || $status_form->status == 'Proses ke Ketua Bahagian')
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                @else
+                                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                  <button type="submit" class="btn btn-danger" name="publish" onclick="submitForm()">Ya</button>
+                                @endif
                               </div>
                           </div>
                           </div>

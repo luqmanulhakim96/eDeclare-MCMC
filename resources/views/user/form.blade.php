@@ -52,8 +52,29 @@
                   </div>
               </div>
         </a> -->
-
-        <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormB.formB')}}">
+        @if($status_form->status == 'Sedang Diproses' || $status_form->status == 'Sedang Dikemaskini')
+        <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <p align="center">Permohonan sedang diproses. Adakah anda ingin mengemaskini borang?</p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                <a href="{{route('user.harta.FormB.senaraihartaB')}}" class="btn btn-danger" name="publish">Ya</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" data-toggle="modal" data-target="#publish" href="#">
+        @else
+          <a class="col-sm-6 col-md-6 col-lg-2 mt-4 mt-lg-0" href="{{route('user.harta.FormB.formB')}}">
+        @endif
         <div class="card rounded-lg" style="width: 110%;">
             <!-- Card body -->
             <div class="card-body">
