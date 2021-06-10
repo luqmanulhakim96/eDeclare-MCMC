@@ -391,10 +391,10 @@
                                   <div id="submenu-all" class="collapse submenu" style="padding-left:15%;">
                                       <ul class="nav flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link text-secondary-side"  href="{{ route('user.admin.harta.senaraiallharta') }}"><i class="fas fa-chevron-right"></i> Perisytiharan Harta </a>
+                                                <a class="nav-link text-secondary-side"  href="{{ route('user.hodiv.harta.senaraiallharta') }}"><i class="fas fa-chevron-right"></i> Perisytiharan Harta </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link text-secondary-side" href="{{ route('user.admin.hadiah.senaraiallhadiah') }}"><i class="fas fa-chevron-right"></i> Perisytiharan Hadiah </a>
+                                                <a class="nav-link text-secondary-side" href="{{ route('user.hodiv.hadiah.senaraiallhadiah') }}"><i class="fas fa-chevron-right"></i> Perisytiharan Hadiah </a>
                                             </li>
                                             <li class="nav-item">
                                                 <!-- <a class="nav-link text-secondary-side" href="{{ route('user.admin.senarai_user_declaration') }}"><i class="fas fa-chevron-right"></i> Perisytiharan Mengikut Pengguna</a> -->
@@ -689,7 +689,7 @@
   <!-- Footer section -->
   <footer>
     <!-- <div class="row"> -->
-      <div class="col-md" style="text-align:center;"><a href="" target="_Blank" ><font color="white">MALAYSIAN COMMUNICATIONS AND MULTIMEDIA COMMISSION</font></a></div>
+      <div class="col-md" style="text-align:center;"><a href="" target="_Blank" ><font color="white">Copyright &copy; 2021. Malaysian Communications and Multimedia Commision.<br>All rights reserved.</font></a></div>
       <!-- <div class="col-md-2"><font color="white">Version 1.0.0</font></div> -->
     <!-- </div> -->
   </footer>

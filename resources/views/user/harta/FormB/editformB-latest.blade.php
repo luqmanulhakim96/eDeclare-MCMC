@@ -3,6 +3,16 @@
 
         <head>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+          <style media="screen">
+            .css-serial {
+              counter-reset: serial-number -1;  /* Set the serial number counter to -1 */
+            }
+
+            .css-serial td:first-child:before {
+              counter-increment: serial-number;  /* Increment the serial number counter */
+              content: counter(serial-number);  /* Display the counter */
+            }
+          </style>
         </head>
            <!--Page Body part -->
            <div class="page-body p-4 text-dark">
@@ -37,11 +47,13 @@
                                       <input type="hidden" id="nilai_perolehan{{$data->id}}" name="nilai_perolehan_[]"  value="{{$data->nilai_perolehan}}" readonly>
                                       <input type="hidden" id="cara_perolehan{{$data->id}}" name="cara_perolehan_[]"  value="{{$data->cara_perolehan}}" readonly>
                                       <input type="hidden" id="nama_pemilikan_asal{{$data->id}}" name="nama_pemilikan_asal_[]"  value="{{$data->nama_pemilikan_asal}}" readonly>
+                                      <input type="hidden" id="tunai{{$data->id}}" name="tunai_[]"  value="{{$data->tunai}}" readonly>
                                       <input type="hidden" id="jumlah_pinjaman{{$data->id}}" name="jumlah_pinjaman_[]"  value="{{$data->jumlah_pinjaman}}" readonly>
                                       <input type="hidden" id="institusi_pinjaman{{$data->id}}" name="institusi_pinjaman_[]"  value="{{$data->institusi_pinjaman}}" readonly>
                                       <input type="hidden" id="tempoh_bayar_balik{{$data->id}}" name="tempoh_bayar_balik_[]"  value="{{$data->tempoh_bayar_balik}}" readonly>
                                       <input type="hidden" id="ansuran_bulanan{{$data->id}}" name="ansuran_bulanan_[]"  value="{{$data->ansuran_bulanan}}" readonly>
                                       <input type="hidden" id="tarikh_ansuran_pertama{{$data->id}}" name="tarikh_ansuran_pertama_[]"  value="{{$data->tarikh_ansuran_pertama}}" readonly>
+                                      <input type="hidden" id="keterangan_lain{{$data->id}}" name="keterangan_lain_[]"  value="{{$data->keterangan_lain}}" readonly>
                                       <input type="hidden" id="jenis_harta_pelupusan{{$data->id}}" name="jenis_harta_pelupusan_[]"  value="{{$data->jenis_harta_pelupusan}}" readonly>
                                       <input type="hidden" id="alamat_asset{{$data->id}}" name="alamat_asset_[]"  value="{{$data->alamat_asset}}" readonly>
                                       <input type="hidden" id="no_pendaftaran{{$data->id}}" name="no_pendaftaran_[]"  value="{{$data->no_pendaftaran}}" readonly>
@@ -423,6 +435,7 @@
                               <p><b>4. KETERANGAN MENGENAI HARTA</b></p>
                             </div>
                           </div>
+
                           <!-- <div class="row">
                             <div class="col-md-4">
                               <p class="">Jenis Harta</p>
@@ -447,9 +460,11 @@
                                     </datalist>
                                     <option value="" selected disabled hidden>Jenis Harta</option>
                                   </input>
-                                    @error('jenis_harta_')
-                                       <div class="alert alert-danger">{{ $message }}</div>
-                                   @enderror
+                                  <!-- @foreach ($errors->get('jenis_harta_.*') as $messages)
+                                   @foreach($messages as $message)
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                   @endforeach
+                                  @endforeach -->
                               </div>
 
                           </div>
@@ -461,9 +476,11 @@
                             </div>
                             <div class="col-md-4">
                               <input class="form-control bg-light" type="text" id="pemilik_harta"  placeholder="Nama Pemilik" value="{{ $info->pemilik_harta  }}" >
-                              @error('pemilik_harta_')
+                              <!-- @foreach ($errors->get('pemilik_harta_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach -->
                             </div>
                             <div class="col-md-4">
                                 <select id="select_hubungan" class="custom-select  bg-light" >
@@ -474,9 +491,11 @@
                                     <option value="Ibu/Ayah" {{ $info->hubungan_pemilik   == "Ibu/Ayah" ? 'selected' : '' }}>Ibu/Ayah</option>
                                     <option value="Lain-lain" {{ $info->hubungan_pemilik   == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
                                 </select>
-                                @error('select_hubungan_')
+                                <!-- @foreach ($errors->get('select_hubungan_.*') as $messages)
+                                 @foreach($messages as $message)
                                    <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
+                                 @endforeach
+                                @endforeach -->
                             </div>
                             <br>
                           </div>
@@ -486,9 +505,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="text" id="maklumat_harta"  placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->maklumat_harta  }}" autocomplete="nope" >
-                              @error('maklumat_harta_')
+                              <!-- @foreach ($errors->get('maklumat_harta_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach -->
                             </div>
 
                           </div>
@@ -499,9 +520,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="date" id="tarikh_pemilikan_harta"  value="{{ $info->tarikh_pemilikan_harta  }}" >
-                              @error('tarikh_pemilikan_harta_')
+                              <!-- @foreach ($errors->get('tarikh_pemilikan_harta_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach -->
                             </div>
                           </div>
                           <br>
@@ -511,15 +534,19 @@
                             </div>
                             <div class="col-md-4">
                               <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="bilangan"  placeholder="Bilangan / Ekar / Kapasiti Enjin / Kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}" autocomplete="nope" >
-                              @error('bilangan_')
+                              <!-- @foreach ($errors->get('bilangan_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach -->
                             </div>
                             <div class="col-md-4">
-                              <input class="form-control bg-light" type="text" id="unit_bilangan" onkeypress=""  name="unit_bilangan" placeholder="Sila Masukkan Unit (Meter Persegi , Ekar , CC)" value="{{ $info->unit_bilangan  }}" autocomplete="nope">
-                              @error('unit_bilangan_')
+                              <input class="form-control bg-light" type="text" id="unit_bilangan" onkeypress=""  placeholder="Sila Masukkan Unit (Meter Persegi , Ekar , CC)" value="{{ $info->unit_bilangan  }}" autocomplete="nope">
+                              <!-- @foreach ($errors->get('unit_bilangan_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach -->
                             </div>
                           </div>
                           <br>
@@ -529,9 +556,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="nilai_perolehan"  placeholder="Nilai Perolehan Harta (RM)" value="{{ $info->nilai_perolehan  }}" >
-                              @error('nilai_perolehan_')
+                              <!-- @foreach ($errors->get('nilai_perolehan_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach -->
                             </div>
 
                           </div>
@@ -548,9 +577,11 @@
                                     <option value="Dihadiahkan" {{ $info->cara_perolehan   == "Dihadiahkan" ? 'selected' : '' }}>Dihadiahkan</option>
                                     <option value="Lain-lain" {{ $info->cara_perolehan   == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
                                 </select>
-                                @error('cara_perolehan_')
+                                <!-- @foreach ($errors->get('cara_perolehan_.*') as $messages)
+                                 @foreach($messages as $message)
                                    <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
+                                 @endforeach
+                                @endforeach -->
                             </div>
 
                             </div>
@@ -563,9 +594,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="nama_pemilikan_asal"  placeholder="Nama Pemilik Sebelum" value="{{ $info->nama_pemilikan_asal  }}">
-                                  @error('nama_pemilikan_asal_')
+                                  <!-- @foreach ($errors->get('nama_pemilikan_asal_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -579,9 +612,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="lain_lain"  value="{{ $info->lain_lain  }}">
-                                  @error('lain_lain_')
+                                  <!-- @foreach ($errors->get('lain_lain_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -597,11 +632,35 @@
                                   <select id="cara_belian" class="custom-select  bg-light"  onchange="showCaraBelian1()" >
                                       <option value="" selected disabled hidden>Cara Pembelian Harta</option>
                                       <option value="Pinjaman" {{ $info->cara_belian   == "Pinjaman" ? 'selected' : '' }}>Pinjaman</option>
+                                      <option value="Tunai" {{ $info->cara_belian   == "Tunai" ? 'selected' : '' }}>Tunai</option>
                                       <option value="Pelupusan" {{ $info->cara_belian   == "Pelupusan" ? 'selected' : '' }}>Pelupusan</option>
                                   </select>
-                                  @error('cara_belian_')
+                                  <!-- @foreach ($errors->get('cara_belian_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
+                                </div>
+
+                              </div>
+                              <br>
+                            </div>
+
+                            <div id="tunai_container" style="display: none;">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <p class="required"> Nyatakan nilai belian tunai</p>
+                                </div>
+                                <div class="col-md-8">
+                                  <input class="form-control bg-light" type="text" id="tunai" name="tunai" onkeypress="return onlyNumberKey(event)" value="{{ $info->tunai }}" autocomplete="off">
+                                  <!-- @error('lain_lain_')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror -->
+                                 <!-- @foreach ($errors->get('tunai_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach -->
                                 </div>
 
                               </div>
@@ -615,9 +674,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="jumlah_pinjaman"  value="{{ $info->jumlah_pinjaman  }}">
-                                  @error('jumlah_pinjaman_')
+                                  <!-- @foreach ($errors->get('jumlah_pinjaman_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -628,9 +689,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="institusi_pinjaman"  value="{{ $info->institusi_pinjaman  }}">
-                                  @error('institusi_pinjaman_')
+                                  <!-- @foreach ($errors->get('institusi_pinjaman_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -641,9 +704,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="tempoh_bayar_balik"  value="{{ $info->tempoh_bayar_balik  }}">
-                                  @error('tempoh_bayar_balik_')
+                                  <!-- @foreach ($errors->get('tempoh_bayar_balik_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -654,9 +719,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="ansuran_bulanan"  value="{{ $info->ansuran_bulanan  }}">
-                                  @error('ansuran_bulanan_')
+                                  <!-- @foreach ($errors->get('ansuran_bulanan_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -667,14 +734,34 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="date" id="tarikh_ansuran_pertama"  value="{{ $info->tarikh_ansuran_pertama  }}">
-                                  @error('tarikh_ansuran_pertama_')
+                                  <!-- @foreach ($errors->get('tarikh_ansuran_pertama_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
                               <br>
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <p class="">vi)	Keterangan lain, Sila Nyatakan</p>
+                                </div>
+                                <div class="col-md-8">
+                                  <input class="form-control bg-light" type="text" id="keterangan_lain" value="{{ old('keterangan_lain')}}" autocomplete="off">
+<!--
+                                 @foreach ($errors->get('keterangan_lain_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
+                                </div> -->
+
+                              </div>
                             </div>
+                          </div>
+                          <br>
+
 
                             <div id="pelupusan_container" style="display: none;">
                               <div class="row">
@@ -683,9 +770,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="jenis_harta_pelupusan"  value="{{ $info->jenis_harta_pelupusan  }}">
-                                  @error('jenis_harta_pelupusan_')
+                                  <!-- @foreach ($errors->get('jenis_harta_pelupusan_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -696,9 +785,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="alamat_asset"  value="{{ $info->alamat_asset  }}">
-                                  @error('alamat_asset_')
+                                  <!-- @foreach ($errors->get('alamat_asset_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -709,9 +800,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="text" id="no_pendaftaran"  value="{{ $info->no_pendaftaran  }}">
-                                  @error('no_pendaftaran_')
+                                  <!-- @foreach ($errors->get('no_pendaftaran_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -722,9 +815,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="harga_jualan"  value="{{ $info->harga_jualan  }}">
-                                  @error('harga_jualan_')
+                                  <!-- @foreach ($errors->get('harga_jualan_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -735,9 +830,11 @@
                                 </div>
                                 <div class="col-md-8">
                                   <input class="form-control bg-light" type="date" id="tarikh_lupus"  value="{{ $info->tarikh_lupus  }}">
-                                  @error('tarikh_lupus_')
+                                  <!-- @foreach ($errors->get('tarikh_lupus_.*') as $messages)
+                                   @foreach($messages as $message)
                                      <div class="alert alert-danger">{{ $message }}</div>
-                                 @enderror
+                                   @endforeach
+                                  @endforeach -->
                                 </div>
 
                               </div>
@@ -789,6 +886,12 @@
                               else{
                                 document.getElementById('pelupusan_container').style.display ="none";
                               }
+                              if(cara_belian == "Tunai"){
+                                document.getElementById('tunai_container').style.display ="block";
+                              }
+                              else{
+                                document.getElementById('tunai_container').style.display ="none";
+                              }
 
                             }
                             </script>
@@ -811,32 +914,41 @@
                       <div class="card-title" style="text-align: center;">Keterangan Mengenai Harta</div>
                       <!-- Table -->
                       <div class="table-responsive">
-                          <table class="table table-bordered" id="table_keterangan">
+                        @foreach ($errors->all() as $message)
+                          <div class="alert alert-danger">
+                              {{ $message }}
+                          </div>
+                        @endforeach
+                          <table class="table table-bordered css-serial" id="table_keterangan">
                               <thead>
                                   <tr class="text-center">
+                                      <th width="3%"><p class="mb-0">Nombor</p></th>
                                       <th width="5%"><p class="mb-0">Jenis Harta</p></th>
                                       <th width="5%"><p class="mb-0">Pemilik Harta</p></th>
                                       <th width="10%"><p class="mb-0">Tarikh Pemilikan Harta</p></th>
-                                      <th width="30%"><p class="mb-0">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p></th>
-                                      <th width="15%"><p class="mb-0">Nilai Perolehan Harta (RM)</p></th>
+                                      <th colspan="2" width="30%"><p class="mb-0">Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p></th>
+                                      <th width="12%"><p class="mb-0">Nilai Perolehan Harta (RM)</p></th>
                                       <th width="5%"><p class="mb-0">Tindakan</p></th>
                                   </tr>
                               </thead>
                               <tbody>
-
+                                <?php $i=0; ?>
                                   @foreach($hartaB as $data)
                                   <tr>
+                                      <td><p class="mb-0 " style="text-align: center;" id="harta_table_id{{$data->id}}"></p></td>
                                       <td><p class="mb-0 " style="text-align: center;" id="jenis_harta_table{{$data->id}}">{{$data->jenis_harta}}</p></td>
                                       <td><p class="mb-0 " style="text-align: center;" id="pemilik_harta_table{{$data->id}}">{{$data->pemilik_harta}}</p></td>
                                       <td><p class="mb-0 " style="text-align: center;" id="tarikh_pemilikan_harta_table{{$data->id}}">{{$data->tarikh_pemilikan_harta}}</p></td>
-                                      <td><p class="mb-0 " style="text-align: center;" id="bilangan_table{{$data->id}}">{{$data->bilangan}} {{$data->unit_bilangan}}</p></td>
+                                      <td><p class="mb-0 " style="text-align: center;" id="bilangan_table{{$data->id}}">{{$data->bilangan}}</p></td>
+                                      <td><p class="mb-0 " style="text-align: center;" id="unit_bilangan_table{{$data->id}}">{{$data->unit_bilangan}}</p></td>
                                       <td><p class="mb-0 " style="text-align: center;" id="nilai_perolehan_table{{$data->id}}">{{$data->nilai_perolehan}}</p></td>
                                       <!-- <td><a href="{{route('hartaB.delete',$data->id)}}"><i class="fas fa-trash-alt"></i></td> -->
-                                      <td>
+                                      <td style="align:center">
                                         <a class="btn btn-success mr-1" id="editHarta{{$data->id}}" onClick="clearData({{$data->id}});updateData({{$data->id}});"><i class="fa fa-pencil-alt" ></i></a>
                                         <a class="btn btn-danger mr-1" onClick="removeJumlahPinjaman({{$data->id}});removeData(this,'{{$data->id}}'); return false;"><i class="fa fa-trash" ></i></a>
                                       </td>
                                   </tr>
+                                  <?php $i++; ?>
                                     @endforeach
 
                               </tbody>
@@ -1215,9 +1327,11 @@
                                 </datalist>
                                 <option value="" selected disabled hidden>Jenis Harta</option>
                               </input>
-                                @error('jenis_harta_')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
+                              @foreach ($errors->get('jenis_harta_.*') as $messages)
+                               @foreach($messages as $message)
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                               @endforeach
+                              @endforeach
                           </div>
 
                       </div>
@@ -1229,9 +1343,11 @@
                         </div>
                         <div class="col-md-4">
                           <input class="form-control bg-light" type="text" id="pemilik_harta_edit"  placeholder="Nama Pemilik" value="{{ $info->pemilik_harta  }}">
-                          @error('pemilik_harta_')
+                          @foreach ($errors->get('pemilik_harta_.*') as $messages)
+                           @foreach($messages as $message)
                              <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
+                           @endforeach
+                          @endforeach
                         </div>
                         <div class="col-md-4">
                             <select id="hubungan_pemilik_edit" class="custom-select  bg-light" >
@@ -1242,9 +1358,11 @@
                                 <option value="Ibu/Ayah" {{ $info->hubungan_pemilik == "Ibu/Ayah" ? 'selected' : '' }}>Ibu/Ayah</option>
                                 <option value="Lain-lain" {{ $info->hubungan_pemilik == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
                             </select>
-                            @error('select_hubungan_')
+                            @foreach ($errors->get('select_hubungan_.*') as $messages)
+                             @foreach($messages as $message)
                                <div class="alert alert-danger">{{ $message }}</div>
-                           @enderror
+                             @endforeach
+                            @endforeach
                         </div>
 
                       </div>
@@ -1254,9 +1372,11 @@
                         </div>
                         <div class="col-md-8">
                           <input class="form-control bg-light" type="text" id="maklumat_harta_edit"  placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya" value="{{ $info->maklumat_harta  }}" autocomplete="nope">
-                          @error('maklumat_harta_')
+                          @foreach ($errors->get('maklumat_harta_.*') as $messages)
+                           @foreach($messages as $message)
                              <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
+                           @endforeach
+                          @endforeach
                         </div>
 
                       </div>
@@ -1267,9 +1387,11 @@
                         </div>
                         <div class="col-md-8">
                           <input class="form-control bg-light" type="date" id="tarikh_pemilikan_harta_edit"  value="{{ $info->tarikh_pemilikan_harta  }}" >
-                          @error('tarikh_pemilikan_harta_')
+                          @foreach ($errors->get('tarikh_pemilikan_harta_.*') as $messages)
+                           @foreach($messages as $message)
                              <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
+                           @endforeach
+                          @endforeach
                         </div>
                       </div>
                       <br>
@@ -1279,15 +1401,19 @@
                         </div>
                         <div class="col-md-4">
                           <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="bilangan_edit"  placeholder="Bilangan / Ekar / kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ $info->bilangan  }}" autocomplete="nope">
-                          @error('bilangan_')
+                          @foreach ($errors->get('bilangan_.*') as $messages)
+                           @foreach($messages as $message)
                              <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
+                           @endforeach
+                          @endforeach
                         </div>
                         <div class="col-md-4">
-                          <input class="form-control bg-light" type="text" id="unit_bilangan_edit" onkeypress=""  name="unit_bilangan_edit" placeholder="Sila Masukkan Unit (Meter Persegi , Ekar , CC)" value="{{ $info->unit_bilangan  }}" autocomplete="nope">
-                          @error('unit_bilangan_')
+                          <input class="form-control bg-light" type="text" id="unit_bilangan_edit" onkeypress="" placeholder="Sila Masukkan Unit (Meter Persegi , Ekar , CC)" value="{{ $info->unit_bilangan  }}" autocomplete="nope">
+                          @foreach ($errors->get('unit_bilangan_.*') as $messages)
+                           @foreach($messages as $message)
                              <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
+                           @endforeach
+                          @endforeach
                         </div>
 
                       </div>
@@ -1298,9 +1424,11 @@
                         </div>
                         <div class="col-md-8">
                           <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" id="nilai_perolehan_edit"  placeholder="Nilai Perolehan Harta (RM)" value="{{ $info->nilai_perolehan  }}" >
-                          @error('nilai_perolehan_')
+                          @foreach ($errors->get('nilai_perolehan_.*') as $messages)
+                           @foreach($messages as $message)
                              <div class="alert alert-danger">{{ $message }}</div>
-                         @enderror
+                           @endforeach
+                          @endforeach
                         </div>
 
                       </div>
@@ -1317,9 +1445,11 @@
                                 <option value="Dihadiahkan" {{ $info->cara_perolehan   == "Dihadiahkan" ? 'selected' : '' }}>Dihadiahkan</option>
                                 <option value="Lain-lain" {{ $info->cara_perolehan   == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
                             </select>
-                            @error('cara_perolehan_')
+                            @foreach ($errors->get('cara_perolehan_.*') as $messages)
+                             @foreach($messages as $message)
                                <div class="alert alert-danger">{{ $message }}</div>
-                           @enderror
+                             @endforeach
+                            @endforeach
                         </div>
 
                         </div>
@@ -1333,9 +1463,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="text" id="nama_pemilikan_asal_edit"  placeholder="Nama Pemilik Sebelum" value="{{ $info->nama_pemilikan_asal  }}">
-                              @error('nama_pemilikan_asal_')
+                              @foreach ($errors->get('nama_pemilikan_asal_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1349,9 +1481,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="text" id="lain_lain_edit"  value="{{ $info->lain_lain  }}">
-                              @error('lain_lain_')
+                              @foreach ($errors->get('lain_lain_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1368,10 +1502,34 @@
                                   <option value="" selected disabled hidden>Cara Pembelian Harta</option>
                                   <option value="Pinjaman" {{ $info->cara_belian   == "Pinjaman" ? 'selected' : '' }}>Pinjaman</option>
                                   <option value="Pelupusan" {{ $info->cara_belian   == "Pelupusan" ? 'selected' : '' }}>Pelupusan</option>
+                                  <option value="Tunai" {{ $info->cara_belian   == "Tunai" ? 'selected' : '' }}>Tunai</option>
                               </select>
-                              @error('cara_belian_')
+                              @foreach ($errors->get('cara_belian_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
+                            </div>
+
+                          </div>
+                          <br>
+                        </div>
+
+                        <div id="tunai_container_edit" style="display: none;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="required"> Nyatakan nilai belian tunai</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" id="tunai_edit" onkeypress="return onlyNumberKey(event)" value="{{ $info->tunai }}" autocomplete="off">
+                              <!-- @error('lain_lain_')
+                                 <div class="alert alert-danger">{{ $message }}</div>
+                             @enderror -->
+                             @foreach ($errors->get('tunai_.*') as $messages)
+                              @foreach($messages as $message)
+                                <div class="alert alert-danger">{{ $message }}</div>
+                              @endforeach
+                             @endforeach
                             </div>
 
                           </div>
@@ -1385,9 +1543,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="jumlah_pinjaman_edit"  value="{{ $info->jumlah_pinjaman  }}">
-                              @error('jumlah_pinjaman_')
+                              @foreach ($errors->get('jumlah_pinjaman_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1398,9 +1558,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="text" id="institusi_pinjaman_edit"  value="{{ $info->institusi_pinjaman  }}">
-                              @error('institusi_pinjaman_')
+                              @foreach ($errors->get('institusi_pinjaman_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1411,9 +1573,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="text" id="tempoh_bayar_balik_edit"  value="{{ $info->tempoh_bayar_balik  }}">
-                              @error('tempoh_bayar_balik_')
+                              @foreach ($errors->get('tempoh_bayar_balik_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1424,9 +1588,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="ansuran_bulanan_edit"  value="{{ $info->ansuran_bulanan  }}">
-                              @error('ansuran_bulanan_')
+                              @foreach ($errors->get('ansuran_bulanan_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1437,13 +1603,30 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="date" id="tarikh_ansuran_pertama_edit"  value="{{ $info->tarikh_ansuran_pertama  }}">
-                              @error('tarikh_ansuran_pertama_')
+                              @foreach ($errors->get('tarikh_ansuran_pertama_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
                           <br>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <p class="">vi)	Keterangan lain, Sila Nyatakan</p>
+                            </div>
+                            <div class="col-md-8">
+                              <input class="form-control bg-light" type="text" id="keterangan_lain_edit" value="{{ $info->keterangan_lain  }}" autocomplete="off">
+
+                             @foreach ($errors->get('keterangan_lain_.*') as $messages)
+                              @foreach($messages as $message)
+                                <div class="alert alert-danger">{{ $message }}</div>
+                              @endforeach
+                             @endforeach
+                            </div>
+
+                          </div>
                         </div>
 
                         <div id="pelupusan_container_edit" style="display: none;">
@@ -1453,9 +1636,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="text" id="jenis_harta_pelupusan_edit"  value="{{ $info->jenis_harta_pelupusan  }}">
-                              @error('jenis_harta_pelupusan_')
+                              @foreach ($errors->get('jenis_harta_pelupusan_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1466,9 +1651,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="text" id="alamat_asset_edit"  value="{{ $info->alamat_asset  }}">
-                              @error('alamat_asset_')
+                              @foreach ($errors->get('alamat_asset_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1479,9 +1666,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="text" id="no_pendaftaran_edit"  value="{{ $info->no_pendaftaran  }}">
-                              @error('no_pendaftaran_')
+                              @foreach ($errors->get('no_pendaftaran_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1492,9 +1681,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" id="harga_jualan_edit"  value="{{ $info->harga_jualan  }}">
-                              @error('harga_jualan_')
+                              @foreach ($errors->get('harga_jualan_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1505,9 +1696,11 @@
                             </div>
                             <div class="col-md-8">
                               <input class="form-control bg-light" type="date" id="tarikh_lupus_edit"  value="{{ $info->tarikh_lupus  }}">
-                              @error('tarikh_lupus_')
+                              @foreach ($errors->get('tarikh_lupus_.*') as $messages)
+                               @foreach($messages as $message)
                                  <div class="alert alert-danger">{{ $message }}</div>
-                             @enderror
+                               @endforeach
+                              @endforeach
                             </div>
 
                           </div>
@@ -1559,6 +1752,13 @@
                           else{
                             document.getElementById('pelupusan_container_edit').style.display ="none";
                           }
+                          if(cara_belian == "Tunai"){
+                            document.getElementById('tunai_container_edit').style.display ="block";
+                          }
+                          else{
+                            document.getElementById('tunai_container_edit').style.display ="none";
+                          }
+
 
                         }
                         </script>
@@ -1568,7 +1768,7 @@
 
                           </div>
                           <div class="col-md-4">
-                            <button class="btn btn-primary" type="button" value="" id="kemaskiniHarta" onclick="calculatePinjamanPerumahan_edit();DataUpdate(this.value);clearContainer(this.value);">Kemaskini</button>
+                            <button class="btn btn-primary" type="button" value="" id="kemaskiniHarta" onclick="DataUpdate(this.value);calculatePinjamanPerumahan_edit();clearContainer(this.value);">Kemaskini</button>
                           </div>
                       </div>
                       <br>
@@ -1640,8 +1840,10 @@
                           </div>
                       </div>
 
-                </form>
             </div>
+            </form>
+          </div>
+          <br><br><br>
 
            <!--script-->
            <script type="text/javascript">
@@ -1684,6 +1886,8 @@
                       document.getElementById("tempoh_bayar_balik_edit").value = "{{$data->tempoh_bayar_balik}}";
                       document.getElementById("ansuran_bulanan_edit").value = "{{$data->ansuran_bulanan}}";
                       document.getElementById("tarikh_ansuran_pertama_edit").value = "{{$data->tarikh_ansuran_pertama}}";
+                      document.getElementById("keterangan_lain_edit").value = "{{$data->keterangan_lain}}";
+
                   }
                   else if("{{$data->cara_belian}}" == "Pelupusan"){
                     document.getElementById("pelupusan_container_edit").style="display: block;";
@@ -1692,6 +1896,10 @@
                     document.getElementById("no_pendaftaran_edit").value = "{{$data->no_pendaftaran}}";
                     document.getElementById("harga_jualan_edit").value = "{{$data->harga_jualan}}";
                     document.getElementById("tarikh_lupus_edit").value = "{{$data->tarikh_lupus}}";
+                  }
+                  else if("{{$data->cara_belian}}" == "Tunai"){
+                    document.getElementById("tunai_container_edit").style="display: block;";
+                    document.getElementById("tunai_edit").value="{{$data->tunai}}";
                   }
 
                 }
@@ -1728,13 +1936,16 @@
                document.getElementById("lain-lain_container_edit").style="display: none;";
                document.getElementById("pinjaman_container_edit").style="display: none;";
                document.getElementById("pelupusan_container_edit").style="display: none;";
+               document.getElementById("tunai_container_edit").style="display: none;";
                document.getElementById("tempoh_bayar_balik_edit").value = "";
                document.getElementById("ansuran_bulanan_edit").value = "";
+               document.getElementById("keterangan_lain").value = "";
                document.getElementById("jenis_harta_pelupusan_edit").value = "";
                document.getElementById("alamat_asset_edit").value = "";
                document.getElementById("no_pendaftaran_edit").value = "";
                document.getElementById("harga_jualan_edit").value = "";
                document.getElementById("lain_lain_edit").value = "";
+               document.getElementById("tunai_edit").value = "";
              }
              @endforeach
            }
@@ -1768,13 +1979,16 @@
                 document.getElementById("lain-lain_container_edit").style="display: none;";
                 document.getElementById("pinjaman_container_edit").style="display: none;";
                 document.getElementById("pelupusan_container_edit").style="display: none;";
+                document.getElementById("tunai_container_edit").style="display: none;";
                 document.getElementById("tempoh_bayar_balik_edit").value = "";
                 document.getElementById("ansuran_bulanan_edit").value = "";
+                document.getElementById("keterangan_lain_edit").value = "";
                 document.getElementById("jenis_harta_pelupusan_edit").value = "";
                 document.getElementById("alamat_asset_edit").value = "";
                 document.getElementById("no_pendaftaran_edit").value = "";
                 document.getElementById("harga_jualan_edit").value = "";
                 document.getElementById("lain_lain_edit").value = "";
+                document.getElementById("tunai_edit").value = "";
               }
               @endforeach
               document.getElementById('harta_container').style.display ="none";
@@ -1790,10 +2004,14 @@
              // update table
                document.getElementById("jenis_harta_table"+e).value = document.getElementById("jenis_harta_edit").value;
                document.getElementById("pemilik_harta_table"+e).innerHTML  = document.getElementById("pemilik_harta_edit").value;
-               document.getElementById("tarikh_pemilikan_harta_table"+e).value = "{{$data->tarikh_pemilikan_harta}}";
-               document.getElementById("bilangan_table"+e).value = "{{$data->bilangan}}";
+               // document.getElementById("tarikh_pemilikan_harta_table"+e).value = "{{$data->tarikh_pemilikan_harta}}";
+               document.getElementById("tarikh_pemilikan_harta_table"+e).innerHTML = document.getElementById("tarikh_pemilikan_harta_edit").value;
+               // document.getElementById("bilangan_table"+e).value = "{{$data->bilangan}}";
+               document.getElementById("bilangan_table"+e).innerHTML = document.getElementById("bilangan_edit").value;
+               document.getElementById("unit_bilangan_table"+e).innerHTML = document.getElementById("unit_bilangan_edit").value;
+
                // document.getElementById("unit_bilangan_table"+e).value = "{{$data->unit_bilangan}}";
-               document.getElementById("nilai_perolehan_table"+e).value = "{{$data->nilai_perolehan}}";
+               document.getElementById("nilai_perolehan_table"+e).innerHTML = document.getElementById("nilai_perolehan_edit").value;
 
             // update hidden input
             document.getElementById("jenis_harta"+e).value = document.getElementById("jenis_harta_edit").value;
@@ -1819,6 +2037,8 @@
                   document.getElementById("institusi_pinjaman"+e).value = document.getElementById("institusi_pinjaman_edit").value;
                   document.getElementById("tempoh_bayar_balik"+e).value = document.getElementById("tempoh_bayar_balik_edit").value;
                   document.getElementById("ansuran_bulanan"+e).value = document.getElementById("ansuran_bulanan_edit").value;
+                  document.getElementById("keterangan_lain"+e).value = document.getElementById("keterangan_lain_edit").value;
+
                 }
                 else if(document.getElementById("cara_belian_edit").value == "Pelupusan"){
                   document.getElementById("jenis_harta_pelupusan"+e).value =   document.getElementById("jenis_harta_pelupusan_edit").value;
@@ -1826,6 +2046,10 @@
                   document.getElementById("no_pendaftaran"+e).value = document.getElementById("no_pendaftaran_edit").value;
                   document.getElementById("harga_jualan"+e).value = document.getElementById("harga_jualan_edit").value;
                   document.getElementById("tarikh_lupus"+e).value = document.getElementById("tarikh_lupus_edit").value;
+                }
+                else if(document.getElementById("cara_belian_edit").value == "Tunai"){
+                  document.getElementById("tunai"+e).value =   document.getElementById("tunai_edit").value;
+
                 }
             }
 
@@ -2053,11 +2277,13 @@
             var nama_pemilikan_asal = document.getElementById("nama_pemilikan_asal").value;
             var lain_lain = document.getElementById("lain_lain").value;
             var cara_belian = document.getElementById("cara_belian").value;
+            var tunai = document.getElementById("tunai").value;
             var jumlah_pinjaman = document.getElementById("jumlah_pinjaman").value;
             var institusi_pinjaman = document.getElementById("institusi_pinjaman").value;
             var tempoh_bayar_balik = document.getElementById("tempoh_bayar_balik").value;
             var ansuran_bulanan = document.getElementById("ansuran_bulanan").value;
             var tarikh_ansuran_pertama = document.getElementById("tarikh_ansuran_pertama").value;
+            var keterangan_lain = document.getElementById("keterangan_lain").value;
             var jenis_harta_pelupusan = document.getElementById("jenis_harta_pelupusan").value;
             var alamat_asset = document.getElementById("alamat_asset").value;
             var no_pendaftaran = document.getElementById("no_pendaftaran").value;
@@ -2070,14 +2296,16 @@
             counter_keterangan++;
             //tambah table
             $("#table_keterangan").append(
-              '<tr><td><p class="mb-0 " style="text-align: center;">' +
+              '<tr><td></td><td><p class="mb-0 " style="text-align: center;">' +
               jenis_harta +
               '</td><td><p class="mb-0 " style="text-align: center;">' +
               pemilik_harta +
               '</td><td><p class="mb-0 " style="text-align: center;">' +
               tarikh_pemilikan_harta +
               '</td><td><p class="mb-0 " style="text-align: center;">' +
-              bilangan + " " + unit_bilangan.toUpperCase()+
+              bilangan +
+              '</td><td><p class="mb-0 " style="text-align: center;">' +
+              unit_bilangan +
               '</td><td><p class="mb-0 " style="text-align: center;">' +
               nilai_perolehan +
               '</td><td><a onClick="removeJumlahPinjaman('+ increment_keterangan  +');removeData(this,'+ increment_keterangan  +'); return false;" class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a></td></tr>'
@@ -2098,12 +2326,14 @@
             tempoh_bayar_balik_to_append = '<input type="hidden" id="tempoh_bayar_balik'+ increment_keterangan +'" name="tempoh_bayar_balik_[]"  value="'+ tempoh_bayar_balik +'" readonly>';
             ansuran_bulanan_to_append = '<input type="hidden" id="ansuran_bulanan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)" name="ansuran_bulanan_[]"  value="'+ ansuran_bulanan +'" readonly>';
             tarikh_ansuran_pertama_to_append = '<input type="hidden" id="tarikh_ansuran_pertama'+ increment_keterangan +'" name="tarikh_ansuran_pertama_[]"  value="'+ tarikh_ansuran_pertama +'" readonly>';
+            keterangan_lain_to_append = '<input type="hidden" id="keterangan_lain'+ increment_keterangan +'" name="keterangan_lain_[]"  value="'+ keterangan_lain +'" readonly>';
             jenis_harta_pelupusan_to_append = '<input type="hidden" id="jenis_harta_pelupusan'+ increment_keterangan +'" name="jenis_harta_pelupusan_[]"  value="'+ jenis_harta_pelupusan +'" readonly>';
             alamat_asset_to_append = '<input type="hidden" id="alamat_asset'+ increment_keterangan +'" name="alamat_asset_[]"  value="'+ alamat_asset +'" readonly>';
             no_pendaftaran_to_append = '<input type="hidden" id="no_pendaftaran'+ increment_keterangan +'" name="no_pendaftaran_[]"  value="'+ no_pendaftaran +'" readonly>';
             harga_jualan_to_append = '<input type="hidden" id="harga_jualan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)" name="harga_jualan_[]"  value="'+ harga_jualan +'" readonly>';
             tarikh_lupus_to_append = '<input type="hidden" id="tarikh_lupus'+ increment_keterangan +'" name="tarikh_lupus_[]"  value="'+ tarikh_lupus +'" readonly>';
             lain_lain_to_append = '<input type="hidden" id="lain_lain'+ increment_keterangan +'" name="lain_lain_[]"  value="'+ lain_lain +'" readonly>';
+            tunai_to_append = '<input type="hidden" id="tunai'+ increment_keterangan +'" name="tunai_[]"  value="'+ tunai +'" readonly>';
             cara_belian_to_append = '<input type="hidden" id="cara_belian'+ increment_keterangan +'" name="cara_belian_[]"  value="'+ cara_belian +'" readonly>';
 
 
@@ -2128,12 +2358,14 @@
             $("#hidden_input").append(tempoh_bayar_balik_to_append);
             $("#hidden_input").append(ansuran_bulanan_to_append);
             $("#hidden_input").append(tarikh_ansuran_pertama_to_append);
+            $("#hidden_input").append(keterangan_lain_to_append);
             $("#hidden_input").append(jenis_harta_pelupusan_to_append);
             $("#hidden_input").append(alamat_asset_to_append);
             $("#hidden_input").append(no_pendaftaran_to_append);
             $("#hidden_input").append(harga_jualan_to_append);
             $("#hidden_input").append(tarikh_lupus_to_append);
             $("#hidden_input").append(lain_lain_to_append);
+            $("#hidden_input").append(tunai_to_append);
             $("#hidden_input").append(cara_belian_to_append);
 
 
@@ -2162,12 +2394,16 @@
             document.getElementById("pinjaman_container").style="display: none;";
             document.getElementById("pelupusan_container").style="display: none;";
             document.getElementById("tempoh_bayar_balik").value = "";
+            document.getElementById("keterangan_lain").value = "";
+
             // document.getElementById("ansuran_bulanan").value = "";
             document.getElementById("jenis_harta_pelupusan").value = "";
             document.getElementById("alamat_asset").value = "";
             document.getElementById("no_pendaftaran").value = "";
             document.getElementById("harga_jualan").value = "";
             document.getElementById("lain_lain").value = "";
+            document.getElementById("tunai").value = "";
+
 
 
           }
@@ -2195,11 +2431,14 @@
            $('#tempoh_bayar_balik'+counter+'').remove();
            $('#ansuran_bulanan'+counter+'').remove();
            $('#tarikh_ansuran_pertama'+counter+'').remove();
+           $('#keterangan_lain'+counter+'').remove();
            $('#jenis_harta_pelupusan'+counter+'').remove();
            $('#alamat_asset'+counter+'').remove();
            $('#no_pendaftaran'+counter+'').remove();
            $('#harga_jualan'+counter+'').remove();
            $('#tarikh_lupus'+counter+'').remove();
+           $('#tunai'+counter+'').remove();
+
 
 
            //fetch data from jumlah data input
@@ -2311,8 +2550,11 @@
                      document.getElementById("jumlah_pinjaman").value = "";
                      document.getElementById("cara_belian").value = "";
                      // $("#cara_belian").prop('selectedIndex', 0);
-                     document.getElementById('pinjaman_perumahan_pasangan').value = +parseFloat(pinjaman_rumah_semasa).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
-                     document.getElementById('bulanan_perumahan_pasangan').value = +parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
+                     // document.getElementById('pinjaman_perumahan_pasangan').value = +parseFloat(pinjaman_rumah_semasa).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
+                     // document.getElementById('bulanan_perumahan_pasangan').value = +parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
+
+                     document.getElementById('pinjaman_perumahan_pasangan').value =  +parseFloat(jumlah_pinjaman).toFixed(2);
+                     document.getElementById('bulanan_perumahan_pasangan').value = +parseFloat(ansuran_bulanan).toFixed(2);
                    }
 
                    else{
@@ -2331,9 +2573,11 @@
                      // $("#cara_belian").prop('selectedIndex', 0);
                      document.getElementById("cara_belian").value = "";
                      $("#select_hubungan").prop('selectedIndex', 0);
-                     document.getElementById('pinjaman_perumahan_pegawai').value = +parseFloat(pinjaman_rumah_semasa).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
-                     document.getElementById('bulanan_perumahan_pegawai').value = +parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
+                     // document.getElementById('pinjaman_perumahan_pegawai').value = +parseFloat(pinjaman_rumah_semasa).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
+                     // document.getElementById('bulanan_perumahan_pegawai').value = +parseFloat(pinjaman_bulanan_rumah_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
 
+                     document.getElementById('pinjaman_perumahan_pegawai').value = +parseFloat(jumlah_pinjaman).toFixed(2);
+                     document.getElementById('bulanan_perumahan_pegawai').value = +parseFloat(ansuran_bulanan).toFixed(2);
                    }
                  }
                  else if (jenis_harta == "Kenderaan") {
@@ -2355,9 +2599,14 @@
                      // $("#cara_belian").prop('selectedIndex', 0);
                      document.getElementById("cara_belian").value = "";
                      $("#select_hubungan").prop('selectedIndex', 0);
-                     document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(pinjaman_kenderaan_pegawai).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
-                     document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
+                     // document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(pinjaman_kenderaan_pegawai).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
+                     // document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
+
+                     document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(jumlah_pinjaman).toFixed(2);
+                     document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(ansuran_bulanan).toFixed(2);
+
                    }
+
 
                else{
                  pinjaman_kenderaan_pegawai = document.getElementById('pinjaman_kenderaan_pegawai').value;
@@ -2374,8 +2623,11 @@
                  // $("#cara_belian").prop('selectedIndex', 0);
                  document.getElementById("cara_belian").value = "";
                  $("#select_hubungan").prop('selectedIndex', 0);
-                 document.getElementById('pinjaman_kenderaan_pegawai').value = +parseFloat(pinjaman_kenderaan_pegawai).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
-                 document.getElementById('bulanan_kenderaan_pegawai').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
+                 // document.getElementById('pinjaman_kenderaan_pegawai').value = +parseFloat(pinjaman_kenderaan_pegawai).toFixed(2) + +parseFloat(jumlah_pinjaman).toFixed(2);
+                 // document.getElementById('bulanan_kenderaan_pegawai').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa).toFixed(2) + +parseFloat(ansuran_bulanan).toFixed(2);
+
+                 document.getElementById('pinjaman_kenderaan_pegawai').value = +parseFloat(jumlah_pinjaman).toFixed(2);
+                 document.getElementById('bulanan_kenderaan_pegawai').value = +parseFloat(ansuran_bulanan).toFixed(2);
 
                }
              }
@@ -2389,6 +2641,64 @@
              document.getElementById("ansuran_bulanan").value = "";
              document.getElementById("jumlah_pinjaman").value = "";
            }
+           var sendiri_kenderaan_ansuran_bulanan_value = 0;
+           var sendiri_kenderaan_jumlah_pinjaman_value = 0;
+           var pasangan_kenderaan_ansuran_bulanan_value = 0;
+           var pasangan_kenderaan_jumlah_pinjaman_value = 0;
+
+           var sendiri_rumah_ansuran_bulanan_value = 0;
+           var sendiri_rumah_jumlah_pinjaman_value = 0;
+           var pasangan_rumah_ansuran_bulanan_value = 0;
+           var pasangan_rumah_jumlah_pinjaman_value = 0;
+
+           var select_hubungan_to_calculate_value;
+           var jenis_harta_to_calculate_value;
+
+           var ansuran_bulanan_to_calculate = document.getElementsByName('ansuran_bulanan_[]');
+           var jumlah_pinjaman_to_calculate = document.getElementsByName('jumlah_pinjaman_[]');
+           var select_hubungan_to_calculate = document.getElementsByName('select_hubungan_[]');
+           var jenis_harta_to_calculate = document.getElementsByName('jenis_harta_[]');
+           var cara_belian_to_calculate = document.getElementsByName('cara_belian_[]');
+
+           for (var i = 0; i < jenis_harta_to_calculate.length; i++) {
+               var a = ansuran_bulanan_to_calculate[i];
+               var b = jumlah_pinjaman_to_calculate[i];
+               var c = jenis_harta_to_calculate[i];
+               var d = select_hubungan_to_calculate[i];
+               var e = cara_belian_to_calculate[i];
+
+
+               if(d.value == "Sendiri"){
+                 if(e.value =="Pinjaman"){
+                   if(c.value == "Kenderaan"){
+                     sendiri_kenderaan_ansuran_bulanan_value = parseFloat(sendiri_kenderaan_ansuran_bulanan_value) + +parseFloat(a.value).toFixed(2);
+                     sendiri_kenderaan_jumlah_pinjaman_value = parseFloat(sendiri_kenderaan_jumlah_pinjaman_value) + +parseFloat(b.value).toFixed(2);
+                   }
+                   else if(c.value == "Rumah"){
+                     sendiri_rumah_ansuran_bulanan_value = parseFloat(sendiri_rumah_ansuran_bulanan_value) + +parseFloat(a.value).toFixed(2);
+                     sendiri_rumah_jumlah_pinjaman_value = parseFloat(sendiri_rumah_jumlah_pinjaman_value) + +parseFloat(b.value).toFixed(2);
+                   }
+                 }
+               }
+               else if(d.value == "Isteri/Suami"){
+                if(e.value =="Pinjaman"){
+                 if(c.value == "Kenderaan"){
+                   pasangan_kenderaan_ansuran_bulanan_value = parseFloat(pasangan_kenderaan_ansuran_bulanan_value) + +parseFloat(a.value).toFixed(2);
+                   pasangan_kenderaan_jumlah_pinjaman_value = parseFloat(pasangan_kenderaan_jumlah_pinjaman_value) + +parseFloat(b.value).toFixed(2);
+                 }
+                 else if(c.value == "Rumah"){
+                   pasangan_rumah_ansuran_bulanan_value = parseFloat(pasangan_rumah_ansuran_bulanan_value) + +parseFloat(a.value).toFixed(2);
+                   pasangan_rumah_jumlah_pinjaman_value = parseFloat(pasangan_rumah_jumlah_pinjaman_value) + +parseFloat(b.value).toFixed(2);
+                 }
+               }
+                                                        }
+
+           }
+           document.getElementById('pinjaman_kenderaan_pegawai').value = parseFloat(sendiri_kenderaan_jumlah_pinjaman_value).toFixed(2);
+           document.getElementById('bulanan_kenderaan_pegawai').value = parseFloat(sendiri_kenderaan_ansuran_bulanan_value).toFixed(2);
+           document.getElementById('pinjaman_kenderaan_pasangan').value = parseFloat(pasangan_kenderaan_jumlah_pinjaman_value).toFixed(2);
+           document.getElementById('bulanan_kenderaan_pasangan').value = parseFloat(pasangan_kenderaan_ansuran_bulanan_value).toFixed(2);
+
          }
     </script>
     <!-- edit harta -->
@@ -2400,6 +2710,7 @@
         jenis_harta_edit = document.getElementById("jenis_harta_edit").value;
         pasangan_edit = document.getElementById("hubungan_pemilik_edit").value;
         cara_belian_edit = document.getElementById("cara_belian_edit").value;
+
         if(cara_belian_edit == "Pinjaman"){
           console.log('pinjaman');
             if(jenis_harta_edit == "Rumah"){
@@ -2422,8 +2733,11 @@
                 document.getElementById("jumlah_pinjaman_edit").value = "";
                 document.getElementById("cara_belian_edit").value = "";
                 // $("#cara_belian").prop('selectedIndex', 0);
-                document.getElementById('pinjaman_perumahan_pasangan').value = +parseFloat(pinjaman_rumah_semasa_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
-                document.getElementById('bulanan_perumahan_pasangan').value = +parseFloat(pinjaman_bulanan_rumah_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+                // document.getElementById('pinjaman_perumahan_pasangan').value = +parseFloat(pinjaman_rumah_semasa_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+                // document.getElementById('bulanan_perumahan_pasangan').value = +parseFloat(pinjaman_bulanan_rumah_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+
+                document.getElementById('pinjaman_perumahan_pasangan').value =  +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+                document.getElementById('bulanan_perumahan_pasangan').value =  +parseFloat(ansuran_bulanan_edit).toFixed(2);
               }
 
               else{
@@ -2442,8 +2756,10 @@
                 // // $("#cara_belian").prop('selectedIndex', 0);
                 // document.getElementById("cara_belian_edit").value = "";
                 // $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
-                document.getElementById('pinjaman_perumahan_pegawai').value = +parseFloat(pinjaman_rumah_semasa_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
-                document.getElementById('bulanan_perumahan_pegawai').value = +parseFloat(pinjaman_bulanan_rumah_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+                // document.getElementById('pinjaman_perumahan_pegawai').value = +parseFloat(pinjaman_rumah_semasa_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+                // document.getElementById('bulanan_perumahan_pegawai').value = +parseFloat(pinjaman_bulanan_rumah_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+                document.getElementById('pinjaman_perumahan_pegawai').value = +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+                document.getElementById('bulanan_perumahan_pegawai').value = +parseFloat(ansuran_bulanan_edit).toFixed(2);
 
               }
             }
@@ -2466,8 +2782,11 @@
                 // // $("#cara_belian").prop('selectedIndex', 0);
                 // document.getElementById("cara_belian_edit").value = "";
                 // $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
-                document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
-                document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+                // document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+                // document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+
+                document.getElementById('pinjaman_kenderaan_pasangan').value = +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+                document.getElementById('bulanan_kenderaan_pasangan').value = +parseFloat(ansuran_bulanan_edit).toFixed(2);
               }
 
           else{
@@ -2476,6 +2795,8 @@
             TotalValue_edit = parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + parseFloat(jumlah_pinjaman_edit).toFixed(2);
 
             pinjaman_bulanan_kenderaan_semasa_edit = document.getElementById('bulanan_kenderaan_pegawai').value;
+            // pinjaman_bulanan_kenderaan_semasa_edit = {{$info->bulanan_kenderaan_pegawai}};
+
             ansuran_bulanan_edit = document.getElementById("ansuran_bulanan_edit").value;
             TotalValue_bulanan_edit = parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + parseFloat(ansuran_bulanan_edit).toFixed(2);
 
@@ -2485,8 +2806,13 @@
             // // $("#cara_belian").prop('selectedIndex', 0);
             // document.getElementById("cara_belian_edit").value = "";
             // $("#hubungan_pemilik_edit").prop('selectedIndex', 0);
-            document.getElementById('pinjaman_kenderaan_pegawai').value = +parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
-            document.getElementById('bulanan_kenderaan_pegawai').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+            // console.log('ansuran_bulanan_edit',parseFloat(ansuran_bulanan_edit).toFixed(2) );
+            // console.log('pinjaman_bulanan_kenderaan_semasa_edit',parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) );
+
+            // document.getElementById('pinjaman_kenderaan_pegawai').value = +parseFloat(pinjaman_kenderaan_pegawai_edit).toFixed(2) + +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+            document.getElementById('pinjaman_kenderaan_pegawai').value = +parseFloat(jumlah_pinjaman_edit).toFixed(2);
+            // document.getElementById('bulanan_kenderaan_pegawai').value = +parseFloat(pinjaman_bulanan_kenderaan_semasa_edit).toFixed(2) + +parseFloat(ansuran_bulanan_edit).toFixed(2);
+            document.getElementById('bulanan_kenderaan_pegawai').value =  +parseFloat(ansuran_bulanan_edit).toFixed(2);
 
           }
         }
@@ -2500,6 +2826,64 @@
         // document.getElementById("ansuran_bulanan_edit").value = "";
         // document.getElementById("jumlah_pinjaman_edit").value = "";
       }
+
+        var sendiri_kenderaan_ansuran_bulanan_value = 0;
+        var sendiri_kenderaan_jumlah_pinjaman_value = 0;
+        var pasangan_kenderaan_ansuran_bulanan_value = 0;
+        var pasangan_kenderaan_jumlah_pinjaman_value = 0;
+
+        var sendiri_rumah_ansuran_bulanan_value = 0;
+        var sendiri_rumah_jumlah_pinjaman_value = 0;
+        var pasangan_rumah_ansuran_bulanan_value = 0;
+        var pasangan_rumah_jumlah_pinjaman_value = 0;
+
+        var select_hubungan_to_calculate_value;
+        var jenis_harta_to_calculate_value;
+
+        var ansuran_bulanan_to_calculate = document.getElementsByName('ansuran_bulanan_[]');
+        var jumlah_pinjaman_to_calculate = document.getElementsByName('jumlah_pinjaman_[]');
+        var select_hubungan_to_calculate = document.getElementsByName('select_hubungan_[]');
+        var jenis_harta_to_calculate = document.getElementsByName('jenis_harta_[]');
+        var cara_belian_to_calculate = document.getElementsByName('cara_belian_[]');
+
+        for (var i = 0; i < jenis_harta_to_calculate.length; i++) {
+            var a = ansuran_bulanan_to_calculate[i];
+            var b = jumlah_pinjaman_to_calculate[i];
+            var c = jenis_harta_to_calculate[i];
+            var d = select_hubungan_to_calculate[i];
+            var e = cara_belian_to_calculate[i];
+
+
+            if(d.value == "Sendiri"){
+              if(e.value =="Pinjaman"){
+                if(c.value == "Kenderaan"){
+                  sendiri_kenderaan_ansuran_bulanan_value = parseFloat(sendiri_kenderaan_ansuran_bulanan_value) + +parseFloat(a.value).toFixed(2);
+                  sendiri_kenderaan_jumlah_pinjaman_value = parseFloat(sendiri_kenderaan_jumlah_pinjaman_value) + +parseFloat(b.value).toFixed(2);
+                }
+                else if(c.value == "Rumah"){
+                  sendiri_rumah_ansuran_bulanan_value = parseFloat(sendiri_rumah_ansuran_bulanan_value) + +parseFloat(a.value).toFixed(2);
+                  sendiri_rumah_jumlah_pinjaman_value = parseFloat(sendiri_rumah_jumlah_pinjaman_value) + +parseFloat(b.value).toFixed(2);
+                }
+              }
+            }
+            else if(d.value == "Isteri/Suami"){
+              if(e.value =="Pinjaman"){
+                if(c.value == "Kenderaan"){
+                  pasangan_kenderaan_ansuran_bulanan_value = parseFloat(pasangan_kenderaan_ansuran_bulanan_value) + +parseFloat(a.value).toFixed(2);
+                  pasangan_kenderaan_jumlah_pinjaman_value = parseFloat(pasangan_kenderaan_jumlah_pinjaman_value) + +parseFloat(b.value).toFixed(2);
+                }
+                else if(c.value == "Rumah"){
+                  pasangan_rumah_ansuran_bulanan_value = parseFloat(pasangan_rumah_ansuran_bulanan_value) + +parseFloat(a.value).toFixed(2);
+                  pasangan_rumah_jumlah_pinjaman_value = parseFloat(pasangan_rumah_jumlah_pinjaman_value) + +parseFloat(b.value).toFixed(2);
+                }
+              }
+            }
+
+        }
+        document.getElementById('pinjaman_kenderaan_pegawai').value = parseFloat(sendiri_kenderaan_jumlah_pinjaman_value).toFixed(2);
+        document.getElementById('bulanan_kenderaan_pegawai').value = parseFloat(sendiri_kenderaan_ansuran_bulanan_value).toFixed(2);
+        document.getElementById('pinjaman_kenderaan_pasangan').value = parseFloat(pasangan_kenderaan_jumlah_pinjaman_value).toFixed(2);
+        document.getElementById('bulanan_kenderaan_pasangan').value = parseFloat(pasangan_kenderaan_ansuran_bulanan_value).toFixed(2);
     }
   </script>
     <script>
@@ -2560,6 +2944,5 @@
           });
         </script>
         @endforeach
-
 
 @endsection

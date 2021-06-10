@@ -428,7 +428,16 @@ public function add(array $data){
             'ansuran_bulanan_.*' => ['required_if:cara_belian_,==,Pinjaman', 'string'],
             'tarikh_ansuran_pertama_' => ['array'],
             'tarikh_ansuran_pertama_.*' => ['required_if:cara_belian_,==,Pinjaman', 'date'],
+            'keterangan_lain_.*' => ['nullable', 'string'],
           ]);
+        }
+        else if($data['cara_belian_'][$i] == "Tunai"){
+           return Validator::make($data, [
+            'cara_belian_' => ['array'],
+            'cara_belian_.*' => ['required_if:cara_perolehan_,==,Dibeli', 'string'],
+            'tunai_' => ['array'],
+            'tunai_.*' => ['required_if:cara_belian_,Tunai', 'string'],
+        ]);
         }
         else{
         return Validator::make($data, [
@@ -523,6 +532,8 @@ public function add(array $data){
       'lain_lain_.*' => ['nullable', 'string'],
       'cara_belian_' => ['array'],
       'cara_belian_.*' => ['nullable', 'string'],
+      'tunai_' => ['array'],
+      'tunai_.*' => ['nullable', 'string'],
       'jumlah_pinjaman_' => ['array'],
       'jumlah_pinjaman_.*' => ['nullable', 'string'],
       'institusi_pinjaman_' => ['array'],
@@ -533,6 +544,8 @@ public function add(array $data){
       'ansuran_bulanan_.*' => ['nullable', 'string'],
       'tarikh_ansuran_pertama_' => ['array'],
       'tarikh_ansuran_pertama_.*' => ['nullable', 'date'],
+      'keterangan_lain_' => ['array'],
+      'keterangan_lain_.*' => ['nullable', 'string'],
       'jenis_harta_pelupusan_' => ['array'],
       'jenis_harta_pelupusan_.*' => ['nullable', 'string'],
       'alamat_asset_' => ['array'],
@@ -617,11 +630,13 @@ public function add(array $data){
        $hartaB->lain_lain = $request->lain_lain_[$i];
        $hartaB->cara_belian = $request->cara_belian_[$i];
        $hartaB->nama_pemilikan_asal = $request->nama_pemilikan_asal_[$i];
+       $hartaB->tunai = $request->tunai_[$i];
    	   $hartaB->jumlah_pinjaman = $request->jumlah_pinjaman_[$i];
        $hartaB->institusi_pinjaman = $request->institusi_pinjaman_[$i];
        $hartaB->tempoh_bayar_balik = $request->tempoh_bayar_balik_[$i];
        $hartaB->ansuran_bulanan = $request->ansuran_bulanan_[$i];
        $hartaB->tarikh_ansuran_pertama = $request->tarikh_ansuran_pertama_[$i];
+       $hartaB->keterangan_lain = $request->keterangan_lain_[$i];
        $hartaB->jenis_harta_pelupusan = $request->jenis_harta_pelupusan_[$i];
    	   $hartaB->alamat_asset = $request->alamat_asset_[$i];
        $hartaB->no_pendaftaran = $request->no_pendaftaran_[$i];
@@ -775,11 +790,13 @@ public function add(array $data){
        $hartaB->lain_lain = $request->lain_lain_[$i];
        $hartaB->cara_belian = $request->cara_belian_[$i];
        $hartaB->nama_pemilikan_asal = $request->nama_pemilikan_asal_[$i];
+       $hartaB->tunai = $request->tunai_[$i];
    	   $hartaB->jumlah_pinjaman = $request->jumlah_pinjaman_[$i];
        $hartaB->institusi_pinjaman = $request->institusi_pinjaman_[$i];
        $hartaB->tempoh_bayar_balik = $request->tempoh_bayar_balik_[$i];
        $hartaB->ansuran_bulanan = $request->ansuran_bulanan_[$i];
        $hartaB->tarikh_ansuran_pertama = $request->tarikh_ansuran_pertama_[$i];
+       $hartaB->keterangan_lain = $request->keterangan_lain_[$i];
        $hartaB->jenis_harta_pelupusan = $request->jenis_harta_pelupusan_[$i];
    	   $hartaB->alamat_asset = $request->alamat_asset_[$i];
        $hartaB->no_pendaftaran = $request->no_pendaftaran_[$i];
@@ -812,7 +829,7 @@ public function add(array $data){
   }
 }
 
-    public function update($id,$sedang_proses){
+    public function update($id,$sedang_proses, $pinjaman_kenderaan_sendiri, $bulanan_kenderaan_sendiri, $pinjaman_kenderaan_pasangan, $bulanan_kenderaan_pasangan, $pinjaman_rumah_sendiri, $bulanan_rumah_sendiri, $pinjaman_rumah_pasangan, $bulanan_rumah_pasangan){
       // dd($request->all());
       $formbs = FormB::find($id);
       $formbs->gaji_pasangan  = request()->gaji_pasangan;
@@ -820,14 +837,24 @@ public function add(array $data){
       $formbs->jumlah_imbuhan_pasangan = request()->jumlah_imbuhan_pasangan;
       $formbs->sewa = request()->sewa;
       $formbs->sewa_pasangan = request()->sewa_pasangan;
-      $formbs->pinjaman_perumahan_pegawai  = request()->pinjaman_perumahan_pegawai;
-      $formbs->bulanan_perumahan_pegawai = request()->bulanan_perumahan_pegawai;
-      $formbs->pinjaman_perumahan_pasangan = request()->pinjaman_perumahan_pasangan;
-      $formbs->bulanan_perumahan_pasangan = request()->bulanan_perumahan_pasangan;
-      $formbs->pinjaman_kenderaan_pegawai = request()->pinjaman_kenderaan_pegawai;
-      $formbs->bulanan_kenderaan_pegawai= request()->bulanan_kenderaan_pegawai;
-      $formbs->pinjaman_kenderaan_pasangan = request()->pinjaman_kenderaan_pasangan;
-      $formbs->bulanan_kenderaan_pasangan  = request()->bulanan_kenderaan_pasangan;
+      // $formbs->pinjaman_perumahan_pegawai  = request()->pinjaman_perumahan_pegawai;
+      // $formbs->bulanan_perumahan_pegawai = request()->bulanan_perumahan_pegawai;
+      // $formbs->pinjaman_perumahan_pasangan = request()->pinjaman_perumahan_pasangan;
+      // $formbs->bulanan_perumahan_pasangan = request()->bulanan_perumahan_pasangan;
+      // $formbs->pinjaman_kenderaan_pegawai = request()->pinjaman_kenderaan_pegawai;
+      // $formbs->bulanan_kenderaan_pegawai= request()->bulanan_kenderaan_pegawai;
+      // $formbs->pinjaman_kenderaan_pasangan = request()->pinjaman_kenderaan_pasangan;
+      // $formbs->bulanan_kenderaan_pasangan  = request()->bulanan_kenderaan_pasangan;
+      $formbs->pinjaman_perumahan_pegawai  = $pinjaman_rumah_sendiri;
+      $formbs->bulanan_perumahan_pegawai = $bulanan_rumah_sendiri;
+      $formbs->pinjaman_perumahan_pasangan = $pinjaman_rumah_pasangan;
+      $formbs->bulanan_perumahan_pasangan = $bulanan_rumah_pasangan;
+
+      $formbs->pinjaman_kenderaan_pegawai = $pinjaman_kenderaan_sendiri;
+      $formbs->bulanan_kenderaan_pegawai= $bulanan_kenderaan_sendiri;
+      $formbs->pinjaman_kenderaan_pasangan = $pinjaman_kenderaan_pasangan;
+      $formbs->bulanan_kenderaan_pasangan  = $bulanan_kenderaan_pasangan;
+
       $formbs->jumlah_cukai_pegawai  = request()->jumlah_cukai_pegawai;
       $formbs->bulanan_cukai_pegawai = request()->bulanan_cukai_pegawai;
       $formbs->jumlah_cukai_pasangan = request()->jumlah_cukai_pasangan;
@@ -845,7 +872,7 @@ public function add(array $data){
      }
 
      public function updateFormB(Request $request,$id){
-       // dd(request()->all());
+       // dd($request->all());
        if ($request->has('save')){
         $this->validatorsave(request()->all())->validate();
         $formbs = FormB::find($id);
@@ -932,6 +959,15 @@ public function add(array $data){
 
       // $hartaB= HartaB::where('formbs_id',$formbs->id)->get();
       // dd($hartaB);
+      $pinjaman_rumah_pasangan = 0;
+      $bulanan_rumah_pasangan = 0;
+      $pinjaman_kenderaan_pasangan = 0;
+      $bulanan_kenderaan_pasangan = 0;
+
+      $pinjaman_rumah_sendiri = 0;
+      $bulanan_rumah_sendiri = 0;
+      $pinjaman_kenderaan_sendiri = 0;
+      $bulanan_kenderaan_sendiri = 0;
 
       for ($i=0; $i < $count_harta; $i++) {
 
@@ -948,11 +984,13 @@ public function add(array $data){
         $hartaB->lain_lain = $request->lain_lain_[$i];
         $hartaB->cara_belian = $request->cara_belian_[$i];
         $hartaB->nama_pemilikan_asal = $request->nama_pemilikan_asal_[$i];
+        $hartaB->tunai = $request->tunai_[$i];
         $hartaB->jumlah_pinjaman = $request->jumlah_pinjaman_[$i];
         $hartaB->institusi_pinjaman = $request->institusi_pinjaman_[$i];
         $hartaB->tempoh_bayar_balik = $request->tempoh_bayar_balik_[$i];
         $hartaB->ansuran_bulanan = $request->ansuran_bulanan_[$i];
         $hartaB->tarikh_ansuran_pertama = $request->tarikh_ansuran_pertama_[$i];
+        $hartaB->keterangan_lain = $request->keterangan_lain_[$i];
         $hartaB->jenis_harta_pelupusan = $request->jenis_harta_pelupusan_[$i];
         $hartaB->alamat_asset = $request->alamat_asset_[$i];
         $hartaB->no_pendaftaran = $request->no_pendaftaran_[$i];
@@ -960,17 +998,46 @@ public function add(array $data){
         $hartaB->tarikh_lupus = $request->tarikh_lupus_[$i];
         $hartaB->formbs_id = $formbs-> id;
         $hartaB->save();
+        // dd($hartaB);
+        if ($request->jenis_harta_[$i] == "Kenderaan") {
+          // dd("test");
+          if($request->cara_belian_[$i] == "Pinjaman"){
+            if ($request->select_hubungan_[$i] == "Sendiri") {
+              $pinjaman_kenderaan_sendiri = $pinjaman_kenderaan_sendiri + $request->jumlah_pinjaman_[$i] ?? 0;
+              $bulanan_kenderaan_sendiri = $bulanan_kenderaan_sendiri + $request->ansuran_bulanan_[$i] ?? 0;
+            }
+            elseif ($request->select_hubungan_[$i] == "Isteri/Suami") {
+              $pinjaman_kenderaan_pasangan = $pinjaman_kenderaan_pasangan + $request->jumlah_pinjaman_[$i] ?? 0;
+              $bulanan_kenderaan_pasangan = $bulanan_kenderaan_pasangan + $request->ansuran_bulanan_[$i] ?? 0;
+            }
+          }
+        }
+        elseif ($request->jenis_harta_[$i] == "Rumah") {
+          if($request->cara_belian_[$i] == "Pinjaman"){
+            if ($request->select_hubungan_[$i] == "Sendiri") {
+              $pinjaman_rumah_sendiri = $pinjaman_rumah_sendiri + $request->jumlah_pinjaman_[$i] ?? 0;
+              $bulanan_rumah_sendiri = $bulanan_rumah_sendiri + $request->ansuran_bulanan_[$i] ?? 0;
+            }
+            elseif ($request->select_hubungan_[$i] == "Isteri/Suami") {
+              $pinjaman_rumah_pasangan = $pinjaman_rumah_pasangan + $request->jumlah_pinjaman_[$i] ?? 0;
+              $bulanan_rumah_pasangan = $bulanan_rumah_pasangan + $request->ansuran_bulanan_[$i] ?? 0;
+            }
+          }
+        }
       }
+
+      // dd($pinjaman_kenderaan_sendiri);
 
       $sedang_proses ="Disimpan ke Draf";
       //ni masuk update function
-      $this->update($id,$sedang_proses);
+      $this->update($id,$sedang_proses, $pinjaman_kenderaan_sendiri, $bulanan_kenderaan_sendiri, $pinjaman_kenderaan_pasangan, $bulanan_kenderaan_pasangan, $pinjaman_rumah_sendiri, $bulanan_rumah_sendiri, $pinjaman_rumah_pasangan, $bulanan_rumah_pasangan);
 
 
       return redirect()->route('user.harta.senaraidraft');
     }
 
        else if($request->has('publish')){
+
         $this->validatorpublish(request()->all())->validate();
 
         $formbs = FormB::find($id);
@@ -1058,6 +1125,16 @@ public function add(array $data){
       // $hartaB= HartaB::where('formbs_id',$formbs->id)->get();
       // dd($hartaB);
 
+      $pinjaman_rumah_pasangan = 0;
+      $bulanan_rumah_pasangan = 0;
+      $pinjaman_kenderaan_pasangan = 0;
+      $bulanan_kenderaan_pasangan = 0;
+
+      $pinjaman_rumah_sendiri = 0;
+      $bulanan_rumah_sendiri = 0;
+      $pinjaman_kenderaan_sendiri = 0;
+      $bulanan_kenderaan_sendiri = 0;
+
       for ($i=0; $i < $count_harta; $i++) {
 
     	  $hartaB = new HartaB();
@@ -1073,11 +1150,13 @@ public function add(array $data){
         $hartaB->lain_lain = $request->lain_lain_[$i];
         $hartaB->cara_belian = $request->cara_belian_[$i];
         $hartaB->nama_pemilikan_asal = $request->nama_pemilikan_asal_[$i];
+        $hartaB->tunai = $request->tunai_[$i];
     	  $hartaB->jumlah_pinjaman = $request->jumlah_pinjaman_[$i];
         $hartaB->institusi_pinjaman = $request->institusi_pinjaman_[$i];
         $hartaB->tempoh_bayar_balik = $request->tempoh_bayar_balik_[$i];
         $hartaB->ansuran_bulanan = $request->ansuran_bulanan_[$i];
         $hartaB->tarikh_ansuran_pertama = $request->tarikh_ansuran_pertama_[$i];
+        $hartaB->keterangan_lain = $request->keterangan_lain_[$i];
         $hartaB->jenis_harta_pelupusan = $request->jenis_harta_pelupusan_[$i];
     	  $hartaB->alamat_asset = $request->alamat_asset_[$i];
         $hartaB->no_pendaftaran = $request->no_pendaftaran_[$i];
@@ -1085,11 +1164,37 @@ public function add(array $data){
         $hartaB->tarikh_lupus = $request->tarikh_lupus_[$i];
         $hartaB->formbs_id = $formbs-> id;
         $hartaB->save();
+
+        if ($request->jenis_harta_[$i] == "Kenderaan") {
+          // dd("test");
+          if($cara_belian_[$i] =="Pinjaman"){
+            if ($request->select_hubungan_[$i] == "Sendiri") {
+              $pinjaman_kenderaan_sendiri = $pinjaman_kenderaan_sendiri + $request->jumlah_pinjaman_[$i] ?? 0;
+              $bulanan_kenderaan_sendiri = $bulanan_kenderaan_sendiri + $request->ansuran_bulanan_[$i] ?? 0;
+            }
+            elseif ($request->select_hubungan_[$i] == "Isteri/Suami") {
+              $pinjaman_kenderaan_pasangan = $pinjaman_kenderaan_pasangan + $request->jumlah_pinjaman_[$i] ?? 0;
+              $bulanan_kenderaan_pasangan = $bulanan_kenderaan_pasangan + $request->ansuran_bulanan_[$i] ?? 0;
+            }
+          }
+        }
+        elseif ($request->jenis_harta_[$i] == "Rumah") {
+          if($cara_belian_[$i] =="Pinjaman"){
+            if ($request->select_hubungan_[$i] == "Sendiri") {
+              $pinjaman_rumah_sendiri = $pinjaman_rumah_sendiri + $request->jumlah_pinjaman_[$i] ?? 0;
+              $bulanan_rumah_sendiri = $bulanan_rumah_sendiri + $request->ansuran_bulanan_[$i] ?? 0;
+            }
+            elseif ($request->select_hubungan_[$i] == "Isteri/Suami") {
+              $pinjaman_rumah_pasangan = $pinjaman_rumah_pasangan + $request->jumlah_pinjaman_[$i] ?? 0;
+              $bulanan_rumah_pasangan = $bulanan_rumah_pasangan + $request->ansuran_bulanan_[$i] ?? 0;
+            }
+          }
+        }
       }
 
       $sedang_proses ="Sedang Diproses";
       //ni masuk update function
-      $this->update($id,$sedang_proses);
+      $this->update($id,$sedang_proses, $pinjaman_kenderaan_sendiri, $bulanan_kenderaan_sendiri, $pinjaman_kenderaan_pasangan, $bulanan_kenderaan_pasangan, $pinjaman_rumah_sendiri, $bulanan_rumah_sendiri, $pinjaman_rumah_pasangan, $bulanan_rumah_pasangan);
 
       //send notification to admin (noti yang dia dah berjaya declare)
       $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna

@@ -293,7 +293,7 @@ Route::get('/lampiran/Ulasan-Harta-G/id={id}', 'AdminController@viewUlasanHartaG
 
 Route::get('/senarai-harta', 'AdminController@senaraiAllForm')->name('user.admin.harta.senaraiallharta');
 
-Route::get('/senarai-harta-ketua-jabatan', 'HodivController@senaraiAllForm')->name('user.hodiv.harta.senaraiallharta');
+Route::get('/senarai-harta-ketua-bahagian', 'HodivController@senaraiAllForm')->name('user.hodiv.harta.senaraiallharta');
 
 Route::get('/admin/senarai-harta-pengguna/id={id}', 'AdminController@senaraiAllUserForm')->name('user.admin.senaraiallharta1');
 

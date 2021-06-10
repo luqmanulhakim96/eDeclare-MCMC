@@ -29,7 +29,7 @@
                                                <th width="10%"><p class="mb-0">Hubungan Pemberi</p></th>
                                                <th width="70%"><p class="mb-0">Gambar Hadiah</p></th>
                                                <th width="30%"><p class="mb-0">Status Hadiah (RM)</p></th>
-                                               <th width="30%"><p class="mb-0">Tindakan</p></th>
+                                               <!-- <th width="30%"><p class="mb-0">Tindakan</p></th> -->
 
                                            </tr>
                                        </thead>
@@ -84,7 +84,7 @@
                                                 @endif
                                               @endif
                                              </td>
-                                             <td>
+                                             <!-- <td>
                                                @if($data ->getTable() == "gifts")
                                                  @if($data ->status == "Sedang Diproses")
                                                  <a href="{{route('user.hodiv.hadiah.ulasanHadiah',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
@@ -95,7 +95,7 @@
                                                 @if($data ->getTable() == "giftbs")
                                                   -
                                                 @endif
-                                             </td>
+                                             </td> -->
                                            </tr>
                                           @endforeach
                                            <!-- Table data -->

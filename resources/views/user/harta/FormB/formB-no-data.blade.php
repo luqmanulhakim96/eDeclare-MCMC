@@ -592,11 +592,33 @@
                                       <option value="" selected disabled hidden>Cara Pembelian Harta</option>
                                       <option value="Pinjaman" {{ old('cara_belian') == "Pinjaman" ? 'selected' : '' }}>Pinjaman</option>
                                       <option value="Pelupusan" {{ old('cara_belian') == "Pelupusan" ? 'selected' : '' }}>Pelupusan</option>
+                                      <option value="Tunai" {{ old('cara_belian') == "Tunai" ? 'selected' : '' }}>Tunai</option>
                                   </select>
                                   <!-- @error('cara_belian_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror -->
                                  @foreach ($errors->get('cara_belian_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
+                                </div>
+
+                              </div>
+                              <br>
+                            </div>
+
+                            <div id="tunai_container" style="display: none;">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <p class="required"> Nyatakan nilai belian tunai</p>
+                                </div>
+                                <div class="col-md-8">
+                                  <input class="form-control bg-light" type="text" id="tunai" name="tunai" onkeypress="return onlyNumberKey(event)" value="{{ old('tunai')}}" autocomplete="off">
+                                  <!-- @error('lain_lain_')
+                                     <div class="alert alert-danger">{{ $message }}</div>
+                                 @enderror -->
+                                 @foreach ($errors->get('tunai_.*') as $messages)
                                   @foreach($messages as $message)
                                     <div class="alert alert-danger">{{ $message }}</div>
                                   @endforeach
@@ -699,6 +721,22 @@
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror -->
                                  @foreach ($errors->get('tarikh_ansuran_pertama_.*') as $messages)
+                                  @foreach($messages as $message)
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  @endforeach
+                                 @endforeach
+                                </div>
+
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <p class="">vi)	Keterangan lain, Sila Nyatakan</p>
+                                </div>
+                                <div class="col-md-8">
+                                  <input class="form-control bg-light" type="text" id="keterangan_lain" value="{{ old('keterangan_lain')}}" autocomplete="off">
+
+                                 @foreach ($errors->get('keterangan_lain_.*') as $messages)
                                   @foreach($messages as $message)
                                     <div class="alert alert-danger">{{ $message }}</div>
                                   @endforeach
@@ -848,6 +886,13 @@
                               }
                               else{
                                 document.getElementById('pelupusan_container').style.display ="none";
+                              }
+
+                              if(cara_belian == "Tunai"){
+                                document.getElementById('tunai_container').style.display ="block";
+                              }
+                              else{
+                                document.getElementById('tunai_container').style.display ="none";
                               }
 
                             }
@@ -1210,9 +1255,10 @@
                           </div>
                       </div>
 
-                </form>
             </div>
-
+            </form>
+            </div>
+            <br><br><br>
             <script type="text/javascript">
             //for user to fill up the pinjaman
               $(document).ready(function() {
@@ -1447,12 +1493,14 @@
              var nama_pemilikan_asal = document.getElementById("nama_pemilikan_asal").value;
              var lain_lain = document.getElementById("lain_lain").value;
              var cara_belian = document.getElementById("select_cara_belian").value;
+             var tunai = document.getElementById("tunai").value;
              var jumlah_pinjaman = document.getElementById("jumlah_pinjaman").value;
              var institusi_pinjaman = document.getElementById("institusi_pinjaman").value;
              var tempoh_bayar_balik = document.getElementById("tempoh_bayar_balik").value;
              // var tempoh = document.getElementById("tempoh").value;
              var ansuran_bulanan = document.getElementById("ansuran_bulanan").value;
              var tarikh_ansuran_pertama = document.getElementById("tarikh_ansuran_pertama").value;
+             var keterangan_lain = document.getElementById("keterangan_lain").value;
              var jenis_harta_pelupusan = document.getElementById("jenis_harta_pelupusan").value;
              var alamat_asset = document.getElementById("alamat_asset").value;
              var no_pendaftaran = document.getElementById("no_pendaftaran").value;
@@ -1495,12 +1543,14 @@
              // tempoh_to_append = '<input type="hidden" id="tempoh'+ increment_keterangan +'" name="tempoh_[]"  value="'+ tempoh +'" readonly>';
              ansuran_bulanan_to_append = '<input type="hidden" id="ansuran_bulanan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)"  name="ansuran_bulanan_[]"  value="'+ ansuran_bulanan +'" readonly>';
              tarikh_ansuran_pertama_to_append = '<input type="hidden" id="tarikh_ansuran_pertama'+ increment_keterangan +'" name="tarikh_ansuran_pertama_[]"  value="'+ tarikh_ansuran_pertama +'" readonly>';
+             keterangan_lain_to_append = '<input type="hidden" id="keterangan_lain'+ increment_keterangan +'" name="keterangan_lain_[]"  value="'+ keterangan_lain +'" readonly>';
              jenis_harta_pelupusan_to_append = '<input type="hidden" id="jenis_harta_pelupusan'+ increment_keterangan +'" name="jenis_harta_pelupusan_[]"  value="'+ jenis_harta_pelupusan +'" readonly>';
              alamat_asset_to_append = '<input type="hidden" id="alamat_asset'+ increment_keterangan +'" name="alamat_asset_[]"  value="'+ alamat_asset +'" readonly>';
              no_pendaftaran_to_append = '<input type="hidden" id="no_pendaftaran'+ increment_keterangan +'" name="no_pendaftaran_[]"  value="'+ no_pendaftaran +'" readonly>';
              harga_jualan_to_append = '<input type="hidden" id="harga_jualan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)"  name="harga_jualan_[]"  value="'+ harga_jualan +'" readonly>';
              tarikh_lupus_to_append = '<input type="hidden" id="tarikh_lupus'+ increment_keterangan +'" name="tarikh_lupus_[]"  value="'+ tarikh_lupus +'" readonly>';
              lain_lain_to_append = '<input type="hidden" id="lain_lain'+ increment_keterangan +'" name="lain_lain_[]"  value="'+ lain_lain +'" readonly>';
+             tunai_to_append = '<input type="hidden" id="tunai'+ increment_keterangan +'" name="tunai_[]"  value="'+ tunai +'" readonly>';
              cara_belian_to_append = '<input type="hidden" id="cara_belian'+ increment_keterangan +'" name="cara_belian_[]"  value="'+ cara_belian +'" readonly>';
 
 
@@ -1529,12 +1579,14 @@
              // $("#hidden_input").append(tempoh_to_append);
              $("#hidden_input").append(ansuran_bulanan_to_append);
              $("#hidden_input").append(tarikh_ansuran_pertama_to_append);
+             $("#hidden_input").append(keterangan_lain_to_append);
              $("#hidden_input").append(jenis_harta_pelupusan_to_append);
              $("#hidden_input").append(alamat_asset_to_append);
              $("#hidden_input").append(no_pendaftaran_to_append);
              $("#hidden_input").append(harga_jualan_to_append);
              $("#hidden_input").append(tarikh_lupus_to_append);
              $("#hidden_input").append(lain_lain_to_append);
+             $("#hidden_input").append(tunai_to_append);
              $("#hidden_input").append(cara_belian_to_append);
 
 
@@ -1563,6 +1615,7 @@
              // document.getElementById("jumlah_pinjaman").value = "";
              document.getElementById("institusi_pinjaman").value = "";
              document.getElementById("tempoh_bayar_balik").value = "";
+             document.getElementById("keterangan_lain").value = "";
              // document.getElementById("tempoh").value = "";
              // document.getElementById("ansuran_bulanan").value = "";
              document.getElementById("jenis_harta_pelupusan").value = "";
@@ -1570,6 +1623,7 @@
              document.getElementById("no_pendaftaran").value = "";
              document.getElementById("harga_jualan").value = "";
              document.getElementById("lain_lain").value = "";
+             document.getElementById("tunai").value = "";
 
 
            }
@@ -1598,6 +1652,7 @@
             // $('#tempoh'+counter+'').remove();
             $('#ansuran_bulanan'+counter+'').remove();
             $('#tarikh_ansuran_pertama'+counter+'').remove();
+            $('#keterangan_lain'+counter+'').remove();
             $('#jenis_harta_pelupusan'+counter+'').remove();
             $('#alamat_asset'+counter+'').remove();
             $('#no_pendaftaran'+counter+'').remove();
