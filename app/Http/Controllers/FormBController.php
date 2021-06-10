@@ -189,6 +189,7 @@ class FormBController extends Controller
 public function add(array $data){
   $userid = Auth::user()->id;
   $sedang_proses= "Sedang Diproses";
+  $staffinfo = UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
   // dd($sedang_proses);
 
     return FormB::create([
@@ -197,7 +198,7 @@ public function add(array $data){
       'kad_pengenalan' => $data['kad_pengenalan'],
       'jawatan' => $data['jawatan'],
       'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
-      'jabatan' => $data['jabatan'],
+      'jabatan' => $staffinfo->OLEVEL4NAME,
       'gaji' => $data['gaji'],
       'gaji_pasangan' => $data['gaji_pasangan'],
       'jumlah_imbuhan' => $data['jumlah_imbuhan'],
@@ -240,6 +241,7 @@ public function add(array $data){
   public function adddraft(array $data){
     $userid = Auth::user()->id;
     $sedang_proses= "Disimpan ke Draf";
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
     // dd($data);
 
       return FormB::create([
@@ -248,7 +250,7 @@ public function add(array $data){
         'kad_pengenalan' => $data['kad_pengenalan'],
         'jawatan' => $data['jawatan'],
         'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
-        'jabatan' => $data['jabatan'],
+        'jabatan' => $staffinfo->OLEVEL4NAME,
         'gaji' => $data['gaji'],
         'gaji_pasangan' => $data['gaji_pasangan'],
         'jumlah_imbuhan' => $data['jumlah_imbuhan'],
@@ -291,6 +293,7 @@ public function add(array $data){
     public function adddraftbackend(array $data){
       $userid = Auth::user()->id;
       $sedang_proses= "";
+      $staffinfo = UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
       // dd($data);
 
         return FormB::create([
@@ -299,7 +302,7 @@ public function add(array $data){
           'kad_pengenalan' => $data['kad_pengenalan'],
           'jawatan' => $data['jawatan'],
           'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
-          'jabatan' => $data['jabatan'],
+          'jabatan' => $staffinfo->OLEVEL4NAME,
           'gaji' => $data['gaji'],
           'gaji_pasangan' => $data['gaji_pasangan'],
           'jumlah_imbuhan' => $data['jumlah_imbuhan'],

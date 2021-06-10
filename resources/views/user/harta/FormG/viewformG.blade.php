@@ -865,4 +865,6 @@
             // doctype.getElementById("counter").value = counter;
            }
            </script>
+ </div>
+ <br><br><br>
 @endsection

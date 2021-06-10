@@ -28,10 +28,11 @@
 
       font-family: 'Poppins', sans-serif;
     }
+
     </style>
 </head>
 <body class="position-relative">
-  <div class="container-fluid px-0">
+  <div class="container-fluid ">
       <div class="row" style="padding-left:3%;padding-top:1%;">
         <div class="col-md-1">
           <img style="width:100%;" src="{{ asset('qbadminui/img/MCMC.png') }}" alt="bran_name" class="brand-img" >
@@ -56,12 +57,12 @@
 
     @yield('content')
 
-    <footer style="bottom:0 !important; position:fixed !important;">
+    <!-- <footer style="bottom:0 !important; position:fixed !important;">
       <div class="row">
         <div class="col-md-12" style="text-align:center;"><a href="" target="_Blank" ><font color="white">MALAYSIAN COMMUNICATIONS AND MULTIMEDIA COMMISSION</font></a></div>
-        <!-- <div class="col-md-2"><font color="white">Version 1.0.0</font></div> -->
+        <div class="col-md-2"><font color="white">Version 1.0.0</font></div>
       </div>
-    </footer>
+    </footer> -->
 
     <script src="{{ asset('qbadminui/js/vendor/bootstrap-4.3.1/modernizr-3.7.1.min.js') }}"></script>
     <script src="{{ asset('qbadminui/js/vendor/jquery-3.3.1/jquery-3.3.1.min.js') }}"></script>

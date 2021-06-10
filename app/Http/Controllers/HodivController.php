@@ -347,7 +347,7 @@ class HodivController extends Controller
        $this->dispatch(new SendNotificationFormBHodiv($user, $email, $formbs));
      }
 
-     return redirect()->route('user.admin.harta.senaraiallharta');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivC(Request $request,$id){
@@ -384,7 +384,7 @@ class HodivController extends Controller
 
      }
 
-     return redirect()->route('user.admin.harta.senaraiallharta');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivD(Request $request,$id){
@@ -420,7 +420,7 @@ class HodivController extends Controller
        $this->dispatch(new SendNotificationFormDHodiv($user, $email, $formds));
      }
 
-     return redirect()->route('user.admin.harta.senaraiallharta');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivG(Request $request,$id){
@@ -456,7 +456,7 @@ class HodivController extends Controller
        $this->dispatch(new SendNotificationFormDHodiv($user, $email, $formgs));
      }
 
-     return redirect()->route('user.admin.harta.senaraiallharta');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivGift(Request $request,$id){
@@ -494,7 +494,7 @@ class HodivController extends Controller
        }
 
 
-     return redirect()->route('user.admin.hadiah.senaraiallhadiah');
+     return redirect()->route('user.hodiv.hadiah.senaraiallhadiah');
    }
 
    public function updateStatusUlasanHODivGiftB(Request $request,$id){
@@ -510,34 +510,55 @@ class HodivController extends Controller
      $giftb->giftb_id = $id;
      $giftb->save();
 
-     return redirect()->route('user.admin.hadiah.senaraiallhadiah');
+     return redirect()->route('user.hodiv.hadiah.senaraiallhadiah');
    }
 
-   public function senaraiAllForm(){
+   public function senaraiAllForm(){ //ketua bahagian
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL5NAME');
-     foreach($bahagian as $division){
-       $div=$division->OLEVEL5NAME;
-     }
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->first();
+     // dd($bahagian);
+     // $div=$bahagian->OLEVEL5NAME;
+     // foreach($bahagian as $division){
+     //   $div=$division->OLEVEL5NAME;
+     // }
      // $listallA = Asset::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $bahagian )->get();
       // dd($listallA);
-     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     // $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
+
+     // dd($listallB);
      $listallBTable = FormB::getTableName();
-     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     // $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
+
+     // $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->get();
+
+     // $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->get();
+
      // $merged = $listallA->mergeRecursive($listallB);
-     $merged = $listallB->mergeRecursive($listallC);
-     $merged = $merged->mergeRecursive($listallD);
-     $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+     $mergeds = $listallB->mergeRecursive($listallC);
+     $mergeds = $mergeds->mergeRecursive($listallD);
+     $mergeds = $mergeds->mergeRecursive($listallG)->sortBy('status');
      // dd($merged);
+     foreach ($mergeds as $data) {
+       $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+       // dd($dataBahagian);
+       if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+         // dd($dataBahagian);
+         $merged[]=$data;
+       }
+     }
+     // dd($merged);
+     // $merged = $merged->distinct();
 
      return view('user.hodiv.harta.senaraiallharta', compact('merged'));
    }
 
    public function senaraiAllHadiah(){
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL4NAME');
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get();
      foreach($bahagian as $division){
        $div=$division->OLEVEL4NAME;
      }
@@ -551,20 +572,31 @@ class HodivController extends Controller
 
    public function senaraiTugasanHarta(){
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL5NAME');
-     foreach($bahagian as $division){
-       $div=$division->OLEVEL5NAME;
-     }
+     // $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get();
+     // foreach($bahagian as $division){
+     //   $div=$division->OLEVEL4NAME;
+     // }
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->first();
+
      // dd($div);
-     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
      // dd($listallB);
      $listallBTable = FormB::getTableName();
-     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $merged = $listallB->mergeRecursive($listallC);
-     $merged = $merged->mergeRecursive($listallD);
-     $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->get();
+     $mergeds = $listallB->mergeRecursive($listallC);
+     $mergeds = $mergeds->mergeRecursive($listallD);
+     $mergeds = $mergeds->mergeRecursive($listallG)->sortBy('status');
+
+     foreach ($mergeds as $data) {
+       $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+       // dd($dataBahagian);
+       if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+         // dd($dataBahagian);
+         $merged[]=$data;
+       }
+     }
 
      return view('user.hodiv.harta.senaraitugasanharta', compact('merged'));
    }
@@ -584,7 +616,7 @@ class HodivController extends Controller
 
    public function senaraiTugasanHadiah(){
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL4NAME');
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get();
      foreach($bahagian as $division){
        $div=$division->OLEVEL4NAME;
      }

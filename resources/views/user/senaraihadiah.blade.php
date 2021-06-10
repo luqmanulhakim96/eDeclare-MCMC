@@ -97,6 +97,7 @@
                           <th><p class="mb-0">Hubungan Pemberi</p></th>
                           <th width="30%"><p class="mb-0">Gambar Hadiah</p></th>
                           <th><p class="mb-0">Status Hadiah (RM)</p></th>
+                          <th><p class="mb-0">Tindakan</p></th>
 
                       </tr>
                   </thead>
@@ -178,6 +179,34 @@
                            <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                            @endif
                          @endif
+                        </td>
+                        <td>
+                          @if($data ->getTable() == "gifts")
+                          <div class="d-flex flex-row justify-content-around align-items-center">
+                            @if($data ->status == "Sedang Dikemaskini")
+                             <a href="{{ route('user.hadiah.editgift', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                            @elseif($data ->status == "Tidak Lengkap")
+                             <a href="{{ route('user.hadiah.editgift', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                            @elseif($data ->status == "Sedang Diproses")
+                                <a href="{{ route('statuseditgift.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                            @else
+                              <a class="btn btn-light mr-1" disabled ><i class="fas fa-pencil-alt"></i></a>
+                            @endif
+                              <!-- <a href="{{ route('gift.delete', $data->id) }}" class="btn btn-danger" onclick=" return confirm('Padam maklumat?');"><i class="fas fa-times-circle"></i></a> -->
+                          </div>
+                          @elseif($data ->getTable() == "giftbs")
+                          <div class="d-flex flex-row justify-content-around align-items-center">
+                            @if($data ->status == "Sedang Dikemaskini")
+                             <a href="{{ route('user.hadiah.editgiftB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                            @elseif($data ->status == "Tidak Lengkap")
+                             <a href="{{ route('user.hadiah.editgiftB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                            @elseif($data ->status == "Sedang Diproses")
+                                <a href="{{ route('statuseditgiftB.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                            @else
+                              <a class="btn btn-light mr-1" disabled ><i class="fas fa-pencil-alt"></i></a>
+                            @endif
+                          </div>
+                          @endif
                         </td>
                       </tr>
                       @endif

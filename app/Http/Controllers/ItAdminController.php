@@ -53,9 +53,9 @@ class ItAdminController extends Controller
         // \Artisan::call('adldap:import --no-interaction');
 
         // testing data get from mcmc databases
-        // $userldap = Adldap::search()->users()->find('SITI RAFIDAH AHMAD FUAD'); //active directory testing
+        // $userldap = Adldap::search()->users()->find('Mohd Redzuen Abdullah'); //active directory testing
         // $users = Adldap::search()->users()->get();
-        // dd($users);
+        // dd($userldap);
 
         // 'sync_attributes' => [
         //     //insert data from ad to users table
@@ -74,7 +74,7 @@ class ItAdminController extends Controller
         // $user = UserExistingStaffNextofKin::first();
         // $user = UserExistingStaffNextofKin::where('STAFFNO','522')->get();
         // $user = UserExistingStaffInfo::get()->groupBy('DESCRIPTION');
-        // $user = UserExistingStaffInfo::where('USERNAME','NIKHUSNA')->get();
+        // $user = UserExistingStaffInfo::where('USERNAME','redzuen')->get();
         // dd($user);
         // $user = UserExistingStaff::first();
         // dd($user);

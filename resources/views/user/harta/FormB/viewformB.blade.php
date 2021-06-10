@@ -3,6 +3,11 @@
 
         <head>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+          <style media="screen">
+            @media print {
+              .pagebreak { page-break-after: always; }
+            }
+          </style>
         </head>
            <!--Page Body part -->
            <div class="page-body p-4 text-dark">
@@ -27,7 +32,7 @@
                               <form action="" method="get">
 
 
-                                <p><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
+                                <p class="pagebreak"><b>1.KETERANGAN MENGENAI PEGAWAI</b></p>
                                   <div class="row">
                                       <div class="col-md-4">
                                           <p>Nama</p>
@@ -199,7 +204,7 @@
 
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p><b>3. PENDAPATAN BULANAN</b></p>
+                                          <p class="pagebreak"><b>3. PENDAPATAN BULANAN</b></p>
                                         </div>
                                       </div>
                                       <!-- Gaji -->
@@ -293,7 +298,7 @@
                                       <!-- Tanggungan -->
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p><b>4. TANGGUNGAN / ANSURAN BULANAN ATAS HUTANG / PINJAMAN</b></p>
+                                          <p class="pagebreak"><b>4. TANGGUNGAN / ANSURAN BULANAN ATAS HUTANG / PINJAMAN</b></p>
                                         </div>
                                       </div>
 
@@ -453,7 +458,7 @@
                                       <br>
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <p><b>5. KETERANGAN MENGENAI HARTA</b></p>
+                                          <p class="pagebreak"><b>5. KETERANGAN MENGENAI HARTA</b></p>
                                         </div>
                                       </div>
 
@@ -502,7 +507,7 @@
                                         @if($loop->first)
                                         <div class="row">
                                           <div class="col-md-4">
-                                            <p><b>6. PUNCA PUNCA KEWANGAN BAGI MEMILIKI HARTA DAN JUMLAHNYA</b></p>
+                                            <p class="pagebreak"><b>6. PUNCA PUNCA KEWANGAN BAGI MEMILIKI HARTA DAN JUMLAHNYA</b></p>
                                           </div>
                                         </div>
                                         <div class="row">
@@ -511,8 +516,9 @@
                                                 <th rowspan="2" width="5%">ID</th>
                                                 <th rowspan="2" width="15%">Jenis Harta</th>
                                                 <th rowspan="2" width="20%">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</th>
-                                                <th colspan="2" width="50%" style="text-align:center;">Dibeli</th>
+                                                <th colspan="3" width="50%" style="text-align:center;">Dibeli</th>
                                                 <tr>
+                                                  <th width="25%">Tunai</th>
                                                   <th width="25%">Pinjaman</th>
                                                   <th width="25%">Pelupusan</th>
                                                 </tr>
@@ -525,18 +531,21 @@
                                                     <td>{{ $data ->id }}</td>
                                                     <td>{{ $data ->jenis_harta }}</td>
                                                     <td>{{ $data ->maklumat_harta }}</td>
+                                                    <td></td>
                                                     <td>
                                                       i) Jumlah Pinjaman : <b>{{ $data ->jumlah_pinjaman }}</b><br>
                                                       ii)	Institusi memberi pinjaman : <b>{{ $data ->institusi_pinjaman }}</b><br>
                                                       iii) Tempoh bayaran balik : <b>{{ $data ->tempoh_bayar_balik }}</b><br>
                                                       iv) Ansuran bulanan : <b>{{ $data ->ansuran_bulanan }}</b><br>
                                                       v)	Tarikh ansuran pertama : <b>{{ $data ->tarikh_ansuran_pertama }}</b>
+                                                      vi)	Keterangan lain : <b>{{ $data ->keterangan_lain }}</b>
                                                     </td>
                                                     <td></td>
                                                     @elseif($data->cara_belian == "Pelupusan")
                                                       <td>{{ $data ->id }}</td>
                                                       <td>{{ $data ->jenis_harta }}</td>
                                                       <td>{{ $data ->maklumat_harta }}</td>
+                                                      <td></td>
                                                       <td></td>
                                                       <td>
 
@@ -547,6 +556,19 @@
                                                         v)	Tarikh lupus : <b>{{ $data ->tarikh_lupus }}</b><br>
 
                                                       </td>
+                                                      @elseif($data->cara_belian == "Tunai")
+                                                        <td>{{ $data ->id }}</td>
+                                                        <td>{{ $data ->jenis_harta }}</td>
+                                                        <td>{{ $data ->maklumat_harta }}</td>
+                                                        <td>
+
+                                                          i)	Nilai Belian Harta : <b>{{ $data ->tunai }}</b><br>
+
+
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+
                                                   @endif
                                                 </tr>
                                                 @endforeach
@@ -564,4 +586,6 @@
                       </div>
                </div>
            </div>
+      </div>
+      <br><br><br>
 @endsection

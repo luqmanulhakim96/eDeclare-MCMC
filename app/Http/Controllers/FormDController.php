@@ -58,6 +58,7 @@ public function add(array $data){
   if(is_null($data['pengakuan'])){
     $pengakuan = false;
   }
+  $staffinfo = UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
 
     return FormD::create([
       'no_staff' => $data['no_staff'],
@@ -65,7 +66,7 @@ public function add(array $data){
       'kad_pengenalan' => $data['kad_pengenalan'],
       'jawatan' => $data['jawatan'],
       'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
-      'jabatan' => $data['jabatan'],
+      'jabatan' => $staffinfo->OLEVEL4NAME,
       'nama_syarikat' => $data['nama_syarikat'],
       'no_pendaftaran_syarikat' => $data['no_pendaftaran_syarikat'],
       'alamat_syarikat' => $data['alamat_syarikat'],
@@ -91,13 +92,14 @@ public function add(array $data){
     // dd($isChecked);
     $sedang_proses= "Disimpan ke Draf";
 
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
 
       return FormD::create([
         'nama_pegawai' => $data['nama_pegawai'],
         'kad_pengenalan' => $data['kad_pengenalan'],
         'jawatan' => $data['jawatan'],
         'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
-        'jabatan' => $data['jabatan'],
+        'jabatan' => $staffinfo->OLEVEL4NAME,
         'nama_syarikat' => $data['nama_syarikat'],
         'no_pendaftaran_syarikat' => $data['no_pendaftaran_syarikat'],
         'alamat_syarikat' => $data['alamat_syarikat'],

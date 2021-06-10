@@ -138,6 +138,7 @@ class UserController extends Controller
     $merged = $merged->mergeRecursive($listallC);
     $merged = $merged->mergeRecursive($listallD);
     $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+    
     return view('user.senaraiharta',compact('merged'));
   }
 
@@ -327,6 +328,7 @@ class UserController extends Controller
 
       if($maklumat_pasangan->isEmpty()){
           $pdf = PDF::loadView('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB','hartaB'));
+
           return $pdf->download('Lampiran_B.pdf');
       }
       elseif ($maklumat_anak->isEmpty()) {

@@ -123,6 +123,8 @@
                           <th><p class="mb-0">Lampiran</p></th>
                           <th><p class="mb-0">Tarikh</p></th>
                           <th><p class="mb-0">Status</p></th>
+                          <th><p class="mb-0">Tindakan</p></th>
+
 
                       </tr>
                   </thead>
@@ -168,6 +170,8 @@
                           <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                           @elseif($data ->status == "Sedang Dikemaskini")
                           <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                          @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                          <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                           @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                           <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                           @elseif($data ->status == "Proses ke Ketua Bahagian")
@@ -185,6 +189,60 @@
                           @elseif($data ->status == 'Lampiran A')
                           <span class="badge badge-success badge-pill">Berjaya</span>
                           @endif
+                        </td>
+                        <td>
+                          @if($data ->getTable() == "formbs")
+                          <div class="d-flex flex-row justify-content-around align-items-center">
+                            @if($data ->status == "Sedang Dikemaskini")
+                             <a href="{{ route('user.harta.FormB.editformB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Tidak Lengkap")
+                             <a href="{{ route('user.harta.FormB.editformB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Sedang Diproses")
+                             <a href="{{ route('statuseditB.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                             @else
+                             <span><button class="btn btn-dark mr-1" disabled><i class="fas fa-pencil-alt"></i></button></span>
+                             @endif
+                           </div>
+
+                           @elseif($data ->getTable() == "formcs")
+                           <div class="d-flex flex-row justify-content-around align-items-center">
+                             @if($data ->status == "Sedang Dikemaskini")
+                               <a href="{{ route('user.harta.FormC.editformC', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Tidak Lengkap")
+                              <a href="{{ route('user.harta.FormC.editformC', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Sedang Diproses")
+                              <a href="{{ route('statuseditC.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                             @else
+                             <span><button class="btn btn-dark mr-1" disabled><i class="fas fa-pencil-alt"></i></button></span>
+                            @endif
+                           </div>
+
+                           @elseif($data ->getTable() == "formds")
+                           <div class="d-flex flex-row justify-content-around align-items-center">
+                             @if($data ->status == "Sedang Dikemaskini")
+                               <a href="{{ route('user.harta.FormD.editformD', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Tidak Lengkap")
+                             <a href="{{ route('user.harta.FormD.editformD', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Sedang Diproses")
+                             <a href="{{ route('statuseditD.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                             @else
+                             <span><button class="btn btn-dark mr-1" disabled><i class="fas fa-pencil-alt"></i></button></span>
+                             @endif
+                           </div>
+
+                           @elseif($data ->getTable() == "formgs")
+                           <div class="d-flex flex-row justify-content-around align-items-center">
+                              @if($data ->status == "Sedang Dikemaskini")
+                                 <a href="{{ route('user.harta.FormG.editformG', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Tidak Lengkap")
+                             <a href="{{ route('user.harta.FormG.editformG', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Sedang Diproses")
+                             <a href="{{ route('statuseditG.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                             @else
+                             <span><button class="btn btn-dark mr-1" disabled><i class="fas fa-pencil-alt"></i></button></span>
+                             @endif
+                           </div>
+                           @endif
                         </td>
                       </tr>
                       @endif

@@ -168,13 +168,14 @@ public function editformG($id){
   public function adddraft(array $data,$isChecked){
     $userid = Auth::user()->id;
     $sedang_proses= "Disimpan ke Draf";
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
 
       return FormG::create([
         'nama_pegawai' => $data['nama_pegawai'],
         'kad_pengenalan' => $data['kad_pengenalan'],
         'no_staff' => $data['no_staff'],
         'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
-        'jabatan' => $data['jabatan'],
+        'jabatan' => $staffinfo->OLEVEL4NAME,
         'tarikh_lantikan' => $data['tarikh_lantikan'],
         'gelaran' => $data['gelaran'],
         'gaji' => $data['gaji'],
@@ -281,20 +282,21 @@ public function add(array $data){
       $nilai_saham = $data['nilai_saham'];
       $sumber_kewangan = $data['sumber_kewangan'];
     }
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
 
     return FormG::create([
       'nama_pegawai' => $data['nama_pegawai'],
       'kad_pengenalan' => $data['kad_pengenalan'],
       'no_staff' => $data['no_staff'],
       'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
-      'jabatan' => $data['jabatan'],
+      'jabatan' => $staffinfo->OLEVEL4NAME,
       'tarikh_lantikan' => $data['tarikh_lantikan'],
       'gelaran' => $data['gelaran'],
       'nama_pegawai' => $data['nama_pegawai'],
       'kad_pengenalan' => $data['kad_pengenalan'],
       'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
       'gaji' => $data['gaji'],
-      'jabatan' => $data['jabatan'],
+      'jabatan' => $staffinfo->OLEVEL4NAME,
       'gaji_pasangan' => $data['gaji_pasangan'],
       'jumlah_imbuhan' => $data['jumlah_imbuhan'],
       'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
