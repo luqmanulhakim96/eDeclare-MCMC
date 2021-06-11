@@ -4,7 +4,7 @@
 
 <div class="page-body p-4 text-dark">
   <!-- <div class="card-body"> -->
-        
+
   <!-- </div> -->
 <div class="row mt-10">
         <!-- Col md 6 -->
@@ -109,6 +109,7 @@
       </div>
   </div>
   </div>
+  <br><br><br><br>
   <script type="text/javascript">
     function passGambarHadiah(path){
       console.log(path);

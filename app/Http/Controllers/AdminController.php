@@ -108,78 +108,108 @@ class AdminController extends Controller
       $bahagian=UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
 
       if(auth()->user()->role == 2){
-        $pegawai_dah_declare_Bs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id AND formbs.status='Diproses ke Ketua Jabatan Integriti')"));
-        $pegawai_dah_declare_Cs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formcs.user_id ) as data from formcs where EXISTS ( SELECT formcs.user_id FROM formcs, users where formcs.user_id= users.id AND formcs.status='Diproses ke Ketua Jabatan Integriti')"));
-        $pegawai_dah_declare_Ds =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id AND formds.status='Diproses ke Ketua Jabatan Integriti')"));
-        $pegawai_dah_declare_Gs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id AND formgs.status='Diproses ke Ketua Jabatan Integriti')"));
+        $pegawai_dah_declare_Bs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id AND formbs.status='Diproses ke Ketua Jabatan Integriti' OR formbs.status='Diterima')"));
+        $pegawai_dah_declare_Cs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formcs.user_id ) as data from formcs where EXISTS ( SELECT formcs.user_id FROM formcs, users where formcs.user_id= users.id AND formcs.status='Diproses ke Ketua Jabatan Integriti' OR formcs.status='Diterima')"));
+        $pegawai_dah_declare_Ds =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id AND formds.status='Diproses ke Ketua Jabatan Integriti' OR formds.status='Diterima')"));
+        $pegawai_dah_declare_Gs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id AND formgs.status='Diproses ke Ketua Jabatan Integriti' OR formgs.status='Diterima')"));
 
-        $pegawai_gift_declare =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id AND gifts.status='Diproses ke Ketua Jabatan Integriti')"));
-        $pegawai_giftb_declare =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id AND giftbs.status='Diproses ke Ketua Jabatan Integriti')"));
+        $pegawai_gift_declare =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id AND gifts.status='Diproses ke Ketua Jabatan Integriti' OR gifts.status='Diterima')"));
+        $pegawai_giftb_declare =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id AND giftbs.status='Diproses ke Ketua Jabatan Integriti' OR giftbs.status='Diterima')"));
 
-        $list = FormB::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->count();
-        $listC = FormC::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->count();
-        $listD = FormD::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->count();
-        $listG = FormG::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->count();
+        $list = FormB::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->count();
+        $listC = FormC::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->count();
+        $listD = FormD::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->count();
+        $listG = FormG::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->count();
 
-        $listHadiahA = Gift::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->count();
-        $listHadiahB = GiftB::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->count();
+        $listHadiahA = Gift::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->count();
+        $listHadiahB = GiftB::where('status','!=','Disimpan ke Draf')->where('status','Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->count();
       }
       elseif (auth()->user()->role == 3) {
-        $pegawai_dah_declare_Bs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id AND formbs.status='Diproses ke Ketua Bahagian')"));
-        $pegawai_dah_declare_Cs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formcs.user_id ) as data from formcs where EXISTS ( SELECT formcs.user_id FROM formcs, users where formcs.user_id= users.id AND formcs.status='Diproses ke Ketua Bahagian')"));
-        $pegawai_dah_declare_Ds =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id AND formds.status='Diproses ke Ketua Bahagian')"));
-        $pegawai_dah_declare_Gs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id AND formgs.status='Diproses ke Ketua Bahagian')"));
+        $pegawai_dah_declare_Bs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id AND formbs.status='Diproses ke Ketua Bahagian' OR formbs.status='Diterima')"));
+        $pegawai_dah_declare_Cs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formcs.user_id ) as data from formcs where EXISTS ( SELECT formcs.user_id FROM formcs, users where formcs.user_id= users.id AND formcs.status='Diproses ke Ketua Bahagian' OR formcs.status='Diterima')"));
+        $pegawai_dah_declare_Ds =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formds.user_id ) as data from formds where EXISTS ( SELECT formds.user_id FROM formds, users where formds.user_id= users.id AND formds.status='Diproses ke Ketua Bahagian' OR formds.status='Diterima')"));
+        $pegawai_dah_declare_Gs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formgs.user_id ) as data from formgs where EXISTS ( SELECT formgs.user_id FROM formgs, users where formgs.user_id= users.id AND formgs.status='Diproses ke Ketua Bahagian' OR formgs.status='Diterima')"));
 
-        $pegawai_gift_declare =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id AND gifts.status='Diproses ke Ketua Bahagian')"));
-        $pegawai_giftb_declare =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id AND giftbs.status='Diproses ke Ketua Bahagian')"));
+        $pegawai_gift_declare =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT gifts.user_id ) as data from gifts where EXISTS ( SELECT gifts.user_id FROM gifts, users where gifts.user_id= users.id AND gifts.status='Diproses ke Ketua Bahagian' OR gifts.status='Diterima')"));
+        $pegawai_giftb_declare =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT giftbs.user_id ) as data from giftbs where EXISTS ( SELECT giftbs.user_id FROM giftbs, users where giftbs.user_id= users.id AND giftbs.status='Diproses ke Ketua Bahagian' OR giftbs.status='Diterima')"));
 
 
-        $hodivFormB = FormB::where('status','Diproses ke Ketua Bahagian')->get();
-        // $hodivFormBDiterima = FormB::where('status','Diterima')->get();
+        $hodivFormB = FormB::where('status','Diproses ke Ketua Bahagian')->orWhere('status', 'Diterima')->get();
+        $hodivFormBDiterima = FormB::where('status','Diterima')->get();
 
         $list = 0; //form b count
-        // $listBDiterima = 0;
+        $listBDiterima = 0;
         foreach ($hodivFormB as $data) {
           $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
           if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
             $list++;
           }
         }
-        // foreach ($hodivFormBDiterima as $data) {
-        //   $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
-        //   if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
-        //     $listBDiterima++;
-        //   }
-        // }
+        foreach ($hodivFormBDiterima as $data) {
+          $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+          if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+            $listBDiterima++;
+          }
+        }
 
-        $hodivFormC = FormC::where('status','Diproses ke Ketua Bahagian')->get();
+        $hodivFormC = FormC::where('status','Diproses ke Ketua Bahagian')->orWhere('status', 'Diterima')->get();
+        $hodivFormCDiterima = FormC::where('status','Diterima')->get();
+        
         $listC = 0; //form C count
+        $listCDiterima = 0;
+
         foreach ($hodivFormC as $data) {
           $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
           if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
             $listC++;
           }
         }
+        foreach ($hodivFormCDiterima as $data) {
+          $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+          if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+            $listCDiterima++;
+          }
+        }
 
-        $hodivFormD = FormD::where('status','Diproses ke Ketua Bahagian')->get();
+        $hodivFormD = FormD::where('status','Diproses ke Ketua Bahagian')->orWhere('status', 'Diterima')->get();
+        $hodivFormDDiterima = FormD::where('status','Diterima')->get();
+
         $listD = 0; //form C count
+        $listDDiterima = 0;
+
         foreach ($hodivFormD as $data) {
           $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
           if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
             $listD++;
           }
         }
+        foreach ($hodivFormDDiterima as $data) {
+          $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+          if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+            $listDDiterima++;
+          }
+        }
 
-        $hodivFormG = FormG::where('status','Diproses ke Ketua Bahagian')->get();
+        $hodivFormG = FormG::where('status','Diproses ke Ketua Bahagian')->orWhere('status', 'Diterima')->get();
+        $hodivFormGDiterima = FormD::where('status','Diterima')->get();
+
         $listG = 0; //form C count
+        $listGDiterima = 0;
+
         foreach ($hodivFormG as $data) {
           $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
           if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
             $listG++;
           }
         }
+        foreach ($hodivFormGDiterima as $data) {
+          $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+          if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+            $listGDiterima++;
+          }
+        }
 
-        $hodivHadiahA = Gift::where('status','Diproses ke Ketua Bahagian')->get();
+        $hodivHadiahA = Gift::where('status','Diproses ke Ketua Bahagian')->orWhere('status', 'Diterima')->get();
         $listHadiahA = 0;
         foreach ($hodivHadiahA as $data) {
           $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
@@ -188,7 +218,7 @@ class AdminController extends Controller
           }
         }
 
-        $hodivHadiahB = GiftB::where('status','Diproses ke Ketua Bahagian')->get();
+        $hodivHadiahB = GiftB::where('status','Diproses ke Ketua Bahagian')->orWhere('status', 'Diterima')->get();
         $listHadiahB = 0;
         foreach ($hodivHadiahB as $data) {
           $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
@@ -198,6 +228,14 @@ class AdminController extends Controller
         }
 
         $total_user =DB::connection('sqlsrv2')->select(DB::raw ("SELECT COUNT( DISTINCT V_ED_STAFF_INFO.STAFFNO ) as data From V_ED_STAFF_INFO WHERE OLEVEL4NAME = '$bahagian->OLEVEL4NAME'"));
+
+        $pegawai_dah_declare_Bs[0]->data = $list;
+        $pegawai_dah_declare_Cs[0]->data = $listC;
+        $pegawai_dah_declare_Ds[0]->data = $listD;
+        $pegawai_dah_declare_Gs[0]->data = $listG;
+        $pegawai_gift_declare[0]->data = $listHadiahA;
+        $pegawai_giftb_declare[0]->data = $listHadiahB;
+
         $undeclareB= $total_user[0]->data - $pegawai_dah_declare_Bs[0]->data ;
         $undeclareC= $total_user[0]->data - $pegawai_dah_declare_Cs[0]->data ;
         $undeclareD= $total_user[0]->data - $pegawai_dah_declare_Ds[0]->data ;
@@ -1187,13 +1225,13 @@ class AdminController extends Controller
 
        public function senaraiAllForm(){
          if (auth()->user()->role == 2) {
-           $listallA = Asset::with('users')->select('id','no_staff','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->get();
+           $listallA = Asset::with('users')->select('id','no_staff','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
             // dd($listallA);
-           $listallB = FormB::with('users')->select('id','no_staff','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->get();
+           $listallB = FormB::with('users')->select('id','no_staff','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
            $listallBTable = FormB::getTableName();
-           $listallC = FormC::with('users')->select('id','no_staff','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->get();
-           $listallD = FormD::with('users')->select('id','no_staff','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->get();
-           $listallG = FormG::with('users')->select('id','no_staff','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->get();
+           $listallC = FormC::with('users')->select('id','no_staff','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
+           $listallD = FormD::with('users')->select('id','no_staff','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
+           $listallG = FormG::with('users')->select('id','no_staff','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
          }
          else{
            $listallA = Asset::with('users')->select('id','no_staff','created_at','status', 'user_id')->get();
@@ -1243,8 +1281,8 @@ class AdminController extends Controller
 
        public function senaraiAllHadiah(){
          if (auth()->user()->role == 2) {
-           $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->get();
-           $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->get();
+           $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
+           $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
          }
          else{
            $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->get();

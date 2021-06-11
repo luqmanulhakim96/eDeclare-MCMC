@@ -127,6 +127,7 @@
                    </div>
                  </div>
              </div>
+             <br><br><br><br>
              <script type="text/javascript">
                function passGambarHadiah(path){
                  console.log(path);

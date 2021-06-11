@@ -143,7 +143,7 @@
                                         <p class="required">v) Pulangan Perniagaan Tahunan</p>
                                     </div>
                                     <div class="col-md-8">
-                                       <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ $info->pulangan_tahunan  }}" >
+                                       <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="pulangan_tahunan" placeholder="Pulangan Perniagaan Tahunan" value="{{ $info->pulangan_tahunan  }}" >
                                        @error('pulangan_tahunan')
                                           <div class="alert alert-danger">{{ $message }}</div>
                                       @enderror
@@ -155,7 +155,7 @@
                                         <p class="required">vi) Modal Dibenarkan</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ $info->modal_syarikat  }}" >
+                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="modal_syarikat" placeholder="Modal Dibenarkan" value="{{ $info->modal_syarikat  }}" >
                                         @error('modal_syarikat')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
@@ -167,7 +167,7 @@
                                       <p class="required">vii) Modal Berbayar (Paid Up Capital)</p>
                                   </div>
                                   <div class="col-md-8">
-                                      <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ $info->modal_dibayar  }}" >
+                                      <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="modal_dibayar" placeholder="Modal Dibayar" value="{{ $info->modal_dibayar  }}" >
                                       @error('modal_dibayar')
                                          <div class="alert alert-danger">{{ $message }}</div>
                                      @enderror
@@ -260,13 +260,13 @@
                                    </div>
                                    </div>
                                    <div class="col-md-2">
-                                       <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_saham[]" placeholder=" "  value="{{ $data->jumlah_saham  }}">
+                                       <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="jumlah_saham[]" placeholder=" "  value="{{ $data->jumlah_saham  }}">
                                        @error('jumlah_saham[]')
                                           <div class="alert alert-danger">{{ $message }}</div>
                                       @enderror
                                    </div>
                                    <div class="col-md-2">
-                                       <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="nilai_saham[]" placeholder=" "  value="{{ $data->nilai_saham  }}">
+                                       <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="nilai_saham[]" placeholder=" "  value="{{ $data->nilai_saham  }}">
                                        @error('nilai_saham[]')
                                           <div class="alert alert-danger">{{ $message }}</div>
                                       @enderror
@@ -302,7 +302,7 @@
                                   counter_keluarga++;
                                   console.log(counter_keluarga);
 
-                                  $(wrapper).append('<div id="keluarga_add'+counter_keluarga+'" class="row"><div class="col-md-2"><input class="form-control bg-light" type="text" name="nama_ahli[]" placeholder=" "></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="hubungan[]"><option value="" selected disabled hidden>Pilih Hubungan</option><option value="Isteri">Isteri</option><option value="Suami">Suami</option><option value="Anak">Anak</option><option value="Lain-Lain">Lain-Lain</option></select></div></div></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat[]"><option value=" " selected disabled hidden>Pilih Jawatan</option><option value="Pemilik Saham">Pemilik Saham</option><option value="Pengarah/ Lembaga Pengarah">Pengarah/ Lembaga Pengarah</option></select></div></div></div><div class="col-md-2"><input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_saham[]" placeholder=" "></div><div class="col-md-2"> <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="nilai_saham[]" placeholder=" "></div><div class="col-md-1"><a onClick="removeData(this, '+
+                                  $(wrapper).append('<div id="keluarga_add'+counter_keluarga+'" class="row"><div class="col-md-2"><input class="form-control bg-light" type="text" name="nama_ahli[]" placeholder=" "></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="hubungan[]"><option value="" selected disabled hidden>Pilih Hubungan</option><option value="Isteri">Isteri</option><option value="Suami">Suami</option><option value="Anak">Anak</option><option value="Lain-Lain">Lain-Lain</option></select></div></div></div><div class="col-md-2"><div class="dropdown-example d-flex justify-content-betwen"><div class="dropdown"><select id="select-1" class="custom-select  bg-light" name="jawatan_syarikat[]"><option value=" " selected disabled hidden>Pilih Jawatan</option><option value="Pemilik Saham">Pemilik Saham</option><option value="Pengarah/ Lembaga Pengarah">Pengarah/ Lembaga Pengarah</option></select></div></div></div><div class="col-md-2"><input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="jumlah_saham[]" placeholder=" "></div><div class="col-md-2"> <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="nilai_saham[]" placeholder=" "></div><div class="col-md-1"><a onClick="removeData(this, '+
                                   counter_keluarga+
                                   ' ); return false;" id ="button'+counter_keluarga+'"class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a><br><br></div></div></div>');
 
@@ -408,7 +408,6 @@
                            </div>
                        </div>
                      </div>
-                     </div>
                      <br>
                      <div class="row">
                        <div class="col-md-1" align="right">
@@ -468,15 +467,28 @@
                         </div>
                       </form>
                     </div>
+                    <br><br><br><br>
                     <script>
-                    function onlyNumberKey(evt) {
+                    function onlyNumberKey(evt, element) {
+                       var charCode = (evt.which) ? evt.which : event.keyCode
+                       if (charCode > 31 && (charCode < 48 || charCode > 57) && !(charCode == 46 || charCode == 8))
+                         return false;
+                       else {
+                         var len = $(element).val().length;
+                         var index = $(element).val().indexOf('.');
+                         if (index > 0 && charCode == 46) {
+                           return false;
+                         }
+                         if (index > 0) {
+                           var CharAfterdot = (len + 1) - index;
+                           if (CharAfterdot > 3) {
+                             return false;
+                           }
+                         }
 
-                        // Only ASCII charactar in that range allowed
-                        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-                        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-                            return false;
-                        return true;
-                    }
+                       }
+                       return true;
+                     }
                     </script>
                     <script>
                         function deleteDokumen(e){

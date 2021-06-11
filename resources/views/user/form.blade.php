@@ -53,7 +53,7 @@
               </div>
         </a> -->
         @if($status_form)
-          @if($status_form->status == 'Sedang Diproses' || $status_form->status == 'Sedang Dikemaskini' || $status_form->status == 'Menunggu Kebenaran Kemaskini')
+          @if($status_form->status == 'Sedang Diproses' || $status_form->status == 'Sedang Dikemaskini' || $status_form->status == 'Menunggu Kebenaran Kemaskini' || $status_form->status == 'Disimpan ke Draf')
           <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-sm" role="document">
               <div class="modal-content">
@@ -67,6 +67,8 @@
                     <p align="center">Permohonan sedang diproses. Adakah anda ingin mengemaskini borang sedia ada?</p>
                   @elseif($status_form->status == 'Menunggu Kebenaran Kemaskini')
                     <p align="center">Permohonan untuk mengemaskini Lampiran B anda sedang diproses. Sila hubungi Pentadbir Sistem untuk tindakan lanjut.</p>
+                  @elseif($status_form->status == 'Disimpan ke Draf')
+                    <p align="center">Anda telah mempunyai draf perisytiharan, adakah anda ingin mengemaskini draf sedia ada?</p>
                   @endif
                   </div>
                   <div class="modal-footer">
@@ -75,6 +77,9 @@
                     <a href="{{route('user.harta.FormB.senaraihartaB')}}" class="btn btn-danger" name="publish">Ya</a>
                     @elseif($status_form->status == 'Menunggu Kebenaran Kemaskini')
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    @elseif($status_form->status == 'Disimpan ke Draf')
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                    <a href="{{route('user.harta.senaraidraft')}}" class="btn btn-danger" name="publish">Ya</a>
                     @endif
                   </div>
               </div>

@@ -257,7 +257,7 @@
                                           </div>
                                       </div>
                                       <div class="col-md-4 mt-2 mt-md-0">
-                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)"  name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ old('gaji_pasangan')}}" autocomplete="off">
+                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)"  name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ old('gaji_pasangan')}}" autocomplete="off">
                                         @error('gaji_pasangan')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
@@ -271,14 +271,14 @@
                                         <p> ii) Jumlah Semua Imbuhan Tetap atau Elaun</p>
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_imbuhan" placeholder="Imbuhan Pegawai" value="{{ old('jumlah_imbuhan')}}" autocomplete="off">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="jumlah_imbuhan" placeholder="Imbuhan Pegawai" value="{{ old('jumlah_imbuhan')}}" autocomplete="off">
                                             @error('jumlah_imbuhan')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
 
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
-                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_imbuhan_pasangan" placeholder="Imbuhan Pasangan" value="{{ old('jumlah_imbuhan_pasangan')}}" autocomplete="off">
+                                        <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="jumlah_imbuhan_pasangan" placeholder="Imbuhan Pasangan" value="{{ old('jumlah_imbuhan_pasangan')}}" autocomplete="off">
                                         @error('jumlah_imbuhan_pasangan')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
@@ -293,7 +293,7 @@
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
 
-                                            <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)" type="text" name="sewa" placeholder="Sewa Pegawai" value="{{ old('sewa')}}" autocomplete="off">
+                                            <input class="form-control bg-light" onkeypress="return onlyNumberKey(event,this)" type="text" name="sewa" placeholder="Sewa Pegawai" value="{{ old('sewa')}}" autocomplete="off">
                                             @error('sewa')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
@@ -302,7 +302,7 @@
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
 
-                                        <input class="form-control bg-light" type="text" name="sewa_pasangan" onkeypress="return onlyNumberKey(event)" placeholder="Sewa Pasangan" value="{{ old('sewa_pasangan')}}" autocomplete="off">
+                                        <input class="form-control bg-light" type="text" name="sewa_pasangan" onkeypress="return onlyNumberKey(event,this)" placeholder="Sewa Pasangan" value="{{ old('sewa_pasangan')}}" autocomplete="off">
                                         @error('sewa_pasangan')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
@@ -329,7 +329,7 @@
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
                                         <div class="input-group">
-                                            <input class="form-control bg-light"  name="dividen_1_pegawai[]" onkeypress="return onlyNumberKey(event)" id="dividen0" placeholder="Dividen Pegawai"  value="{{ old('dividen_1_pegawai[]')}}" autocomplete="off">
+                                            <input class="form-control bg-light"  name="dividen_1_pegawai[]" onkeypress="return onlyNumberKey(event,this)" id="dividen0" placeholder="Dividen Pegawai"  value="{{ old('dividen_1_pegawai[]')}}" autocomplete="off">
                                             @error('dividen_1_pegawai[]')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
@@ -337,7 +337,7 @@
 
                                     </div>
                                     <div class="col-md-4 mt-2 mt-md-0">
-                                        <input class="form-control bg-light"  name="dividen_1_pasangan[]" onkeypress="return onlyNumberKey(event)" id="dividen0" placeholder="Dividen Pasangan"  value="{{ old('dividen_1_pasangan[]')}}" autocomplete="off">
+                                        <input class="form-control bg-light"  name="dividen_1_pasangan[]" onkeypress="return onlyNumberKey(event,this)" id="dividen0" placeholder="Dividen Pasangan"  value="{{ old('dividen_1_pasangan[]')}}" autocomplete="off">
                                         @error('dividen_1_pasangan[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
@@ -479,7 +479,7 @@
                               <p class="required">Bilangan / Ekar / Kapasiti Enjin / Kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)</p>
                             </div>
                             <div class="col-md-4">
-                              <input class="form-control bg-light" type="text" id="bilangan" onkeypress="return onlyNumberKey(event)" name="bilangan" placeholder="Bilangan / Ekar / Kapasiti Enjin / Kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ old('bilangan')}}" autocomplete="nope">
+                              <input class="form-control bg-light" type="text" id="bilangan" onkeypress="return onlyNumberKey(event,this)" name="bilangan" placeholder="Bilangan / Ekar / Kapasiti Enjin / Kaki Persegi / Unit (kalau rumah, nyatakan keluasan tanah tapak rumah itu)" value="{{ old('bilangan')}}" autocomplete="nope">
                              @foreach ($errors->get('bilangan_.*') as $messages)
                               @foreach($messages as $message)
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -502,7 +502,7 @@
                               <p class="required">Nilai Perolehan Harta (RM)</p>
                             </div>
                             <div class="col-md-8">
-                              <input class="form-control bg-light" type="text" id="nilai_perolehan" onkeypress="return onlyNumberKey(event)" name="nilai_perolehan" placeholder="Nilai Perolehan Harta (RM)" value="{{ old('nilai_perolehan')}}" autocomplete="off">
+                              <input class="form-control bg-light" type="text" id="nilai_perolehan" onkeypress="return onlyNumberKey(event,this)" name="nilai_perolehan" placeholder="Nilai Perolehan Harta (RM)" value="{{ old('nilai_perolehan')}}" autocomplete="off">
                               <!-- @error('nilai_perolehan_')
                                  <div class="alert alert-danger">{{ $message }}</div>
                              @enderror -->
@@ -614,7 +614,7 @@
                                   <p class="required"> Nyatakan nilai belian tunai</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="tunai" name="tunai" onkeypress="return onlyNumberKey(event)" value="{{ old('tunai')}}" autocomplete="off">
+                                  <input class="form-control bg-light" type="text" id="tunai" name="tunai" onkeypress="return onlyNumberKey(event,this)" value="{{ old('tunai')}}" autocomplete="off">
                                   <!-- @error('lain_lain_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror -->
@@ -635,7 +635,7 @@
                                   <p class="required">i) Jumlah Pinjaman</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="jumlah_pinjaman" onkeypress="return onlyNumberKey(event)"   value="{{ old('jumlah_pinjaman')}}" autocomplete="off">
+                                  <input class="form-control bg-light" type="text" id="jumlah_pinjaman" onkeypress="return onlyNumberKey(event,this)"   value="{{ old('jumlah_pinjaman')}}" autocomplete="off">
                                   <!-- @error('jumlah_pinjaman_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror -->
@@ -697,7 +697,7 @@
                                   <p class="required">iv) Ansuran bulanan </p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="ansuran_bulanan" onkeypress="return onlyNumberKey(event)"   value="{{ old('ansuran_bulanan')}}" autocomplete="off">
+                                  <input class="form-control bg-light" type="text" id="ansuran_bulanan" onkeypress="return onlyNumberKey(event,this)"   value="{{ old('ansuran_bulanan')}}" autocomplete="off">
                                   <!-- @error('ansuran_bulanan_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                   @enderror -->
@@ -809,7 +809,7 @@
                                   <p class="required">iv) Harga Jualan</p>
                                 </div>
                                 <div class="col-md-8">
-                                  <input class="form-control bg-light" type="text" id="harga_jualan" onkeypress="return onlyNumberKey(event)"  value="{{ old('harga_jualan')}}" autocomplete="off">
+                                  <input class="form-control bg-light" type="text" id="harga_jualan" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('harga_jualan')}}" autocomplete="off">
                                   <!-- @error('harga_jualan_')
                                      <div class="alert alert-danger">{{ $message }}</div>
                                  @enderror -->
@@ -987,7 +987,7 @@
 
                         <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" name="pinjaman_perumahan_pegawai" value="0" readonly>
 
-                        <!-- <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('pinjaman_perumahan_pegawai')}}"> -->
+                        <!-- <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pegawai" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('pinjaman_perumahan_pegawai')}}"> -->
                         @error('pinjaman_perumahan_pegawai')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
@@ -997,7 +997,7 @@
 
                         <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" name="bulanan_perumahan_pegawai" value="0" readonly>
 
-                        <!-- <input class="form-control bg-light" type="text" name="bulanan_perumahan_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_perumahan_pegawai')}}"> -->
+                        <!-- <input class="form-control bg-light" type="text" name="bulanan_perumahan_pegawai" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('bulanan_perumahan_pegawai')}}"> -->
                         @error('bulanan_perumahan_pegawai')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
@@ -1007,7 +1007,7 @@
 
                           <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" name="pinjaman_perumahan_pasangan" value="0" readonly>
 
-                          <!-- <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('pinjaman_perumahan_pasangan')}}"> -->
+                          <!-- <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pasangan" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('pinjaman_perumahan_pasangan')}}"> -->
                           @error('pinjaman_perumahan_pasangan')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1017,7 +1017,7 @@
 
                           <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" name="bulanan_perumahan_pasangan" value="0" readonly>
 
-                          <!-- <input class="form-control bg-light" type="text" name="bulanan_perumahan_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_perumahan_pasangan')}}"> -->
+                          <!-- <input class="form-control bg-light" type="text" name="bulanan_perumahan_pasangan" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('bulanan_perumahan_pasangan')}}"> -->
                           @error('bulanan_perumahan_pasangan')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1034,7 +1034,7 @@
 
                         <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" name="pinjaman_kenderaan_pegawai" value="0" readonly>
 
-                        <!-- <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('pinjaman_kenderaan_pegawai')}}"> -->
+                        <!-- <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pegawai" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('pinjaman_kenderaan_pegawai')}}"> -->
                         @error('pinjaman_kenderaan_pegawai')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
@@ -1044,7 +1044,7 @@
 
                         <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" name="bulanan_kenderaan_pegawai" value="0" readonly>
 
-                        <!-- <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_kenderaan_pegawai')}}"> -->
+                        <!-- <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pegawai" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('bulanan_kenderaan_pegawai')}}"> -->
                         @error('bulanan_kenderaan_pegawai')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
@@ -1054,7 +1054,7 @@
 
                           <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" name="pinjaman_kenderaan_pasangan" value="0" readonly>
 
-                          <!-- <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('pinjaman_kenderaan_pasangan')}}"> -->
+                          <!-- <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pasangan" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('pinjaman_kenderaan_pasangan')}}"> -->
                           @error('pinjaman_kenderaan_pasangan')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1064,7 +1064,7 @@
 
                           <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" name="bulanan_kenderaan_pasangan" value="0" readonly>
 
-                          <!-- <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_kenderaan_pasangan')}}"> -->
+                          <!-- <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pasangan" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('bulanan_kenderaan_pasangan')}}"> -->
                           @error('bulanan_kenderaan_pasangan')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1078,28 +1078,28 @@
                         <p>iii) Cukai Pendapatan</p>
                       </div>
                       <div class="col-md-2">
-                        <input class="form-control bg-light" type="text" name="jumlah_cukai_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('jumlah_cukai_pegawai')}}" autocomplete="off">
+                        <input class="form-control bg-light" type="text" name="jumlah_cukai_pegawai" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('jumlah_cukai_pegawai')}}" autocomplete="off">
                         @error('jumlah_cukai_pegawai')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
                       </div>
 
                       <div class="col-md-2">
-                        <input class="form-control bg-light" type="text" name="bulanan_cukai_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_cukai_pegawai')}}" autocomplete="off">
+                        <input class="form-control bg-light" type="text" name="bulanan_cukai_pegawai" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('bulanan_cukai_pegawai')}}" autocomplete="off">
                         @error('bulanan_cukai_pegawai')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
                       </div>
 
                         <div class="col-md-2">
-                          <input class="form-control bg-light" type="text" name="jumlah_cukai_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('jumlah_cukai_pasangan')}}" autocomplete="off">
+                          <input class="form-control bg-light" type="text" name="jumlah_cukai_pasangan" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('jumlah_cukai_pasangan')}}" autocomplete="off">
                           @error('jumlah_cukai_pasangan')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
                         </div>
 
                         <div class="col-md-2">
-                          <input class="form-control bg-light" type="text" name="bulanan_cukai_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_cukai_pasangan')}}" autocomplete="off">
+                          <input class="form-control bg-light" type="text" name="bulanan_cukai_pasangan" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('bulanan_cukai_pasangan')}}" autocomplete="off">
                           @error('bulanan_cukai_pasangan')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1113,28 +1113,28 @@
                         <p>iv) Pinjaman Koperasi</p>
                       </div>
                       <div class="col-md-2">
-                        <input class="form-control bg-light"  name="jumlah_koperasi_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('jumlah_koperasi_pegawai')}}" id="jumlah_koperasi_pegawai" autocomplete="off">
+                        <input class="form-control bg-light"  name="jumlah_koperasi_pegawai" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('jumlah_koperasi_pegawai')}}" id="jumlah_koperasi_pegawai" autocomplete="off">
                         @error('jumlah_koperasi_pegawai')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
                       </div>
 
                       <div class="col-md-2">
-                        <input class="form-control bg-light"  name="bulanan_koperasi_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_koperasi_pegawai')}}" id="bulanan_koperasi_pegawai" autocomplete="off">
+                        <input class="form-control bg-light"  name="bulanan_koperasi_pegawai" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('bulanan_koperasi_pegawai')}}" id="bulanan_koperasi_pegawai" autocomplete="off">
                         @error('bulanan_koperasi_pegawai')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
                       </div>
 
                         <div class="col-md-2">
-                          <input class="form-control bg-light" name="jumlah_koperasi_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('jumlah_koperasi_pasangan')}}" id="jumlah_koperasi_pasangan" autocomplete="off">
+                          <input class="form-control bg-light" name="jumlah_koperasi_pasangan" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('jumlah_koperasi_pasangan')}}" id="jumlah_koperasi_pasangan" autocomplete="off">
                           @error('jumlah_koperasi_pasangan')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
                         </div>
 
                         <div class="col-md-2">
-                          <input class="form-control bg-light"  name="bulanan_koperasi_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_koperasi_pasangan')}}" id="bulanan_koperasi_pasangan" autocomplete="off">
+                          <input class="form-control bg-light"  name="bulanan_koperasi_pasangan" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('bulanan_koperasi_pasangan')}}" id="bulanan_koperasi_pasangan" autocomplete="off">
                           @error('bulanan_koperasi_pasangan')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1159,28 +1159,28 @@
                       </div>
 
                       <div class="col-md-2">
-                        <input class="form-control bg-light" type="text" name="pinjaman_pegawai[]" onkeypress="return onlyNumberKey(event)"  value="{{ old('pinjaman_pegawai[]')}}" autocomplete="off">
+                        <input class="form-control bg-light" type="text" name="pinjaman_pegawai[]" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('pinjaman_pegawai[]')}}" autocomplete="off">
                         @error('pinjaman_pegawai[]')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
                       </div>
 
                       <div class="col-md-2">
-                        <input class="form-control bg-light" type="text" name="bulanan_pegawai[]" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_pegawai[]')}}" autocomplete="off">
+                        <input class="form-control bg-light" type="text" name="bulanan_pegawai[]" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('bulanan_pegawai[]')}}" autocomplete="off">
                         @error('bulanan_pegawai[]')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
                       </div>
 
                         <div class="col-md-2">
-                          <input class="form-control bg-light" type="text" name="pinjaman_pasangan[]" onkeypress="return onlyNumberKey(event)"  value="{{ old('pinjaman_pasangan[]')}}" autocomplete="off">
+                          <input class="form-control bg-light" type="text" name="pinjaman_pasangan[]" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('pinjaman_pasangan[]')}}" autocomplete="off">
                           @error('pinjaman_pasangan[]')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
                         </div>
 
                         <div class="col-md-2">
-                          <input class="form-control bg-light" type="text" name="bulanan_pasangan[]" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_pasangan[]')}}" autocomplete="off">
+                          <input class="form-control bg-light" type="text" name="bulanan_pasangan[]" onkeypress="return onlyNumberKey(event,this)"  value="{{ old('bulanan_pasangan[]')}}" autocomplete="off">
                           @error('bulanan_pasangan[]')
                              <div class="alert alert-danger">{{ $message }}</div>
                          @enderror
@@ -1258,7 +1258,7 @@
             </div>
             </form>
             </div>
-            <br><br><br>
+            <br><br><br><br>
             <script type="text/javascript">
             //for user to fill up the pinjaman
               $(document).ready(function() {
@@ -1275,13 +1275,13 @@
 
                   $(wrapper).append('<div id="divi'+counter+'"  class="row"><div class="col-md-3"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" name="lain_lain_pinjaman[]" id="lain_lain_pinjaman['+
                   counter+
-                  ']" placeholder="Nyatakan Lain-Lain Pinjaman"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event)"  name="pinjaman_pegawai[]" id="pinjaman_pegawai['+
+                  ']" placeholder="Nyatakan Lain-Lain Pinjaman"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event,this)"  name="pinjaman_pegawai[]" id="pinjaman_pegawai['+
                   counter+
-                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event)"  name="bulanan_pegawai[]" id="bulanan_pegawai['+
+                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event,this)"  name="bulanan_pegawai[]" id="bulanan_pegawai['+
                   counter+
-                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event)"  name="pinjaman_pasangan[]" id="pinjaman_pasangan['+
+                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event,this)"  name="pinjaman_pasangan[]" id="pinjaman_pasangan['+
                   counter+
-                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event)"  name="bulanan_pasangan[]" id="bulanan_pasangan['+
+                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event,this)"  name="bulanan_pasangan[]" id="bulanan_pasangan['+
                   counter+
                   ']"></div><div class="col-md-1"><a onClick="removeDataPinjaman(this,'+
                   counter+
@@ -1380,13 +1380,13 @@
 
                    $(wrapper).append('<div id="dividen_add'+counter_dividen+'" class="row"><div class="col-md-3 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" type="text" onchange="return copyCat('+counter_dividen+')" name="dividen_1[]" id="dividen_1['+
                    counter_dividen+
-                   ']" placeholder="Nyatakan Dividen"></div></div><div class="col-md-4 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" onchange="return copyCat('+counter_dividen+')" onkeypress="return onlyNumberKey(event)"  name="dividen_1_pegawai[]" id="dividen_1_pegawai['+
+                   ']" placeholder="Nyatakan Dividen"></div></div><div class="col-md-4 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" onchange="return copyCat('+counter_dividen+')" onkeypress="return onlyNumberKey(event,this)"  name="dividen_1_pegawai[]" id="dividen_1_pegawai['+
                    counter_dividen+
                    ']" placeholder="Dividen Pegawai"></div></div><input type="hidden" onchange="return copyCat('+counter_dividen+')" name="counter" id="counter_for_dividen" value="'+
                    counter_dividen+
                    '"><div class="col-md-4 mt-2 mt-md-0" id="dividen"><input class="form-control bg-light" id="dividen_1_pasangan['+
                    counter_dividen+
-                   ']" onkeypress="return onlyNumberKey(event)"  name="dividen_1_pasangan[]" placeholder="Dividen Pasangan" id="dividen_pasangan" onchange="return copyCat('+counter_dividen+')"></div><div class="col-md-1"><a onClick="removeDividen(this,'+
+                   ']" onkeypress="return onlyNumberKey(event,this)"  name="dividen_1_pasangan[]" placeholder="Dividen Pasangan" id="dividen_pasangan" onchange="return copyCat('+counter_dividen+')"></div><div class="col-md-1"><a onClick="removeDividen(this,'+
                    counter_dividen+
                    ' ); return false;" id ="button'+counter_dividen+'"class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a><br><br></div></div>'); //add input box
 
@@ -1532,22 +1532,22 @@
              select_hubungan_to_append = '<input type="hidden" id="select_hubungan'+ increment_keterangan +'" name="select_hubungan_[]"  value="'+ select_hubungan +'" readonly>';
              maklumat_harta_to_append = '<input type="hidden" id="maklumat_harta'+ increment_keterangan +'" name="maklumat_harta_[]"  value="'+ maklumat_harta +'" readonly>';
              tarikh_pemilikan_harta_to_append = '<input type="hidden" id="tarikh_pemilikan_harta'+ increment_keterangan +'" name="tarikh_pemilikan_harta_[]"  value="'+ tarikh_pemilikan_harta +'" readonly>';
-             bilangan_to_append = '<input type="hidden" id="bilangan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)"  name="bilangan_[]"  value="'+ bilangan +'" readonly>';
+             bilangan_to_append = '<input type="hidden" id="bilangan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event,this)"  name="bilangan_[]"  value="'+ bilangan +'" readonly>';
              unit_bilangan_to_append = '<input type="hidden" id="unit_bilangan'+ increment_keterangan +'" onkeypress=""  name="unit_bilangan_[]"  value="'+ unit_bilangan +'" readonly>';
-             nilai_perolehan_to_append = '<input type="hidden" id="nilai_perolehan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)"  name="nilai_perolehan_[]"  value="'+ nilai_perolehan +'" readonly>';
+             nilai_perolehan_to_append = '<input type="hidden" id="nilai_perolehan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event,this)"  name="nilai_perolehan_[]"  value="'+ nilai_perolehan +'" readonly>';
              cara_perolehan_to_append = '<input type="hidden" id="cara_perolehan'+ increment_keterangan +'" name="cara_perolehan_[]"  value="'+ cara_perolehan +'" readonly>';
              nama_pemilikan_asal_to_append = '<input type="hidden" id="nama_pemilikan_asal'+ increment_keterangan +'" name="nama_pemilikan_asal_[]"  value="'+ nama_pemilikan_asal +'" readonly>';
-             jumlah_pinjaman_to_append = '<input type="hidden" id="jumlah_pinjaman'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)"  name="jumlah_pinjaman_[]"  value="'+ jumlah_pinjaman +'" readonly>';
+             jumlah_pinjaman_to_append = '<input type="hidden" id="jumlah_pinjaman'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event,this)"  name="jumlah_pinjaman_[]"  value="'+ jumlah_pinjaman +'" readonly>';
              institusi_pinjaman_to_append = '<input type="hidden" id="institusi_pinjaman'+ increment_keterangan +'" name="institusi_pinjaman_[]"  value="'+ institusi_pinjaman +'" readonly>';
              tempoh_bayar_balik_to_append = '<input type="hidden" id="tempoh_bayar_balik'+ increment_keterangan +'" name="tempoh_bayar_balik_[]"  value="'+ tempoh_bayar_balik +'" readonly>';
              // tempoh_to_append = '<input type="hidden" id="tempoh'+ increment_keterangan +'" name="tempoh_[]"  value="'+ tempoh +'" readonly>';
-             ansuran_bulanan_to_append = '<input type="hidden" id="ansuran_bulanan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)"  name="ansuran_bulanan_[]"  value="'+ ansuran_bulanan +'" readonly>';
+             ansuran_bulanan_to_append = '<input type="hidden" id="ansuran_bulanan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event,this)"  name="ansuran_bulanan_[]"  value="'+ ansuran_bulanan +'" readonly>';
              tarikh_ansuran_pertama_to_append = '<input type="hidden" id="tarikh_ansuran_pertama'+ increment_keterangan +'" name="tarikh_ansuran_pertama_[]"  value="'+ tarikh_ansuran_pertama +'" readonly>';
              keterangan_lain_to_append = '<input type="hidden" id="keterangan_lain'+ increment_keterangan +'" name="keterangan_lain_[]"  value="'+ keterangan_lain +'" readonly>';
              jenis_harta_pelupusan_to_append = '<input type="hidden" id="jenis_harta_pelupusan'+ increment_keterangan +'" name="jenis_harta_pelupusan_[]"  value="'+ jenis_harta_pelupusan +'" readonly>';
              alamat_asset_to_append = '<input type="hidden" id="alamat_asset'+ increment_keterangan +'" name="alamat_asset_[]"  value="'+ alamat_asset +'" readonly>';
              no_pendaftaran_to_append = '<input type="hidden" id="no_pendaftaran'+ increment_keterangan +'" name="no_pendaftaran_[]"  value="'+ no_pendaftaran +'" readonly>';
-             harga_jualan_to_append = '<input type="hidden" id="harga_jualan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event)"  name="harga_jualan_[]"  value="'+ harga_jualan +'" readonly>';
+             harga_jualan_to_append = '<input type="hidden" id="harga_jualan'+ increment_keterangan +'" onkeypress="return onlyNumberKey(event,this)"  name="harga_jualan_[]"  value="'+ harga_jualan +'" readonly>';
              tarikh_lupus_to_append = '<input type="hidden" id="tarikh_lupus'+ increment_keterangan +'" name="tarikh_lupus_[]"  value="'+ tarikh_lupus +'" readonly>';
              lain_lain_to_append = '<input type="hidden" id="lain_lain'+ increment_keterangan +'" name="lain_lain_[]"  value="'+ lain_lain +'" readonly>';
              tunai_to_append = '<input type="hidden" id="tunai'+ increment_keterangan +'" name="tunai_[]"  value="'+ tunai +'" readonly>';
@@ -1730,14 +1730,26 @@
 
             </script>
             <script>
-            function onlyNumberKey(evt) {
+            function onlyNumberKey(evt, element) {
+               var charCode = (evt.which) ? evt.which : event.keyCode
+               if (charCode > 31 && (charCode < 48 || charCode > 57) && !(charCode == 46 || charCode == 8))
+                 return false;
+               else {
+                 var len = $(element).val().length;
+                 var index = $(element).val().indexOf('.');
+                 if (index > 0 && charCode == 46) {
+                   return false;
+                 }
+                 if (index > 0) {
+                   var CharAfterdot = (len + 1) - index;
+                   if (CharAfterdot > 3) {
+                     return false;
+                   }
+                 }
 
-                // Only ASCII charactar in that range allowed
-                var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-                if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-                    return false;
-                return true;
-            }
+               }
+               return true;
+             }
             </script>
 
             <script type="text/javascript">

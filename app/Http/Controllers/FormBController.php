@@ -148,6 +148,8 @@ class FormBController extends Controller
 
   public function editformB($id){
     // $info = SenaraiHarga::find(1);
+    $draft_exist = FormB::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
+
     $info = FormB::findOrFail($id);
     // dd($info);
     $jenisHarta = JenisHarta::get();
@@ -176,7 +178,7 @@ class FormBController extends Controller
 
 
 
-    return view('user.harta.FormB.editformB-latest', compact('info','maklumat_pasangan','maklumat_anak','listDividenB','listPinjamanB','count_div','count_pinjaman','jenisHarta','hartaB','staffinfo'));
+    return view('user.harta.FormB.editformB-latest', compact('info','maklumat_pasangan','maklumat_anak','listDividenB','listPinjamanB','count_div','count_pinjaman','jenisHarta','hartaB','staffinfo','draft_exist'));
   }
 
   public function deleteHartaB($id){
@@ -875,7 +877,7 @@ public function add(array $data){
      }
 
      public function updateFormB(Request $request,$id){
-       // dd($request->all());
+       // info($request->all());
        if ($request->has('save')){
         $this->validatorsave(request()->all())->validate();
         $formbs = FormB::find($id);
@@ -1170,7 +1172,7 @@ public function add(array $data){
 
         if ($request->jenis_harta_[$i] == "Kenderaan") {
           // dd("test");
-          if($cara_belian_[$i] =="Pinjaman"){
+          if($request->cara_belian_[$i] =="Pinjaman"){
             if ($request->select_hubungan_[$i] == "Sendiri") {
               $pinjaman_kenderaan_sendiri = $pinjaman_kenderaan_sendiri + $request->jumlah_pinjaman_[$i] ?? 0;
               $bulanan_kenderaan_sendiri = $bulanan_kenderaan_sendiri + $request->ansuran_bulanan_[$i] ?? 0;
@@ -1182,7 +1184,7 @@ public function add(array $data){
           }
         }
         elseif ($request->jenis_harta_[$i] == "Rumah") {
-          if($cara_belian_[$i] =="Pinjaman"){
+          if($$request->cara_belian_[$i] =="Pinjaman"){
             if ($request->select_hubungan_[$i] == "Sendiri") {
               $pinjaman_rumah_sendiri = $pinjaman_rumah_sendiri + $request->jumlah_pinjaman_[$i] ?? 0;
               $bulanan_rumah_sendiri = $bulanan_rumah_sendiri + $request->ansuran_bulanan_[$i] ?? 0;
