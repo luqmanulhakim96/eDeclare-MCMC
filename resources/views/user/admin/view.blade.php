@@ -21,8 +21,11 @@
                     <div class="card border-01 rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-01.png') }}); background-repeat: no-repeat; background-position: 23% 77%; ">
                         <!-- Card body -->
                         <div class="card-body">
-
-                            <a href="{{route('user.admin.harta.senaraiallharta')}}">
+                          @if(auth()->user()->role == 3)
+                          <a href="{{route('user.hodiv.harta.senaraiallharta')}}">
+                          @else
+                          <a href="{{route('user.admin.harta.senaraiallharta')}}">
+                          @endif
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <!-- Icon -->
                                 <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -48,7 +51,11 @@
                         <!-- Card body -->
                         <div class="card-body">
 
+                          @if(auth()->user()->role == 3)
+                          <a href="{{route('user.hodiv.harta.senaraiallharta')}}">
+                          @else
                           <a href="{{route('user.admin.harta.senaraiallharta')}}">
+                          @endif
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <!-- Icon -->
                                 <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -75,7 +82,11 @@
                         <!-- Card body -->
                         <div class="card-body">
 
+                          @if(auth()->user()->role == 3)
+                          <a href="{{route('user.hodiv.harta.senaraiallharta')}}">
+                          @else
                           <a href="{{route('user.admin.harta.senaraiallharta')}}">
+                          @endif
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <!-- Icon -->
                                 <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -112,7 +123,11 @@
                           <!-- Card body -->
                           <div class="card-body">
 
+                            @if(auth()->user()->role == 3)
+                            <a href="{{route('user.hodiv.harta.senaraiallharta')}}">
+                            @else
                             <a href="{{route('user.admin.harta.senaraiallharta')}}">
+                            @endif
                               <div class="d-flex flex-row justify-content-center align-items-center">
                                   <!-- Icon -->
                                   <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -138,7 +153,11 @@
                           <!-- Card body -->
                           <div class="card-body">
 
+                            @if(auth()->user()->role == 3)
+                            <a href="{{route('user.hodiv.hadiah.senaraiallhadiah')}}">
+                            @else
                             <a href="{{route('user.admin.hadiah.senaraiallhadiah')}}">
+                            @endif
                               <div class="d-flex flex-row justify-content-center align-items-center">
                                   <!-- Icon -->
                                   <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -166,7 +185,11 @@
                           <!-- Card body -->
                           <div class="card-body">
 
+                            @if(auth()->user()->role == 3)
+                            <a href="{{route('user.hodiv.hadiah.senaraiallhadiah')}}">
+                            @else
                             <a href="{{route('user.admin.hadiah.senaraiallhadiah')}}">
+                            @endif
                               <div class="d-flex flex-row justify-content-center align-items-center">
                                   <!-- Icon -->
                                   <div class="small-card-icon" align="center" style="opacity: 70%;">

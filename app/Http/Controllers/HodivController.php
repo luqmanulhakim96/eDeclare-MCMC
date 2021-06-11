@@ -524,24 +524,25 @@ class HodivController extends Controller
      // $listallA = Asset::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $bahagian )->get();
       // dd($listallA);
      // $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
 
      // dd($listallB);
      $listallBTable = FormB::getTableName();
      // $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
 
      // $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
 
      // $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
 
      // $merged = $listallA->mergeRecursive($listallB);
      $mergeds = $listallB->mergeRecursive($listallC);
      $mergeds = $mergeds->mergeRecursive($listallD);
      $mergeds = $mergeds->mergeRecursive($listallG)->sortBy('status');
      // dd($merged);
+     $merged = [];
      foreach ($mergeds as $data) {
        $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
        // dd($dataBahagian);
@@ -551,7 +552,6 @@ class HodivController extends Controller
        }
      }
      // dd($merged);
-     // $merged = $merged->distinct();
 
      return view('user.hodiv.harta.senaraiallharta', compact('merged'));
    }
@@ -563,8 +563,8 @@ class HodivController extends Controller
        $div=$division->OLEVEL4NAME;
      }
      // $bahagian =Auth::user()->jabatan;
-     $listallA = Gift::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian', $div )->get();
-     $listallB = GiftB::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian', $div )->get();
+     $listallA = Gift::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->where('bahagian', $div )->get();
+     $listallB = GiftB::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->where('bahagian', $div )->get();
      $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
 
      return view('user.hodiv.hadiah.senaraiallhadiah', compact('merged'));
@@ -579,16 +579,16 @@ class HodivController extends Controller
      $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->first();
 
      // dd($div);
-     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
      // dd($listallB);
      $listallBTable = FormB::getTableName();
-     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->get();
-     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->get();
-     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->get();
+     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
+     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
+     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
      $mergeds = $listallB->mergeRecursive($listallC);
      $mergeds = $mergeds->mergeRecursive($listallD);
      $mergeds = $mergeds->mergeRecursive($listallG)->sortBy('status');
-
+     $merged = [];
      foreach ($mergeds as $data) {
        $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
        // dd($dataBahagian);
@@ -621,9 +621,9 @@ class HodivController extends Controller
        $div=$division->OLEVEL4NAME;
      }
      // dd($div);
-     $listallA = Gift::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian',$div)->get();
+     $listallA = Gift::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->where('bahagian',$div)->get();
      // dd($listallA );
-     $listallB = GiftB::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian',$div)->get();
+     $listallB = GiftB::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->where('bahagian',$div)->get();
      $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
 
      return view('user.hodiv.hadiah.senaraitugasanhadiah', compact('merged'));

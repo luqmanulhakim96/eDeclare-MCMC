@@ -15,7 +15,7 @@
         <div class="col-md-12 mt-4" >
             <!-- basic light table card -->
             <div class="">
-              <a class="btn btn-primary mt-4"href="{{url()->previous() }}">Kembali</a>
+              <a class="btn btn-primary mt-4"href="{{route('user.senaraihadiah')}}">Kembali</a>
             </div>
             <br>
             <div class="card rounded-lg" >

@@ -14,7 +14,7 @@
         <!-- Col md 6 -->
         <div class="col-md-12 mt-4" >
           <div class="">
-            <a class="btn btn-primary mt-4"href="{{url()->previous() }}">Kembali</a>
+            <a class="btn btn-primary mt-4"href="{{route('user.senaraihadiah')}}">Kembali</a>
           </div>
           <br>
             <!-- basic light table card -->
