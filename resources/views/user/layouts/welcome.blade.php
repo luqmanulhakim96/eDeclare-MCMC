@@ -60,7 +60,7 @@
 
     </style>
 
-@livewireStyles
+
 </head>
 <body class="position-relative">
 
@@ -213,7 +213,7 @@
                                   </ul>
                               </div>
                           </li>
-                           @for($i=0; $i<count(json_decode(Auth::user()->layouts->layout));$i++)
+                          @for($i=0; $i<count(json_decode(Auth::user()->layouts->layout));$i++)
                             @if(json_decode(Auth::user()->layouts->layout)[$i] == "1" && json_decode(Auth::user()->layouts->layout)[$i+1] == "2")
                             <li class="nav-item">
                                 <a class="nav-link text-secondary-side" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-tetapan" aria-controls="submenu-tetapan"><i class="fas fa-dot-circle"></i> Tetapan Sistem</a>
@@ -464,7 +464,7 @@
                                         <a class="nav-link text-secondary-side" href="{{ route('user.it.sistemkonfigurasi') }}"><i class="fas fa-dot-circle"></i> Konfigurasi Sistem</a>
                                     </li>
 
-                                       @for($i=0; $i<count(json_decode(Auth::user()->layouts->layout));$i++)
+                                      @for($i=0; $i<count(json_decode(Auth::user()->layouts->layout));$i++)
                                         @if(json_decode(Auth::user()->layouts->layout)[$i] == "1" && json_decode(Auth::user()->layouts->layout)[$i+1] == "2")
                                         <li class="nav-item">
                                             <a class="nav-link text-secondary-side" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-tetapan" aria-controls="submenu-tetapan"><i class="fas fa-dot-circle"></i> Tetapan Sistem</a>
@@ -696,7 +696,7 @@
     <!-- Data Table -->
     <!-- Data Table script -->
     <script type="text/javascript" src="{{ asset('qbadminui/js/vendor/DataTables/datatables.js') }}"></script>
-    @livewireScripts
+
 </body>
 </html>
 <script type="text/javascript">
