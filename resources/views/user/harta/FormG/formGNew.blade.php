@@ -263,7 +263,7 @@
                                         <div class="col-md-4">
                                             <div class="input-group">
                                               @foreach($staffinfo as $gaji)
-                                                <input type="hidden" name="gaji" value="{{$gaji->SALARY}}">{{$gaji->SALARY}}
+                                                <input type="hidden" name="gaji" value="{{number_format((float)$gaji->SALARY,2,'.','')}}">{{number_format((float)$gaji->SALARY,2,'.','')}}
                                               @endforeach
                                             </div>
                                         </div>
@@ -681,7 +681,7 @@
                                                       <div class="col-md-4">
                                                           <div class="input-group">
                                                             @foreach($staffinfo as $gaji)
-                                                              <input type="hidden" name="gaji" value="{{$gaji->SALARY}}">{{$gaji->SALARY}}
+                                                              <input type="hidden" name="gaji" value="{{number_format((float)$gaji->SALARY,2,'.','')}}">{{number_format((float)$gaji->SALARY,2,'.','')}}
                                                             @endforeach
                                                           </div>
                                                       </div>

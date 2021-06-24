@@ -200,6 +200,11 @@ Route::get('/lampiran/D/id={id}', 'UserController@viewD')->name('user.harta.Form
 
 Route::get('/lampiran/G/id={id}', 'UserController@viewG')->name('user.harta.FormG.viewformG');
 
+Route::get('/senarai/hadiah/pegawai/{id}', 'UserController@senaraihadiahdashboard')->name('listGift');
+
+Route::get('/senarai/harta/pegawai/{id}', 'UserController@senaraihartadashboard')->name('listHarta');
+
+
 // Route::get('/permohonan/giftB', 'UserController@FormB')->name('user.harta.viewformB');
 
 

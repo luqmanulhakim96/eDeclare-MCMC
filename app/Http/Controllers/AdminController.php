@@ -73,8 +73,8 @@ class AdminController extends Controller
       $listDDiterima = FormD::where('status','Diterima')->count();
       $listGDiterima = FormG::where('status','Diterima')->count();
 
-      $listHadiahA = Gift::where('status','!=','Disimpan ke Draf')->count();
-      $listHadiahB = GiftB::where('status','!=','Disimpan ke Draf')->count();
+      $listHadiahA = Gift::where('status','Diterima')->count();
+      $listHadiahB = GiftB::where('status','Diterima')->count();
       $nilaiHadiah = NilaiHadiah::first();
 
       $pegawai_dah_declare_Bs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id)"));
@@ -105,7 +105,7 @@ class AdminController extends Controller
       // dd($userldap);
       // dd(UserTest::get());
       // $users = DB::connection('sqlsrv2')->select(DB::raw ("SELECT * From dbo.V_ED_STAFF"));
-      $bahagian=UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
+      $bahagian=UserExistingStaffInfo::where('USERNAME', auth()->user()->username ?? null)->first();
 
       if(auth()->user()->role == 2){
         $pegawai_dah_declare_Bs =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT formbs.user_id ) as data from formbs where EXISTS ( SELECT formbs.user_id FROM formbs, users where formbs.user_id= users.id AND formbs.status='Diproses ke Ketua Jabatan Integriti' OR formbs.status='Diterima')"));
@@ -154,7 +154,7 @@ class AdminController extends Controller
 
         $hodivFormC = FormC::where('status','Diproses ke Ketua Bahagian')->orWhere('status', 'Diterima')->get();
         $hodivFormCDiterima = FormC::where('status','Diterima')->get();
-        
+
         $listC = 0; //form C count
         $listCDiterima = 0;
 
@@ -439,17 +439,18 @@ class AdminController extends Controller
         $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
         $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
-        }
-
+    }
     if($maklumat_pasangan->isEmpty()){
-      return view('user.admin.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','staffinfo','ulasanAdmin','ulasanHOD'));
+      $maklumat_pasangan = null;
+      // return view('user.admin.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','staffinfo','ulasanAdmin','ulasanHOD'));
     }
-    elseif ($maklumat_anak->isEmpty()) {
-      return view('user.admin.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
+    if($maklumat_anak->isEmpty()) {
+      $maklumat_anak = null;
+      // return view('user.admin.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
     }
-    else{
-      return view('user.admin.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','maklumat_anak','staffinfo','ulasanAdmin','ulasanHOD'));
-    }
+    // else{
+    return view('user.admin.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','maklumat_anak','staffinfo','ulasanAdmin','ulasanHOD'));
+    // }
   }
 
   public function viewUlasanHartaB($id)
@@ -481,14 +482,15 @@ class AdminController extends Controller
         }
 
     if($maklumat_pasangan->isEmpty()){
-      return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo','ulasanAdmin','ulasanHOD'));
+      $maklumat_pasangan = null;
+      // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo','ulasanAdmin','ulasanHOD'));
     }
-    elseif ($maklumat_anak->isEmpty()) {
-      return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
+    if ($maklumat_anak->isEmpty()) {
+      $maklumat_anak = null;
+      // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
     }
-    else{
+
     return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
-    }
   }
 
   public function viewUlasanHartaC($id)
@@ -1246,7 +1248,9 @@ class AdminController extends Controller
          $merged = $listallA->mergeRecursive($listallB);
          $merged = $merged->mergeRecursive($listallC);
          $merged = $merged->mergeRecursive($listallD);
-         $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+         // $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+         $merged = $merged->mergeRecursive($listallG);
+
          // dd($merged);
 
          return view('user.admin.harta.senaraiallharta', compact('merged'));

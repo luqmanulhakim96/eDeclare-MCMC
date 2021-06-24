@@ -10,6 +10,7 @@ use App\UserExistingStaff;
 use App\UserExistingStaffInfo;
 use App\UserExistingStaffNextofKin;
 use App\Duration;
+use App\FormB;
 
 use romanzipp\QueueMonitor\Models\Monitor;
 use Artisan;
@@ -49,11 +50,18 @@ class ItAdminController extends Controller
 
       public function audit(){
 
+        // $user = User::where('username','azizulr')->first();
+        // dd($user);
+        // $info = FormB::findOrFail(48);
+        //
+        // $user = User::where('username', 'azizulr')->first();
+        // $info = FormB::where('user_id', $user->id)->get();
+        // dd($info);
         /* php artisan import user dari ldap */
         // \Artisan::call('adldap:import --no-interaction');
 
         // testing data get from mcmc databases
-        // $userldap = Adldap::search()->users()->find('Haryati Suradi'); //active directory testing
+        // $userldap = Adldap::search()->users()->find('Azizul Rahman Zainal'); //active directory testing
         // $users = Adldap::search()->users()->get();
         // dd($userldap);
 
@@ -72,9 +80,9 @@ class ItAdminController extends Controller
         // ],
 
         // $user = UserExistingStaffNextofKin::first();
-        // $user = UserExistingStaffNextofKin::where('STAFFNO','360')->get();
+        // $user = UserExistingStaffNextofKin::where('STAFFNO','540')->get();
         // $user = UserExistingStaffInfo::get()->groupBy('DESCRIPTION');
-        // $user = UserExistingStaffInfo::where('USERNAME','haryati')->get();
+        // $user = UserExistingStaffInfo::where('USERNAME','azizulr')->get();
         // dd($user);
         // $user = UserExistingStaff::first();
         // dd($user);

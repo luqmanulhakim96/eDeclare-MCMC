@@ -123,6 +123,7 @@
                           <th><p class="mb-0">Lampiran</p></th>
                           <th><p class="mb-0">Tarikh</p></th>
                           <th><p class="mb-0">Status</p></th>
+                          <th><p class="mb-0">Catatan</p></th>
                           <th><p class="mb-0">Tindakan</p></th>
 
 
@@ -189,6 +190,80 @@
                           @elseif($data ->status == 'Lampiran A')
                           <span class="badge badge-success badge-pill">Berjaya</span>
                           @endif
+                        </td>
+                        <td>
+
+                        @if($data ->status == "Sedang Diproses")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Sedang Dikemaskini")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Proses ke Ketua Bahagian")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Tidak Lengkap")
+                          @if($data ->getTable() == "formbs")
+                             @foreach($ulasanAdmin as $admin)
+                             @if($admin->formbs_id == $data->id)
+                               <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                             @endif
+                             @endforeach
+                          @elseif($data ->getTable() == "formcs")
+                            @foreach($ulasanAdmin as $admin)
+                            @if($admin->formcs_id == $data->id)
+                              <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @elseif($data ->getTable() == "formds")
+                            @foreach($ulasanAdmin as $admin)
+                            @if($admin->formds_id == $data->id)
+                              <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @elseif($data ->getTable() == "formgs")
+                            @foreach($ulasanAdmin as $admin)
+                            @if($admin->formgs_id == $data->id)
+                              <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @endif
+                        @elseif($data ->status == "Tidak Diterima")
+                          @if($data ->getTable() == "formbs")
+                             @foreach($ulasanHOD as $hod)
+                             @if($hod->formbs_id == $data->id)
+                               <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                             @endif
+                             @endforeach
+                          @elseif($data ->getTable() == "formcs")
+                            @foreach($ulasanHOD as $hod)
+                            @if($hod->formcs_id == $data->id)
+                              <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @elseif($data ->getTable() == "formds")
+                            @foreach($ulasanHOD as $hod)
+                            @if($admin->formds_id == $data->id)
+                              <p> - {{$admin->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @elseif($data ->getTable() == "formgs")
+                            @foreach($ulasanHOD as $hod)
+                            @if($hod->formgs_id == $data->id)
+                              <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @endif
+                        @elseif($data ->status == "Diterima")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Selesai")
+                        {{ $data ->status }}
+                        @endif
                         </td>
                         <td>
                           @if($data ->getTable() == "formbs")

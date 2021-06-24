@@ -138,8 +138,11 @@ class UserController extends Controller
     $merged = $merged->mergeRecursive($listallC);
     $merged = $merged->mergeRecursive($listallD);
     $merged = $merged->mergeRecursive($listallG)->sortBy('status');
-    
-    return view('user.senaraiharta',compact('merged'));
+
+    $ulasanAdmin = UlasanAdmin::get();
+    $ulasanHOD = UlasanHod::get();
+
+    return view('user.senaraiharta',compact('merged','ulasanAdmin','ulasanHOD'));
   }
 
   public function senaraisemuahadiah()
@@ -150,8 +153,152 @@ class UserController extends Controller
     $listallA = Gift::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('user_id',$user)->get();
     $listallB = GiftB::with('users')->select('id','jabatan','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('user_id',$user)->get();
     $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
-    return view('user.senaraihadiah', compact('nilai_hadiah','merged'));
+
+    $ulasanAdmin = UlasanAdmin::get();
+    $ulasanHOD = UlasanHod::get();
+    return view('user.senaraihadiah', compact('nilai_hadiah','merged','ulasanAdmin','ulasanHOD'));
   }
+
+  public function senaraihadiahdashboard($id)
+  {
+    $username =Auth::user()->username;
+    $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get();
+    foreach($bahagian as $division){
+      $div=$division->OLEVEL4NAME;
+    }
+
+    $role = auth()->user()->role;
+    // dd($id);
+    $nilai_hadiah = NilaiHadiah::first();
+    if (auth()->user()->role == 2) {
+      // dd('masuk hod');
+      if ($id == "gift") {
+        $listHadiah = Gift::where('status', 'Proses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
+        // dd($listHadiah);
+      }
+      else if($id == "giftb"){
+        $listHadiah = GiftB::where('status', 'Proses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
+      }
+    }
+    else if(auth()->user()->role == 3){
+      // dd('masuk hodiv');
+      if ($id == "gift") {
+        $listHadiah = Gift::where('status', 'Proses ke Ketua Bahagian')->where('bahagian', $div )->get();
+        // dd($listHadiah);
+      }
+      else if($id == "giftb"){
+        $listHadiah = GiftB::where('status', 'Proses ke Ketua Bahagian')->where('bahagian', $div )->get();
+      }
+    }
+    else {
+      // dd('masuk admin');
+      if ($id == "gift") {
+        $listHadiah = Gift::get();
+        // dd($listHadiah);
+      }
+      else if($id == "giftb"){
+        $listHadiah = GiftB::get();
+      }
+    }
+    return view('user.admin.hadiah.listGift', compact('listHadiah','nilai_hadiah','role'));
+  }
+
+  public function senaraihartadashboard($id)
+  {
+
+    $username =Auth::user()->username;
+    $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->first();
+    // dd($id);
+    $role = auth()->user()->role;
+    // dd($role);
+    if (auth()->user()->role == 2) {
+      // dd('masuk hod');
+      if ($id == "formb") {
+        $listHarta = FormB::where('status', 'Proses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
+      }
+      else if($id == "formc"){
+        $listHarta = FormC::where('status', 'Proses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
+      }
+      else if($id == "formd"){
+        $listHarta = FormD::where('status', 'Proses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
+      }
+      else if($id == "formg"){
+        $listHarta = FormG::where('status', 'Proses ke Ketua Jabatan Integriti')->orWhere('status', 'Diterima')->get();
+      }
+    }
+    else if(auth()->user()->role == 3){
+
+      // dd('masuk hodiv');
+      if ($id == "formb") {
+        $listHartas = FormB::where('status', 'Proses ke Ketua Bahagian')->get();
+
+        $listHarta = [];
+        foreach ($listHartas as $data) {
+          $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+          // dd($dataBahagian);
+          if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+            // dd($dataBahagian);
+            $listHarta[]=$data;
+          }
+        }
+        // dd($listHadiah);
+      }
+      else if($id == "formc"){
+        $listHartas = FormC::where('status', 'Proses ke Ketua Bahagian')->get();
+        $listHarta = [];
+        foreach ($listHartas as $data) {
+          $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+          // dd($dataBahagian);
+          if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+            // dd($dataBahagian);
+            $listHarta[]=$data;
+          }
+        }
+      }
+      else if($id == "formd"){
+        $listHartas = FormD::where('status', 'Proses ke Ketua Bahagian')->get();
+        $listHarta = [];
+        foreach ($listHartas as $data) {
+          $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+          // dd($dataBahagian);
+          if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+            // dd($dataBahagian);
+            $listHarta[]=$data;
+          }
+        }
+      }
+      else if($id == "formg"){
+        $listHartas = FormG::where('status', 'Proses ke Ketua Bahagian')->get();
+        $listHarta = [];
+        foreach ($listHartas as $data) {
+          $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+          // dd($dataBahagian);
+          if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+            // dd($dataBahagian);
+            $listHarta[]=$data;
+          }
+        }
+      }
+    }
+    else {
+      // dd('masuk admin');
+      if ($id == "formb") {
+        $listHarta = FormB::get();
+      }
+      else if($id == "formc"){
+        $listHarta = FormC::get();
+      }
+      else if($id == "formd"){
+        $listHarta = FormD::get();
+      }
+      else if($id == "formg"){
+        $listHarta = FormG::get();
+      }
+    }
+
+    return view('user.hartadashboard', compact('listHarta', 'role'));
+  }
+
 
   public function senaraiHarta()
   {
@@ -534,15 +681,15 @@ class UserController extends Controller
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
 
-    if($maklumat_pasangan->isEmpty()){
-      return view('user.harta.FormB.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman'));
-    }
-    elseif ($maklumat_anak->isEmpty()) {
-      return view('user.harta.FormB.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan'));
-    }
-    else{
+    // if($maklumat_pasangan->isEmpty()){
+    //   return view('user.harta.FormG.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman'));
+    // }
+    // elseif ($maklumat_anak->isEmpty()) {
+    //   return view('user.harta.FormG.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan'));
+    // }
+    // else{
       return view('user.harta.FormG.viewformG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','maklumat_anak'));
-    }
+    // }
 }
 
   public function printG($id)

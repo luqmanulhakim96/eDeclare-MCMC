@@ -2,14 +2,13 @@
 @section('content')
            <!--Page Body part -->
         <div class="page-body p-4 text-dark">
-
            <div class="row mt-10">
                    <!-- Col md 6 -->
                    <div class="col-md-12 mt-4" >
                        <!-- basic light table card -->
                        <div class="card rounded-lg" >
                            <div class="card-body">
-                               <div class="card-title">Senarai Tugasan Perisytiharan Harta</div>
+                               <div class="card-title">Senarai Sejarah Perisytiharan Harta</div>
                                <!-- Description -->
                                <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
                                <!-- Table -->
@@ -18,29 +17,30 @@
                                        <thead class="thead-light">
                                            <tr class="text-center">
                                                <th width="10%"><p class="mb-0">ID</p></th>
-                                               <!-- <th><p class="mb-0">No Staff</p></th> -->
-                                               <th><p class="mb-0">Nama</p></th>
-                                               <th><p class="mb-0">Lampiran</p></th>
-                                               <th><p class="mb-0">Tarikh</p></th>
-                                               <th><p class="mb-0">Status</p></th>
+                                               <th width="10%">No Staff</p></th>
+                                               <th width="30%"><p class="mb-0">Nama</p></th>
+                                               <th width="10%"><p class="mb-0">Lampiran</p></th>
+                                               <th width="20%"><p class="mb-0">Tarikh</p></th>
+                                               <th width="20%"><p class="mb-0">Status</p></th>
                                                <th><p class="mb-0">Tindakan</p></th>
 
                                            </tr>
                                        </thead>
                                        <tbody align="center">
-                                         @foreach($merged as $data)
-                                         @if($data ->status == "Sedang Diproses" || $data ->status == "Proses ke Pentadbir Sistem(Tatatertib)" || $data ->status == "Menunggu Kebenaran Kemaskini")
+                                         @foreach($listHarta as $data)
+                                         @if($data->status != 'Disimpan ke Draf' &&  $data->status != 'Tidak Diterima' )
+
                                          <tr>
-                                             <!-- <td>{{ $data ->id }}</td> -->
-                                             <td>{{ $data ->id }}</td>
+                                           <td>{{ $data ->id}}</td>
+                                           <td>{{ $data ->no_staff}}</td>
                                              <td>{{ $data ->users->name }}</td>
-                                             <!-- <td>
-                                                 <div class="d-flex flex-row justify-content-around align-items-center">
-                                                     <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
-                                                 </div>
-                                             </td> -->
                                              <td>
-                                               @if($data ->getTable() == "formbs")
+                                               @if($data ->getTable() == "assets")
+                                               Lampiran A : Perakuan Tiada Penambahan Harta Baharu
+                                               <div class="d-flex flex-row justify-content-around align-items-center">
+                                                   <a href="{{ route('user.perakuanharta.viewformA', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                                               </div>
+                                               @elseif($data ->getTable() == "formbs")
                                                Lampiran B : Perisytiharan Harta
                                                <div class="d-flex flex-row justify-content-around align-items-center">
                                                    <a href="{{ route('user.harta.FormB.viewformB', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
@@ -62,18 +62,19 @@
                                                </div>
                                                @endif
                                              </td>
-
-                                             <td>{{ $data ->created_at}}</td>
+                                             <td>{{ $data ->updated_at}}</td>
                                              <td>
                                                @if($data ->status == "Sedang Diproses")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Sedang Dikemaskini")
+                                               <span class="badge badge-warning badge-pill">Permohonan Kemaskini Diluluskan</span>
                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                               @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
+                                               @elseif($data ->status == "Untuk Tindakan Jawatankuasa Tatatertib")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
@@ -85,10 +86,13 @@
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Selesai")
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
+                                               @elseif($data ->status == "Lampiran A")
+                                               <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @endif
                                              </td>
                                              <td>
-                                               @if($data ->getTable() == "formbs")
+                                               @if($role == "1")
+                                               @if($data ->getTable() == "formbs")                                               
                                                  @if($data ->status == "Sedang Diproses")
                                                  <a href="{{route('user.admin.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
                                                  @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
@@ -110,6 +114,7 @@
                                                  @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
                                                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tindakanD{{$data->id}}">Tindakan</button>
                                                  @else
+                                                 -
                                                  @endif
                                                 @elseif($data ->getTable() == "formgs")
                                                   @if($data ->status == "Sedang Diproses")
@@ -120,6 +125,59 @@
                                                   -
                                                   @endif
                                                 @endif
+                                                @elseif($role == "2")
+                                                @if($data ->getTable() == "formbs")
+                                                  @if($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                                  <a href="{{route('user.integrityHOD.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
+                                                  @else
+                                                  -
+                                                  @endif
+                                                @elseif($data ->getTable() == "formcs")
+                                                  @if($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                                  <a href="{{route('user.integrityHOD.harta.ulasanHartaC',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
+                                                  @else
+                                                  -
+                                                  @endif
+                                                @elseif($data ->getTable() == "formds")
+                                                  @if($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                                  <a href="{{route('user.integrityHOD.harta.ulasanHartaD',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
+                                                  @else
+                                                  -
+                                                  @endif
+                                                 @elseif($data ->getTable() == "formgs")
+                                                   @if($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                                   <a href="{{route('user.integrityHOD.harta.ulasanHartaG',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
+                                                   @else
+                                                   -
+                                                   @endif
+                                                 @endif
+                                                @elseif($role == "3")
+                                                @if($data ->getTable() == "formbs")
+                                                  @if($data ->status == "Proses ke Ketua Bahagian")
+                                                  <a href="{{route('user.hodiv.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                  @else
+                                                  -
+                                                  @endif
+                                                @elseif($data ->getTable() == "formcs")
+                                                  @if($data ->status == "Proses ke Ketua Bahagian")
+                                                  <a href="{{route('user.hodiv.harta.ulasanHartaC',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                  @else
+                                                  -
+                                                  @endif
+                                                @elseif($data ->getTable() == "formds")
+                                                  @if($data ->status == "Proses ke Ketua Bahagian")
+                                                  <a href="{{route('user.hodiv.harta.ulasanHartaD',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                  @else
+                                                  -
+                                                  @endif
+                                                 @elseif($data ->getTable() == "formgs")
+                                                   @if($data ->status == "Proses ke Ketua Bahagian")
+                                                   <a href="{{route('user.hodiv.harta.ulasanHartaG',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
+                                                   @else
+                                                   -
+                                                   @endif
+                                                 @endif
+                                                 @endif
                                              </td>
                                              <div class="modal fade" id="tindakanB{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                  <div class="modal-dialog modal-sm" role="document">
@@ -412,15 +470,13 @@
                                                    @endif
                                                  @endif
                                               </td>
-                                               @endif
                                             </tr>
-
+                                           @endif
                                           @endforeach
                                            <!-- Table data -->
 
                                        </tbody>
                                    </table>
-
                                </div>
 
                            </div>

@@ -4,12 +4,12 @@
 
 <div class="page-body p-4 text-dark">
   <!-- <div class="card-body"> -->
-        <div class="buttons">
+        <!-- <div class="buttons">
           <a href="{{route('user.admin.hadiah.listGiftB')}}"  class="btn btn-dark m-2">Sedang Diproses</a>
           <a href="{{route('user.admin.hadiah.HadiahB.listDiterima')}}" class="btn btn-light m-2">Diterima</a>
           <a href="{{route('user.admin.hadiah.HadiahB.listTidakLengkap')}}"class="btn btn-light m-2">Tidak Lengkap</a>
           <a href="{{route('user.admin.hadiah.HadiahB.listTidakDiterima')}}" class="btn btn-light m-2" >Tidak Diterima</a>
-        </div>
+        </div> -->
 
   <!-- </div> -->
 <div class="row mt-10">
@@ -18,10 +18,10 @@
             <!-- basic light table card -->
             <div class="card rounded-lg" >
                 <div class="card-body">
-                    <div class="card-title">Senarai Penerimaan Hadiah bernilai lebih dari RM {{ $nilai_hadiah ->nilai_hadiah }}</div>
+                    <div class="card-title">Senarai Penerimaan Hadiah bernilai kurang dari RM {{ $nilai_hadiah ->nilai_hadiah }}</div>
 
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                        <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                             <thead class="thead-light">
                                 <tr class="text-center">
                                   <th class="all" width="10%"><p>ID</p></th>
@@ -63,7 +63,15 @@
                                   <td>
                                     @if($data ->status == "Sedang Diproses")
                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
-                                    @elseif($data ->status == "Diproses ke Pentadbir Sistem")
+                                    @elseif($data ->status == "Sedang Dikemaskini")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                    @elseif($data ->status == "Proses ke Ketua Bahagian")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                    @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                    @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                    @elseif($data ->status == "Proses ke Pentadbir Sistem")
                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                     @elseif($data ->status == "Tidak Lengkap")
                                     <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
@@ -117,5 +125,80 @@
       $('.modal-body #imageHadiah').show();
     }
   </script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+      var buttonCommon = {
+        exportOptions: {
+             // Any other settings used
+             grouped_array_index: 0,
+        },
+      };
+      var groupColumn = 1;
+      var tableTitle = $('.card-title').html();
+      var table = $('#example').DataTable({
+           dom: 'Bfrtip',
+           "buttons": [
+               {
+                   extend: 'excel',
+                   orientation: 'landscape',
+                   pageSize: 'A4',
+                   title: tableTitle,
+               },
+               {
+                   extend: 'pdfHtml5',
+                   orientation: 'landscape',
+                   pageSize: 'A4',
+                   title: tableTitle,
+               },
+               {
+                   extend: 'print',
+                   text: 'Cetak',
+                   pageSize: 'LEGAL',
+                   title: tableTitle,
+                   customize: function(win)
+                   {
+
+                       var last = null;
+                       var current = null;
+                       var bod = [];
+
+                       var css = '@page { size: landscape; }',
+                           head = win.document.head || win.document.getElementsByTagName('head')[0],
+                           style = win.document.createElement('style');
+
+                       style.type = 'text/css';
+                       style.media = 'print';
+
+                       if (style.styleSheet)
+                       {
+                         style.styleSheet.cssText = css;
+                       }
+                       else
+                       {
+                         style.appendChild(win.document.createTextNode(css));
+                       }
+
+                       head.appendChild(style);
+                },
+               },
+           ],
+       "language": {
+           "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
+           "zeroRecords": "Maaf, tiada rekod.",
+           "info": "Memaparkan halaman _PAGE_ daripada _PAGES_",
+           "infoEmpty": "Tidak ada rekod yang tersedia",
+           "infoFiltered": "(Ditapis dari _MAX_ jumlah rekod)",
+           "search": "Carian",
+           "previous": "Sebelum",
+           "paginate": {
+               "first":      "Pertama",
+               "last":       "Terakhir",
+               "next":       "Seterusnya",
+               "previous":   "Sebelumnya"
+           },
+       },
+       } );
+   } );
+   </script>
 
 @endsection

@@ -210,15 +210,16 @@ class HodivController extends Controller
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
 
-    if($maklumat_pasangan->isEmpty()){
-      return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','staffinfo'));
-    }
-    elseif ($maklumat_anak->isEmpty()) {
-      return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','staffinfo'));
-    }
-    else{
+        if($maklumat_pasangan->isEmpty()){
+          $maklumat_pasangan = null;
+          // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo','ulasanAdmin','ulasanHOD'));
+        }
+        if ($maklumat_anak->isEmpty()) {
+          $maklumat_anak = null;
+          // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
+        }
       return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','maklumat_anak','staffinfo'));
-    }
+
   }
 
   public function viewUlasanHartaB($id)
@@ -246,15 +247,16 @@ class HodivController extends Controller
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
 
-    if($maklumat_pasangan->isEmpty()){
-      return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo'));
-    }
-    elseif ($maklumat_anak->isEmpty()) {
-      return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo'));
-    }
-    else{
+        if($maklumat_pasangan->isEmpty()){
+          $maklumat_pasangan = null;
+          // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo','ulasanAdmin','ulasanHOD'));
+        }
+        if ($maklumat_anak->isEmpty()) {
+          $maklumat_anak = null;
+          // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
+        }
     return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan','staffinfo'));
-    }
+    
   }
 
   public function viewUlasanHartaC($id)

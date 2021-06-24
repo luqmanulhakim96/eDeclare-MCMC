@@ -269,7 +269,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                              {{ $info->gaji  }}
+                                              {{number_format((float)$info->gaji,2,'.','')}}
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">

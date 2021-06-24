@@ -161,9 +161,13 @@ class FormBController extends Controller
     $count_div = DividenB::where('formbs_id', $info->id)->count();
     $count_pinjaman = PinjamanB::where('formbs_id', $info->id)->count();
 
-    $username =Auth::user()->username;
-    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
-    $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+    // $username =Auth::user()->username;
+    // $username =User::where('id', $info->user_id)->first();
+    $username =auth()->user();
+
+
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username->username)->get();
+    $user = UserExistingStaffInfo::where('USERNAME', $username->username)->get('STAFFNO');
 
     foreach ($user as $keluarga) {
 
@@ -658,84 +662,6 @@ public function add(array $data){
 
   else if ($request->has('publish'))
   {
-    //save draft backend
-    // $this->validatorsave($request->all())->validate();
-    // // dd($request->all());
-    // event($formbs = $this->adddraftbackend($request->all()));
-    //
-    // $count = count($request->dividen_1);
-    // // dd($request->dividen_1); //get the index number of the first array
-    // // dd($count);
-    // $count_id = 0;
-    //
-    // // for ($i=1; $i < $count; $i++) {
-    // // for ($i=key($request->dividen_1); $i <= $count; $i++) {
-    // for ($i=0; $i < $count; $i++) {
-    //   $count_id++;
-    //   // dd($i);
-  	//   $dividen_bs = new DividenB();
-  	//   $dividen_bs->dividen_1 = $request->dividen_1[$i];
-  	//   $dividen_bs->dividen_1_pegawai = $request->dividen_1_pegawai[$i];
-    //   $dividen_bs->dividen_1_pasangan = $request->dividen_1_pasangan[$i];
-    //   $dividen_bs->formbs_id = $formbs-> id;
-    //   $dividen_bs->dividen_id = $count_id;
-    //   $dividen_bs->save();
-    // }
-    //
-    // $count1 = count($request->lain_lain_pinjaman);
-    // // dd($count1);
-    // $count_id_pinjaman = 0;
-    // // dd(key($request->lain_lain_pinjaman));//get the index number of the first array
-    //
-    // for ($i=0; $i < $count1; $i++) {
-    //
-    //     $count_id_pinjaman++;
-    //  	  $pinjaman_bs = new PinjamanB();
-    //  	  $pinjaman_bs->lain_lain_pinjaman = $request->lain_lain_pinjaman[$i];
-    //  	  $pinjaman_bs->pinjaman_pegawai = $request->pinjaman_pegawai[$i];
-    //     $pinjaman_bs->bulanan_pegawai = $request->bulanan_pegawai[$i];
-    //     $pinjaman_bs->pinjaman_pasangan = $request->pinjaman_pasangan[$i];
-    //     $pinjaman_bs->bulanan_pasangan = $request->bulanan_pasangan[$i];
-    //     $pinjaman_bs->formbs_id = $formbs-> id;
-    //     $pinjaman_bs->pinjaman_id = $count_id_pinjaman;
-    //      //dd($request->all());
-    //     $pinjaman_bs->save();
-    //  }
-    //
-    //  if($request->jenis_harta_){
-    //    $count_harta = count($request->jenis_harta_);
-    //  }
-    //  else {
-    //    $count_harta = 0;
-    //  }
-    //
-    //  for ($i=0; $i < $count_harta; $i++) {
-    //
-   	//    $hartaB = new HartaB();
-   	//    $hartaB->jenis_harta = $request->jenis_harta_[$i];
-   	//    $hartaB->pemilik_harta = $request->pemilik_harta_[$i];
-    //    $hartaB->hubungan_pemilik = $request->select_hubungan_[$i];
-    //    $hartaB->maklumat_harta = $request->maklumat_harta_[$i];
-    //    $hartaB->tarikh_pemilikan_harta = $request->tarikh_pemilikan_harta_[$i];
-    //    $hartaB->bilangan = $request->bilangan_[$i];
-   	//    $hartaB->nilai_perolehan = $request->nilai_perolehan_[$i];
-    //    $hartaB->cara_perolehan = $request->cara_perolehan_[$i];
-    //    $hartaB->lain_lain = $request->lain_lain_[$i];
-    //    $hartaB->cara_belian = $request->cara_belian_[$i];
-    //    $hartaB->nama_pemilikan_asal = $request->nama_pemilikan_asal_[$i];
-   	//    $hartaB->jumlah_pinjaman = $request->jumlah_pinjaman_[$i];
-    //    $hartaB->institusi_pinjaman = $request->institusi_pinjaman_[$i];
-    //    $hartaB->tempoh_bayar_balik = $request->tempoh_bayar_balik_[$i];
-    //    $hartaB->ansuran_bulanan = $request->ansuran_bulanan_[$i];
-    //    $hartaB->tarikh_ansuran_pertama = $request->tarikh_ansuran_pertama_[$i];
-    //    $hartaB->jenis_harta_pelupusan = $request->jenis_harta_pelupusan_[$i];
-   	//    $hartaB->alamat_asset = $request->alamat_asset_[$i];
-    //    $hartaB->no_pendaftaran = $request->no_pendaftaran_[$i];
-    //    $hartaB->harga_jualan = $request->harga_jualan_[$i];
-    //    $hartaB->tarikh_lupus = $request->tarikh_lupus_[$i];
-    //    $hartaB->formbs_id = $formbs-> id;
-    //    $hartaB->save();
-    //  }
 
   // submit form
     $this->validatorpublish($request->all())->validate();
@@ -877,7 +803,7 @@ public function add(array $data){
      }
 
      public function updateFormB(Request $request,$id){
-       // info($request->all());
+       // dd($id);
        if ($request->has('save')){
         $this->validatorsave(request()->all())->validate();
         $formbs = FormB::find($id);
@@ -1042,10 +968,11 @@ public function add(array $data){
     }
 
        else if($request->has('publish')){
-
+         // dd($request->all());
         $this->validatorpublish(request()->all())->validate();
 
         $formbs = FormB::find($id);
+
         $count_div = DividenB::where('formbs_id', $formbs->id)->get();
         $count = count($count_div);
 
@@ -1059,7 +986,6 @@ public function add(array $data){
           $dividen_b->delete();
         }
       }
-
         // $formbs = FormB::find($id);
         $count_pinjaman = PinjamanB::where('formbs_id', $formbs->id)->get();
         $count_loan = count($count_pinjaman);
@@ -1184,7 +1110,7 @@ public function add(array $data){
           }
         }
         elseif ($request->jenis_harta_[$i] == "Rumah") {
-          if($$request->cara_belian_[$i] =="Pinjaman"){
+          if($request->cara_belian_[$i] =="Pinjaman"){
             if ($request->select_hubungan_[$i] == "Sendiri") {
               $pinjaman_rumah_sendiri = $pinjaman_rumah_sendiri + $request->jumlah_pinjaman_[$i] ?? 0;
               $bulanan_rumah_sendiri = $bulanan_rumah_sendiri + $request->ansuran_bulanan_[$i] ?? 0;
