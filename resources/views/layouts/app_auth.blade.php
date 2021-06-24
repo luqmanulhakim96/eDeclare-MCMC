@@ -29,8 +29,10 @@
       font-family: 'Poppins', sans-serif;
     }
     </style>
+     @livewireStyles
 </head>
 <body class="position-relative">
+     @livewireScripts
   <div class="container-fluid px-0">
       <div class="row" style="padding-left:3%;padding-top:1%;">
         <div class="col-md-1">

@@ -58,45 +58,50 @@ class FormBController extends Controller
 
     //data gaji user (latest)
     $username =Auth::user()->username;
-    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    $staffinfo= null;
+    // $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
     // dd($staffinfo);
 
     //data dari form latest
     $userid = Auth::user()->id;
     $data_user = FormB::where('user_id', $userid) ->get();
-    $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+    // $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
     if($data_user->isEmpty()){
 
       $last_data_formb = null;
       $dividen_user= null;
       $pinjaman_user= null;
-      $maklumat_pasangan = UserExistingStaffInfo::where('USERNAME', $username) ->get();
-      $maklumat_anak = UserExistingStaffInfo::where('USERNAME', $username) ->get();
-      if($maklumat_pasangan->isEmpty()){
-        $maklumat_pasangan = null;
-      }
-      else{
-        foreach ($user as $keluarga) {
-        $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
-        }
-      }
+      $maklumat_pasangan = null;
+      $maklumat_anak = null;
+      // $maklumat_pasangan = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+      // $maklumat_anak = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+      // if($maklumat_pasangan->isEmpty()){
+      //   $maklumat_pasangan = null;
+      // }
+      // else{
+      //   foreach ($user as $keluarga) {
+      //   $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+      //   }
+      // }
 
-      if($maklumat_anak->isEmpty()){
-        $maklumat_anak = null;
-      }
-      else{
-        foreach ($user as $keluarga) {
+      // if($maklumat_anak->isEmpty()){
+      //   $maklumat_anak = null;
+      // }
+      // else{
+      //   foreach ($user as $keluarga) {
 
-          $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
-          $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
-          $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
-          $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
-          }
+      //     $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+      //     $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+      //     $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+      //     $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+      //     }
 
 
-        }
+      //   }
 
         return view('user.harta.FormB.formB-no-data', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+        // return view('livewire.form-b', compact('jenisHarta','staffinfo','maklumat_pasangan','maklumat_anak','dividen_user','last_data_formb','pinjaman_user'));
+
       }
 
 
@@ -107,15 +112,17 @@ class FormBController extends Controller
         // dd($dividen_user);
         $pinjaman_user = PinjamanB::where('formbs_id', $last_data_formb->id) ->get();
         // dd($pinjaman_user);
+        $maklumat_pasangan = null;
+        $maklumat_anak = null;
 
 
-      foreach ($user as $keluarga) {
+      // foreach ($user as $keluarga) {
 
-        $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
-        $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
-        $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
-        $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
-        }
+      //   $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+      //   $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+      //   $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+      //   $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+      //   }
 
         $data_form = FormB::where('user_id', $userid) ->where('status', "Diterima")->get();
         $harta = null;
@@ -144,35 +151,50 @@ class FormBController extends Controller
 
   public function editformB($id){
     // $info = SenaraiHarga::find(1);
-    $info = FormB::findOrFail($id);
-    // dd($info);
-    $jenisHarta = JenisHarta::get();
+    // $info = FormB::findOrFail($id);
+    // // dd($info);
+    // $jenisHarta = JenisHarta::get();
 
-    $listDividenB = DividenB::where('formbs_id', $info->id) ->get();
-      // dd($listDividenB[0]->dividen_1);
-    $listPinjamanB = PinjamanB::where('formbs_id', $info->id) ->get();
+    // $listDividenB = DividenB::where('formbs_id', $info->id) ->get();
+    //   // dd($listDividenB[0]->dividen_1);
+    // $listPinjamanB = PinjamanB::where('formbs_id', $info->id) ->get();
 
-    $count_div = DividenB::where('formbs_id', $info->id)->count();
-    $count_pinjaman = PinjamanB::where('formbs_id', $info->id)->count();
+    // $count_div = DividenB::where('formbs_id', $info->id)->count();
+    // $count_pinjaman = PinjamanB::where('formbs_id', $info->id)->count();
 
-    $username =Auth::user()->username;
-    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
-    $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+    // $username =Auth::user()->username;
+    // $staffinfo= null;
+    // // $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    // // dd($staffinfo);
 
-    foreach ($user as $keluarga) {
+    // //data dari form latest
+    // $userid = Auth::user()->id;
+    // $data_user = FormB::where('user_id', $userid) ->get();
 
-      $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
-      $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
-      $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
-      $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
-      }
+    //   $last_data_formb = null;
+    //   $dividen_user= null;
+    //   $pinjaman_user= null;
+    //   $maklumat_pasangan = null;
+    //   $maklumat_anak = null;
 
-    $hartaB =HartaB::where('formbs_id',$info->id) ->get();
-    // dd($hartaB);
+    // // $username =Auth::user()->username;
+    // // $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    // // $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+
+    // // foreach ($user as $keluarga) {
+
+    // //   $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+    // //   $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+    // //   $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+    // //   $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+    // //   }
+
+    // $hartaB =HartaB::where('formbs_id',$info->id) ->get();
+    // // dd($hartaB);
+$id_formb =$id;
 
 
-
-    return view('user.harta.FormB.editformB-latest', compact('info','maklumat_pasangan','maklumat_anak','listDividenB','listPinjamanB','count_div','count_pinjaman','jenisHarta','hartaB','staffinfo'));
+    return view('user.harta.FormB.editformB-latest',compact('id_formb'));
   }
 
   public function deleteHartaB($id){
@@ -239,13 +261,13 @@ public function add(array $data){
     // dd($data);
 
       return FormB::create([
-        'no_staff' => $data['no_staff'],
+        // 'no_staff' => $data['no_staff'],
         'nama_pegawai' => $data['nama_pegawai'],
-        'kad_pengenalan' => $data['kad_pengenalan'],
-        'jawatan' => $data['jawatan'],
+        // 'kad_pengenalan' => $data['kad_pengenalan'],
+        // 'jawatan' => $data['jawatan'],
         'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
-        'jabatan' => $data['jabatan'],
-        'gaji' => $data['gaji'],
+        // 'jabatan' => $data['jabatan'],
+        // 'gaji' => $data['gaji'],
         'gaji_pasangan' => $data['gaji_pasangan'],
         'jumlah_imbuhan' => $data['jumlah_imbuhan'],
         'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],
@@ -926,12 +948,17 @@ public function add(array $data){
       for ($i=0; $i < $count_harta; $i++) {
 
         $hartaB = new HartaB();
-        $hartaB->jenis_harta = $request->jenis_harta_[$i];
+        $hartaB->jenis_harta = $request->jenis_harta_[$i] ;
         $hartaB->pemilik_harta = $request->pemilik_harta_[$i];
+        // $hartaB->nama_pemilik_bersama = $request->nama_pemilik_bersama_[$i] ;
+        // $hartaB->lain_lain_hubungan = $request->lain_lain_hubungan_[$i];
         $hartaB->hubungan_pemilik = $request->select_hubungan_[$i];
         $hartaB->maklumat_harta = $request->maklumat_harta_[$i];
         $hartaB->tarikh_pemilikan_harta = $request->tarikh_pemilikan_harta_[$i];
         $hartaB->bilangan = $request->bilangan_[$i];
+        // $hartaB->unit_bilangan = $request->unit_bilangan_[$i];
+        // $hartaB->keterangan_lain = $request->keterangan_lain_[$i];
+        // $hartaB->tunai = $request->tunai_[$i];
         $hartaB->nilai_perolehan = $request->nilai_perolehan_[$i];
         $hartaB->cara_perolehan = $request->cara_perolehan_[$i];
         $hartaB->lain_lain = $request->lain_lain_[$i];
@@ -1053,9 +1080,14 @@ public function add(array $data){
     	  $hartaB->jenis_harta = $request->jenis_harta_[$i];
     	  $hartaB->pemilik_harta = $request->pemilik_harta_[$i];
         $hartaB->hubungan_pemilik = $request->select_hubungan_[$i];
+        $hartaB->nama_pemilik_bersama = $request->nama_pemilik_bersama_[$i];
+        $hartaB->lain_lain_hubungan = $request->lain_lain_hubungan_[$i];
         $hartaB->maklumat_harta = $request->maklumat_harta_[$i];
         $hartaB->tarikh_pemilikan_harta = $request->tarikh_pemilikan_harta_[$i];
         $hartaB->bilangan = $request->bilangan_[$i];
+        $hartaB->unit_bilangan = $request->unit_bilangan_[$i];
+        $hartaB->keterangan_lain = $request->keterangan_lain_[$i];
+        $hartaB->tunai = $request->tunai_[$i];
     	  $hartaB->nilai_perolehan = $request->nilai_perolehan_[$i];
         $hartaB->cara_perolehan = $request->cara_perolehan_[$i];
         $hartaB->lain_lain = $request->lain_lain_[$i];
