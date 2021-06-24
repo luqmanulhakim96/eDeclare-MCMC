@@ -200,6 +200,11 @@ Route::get('/lampiran/D/id={id}', 'UserController@viewD')->name('user.harta.Form
 
 Route::get('/lampiran/G/id={id}', 'UserController@viewG')->name('user.harta.FormG.viewformG');
 
+Route::get('/senarai/hadiah/pegawai/{id}', 'UserController@senaraihadiahdashboard')->name('listGift');
+
+Route::get('/senarai/harta/pegawai/{id}', 'UserController@senaraihartadashboard')->name('listHarta');
+
+
 // Route::get('/permohonan/giftB', 'UserController@FormB')->name('user.harta.viewformB');
 
 
@@ -293,7 +298,7 @@ Route::get('/lampiran/Ulasan-Harta-G/id={id}', 'AdminController@viewUlasanHartaG
 
 Route::get('/senarai-harta', 'AdminController@senaraiAllForm')->name('user.admin.harta.senaraiallharta');
 
-Route::get('/senarai-harta-ketua-jabatan', 'HodivController@senaraiAllForm')->name('user.hodiv.harta.senaraiallharta');
+Route::get('/senarai-harta-ketua-bahagian', 'HodivController@senaraiAllForm')->name('user.hodiv.harta.senaraiallharta');
 
 Route::get('/admin/senarai-harta-pengguna/id={id}', 'AdminController@senaraiAllUserForm')->name('user.admin.senaraiallharta1');
 

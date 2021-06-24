@@ -77,7 +77,7 @@
                                       </div>
                                   </div>
 
-                                  @if($maklumat_pasangan->isEmpty())
+                                  @if($maklumat_pasangan == null)
                                   @else
 
                                                 <!-- keluarga -->
@@ -133,7 +133,7 @@
                                                   @endforeach
                                                   @endif
 
-                                                  @if($maklumat_anak->isEmpty())
+                                                  @if($maklumat_anak == null)
                                                   @else
                                                   @foreach($maklumat_anak as $maklumat_anak)
                                                   <div class="row">
@@ -219,7 +219,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div align="center">
-                                                {{$listHarta->gaji }}
+                                                {{number_format((float)$listHarta->gaji,2,'.','')}}
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
@@ -748,4 +748,6 @@
             </div>
       </div>
 </div>
+<br><br><br><br>
+
 @endsection

@@ -39,6 +39,8 @@ class FormCController extends Controller
 
     $username =Auth::user()->username;
     $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    $draft_exist = FormC::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
+
 
     if($data_user->isEmpty()){
       // dd('Sila isi Lampiran B');
@@ -51,7 +53,7 @@ class FormCController extends Controller
         $harta[] = HartaB::where('formbs_id',$data->id)->where('formcs_id',null)->get();
       }
 
-      return view('user.harta.FormC.formC-has-data', compact('jenisHarta','data_user', 'harta','staffinfo'));
+      return view('user.harta.FormC.formC-has-data', compact('jenisHarta','data_user', 'harta','staffinfo', 'draft_exist'));
     }
   }
 
@@ -86,6 +88,8 @@ class FormCController extends Controller
 public function add(array $data){
   $userid = Auth::user()->id;
   $sedang_proses= "Sedang Diproses";
+  $staffinfo = UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
+
 
     return FormC::create([
       'no_staff' => $data['no_staff'],
@@ -93,7 +97,7 @@ public function add(array $data){
       'kad_pengenalan' => $data['kad_pengenalan'],
       'jawatan' => $data['jawatan'],
       'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
-      'jabatan' => $data['jabatan'],
+      'jabatan' => $staffinfo->OLEVEL4NAME,
       'pengakuan' => $data['pengakuan'],
       'user_id' => $userid,
       'status' => $sedang_proses,
@@ -105,13 +109,14 @@ public function add(array $data){
   public function adddraft(array $data){
     $userid = Auth::user()->id;
     $sedang_proses= "Disimpan ke Draf";
+    $staffinfo = UserExistingStaffInfo::where('USERNAME', auth()->user()->username)->first();
 
       return FormC::create([
         'nama_pegawai' => $data['nama_pegawai'],
         'kad_pengenalan' => $data['kad_pengenalan'],
         'jawatan' => $data['jawatan'],
         'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
-        'jabatan' => $data['jabatan'],
+        'jabatan' => $staffinfo->OLEVEL4NAME,
         'user_id' => $userid,
         'status' => $sedang_proses,
         // 'harta_id'=> $data['id_harta_']

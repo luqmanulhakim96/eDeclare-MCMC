@@ -6,6 +6,11 @@
                    <!-- Col md 6 -->
                    <div class="col-md-12 mt-4" >
                        <!-- basic light table card -->
+                       <div class="">
+                         <a href="{{route('user.senaraiharta')}}" class="btn btn-primary" name="button">Kembali</a>
+                       </div>
+
+                       <br>
                        <div class="card rounded-lg" >
                            <div class="card-body">
                                <div class="card-title">Senarai Sejarah Perisytiharan Harta</div>
@@ -48,7 +53,7 @@
                                                @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Sedang Dikemaskini")
-                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               <span class="badge badge-warning badge-pill">Permohonan Kemaskini Diluluskan</span>
                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
@@ -129,6 +134,7 @@
                    </div>
                  </div>
              </div>
+             <br><br><br><br>
              <script type="text/javascript">
              $(document).ready(function() {
                  var buttonCommon = {

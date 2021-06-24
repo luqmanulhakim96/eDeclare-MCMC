@@ -240,40 +240,34 @@
                     <td colspan="2"><b><h5>5. KETERANGAN MENGENAI HARTA</h5></b></td>
                   </tr>
                   <tr>
-                    @foreach($hartaB as $data)
-                    <td colspan="2">Jenis Harta</td>
-                    <td colspan="3">{{ $data ->jenis_harta }}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">Pemilik Harta</td>
-                    <td colspan="3">{{ $data ->pemilik_harta }}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">Hubungan Dengan Pegawai (sendiri, suami atau isteri, anak dan sebagainya</td>
-                    <td colspan="3">{{ $data ->hubungan_pemilik }}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</td>
-                    <td colspan="3">{{ $data ->maklumat_harta }}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">Tarikh Pemilikan Harta</td>
-                    <td colspan="3">{{ $data ->tarikh_pemilikan_harta }}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">Bilangan / Ekar / kaki Persegi / Unit (jika rumah, nyatakan keluasan tanah tapak rumah itu)</td>
-                    <td colspan="3">{{ $data ->bilangan }}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">Nilai Perolehan Harta (RM)</td>
-                    <td colspan="3">{{ $data ->nilai_perolehan }}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">Cara Harta Diperolehi, (dipusakai, dibeli, dihadiahkan dan sebagainya)</td>
-                    <td colspan="3">{{ $data ->cara_perolehan }}</td>
-                  </tr>
 
-                  @endforeach
+                    <!-- <table border="1"> -->
+                      <th>Jenis Harta</th>
+                      <th>Pemilik Harta</th>
+                      <th>Hubungan Dengan Pegawai</th>
+                      <th>Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</th>
+                      <th>Tarikh Pemilikan Harta</th>
+                      <th>Bilangan / Ekar / kaki Persegi / Unit</th>
+                      <th>Nilai Perolehan</th>
+                      <th>Cara Perolehan</th>
+
+                      @foreach($hartaB as $data)
+                      <tr>
+                        <td>{{ $data ->jenis_harta }}</td>
+                        <td>{{ $data ->pemilik_harta }}</td>
+                        <td>{{ $data ->hubungan_pemilik }}</td>
+                        <td>{{ $data ->maklumat_harta }}</td>
+                        <td>{{ $data ->tarikh_pemilikan_harta }}</td>
+                        <td> {{ $data ->bilangan }} {{ $data ->unit_bilangan }}</td>
+                        <td>{{ $data ->nilai_perolehan }}</td>
+                        <td>{{ $data ->cara_perolehan }}</td>
+                      </tr>
+                      @endforeach
+                    <!-- </table> -->
+                    <tr>
+                      <td colspan="4"><b><h5>6. PUNCA PUNCA KEWANGAN BAGI MEMILIKI HARTA DAN JUMLAHNYA</h5></b></td>
+                    </tr>
+
                   @foreach($hartaB as $data)
                     @if($data->cara_perolehan == "Dipusakai"||$data->cara_perolehan == "Dihadiahkan")
                     <tr>
@@ -308,6 +302,10 @@
                           <td colspan="2">v)	Tarikh ansuran pertama</td>
                           <td colspan="3">{{ $data ->tarikh_ansuran_pertama }}</td>
                         </tr>
+                        <tr>
+                          <td colspan="2">vi)	Keterangan Lain</td>
+                          <td colspan="3">{{ $data ->keterangan_lain }}</td>
+                        </tr>
                         @elseif($data->cara_belian == "Pelupusan")
                           <tr>
                             <td colspan="2">i)	Jenis Harta</td>
@@ -328,6 +326,11 @@
                           <tr>
                             <td colspan="2">v)	Tarikh lupus</td>
                             <td colspan="3">{{ $data ->tarikh_lupus }}</td>
+                          </tr>
+                          @else
+                          <tr>
+                            <td colspan="2">i)	Nilai Belian Harta</td>
+                            <td colspan="3">{{ $data ->tunai }}</td>
                           </tr>
                       @endif
                     @endif

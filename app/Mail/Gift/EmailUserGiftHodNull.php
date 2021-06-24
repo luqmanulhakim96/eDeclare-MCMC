@@ -34,7 +34,7 @@ class EmailUserGiftHodNull extends Mailable
 
         return $this->to($this->admin->email , $this->admin->name)
                 // ->from(env('MAIL_FROM_ADDRESS'))
-                ->from('system@mcmc.com')
+                ->from('declare@mcmc.gov.my')
                 ->subject('Lampiran Hadiah Baharu')
                 ->view('mail.template.gift_b.emailNull_userFormAdmin');
     }

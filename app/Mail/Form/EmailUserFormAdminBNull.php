@@ -34,7 +34,7 @@ class EmailUserFormAdminBNull extends Mailable
 
         return $this->to($this->admin->email , $this->admin->name)
                 // ->from(env('MAIL_FROM_ADDRESS'))
-                ->from('system@mcmc.com')
+                ->from('declare@mcmc.gov.my')
                 ->subject('Lampiran B Baharu')
                 ->view('mail.template.form_b.emailNull_userFormAdmin');
     }

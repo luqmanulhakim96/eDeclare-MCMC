@@ -133,7 +133,7 @@
                                           <p class="required">ii) Nilai/ Anggaran Nilai</p>
                                       </div>
                                       <div class="col-md-8">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="nilai_hadiah" value="{{old('nilai_hadiah')}}" id="nilai_hadiah" placeholder="Nilai Hadiah/ Anggaran Nilai" >
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="nilai_hadiah" value="{{old('nilai_hadiah')}}" id="nilai_hadiah" placeholder="Nilai Hadiah/ Anggaran Nilai" >
                                       </div>
                                       @error('nilai_hadiah')
                                       <div class="alert alert-danger">
@@ -303,6 +303,8 @@
                       </div>
                </div>
            </div>
+           </div>
+           <br><br><br><br>
            <script>
               function fileValidation() {
                   var fileInput =
@@ -337,13 +339,25 @@
            document.getElementById("datefield").setAttribute("max", today);
            </script>
            <script>
-           function onlyNumberKey(evt) {
+           function onlyNumberKey(evt, element) {
+              var charCode = (evt.which) ? evt.which : event.keyCode
+              if (charCode > 31 && (charCode < 48 || charCode > 57) && !(charCode == 46 || charCode == 8))
+                return false;
+              else {
+                var len = $(element).val().length;
+                var index = $(element).val().indexOf('.');
+                if (index > 0 && charCode == 46) {
+                  return false;
+                }
+                if (index > 0) {
+                  var CharAfterdot = (len + 1) - index;
+                  if (CharAfterdot > 3) {
+                    return false;
+                  }
+                }
 
-               // Only ASCII charactar in that range allowed
-               var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-               if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-                   return false;
-               return true;
-           }
+              }
+              return true;
+            }
            </script>
 @endsection

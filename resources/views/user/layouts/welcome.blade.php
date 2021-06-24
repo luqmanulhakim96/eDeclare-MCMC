@@ -513,6 +513,9 @@
                                             @endif
                                           @endfor
                                   @endif
+                                  <li class="nav-item">
+                                    <a class="nav-link text-secondary-side" href="{{ asset('manual/PANDUANPENGGUNA.pdf') }}" target="_blank"><i class="fas fa-dot-circle"></i> Panduan Pengguna</a>
+                                  </li>
                         </ul>
                   </div>
               </nav>

@@ -211,15 +211,17 @@ class IntegrityHodController extends Controller
           $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
           }
 
-      if($maklumat_pasangan->isEmpty()){
-        return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
-      }
-      elseif ($maklumat_anak->isEmpty()) {
-        return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
-      }
-      else{
+          if($maklumat_pasangan->isEmpty()){
+            $maklumat_pasangan = null;
+            // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo','ulasanAdmin','ulasanHOD'));
+          }
+          if ($maklumat_anak->isEmpty()) {
+            $maklumat_anak = null;
+            // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
+          }
+
         return view('user.integrityHOD.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','maklumat_anak','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
-      }
+
     }
 
 
@@ -252,15 +254,16 @@ class IntegrityHodController extends Controller
           $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
           }
 
-      if($maklumat_pasangan->isEmpty()){
-        return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
-      }
-      elseif ($maklumat_anak->isEmpty()) {
-        return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
-      }
-      else{
+          if($maklumat_pasangan->isEmpty()){
+            $maklumat_pasangan = null;
+            // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo','ulasanAdmin','ulasanHOD'));
+          }
+          if ($maklumat_anak->isEmpty()) {
+            $maklumat_anak = null;
+            // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
+          }
       return view('user.integrityHOD.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHodiv','ulasanHOD'));
-      }
+
     }
 
     public function viewUlasanHartaC($id)
@@ -363,7 +366,7 @@ class IntegrityHodController extends Controller
        elseif ($request->status == 'Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formbs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusb->user_id)->first(); //get system admin information
          // dd($user);
          $this->dispatch(new SendNotificationFormBHod($user, $email, $formbs));
          SendNotificationFormBHod::dispatch($user, $email, $formbs)->delay(now()->addMinutes(1));
@@ -374,7 +377,7 @@ class IntegrityHodController extends Controller
        else {
          $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formbs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusb->user_id)->first(); //get system admin information
 
          $this->dispatch(new SendNotificationFormBHod($user, $email, $formbs));
 
@@ -414,7 +417,7 @@ class IntegrityHodController extends Controller
        elseif ($request->status == 'Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formcs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusc->user_id)->first(); //get system admin information
 
          $this->dispatch(new SendNotificationFormCHod($user,$email, $formcs));
 
@@ -422,7 +425,7 @@ class IntegrityHodController extends Controller
        else {
          $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formcs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusc->user_id)->first(); //get system admin information
          $this->dispatch(new SendNotificationFormCHod($user,$email, $formcs));
 
      }
@@ -460,14 +463,14 @@ class IntegrityHodController extends Controller
        elseif ($request->status == 'Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formds->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusd->user_id)->first(); //get system admin information
          $this->dispatch(new SendNotificationFormCHod($user, $email, $formds));
 
       }
        else {
          $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formds->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusd->user_id)->first(); //get system admin information
          $this->dispatch(new SendNotificationFormCHod($user, $email, $formds));
 
      }
@@ -505,7 +508,7 @@ class IntegrityHodController extends Controller
        elseif ($request->status == 'Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Harta Diterima')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formgs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusg->user_id)->first(); //get system admin information
 
          $this->dispatch(new SendNotificationFormGHod($user, $email, $formgs));
 
@@ -513,7 +516,7 @@ class IntegrityHodController extends Controller
        elseif ($request->status == 'Tidak Diterima') {
          $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
          // $email = null; // for testing
-         $user = User::where('id', '=', $formgs->user_id)->first(); //get system admin information
+         $user = User::where('id', '=', $statusg->user_id)->first(); //get system admin information
 
          $this->dispatch(new SendNotificationFormGHod($user, $email, $formgs));
 

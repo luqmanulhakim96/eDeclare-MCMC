@@ -74,6 +74,7 @@
                                   </div>
                                   <br>
                                   @if($maklumat_pasangan->isEmpty())
+
                                   @else
 
                                                 <!-- keluarga -->
@@ -214,7 +215,7 @@
                                         </div>
                                         <div class="col-md-4" align="center">
 
-                                          {{ $listHarta ->gaji }}
+                                          {{number_format((float)$listHarta->gaji,2,'.','')}}
 
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
@@ -865,4 +866,6 @@
             // doctype.getElementById("counter").value = counter;
            }
            </script>
+ </div>
+ <br><br><br>
 @endsection

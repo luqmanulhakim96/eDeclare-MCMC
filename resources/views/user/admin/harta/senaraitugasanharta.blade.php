@@ -232,7 +232,7 @@
                                                     <a href="{{ route('user.harta.FormD.viewformD', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                 </div>
                                                 @elseif($data ->getTable() == "formgs")
-                                                Lampiran G
+                                                Lampiran E
                                                 <div class="d-flex flex-row justify-content-around align-items-center">
                                                     <a href="{{ route('user.harta.FormG.viewformG', $data->id) }}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                                 </div>
@@ -428,6 +428,8 @@
                    </div>
                  </div>
              </div>
+             <br><br><br><br>
+
              <script type="text/javascript">
              $(document).ready(function() {
                  var buttonCommon = {

@@ -269,11 +269,11 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                              {{ $info->gaji  }}
+                                              {{number_format((float)$info->gaji,2,'.','')}}
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ $info->gaji_pasangan  }}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ $info->gaji_pasangan  }}">
                                             @error('gaji_pasangan')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
@@ -287,14 +287,14 @@
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                              <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_imbuhan" placeholder="Imbuhan Pegawai" value="{{ $info->jumlah_imbuhan  }}">
+                                              <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="jumlah_imbuhan" placeholder="Imbuhan Pegawai" value="{{ $info->jumlah_imbuhan  }}">
                                               @error('jumlah_imbuhan')
                                                  <div class="alert alert-danger">{{ $message }}</div>
                                              @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_imbuhan_pasangan" placeholder="Imbuhan Pasangan" value="{{ $info->jumlah_imbuhan_pasangan  }}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="jumlah_imbuhan_pasangan" placeholder="Imbuhan Pasangan" value="{{ $info->jumlah_imbuhan_pasangan  }}">
                                           @error('jumlah_imbuhan_pasangan')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
@@ -308,14 +308,14 @@
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                              <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="sewa" placeholder="Sewa Pegawai" value="{{ $info->sewa  }}" >
+                                              <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="sewa" placeholder="Sewa Pegawai" value="{{ $info->sewa  }}" >
                                               @error('sewa')
                                                  <div class="alert alert-danger">{{ $message }}</div>
                                              @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="sewa_pasangan" placeholder="Sewa Pasangan" value="{{ $info->sewa_pasangan  }}" >
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="sewa_pasangan" placeholder="Sewa Pasangan" value="{{ $info->sewa_pasangan  }}" >
                                           @error('sewa_pasangan')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
@@ -341,14 +341,14 @@
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div class="input-group">
-                                                <input class="form-control bg-light"  onkeypress="return onlyNumberKey(event)" name="dividen_1_pegawai[]" id="dividen0" placeholder="Dividen Pegawai"  value="{{ old('dividen_1_pegawai[]')}}">
+                                                <input class="form-control bg-light"  onkeypress="return onlyNumberKey(event,this)" name="dividen_1_pegawai[]" id="dividen0" placeholder="Dividen Pegawai"  value="{{ old('dividen_1_pegawai[]')}}">
                                             </div>
                                             @error('dividen_1_pegawai[]')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0">
-                                            <input class="form-control bg-light"  onkeypress="return onlyNumberKey(event)" name="dividen_1_pasangan[]" id="dividen0" placeholder="Dividen Pasangan"  value="{{ old('dividen_1_pasangan[]')}}">
+                                            <input class="form-control bg-light"  onkeypress="return onlyNumberKey(event,this)" name="dividen_1_pasangan[]" id="dividen0" placeholder="Dividen Pasangan"  value="{{ old('dividen_1_pasangan[]')}}">
                                         </div>
                                         @error('dividen_1_pasangan[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
@@ -378,14 +378,14 @@
                                             </div>
                                             <div class="col-md-4 mt-2 mt-md-0">
                                                 <div class="input-group">
-                                                    <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  name="dividen_1_pegawai[]" placeholder="Dividen Pegawai" value="{{$dividen->dividen_1_pegawai}}">
+                                                    <input class="form-control bg-light" onkeypress="return onlyNumberKey(event,this)"  name="dividen_1_pegawai[]" placeholder="Dividen Pegawai" value="{{$dividen->dividen_1_pegawai}}">
                                                     @error('dividen_1_pegawai[]')
                                                        <div class="alert alert-danger">{{ $message }}</div>
                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mt-2 mt-md-0">
-                                                <input class="form-control bg-light" onkeypress="return onlyNumberKey(event)"  name="dividen_1_pasangan[]" placeholder="Dividen Pasangan" value="{{ $dividen->dividen_1_pasangan}}">
+                                                <input class="form-control bg-light" onkeypress="return onlyNumberKey(event,this)"  name="dividen_1_pasangan[]" placeholder="Dividen Pasangan" value="{{ $dividen->dividen_1_pasangan}}">
                                                 @error('dividen_1_pasangan[]')
                                                    <div class="alert alert-danger">{{ $message }}</div>
                                                @enderror
@@ -432,25 +432,25 @@
                                           <p>i) Jumlah Pinjaman Perumahan</p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_perumahan_pegawai" value="{{ $info->pinjaman_perumahan_pegawai  }}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_perumahan_pegawai" value="{{ $info->pinjaman_perumahan_pegawai  }}">
                                           @error('pinjaman_perumahan_pegawai')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                        </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_perumahan_pegawai" value="{{ $info->bulanan_perumahan_pegawai  }}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_perumahan_pegawai" value="{{ $info->bulanan_perumahan_pegawai  }}">
                                           @error('bulanan_perumahan_pegawai')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                         </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_perumahan_pasangan" value="{{ $info->pinjaman_perumahan_pasangan  }}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_perumahan_pasangan" value="{{ $info->pinjaman_perumahan_pasangan  }}">
                                             @error('pinjaman_perumahan_pasangan')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
                                           </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_perumahan_pasangan" value="{{ $info->bulanan_perumahan_pasangan  }}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_perumahan_pasangan" value="{{ $info->bulanan_perumahan_pasangan  }}">
                                             @error('bulanan_perumahan_pasangan')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
@@ -463,25 +463,25 @@
                                           <p>ii) Jumlah Pinjaman Kenderaan</p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_kenderaan_pegawai" value="{{ $info->pinjaman_kenderaan_pegawai  }}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_kenderaan_pegawai" value="{{ $info->pinjaman_kenderaan_pegawai  }}">
                                           @error('pinjaman_kenderaan_pegawai')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                        </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_kenderaan_pegawai" value="{{ $info->bulanan_kenderaan_pegawai  }}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_kenderaan_pegawai" value="{{ $info->bulanan_kenderaan_pegawai  }}">
                                           @error('bulanan_kenderaan_pegawai')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                        </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_kenderaan_pasangan" value="{{ $info->pinjaman_kenderaan_pasangan  }}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_kenderaan_pasangan" value="{{ $info->pinjaman_kenderaan_pasangan  }}">
                                             @error('pinjaman_kenderaan_pasangan')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
                                          </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_kenderaan_pasangan" value="{{ $info->bulanan_kenderaan_pasangan  }}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_kenderaan_pasangan" value="{{ $info->bulanan_kenderaan_pasangan  }}">
                                             @error('bulanan_kenderaan_pasangan')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
@@ -494,25 +494,25 @@
                                           <p>iii) Cukai Pendapatan</p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_cukai_pegawai" value="{{ $info->jumlah_cukai_pegawai  }}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="jumlah_cukai_pegawai" value="{{ $info->jumlah_cukai_pegawai  }}">
                                           @error('jumlah_cukai_pegawai')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                        </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_cukai_pegawai" value="{{ $info->bulanan_cukai_pegawai  }}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_cukai_pegawai" value="{{ $info->bulanan_cukai_pegawai  }}">
                                           @error('bulanan_cukai_pegawai')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                        </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_cukai_pasangan" value="{{ $info->jumlah_cukai_pasangan  }}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="jumlah_cukai_pasangan" value="{{ $info->jumlah_cukai_pasangan  }}">
                                             @error('jumlah_cukai_pasangan')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
                                          </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_cukai_pasangan" value="{{ $info->bulanan_cukai_pasangan  }}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_cukai_pasangan" value="{{ $info->bulanan_cukai_pasangan  }}">
                                             @error('bulanan_cukai_pasangan')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
@@ -525,25 +525,25 @@
                                           <p>iv) Pinjaman Koperasi</p>
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_koperasi_pegawai" value="{{ $info->jumlah_koperasi_pegawai  }}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="jumlah_koperasi_pegawai" value="{{ $info->jumlah_koperasi_pegawai  }}">
                                           @error('jumlah_koperasi_pegawai')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                         </div>
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_koperasi_pegawai" value="{{ $info->bulanan_koperasi_pegawai  }}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_koperasi_pegawai" value="{{ $info->bulanan_koperasi_pegawai  }}">
                                           @error('bulanan_koperasi_pegawai')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                         </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="jumlah_koperasi_pasangan" value="{{ $info->jumlah_koperasi_pasangan  }}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="jumlah_koperasi_pasangan" value="{{ $info->jumlah_koperasi_pasangan  }}">
                                             @error('jumlah_koperasi_pasangan')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
                                           </div>
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_koperasi_pasangan" value="{{ $info->bulanan_koperasi_pasangan  }}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_koperasi_pasangan" value="{{ $info->bulanan_koperasi_pasangan  }}">
                                             @error('bulanan_koperasi_pasangan')
                                                <div class="alert alert-danger">{{ $message }}</div>
                                            @enderror
@@ -568,25 +568,25 @@
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pegawai[]" value="{{ old('pinjaman_pegawai[]')}}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_pegawai[]" value="{{ old('pinjaman_pegawai[]')}}">
                                         </div>
                                         @error('pinjaman_pegawai[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pegawai[]" value="{{ old('bulanan_pegawai[]')}}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_pegawai[]" value="{{ old('bulanan_pegawai[]')}}">
                                         </div>
                                         @error('bulanan_pegawai[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pasangan[]" value="{{ old('pinjaman_pasangan[]')}}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_pasangan[]" value="{{ old('pinjaman_pasangan[]')}}">
                                           </div>
                                           @error('pinjaman_pasangan[]')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pasangan[]" value="{{ old('bulanan_pasangan[]')}}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_pasangan[]" value="{{ old('bulanan_pasangan[]')}}">
                                         </div>
                                         @error('bulanan_pasangan[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
@@ -616,25 +616,25 @@
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pegawai[]" value="{{ $pinjaman->pinjaman_pegawai}}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_pegawai[]" value="{{ $pinjaman->pinjaman_pegawai}}">
                                         </div>
                                         @error('pinjaman_pegawai[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
                                         <div class="col-md-2">
-                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pegawai[]" value="{{ $pinjaman->bulanan_pegawai}}">
+                                          <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_pegawai[]" value="{{ $pinjaman->bulanan_pegawai}}">
                                         </div>
                                         @error('bulanan_pegawai[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
                                        @enderror
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="pinjaman_pasangan[]" value="{{$pinjaman->pinjaman_pasangan}}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_pasangan[]" value="{{$pinjaman->pinjaman_pasangan}}">
                                           </div>
                                           @error('pinjaman_pasangan[]')
                                              <div class="alert alert-danger">{{ $message }}</div>
                                          @enderror
                                           <div class="col-md-2">
-                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event)" name="bulanan_pasangan[]" value="{{ $pinjaman->bulanan_pasangan}}">
+                                            <input class="form-control bg-light" type="text" onkeypress="return onlyNumberKey(event,this)" name="bulanan_pasangan[]" value="{{ $pinjaman->bulanan_pasangan}}">
                                         </div>
                                         @error('bulanan_pasangan[]')
                                            <div class="alert alert-danger">{{ $message }}</div>
@@ -883,7 +883,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event)" name="modal_berbayar" placeholder="Modal Berbayar (Paid Up Capital)" value="{{ $info->modal_berbayar  }}" >
+                                                <input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event,this)" name="modal_berbayar" placeholder="Modal Berbayar (Paid Up Capital)" value="{{ $info->modal_berbayar  }}" >
                                             </div>
                                         </div>
                                     </div>
@@ -893,7 +893,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event)" name="jumlah_unit_saham" placeholder="Jumlah Unit" value="{{ $info->jumlah_unit_saham  }}" >
+                                                <input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event,this)" name="jumlah_unit_saham" placeholder="Jumlah Unit" value="{{ $info->jumlah_unit_saham  }}" >
                                             </div>
                                         </div>
                                     </div>
@@ -903,7 +903,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event)" name="nilai_saham" placeholder="Nilai Saham" value="{{ $info->nilai_saham  }}" >
+                                                <input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event,this)" name="nilai_saham" placeholder="Nilai Saham" value="{{ $info->nilai_saham  }}" >
                                             </div>
                                         </div>
                                     </div>
@@ -952,7 +952,7 @@
                                           <input type="text" class="form-control bg-light" id="alamat_institusi" name="alamat_institusi[]" placeholder="Alamat Institusi" value="{{ old('alamat_institusi[]')}}">
                                         </div>
                                         <div class="col-md-2">
-                                          <input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event)" id="ansuran_bulanan" name="ansuran_bulanan[]" placeholder="Ansuran Bulanan" value="{{ old('ansuran_bulanan[]')}}">
+                                          <input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event,this)" id="ansuran_bulanan" name="ansuran_bulanan[]" placeholder="Ansuran Bulanan" value="{{ old('ansuran_bulanan[]')}}">
                                         </div>
                                         <div class="col-md-2">
                                           <input type="date" class="form-control bg-light" id="tarikh_ansuran" name="tarikh_ansuran[]" placeholder="Tarikh Ansuran Pertama" value="{{ old('tarikh_ansuran[]')}}">
@@ -978,7 +978,7 @@
                                         <input type="text" class="form-control bg-light" id="alamat_institusi" name="alamat_institusi[]" placeholder="Alamat Institusi" value="{{ $data->alamat_institusi  }}">
                                       </div>
                                       <div class="col-md-2">
-                                        <input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event)" id="ansuran_bulanan" name="ansuran_bulanan[]" placeholder="Ansuran Bulanan" value="{{ $data->ansuran_bulanan  }}">
+                                        <input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event,this)" id="ansuran_bulanan" name="ansuran_bulanan[]" placeholder="Ansuran Bulanan" value="{{ $data->ansuran_bulanan  }}">
                                       </div>
                                       <div class="col-md-2">
                                         <input type="date" class="form-control bg-light" id="tarikh_ansuran" name="tarikh_ansuran[]" placeholder="Tarikh Ansuran Pertama" value="{{ $data->tarikh_ansuran  }}">
@@ -1058,9 +1058,12 @@
                                        </div>
                                        </div>
                                    </div>
-                  </div>
-                </form>
-            </div>
+                                 </div>
+                               </form>
+                             </div>
+                           </div>
+                         </div>
+                       <br><br><br><br>
 
 
 
@@ -1080,7 +1083,7 @@
 
                   $(wrapper).append('<div id="saham'+counter_saham+'"  class="row"><div class="col-md-2"><input type="text" class="form-control bg-light" name="institusi[]" onchange="return copyCatSaham('+counter_saham+')" id="institusi['+
                   counter_saham+']" placeholder="Nama Institusi"></div><div class="col-md-2"><input type="text" class="form-control bg-light" name="alamat_institusi[]" onchange="return copyCatSaham('+counter_saham+')" id="alamat_institusi['+
-                  counter_saham+']" placeholder="Alamat Institusi"></div><div class="col-md-2"><input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event)" name="ansuran_bulanan[]" onchange="return copyCatSaham('+counter_saham+')" id="ansuran_bulanan['+
+                  counter_saham+']" placeholder="Alamat Institusi"></div><div class="col-md-2"><input type="text" class="form-control bg-light" onkeypress="return onlyNumberKey(event,this)" name="ansuran_bulanan[]" onchange="return copyCatSaham('+counter_saham+')" id="ansuran_bulanan['+
                   counter_saham+']" placeholder="Ansuran Bulanan"></div><div class="col-md-2"><input type="date" class="form-control bg-light" name="tarikh_ansuran[]" onchange="return copyCatSaham('+counter_saham+')" id="tarikh_ansuran['+
                   counter_saham+']" placeholder="Tarikh Ansuran Pertama"></div><div class="col-md-2"><input type="text" class="form-control bg-light" name="tempoh_pinjaman[]" onchange="return copyCatSaham('+counter_saham+')" id="tempoh_pinjaman['+
                   counter_saham+']" placeholder="Tempoh Pinjaman"></div><div class="col-md-1"><a onClick="removeDataSaham(this,'+counter_saham+' ); return false;" id ="delsaham'+counter_saham+'"class="btn btn-danger mr-1"><i class="fa fa-trash"></i></a><br><br></div></div>'); //add input box
@@ -1160,13 +1163,13 @@
 
                   $(wrapper).append('<div id="divi'+counter+'"  class="row"><div class="col-md-3"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" name="lain_lain_pinjaman[]" id="lain_lain_pinjaman['+
                   counter+
-                  ']" placeholder="Nyatakan Lain-Lain Pinjaman"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event)" name="pinjaman_pegawai[]" id="pinjaman_pegawai['+
+                  ']" placeholder="Nyatakan Lain-Lain Pinjaman"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_pegawai[]" id="pinjaman_pegawai['+
                   counter+
-                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event)" name="bulanan_pegawai[]" id="bulanan_pegawai['+
+                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event,this)" name="bulanan_pegawai[]" id="bulanan_pegawai['+
                   counter+
-                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event)" name="pinjaman_pasangan[]" id="pinjaman_pasangan['+
+                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_pasangan[]" id="pinjaman_pasangan['+
                   counter+
-                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event)" name="bulanan_pasangan[]" id="bulanan_pasangan['+
+                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="text" onchange="return copyCatPinjaman('+counter+')" onkeypress="return onlyNumberKey(event,this)" name="bulanan_pasangan[]" id="bulanan_pasangan['+
                   counter+
                   ']"></div><div class="col-md-1"><a onClick="removeDataPinjaman(this,'+
                   counter+
@@ -1226,13 +1229,13 @@
 
                   $(wrapper).append('<div id="divi_hidden'+counter+'"  class="row"><div class="col-md-3"><input class="form-control bg-light" type="hidden" name="lain_lain_pinjaman[]" id="lain_lain_pinjaman_hidden['+
                   counter+
-                  ']" placeholder="Nyatakan Lain-Lain Pinjaman"></div><div class="col-md-2"><input class="form-control bg-light" type="hidden" onkeypress="return onlyNumberKey(event)" name="pinjaman_pegawai[]" id="pinjaman_pegawai_hidden['+
+                  ']" placeholder="Nyatakan Lain-Lain Pinjaman"></div><div class="col-md-2"><input class="form-control bg-light" type="hidden" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_pegawai[]" id="pinjaman_pegawai_hidden['+
                   counter+
-                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="hidden" onkeypress="return onlyNumberKey(event)" name="bulanan_pegawai[]" id="bulanan_pegawai_hidden['+
+                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="hidden" onkeypress="return onlyNumberKey(event,this)" name="bulanan_pegawai[]" id="bulanan_pegawai_hidden['+
                   counter+
-                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="hidden" onkeypress="return onlyNumberKey(event)" name="pinjaman_pasangan[]" id="pinjaman_pasangan_hidden['+
+                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="hidden" onkeypress="return onlyNumberKey(event,this)" name="pinjaman_pasangan[]" id="pinjaman_pasangan_hidden['+
                   counter+
-                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="hidden" onkeypress="return onlyNumberKey(event)" name="bulanan_pasangan[]" id="bulanan_pasangan_hidden['+
+                  ']"></div><div class="col-md-2"><input class="form-control bg-light" type="hidden" onkeypress="return onlyNumberKey(event,this)" name="bulanan_pasangan[]" id="bulanan_pasangan_hidden['+
                   counter+
                   ']"></div></div>');
 
@@ -1265,11 +1268,11 @@
 
                    $(wrapper).append('<div id="dividen_add'+counter_dividen+'" class="row"><div class="col-md-3 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" type="text" onchange="return copyCat('+counter_dividen+')" name="dividen_1[]" id="dividen_1['+
                    counter_dividen+
-                   ']" placeholder="Nyatakan Dividen"></div></div><div class="col-md-4 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" onchange="return copyCat('+counter_dividen+')" onkeypress="return onlyNumberKey(event)" name="dividen_1_pegawai[]" id="dividen_1_pegawai['+
+                   ']" placeholder="Nyatakan Dividen"></div></div><div class="col-md-4 mt-2 mt-md-0"><div class="input-group"><input class="form-control bg-light" onchange="return copyCat('+counter_dividen+')" onkeypress="return onlyNumberKey(event,this)" name="dividen_1_pegawai[]" id="dividen_1_pegawai['+
                    counter_dividen+
                    ']" placeholder="Dividen Pegawai"></div></div><input type="hidden" onchange="return copyCat('+counter_dividen+')" name="counter" id="counter_for_dividen" value="'+
                    counter_dividen+
-                   '"><div class="col-md-4 mt-2 mt-md-0" id="dividen"><input class="form-control bg-light" id="dividen_1_pasangan[]" onkeypress="return onlyNumberKey(event)" name="dividen_1_pasangan['+
+                   '"><div class="col-md-4 mt-2 mt-md-0" id="dividen"><input class="form-control bg-light" id="dividen_1_pasangan[]" onkeypress="return onlyNumberKey(event,this)" name="dividen_1_pasangan['+
                    counter_dividen+
                    ']" placeholder="Dividen Pasangan" id="dividen_pasangan" onchange="return copyCat('+counter_dividen+')"></div></div>'); //add input box
 
@@ -1342,14 +1345,26 @@
 
              </script>
              <script>
-             function onlyNumberKey(evt) {
+             function onlyNumberKey(evt, element) {
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode > 31 && (charCode < 48 || charCode > 57) && !(charCode == 46 || charCode == 8))
+                  return false;
+                else {
+                  var len = $(element).val().length;
+                  var index = $(element).val().indexOf('.');
+                  if (index > 0 && charCode == 46) {
+                    return false;
+                  }
+                  if (index > 0) {
+                    var CharAfterdot = (len + 1) - index;
+                    if (CharAfterdot > 3) {
+                      return false;
+                    }
+                  }
 
-                 // Only ASCII charactar in that range allowed
-                 var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-                 if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-                     return false;
-                 return true;
-             }
+                }
+                return true;
+              }
              </script>
 
              <script type="text/javascript">

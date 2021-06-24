@@ -97,6 +97,8 @@
                           <th><p class="mb-0">Hubungan Pemberi</p></th>
                           <th width="30%"><p class="mb-0">Gambar Hadiah</p></th>
                           <th><p class="mb-0">Status Hadiah (RM)</p></th>
+                          <th><p class="mb-0">Catatan</p></th>
+                          <th><p class="mb-0">Tindakan</p></th>
 
                       </tr>
                   </thead>
@@ -179,6 +181,84 @@
                            @endif
                          @endif
                         </td>
+                        <td>
+                          @if($data ->status == "Sedang Diproses")
+                          {{ $data ->status }}
+                          @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                          {{ $data ->status }}
+                          @elseif($data ->status == "Sedang Dikemaskini")
+                          {{ $data ->status }}
+                          @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                          {{ $data ->status }}
+                          @elseif($data ->status == "Proses ke Ketua Bahagian")
+                          {{ $data ->status }}
+                          @elseif($data ->status == "Menunggu Ulasan Ketua Bahagian")
+                          {{ $data ->status }}
+                          @elseif($data ->status == "Proses ke Pentadbir Sistem")
+                          {{ $data ->status }}
+                          @elseif($data ->status == "Tidak Lengkap")
+                          @if($data ->getTable() == "gifts")
+                             @foreach($ulasanAdmin as $admin)
+                             @if($admin->gift_id == $data->id)
+                               <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                             @endif
+                             @endforeach
+                          @else
+                            @foreach($ulasanAdmin as $admin)
+                            @if($admin->giftb_id == $data->id)
+                              <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @endif
+                          @elseif($data ->status == "Tidak Diterima")
+                          @if($data ->getTable() == "gifts")
+                            @foreach($ulasanHOD as $hod)
+                              @if($hod->gift_id == $data->id)
+                                <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                              @endif
+                            @endforeach
+                          @else
+                            @foreach($ulasanHOD as $hod)
+                              @if($hod->giftb_id == $data->id)
+                                <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                              @endif
+                            @endforeach
+                          @endif
+                          @elseif($data ->status == "Diterima")
+                          {{ $data ->status }}
+                          @elseif($data ->status == "Selesai")
+                          {{ $data ->status }}
+                          @endif
+                        </td>
+                        <td>
+                          @if($data ->getTable() == "gifts")
+                          <div class="d-flex flex-row justify-content-around align-items-center">
+                            @if($data ->status == "Sedang Dikemaskini")
+                             <a href="{{ route('user.hadiah.editgift', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                            @elseif($data ->status == "Tidak Lengkap")
+                             <a href="{{ route('user.hadiah.editgift', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                            @elseif($data ->status == "Sedang Diproses")
+                                <a href="{{ route('statuseditgift.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                            @else
+                              <a class="btn btn-light mr-1" disabled ><i class="fas fa-pencil-alt"></i></a>
+                            @endif
+                              <!-- <a href="{{ route('gift.delete', $data->id) }}" class="btn btn-danger" onclick=" return confirm('Padam maklumat?');"><i class="fas fa-times-circle"></i></a> -->
+                          </div>
+                          @elseif($data ->getTable() == "giftbs")
+                          <div class="d-flex flex-row justify-content-around align-items-center">
+                            @if($data ->status == "Sedang Dikemaskini")
+                             <a href="{{ route('user.hadiah.editgiftB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                            @elseif($data ->status == "Tidak Lengkap")
+                             <a href="{{ route('user.hadiah.editgiftB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                            @elseif($data ->status == "Sedang Diproses")
+                                <a href="{{ route('statuseditgiftB.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                            @else
+                              <a class="btn btn-light mr-1" disabled ><i class="fas fa-pencil-alt"></i></a>
+                            @endif
+                          </div>
+                          @endif
+                        </td>
+
                       </tr>
                       @endif
                       <!-- Table data -->
@@ -217,6 +297,8 @@
       </div>
   </div>
 </div>
+<br><br><br><br>
+
 <script type="text/javascript">
   function passGambarHadiah(path){
     console.log(path);

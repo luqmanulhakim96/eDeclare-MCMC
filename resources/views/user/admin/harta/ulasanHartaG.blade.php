@@ -226,7 +226,7 @@
                                         </div>
                                         <div class="col-md-4" align="center">
 
-                                          {{ $listHarta ->gaji }}
+                                          {{number_format((float)$listHarta->gaji,2,'.','')}}
 
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
@@ -921,6 +921,7 @@
            </div>
          </div>
      </div>
+     <br><br><br><br>
 
 
 @endsection

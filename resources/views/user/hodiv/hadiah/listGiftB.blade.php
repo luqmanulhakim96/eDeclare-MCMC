@@ -4,7 +4,7 @@
 
 <div class="page-body p-4 text-dark">
   <!-- <div class="card-body"> -->
-        
+
   <!-- </div> -->
 <div class="row mt-10">
         <!-- Col md 6 -->
@@ -17,11 +17,11 @@
                     <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
                     <!-- Table -->
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered" id="responsiveDataTable" style="width: 100%;">
+                        <table class="table table-striped table-bordered" id="example" style="width: 100%;">
                             <thead class="thead-light">
                                 <tr class="text-center">
                                   <th class="all" width="10%"><p>ID</p></th>
-                                  <th class="all" width="10%"><p>No Staff</p></th>
+                                  <!-- <th class="all" width="10%"><p>No Staff</p></th> -->
                                   <th class="all" width="10%"><p>Nama</p></th>
                                   <th class="all" width="10%"><p>Jabatan</p></th>
                                   <th class="all" width="30%"><p>Jenis Hadiah</p></th>
@@ -32,7 +32,7 @@
                                   <th class="all" width="30%"><p>Hubungan Pemberi</p></th>
                                   <th class="all" width="70%"><p>Gambar Hadiah</p></th>
                                   <th class="all" width="30%"><p>Status Penerimaan Hadiah</p></th>
-                                  <th class="all" width="30%"><p>Ulasan Pentadbir Sistem</p></th>
+                                  <!-- <th class="all" width="30%"><p>Ulasan Pentadbir Sistem</p></th> -->
                                   <!-- <th class="all" width="30%"><p>Tindakan</p></th> -->
 
                                 </tr>
@@ -42,9 +42,9 @@
 
                               <tr>
                                   <td>{{ $data ->id }}</td>
-                                  <td>
+                                  <!-- <td>
                                     {{ $data ->giftbs->kad_pengenalan }}
-                                  </td>
+                                  </td> -->
 
                                   <td>{{ $data ->giftbs->name }}</td>
                                   <td>{{ $data ->jabatan}}</td>
@@ -63,6 +63,16 @@
                                   <td>
                                     @if($data ->status == "Sedang Diproses")
                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                    @elseif($data ->status == "Sedang Dikemaskini")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                    @elseif($data ->status == "Proses ke Ketua Bahagian")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                    @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                    @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                    @elseif($data ->status == "Proses ke Pentadbir Sistem")
+                                    <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                     @elseif($data ->status == "Tidak Lengkap")
                                     <span class="badge badge-danger badge-pill">{{ $data ->status }}</span>
                                     @elseif($data ->status == "Tidak Diterima")
@@ -72,9 +82,9 @@
                                     @endif
                                   </td>
 
-                                  <td>
+                                  <!-- <td>
                                     {{ $data ->ulasan_admin }}
-                                  </td>
+                                  </td> -->
                                   <!-- <td>
                                     <a href="{{route('user.hodiv.hadiah.ulasanHadiahB',$data-> id)}}" class="btn btn-primary" >Ulasan</button>
                                   </td> -->
@@ -108,6 +118,7 @@
       </div>
   </div>
   </div>
+  <br><br><br><br>
   <script type="text/javascript">
     function passGambarHadiah(path){
       console.log(path);
@@ -115,5 +126,80 @@
       $('.modal-body #imageHadiah').show();
     }
   </script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+      var buttonCommon = {
+        exportOptions: {
+             // Any other settings used
+             grouped_array_index: 0,
+        },
+      };
+      var groupColumn = 1;
+      var tableTitle = $('.card-title').html();
+      var table = $('#example').DataTable({
+           dom: 'Bfrtip',
+           "buttons": [
+               {
+                   extend: 'excel',
+                   orientation: 'landscape',
+                   pageSize: 'A4',
+                   title: tableTitle,
+               },
+               {
+                   extend: 'pdfHtml5',
+                   orientation: 'landscape',
+                   pageSize: 'A4',
+                   title: tableTitle,
+               },
+               {
+                   extend: 'print',
+                   text: 'Cetak',
+                   pageSize: 'LEGAL',
+                   title: tableTitle,
+                   customize: function(win)
+                   {
+
+                       var last = null;
+                       var current = null;
+                       var bod = [];
+
+                       var css = '@page { size: landscape; }',
+                           head = win.document.head || win.document.getElementsByTagName('head')[0],
+                           style = win.document.createElement('style');
+
+                       style.type = 'text/css';
+                       style.media = 'print';
+
+                       if (style.styleSheet)
+                       {
+                         style.styleSheet.cssText = css;
+                       }
+                       else
+                       {
+                         style.appendChild(win.document.createTextNode(css));
+                       }
+
+                       head.appendChild(style);
+                },
+               },
+           ],
+       "language": {
+           "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
+           "zeroRecords": "Maaf, tiada rekod.",
+           "info": "Memaparkan halaman _PAGE_ daripada _PAGES_",
+           "infoEmpty": "Tidak ada rekod yang tersedia",
+           "infoFiltered": "(Ditapis dari _MAX_ jumlah rekod)",
+           "search": "Carian",
+           "previous": "Sebelum",
+           "paginate": {
+               "first":      "Pertama",
+               "last":       "Terakhir",
+               "next":       "Seterusnya",
+               "previous":   "Sebelumnya"
+           },
+       },
+       } );
+   } );
+   </script>
 
 @endsection

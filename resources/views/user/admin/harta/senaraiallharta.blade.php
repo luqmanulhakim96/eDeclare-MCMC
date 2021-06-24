@@ -70,7 +70,7 @@
                                                @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Sedang Dikemaskini")
-                                               <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                               <span class="badge badge-warning badge-pill">Permohonan Kemaskini Diluluskan</span>
                                                @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                                <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                                @elseif($data ->status == "Proses ke Ketua Bahagian")
@@ -106,6 +106,8 @@
                    </div>
                  </div>
              </div>
+             <br><br><br><br>
+
              <script type="text/javascript">
              $(document).ready(function() {
                  var buttonCommon = {

@@ -2,6 +2,10 @@
 @section('content')
 <!--Page Body part -->
    <div class="col-md-12 mt-4">
+     <div class="">
+       <a class="btn btn-primary mt-4"href="{{url()->previous() }}">Kembali</a>
+     </div>
+     <br>
                         <!-- Basic tabs card -->
       <div class="card rounded-lg">
           <div class="card-body">
@@ -44,6 +48,8 @@
           </div>
       </div>
     </div>
+    <br><br><br><br>
+    
 
     <script type="text/javascript">
     $(document).ready(function() {

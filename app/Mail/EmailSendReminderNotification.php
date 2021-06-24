@@ -34,7 +34,7 @@ class EmailSendReminderNotification extends Mailable
         // dd($this->user);
         return $this->to($this->user->email , $this->user->name)
                 // ->from(env('MAIL_FROM_ADDRESS'))
-                ->from('system@mcmc.com')
+                ->from('declare@mcmc.gov.my')
                 ->subject('Peringatan! e-Declare ('.date('d-M-Y').')')
                 ->view('mail.template.reminder.reminder');
     }

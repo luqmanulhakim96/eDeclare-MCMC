@@ -21,8 +21,7 @@
                     <div class="card border-01 rounded-lg" style="background-image: url({{ asset('qbadminui/img/papan-01.png') }}); background-repeat: no-repeat; background-position: 23% 77%; ">
                         <!-- Card body -->
                         <div class="card-body">
-
-                            <a href="{{route('user.admin.harta.senaraiallharta')}}">
+                          <a href="{{route('listHarta', 'formb')}}">
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <!-- Icon -->
                                 <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -48,7 +47,7 @@
                         <!-- Card body -->
                         <div class="card-body">
 
-                          <a href="{{route('user.admin.harta.senaraiallharta')}}">
+                            <a href="{{route('listHarta', 'formc')}}">
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <!-- Icon -->
                                 <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -75,7 +74,7 @@
                         <!-- Card body -->
                         <div class="card-body">
 
-                          <a href="{{route('user.admin.harta.senaraiallharta')}}">
+                            <a href="{{route('listHarta', 'formd')}}">
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <!-- Icon -->
                                 <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -112,7 +111,7 @@
                           <!-- Card body -->
                           <div class="card-body">
 
-                            <a href="{{route('user.admin.harta.senaraiallharta')}}">
+                              <a href="{{route('listHarta', 'formg')}}">
                               <div class="d-flex flex-row justify-content-center align-items-center">
                                   <!-- Icon -->
                                   <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -138,7 +137,8 @@
                           <!-- Card body -->
                           <div class="card-body">
 
-                            <a href="{{route('user.admin.hadiah.senaraiallhadiah')}}">
+
+                            <a href="{{route('listGift', 'gift')}}">
                               <div class="d-flex flex-row justify-content-center align-items-center">
                                   <!-- Icon -->
                                   <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -166,7 +166,9 @@
                           <!-- Card body -->
                           <div class="card-body">
 
-                            <a href="{{route('user.admin.hadiah.senaraiallhadiah')}}">
+
+                            <a href="{{route('listGift', 'giftb')}}">
+
                               <div class="d-flex flex-row justify-content-center align-items-center">
                                   <!-- Icon -->
                                   <div class="small-card-icon" align="center" style="opacity: 70%;">
@@ -202,7 +204,7 @@
                               <div class="card-body" style="width:100%;">
 
                                   <!-- Card title -->
-                                  <div class="card-title" align="center">Statistik Perisytiharan Harta </div>
+                                  <div class="card-title" align="center">Statistik Perisytiharan Harta Yang Diterima</div>
                                   <!-- Chart -->
                                   <center>
                                   <div class="" id="chart-wrap">
@@ -256,6 +258,7 @@
                 </div>
             </div>
 </div>
+<br><br><br><br>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -353,15 +356,18 @@
   </script>
 
   <script type="text/javascript">
-      var nilai_hadiah = <?php echo $nilaiHadiah->nilai_hadiah;?>;
+      var nilai_hadiah = <?php echo $nilaiHadiah->nilai_hadiah ?? 0;?>;
+      var listHadiahA = {{ $listHadiahA ?? 0}};
+      var listHadiahB = {{ $listHadiahB ?? 0}};
+
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          ['Hadiah Bernilai lebih RM '+nilai_hadiah, {{$listHadiahA}}],
-          ['Hadiah Bernilai RM' +nilai_hadiah+' dan ke bawah', {{$listHadiahB}}]
+          ['Hadiah Bernilai lebih RM '+nilai_hadiah, listHadiahA],
+          ['Hadiah Bernilai RM' +nilai_hadiah+' dan ke bawah', listHadiahB]
         ]);
 
         var options = {
@@ -383,8 +389,15 @@
           colors: ['#5F9FFF','#FFDB61']
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
+        if(listHadiahA == 0 || listHadiahB == 0){
+            $("#donutchart").append("Tiada Data")
+        }else{
+            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+            chart.draw(data, options);
+        }
+
+        // var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        // chart.draw(data, options);
       }
     </script>
 

@@ -4,9 +4,8 @@ return [
     /*
      * Set the table to be used for monitoring data.
      */
-             'connection' => 'sqlsrv',
-
-    'table' => 'queue_monitor',
+   'connection' => 'sqlsrv',
+    'table' => 'dbo.queue_monitor',
     // 'drivers' => [
     //     'database' => [
     //         'table'      => 'queue_monitor',

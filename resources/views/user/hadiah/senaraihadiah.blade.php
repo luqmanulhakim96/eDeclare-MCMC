@@ -13,6 +13,10 @@
 <div class="row mt-10">
         <!-- Col md 6 -->
         <div class="col-md-12 mt-4" >
+          <div class="">
+            <a class="btn btn-primary mt-4"href="{{route('user.senaraihadiah')}}">Kembali</a>
+          </div>
+          <br>
             <!-- basic light table card -->
             <div class="card rounded-lg" >
                 <div class="card-body">
@@ -181,6 +185,7 @@
       </div>
   </div>
   </div>
+  <br><br><br><br>
   <!-- <script type="text/javascript">
     function passGambarHadiah(path){
       console.log(path);

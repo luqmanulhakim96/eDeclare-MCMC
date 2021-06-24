@@ -210,15 +210,16 @@ class HodivController extends Controller
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
 
-    if($maklumat_pasangan->isEmpty()){
-      return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','staffinfo'));
-    }
-    elseif ($maklumat_anak->isEmpty()) {
-      return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','staffinfo'));
-    }
-    else{
+        if($maklumat_pasangan->isEmpty()){
+          $maklumat_pasangan = null;
+          // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo','ulasanAdmin','ulasanHOD'));
+        }
+        if ($maklumat_anak->isEmpty()) {
+          $maklumat_anak = null;
+          // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
+        }
       return view('user.hodiv.harta.ulasanHartaG', compact('listHarta','listDividenG','listPinjamanG','listPinjaman','maklumat_pasangan','maklumat_anak','staffinfo'));
-    }
+
   }
 
   public function viewUlasanHartaB($id)
@@ -246,15 +247,16 @@ class HodivController extends Controller
         $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
         }
 
-    if($maklumat_pasangan->isEmpty()){
-      return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo'));
-    }
-    elseif ($maklumat_anak->isEmpty()) {
-      return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo'));
-    }
-    else{
+        if($maklumat_pasangan->isEmpty()){
+          $maklumat_pasangan = null;
+          // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','staffinfo','ulasanAdmin','ulasanHOD'));
+        }
+        if ($maklumat_anak->isEmpty()) {
+          $maklumat_anak = null;
+          // return view('user.admin.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan','staffinfo','ulasanAdmin','ulasanHOD'));
+        }
     return view('user.hodiv.harta.ulasanHartaB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan','staffinfo'));
-    }
+    
   }
 
   public function viewUlasanHartaC($id)
@@ -343,15 +345,11 @@ class HodivController extends Controller
      else{
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $hod_available = User::where('role','=','2')->get(); //get system admin information
-       // if ($email) {
-         foreach ($hod_available as $data) {
-           // $formcs->notify(new UserFormAdminC($data, $email));
-           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
-         }
+       $user = User::where('id', '=', $statusb->user_id)->first();
+       $this->dispatch(new SendNotificationFormBHodiv($user, $email, $formbs));
      }
 
-     return redirect()->route('user.admin.harta.senaraiallharta');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivC(Request $request,$id){
@@ -383,15 +381,12 @@ class HodivController extends Controller
      else{
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $hod_available = User::where('role','=','2')->get(); //get system admin information
-       // if ($email) {
-         foreach ($hod_available as $data) {
-           // $formcs->notify(new UserFormAdminC($data, $email));
-           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
-         }
+       $user = User::where('id', '=', $statusc->user_id)->first();
+       $this->dispatch(new SendNotificationFormCHodiv($user, $email, $formcs));
+
      }
 
-     return redirect()->route('user.admin.harta.senaraiallharta');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivD(Request $request,$id){
@@ -423,15 +418,11 @@ class HodivController extends Controller
      else{
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $hod_available = User::where('role','=','2')->get(); //get system admin information
-       // if ($email) {
-         foreach ($hod_available as $data) {
-           // $formcs->notify(new UserFormAdminC($data, $email));
-           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
-         }
+       $user = User::where('id', '=', $statusd->user_id)->first();
+       $this->dispatch(new SendNotificationFormDHodiv($user, $email, $formds));
      }
 
-     return redirect()->route('user.admin.harta.senaraiallharta');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivG(Request $request,$id){
@@ -463,15 +454,11 @@ class HodivController extends Controller
      else{
        $email = Email::where('jenis', '=', 'Perisytiharan Tidak Lengkap (Harta)')->first(); //template email yang diguna
        // $email = null; // for testing
-       $hod_available = User::where('role','=','2')->get(); //get system admin information
-       // if ($email) {
-         foreach ($hod_available as $data) {
-           // $formcs->notify(new UserFormAdminC($data, $email));
-           $this->dispatch(new SendNotificationFormBHodiv($data, $email, $formbs));
-         }
+       $user = User::where('id', '=', $statusg->user_id)->first();
+       $this->dispatch(new SendNotificationFormDHodiv($user, $email, $formgs));
      }
 
-     return redirect()->route('user.admin.harta.senaraiallharta');
+     return redirect()->route('user.hodiv.harta.senaraiallharta');
    }
 
    public function updateStatusUlasanHODivGift(Request $request,$id){
@@ -509,7 +496,7 @@ class HodivController extends Controller
        }
 
 
-     return redirect()->route('user.admin.hadiah.senaraiallhadiah');
+     return redirect()->route('user.hodiv.hadiah.senaraiallhadiah');
    }
 
    public function updateStatusUlasanHODivGiftB(Request $request,$id){
@@ -525,26 +512,47 @@ class HodivController extends Controller
      $giftb->giftb_id = $id;
      $giftb->save();
 
-     return redirect()->route('user.admin.hadiah.senaraiallhadiah');
+     return redirect()->route('user.hodiv.hadiah.senaraiallhadiah');
    }
 
-   public function senaraiAllForm(){
+   public function senaraiAllForm(){ //ketua bahagian
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL5NAME');
-     foreach($bahagian as $division){
-       $div=$division->OLEVEL5NAME;
-     }
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->first();
+     // dd($bahagian);
+     // $div=$bahagian->OLEVEL5NAME;
+     // foreach($bahagian as $division){
+     //   $div=$division->OLEVEL5NAME;
+     // }
      // $listallA = Asset::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $bahagian )->get();
       // dd($listallA);
-     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     // $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
+
+     // dd($listallB);
      $listallBTable = FormB::getTableName();
-     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     // $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
+
+     // $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
+
+     // $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
+
      // $merged = $listallA->mergeRecursive($listallB);
-     $merged = $listallB->mergeRecursive($listallC);
-     $merged = $merged->mergeRecursive($listallD);
-     $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+     $mergeds = $listallB->mergeRecursive($listallC);
+     $mergeds = $mergeds->mergeRecursive($listallD);
+     $mergeds = $mergeds->mergeRecursive($listallG)->sortBy('status');
+     // dd($merged);
+     $merged = [];
+     foreach ($mergeds as $data) {
+       $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+       // dd($dataBahagian);
+       if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+         // dd($dataBahagian);
+         $merged[]=$data;
+       }
+     }
      // dd($merged);
 
      return view('user.hodiv.harta.senaraiallharta', compact('merged'));
@@ -552,13 +560,13 @@ class HodivController extends Controller
 
    public function senaraiAllHadiah(){
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL4NAME');
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get();
      foreach($bahagian as $division){
        $div=$division->OLEVEL4NAME;
      }
      // $bahagian =Auth::user()->jabatan;
-     $listallA = Gift::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian', $div )->get();
-     $listallB = GiftB::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian', $div )->get();
+     $listallA = Gift::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->where('bahagian', $div )->get();
+     $listallB = GiftB::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->where('bahagian', $div )->get();
      $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
 
      return view('user.hodiv.hadiah.senaraiallhadiah', compact('merged'));
@@ -566,20 +574,31 @@ class HodivController extends Controller
 
    public function senaraiTugasanHarta(){
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL5NAME');
-     foreach($bahagian as $division){
-       $div=$division->OLEVEL5NAME;
-     }
+     // $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get();
+     // foreach($bahagian as $division){
+     //   $div=$division->OLEVEL4NAME;
+     // }
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->first();
+
      // dd($div);
-     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
+     $listallB = FormB::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
      // dd($listallB);
      $listallBTable = FormB::getTableName();
-     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('jabatan', $div )->get();
-     $merged = $listallB->mergeRecursive($listallC);
-     $merged = $merged->mergeRecursive($listallD);
-     $merged = $merged->mergeRecursive($listallG)->sortBy('status');
+     $listallC = FormC::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
+     $listallD = FormD::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
+     $listallG = FormG::with('users')->select('id','created_at','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->get();
+     $mergeds = $listallB->mergeRecursive($listallC);
+     $mergeds = $mergeds->mergeRecursive($listallD);
+     $mergeds = $mergeds->mergeRecursive($listallG)->sortBy('status');
+     $merged = [];
+     foreach ($mergeds as $data) {
+       $dataBahagian=UserExistingStaffInfo::where('USERNAME', $data->users->username)->first();
+       // dd($dataBahagian);
+       if($dataBahagian->OLEVEL4NAME == $bahagian->OLEVEL4NAME){
+         // dd($dataBahagian);
+         $merged[]=$data;
+       }
+     }
 
      return view('user.hodiv.harta.senaraitugasanharta', compact('merged'));
    }
@@ -599,14 +618,14 @@ class HodivController extends Controller
 
    public function senaraiTugasanHadiah(){
      $username =Auth::user()->username;
-     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get('OLEVEL4NAME');
+     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->get();
      foreach($bahagian as $division){
        $div=$division->OLEVEL4NAME;
      }
      // dd($div);
-     $listallA = Gift::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian',$div)->get();
+     $listallA = Gift::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->where('bahagian',$div)->get();
      // dd($listallA );
-     $listallB = GiftB::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('bahagian',$div)->get();
+     $listallB = GiftB::with('users')->select('id','jabatan','bahagian','jenis_gift','nilai_gift','tarikh_diterima','nama_pemberi','alamat_pemberi','hubungan_pemberi','sebab_gift','gambar_gift','status', 'user_id')->where('status', 'Diproses ke Ketua Bahagian')->where('bahagian',$div)->get();
      $merged = $listallA->mergeRecursive($listallB)->sortBy('status');
 
      return view('user.hodiv.hadiah.senaraitugasanhadiah', compact('merged'));

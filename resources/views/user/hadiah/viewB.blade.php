@@ -167,7 +167,12 @@
                                  </div>
                              </div>
                           </div>
+                          <br>
+                          <br>
+                          <a class="btn btn-primary mt-4"href="{{url()->previous() }}">Kembali</a>
                       </div>
                </div>
            </div>
+        </div>
+        <br><br><br><br>
 @endsection

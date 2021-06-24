@@ -69,7 +69,7 @@
     <!--[if IE]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
     <![endif]-->
-    <div class="container-fluid px-0" style="padding:5%;">
+    <div class="container-fluid" style="padding:5%;">
         <!-- The side bar -->
         <!-- <div class="side-bar side-bar-lg" data-theme="purple"> -->
         <div class="side-bar side-bar-lg-active">
@@ -392,10 +392,10 @@
                                   <div id="submenu-all" class="collapse submenu" style="padding-left:15%;">
                                       <ul class="nav flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link text-secondary-side"  href="{{ route('user.admin.harta.senaraiallharta') }}"><i class="fas fa-chevron-right"></i> Perisytiharan Harta </a>
+                                                <a class="nav-link text-secondary-side"  href="{{ route('user.hodiv.harta.senaraiallharta') }}"><i class="fas fa-chevron-right"></i> Perisytiharan Harta </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link text-secondary-side" href="{{ route('user.admin.hadiah.senaraiallhadiah') }}"><i class="fas fa-chevron-right"></i> Perisytiharan Hadiah </a>
+                                                <a class="nav-link text-secondary-side" href="{{ route('user.hodiv.hadiah.senaraiallhadiah') }}"><i class="fas fa-chevron-right"></i> Perisytiharan Hadiah </a>
                                             </li>
                                             <li class="nav-item">
                                                 <!-- <a class="nav-link text-secondary-side" href="{{ route('user.admin.senarai_user_declaration') }}"><i class="fas fa-chevron-right"></i> Perisytiharan Mengikut Pengguna</a> -->
@@ -529,6 +529,9 @@
                                             @endif
                                           @endfor
                                   @endif
+                                  <li class="nav-item">
+                                    <a class="nav-link text-secondary-side" href="{{ asset('manual/PANDUANPENGGUNA.pdf') }}" target="_blank"><i class="fas fa-dot-circle"></i> Panduan Pengguna</a>
+                                  </li>
                         </ul>
                   </div>
               </nav>
@@ -685,11 +688,25 @@
 
   </div>
   <!-- Footer section -->
-  <footer>
-    <!-- <div class="row"> -->
-      <div class="col-md" style="text-align:center;"><a href="" target="_Blank" ><font color="white">MALAYSIAN COMMUNICATIONS AND MULTIMEDIA COMMISSION</font></a></div>
-      <!-- <div class="col-md-2"><font color="white">Version 1.0.0</font></div> -->
-    <!-- </div> -->
+  <br><br>
+  <footer style='padding-left: 20%;'>
+    <div class="row" style="padding-top:1%;">
+      <div class="col-md-1">
+        <img src="{{ asset('qbadminui/img/MCMC.png') }}" alt="bran_name" class="brand-img" style="width:50%;">
+      </div>
+      <div class="col-md-7" style="margin-left: -4%;">
+        <a href="" target="_Blank" ><font color="white">Copyright &copy; 2021. Malaysian Communications and Multimedia Commision.<br>All rights reserved.</font></a>
+      </div>
+      <div class="col-md"><font color="white">Legal Disclaimer</font></div>
+      <div class="col-md"><font color="white">Privacy Policy</font></div>
+      <div class="col-md"><font color="white">Security Policy</font></div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12" style="text-align:center;">
+        <a><font color="white">Best viewed in Chrome version 69 or later, Firefox 61 and later, Safari 11 and later, or Edge 16 and later.</font></a>
+      </div>
+    </div>
   </footer>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script> -->

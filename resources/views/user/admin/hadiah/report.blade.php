@@ -109,6 +109,7 @@
                               </div>
                 </div>
     </div>
+    <br><br><br><br>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
   var nilai_hadiah = <?php echo $nilaiHadiah->nilai_hadiah;?>;

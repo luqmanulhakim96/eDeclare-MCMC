@@ -123,6 +123,9 @@
                           <th><p class="mb-0">Lampiran</p></th>
                           <th><p class="mb-0">Tarikh</p></th>
                           <th><p class="mb-0">Status</p></th>
+                          <th><p class="mb-0">Catatan</p></th>
+                          <th><p class="mb-0">Tindakan</p></th>
+
 
                       </tr>
                   </thead>
@@ -166,6 +169,10 @@
                         <td>
                           @if($data ->status == "Sedang Diproses")
                           <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                          @elseif($data ->status == "Sedang Dikemaskini")
+                          <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                          @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                          <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                           @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                           <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                           @elseif($data ->status == "Proses ke Ketua Bahagian")
@@ -184,6 +191,134 @@
                           <span class="badge badge-success badge-pill">Berjaya</span>
                           @endif
                         </td>
+                        <td>
+
+                        @if($data ->status == "Sedang Diproses")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Sedang Dikemaskini")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Proses ke Ketua Bahagian")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Proses ke Jawatankuasa Tatatertib")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Proses ke Pentadbir Sistem(Tatatertib)")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Tidak Lengkap")
+                          @if($data ->getTable() == "formbs")
+                             @foreach($ulasanAdmin as $admin)
+                             @if($admin->formbs_id == $data->id)
+                               <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                             @endif
+                             @endforeach
+                          @elseif($data ->getTable() == "formcs")
+                            @foreach($ulasanAdmin as $admin)
+                            @if($admin->formcs_id == $data->id)
+                              <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @elseif($data ->getTable() == "formds")
+                            @foreach($ulasanAdmin as $admin)
+                            @if($admin->formds_id == $data->id)
+                              <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @elseif($data ->getTable() == "formgs")
+                            @foreach($ulasanAdmin as $admin)
+                            @if($admin->formgs_id == $data->id)
+                              <p> - {{$admin->ulasan_admin}} ( {{$admin->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @endif
+                        @elseif($data ->status == "Tidak Diterima")
+                          @if($data ->getTable() == "formbs")
+                             @foreach($ulasanHOD as $hod)
+                             @if($hod->formbs_id == $data->id)
+                               <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                             @endif
+                             @endforeach
+                          @elseif($data ->getTable() == "formcs")
+                            @foreach($ulasanHOD as $hod)
+                            @if($hod->formcs_id == $data->id)
+                              <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @elseif($data ->getTable() == "formds")
+                            @foreach($ulasanHOD as $hod)
+                            @if($admin->formds_id == $data->id)
+                              <p> - {{$admin->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @elseif($data ->getTable() == "formgs")
+                            @foreach($ulasanHOD as $hod)
+                            @if($hod->formgs_id == $data->id)
+                              <p> - {{$hod->ulasan_hod}} ( {{$hod->created_at}}) </p>
+                            @endif
+                            @endforeach
+                          @endif
+                        @elseif($data ->status == "Diterima")
+                        {{ $data ->status }}
+                        @elseif($data ->status == "Selesai")
+                        {{ $data ->status }}
+                        @endif
+                        </td>
+                        <td>
+                          @if($data ->getTable() == "formbs")
+                          <div class="d-flex flex-row justify-content-around align-items-center">
+                            @if($data ->status == "Sedang Dikemaskini")
+                             <a href="{{ route('user.harta.FormB.editformB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Tidak Lengkap")
+                             <a href="{{ route('user.harta.FormB.editformB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Sedang Diproses")
+                             <a href="{{ route('statuseditB.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                             @else
+                             <span><button class="btn btn-dark mr-1" disabled><i class="fas fa-pencil-alt"></i></button></span>
+                             @endif
+                           </div>
+
+                           @elseif($data ->getTable() == "formcs")
+                           <div class="d-flex flex-row justify-content-around align-items-center">
+                             @if($data ->status == "Sedang Dikemaskini")
+                               <a href="{{ route('user.harta.FormC.editformC', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Tidak Lengkap")
+                              <a href="{{ route('user.harta.FormC.editformC', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Sedang Diproses")
+                              <a href="{{ route('statuseditC.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                             @else
+                             <span><button class="btn btn-dark mr-1" disabled><i class="fas fa-pencil-alt"></i></button></span>
+                            @endif
+                           </div>
+
+                           @elseif($data ->getTable() == "formds")
+                           <div class="d-flex flex-row justify-content-around align-items-center">
+                             @if($data ->status == "Sedang Dikemaskini")
+                               <a href="{{ route('user.harta.FormD.editformD', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Tidak Lengkap")
+                             <a href="{{ route('user.harta.FormD.editformD', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Sedang Diproses")
+                             <a href="{{ route('statuseditD.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                             @else
+                             <span><button class="btn btn-dark mr-1" disabled><i class="fas fa-pencil-alt"></i></button></span>
+                             @endif
+                           </div>
+
+                           @elseif($data ->getTable() == "formgs")
+                           <div class="d-flex flex-row justify-content-around align-items-center">
+                              @if($data ->status == "Sedang Dikemaskini")
+                                 <a href="{{ route('user.harta.FormG.editformG', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Tidak Lengkap")
+                             <a href="{{ route('user.harta.FormG.editformG', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
+                             @elseif($data ->status == "Sedang Diproses")
+                             <a href="{{ route('statuseditG.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                             @else
+                             <span><button class="btn btn-dark mr-1" disabled><i class="fas fa-pencil-alt"></i></button></span>
+                             @endif
+                           </div>
+                           @endif
+                        </td>
                       </tr>
                       @endif
                      @endforeach
@@ -197,6 +332,8 @@
       </div>
   </div>
 </div>
+<br><br><br><br>
+
 <script type="text/javascript">
 $(document).ready(function() {
     var buttonCommon = {

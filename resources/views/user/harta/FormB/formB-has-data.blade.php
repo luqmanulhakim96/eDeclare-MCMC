@@ -2,5 +2,4 @@
 @section('content')
 
 @livewire('form-b')
-
 @endsection
