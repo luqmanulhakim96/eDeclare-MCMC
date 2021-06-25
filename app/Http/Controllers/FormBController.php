@@ -160,11 +160,11 @@ class FormBController extends Controller
   public function editformB($id){
     // $info = SenaraiHarga::find(1);
 
-    $draft_exist = FormB::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
+    // $draft_exist = FormB::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
 
     $info = FormB::findOrFail($id);
     // dd($info);
-    $jenisHarta = JenisHarta::get();
+    // $jenisHarta = JenisHarta::get();
 
 
     // $listDividenB = DividenB::where('formbs_id', $info->id) ->get();
@@ -177,11 +177,11 @@ class FormBController extends Controller
     // $username =Auth::user()->username;
 
     // $username =User::where('id', $info->user_id)->first();
-    $username =auth()->user();
+    // $username =auth()->user();
 
 
-    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username->username)->get();
-    $user = UserExistingStaffInfo::where('USERNAME', $username->username)->get('STAFFNO');
+    // $staffinfo = UserExistingStaffInfo::where('USERNAME', $username->username)->get();
+    // $user = UserExistingStaffInfo::where('USERNAME', $username->username)->get('STAFFNO');
 
 
     // //data dari form latest
@@ -208,9 +208,7 @@ class FormBController extends Controller
 
     // $hartaB =HartaB::where('formbs_id',$info->id) ->get();
     // // dd($hartaB);
-$id_formb =$id;
-
-
+    $id_formb = $id;
 
     return view('user.harta.FormB.editformB-latest',compact('id_formb'));
 
@@ -291,7 +289,7 @@ public function add(array $data){
         'jabatan' => $staffinfo->OLEVEL4NAME,
         'gaji' => $data['gaji'],
 
-        
+
         'gaji_pasangan' => $data['gaji_pasangan'],
         'jumlah_imbuhan' => $data['jumlah_imbuhan'],
         'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],

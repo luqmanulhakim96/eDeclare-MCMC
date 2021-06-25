@@ -12,6 +12,11 @@ use Auth;
 use App\JenisHarta;
 use App\Email;
 use App\HartaB;
+use App\UserExistingStaff;
+use App\UserExistingStaffInfo;
+use App\UserExistingStaffNextofKin;
+use App\Jobs\SendEmailNotification;
+use App\Jobs\SendNotificationFormB;
 
 class EditFormB extends Component
 {
@@ -24,11 +29,12 @@ class EditFormB extends Component
     public $gaji_pasangan,$sewa,$sewa_pasangan,$jumlah_imbuhan,$jumlah_imbuhan_pasangan,$pinjaman_perumahan_pegawai,$bulanan_perumahan_pegawai,
         $pinjaman_perumahan_pasangan,$bulanan_perumahan_pasangan,$pinjaman_kenderaan_pegawai,$bulanan_kenderaan_pegawai,$pinjaman_kenderaan_pasangan,
         $bulanan_kenderaan_pasangan,$jumlah_cukai_pegawai,$jumlah_cukai_pasangan,$bulanan_cukai_pegawai,$bulanan_cukai_pasangan,$jumlah_koperasi_pegawai,$bulanan_koperasi_pegawai,
-        $jumlah_koperasi_pasangan,$bulanan_koperasi_pasangan;  
-    public $dividen_1, $dividen_1_pegawai, $dividen_pasangan,$listDividenB,$listPinjamanB;  
-    public $lain_lain_pinjaman, $pinjaman_pegawai, $bulanan_pegawai, $pinjaman_pasangan, $bulanan_pasangan;  
+        $jumlah_koperasi_pasangan,$bulanan_koperasi_pasangan;
+    public $dividen_1, $dividen_1_pegawai, $dividen_pasangan,$listDividenB,$listPinjamanB;
+    public $lain_lain_pinjaman, $pinjaman_pegawai, $bulanan_pegawai, $pinjaman_pasangan, $bulanan_pasangan;
+    public $pengakuan;
 
-    
+
     public $show = 0;
     public $showharta = 0;
     public $showbelian = 0;
@@ -111,7 +117,7 @@ class EditFormB extends Component
 
 
     protected $rules = [
-
+      'pengakuan' => 'required',
     ];
 
     public function validation()
@@ -148,7 +154,7 @@ class EditFormB extends Component
     public function render()
     {
         $info = FormB::findOrFail($this->id_formb);
-        // dd($info);
+        // dd($this->id_formb);
         $jenisHarta = JenisHarta::get();
 
         $listDividenBs = DividenB::where('formbs_id', $info->id)->get();
@@ -158,40 +164,40 @@ class EditFormB extends Component
         $count_pinjaman = PinjamanB::where('formbs_id', $info->id)->count();
 
         $username = auth()->user()->username;
-        $staffinfo = null;
-        // $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+        // $staffinfo = null;
+        $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
         // dd($staffinfo);
 
         //data dari form latest
         $userid = auth()->user()->id;
         $data_user = FormB::where('user_id', $userid)->get();
 
-        $last_data_formb = null;
-        $dividen_user = null;
-        $pinjaman_user = null;
-        $maklumat_pasangan = null;
-        $maklumat_anak = null;
+        $username =Auth::user()->username;
+        $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+        $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
 
-        // $username =Auth::user()->username;
-        // $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
-        // $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+        foreach ($user as $keluarga) {
 
-        // foreach ($user as $keluarga) {
-
-        //   $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
-        //   $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
-        //   $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
-        //   $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
-        //   }
+          $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+          $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+          }
         $this->idForm = $info->id;
         $hartaB = HartaB::where('formbs_id', $info->id)->get();
-        
+
         return view('livewire.edit-form-b', compact('info', 'maklumat_pasangan', 'maklumat_anak', 'listDividenBs', 'listPinjamanBs', 'count_div', 'count_pinjaman', 'jenisHarta', 'hartaB', 'staffinfo'));
     }
 
-    public function loadData(){
-        $info = FormB::findOrFail($this->id_formb);
+    // public function loadDatas()
+    // {
+    //   dd('test');
+    // }
 
+    public function loadData(){
+      // dd($this->id_formb);
+        $info = FormB::findOrFail($this->id_formb);
+        // dd($info);
         $this->gaji_pasangan = $info->gaji_pasangan;
         $this->jumlah_imbuhan= $info->jumlah_imbuhan;
         $this->jumlah_imbuhan_pasangan = $info->jumlah_imbuhan_pasangan;
@@ -207,6 +213,7 @@ class EditFormB extends Component
         $this->bulanan_kenderaan_pegawai = $info->bulanan_kenderaan_pegawai;
         $this->pinjaman_kenderaan_pasangan = $info->pinjaman_kenderaan_pasangan;
         $this->bulanan_kenderaan_pasangan = $info->bulanan_kenderaan_pasangan;
+
         $this->jumlah_cukai_pegawai = $info->jumlah_cukai_pegawai;
         $this->jumlah_cukai_pasangan = $info->jumlah_cukai_pasangan;
         $this->bulanan_cukai_pegawai = $info->bulanan_cukai_pegawai;
@@ -218,7 +225,7 @@ class EditFormB extends Component
 
         $this->listDividenB = DividenB::where('formbs_id', $info->id)->get();
         $this->j = 0;
-        
+        // dd($this->listDividenB);
         foreach ($this->listDividenB as $data){
             // dd($this->j);
             $j = $this->j;
@@ -227,13 +234,13 @@ class EditFormB extends Component
             $this->dividen_pasangan[$j] = $data->dividen_1_pasangan;
             // // dd($data);
             $j = $j + 1;
-            $this->j = $j;        
+            $this->j = $j;
         }
         if(count($this->listDividenB)){
             $this->j = count($this->listDividenB) - 1;
         }
 
-       
+
         $this->listPinjamanB = PinjamanB::where('formbs_id', $info->id)->get();
         $this->i = 0;
         foreach ($this->listPinjamanB as $data){
@@ -246,7 +253,7 @@ class EditFormB extends Component
             $this->bulanan_pasangan[$i] = $data->bulanan_pegawai;
             // // dd($data);
             $i = $i + 1;
-            $this->i = $i;        
+            $this->i = $i;
         }
 
         if(count($this->listPinjamanB)){
@@ -290,7 +297,7 @@ class EditFormB extends Component
         $this->unit_bilangan = $harta->unit_bilangan;
         $this->updateMode = true;
         $this->show = 1;
-        
+
         if ($this->cara_perolehan == "Dipusakai" || $this->cara_perolehan == "Dihadiahkan") {
             $this->show = 1;
         } else if ($this->cara_perolehan == "Dibeli") {
@@ -352,6 +359,52 @@ class EditFormB extends Component
             'harga_jualan' => $this->harga_jualan ?? null,
             'tarikh_lupus' => $this->tarikh_lupus ?? null,
         ]);
+        $hartaForPinjaman = HartaB::where('formbs_id', $this->id_formb)->get();
+        // dd($hartaForPinjaman);
+        $this->pinjaman_perumahan_pegawai = 0;
+        $this->bulanan_perumahan_pegawai = 0;
+        $this->pinjaman_perumahan_pasangan = 0;
+        $this->bulanan_perumahan_pasangan = 0;
+        $this->pinjaman_kenderaan_pegawai = 0;
+        $this->bulanan_kenderaan_pegawai = 0;
+        $this->pinjaman_kenderaan_pasangan = 0;
+        $this->bulanan_kenderaan_pasangan = 0;
+
+        foreach ($hartaForPinjaman as $data) {
+          if($data->jenis_harta == "Rumah" && $data->hubungan_pemilik == "Sendiri" && $data->cara_belian == "Pinjaman"){
+              $this->pinjaman_perumahan_pegawai = $this->pinjaman_perumahan_pegawai + $data->jumlah_pinjaman;
+              // $this->pinjaman_perumahan_pegawai = $this->totalPinjamanPerumahanSendiri;
+              $this->bulanan_perumahan_pegawai = $this->bulanan_perumahan_pegawai + $data->ansuran_bulanan;
+              // $this->bulanan_perumahan_pegawai = $this->totalAnsuranPerumahanSendiri;
+
+
+          }
+          else if($data->jenis_harta == "Rumah" && $data->hubungan_pemilik == "Isteri/Suami" && $data->cara_belian == "Pinjaman"){
+              $this->pinjaman_perumahan_pasangan = $this->pinjaman_perumahan_pasangan + $data->jumlah_pinjaman;
+              $this->bulanan_perumahan_pasangan = $this->bulanan_perumahan_pasangan + $data->ansuran_bulanan;
+              // $this->pinjaman_perumahan_pasangan = $this->totalPinjamanPerumahanPasangan;
+              // $this->bulanan_perumahan_pasangan = $this->totalAnsuranPerumahanPasangan;
+
+          }
+
+          else if($data->jenis_harta == "Kenderaan" && $data->hubungan_pemilik == "Sendiri" && $data->cara_belian == "Pinjaman"){
+              // dd('masuk');
+              $this->pinjaman_kenderaan_pegawai = $this->pinjaman_kenderaan_pegawai + $data->jumlah_pinjaman;
+              $this->bulanan_kenderaan_pegawai = $this->bulanan_kenderaan_pegawai + $data->ansuran_bulanan;
+              // $this->pinjaman_kenderaan_pegawai = $this->totalPinjamanKenderaanSendiri;
+              // $this->bulanan_kenderaan_pegawai = $this->totalAnsuranKenderaanSendiri;
+
+
+          }
+          else if($data->jenis_harta == "Kenderaan" && $data->hubungan_pemilik == "Isteri/Suami" && $data->cara_belian == "Pinjaman"){
+              $this->pinjaman_kenderaan_pasangan = $this->pinjaman_kenderaan_pasangan + $data->jumlah_pinjaman;
+              $this->bulanan_kenderaan_pasangan = $this->bulanan_kenderaan_pasangan + $data->ansuran_bulanan;
+              // $this->pinjaman_kenderaan_pasangan = $this->totalPinjamanKenderaanPasangan;
+              // $this->bulanan_kenderaan_pasangan = $this->totalAnsuranKenderaanPasangan;
+          }
+        }
+
+
         $this->updateMode = false;
         $this->resetInputFields();
 
@@ -397,11 +450,14 @@ class EditFormB extends Component
 
     public function store($action)
     {
-        if ($action == 'hantar') {            
-            // $this->validate();
-            // needed to validate, if dont want to validate, dont call.
-        }
         $formb = FormB::find($this->id_formb);
+        if ($action == 'hantar') {
+          $this->validate();
+          $status = "Sedang Diproses";
+        }else {
+
+          $status = "Disimpan ke Draf";
+        }
         $formb->update([
             'gaji_pasangan' => $this->gaji_pasangan,
             'jumlah_imbuhan' => $this->jumlah_imbuhan,
@@ -424,6 +480,7 @@ class EditFormB extends Component
             'bulanan_koperasi_pegawai' => $this->bulanan_koperasi_pegawai,
             'jumlah_koperasi_pasangan' => $this->jumlah_koperasi_pasangan,
             'bulanan_koperasi_pasangan' => $this->bulanan_koperasi_pasangan,
+            'status' => $status
         ]);
 
         //panngil function storeDivivden() & storePinjaman()
@@ -431,6 +488,26 @@ class EditFormB extends Component
         $this->reset('inputsdividen');
 
         $this->storePinjaman();
+
+
+
+        if ($action == 'hantar') {
+          //send notification to admin (noti yang dia dah berjaya declare)
+          $email = Email::where('penerima', '=', 'Pentadbir Sistem')->where('jenis', '=', 'Perisytiharan Harta Baharu')->first(); //template email yang diguna
+          // dd($email);
+          // $email = null; // for testing
+          $admin_available = User::where('role','=','1')->get(); //get system admin information
+          // if (!$email) {
+          foreach ($admin_available as $data) {
+            // $formbs->notify(new UserFormAdminB($data, $email));
+            dispatch(new SendNotificationFormB($data, $email, $formb));
+            // dispatch($email);
+          }
+          return redirect()->route('user.harta.FormB.senaraihartaB');
+        }else {
+
+          return redirect()->route('user.harta.senaraidraft');
+        }
     }
 
     public function storeHarta(){
@@ -463,7 +540,7 @@ class EditFormB extends Component
             'alamat_asset' => $this->alamat_asset,
             'no_pendaftaran' => $this->no_pendaftaran,
             'harga_jualan' => $this->harga_jualan,
-            'tarikh_lupus' => $this->tarikh_lupus,             
+            'tarikh_lupus' => $this->tarikh_lupus,
             'formbs_id' =>$this->id_formb,
         ]);
         // dd($this->hubungan_pemilik);
@@ -544,25 +621,25 @@ class EditFormB extends Component
                 // $this->pinjaman_perumahan_pegawai = $this->totalPinjamanPerumahanSendiri;
                 $this->bulanan_perumahan_pegawai = $this->bulanan_perumahan_pegawai - $harta->ansuran_bulanan;
                 // $this->bulanan_perumahan_pegawai = $this->totalAnsuranPerumahanSendiri;
-    
-    
+
+
             }
             else if($harta->jenis_harta == "Rumah" && $harta->hubungan_pemilik == "Isteri/Suami" && $harta->cara_belian == "Pinjaman"){
                 $this->pinjaman_perumahan_pasangan = $this->pinjaman_perumahan_pasangan - $harta->jumlah_pinjaman;
                 $this->bulanan_perumahan_pasangan = $this->bulanan_perumahan_pasangan - $harta->ansuran_bulanan;
                 // $this->pinjaman_perumahan_pasangan = $this->totalPinjamanPerumahanPasangan;
                 // $this->bulanan_perumahan_pasangan = $this->totalAnsuranPerumahanPasangan;
-    
+
             }
-    
+
             else if($harta->jenis_harta == "Kenderaan" && $harta->hubungan_pemilik == "Sendiri" && $harta->cara_belian == "Pinjaman"){
                 // dd('masuk');
                 $this->pinjaman_kenderaan_pegawai = $this->pinjaman_kenderaan_pegawai - $harta->jumlah_pinjaman;
                 $this->bulanan_kenderaan_pegawai = $this->bulanan_kenderaan_pegawai - $harta->ansuran_bulanan;
                 // $this->pinjaman_kenderaan_pegawai = $this->totalPinjamanKenderaanSendiri;
                 // $this->bulanan_kenderaan_pegawai = $this->totalAnsuranKenderaanSendiri;
-    
-    
+
+
             }
             else if($harta->jenis_harta == "Kenderaan" && $harta->hubungan_pemilik == "Isteri/Suami" && $harta->cara_belian == "Pinjaman"){
                 $this->pinjaman_kenderaan_pasangan = $this->pinjaman_kenderaan_pasangan - $harta->jumlah_pinjaman;
@@ -581,20 +658,20 @@ class EditFormB extends Component
             foreach($dividen as $data){
                 $record = DividenB::where('id', $data->id);
                 $record->delete();
-            }            
+            }
         }
-        
+
         if($this->dividen_1)
             $counter = count($this->dividen_1);
         else
             $counter = 0;
-        for ($key=0; $key < $counter ; $key++) { 
+        for ($key=0; $key < $counter ; $key++) {
             DividenB::create([
                 'dividen_1' => $this->dividen_1[$key],
                 'dividen_1_pegawai' => $this->dividen_1_pegawai[$key],
                 'dividen_1_pasangan' => $this->dividen_pasangan[$key],
                 'formbs_id' => $this->idForm,
-            ]);      
+            ]);
         }
     }
 
@@ -604,23 +681,23 @@ class EditFormB extends Component
             foreach($pinjaman as $data){
                 $record = PinjamanB::where('id', $data->id);
                 $record->delete();
-            }            
+            }
         }
-        
+
         if($this->lain_lain_pinjaman)
             $counter = count($this->lain_lain_pinjaman);
         else
             $counter = 0;
 
-        for ($key=0; $key < $counter; $key++) { 
+        for ($key=0; $key < $counter; $key++) {
             PinjamanB::create ([
                 'lain_lain_pinjaman' => $this->lain_lain_pinjaman[$key],
                 'pinjaman_pegawai' => $this->pinjaman_pegawai[$key],
                 'bulanan_pegawai' => $this->bulanan_pegawai[$key],
                 'pinjaman_pasangan' => $this->pinjaman_pasangan[$key],
-                'bulanan_pasangan' => $this->bulanan_pasangan[$key],                
+                'bulanan_pasangan' => $this->bulanan_pasangan[$key],
                 'formbs_id' =>$this->idForm,
-            ]);        
+            ]);
         }
     }
 }

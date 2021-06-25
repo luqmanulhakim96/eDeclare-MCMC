@@ -60,8 +60,8 @@
     } */
 
     </style>
+  @livewireStyles
 
-@livewireStyles
 </head>
 
 <body class="position-relative">
@@ -726,6 +726,7 @@
     <!-- Data Table -->
     <!-- Data Table script -->
     <script type="text/javascript" src="{{ asset('qbadminui/js/vendor/DataTables/datatables.js') }}"></script>
+
     @livewireScripts
 </body>
 </html>

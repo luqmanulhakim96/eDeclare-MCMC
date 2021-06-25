@@ -553,9 +553,9 @@ label {
 .btn-outline-primary:hover,
 .btn-primary,
 .btn-outline-primary {
-  color: #ffffff !important;
-  background: #663399 !important;
-  border-color: #663399 !important;
+  color: #343a40 !important;
+  background: #ffc107 !important;
+  border-color: #ffc107 !important;
 }
 
 .primary-btn-hover-focus,

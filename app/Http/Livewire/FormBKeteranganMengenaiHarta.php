@@ -10,16 +10,16 @@ use App\FormB as FormBModel;
 class FormBKeteranganMengenaiHarta extends Component
 {
 
-    public $jenis_harta, $pemilik_harta, $hubungan_pemilik, $maklumat_harta, $tarikh_pemilikan_harta, $bilangan, $nilai_perolehan, 
-    $cara_perolehan, $nama_pemilikan_asal, $cara_belian, $lain_lain, $jumlah_pinjaman, $institusi_pinjaman, $tempoh_bayar_balik, 
+    public $jenis_harta, $pemilik_harta, $hubungan_pemilik, $maklumat_harta, $tarikh_pemilikan_harta, $bilangan, $nilai_perolehan,
+    $cara_perolehan, $nama_pemilikan_asal, $cara_belian, $lain_lain, $jumlah_pinjaman, $institusi_pinjaman, $tempoh_bayar_balik,
     $ansuran_bulanan, $tarikh_ansuran_pertama, $jenis_harta_pelupusan, $alamat_asset, $no_pendaftaran, $harga_jualan, $tarikh_lupus,
     $tunai,$keterangan_lain,$nama_pemilik_bersama,$unit_bilangan,$lain_lain_hubungan;
     public $show = 0;
     public $showbelian = 0;
     public $showhubungan = 0;
+    public $show2 =true;
     public $inputs = [];
     public $i = 0;
-    public $show2 = true;
     public $totalPinjamanPerumahanSendiri = 0;
     public $totalPinjamanPerumahanPasangan = 0;
     public $totalPinjamanKenderaanSendiri = 0;
@@ -95,6 +95,7 @@ class FormBKeteranganMengenaiHarta extends Component
         $this->cara_perolehan[] = '';               //select disabled hidden
         $this->cara_belian[] = '';
         $this->hubungan_pemilik[] = '';
+
     }
 
     public function render()
@@ -219,14 +220,14 @@ class FormBKeteranganMengenaiHarta extends Component
      }
     }
 
-    public function store($formb)
+    public function store($formb,$action)
     {
         if($this->jenis_harta)
             $counter = count($this->jenis_harta);
         else
             $counter = 0;
 
-        for ($key=0; $key < $counter; $key++) { 
+        for ($key=0; $key < $counter; $key++) {
             HartaB::create ([
                 'jenis_harta' => $this->jenis_harta[$key] ?? null,
                 'pemilik_harta' => $this->pemilik_harta[$key] ?? null,
@@ -253,9 +254,9 @@ class FormBKeteranganMengenaiHarta extends Component
                 'alamat_asset' => $this->alamat_asset[$key] ?? null,
                 'no_pendaftaran' => $this->no_pendaftaran[$key] ?? null,
                 'harga_jualan' => $this->harga_jualan[$key] ?? null,
-                'tarikh_lupus' => $this->tarikh_lupus[$key] ?? null,             
+                'tarikh_lupus' => $this->tarikh_lupus[$key] ?? null,
                 'formbs_id' =>$formb,
-            ]);        
+            ]);
         }
         for ($key=0; $key < $counter; $key++) {
             if($this->jenis_harta[$key] == "Rumah" && $this->hubungan_pemilik[$key] == "Sendiri" && $this->cara_belian[$key] == "Pinjaman"){
@@ -283,11 +284,11 @@ class FormBKeteranganMengenaiHarta extends Component
         }
         // dd($this->totalPinjamanKenderaanPasangan);
 
-            
+
         $this->emit('updatePinjaman',$this->totalPinjamanPerumahanSendiri,$this->totalAnsuranPerumahanSendiri,$this->totalPinjamanPerumahanPasangan,$this->totalAnsuranPerumahanPasangan,
-        $this->totalPinjamanKenderaanSendiri,$this->totalAnsuranKenderaanSendiri,  $this->totalPinjamanKenderaanPasangan,$this->totalAnsuranKenderaanPasangan,$formb);
-        $this->inputs = [];
-        $this->resetInputFields();            
+        $this->totalPinjamanKenderaanSendiri,$this->totalAnsuranKenderaanSendiri,  $this->totalPinjamanKenderaanPasangan,$this->totalAnsuranKenderaanPasangan,$action);
+        // $this->inputs = [];
+        // $this->resetInputFields();
     }
     private function resetInputFields()
     {

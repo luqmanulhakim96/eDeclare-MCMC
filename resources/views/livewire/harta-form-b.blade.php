@@ -35,7 +35,7 @@
                             @error('jenis_harta')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                            
+
                         </div>
 
                     </div>
@@ -65,13 +65,13 @@
                                 <option value="Bersama">Milikan Bersama</option>
                                 <option value="Lain-lain">Lain-lain</option>
                             </select>
-                            
+
                         </div>
-                      
+
                     </div>
-                    
+
                         @if($showhubungan == 1)
-                        
+
                             <div>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -107,18 +107,18 @@
                                 <br>
                             </div>
                         @endif
-                        
+
                     <br>
                     <div class="row">
                         <div class="col-md-4">
                             <p class="required">Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya</p>
                         </div>
                         <div class="col-md-8">
-                            <input class="form-control bg-light" type="text" 
+                            <input class="form-control bg-light" type="text"
                                 wire:model="maklumat_harta"
                                 placeholder="Alamat Harta / No. Pendaftaran / No. Sijil Dan Sebagainya"
                                 value="{{ old('maklumat_harta') }}" autocomplete="off">
-                            
+
                         @error('maklumat_harta')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -131,14 +131,30 @@
                             <p class="required">Tarikh Pemilikan Harta</p>
                         </div>
                         <div class="col-md-8">
-                            <input class="form-control bg-light" type="date" 
+                            <input class="form-control bg-light" type="date"
                                 wire:model="tarikh_pemilikan_harta" value="{{ old('tarikh_pemilikan_harta') }}"
                                 autocomplete="off">
                                 @error('tarikh_pemilikan_harta')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
-                            
+
                         </div>
+                        <script type="text/javascript">
+                        var today = new Date();
+                         var dd = today.getDate();
+                         var mm = today.getMonth()+1; //January is 0!
+                         var yyyy = today.getFullYear();
+                          if(dd<10){
+                                 dd='0'+dd
+                             }
+                             if(mm<10){
+                                 mm='0'+mm
+                             }
+
+                         today = yyyy+'-'+mm+'-'+dd;
+                         document.getElementById("tarikh_pemilikan_harta").setAttribute("max", today);
+
+                        </script>
                     </div>
                     <br>
                     <div class="row">
@@ -147,7 +163,7 @@
                                 nyatakan keluasan tanah tapak rumah itu)</p>
                         </div>
                         <div class="col-md-4">
-                            <input class="form-control bg-light" type="text" 
+                            <input class="form-control bg-light" type="text"
                                  wire:model="bilangan" onkeypress="return isNumberKey(event,this)"
                                 placeholder="Bilangan / Ekar / Kapasiti Enjin "
                                 value="{{ old('bilangan') }}" autocomplete="nope">
@@ -156,8 +172,8 @@
                                 @enderror
                         </div>
                         <div class="col-md-4">
-                            <input class="form-control bg-light" type="text" 
-                                 wire:model="unit_bilangan" 
+                            <input class="form-control bg-light" type="text"
+                                 wire:model="unit_bilangan"
                                 placeholder="Unit / Ekar / CC /Kaki Persegi"
                                 value="{{ old('unit_bilangan') }}" autocomplete="nope">
                                 @error('unit_bilangan')
@@ -172,7 +188,7 @@
                             <p class="required">Nilai Perolehan Harta (RM)</p>
                         </div>
                         <div class="col-md-8">
-                            <input class="form-control bg-light" type="text" 
+                            <input class="form-control bg-light" type="text"
                                  wire:model="nilai_perolehan" onkeypress="return isNumberKey(event,this)"
                                 placeholder="Nilai Perolehan Harta (RM)" value="{{ old('nilai_perolehan') }}"
                                 autocomplete="off">
@@ -216,7 +232,7 @@
                                     <p class="required"> Dari Siapa Harta Diperolehi</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control bg-light" type="text" 
+                                    <input class="form-control bg-light" type="text"
                                         wire:model="nama_pemilikan_asal" placeholder="Nama Pemilik Sebelum"
                                         autocomplete="off">
                                         @error('nama_pemilikan_asal')
@@ -255,7 +271,7 @@
                                     <p class="required"> Nyatakan,</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control bg-light" type="text" 
+                                    <input class="form-control bg-light" type="text"
                                         wire:model="lain_lain" value="{{ old('lain_lain') }}" autocomplete="off">
                                         @error('lain_lain')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -265,7 +281,7 @@
                             </div>
                             <br>
                         </div>
-                    
+
                     @endif
 
                     @if ($showbelian == 1)
@@ -275,14 +291,14 @@
                                     <p class="required">i) Jumlah Pinjaman</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control bg-light" type="text" 
+                                    <input class="form-control bg-light" type="text"
                                         wire:model="jumlah_pinjaman" onkeypress="return isNumberKey(event,this)"
                                          value="{{ old('jumlah_pinjaman') }}"
                                         autocomplete="off">
                                         @error('jumlah_pinjaman')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                    
+
                                 </div>
 
                             </div>
@@ -308,7 +324,7 @@
                                 </div>
                                 <div class="col-md-8">
 
-                                    <input class="form-control bg-light" type="text" 
+                                    <input class="form-control bg-light" type="text"
                                     wire:model="tempoh_bayar_balik"
                                         value="{{ old('tempoh_bayar_balik') }}" autocomplete="off">
                                     <label for="tempoh_bayar_balik">Sila sertakan bulan atau tahun. cth: (9 Tahun / 10
@@ -316,8 +332,8 @@
                                         @error('tempoh_bayar_balik')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                    
-                                </div>                              
+
+                                </div>
 
                             </div>
                             <br>
@@ -333,7 +349,7 @@
                                         @error('ansuran_bulanan')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                    
+
                                 </div>
 
 
@@ -344,13 +360,29 @@
                                     <p class="required">v) Tarikh ansuran pertama</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control bg-light" type="date" 
+                                    <input class="form-control bg-light" type="date"
                                     wire:model="tarikh_ansuran_pertama"
                                         value="{{ old('tarikh_ansuran_pertama') }}">
                                         @error('tarikh_ansuran_pertama')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                 </div>
+                                <script type="text/javascript">
+                                var today = new Date();
+                                 var dd = today.getDate();
+                                 var mm = today.getMonth()+1; //January is 0!
+                                 var yyyy = today.getFullYear();
+                                  if(dd<10){
+                                         dd='0'+dd
+                                     }
+                                     if(mm<10){
+                                         mm='0'+mm
+                                     }
+
+                                 today = yyyy+'-'+mm+'-'+dd;
+                                 document.getElementById("tarikh_ansuran_pertama").setAttribute("max", today);
+
+                                </script>
 
                             </div>
                             <br>
@@ -360,15 +392,15 @@
                                 </div>
                                 <div class="col-md-8">
 
-                                    <input class="form-control bg-light" type="text" 
+                                    <input class="form-control bg-light" type="text"
                                     wire:model="keterangan_lain"
                                         value="{{ old('keterangan_lain') }}" autocomplete="off">
-                                    
+
                                         @error('keterangan_lain')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-                                    
-                                </div>                              
+
+                                </div>
 
                             </div>
                             <br>
@@ -381,8 +413,8 @@
                                     <p class="required">i) Jenis Harta</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control bg-light" type="text" 
-                                    wire:model="jenis_harta_pelupusan"                                    
+                                    <input class="form-control bg-light" type="text"
+                                    wire:model="jenis_harta_pelupusan"
                                     value="{{ old('jenis_harta_pelupusan') }}" autocomplete="off">
                                     @error('jenis_harta_pelupusan')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -397,7 +429,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <input class="form-control bg-light" type="text"
-                                    wire:model="alamat_asset"                                    
+                                    wire:model="alamat_asset"
                                         value="{{ old('alamat_asset') }}" autocomplete="off">
                                         @error('alamat_asset')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -413,7 +445,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <input class="form-control bg-light" type="text"
-                                    wire:model="no_pendaftaran"                                    
+                                    wire:model="no_pendaftaran"
 
                                         value="{{ old('no_pendaftaran') }}" autocomplete="off">
                                         @error('no_pendaftaran')
@@ -429,7 +461,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <input class="form-control bg-light" type="text"
-                                    wire:model="harga_jualan"  onkeypress="return isNumberKey(event,this)"                                  
+                                    wire:model="harga_jualan"  onkeypress="return isNumberKey(event,this)"
                                     value="{{ old('harga_jualan') }}" autocomplete="off">
                                     @error('harga_jualan')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -444,13 +476,28 @@
                                 </div>
                                 <div class="col-md-8">
                                     <input class="form-control bg-light" type="date"
-                                    wire:model="tarikh_lupus"                                    
+                                    wire:model="tarikh_lupus"
                                     value="{{ old('tarikh_lupus') }}">
                                     @error('tarikh_lupus')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <script type="text/javascript">
+                                var today = new Date();
+                                 var dd = today.getDate();
+                                 var mm = today.getMonth()+1; //January is 0!
+                                 var yyyy = today.getFullYear();
+                                  if(dd<10){
+                                         dd='0'+dd
+                                     }
+                                     if(mm<10){
+                                         mm='0'+mm
+                                     }
 
+                                 today = yyyy+'-'+mm+'-'+dd;
+                                 document.getElementById("tarikh_lupus").setAttribute("max", today);
+
+                                </script>
                             </div>
                         </div>
                     @elseif($showbelian == 3)
@@ -460,7 +507,7 @@
                                 <p class="required"> Nyatakan nilai belian tunai</p>
                             </div>
                             <div class="col-md-8">
-                                <input class="form-control bg-light" type="text" 
+                                <input class="form-control bg-light" type="text"
                                     wire:model="tunai" value="{{ old('tunai') }}" onkeypress="return isNumberKey(event,this)" autocomplete="off">
                                     @error('tunai')
                                     <div class="alert alert-danger">{{ $message }}</div>

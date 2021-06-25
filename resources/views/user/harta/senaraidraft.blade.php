@@ -31,8 +31,8 @@
                                          @if($data->status == "Disimpan ke Draf")
                                          <tr>
                                            <td>{{ $data ->id }}</td>
-                                           <td>{{$data ->nama_pegawai }}</td>
-                                           <td>{{$data ->kad_pengenalan }}</td>
+                                           <td>{{$data->nama_pegawai }}</td>
+                                           <td>{{$data->kad_pengenalan }}</td>
                                              <td>
                                                @if($data ->getTable() == "formbs")
                                                Lampiran B
@@ -114,7 +114,7 @@
                                                 @if($data ->status == "Disimpan ke Draf")
                                                 <form action="{{ route('drafharta.delete', $data->id) }}" method="POST">
                                                     @csrf
-                                                    <input type="hidden" name="form" value="{{$data ->getTable()}}">                                                    
+                                                    <input type="hidden" name="form" value="{{$data ->getTable()}}">
                                                     <button type="submit" class="mr-1 btn btn-danger"><i class="fas fa-trash"></i></button>
                                                 </form>
                                                 @endif
