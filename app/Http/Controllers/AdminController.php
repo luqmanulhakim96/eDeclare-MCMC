@@ -87,7 +87,7 @@ class AdminController extends Controller
 
       // $total_declare = $pegawai_dah_declare_Bs[0]->data + $pegawai_dah_declare_Cs[0]->data + $pegawai_dah_declare_Ds[0]->data + $pegawai_dah_declare_Gs[0]->data;
       // dd($total_declare);
-      $total_user =DB::connection('sqlsrv')->select(DB::raw ("SELECT COUNT( DISTINCT users.id ) as data From users"));
+      $total_user =DB::connection('sqlsrv2')->select(DB::raw ("SELECT COUNT( DISTINCT STAFFNO ) as data From V_ED_STAFF_INFO"));
       $undeclareB= $total_user[0]->data - $pegawai_dah_declare_Bs[0]->data ;
       $undeclareC= $total_user[0]->data - $pegawai_dah_declare_Cs[0]->data ;
       $undeclareD= $total_user[0]->data - $pegawai_dah_declare_Ds[0]->data ;

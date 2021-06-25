@@ -655,6 +655,22 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <script type="text/javascript">
+                            var today = new Date();
+                             var dd = today.getDate();
+                             var mm = today.getMonth()+1; //January is 0!
+                             var yyyy = today.getFullYear();
+                              if(dd<10){
+                                     dd='0'+dd
+                                 }
+                                 if(mm<10){
+                                     mm='0'+mm
+                                 }
+
+                             today = yyyy+'-'+mm+'-'+dd;
+                             document.getElementById("tarikh_pemilikan_harta.{{ $value }}").setAttribute("max", today);
+
+                            </script>
                         </div>
                         <br>
                         <div class="row">
@@ -715,7 +731,7 @@
                                         Dibeli</option>
                                     <option value="Dihadiahkan">Dihadiahkan
                                     </option>
-                                    <option value="Lain-lain"Lain-lain
+                                    <option value="Lain-lain">Lain-lain
                                     </option>
                                 </select>
                                 @error('cara_perolehan.'.$value)
@@ -870,6 +886,23 @@
                                         @enderror
                                     </div>
 
+                                    <script type="text/javascript">
+                                    var today = new Date();
+                                     var dd = today.getDate();
+                                     var mm = today.getMonth()+1; //January is 0!
+                                     var yyyy = today.getFullYear();
+                                      if(dd<10){
+                                             dd='0'+dd
+                                         }
+                                         if(mm<10){
+                                             mm='0'+mm
+                                         }
+
+                                     today = yyyy+'-'+mm+'-'+dd;
+                                     document.getElementById("tarikh_ansuran_pertama.{{ $value}}").setAttribute("max", today);
+
+                                    </script>
+
                                 </div>
                                 <br>
                                 <div class="row">
@@ -967,6 +1000,22 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <script type="text/javascript">
+                                    var today = new Date();
+                                     var dd = today.getDate();
+                                     var mm = today.getMonth()+1; //January is 0!
+                                     var yyyy = today.getFullYear();
+                                      if(dd<10){
+                                             dd='0'+dd
+                                         }
+                                         if(mm<10){
+                                             mm='0'+mm
+                                         }
+
+                                     today = yyyy+'-'+mm+'-'+dd;
+                                     document.getElementById("tarikh_lupus.{{ $value }}").setAttribute("max", today);
+
+                                    </script>
 
                                 </div>
                             </div>
@@ -1005,56 +1054,6 @@
                     </div>
                     <br>
 
-                    <script type="text/javascript">
-                    var today = new Date();
-                     var dd = today.getDate();
-                     var mm = today.getMonth()+1; //January is 0!
-                     var yyyy = today.getFullYear();
-                      if(dd<10){
-                             dd='0'+dd
-                         }
-                         if(mm<10){
-                             mm='0'+mm
-                         }
-
-                     today = yyyy+'-'+mm+'-'+dd;
-                     document.getElementById("tarikh_pemilikan_harta.{{ $value }}").setAttribute("max", today);
-
-                    </script>
-
-                    <script type="text/javascript">
-                    var today = new Date();
-                     var dd = today.getDate();
-                     var mm = today.getMonth()+1; //January is 0!
-                     var yyyy = today.getFullYear();
-                      if(dd<10){
-                             dd='0'+dd
-                         }
-                         if(mm<10){
-                             mm='0'+mm
-                         }
-
-                     today = yyyy+'-'+mm+'-'+dd;
-                     document.getElementById("tarikh_ansuran_pertama.{{ $value}}").setAttribute("max", today);
-
-                    </script>
-
-                    <script type="text/javascript">
-                    var today = new Date();
-                     var dd = today.getDate();
-                     var mm = today.getMonth()+1; //January is 0!
-                     var yyyy = today.getFullYear();
-                      if(dd<10){
-                             dd='0'+dd
-                         }
-                         if(mm<10){
-                             mm='0'+mm
-                         }
-
-                     today = yyyy+'-'+mm+'-'+dd;
-                     document.getElementById("tarikh_lupus.{{ $value }}").setAttribute("max", today);
-
-                    </script>
                     @endforeach
                     @if($show2)
                         <div class="row">
