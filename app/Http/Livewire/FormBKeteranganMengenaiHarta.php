@@ -14,10 +14,14 @@ class FormBKeteranganMengenaiHarta extends Component
     $cara_perolehan, $nama_pemilikan_asal, $cara_belian, $lain_lain, $jumlah_pinjaman, $institusi_pinjaman, $tempoh_bayar_balik,
     $ansuran_bulanan, $tarikh_ansuran_pertama, $jenis_harta_pelupusan, $alamat_asset, $no_pendaftaran, $harga_jualan, $tarikh_lupus,
     $tunai,$keterangan_lain,$nama_pemilik_bersama,$unit_bilangan,$lain_lain_hubungan;
-    public $show = 0;
-    public $showbelian = 0;
-    public $showhubungan = 0;
+    // public $show = 0;
+    public $show = [];
+    // public $showbelian = 0;
+    public $showbelian = [];
+    // public $showhubungan = 0;
+    public $showhubungan = [];
     public $show2 =true;
+
     public $inputs = [];
     public $i = 0;
     public $totalPinjamanPerumahanSendiri = 0;
@@ -95,6 +99,9 @@ class FormBKeteranganMengenaiHarta extends Component
         $this->cara_perolehan[] = '';               //select disabled hidden
         $this->cara_belian[] = '';
         $this->hubungan_pemilik[] = '';
+        $this->showhubungan[] = 0;
+        $this->showbelian[] = 0;
+        $this->show[] = 0;
 
     }
 
@@ -166,58 +173,94 @@ class FormBKeteranganMengenaiHarta extends Component
         $i = $i + 1;
         $this->i = $i;
         array_push($this->inputs, $i);
+        array_push($this->showhubungan, 0);
+        array_push($this->showbelian, 0);
+        array_push($this->show, 0);
     }
 
     public function remove($i)
     {
         unset($this->inputs[$i]);
+        unset($this->showhubungan[$i]);
+        unset($this->showbelian[$i]);
+        unset($this->show[$i]);
+
     }
 
-    public function showForm()
+    public function showForm($i)
     {
         // dd($this->cara_perolehan);
-        $this->reset('showbelian'); // $this->showbelian = 0;
+        // $this->reset('showbelian'); // $this->showbelian = 0;
+        $this->showbelian[$i] = 0; // $this->showbelian = 0;
 
-        foreach ($this->cara_perolehan as $data) {
-            if ($data == "Dipusakai" || $data == "Dihadiahkan") {
-                $this->show = 1;
-            } else if ($data == "Dibeli") {
-                $this->show = 2;
-            } else if ($data == "Lain-lain") {
-                $this->show = 3;
-            } else {
-                $this->show = 0;
-            }
+        // foreach ($this->cara_perolehan as $data) {
+        //     if ($data == "Dipusakai" || $data == "Dihadiahkan") {
+        //         $this->show = 1;
+        //     } else if ($data == "Dibeli") {
+        //         $this->show = 2;
+        //     } else if ($data == "Lain-lain") {
+        //         $this->show = 3;
+        //     } else {
+        //         $this->show = 0;
+        //     }
+        // }
+
+        if ($this->cara_perolehan[$i] == "Dipusakai" || $this->cara_perolehan[$i] == "Dihadiahkan") {
+            $this->show[$i] = 1;
+        } else if ($this->cara_perolehan[$i] == "Dibeli") {
+            $this->show[$i] = 2;
+        } else if ($this->cara_perolehan[$i] == "Lain-lain") {
+            $this->show[$i] = 3;
+        } else {
+            $this->show[$i] = 0;
         }
 
     }
 
-    public function showFormBelian()
+    public function showFormBelian($i)
     {
-        foreach ($this->cara_belian as $data) {
-        if ($data == "Pinjaman") {
-            $this->showbelian = 1;
-        } else if ($data == "Pelupusan") {
-            $this->showbelian = 2;
-        } else if ($data == "Tunai") {
-        $this->showbelian = 3;
-        }
+        // foreach ($this->cara_belian as $data) {
+        // if ($data == "Pinjaman") {
+        //     $this->showbelian = 1;
+        // } else if ($data == "Pelupusan") {
+        //     $this->showbelian = 2;
+        // } else if ($data == "Tunai") {
+        // $this->showbelian = 3;
+        // }
+        // dd($this->showbelian[$i]);
+            if ($this->cara_belian[$i] == "Pinjaman") {
+                $this->showbelian[$i] = 1;
+            } else if ($this->cara_belian[$i] == "Pelupusan") {
+                $this->showbelian[$i] = 2;
+            } else if ($this->cara_belian[$i] == "Tunai") {
+            $this->showbelian[$i] = 3;
      }
     }
 
-    public function showFormHubungan()
+    public function showFormHubungan($i)
     {
+        // dd($i);
         // $this->reset('showhubungan');
-        foreach ($this->hubungan_pemilik as $data) {
+        // foreach ($this->hubungan_pemilik as $data) {
+        //     // dd($data);
+        // if ($data == "Bersama") {
+        //     $this->showhubungan = 1;
+        // } else if ($data == "Lain-lain") {
+        //     $this->showhubungan = 2;
+        // } else{
+        //     $this->showhubungan = 0;
+        // }
             // dd($data);
-        if ($data == "Bersama") {
-            $this->showhubungan = 1;
-        } else if ($data == "Lain-lain") {
-            $this->showhubungan = 2;
+
+        if ($this->hubungan_pemilik[$i] == "Bersama") {
+            $this->showhubungan[$i] = 1;
+        } else if ($this->hubungan_pemilik[$i] == "Lain-lain") {
+            $this->showhubungan[$i] = 2;
         } else{
-            $this->showhubungan = 0;
+            $this->showhubungan[$i] = 0;
         }
-     }
+
+
     }
 
     public function store($formb,$action)
@@ -319,9 +362,9 @@ class FormBKeteranganMengenaiHarta extends Component
         $this->lain_lain_hubungan = null;
         $this->keterangan_lain = null;
         $this->unit_bilangan = null;
-        $this->showhubungan = 0;
-        $this->show = 0;
-        $this->showbelian = 0;
+        $this->showhubungan[] = 0;
+        $this->show[] = 0;
+        $this->showbelian[] = 0;
 
 
 

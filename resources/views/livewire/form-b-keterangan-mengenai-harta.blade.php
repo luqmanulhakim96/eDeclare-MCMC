@@ -53,7 +53,7 @@
                                 @enderror
                         </div>
                         <div class="col-md-4">
-                            <select class="custom-select bg-light" wire:model="hubungan_pemilik.0" wire:change="showFormHubungan">
+                            <select class="custom-select bg-light" wire:model="hubungan_pemilik.0" wire:change="showFormHubungan(0)">
                                 <option value="" {{ old('hubungan_pemilik.0') == null ? 'selected' : '' }} disabled hidden>
                                     Hubungan dengan Pemilik</option>
                                 <option value="Sendiri">Sendiri</option>
@@ -68,7 +68,7 @@
 
                     </div>
 
-                        @if($showhubungan == 1)
+                        @if($showhubungan[0] == 1)
 
                             <div>
                                 <div class="row">
@@ -86,7 +86,7 @@
                                 </div>
                                 <br>
                             </div>
-                        @elseif($showhubungan == 2)
+                        @elseif($showhubungan[0] == 2)
 
                             <div>
                                 <div class="row">
@@ -205,7 +205,7 @@
                         </div>
                         <div class="col-md-8">
                             <select class="custom-select bg-light" wire:model="cara_perolehan.0"
-                                wire:change="showForm">
+                                wire:change="showForm(0)">
                                 <option value="" disabled hidden>Cara Perolehan</option>
                                 <option value="Dipusakai"
                                     {{ old('cara_perolehan') == 'Dipusakai' ? 'selected' : '' }}>Dipusakai</option>
@@ -224,7 +224,7 @@
                     <br>
                     {{-- {{ $show }} --}}
 
-                    @if ($show == 1)
+                    @if ($show[0] == 1)
                         <div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -242,7 +242,7 @@
                             </div>
                             <br>
                         </div>
-                    @elseif($show == 2)
+                    @elseif($show[0] == 2)
                         <div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -250,7 +250,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select class="custom-select bg-light"
-                                        wire:model="cara_belian.0" wire:change="showFormBelian">
+                                        wire:model="cara_belian.0" wire:change="showFormBelian(0)">
                                         <option value="" disabled hidden>Cara Pembelian Harta</option>
                                         <option value="Pinjaman">Pinjaman</option>
                                         <option value="Pelupusan">Pelupusan</option>
@@ -263,7 +263,7 @@
                             </div>
                             <br>
                         </div>
-                    @elseif($show == 3)
+                    @elseif($show[0] == 3)
                         <div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -283,7 +283,7 @@
 
                     @endif
 
-                    @if ($showbelian == 1)
+                    @if ($showbelian[0] == 1)
                         <div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -404,7 +404,7 @@
                             </div>
                             <br>
                         </div>
-                    @elseif($showbelian == 2)
+                    @elseif($showbelian[0] == 2)
 
                         <div>
                             <div class="row">
@@ -499,7 +499,7 @@
 
                             </script>
                         </div>
-                    @elseif($showbelian == 3)
+                    @elseif($showbelian[0] == 3)
                     <div>
                         <div class="row">
                             <div class="col-md-4">
@@ -577,7 +577,7 @@
 
                             </div>
                             <div class="col-md-4">
-                                <select class="custom-select bg-light" wire:model="hubungan_pemilik.{{ $value }}" wire:change="showFormHubungan">
+                                <select class="custom-select bg-light" wire:model="hubungan_pemilik.{{ $value }}" wire:change="showFormHubungan({{ $value }})">
                                     <option value="" selected disabled hidden>Hubungan dengan Pemilik</option>
                                     <option value="Sendiri">Sendiri</option>
                                     <option value="Anak">Anak</option>
@@ -591,7 +591,7 @@
                                 @enderror
                             </div>
                         </div>
-                        @if($showhubungan == 1)
+                        @if($showhubungan[$value] == 1)
 
                             <div>
                                 <div class="row">
@@ -609,7 +609,7 @@
                                 </div>
                                 <br>
                             </div>
-                        @elseif($showhubungan == 2)
+                        @elseif($showhubungan[$value] == 2)
 
                             <div>
                                 <div class="row">
@@ -707,7 +707,7 @@
                             </div>
                             <div class="col-md-8">
                                 <select class="custom-select bg-light"
-                                    wire:model="cara_perolehan.{{ $value }}" wire:change="showForm">
+                                    wire:model="cara_perolehan.{{ $value }}" wire:change="showForm({{ $value }})">
                                     <option value="" disabled hidden>Cara Perolehan</option>
                                     <option value="Dipusakai">Dipusakai
                                     </option>
@@ -728,7 +728,7 @@
                         <br>
                         {{-- {{ $show }} --}}
 
-                        @if ($show == 1)
+                        @if ($show[$value] == 1)
                             <div>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -745,7 +745,7 @@
                                 </div>
                                 <br>
                             </div>
-                        @elseif($show == 2)
+                        @elseif($show[$value] == 2)
                             <div id="cara_belian_container">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -753,7 +753,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <select id="select_cara_belian" class="custom-select bg-light"
-                                            wire:model="cara_belian.{{ $value }}" wire:change="showFormBelian">
+                                            wire:model="cara_belian.{{ $value }}" wire:change="showFormBelian({{ $value }})">
                                             <option value="" disabled hidden>Cara Pembelian Harta</option>
                                             <option value="Pinjaman">Pinjaman</option>
                                             <option value="Pelupusan">Pelupusan</option>
@@ -768,7 +768,7 @@
                                 </div>
                                 <br>
                             </div>
-                        @elseif($show == 3)
+                        @elseif($show[$value] == 3)
                             <div>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -787,7 +787,7 @@
                             </div>
                         @endif
 
-                        @if ($showbelian == 1)
+                        @if ($showbelian[$value] == 1)
                             <div>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -893,7 +893,7 @@
                                 <br>
                             </div>
 
-                        @elseif($showbelian == 2)
+                        @elseif($showbelian[$value] == 2)
 
                             <div>
                                 <div class="row">
@@ -970,7 +970,7 @@
 
                                 </div>
                             </div>
-                            @elseif($showbelian == 3)
+                            @elseif($showbelian[$value] == 3)
                             <div>
                                 <div class="row">
                                     <div class="col-md-4">
