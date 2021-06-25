@@ -34,7 +34,9 @@ class FormBPendapatanBulanan extends Component
 
     public function validator($action)
     {
+      // dd($action);
         if ($action == 'hantar') {
+          // dd($action);
             $this->validate();
             $this->emit('harta-validator', $action);
         }
@@ -80,7 +82,7 @@ class FormBPendapatanBulanan extends Component
         else
             $counter = 0;
 
-       for ($key=0; $key < $counter ; $key++) { 
+       for ($key=0; $key < $counter ; $key++) {
         DividenB::create([
             'dividen_1' => $this->dividen_1[$key],
             'dividen_1_pegawai' => $this->dividen_1_pegawai[$key],

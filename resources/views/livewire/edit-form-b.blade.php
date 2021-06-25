@@ -287,8 +287,8 @@
                     <div class="">
                       @include('livewire.harta-form-b')
                     </div>
-                
-                
+
+
 
                 <div class="rounded-lg card">
                     <div class="card-body">
@@ -315,7 +315,7 @@
                                       <td><p class="mb-0 " style="text-align: center;" id="tarikh_pemilikan_harta_table{{$data->id}}">{{$data->tarikh_pemilikan_harta}}</p></td>
                                       <td><p class="mb-0 " style="text-align: center;" id="bilangan_table{{$data->id}}">{{$data->bilangan}}</p></td>
                                       <td><p class="mb-0 " style="text-align: center;" id="nilai_perolehan_table{{$data->id}}">{{$data->nilai_perolehan}}</p></td>
-                                      
+
                                       <td>
                                         <a class="mr-1 btn btn-success" wire:click="editharta({{$data->id}})" id="editHarta{{$data->id}}" ><i class="fa fa-pencil-alt" ></i></a>
                                         <a class="mr-1 btn btn-danger" wire:click="deleteharta({{$data->id}})"><i class="fa fa-trash" ></i></a>
@@ -328,7 +328,7 @@
                       </div>
                     </div>
                 </div>
-              
+
           <div class="row">
             <div class="mt-4 col-12">
                  <div class="rounded-lg card">
@@ -374,28 +374,28 @@
                       </div>
                       <div class="col-md-2">
                         <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" wire:model="pinjaman_perumahan_pegawai" value="{{$info->pinjaman_perumahan_pegawai}}" readonly>
-                        
+
                       </div>
                       @error('pinjaman_perumahan_pegawai')
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
                       <div class="col-md-2">
-                        
+
                         <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" wire:model="bulanan_perumahan_pegawai" value="{{$info->bulanan_perumahan_pegawai}}" readonly>
-                        
+
                       </div>
                       @error('bulanan_perumahan_pegawai')
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
                         <div class="col-md-2">
-                          
+
                           <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" wire:model="pinjaman_perumahan_pasangan" value="{{$info->pinjaman_perumahan_pasangan}}" readonly>
                           </div>
                         @error('pinjaman_perumahan_pasangan')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
                         <div class="col-md-2">
-                          
+
                           <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" wire:model="bulanan_perumahan_pasangan" value="{{$info->bulanan_perumahan_pasangan}}" readonly>
                           </div>
                       @error('bulanan_perumahan_pasangan')
@@ -409,28 +409,28 @@
                         <p>ii) Jumlah Pinjaman Kenderaan</p>
                       </div>
                       <div class="col-md-2">
-                        
+
                         <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" wire:model="pinjaman_kenderaan_pegawai" value="{{$info->pinjaman_kenderaan_pegawai}}" readonly>
                         </div>
                       @error('pinjaman_kenderaan_pegawai')
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
                       <div class="col-md-2">
-                        
+
                         <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" wire:model="bulanan_kenderaan_pegawai" value="{{$info->bulanan_kenderaan_pegawai}}" readonly>
                         </div>
                       @error('bulanan_kenderaan_pegawai')
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
                         <div class="col-md-2">
-                          
+
                           <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" wire:model="pinjaman_kenderaan_pasangan" value="{{$info->pinjaman_kenderaan_pasangan}}" readonly>
                           </div>
                         @error('pinjaman_kenderaan_pasangan')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
                         <div class="col-md-2">
-                          
+
                           <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" wire:model="bulanan_kenderaan_pasangan" value="{{$info->bulanan_kenderaan_pasangan}}" readonly>
                           </div>
                       @error('bulanan_kenderaan_pasangan')
@@ -497,8 +497,8 @@
                       </div>
                     </div>
 
-                    @include('livewire.form-b-pinjaman-edit') 
-                    
+                    @include('livewire.form-b-pinjaman-edit')
+
                   </div>
                 </div>
               </div>
@@ -519,7 +519,7 @@
                     <br>
                     <div class="row">
                       <div class="col-md-1" align="right">
-                        <input type="checkbox" name="pengakuan" value="pengakuan pegawai" >
+                        <input type="checkbox" wire:model="pengakuan" value="pengakuan" >
                       </div>
                       <div class="col-md-11">
                           <label for="pengakuan"> <b>Saya mengaku bahawa segala maklumat yang diberikan dalam borang adalah lengkap dan benar. Sekiranya terdapat sebarang maklumat yang palsu atau meragukan, perisytiharan harta saya boleh dirujuk kepada Jawatankuasa Tatatertib MCMC.</b></label><br>
@@ -574,7 +574,7 @@
                           </div>
                       </div>
             </div>
-       
+
 
 <script>
     function isNumberKey(evt, element) {
@@ -598,4 +598,10 @@
     return true;
     }
 </script>
+
+</div>
+<br>
+<br>
+<br>
+<br>
 </div>

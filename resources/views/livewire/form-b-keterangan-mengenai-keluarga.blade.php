@@ -10,6 +10,8 @@
                             <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
                         </div>
                     </div>
+                    @if ($maklumat_pasangan == null)
+                    @else
                     @foreach ($maklumat_pasangan as $maklumat_pasangan)
                         <div class="row">
                             <div class="col-md-4">
@@ -122,7 +124,7 @@
                             </div>
                             <hr>
                         @endforeach
-
+                        @endif
                 </div>
             </div>
         </div>

@@ -21,11 +21,11 @@ class FormBTanggungan extends Component
     protected $listeners = [
         'tanggungan-process' => 'store',
         'validate-tangungan' => 'validator',
-        
+
     ];
 
     protected $rules = [
-        
+
         'lain_lain_pinjaman.0' => 'nullable|string',
         'pinjaman_pegawai.0' => 'nullable|numeric',
         'bulanan_pegawai.0' => 'nullable|numeric',
@@ -37,7 +37,7 @@ class FormBTanggungan extends Component
         'bulanan_pegawai.*' => 'nullable|numeric',
         'pinjaman_pasangan.*' => 'nullable|numeric',
         'bulanan_pasangan.*' => 'nullable|numeric',
-        
+
                 //validate
     ];
 
@@ -51,7 +51,7 @@ class FormBTanggungan extends Component
         if ($action == 'hantar') {
             $this->validate();
             // $this->emit('harta-validator', $action);
-            $this->emit('simpan-data');
+            $this->emit('simpan-data',$action);
         }
         $this->emit('simpan-data',$action); // FormB.php -> simpan()
     }
@@ -81,17 +81,17 @@ class FormBTanggungan extends Component
         else
             $counter = 0;
 
-        for ($key=0; $key < $counter; $key++) { 
+        for ($key=0; $key < $counter; $key++) {
             PinjamanB::create ([
                 'lain_lain_pinjaman' => $this->lain_lain_pinjaman[$key],
                 'pinjaman_pegawai' => $this->pinjaman_pegawai[$key],
                 'bulanan_pegawai' => $this->bulanan_pegawai[$key],
                 'pinjaman_pasangan' => $this->pinjaman_pasangan[$key],
-                'bulanan_pasangan' => $this->bulanan_pasangan[$key],                
+                'bulanan_pasangan' => $this->bulanan_pasangan[$key],
                 'formbs_id' =>$formb,
-            ]);        
+            ]);
         }
-    
+
         $this->inputs = [];
         $this->resetInputFields();
 
@@ -110,5 +110,5 @@ class FormBTanggungan extends Component
 
     }
 
-    
+
 }
