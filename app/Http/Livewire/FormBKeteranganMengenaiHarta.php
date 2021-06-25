@@ -172,6 +172,10 @@ class FormBKeteranganMengenaiHarta extends Component
         // $this->validation($i);
         $i = $i + 1;
         $this->i = $i;
+        $this->hubungan_pemilik[$i] = '';
+        $this->cara_belian[$i] = '';
+        $this->cara_perolehan[$i] = '';
+
         array_push($this->inputs, $i);
         array_push($this->showhubungan, 0);
         array_push($this->showbelian, 0);
@@ -233,8 +237,8 @@ class FormBKeteranganMengenaiHarta extends Component
             } else if ($this->cara_belian[$i] == "Pelupusan") {
                 $this->showbelian[$i] = 2;
             } else if ($this->cara_belian[$i] == "Tunai") {
-            $this->showbelian[$i] = 3;
-     }
+              $this->showbelian[$i] = 3;
+            }
     }
 
     public function showFormHubungan($i)
@@ -333,6 +337,7 @@ class FormBKeteranganMengenaiHarta extends Component
         // $this->inputs = [];
         // $this->resetInputFields();
     }
+
     private function resetInputFields()
     {
         $this->jenis_harta = null;
@@ -365,8 +370,5 @@ class FormBKeteranganMengenaiHarta extends Component
         $this->showhubungan[] = 0;
         $this->show[] = 0;
         $this->showbelian[] = 0;
-
-
-
     }
 }

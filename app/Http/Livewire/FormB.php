@@ -62,7 +62,7 @@ class FormB extends Component
         'bulanan_koperasi_pegawai' => 'nullable|numeric',
         'jumlah_koperasi_pasangan' => 'nullable|numeric',
         'bulanan_koperasi_pasangan' => 'nullable|numeric',
-        // 'pengakuan' => 'required',
+        'pengakuan' => 'required',
         //validate
     ];
 
