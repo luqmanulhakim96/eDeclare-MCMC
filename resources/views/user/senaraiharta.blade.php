@@ -123,6 +123,7 @@
                           <th><p class="mb-0">Lampiran</p></th>
                           <th><p class="mb-0">Tarikh</p></th>
                           <th><p class="mb-0">Status</p></th>
+                          <th><p class="mb-0">Ulasan</p></th>
                           <th><p class="mb-0">Catatan</p></th>
                           <th><p class="mb-0">Tindakan</p></th>
 
@@ -189,6 +190,17 @@
                           <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                           @elseif($data ->status == 'Lampiran A')
                           <span class="badge badge-success badge-pill">Berjaya</span>
+                          @endif
+                        </td>
+                        <td>
+                          @if($data ->getTable() == "formbs")
+                            <a href="{{route('user.harta.FormB.ulasanpage', $data->id)}}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                          @elseif($data ->getTable() == "formcs")
+                            <a href="{{route('user.harta.FormC.ulasanpage', $data->id)}}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                          @elseif($data ->getTable() == "formds")
+                            <a href="{{route('user.harta.FormD.ulasanpage', $data->id)}}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                          @elseif($data ->getTable() == "formgs")
+                            <a href="{{route('user.harta.FormG.ulasanpage', $data->id)}}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                           @endif
                         </td>
                         <td>

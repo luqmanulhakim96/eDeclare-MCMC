@@ -14,11 +14,8 @@ class FormBKeteranganMengenaiHarta extends Component
     $cara_perolehan, $nama_pemilikan_asal, $cara_belian, $lain_lain, $jumlah_pinjaman, $institusi_pinjaman, $tempoh_bayar_balik,
     $ansuran_bulanan, $tarikh_ansuran_pertama, $jenis_harta_pelupusan, $alamat_asset, $no_pendaftaran, $harga_jualan, $tarikh_lupus,
     $tunai,$keterangan_lain,$nama_pemilik_bersama,$unit_bilangan,$lain_lain_hubungan;
-    // public $show = 0;
     public $show = [];
-    // public $showbelian = 0;
     public $showbelian = [];
-    // public $showhubungan = 0;
     public $showhubungan = [];
     public $show2 =true;
 

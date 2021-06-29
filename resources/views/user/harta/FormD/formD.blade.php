@@ -372,6 +372,8 @@
                                                     <div class="modal-footer">
                                                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
                                                     <button type="submit" class="btn btn-danger" name="save">Ya</button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+
                                                     </div>
                                                 </div>
                                                 </div>
@@ -391,6 +393,8 @@
                                                       <div class="modal-footer">
                                                       <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
                                                       <button type="submit" class="btn btn-danger" name="publish">Ya</button>
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                      
                                                       </div>
                                                   </div>
                                                   </div>

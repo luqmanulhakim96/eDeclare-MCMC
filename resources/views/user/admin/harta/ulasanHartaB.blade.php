@@ -124,7 +124,7 @@
                                                           @if($maklumat_pasangan->NOKEMLOYER != NULL)
                                                             <input type="hidden" name="pekerjaan_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKEMLOYER}}
                                                             @else
-                                                            -
+                                                          {{ $listHarta ->pekerjaan_pasangan }}
                                                             @endif
                                                         </div>
                                                     </div>

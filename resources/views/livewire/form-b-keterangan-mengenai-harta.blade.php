@@ -73,14 +73,17 @@
                             <div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <p class="required"> Nyatakan nama pemilik bersama</p>
+                                        <p class="required"> Nyatakan hubungan pemilik bersama</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text"
-                                            wire:model="nama_pemilik_bersama.0"autocomplete="off">
-                                        @error('nama_pemilik_bersama.0')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                      <select class="custom-select bg-light" wire:model="jenis_pemilikan_bersama.0" wire:change="showFormJenisPemilikan(0)">
+                                          <option value="" disabled hidden>Pilih Hubungan Milikan Bersama</option>
+                                          <option value="Isteri/Suami">Isteri/Suami</option>
+                                          <option value="Lain-lain">Lain-lain</option>
+                                      </select>
+                                      @error('jenis_pemilikan_bersama.0')
+                                      <div class="alert alert-danger">{{ $message }}</div>
+                                      @enderror
                                     </div>
 
                                 </div>
@@ -96,7 +99,45 @@
                                     <div class="col-md-8">
                                         <input class="form-control bg-light" type="text"
                                             wire:model="lain_lain_hubungan.0"autocomplete="off">
-                                        @error('lain_lain.0')
+                                        @error('lain_lain_hubungan.0')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                                <br>
+                            </div>
+                        @endif
+
+                        @if($showjenispemilikan[0] == 1)
+
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="required"> Nyatakan nama pemilik bersama</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control bg-light" type="text"
+                                            wire:model="nama_pemilik_bersama.0"autocomplete="off">
+                                        @error('nama_pemilik_bersama.0')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                                <br>
+                            </div>
+                        @elseif($showjenispemilikan[0] == 2)
+
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="required"> Nyatakan lain-lain hubungan</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control bg-light" type="text"
+                                            wire:model="lain_lain_hubungan_bersama.0"autocomplete="off">
+                                        @error('lain_lain_hubungan_bersama.0')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -129,7 +170,7 @@
                             <p class="required">Tarikh Pemilikan Harta</p>
                         </div>
                         <div class="col-md-8">
-                            <input class="form-control bg-light" type="date"
+                            <input class="form-control bg-light" type="date" onkeydown="return false"
                                 wire:model="tarikh_pemilikan_harta.0" id="tarikh_pemilikan_harta.0" value="{{ old('tarikh_pemilikan_harta') }}"
                                 autocomplete="off">
                                 @error('tarikh_pemilikan_harta.0')
@@ -361,7 +402,7 @@
                                 <div class="col-md-8">
                                     <input class="form-control bg-light" type="date"
                                     wire:model="tarikh_ansuran_pertama.0" id="tarikh_ansuran_pertama.0"
-                                        value="{{ old('tarikh_ansuran_pertama') }}">
+                                        value="{{ old('tarikh_ansuran_pertama') }}" onkeydown="return false">
                                         @error('tarikh_ansuran_pertama.0')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -475,7 +516,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <input class="form-control bg-light" type="date"
-                                    wire:model="tarikh_lupus.0" id="tarikh_lupus.0">
+                                    wire:model="tarikh_lupus.0" id="tarikh_lupus.0" onkeydown="return false">
                                     @error('tarikh_lupus.0')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -498,6 +539,24 @@
                              document.getElementById("tarikh_lupus.0").setAttribute("max", today);
 
                             </script>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="">vi) Keterangan lain, Jika ada</p>
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input class="form-control bg-light" type="text"
+                                    wire:model="keterangan_lain.0"
+                                        value="{{ old('keterangan_lain') }}" autocomplete="off">
+
+                                        @error('keterangan_lain.0')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+
+                                </div>
+
+                            </div>
                         </div>
                     @elseif($showbelian[0] == 3)
                     <div>
@@ -530,7 +589,7 @@
 
                     {{-- livewire part --}}
                 <div>
-                    @foreach ($inputs as $key => $value)
+                    @foreach ($inputharta as $key => $value)
                     <div class="rounded-lg card">
                         <div class="card-body">
                         <div class="row">
@@ -593,22 +652,25 @@
                         </div>
                         @if($showhubungan[$value] == 1)
 
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p class="required"> Nyatakan nama pemilik bersama</p>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text"
-                                            wire:model="nama_pemilik_bersama.{{ $value }}"autocomplete="off">
-                                        @error('nama_pemilik_bersama.'.$value)
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
+                        <div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="required"> Nyatakan hubungan pemilik bersama</p>
                                 </div>
-                                <br>
+                                <div class="col-md-8">
+                                  <select class="custom-select bg-light" wire:model="jenis_pemilikan_bersama.{{ $value }}" wire:change="showFormJenisPemilikan({{ $value }})">
+                                      <option value="" disabled hidden>Pilih Hubungan Milikan Bersama</option>
+                                      <option value="Isteri/Suami">Isteri/Suami</option>
+                                      <option value="Lain-lain">Lain-lain</option>
+                                  </select>
+                                  @error('jenis_pemilikan_bersama.'.$value)
+                                  <div class="alert alert-danger">{{ $message }}</div>
+                                  @enderror
+                                </div>
                             </div>
+                            <br>
+                        </div>
+
                         @elseif($showhubungan[$value] == 2)
 
                             <div>
@@ -619,7 +681,45 @@
                                     <div class="col-md-8">
                                         <input class="form-control bg-light" type="text"
                                             wire:model="lain_lain_hubungan.{{ $value }} "autocomplete="off">
-                                        @error('lain_lain.'.$value)
+                                        @error('lain_lain_hubungan.'.$value)
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                                <br>
+                            </div>
+                        @endif
+                        <br>
+                        @if($showjenispemilikan[$value] == 1)
+
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="required"> Nyatakan nama pemilik bersama</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control bg-light" type="text"
+                                            wire:model="nama_pemilik_bersama.{{$value}}"autocomplete="off">
+                                        @error('nama_pemilik_bersama.'.$value)
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                                <br>
+                            </div>
+                        @elseif($showjenispemilikan[$value] == 2)
+
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="required"> Nyatakan lain-lain hubungan</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control bg-light" type="text"
+                                            wire:model="lain_lain_hubungan_bersama.{{$value}}"autocomplete="off">
+                                        @error('lain_lain_hubungan_bersama.'.$value)
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -649,7 +749,7 @@
                                 <p class="required">Tarikh Pemilikan Harta</p>
                             </div>
                             <div class="col-md-8">
-                                <input class="form-control bg-light" type="date"
+                                <input class="form-control bg-light" type="date" onkeydown="return false"
                                     wire:model="tarikh_pemilikan_harta.{{ $value }}" id="tarikh_pemilikan_harta.{{ $value }}" autocomplete="off">
                                 @error('tarikh_pemilikan_harta.'.$value)
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -879,7 +979,7 @@
                                         <p class="required">v) Tarikh ansuran pertama</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="date"
+                                        <input class="form-control bg-light" type="date" onkeydown="return false"
                                         wire:model="tarikh_ansuran_pertama.{{ $value }}" id="tarikh_ansuran_pertama.{{ $value }}">
                                         @error('tarikh_ansuran_pertama.'.$value)
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -994,7 +1094,7 @@
                                         <p class="required">v) Tarikh lupus</p>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control bg-light" type="date"
+                                        <input class="form-control bg-light" type="date" onkeydown="return false"
                                         wire:model="tarikh_lupus.{{ $value }}" id="tarikh_lupus.{{ $value }}">
                                         @error('tarikh_lupus.'.$value)
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -1018,6 +1118,25 @@
                                     </script>
 
                                 </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="">vi) Keterangan lain, Jika ada</p>
+                                    </div>
+                                    <div class="col-md-8">
+
+                                        <input class="form-control bg-light" type="text"
+                                        wire:model="keterangan_lain.{{ $value }}"
+                                            autocomplete="off">
+
+                                            @error('keterangan_lain.{{ $value }}"')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+
+                                    </div>
+
+                                </div>
+                                <br>
                             </div>
                             @elseif($showbelian[$value] == 3)
                             <div>
@@ -1044,11 +1163,10 @@
                     <br>
                     <div class="row">
                         <div class="col-md-5"></div>
-                        {{-- <div class="col-md-1">
-                            <button class="btn btn-primary" wire:click.prevent="addform({{ $i }})">Tambah Data Harta</button>
-                        </div> --}}
                         <div class="col-md-2">
-                            <button class="btn btn-danger" wire:click.prevent="remove({{ $key }})">Padam Data Harta</button>
+                          @if($loop->last)
+                          <button class="btn btn-danger" wire:click.prevent="removeharta({{ $key }})">Padam Data Harta</button>
+                         @endif
                         </div>
                         <div class="col-md-5"></div>
                     </div>
@@ -1057,20 +1175,17 @@
                     @endforeach
                     @if($show2)
                         <div class="row">
-                            <div class="col-md-5"></div>
+                            <div class="col-md-4"></div>
                             <div class="col-md-2">
-                                <button class="btn btn-primary"  wire:click="$set('show2', true)" wire:click.prevent="addform({{ $i }})">Tambah Data Harta</button>
+                                <button class="btn btn-primary"  wire:click="$set('show2', true)" wire:click.prevent="addformharta({{ $k }})">Tambah Data Harta</button>
                             </div>
-                            {{-- <div class="col-md-1">
-                                <button class="btn btn-danger" wire:click.prevent="remove({{ $i }})">Padam Data Harta</button>
-                            </div> --}}
-                            <div class="col-md-5"></div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary"  wire:click="$set('show2', true)" wire:click.prevent="calculatePinjaman">Kira Jumlah Pinjaman</button>
+                            </div>
+                            <div class="col-md-4"></div>
                         </div>
                         <br>
                     @endif
-
-
-
 
             </div>
         </div>

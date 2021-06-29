@@ -16,7 +16,7 @@
                        <!-- basic light table card -->
                        <div class="card rounded-lg" >
                            <div class="card-body">
-                               <div class="card-title">Senarai Sejarah Perisytiharan Harta</div>
+                               <div class="card-title">Senarai Perisytiharan Harta</div>
                                <!-- Description -->
                                <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
                                <!-- Table -->

@@ -19,6 +19,13 @@ Route::get('/', function () {
   return view('auth/login');
 });
 
+Route::get('/legal-disclaimer', 'UserController@disclaimer')->name('disclaimer');
+
+Route::get('/security-policy', 'UserController@security')->name('security');
+
+Route::get('/privacy-policy', 'UserController@privacy')->name('privacy');
+
+
 Auth::routes();
 
 Route::get('/notifikasi/baca/{id}', 'NotificationController@redirectNotification')->name('notification.mark-as-read');
@@ -199,6 +206,19 @@ Route::get('/lampiran/C/id={id}', 'UserController@viewC')->name('user.harta.Form
 Route::get('/lampiran/D/id={id}', 'UserController@viewD')->name('user.harta.FormD.viewformD');
 
 Route::get('/lampiran/G/id={id}', 'UserController@viewG')->name('user.harta.FormG.viewformG');
+
+Route::get('/ulasan/lampiran-B/id={id}', 'UserController@ulasanlampiranB')->name('user.harta.FormB.ulasanpage');
+
+Route::get('/ulasan/lampiran-C/id={id}', 'UserController@ulasanlampiranC')->name('user.harta.FormC.ulasanpage');
+
+Route::get('/ulasan/lampiran-D/id={id}', 'UserController@ulasanlampiranD')->name('user.harta.FormD.ulasanpage');
+
+Route::get('/ulasan/lampiran-G/id={id}', 'UserController@ulasanlampiranG')->name('user.harta.FormG.ulasanpage');
+
+Route::get('/ulasan/lampiran-HadiahA/id={id}', 'UserController@ulasanlampiranGift')->name('user.hadiah.ulasanpageGift');
+
+Route::get('/ulasan/lampiran-HadiahB/id={id}', 'UserController@ulasanlampiranGiftB')->name('user.hadiah.ulasanpageGiftB');
+
 
 Route::get('/senarai/hadiah/pegawai/{id}', 'UserController@senaraihadiahdashboard')->name('listGift');
 

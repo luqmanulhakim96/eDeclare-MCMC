@@ -22,6 +22,7 @@ class EditFormB extends Component
 {
     public $id_formb, $idForm;
     public $harta_id;
+    public $draft_exist;
     public $jenis_harta, $pemilik_harta, $hubungan_pemilik, $maklumat_harta, $tarikh_pemilikan_harta, $bilangan, $nilai_perolehan,
         $cara_perolehan, $nama_pemilikan_asal, $cara_belian, $lain_lain, $jumlah_pinjaman, $institusi_pinjaman, $tempoh_bayar_balik,
         $ansuran_bulanan, $tarikh_ansuran_pertama, $jenis_harta_pelupusan, $alamat_asset, $no_pendaftaran, $harga_jualan, $tarikh_lupus,
@@ -32,13 +33,15 @@ class EditFormB extends Component
         $jumlah_koperasi_pasangan,$bulanan_koperasi_pasangan;
     public $dividen_1, $dividen_1_pegawai, $dividen_pasangan,$listDividenB,$listPinjamanB;
     public $lain_lain_pinjaman, $pinjaman_pegawai, $bulanan_pegawai, $pinjaman_pasangan, $bulanan_pasangan;
-    public $pengakuan;
+    public $jenis_pemilikan_bersama,$lain_lain_hubungan_bersama;
+    public $pengakuan,$pekerjaan_pasangan;
 
 
     public $show = 0;
     public $showharta = 0;
     public $showbelian = 0;
     public $showhubungan = 0;
+    public $showjenispemilikan = 0;
     public $inputs = [];
     public $inputsdividen = [];
     public $i = 0;
@@ -65,6 +68,7 @@ class EditFormB extends Component
         $this->cara_perolehan = '';               //select disabled hidden
         $this->cara_belian = '';
         $this->hubungan_pemilik = '';
+        $this->jenis_pemilikan_bersama = '';
     }
 
     public function addformdividen($j)
@@ -156,7 +160,10 @@ class EditFormB extends Component
         $info = FormB::findOrFail($this->id_formb);
         // dd($this->id_formb);
         $jenisHarta = JenisHarta::get();
-
+        $draft_exist_check = FormB::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
+        if ($draft_exist_check) {
+          $this->draft_exist =true;
+        }
         $listDividenBs = DividenB::where('formbs_id', $info->id)->get();
         $listPinjamanBs = PinjamanB::where('formbs_id', $info->id)->get();
 
@@ -185,6 +192,7 @@ class EditFormB extends Component
           }
         $this->idForm = $info->id;
         $hartaB = HartaB::where('formbs_id', $info->id)->get();
+        // dd($hartaB);
 
         return view('livewire.edit-form-b', compact('info', 'maklumat_pasangan', 'maklumat_anak', 'listDividenBs', 'listPinjamanBs', 'count_div', 'count_pinjaman', 'jenisHarta', 'hartaB', 'staffinfo'));
     }
@@ -198,6 +206,7 @@ class EditFormB extends Component
       // dd($this->id_formb);
         $info = FormB::findOrFail($this->id_formb);
         // dd($info);
+        $this->pekerjaan_pasangan = $info->pekerjaan_pasangan;
         $this->gaji_pasangan = $info->gaji_pasangan;
         $this->jumlah_imbuhan= $info->jumlah_imbuhan;
         $this->jumlah_imbuhan_pasangan = $info->jumlah_imbuhan_pasangan;
@@ -271,7 +280,9 @@ class EditFormB extends Component
         $this->jenis_harta = $harta->jenis_harta;
         $this->pemilik_harta = $harta->pemilik_harta;
         $this->hubungan_pemilik = $harta->hubungan_pemilik;
+        $this->jenis_pemilikan_bersama = $harta->jenis_pemilikan_bersama;
         $this->nama_pemilik_bersama = $harta->nama_pemilik_bersama;
+        $this->lain_lain_hubungan_bersama = $harta->lain_lain_hubungan_bersama;
         $this->lain_lain_hubungan = $harta->lain_lain_hubungan;
         $this->maklumat_harta = $harta->maklumat_harta;
         $this->tarikh_pemilikan_harta = $harta->tarikh_pemilikan_harta;
@@ -323,6 +334,15 @@ class EditFormB extends Component
         } else {
             $this->showhubungan = 0;
         }
+
+        if ($this->jenis_pemilikan_bersama == "Isteri/Suami") {
+          // dd('masuk');
+            $this->showjenispemilikan = 1;
+        } else if ($this->jenis_pemilikan_bersama == "Lain-lain") {
+            $this->showjenispemilikan = 2;
+        } else {
+            $this->showjenispemilikan = 0;
+        }
     }
 
     public function update()
@@ -335,7 +355,9 @@ class EditFormB extends Component
             'jenis_harta' => $this->jenis_harta ?? null,
             'pemilik_harta' => $this->pemilik_harta ?? null,
             'hubungan_pemilik' => $this->hubungan_pemilik ?? null,
+            'jenis_pemilikan_bersama' => $this->jenis_pemilikan_bersama ?? null,
             'nama_pemilik_bersama' => $this->nama_pemilik_bersama ?? null,
+            'lain_lain_hubungan_bersama' => $this->lain_lain_hubungan_bersama ?? null,
             'lain_lain_hubungan' => $this->lain_lain_hubungan ?? null,
             'maklumat_harta' => $this->maklumat_harta ?? null,
             'tarikh_pemilikan_harta' => $this->tarikh_pemilikan_harta ?? null,
@@ -402,6 +424,47 @@ class EditFormB extends Component
               // $this->pinjaman_kenderaan_pasangan = $this->totalPinjamanKenderaanPasangan;
               // $this->bulanan_kenderaan_pasangan = $this->totalAnsuranKenderaanPasangan;
           }
+          //data pengiraan harta bersama
+          else if($data->jenis_harta == "Rumah" && $data->hubungan_pemilik == "Bersama" &&  $data->jenis_pemilikan_bersama == "Isteri/Suami" && $data->cara_belian == "Pinjaman"){
+
+              $this->pinjaman_perumahan_pegawai = $this->pinjaman_perumahan_pegawai + ($data->jumlah_pinjaman/2);
+
+              $this->bulanan_perumahan_pegawai = $this->bulanan_perumahan_pegawai + ($data->ansuran_bulanan/2);
+
+              $this->pinjaman_perumahan_pasangan = $this->pinjaman_perumahan_pasangan + ($data->jumlah_pinjaman/2);
+
+              $this->bulanan_perumahan_pasangan = $this->bulanan_perumahan_pasangan + ($data->ansuran_bulanan/2);
+
+
+          }
+          else if($data->jenis_harta == "Rumah" && $data->hubungan_pemilik == "Bersama" &&  $data->jenis_pemilikan_bersama == "Lain-lain" && $data->cara_belian == "Pinjaman"){
+
+            $this->pinjaman_perumahan_pegawai = $this->pinjaman_perumahan_pegawai + ($data->jumlah_pinjaman/2);
+
+            $this->bulanan_perumahan_pegawai = $this->bulanan_perumahan_pegawai + ($data->ansuran_bulanan/2);
+
+
+          }
+
+          else if($data->jenis_harta == "Kenderaan" && $data->hubungan_pemilik == "Bersama" &&  $data->jenis_pemilikan_bersama == "Isteri/Suami" && $data->cara_belian == "Pinjaman"){
+
+              $this->pinjaman_kenderaan_pegawai = $this->pinjaman_kenderaan_pegawai + ($data->jumlah_pinjaman/2);
+
+              $this->bulanan_kenderaan_pegawai = $this->bulanan_kenderaan_pegawai + ($data->ansuran_bulanan/2);
+
+              $this->pinjaman_kenderaan_pasangan = $this->pinjaman_kenderaan_pasangan + ($data->jumlah_pinjaman/2);
+
+              $this->bulanan_kenderaan_pasangan = $this->bulanan_kenderaan_pasangan + ($data->ansuran_bulanan/2);
+
+
+          }
+          else if($data->jenis_harta == "Kenderaan" && $data->hubungan_pemilik == "Bersama" &&  $data->jenis_pemilikan_bersama == "Lain-lain" && $data->cara_belian == "Pinjaman"){
+
+              $this->pinjaman_kenderaan_pegawai = $this->pinjaman_kenderaan_pegawai + ($data->jumlah_pinjaman/2);
+
+              $this->bulanan_kenderaan_pegawai = $this->bulanan_kenderaan_pegawai + ($data->ansuran_bulanan/2);
+
+          }
         }
 
 
@@ -448,6 +511,18 @@ class EditFormB extends Component
         }
     }
 
+    public function showFormJenisPemilikan()
+    {
+        if ($this->jenis_pemilikan_bersama == "Isteri/Suami") {
+            $this->showjenispemilikan = 1;
+        } else if ($this->jenis_pemilikan_bersama == "Lain-lain") {
+            $this->showjenispemilikan = 2;
+        } else{
+            $this->showjenispemilikan = 0;
+        }
+
+    }
+
     public function store($action)
     {
         $formb = FormB::find($this->id_formb);
@@ -459,6 +534,7 @@ class EditFormB extends Component
           $status = "Disimpan ke Draf";
         }
         $formb->update([
+            'pekerjaan_pasangan' => $this->pekerjaan_pasangan,
             'gaji_pasangan' => $this->gaji_pasangan,
             'jumlah_imbuhan' => $this->jumlah_imbuhan,
             'jumlah_imbuhan_pasangan' => $this->jumlah_imbuhan_pasangan,
@@ -518,7 +594,9 @@ class EditFormB extends Component
             'jenis_harta' => $this->jenis_harta,
             'pemilik_harta' => $this->pemilik_harta,
             'hubungan_pemilik' => $this->hubungan_pemilik,
+            'jenis_pemilikan_bersama' => $this->jenis_pemilikan_bersama,
             'nama_pemilik_bersama' => $this->nama_pemilik_bersama,
+            'lain_lain_hubungan_bersama' => $this->lain_lain_hubungan_bersama,
             'lain_lain_hubungan' => $this->lain_lain_hubungan,
             'maklumat_harta' => $this->maklumat_harta,
             'tarikh_pemilikan_harta' => $this->tarikh_pemilikan_harta,
@@ -576,6 +654,48 @@ class EditFormB extends Component
             // $this->bulanan_kenderaan_pasangan = $this->totalAnsuranKenderaanPasangan;
         }
 
+        //pengiraan harta bersama
+        else if($this->jenis_harta == "Rumah" && $this->hubungan_pemilik == "Bersama" &&  $this->jenis_pemilikan_bersama == "Isteri/Suami" && $this->cara_belian == "Pinjaman"){
+
+            $this->pinjaman_perumahan_pegawai = $this->pinjaman_perumahan_pegawai + ($this->jumlah_pinjaman/2);
+
+            $this->bulanan_perumahan_pegawai = $this->bulanan_perumahan_pegawai + ($this->ansuran_bulanan/2);
+
+            $this->pinjaman_perumahan_pasangan = $this->pinjaman_perumahan_pasangan + ($this->jumlah_pinjaman/2);
+
+            $this->bulanan_perumahan_pasangan = $this->bulanan_perumahan_pasangan + ($this->ansuran_bulanan/2);
+
+
+        }
+        else if($this->jenis_harta == "Rumah" && $this->hubungan_pemilik == "Bersama" &&  $this->jenis_pemilikan_bersama == "Lain-lain" && $this->cara_belian == "Pinjaman"){
+
+          $this->pinjaman_perumahan_pegawai = $this->pinjaman_perumahan_pegawai + ($this->jumlah_pinjaman/2);
+
+          $this->bulanan_perumahan_pegawai = $this->bulanan_perumahan_pegawai + ($this->ansuran_bulanan/2);
+
+
+        }
+
+        else if($this->jenis_harta == "Kenderaan" && $this->hubungan_pemilik == "Bersama" &&  $this->jenis_pemilikan_bersama == "Isteri/Suami" && $this->cara_belian == "Pinjaman"){
+
+            $this->pinjaman_kenderaan_pegawai = $this->pinjaman_kenderaan_pegawai + ($this->jumlah_pinjaman/2);
+
+            $this->bulanan_kenderaan_pegawai = $this->bulanan_kenderaan_pegawai + ($this->ansuran_bulanan/2);
+
+            $this->pinjaman_kenderaan_pasangan = $this->pinjaman_kenderaan_pasangan + ($this->jumlah_pinjaman/2);
+
+            $this->bulanan_kenderaan_pasangan = $this->bulanan_kenderaan_pasangan + ($this->ansuran_bulanan/2);
+
+
+        }
+        else if($this->jenis_harta == "Kenderaan" && $this->hubungan_pemilik == "Bersama" &&  $this->jenis_pemilikan_bersama == "Lain-lain" && $this->cara_belian == "Pinjaman"){
+
+            $this->pinjaman_kenderaan_pegawai = $this->pinjaman_kenderaan_pegawai + ($this->jumlah_pinjaman/2);
+
+            $this->bulanan_kenderaan_pegawai = $this->bulanan_kenderaan_pegawai + ($this->ansuran_bulanan/2);
+
+        }
+
         $this->resetInputFields();
 
     }
@@ -609,6 +729,7 @@ class EditFormB extends Component
         $this->keterangan_lain = null;
         $this->unit_bilangan = null;
         $this->showhubungan = 0;
+        $this->showjenispemilikan = 0;
         $this->show = 1;
         $this->showbelian = 0;
     }

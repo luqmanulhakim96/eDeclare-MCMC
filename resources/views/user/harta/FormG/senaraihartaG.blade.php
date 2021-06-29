@@ -27,6 +27,7 @@
                                              <th width="10%"><p class="mb-0">Lampiran E</p></th>
                                              <th width="10%"><p class="mb-0">Tarikh</p></th>
                                              <th width="10%"><p class="mb-0">Status</p></th>
+                                             <th width="10%"><p class="mb-0">Ulasan</p></th>
                                              <th width="70%"><p class="mb-0">Catatan</p></th>
                                              <th width="30%"><p class="mb-0">Tindakan</p></th>
                                            </tr>
@@ -71,6 +72,9 @@
                                                @elseif($data ->status == "Lampiran A")
                                                <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                                                @endif
+                                             </td>
+                                             <td>
+                                               <a href="{{route('user.harta.FormG.ulasanpage', $data->id)}}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                              </td>
                                              <td>
                                              @if($data ->status == "Sedang Diproses")

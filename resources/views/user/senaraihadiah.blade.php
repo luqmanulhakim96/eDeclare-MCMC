@@ -97,6 +97,7 @@
                           <th><p class="mb-0">Hubungan Pemberi</p></th>
                           <th width="30%"><p class="mb-0">Gambar Hadiah</p></th>
                           <th><p class="mb-0">Status Hadiah (RM)</p></th>
+                          <th><p class="mb-0">Ulasan</p></th>
                           <th><p class="mb-0">Catatan</p></th>
                           <th><p class="mb-0">Tindakan</p></th>
 
@@ -180,6 +181,13 @@
                            <span class="badge badge-success badge-pill">{{ $data ->status }}</span>
                            @endif
                          @endif
+                        </td>
+                        <td>
+                            @if($data ->getTable() == "gifts")
+                              <a href="{{route('user.hadiah.ulasanpageGift', $data->id)}}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                            @elseif($data ->getTable() == "giftbs")
+                            <a href="{{route('user.hadiah.ulasanpageGiftB', $data->id)}}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
+                            @endif
                         </td>
                         <td>
                           @if($data ->status == "Sedang Diproses")

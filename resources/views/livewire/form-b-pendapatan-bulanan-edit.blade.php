@@ -42,7 +42,7 @@
 
 
             <div class="col-md-1">
-                <button class="btn btn-primary" wire:click.prevent="addform({{ $i }})">Tambah</button>
+                <button class="btn btn-primary" wire:click.prevent="addformdividen({{ $i }})">Tambah</button>
             </div>
 
 
