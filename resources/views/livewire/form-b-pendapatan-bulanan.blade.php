@@ -43,7 +43,7 @@
 
 
             <div class="col-md-1">
-                <button class="btn btn-primary" wire:click.prevent="addform({{ $i }})">Tambah</button>
+                <button class="btn btn-primary" wire:click.prevent="addformdividen({{ $i }})">Tambah</button>
             </div>
 
 
@@ -52,7 +52,7 @@
     <br>
     <br>
     <div id="dividen_field">
-        @foreach ($inputs as $key => $value)
+        @foreach ($inputdividen as $key => $value)
             <div class="row">
                 <div class="col-md-3 mt-2 mt-md-0">
                     <div class="form-group">
@@ -83,9 +83,8 @@
                     @enderror
                 </div>
                 <div class="col-md-1">
-                    <a wire:click.prevent="remove({{ $key }})" class="btn btn-danger"><i
-                            class="fas fa-trash"></i></a>
-                    {{-- <i class="fa fa-trash"  wire:click.prevent="remove({{$key}})"></i> --}}
+                    <a wire:click.prevent="removedividen({{ $key }})" class="btn btn-danger"><i
+                            class="fas fa-trash"></i></a>                    
                 </div>
 
             </div>

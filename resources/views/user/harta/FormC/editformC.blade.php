@@ -254,8 +254,10 @@
                                                       <p align="center">Hantar maklumat perisytiharan?</p>
                                                       </div>
                                                       <div class="modal-footer">
-                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                      <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
                                                       <button type="submit" class="btn btn-primary" name="publish">Ya</button>
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                      
                                                       </div>
                                                   </div>
                                                   </div>

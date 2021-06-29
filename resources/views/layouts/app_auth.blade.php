@@ -30,13 +30,9 @@
     }
 
     </style>
-    
 </head>
 <body class="position-relative">
-
-
-  <div class="container-fluid px-0">
-
+  <div class="container-fluid ">
       <div class="row" style="padding-left:3%;padding-top:1%;">
         <div class="col-md-1">
           <img style="width:100%;" src="{{ asset('qbadminui/img/MCMC.png') }}" alt="bran_name" class="brand-img" >

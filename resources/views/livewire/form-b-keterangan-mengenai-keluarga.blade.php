@@ -50,10 +50,9 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     @if ($maklumat_pasangan->NOKEMLOYER != null)
-                                        <input type="hidden" name="pekerjaan_pasangan"
-                                            value="{{ $maklumat_pasangan->NOKNAME }}">{{ $maklumat_pasangan->NOKEMLOYER }}
+                                        <input type="text" class="form-control bg-light" wire:model="pekerjaan_pasangan" placeholder="Pekerjaan Pasangan">
                                     @else
-                                        -
+                                        <input type="text" class="form-control bg-light" wire:model="pekerjaan_pasangan" placeholder="Pekerjaan Pasangan">
                                     @endif
                                 </div>
                             </div>

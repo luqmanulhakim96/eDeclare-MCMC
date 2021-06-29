@@ -672,10 +672,29 @@
 
   </div>
   <!-- Footer section -->
-  <footer>
+  <!-- <footer>
     <div class="row">
       <div class="col-md-12" style="text-align:center;"><a href="" target="_Blank" ><font color="white">MALAYSIAN COMMUNICATIONS AND MULTIMEDIA COMMISSION</font></a></div>
-      <!-- <div class="col-md-2"><font color="white">Version 1.0.0</font></div> -->
+
+    </div>
+  </footer> -->
+  <footer style='padding-left: 20%;'>
+    <div class="row" style="padding-top:1%;">
+      <div class="col-md-1">
+        <img src="{{ asset('qbadminui/img/MCMC.png') }}" alt="bran_name" class="brand-img" style="width:50%;">
+      </div>
+      <div class="col-md-7" style="margin-left: -4%;">
+        <a href="https://www.mcmc.gov.my/en/home" target="_Blank" ><font color="white">Copyright &copy; 2021. Malaysian Communications and Multimedia Commision.<br>All rights reserved.</font></a>
+      </div>
+      <div class="col-md"><a href="{{route('disclaimer')}}" target="_blank"><font color="white">Legal Disclaimer</font></a></div>
+      <div class="col-md"><a href="{{route('privacy')}}" target="_blank"><font color="white">Privacy Policy</font></a></div>
+      <div class="col-md"><a href="{{route('security')}}" target="_blank"><font color="white">Security Policy</font></a></div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12" style="text-align:center;">
+        <a><font color="white">Best viewed in Chrome version 69 or later, Firefox 61 and later, Safari 11 and later, or Edge 16 and later.</font></a>
+      </div>
     </div>
   </footer>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
@@ -696,7 +715,7 @@
     <!-- Data Table -->
     <!-- Data Table script -->
     <script type="text/javascript" src="{{ asset('qbadminui/js/vendor/DataTables/datatables.js') }}"></script>
-    
+
 </body>
 </html>
 <script type="text/javascript">

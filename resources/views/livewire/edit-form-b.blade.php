@@ -120,11 +120,9 @@
                                       </div>
                                       <div class="col-md-8">
                                           <div class="form-group">
-                                            @if($maklumat_pasangan->NOKEMLOYER != NULL)
-                                              <input type="hidden" name="pekerjaan_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKEMLOYER}}
-                                              @else
-                                              -
-                                              @endif
+
+                                              <input type="text" class="form-control bg-light" wire:model="pekerjaan_pasangan" placeholder="Pekerjaan Pasangan">
+
 
                                           </div>
                                       </div>
@@ -284,7 +282,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="">
+                    <div id="harta_container">
                       @include('livewire.harta-form-b')
                     </div>
 
@@ -317,7 +315,7 @@
                                       <td><p class="mb-0 " style="text-align: center;" id="nilai_perolehan_table{{$data->id}}">{{$data->nilai_perolehan}}</p></td>
 
                                       <td>
-                                        <a class="mr-1 btn btn-success" wire:click="editharta({{$data->id}})" id="editHarta{{$data->id}}" ><i class="fa fa-pencil-alt" ></i></a>
+                                        <a class="mr-1 btn btn-success" wire:click="editharta({{$data->id}})" onclick="myFunction()" ><i class="fa fa-pencil-alt" ></i></a>
                                         <a class="mr-1 btn btn-danger" wire:click="deleteharta({{$data->id}})"><i class="fa fa-trash" ></i></a>
                                       </td>
                                   </tr>
@@ -372,32 +370,36 @@
                       <div class="col-md-3">
                         <p>i) Jumlah Pinjaman Perumahan</p>
                       </div>
-                      <div class="col-md-2">
-                        <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai" wire:model="pinjaman_perumahan_pegawai" value="{{$info->pinjaman_perumahan_pegawai}}" readonly>
+                      <div class="col-md-2" style="text-align:center;">
+                        <input class="form-control bg-light" type="hidden" id="pinjaman_perumahan_pegawai" wire:model="pinjaman_perumahan_pegawai" value="{{$info->pinjaman_perumahan_pegawai}}" readonly>
+                        {{$pinjaman_perumahan_pegawai}}
 
                       </div>
                       @error('pinjaman_perumahan_pegawai')
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
-                      <div class="col-md-2">
+                      <div class="col-md-2" style="text-align:center;">
 
-                        <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai" wire:model="bulanan_perumahan_pegawai" value="{{$info->bulanan_perumahan_pegawai}}" readonly>
+                        <input class="form-control bg-light" type="hidden" id="bulanan_perumahan_pegawai" wire:model="bulanan_perumahan_pegawai" value="{{$info->bulanan_perumahan_pegawai}}" readonly>
+                        {{$bulanan_perumahan_pegawai}}
 
                       </div>
                       @error('bulanan_perumahan_pegawai')
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
-                        <div class="col-md-2">
+                        <div class="col-md-2" style="text-align:center;">
 
-                          <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan" wire:model="pinjaman_perumahan_pasangan" value="{{$info->pinjaman_perumahan_pasangan}}" readonly>
-                          </div>
+                          <input class="form-control bg-light" type="hidden" id="pinjaman_perumahan_pasangan" wire:model="pinjaman_perumahan_pasangan" value="{{$info->pinjaman_perumahan_pasangan}}" readonly>
+                          {{$pinjaman_perumahan_pasangan}}
+                        </div>
                         @error('pinjaman_perumahan_pasangan')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
-                        <div class="col-md-2">
+                        <div class="col-md-2" style="text-align:center;">
 
-                          <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan" wire:model="bulanan_perumahan_pasangan" value="{{$info->bulanan_perumahan_pasangan}}" readonly>
-                          </div>
+                          <input class="form-control bg-light" type="hidden" id="bulanan_perumahan_pasangan" wire:model="bulanan_perumahan_pasangan" value="{{$info->bulanan_perumahan_pasangan}}" readonly>
+                          {{$bulanan_perumahan_pasangan}}
+                        </div>
                       @error('bulanan_perumahan_pasangan')
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
@@ -408,31 +410,35 @@
                       <div class="col-md-3">
                         <p>ii) Jumlah Pinjaman Kenderaan</p>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-2" style="text-align:center;">
 
-                        <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai" wire:model="pinjaman_kenderaan_pegawai" value="{{$info->pinjaman_kenderaan_pegawai}}" readonly>
-                        </div>
+                        <input class="form-control bg-light" type="hidden" id="pinjaman_kenderaan_pegawai" wire:model="pinjaman_kenderaan_pegawai" value="{{$info->pinjaman_kenderaan_pegawai}}" readonly>
+                        {{$pinjaman_kenderaan_pegawai}}
+                      </div>
                       @error('pinjaman_kenderaan_pegawai')
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
-                      <div class="col-md-2">
+                      <div class="col-md-2" style="text-align:center;">
 
-                        <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai" wire:model="bulanan_kenderaan_pegawai" value="{{$info->bulanan_kenderaan_pegawai}}" readonly>
-                        </div>
+                        <input class="form-control bg-light" type="hidden" id="bulanan_kenderaan_pegawai" wire:model="bulanan_kenderaan_pegawai" value="{{$info->bulanan_kenderaan_pegawai}}" readonly>
+                        {{$bulanan_kenderaan_pegawai}}
+                      </div>
                       @error('bulanan_kenderaan_pegawai')
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
-                        <div class="col-md-2">
+                        <div class="col-md-2" style="text-align:center;">
 
-                          <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan" wire:model="pinjaman_kenderaan_pasangan" value="{{$info->pinjaman_kenderaan_pasangan}}" readonly>
-                          </div>
+                          <input class="form-control bg-light" type="hidden" id="pinjaman_kenderaan_pasangan" wire:model="pinjaman_kenderaan_pasangan" value="{{$info->pinjaman_kenderaan_pasangan}}" readonly>
+                          {{$pinjaman_kenderaan_pasangan}}
+                        </div>
                         @error('pinjaman_kenderaan_pasangan')
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
-                        <div class="col-md-2">
+                        <div class="col-md-2" style="text-align:center;">
 
-                          <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan" wire:model="bulanan_kenderaan_pasangan" value="{{$info->bulanan_kenderaan_pasangan}}" readonly>
-                          </div>
+                          <input class="form-control bg-light" type="hidden" id="bulanan_kenderaan_pasangan" wire:model="bulanan_kenderaan_pasangan" value="{{$info->bulanan_kenderaan_pasangan}}" readonly>
+                          {{$bulanan_kenderaan_pasangan}}
+                        </div>
                       @error('bulanan_kenderaan_pasangan')
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
@@ -505,13 +511,7 @@
           </div>
           @endif
 
-          {{-- @if($showharta == 1)
-          <div id="harta_container">
-            @if($updateMode)
-            @include('livewire.edit-harta')
-            @endif
-          </div>
-          @endif --}}
+
 
 
 
@@ -546,11 +546,28 @@
                               </button>
                               </div>
                               <div class="modal-body">
-                              <p align="center">Simpan maklumat perisytiharan?</p>
+                                @if($info->status == "Sedang Dikemaskini" ||$info->status == "Tidak Lengkap" )
+                                  @if($draft_exist)
+                                    <p align="center">Anda telah mempunyai draf perisytiharan, setiap pengguna dibenarkan mempunyai satu draf bagi setiap lampiran.</p>
+                                  @else
+                                    <p align="center">Simpan maklumat perisytiharan?</p>
+                                  @endif
+                                @else
+                                  <p align="center">Simpan maklumat perisytiharan?</p>
+                                @endif
                               </div>
                               <div class="modal-footer">
-                              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
-                              <button type="submit" wire:click.prevent="store('simpan')" class="btn btn-danger" data-dismiss="modal">Ya</button>
+                                @if($info->status == "Sedang Dikemaskini" ||$info->status == "Tidak Lengkap" )
+                                  @if($draft_exist)
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                  @else
+                                    <button type="submit" wire:click.prevent="store('simpan')" class="btn btn-danger" data-dismiss="modal">Ya</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                                  @endif
+                                @else
+                                <button type="submit" wire:click.prevent="store('simpan')" class="btn btn-danger" data-dismiss="modal">Ya</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                                @endif
                               </div>
                           </div>
                           </div>
@@ -569,11 +586,21 @@
                               <div class="modal-footer">
                               <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
                               <button type="submit" wire:click.prevent="store('hantar')" class="btn btn-danger" data-dismiss="modal">Ya</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                               </div>
                           </div>
                           </div>
                       </div>
             </div>
+            <script>
+            function myFunction() {
+              var elmnt = document.getElementById("harta_container");
+              elmnt.scrollIntoView(false);
+              // var myDiv = document.getElementById('harta_container');
+              // myDiv.innerHTML = variableLongText;
+              // myDiv.scrollTop = 100;
+            }
+            </script>
 
 
 <script>

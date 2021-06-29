@@ -20,6 +20,7 @@ use App\FormD;
 use App\FormG;
 use App\HartaB;
 use App\UlasanHod;
+use App\UlasanHodiv;
 use App\UlasanAdmin;
 use App\Keluarga;
 use App\NilaiHadiah;
@@ -44,6 +45,15 @@ class UserController extends Controller
    *
    * @return \Illuminate\Contracts\Support\Renderable
    */
+  public function disclaimer(){
+    return view('user.disclaimer');
+  }
+  public function security(){
+    return view('user.security');
+  }
+  public function privacy(){
+    return view('user.privacy');
+  }
   public function index()
   {
       // $user = User::get();
@@ -200,12 +210,14 @@ class UserController extends Controller
         $listHadiah = GiftB::get();
       }
     }
-    return view('user.admin.hadiah.listGift', compact('listHadiah','nilai_hadiah','role'));
+    $jenisform = $id;
+    return view('user.admin.hadiah.listGift', compact('listHadiah','nilai_hadiah','role','jenisform'));
   }
 
   public function senaraihartadashboard($id)
   {
-
+    $jenisform = $id;
+    // dd($jenisform);
     $username =Auth::user()->username;
     $bahagian=UserExistingStaffInfo::where('USERNAME', $username)->first();
     // dd($id);
@@ -296,7 +308,8 @@ class UserController extends Controller
       }
     }
 
-    return view('user.hartadashboard', compact('listHarta', 'role'));
+
+    return view('user.hartadashboard', compact('listHarta', 'role' ,'jenisform'));
   }
 
 
@@ -523,6 +536,72 @@ class UserController extends Controller
       return view('user.harta.FormB.print', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan'));
       }
   }
+
+  public function ulasanlampiranB($id)
+{
+   //dd($id);
+  $ulasanAdmin = UlasanAdmin::where('formbs_id',$id)->get();
+  $ulasanHod = UlasanHod::where('formbs_id',$id)->get();
+  $ulasanHodiv = UlasanHodiv::where('formbs_id',$id)->get();
+   // dd($listHarta);
+  return view('user.harta.FormB.ulasanpage', compact('ulasanAdmin','ulasanHod','ulasanHodiv'));
+
+}
+public function ulasanlampiranC($id)
+{
+ //dd($id);
+$ulasanAdmin = UlasanAdmin::where('formcs_id',$id)->get();
+$ulasanHod = UlasanHod::where('formcs_id',$id)->get();
+$ulasanHodiv = UlasanHodiv::where('formcs_id',$id)->get();
+ // dd($listHarta);
+return view('user.harta.FormC.ulasanpage', compact('ulasanAdmin','ulasanHod','ulasanHodiv'));
+
+}
+public function ulasanlampiranD($id)
+{
+ //dd($id);
+$ulasanAdmin = UlasanAdmin::where('formds_id',$id)->get();
+$ulasanHod = UlasanHod::where('formds_id',$id)->get();
+$ulasanHodiv = UlasanHodiv::where('formds_id',$id)->get();
+ // dd($listHarta);
+return view('user.harta.FormD.ulasanpage', compact('ulasanAdmin','ulasanHod','ulasanHodiv'));
+
+}
+public function ulasanlampiranG($id)
+{
+ //dd($id);
+$ulasanAdmin = UlasanAdmin::where('formgs_id',$id)->get();
+$ulasanHod = UlasanHod::where('formgs_id',$id)->get();
+$ulasanHodiv = UlasanHodiv::where('formgs_id',$id)->get();
+ // dd($listHarta);
+return view('user.harta.FormD.ulasanpage', compact('ulasanAdmin','ulasanHod','ulasanHodiv'));
+
+}
+
+public function ulasanlampiranGift($id)
+{
+ //dd($id);
+$ulasanAdmin = UlasanAdmin::where('gift_id',$id)->get();
+$ulasanHod = UlasanHod::where('gift_id',$id)->get();
+$ulasanHodiv = UlasanHodiv::where('gift_id',$id)->get();
+$nilaiHadiah = NilaiHadiah::first();
+ // dd($listHarta);
+return view('user.hadiah.ulasanpageGift', compact('ulasanAdmin','ulasanHod','ulasanHodiv','nilaiHadiah'));
+
+}
+
+
+public function ulasanlampiranGiftB($id)
+{
+ //dd($id);
+$ulasanAdmin = UlasanAdmin::where('giftb_id',$id)->get();
+$ulasanHod = UlasanHod::where('giftb_id',$id)->get();
+$ulasanHodiv = UlasanHodiv::where('giftb_id',$id)->get();
+$nilaiHadiah = NilaiHadiah::first();
+ // dd($listHarta);
+return view('user.hadiah.ulasanpageGiftB', compact('ulasanAdmin','ulasanHod','ulasanHodiv','nilaiHadiah'));
+
+}
 
 
     public function viewB($id)

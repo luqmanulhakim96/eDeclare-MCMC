@@ -30,13 +30,46 @@ class FormB extends Component
         $jumlah_cukai_pegawai, $bulanan_cukai_pegawai, $jumlah_cukai_pasangan, $bulanan_cukai_pasangan, $jumlah_koperasi_pegawai,
         $bulanan_koperasi_pegawai, $jumlah_koperasi_pasangan, $bulanan_koperasi_pasangan,$no_staff,$nama_pegawai,$kad_pengenalan,
         $jawatan,$alamat_tempat_bertugas,$jabatan,$gaji,$pengakuan;
-    public $formbid_created;
+    public $jenis_harta, $pemilik_harta, $hubungan_pemilik, $maklumat_harta, $tarikh_pemilikan_harta, $bilangan, $nilai_perolehan,
+        $cara_perolehan, $nama_pemilikan_asal, $cara_belian, $lain_lain, $jumlah_pinjaman, $institusi_pinjaman, $tempoh_bayar_balik,
+        $ansuran_bulanan, $tarikh_ansuran_pertama, $jenis_harta_pelupusan, $alamat_asset, $no_pendaftaran, $harga_jualan, $tarikh_lupus,
+        $tunai,$keterangan_lain,$nama_pemilik_bersama,$unit_bilangan,$lain_lain_hubungan,$jenis_pemilikan_bersama,$lain_lain_hubungan_bersama;
+    public $formbid_created,$pekerjaan_pasangan;
     public $updateMode = false;
+    public $dividen_1, $dividen_1_pegawai, $DividenB, $dividen_pasangan;
+    public $inputdividen = [];
+    public $i = 0;
+    public $lain_lain_pinjaman, $pinjaman_pegawai, $bulanan_pegawai, $pinjaman_pasangan, $bulanan_pasangan;
+    public $inputpinjaman = [];
+    public $j = 0;
+    public $show = [];
+    public $showbelian = [];
+    public $showhubungan = [];
+    public $showjenispemilikan = [];
+    public $show2 =true;
+    public $inputharta = [];
+    public $k = 0;
+    public $totalPinjamanPerumahanSendiri = 0;
+    public $totalPinjamanPerumahanPasangan = 0;
+    public $totalPinjamanKenderaanSendiri = 0;
+    public $totalPinjamanKenderaanPasangan = 0;
+    public $totalAnsuranPerumahanSendiri = 0;
+    public $totalAnsuranPerumahanPasangan = 0;
+    public $totalAnsuranKenderaanSendiri = 0;
+    public $totalAnsuranKenderaanPasangan = 0;
 
-    protected $listeners = [
-        'simpan-data' => 'simpan',
-        'updatePinjaman' => 'updatePinjaman'
-    ];
+    public function mount()
+    {
+        $this->cara_perolehan[] = '';               //select disabled hidden
+        $this->cara_belian[] = '';
+        $this->hubungan_pemilik[] = '';
+        $this->jenis_pemilikan_bersama[] = '';
+        $this->showhubungan[] = 0;
+        $this->showjenispemilikan[] = 0;
+        $this->showbelian[] = 0;
+        $this->show[] = 0;
+
+    }
 
     protected $rules = [
 
@@ -63,7 +96,6 @@ class FormB extends Component
         'jumlah_koperasi_pasangan' => 'nullable|numeric',
         'bulanan_koperasi_pasangan' => 'nullable|numeric',
         'pengakuan' => 'required',
-        //validate
     ];
 
     public function render()
@@ -117,8 +149,7 @@ class FormB extends Component
           $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
           $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
           }
-        }
-
+      }
         return view('livewire.form-b', compact('jenisHarta', 'staffinfo', 'maklumat_pasangan', 'maklumat_anak'));
     }
 
@@ -128,6 +159,7 @@ class FormB extends Component
 
         $userid = auth()->user()->id;
         $data_user = FormBModel::where('user_id', $userid)->latest()->first();
+        // dd($data_user);
         if($data_user){
 
             $this->gaji_pasangan =$data_user->gaji_pasangan ?? null;
@@ -153,27 +185,354 @@ class FormB extends Component
             $this->bulanan_koperasi_pasangan = $data_user->bulanan_koperasi_pasangan ?? null;
         }
 
+        $username =Auth::user()->username;
+        $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+        $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+        $maklumat_anak_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+
+        if($maklumat_pasangan_check->isEmpty()){
+          $maklumat_pasangan = null;
+        }
+        else{
+          foreach ($user as $keluarga) {
+            $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          }
+          // dd($maklumat_pasangan);
+          foreach ($maklumat_pasangan as $data) {
+            $this->pekerjaan_pasangan = $data->NOKEMLOYER;
+          }
+        }
+
     }
 
+    public function addformdividen($i)
+    {
+        $i = $i + 1;
+        $this->i = $i;
+        array_push($this->inputdividen, $i);
+    }
+
+    public function removedividen($i)
+    {
+        unset($this->inputdividen[$i]);
+    }
+
+    public function validatordividen($i){
+      $this->validate([
+
+      'dividen_1.'.$i => 'nullable|string',
+      'dividen_1_pegawai.'.$i => 'nullable|numeric',
+      'dividen_pasangan.'.$i => 'nullable|numeric',
+      ]);
+    }
+
+    public function storedividen()
+    {
+        if($this->dividen_1)
+            $counter = count($this->dividen_1);
+        else
+            $counter = 0;
+
+       for ($key=0; $key < $counter ; $key++) {
+        DividenB::create([
+            'dividen_1' => $this->dividen_1[$key],
+            'dividen_1_pegawai' => $this->dividen_1_pegawai[$key],
+            'dividen_1_pasangan' => $this->dividen_pasangan[$key],
+            'formbs_id' => $this->formbid_created,
+        ]);
+      }
+    }
+
+    public function addformpinjaman($j)
+    {
+        $j = $j + 1;
+        $this->j = $j;
+        array_push($this->inputpinjaman ,$j);
+    }
+
+    public function removepinjaman($j)
+    {
+        // dd($i);
+        unset($this->inputpinjaman[$j]);
+    }
+
+    public function validatorpinjaman($j){
+      $this->validate([
+
+      'lain_lain_pinjaman.'.$j => 'nullable|string',
+      'pinjaman_pegawai.'.$j => 'nullable|numeric',
+      'bulanan_pegawai.'.$j => 'nullable|numeric',
+      'pinjaman_pasangan.'.$j => 'nullable|numeric',
+      'bulanan_pasangan.'.$j => 'nullable|numeric',
+      ]);
+    }
+
+    public function storepinjaman()
+    {
+        if($this->lain_lain_pinjaman)
+            $counter = count($this->lain_lain_pinjaman);
+        else
+            $counter = 0;
+
+        for ($key=0; $key < $counter; $key++) {
+            PinjamanB::create ([
+                'lain_lain_pinjaman' => $this->lain_lain_pinjaman[$key],
+                'pinjaman_pegawai' => $this->pinjaman_pegawai[$key],
+                'bulanan_pegawai' => $this->bulanan_pegawai[$key],
+                'pinjaman_pasangan' => $this->pinjaman_pasangan[$key],
+                'bulanan_pasangan' => $this->bulanan_pasangan[$key],
+                'formbs_id' =>$this->formbid_created,
+            ]);
+        }
+    }
+
+    public function addformharta($k)
+    {
+        $k = $k + 1;
+        $this->k = $k;
+
+        $this->hubungan_pemilik[$k] = '';
+        $this->cara_belian[$k] = '';
+        $this->cara_perolehan[$k] = '';
+        $this->jenis_pemilikan_bersama[$k] = '';
+
+        array_push($this->inputharta, $k);
+        array_push($this->showhubungan, 0);
+        array_push($this->showjenispemilikan, 0);
+        array_push($this->showbelian, 0);
+        array_push($this->show, 0);
+    }
+
+    public function removeharta($k)
+    {
+        $k = $k + 1;
+        $k = $k - 1;
+        $this->k = $k;
+        // dd($this->k);
+        $this->hubungan_pemilik[$k+1] = '';
+        $this->cara_belian[$k+1] = '';
+        $this->cara_perolehan[$k+1] = '';
+        $this->jenis_pemilikan_bersama[$k+1] = '';
+
+
+        unset($this->inputharta[$k]);
+        unset($this->showhubungan[$k+1]);
+        unset($this->showjenispemilikan[$k+1]);
+        unset($this->showbelian[$k+1]);
+        unset($this->show[$k+1]);
+
+        $this->calculatePinjaman();
+    }
+
+    public function showForm($k)
+    {
+        $this->showbelian[$k] = 0; // $this->showbelian = 0;
+
+        if ($this->cara_perolehan[$k] == "Dipusakai" || $this->cara_perolehan[$k] == "Dihadiahkan") {
+            $this->show[$k] = 1;
+        } else if ($this->cara_perolehan[$k] == "Dibeli") {
+            $this->show[$k] = 2;
+        } else if ($this->cara_perolehan[$k] == "Lain-lain") {
+            $this->show[$k] = 3;
+        } else {
+            $this->show[$k] = 0;
+        }
+
+    }
+
+    public function showFormBelian($k)
+    {
+            if ($this->cara_belian[$k] == "Pinjaman") {
+                $this->showbelian[$k] = 1;
+            } else if ($this->cara_belian[$k] == "Pelupusan") {
+                $this->showbelian[$k] = 2;
+            } else if ($this->cara_belian[$k] == "Tunai") {
+              $this->showbelian[$k] = 3;
+            }
+    }
+
+    public function showFormHubungan($k)
+    {
+        if ($this->hubungan_pemilik[$k] == "Bersama") {
+            $this->showhubungan[$k] = 1;
+        } else if ($this->hubungan_pemilik[$k] == "Lain-lain") {
+            $this->showhubungan[$k] = 2;
+              $this->showjenispemilikan[$k] = 0;
+        } else{
+            $this->showhubungan[$k] = 0;
+            // $this->showjenispemilikan[$k] = 0;
+        }
+
+    }
+
+    public function showFormJenisPemilikan($k)
+    {
+        if ($this->jenis_pemilikan_bersama[$k] == "Isteri/Suami") {
+            $this->showjenispemilikan[$k] = 1;
+        } else if ($this->jenis_pemilikan_bersama[$k] == "Lain-lain") {
+            $this->showjenispemilikan[$k] = 2;
+        } else{
+            $this->showjenispemilikan[$k] = 0;
+        }
+
+    }
+
+    public function validatorharta($k){
+        $this->validate([
+            'jenis_harta.'.$k => 'required|string',
+            'pemilik_harta.'.$k=> 'required|string',
+            'hubungan_pemilik.'.$k => 'required|string',
+            'jenis_pemilikan_bersama.'.$k => 'required_if:hubungan_pemilik.'.$k.',Bersama|string',
+            'nama_pemilik_bersama.'.$k => 'required_if:jenis_pemilikan_bersama.'.$k.',Isteri/Suami|string',
+            'lain_lain_hubungan.'.$k => 'required_if:hubungan_pemilik.'.$k.',Lain-lain|string',
+            'lain_lain_hubungan_bersama.'.$k => 'required_if:jenis_pemilikan_bersama.'.$k.',Lain-lain|string',
+            'maklumat_harta.'.$k => 'required|string',
+            'tarikh_pemilikan_harta.'.$k => 'required|date',
+            'bilangan.'.$k => 'required|numeric',
+            'nilai_perolehan.'.$k => 'required|numeric',
+            'cara_perolehan.'.$k => 'required|string',
+            'nama_pemilikan_asal.'.$k => 'required_if:cara_perolehan.'.$k.',Dipusakai||required_if:cara_perolehan.'.$k.',Dihadiahkan|string',
+            'cara_belian.'.$k => 'required_if:cara_perolehan.'.$k.',Dibeli|string',
+            'lain_lain.'.$k => 'required_if:cara_perolehan.'.$k.',Lain-lain|string',
+            'jumlah_pinjaman.'.$k => 'required_if:cara_belian.'.$k.',Pinjaman|numeric',
+            'institusi_pinjaman.'.$k => 'required_if:cara_belian.'.$k.',Pinjaman|string',
+            'tempoh_bayar_balik.'.$k => 'required_if:cara_belian.'.$k.',Pinjaman|string',
+            'ansuran_bulanan.'.$k => 'required_if:cara_belian.'.$k.',Pinjaman|numeric',
+            'tarikh_ansuran_pertama.'.$k => 'required_if:cara_belian.'.$k.',Pinjaman|date',
+            'jenis_harta_pelupusan.'.$k => 'required_if:cara_belian.'.$k.',Pelupusan|string',
+            'alamat_asset.'.$k => 'required_if:cara_belian.'.$k.',Pelupusan|string',
+            'no_pendaftaran.'.$k => 'required_if:cara_belian.'.$k.',Pelupusan|string',
+            'harga_jualan.'.$k => 'required_if:cara_belian.'.$k.',Pelupusan|numeric',
+            'tarikh_lupus.'.$k => 'required_if:cara_belian.'.$k.',Pelupusan|date',
+        ]);
+    }
+
+    public function storeharta($action)
+    {
+        if($this->jenis_harta)
+            $counter = count($this->jenis_harta);
+        else
+            $counter = 0;
+
+        for ($key=0; $key < $counter; $key++) {
+            HartaB::create ([
+                'jenis_harta' => $this->jenis_harta[$key] ?? null,
+                'pemilik_harta' => $this->pemilik_harta[$key] ?? null,
+                'hubungan_pemilik' => $this->hubungan_pemilik[$key] ?? null,
+                'jenis_pemilikan_bersama' => $this->jenis_pemilikan_bersama[$key] ?? null,
+                'nama_pemilik_bersama' => $this->nama_pemilik_bersama[$key] ?? null,
+                'lain_lain_hubungan_bersama' => $this->lain_lain_hubungan_bersama[$key] ?? null,
+                'lain_lain_hubungan' => $this->lain_lain_hubungan[$key] ?? null,
+                'maklumat_harta' => $this->maklumat_harta[$key] ?? null,
+                'tarikh_pemilikan_harta' => $this->tarikh_pemilikan_harta[$key] ?? null,
+                'bilangan' => $this->bilangan[$key] ?? null,
+                'unit_bilangan' => $this->unit_bilangan[$key] ?? null,
+                'nilai_perolehan' => $this->nilai_perolehan[$key] ?? null,
+                'cara_perolehan' => $this->cara_perolehan[$key] ?? null,
+                'nama_pemilikan_asal' => $this->nama_pemilikan_asal[$key] ?? null,
+                'cara_belian' => $this->cara_belian[$key] ?? null,
+                'lain_lain' => $this->lain_lain[$key] ?? null,
+                'tunai' => $this->tunai[$key] ?? null,
+                'jumlah_pinjaman' => $this->jumlah_pinjaman[$key] ?? null,
+                'institusi_pinjaman' => $this->institusi_pinjaman[$key] ?? null,
+                'tempoh_bayar_balik' => $this->tempoh_bayar_balik[$key] ?? null,
+                'ansuran_bulanan' => $this->ansuran_bulanan[$key] ?? null,
+                'tarikh_ansuran_pertama' => $this->tarikh_ansuran_pertama[$key] ?? null,
+                'keterangan_lain' => $this->keterangan_lain[$key] ?? null,
+                'jenis_harta_pelupusan' => $this->jenis_harta_pelupusan[$key] ?? null,
+                'alamat_asset' => $this->alamat_asset[$key] ?? null,
+                'no_pendaftaran' => $this->no_pendaftaran[$key] ?? null,
+                'harga_jualan' => $this->harga_jualan[$key] ?? null,
+                'tarikh_lupus' => $this->tarikh_lupus[$key] ?? null,
+                'formbs_id' =>$this->formbid_created,
+            ]);
+        }
+        for ($key=0; $key < $counter; $key++) {
+            if($this->jenis_harta[$key] == "Rumah" && $this->hubungan_pemilik[$key] == "Sendiri" && $this->cara_belian[$key] == "Pinjaman"){
+                $this->totalPinjamanPerumahanSendiri = $this->totalPinjamanPerumahanSendiri + $this->jumlah_pinjaman[$key];
+                $this->totalAnsuranPerumahanSendiri = $this->totalAnsuranPerumahanSendiri + $this->ansuran_bulanan[$key];
+
+            }
+            else if($this->jenis_harta[$key] == "Rumah" && $this->hubungan_pemilik[$key] == "Isteri/Suami" && $this->cara_belian[$key] == "Pinjaman"){
+                $this->totalPinjamanPerumahanPasangan = $this->totalPinjamanPerumahanPasangan + $this->jumlah_pinjaman[$key];
+                $this->totalAnsuranPerumahanPasangan = $this->totalAnsuranPerumahanPasangan + $this->ansuran_bulanan[$key];
+
+            }
+
+            else if($this->jenis_harta[$key] == "Kenderaan" && $this->hubungan_pemilik[$key] == "Sendiri" && $this->cara_belian[$key] == "Pinjaman"){
+                $this->totalPinjamanKenderaanSendiri = $this->totalPinjamanKenderaanSendiri + $this->jumlah_pinjaman[$key];
+                $this->totalAnsuranKenderaanSendiri = $this->totalAnsuranKenderaanSendiri + $this->ansuran_bulanan[$key];
+
+
+            }
+            else if($this->jenis_harta[$key] == "Kenderaan" && $this->hubungan_pemilik[$key] == "Isteri/Suami" && $this->cara_belian[$key] == "Pinjaman"){
+                $this->totalPinjamanKenderaanPasangan = $this->totalPinjamanKenderaanPasangan + $this->jumlah_pinjaman[$key];
+                $this->totalAnsuranKenderaanPasangan = $this->totalAnsuranKenderaanPasangan + $this->ansuran_bulanan[$key];
+            }
+            //pengiraan jumlah untuk milikan bersama
+            if($this->jenis_harta[$key] == "Rumah" && $this->hubungan_pemilik[$key] == "Bersama" && $this->jenis_pemilikan_bersama[$key] == "Isteri/Suami" && $this->cara_belian[$key] == "Pinjaman"){
+                $this->totalPinjamanPerumahanSendiri = $this->totalPinjamanPerumahanSendiri + ($this->jumlah_pinjaman[$key]/2);
+                $this->totalAnsuranPerumahanSendiri = $this->totalAnsuranPerumahanSendiri + ($this->ansuran_bulanan[$key]/2);
+                $this->totalPinjamanPerumahanPasangan = $this->totalPinjamanPerumahanPasangan + ($this->jumlah_pinjaman[$key]/2);
+                $this->totalAnsuranPerumahanPasangan = $this->totalAnsuranPerumahanPasangan + ($this->ansuran_bulanan[$key]/2);
+
+            }
+            else if($this->jenis_harta[$key] == "Rumah" && $this->hubungan_pemilik[$key] == "Bersama" && $this->jenis_pemilikan_bersama[$key] == "Lain-lain" && $this->cara_belian[$key] == "Pinjaman"){
+                $this->totalPinjamanPerumahanSendiri = $this->totalPinjamanPerumahanSendiri + ($this->jumlah_pinjaman[$key]/2);
+                $this->totalAnsuranPerumahanSendiri = $this->totalAnsuranPerumahanSendiri + ($this->ansuran_bulanan[$key]/2);
+
+            }
+
+            else if($this->jenis_harta[$key] == "Kenderaan" && $this->hubungan_pemilik[$key] == "Bersama" && $this->jenis_pemilikan_bersama[$key] == "Isteri/Suami" && $this->cara_belian[$key] == "Pinjaman"){
+                $this->totalPinjamanKenderaanSendiri = $this->totalPinjamanKenderaanSendiri + ($this->jumlah_pinjaman[$key]/2);
+                $this->totalAnsuranKenderaanSendiri = $this->totalAnsuranKenderaanSendiri + ($this->ansuran_bulanan[$key]/2);
+                $this->totalPinjamanKenderaanPasangan = $this->totalPinjamanKenderaanPasangan + ($this->jumlah_pinjaman[$key]/2);
+                $this->totalAnsuranKenderaanPasangan = $this->totalAnsuranKenderaanPasangan + ($this->ansuran_bulanan[$key]/2);
+
+
+            }
+            else if($this->jenis_harta[$key] == "Kenderaan" && $this->hubungan_pemilik[$key] == "Bersama" && $this->jenis_pemilikan_bersama[$key] == "Lain-lain" && $this->cara_belian[$key] == "Pinjaman"){
+                $this->totalPinjamanKenderaanSendiri = $this->totalPinjamanKenderaanSendiri + ($this->jumlah_pinjaman[$key]/2);
+                $this->totalAnsuranKenderaanSendiri = $this->totalAnsuranKenderaanSendiri + ($this->ansuran_bulanan[$key]/2);
+            }
+
+        }
+
+
+        $this->updatePinjaman($this->totalPinjamanPerumahanSendiri,$this->totalAnsuranPerumahanSendiri,$this->totalPinjamanPerumahanPasangan,$this->totalAnsuranPerumahanPasangan,
+        $this->totalPinjamanKenderaanSendiri,$this->totalAnsuranKenderaanSendiri,  $this->totalPinjamanKenderaanPasangan,$this->totalAnsuranKenderaanPasangan,$action);
+
+    }
 
     public function store($action)
     {
 
         if ($action == 'hantar') {
-            $this->emit('validate-pendapatan', $action);
+            //masuk semua validation
+            // $this->validate();
+            for ($i=0; $i <= $this->i; $i++) {
+                  $this-> validatordividen($i);
+            }
+            for ($i=0; $i <= $this->j; $i++) {
+                  $this-> validatorpinjaman($i);
+            }
+            for ($i=0; $i <= $this->k; $i++) {
+                  $this-> validatorharta($i);
+            }
 
             $this->validate();
-            // needed to validate, if dont want to validate, dont call.
+
+            $this->simpan($action);
         }
         else{
             $this->simpan($action); // FormB.php -> simpan()
         }
-        // session()->flash('message', 'Permohonan disimpan');
+
     }
 
     public function simpan($action)
     {
-        // dd($this->gaji_pasangan);
+      // dd($this->pekerjaan_pasangan);
         if ($action == 'hantar') {
           $this->validate();
             $status ="Sedang Diproses";
@@ -188,6 +547,7 @@ class FormB extends Component
             'nama_pegawai' => $this->nama_pegawai,
             'kad_pengenalan' => $this->kad_pengenalan,
             'jawatan' => $this->jawatan,
+            'pekerjaan_pasangan' => $this->pekerjaan_pasangan,
             'alamat_tempat_bertugas' => $this->alamat_tempat_bertugas,
             'jabatan' => $this->jabatan,
             'gaji' => $this->gaji,
@@ -218,11 +578,9 @@ class FormB extends Component
         ]);
         $this->formbid_created = $formbs->id;
         // dd($this->formbid_created);
-        $this->emit('pendapatan-process', $formbs->id);
-
-        $this->emit('tanggungan-process', $formbs->id);
-
-        $this->emit('harta-process', $formbs->id,$action);
+        $this->storedividen();
+        $this->storepinjaman();
+        $this->storeharta($action);
 
         $this->resetInputFields();
 
@@ -297,5 +655,146 @@ class FormB extends Component
               return redirect()->route('user.harta.senaraidraft');
             }
 
+    }
+    public function calculatePinjaman()
+    {      //Calculate Harta
+        $data_user = FormBModel::where('user_id', auth()->user()->id)->latest()->first();
+        if($data_user){
+            $this->pinjaman_perumahan_pegawai = $data_user->pinjaman_perumahan_pegawai ?? null;
+            $this->bulanan_perumahan_pegawai = $data_user->bulanan_perumahan_pegawai ?? null;
+            $this->pinjaman_perumahan_pasangan = $data_user->pinjaman_perumahan_pasangan ?? null;
+            $this->bulanan_perumahan_pasangan = $data_user->bulanan_perumahan_pasangan ?? null;
+            $this->pinjaman_kenderaan_pegawai = $data_user->pinjaman_kenderaan_pegawai ?? null;
+            $this->bulanan_kenderaan_pegawai = $data_user->bulanan_kenderaan_pegawai ?? null;
+            $this->pinjaman_kenderaan_pasangan = $data_user->pinjaman_kenderaan_pasangan ?? null;
+            $this->bulanan_kenderaan_pasangan = $data_user->bulanan_kenderaan_pasangan ?? null;
+        }else {
+          $this->pinjaman_perumahan_pegawai = 0;
+          $this->bulanan_perumahan_pegawai = 0;
+          $this->pinjaman_perumahan_pasangan = 0;
+          $this->bulanan_perumahan_pasangan = 0;
+          $this->pinjaman_kenderaan_pegawai = 0;
+          $this->bulanan_kenderaan_pegawai = 0;
+          $this->pinjaman_kenderaan_pasangan = 0;
+          $this->bulanan_kenderaan_pasangan = 0;
+          // dd('here');
+        }
+
+        if($this->jenis_harta)
+            $counter = count($this->jenis_harta);
+        else
+            $counter = 0;
+
+        for ($key=0; $key < $counter; $key++) {
+            if($this->jenis_harta[$key] == "Rumah" && $this->hubungan_pemilik[$key] == "Sendiri" && $this->cara_belian[$key] == "Pinjaman"){
+              if($this->jumlah_pinjaman){
+                $pinjaman = $this->jumlah_pinjaman[$key] ?? 0;
+                if(is_numeric($pinjaman))
+                $this->pinjaman_perumahan_pegawai = $this->pinjaman_perumahan_pegawai + $pinjaman;
+              }
+              if($this->ansuran_bulanan){
+                $pinjaman = $this->ansuran_bulanan[$key] ?? 0;
+                if(is_numeric($pinjaman))
+                $this->bulanan_perumahan_pegawai = $this->bulanan_perumahan_pegawai + $pinjaman;
+              }
+
+            }
+            else if($this->jenis_harta[$key] == "Rumah" && $this->hubungan_pemilik[$key] == "Isteri/Suami" && $this->cara_belian[$key] == "Pinjaman"){
+
+              if($this->jumlah_pinjaman){
+                $pinjaman = $this->jumlah_pinjaman[$key] ?? 0;
+                if(is_numeric($pinjaman))
+                $this->pinjaman_perumahan_pasangan= $this->pinjaman_perumahan_pasangan + $pinjaman;
+              }
+              if($this->ansuran_bulanan){
+                $pinjaman = $this->ansuran_bulanan[$key] ?? 0;
+                if(is_numeric($pinjaman))
+                $this->bulanan_perumahan_pasangan = $this->bulanan_perumahan_pasangan + $pinjaman;
+              }
+            }
+
+            else if($this->jenis_harta[$key] == "Kenderaan" && $this->hubungan_pemilik[$key] == "Sendiri" && $this->cara_belian[$key] == "Pinjaman"){
+                if($this->jumlah_pinjaman){
+                  $pinjaman = $this->jumlah_pinjaman[$key] ?? 0;
+                  if(is_numeric($pinjaman))
+                    $this->pinjaman_kenderaan_pegawai = $this->pinjaman_kenderaan_pegawai + $pinjaman;
+                }
+                if($this->ansuran_bulanan){
+                  $pinjaman = $this->ansuran_bulanan[$key] ?? 0;
+                  if(is_numeric($pinjaman))
+                    $this->bulanan_kenderaan_pegawai = $this->bulanan_kenderaan_pegawai + $pinjaman;
+                }
+            }
+            else if($this->jenis_harta[$key] == "Kenderaan" && $this->hubungan_pemilik[$key] == "Isteri/Suami" && $this->cara_belian[$key] == "Pinjaman"){
+              if($this->jumlah_pinjaman){
+                $pinjaman = $this->jumlah_pinjaman[$key] ?? 0;
+                if(is_numeric($pinjaman))
+                  $this->pinjaman_kenderaan_pasangan = $this->pinjaman_kenderaan_pasangan + $pinjaman;
+                }
+                if($this->ansuran_bulanan){
+                  $pinjaman = $this->ansuran_bulanan[$key] ?? 0;
+                  if(is_numeric($pinjaman))
+                  $this->bulanan_kenderaan_pasangan = $this->bulanan_kenderaan_pasangan + $pinjaman;
+                }
+            }
+
+            //untuk pengiraan hubungan bersama
+            else if($this->jenis_harta[$key] == "Rumah" && $this->hubungan_pemilik[$key] == "Bersama" && $this->jenis_pemilikan_bersama[$key] == "Isteri/Suami" && $this->cara_belian[$key] == "Pinjaman"){
+              if($this->jumlah_pinjaman){
+                $pinjaman = $this->jumlah_pinjaman[$key] ?? 0;
+                if(is_numeric($pinjaman))
+                $this->pinjaman_perumahan_pegawai = $this->pinjaman_perumahan_pegawai + ($pinjaman/2);
+                $this->pinjaman_perumahan_pasangan= $this->pinjaman_perumahan_pasangan + ($pinjaman/2);
+              }
+              if($this->ansuran_bulanan){
+                $pinjaman = $this->ansuran_bulanan[$key] ?? 0;
+                if(is_numeric($pinjaman))
+                $this->bulanan_perumahan_pegawai = $this->bulanan_perumahan_pegawai + ($pinjaman/2);
+                $this->bulanan_perumahan_pasangan = $this->bulanan_perumahan_pasangan + ($pinjaman/2);
+              }
+
+            }
+            else if($this->jenis_harta[$key] == "Rumah" && $this->hubungan_pemilik[$key] == "Bersama" && $this->jenis_pemilikan_bersama[$key] == "Lain-lain" && $this->cara_belian[$key] == "Pinjaman"){
+
+              if($this->jumlah_pinjaman){
+                $pinjaman = $this->jumlah_pinjaman[$key] ?? 0;
+                if(is_numeric($pinjaman))
+                $this->pinjaman_perumahan_pegawai = $this->pinjaman_perumahan_pegawai + ($pinjaman/2);
+              }
+              if($this->ansuran_bulanan){
+                $pinjaman = $this->ansuran_bulanan[$key] ?? 0;
+                if(is_numeric($pinjaman))
+                $this->bulanan_perumahan_pegawai = $this->bulanan_perumahan_pegawai + ($pinjaman/2);
+              }
+            }
+
+            else if($this->jenis_harta[$key] == "Kenderaan" && $this->hubungan_pemilik[$key] == "Bersama" && $this->jenis_pemilikan_bersama[$key] == "Isteri/Suami" && $this->cara_belian[$key] == "Pinjaman"){
+                if($this->jumlah_pinjaman){
+                  $pinjaman = $this->jumlah_pinjaman[$key] ?? 0;
+                  if(is_numeric($pinjaman))
+                  $this->pinjaman_kenderaan_pegawai = $this->pinjaman_kenderaan_pegawai + ($pinjaman/2);
+                  $this->pinjaman_kenderaan_pasangan = $this->pinjaman_kenderaan_pasangan + ($pinjaman/2);
+                }
+                if($this->ansuran_bulanan){
+                  $pinjaman = $this->ansuran_bulanan[$key] ?? 0;
+                  if(is_numeric($pinjaman))
+                  $this->bulanan_kenderaan_pegawai = $this->bulanan_kenderaan_pegawai + ($pinjaman/2);
+                  $this->bulanan_kenderaan_pasangan = $this->bulanan_kenderaan_pasangan + ($pinjaman/2);
+                }
+            }
+            else if($this->jenis_harta[$key] == "Kenderaan" && $this->hubungan_pemilik[$key] == "Bersama" && $this->jenis_pemilikan_bersama[$key] == "Lain-lain" && $this->cara_belian[$key] == "Pinjaman"){
+              if($this->jumlah_pinjaman){
+                $pinjaman = $this->jumlah_pinjaman[$key] ?? 0;
+                if(is_numeric($pinjaman))
+                $this->pinjaman_kenderaan_pegawai = $this->pinjaman_kenderaan_pegawai + ($pinjaman/2);
+                }
+                if($this->ansuran_bulanan){
+                  $pinjaman = $this->ansuran_bulanan[$key] ?? 0;
+                  if(is_numeric($pinjaman))
+                  $this->bulanan_kenderaan_pegawai = $this->bulanan_kenderaan_pegawai + ($pinjaman/2);
+                }
+            }
+
+        }
     }
 }

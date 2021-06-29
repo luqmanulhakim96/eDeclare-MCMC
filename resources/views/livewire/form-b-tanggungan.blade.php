@@ -1,5 +1,5 @@
 <div>
-    
+
                     <!--LAIN2 PINJAMAN -->
                     <input type="hidden" wire:model="counter" value="0" id="counter1">
 
@@ -61,14 +61,14 @@
 
                             <div class="col-md-1">
                                 <button class="btn btn-primary"
-                                    wire:click.prevent="addform2({{ $i }})">Tambah</button>
+                                    wire:click.prevent="addformpinjaman({{ $j }})">Tambah</button>
                             </div>
 
                         </div>
                     </div>
                     <br>
                     <div class="table_lain" id="table_lain">
-                    @foreach ($inputs as $key => $value)
+                    @foreach ($inputpinjaman as $key => $value)
                             <div class="row">
                                 <div class="col-md-3">
                                     <input class="form-control bg-light" type="text"
@@ -91,7 +91,7 @@
 
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" type="text"
-                                        wire:model="bulanan_pegawai.{{ $value }}" 
+                                        wire:model="bulanan_pegawai.{{ $value }}"
                                         onkeypress="return isNumberKey(event,this)"{{-- onkeypress="return onlyNumberKey(event)" --}}
                                         autocomplete="off">
                                     @error('bulanan_pegawai.'.$value)
@@ -111,7 +111,7 @@
 
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" type="text"
-                                        wire:model="bulanan_pasangan.{{ $value }}" 
+                                        wire:model="bulanan_pasangan.{{ $value }}"
                                         onkeypress="return isNumberKey(event,this)"{{-- onkeypress="return onlyNumberKey(event)" --}}
                                         autocomplete="off">
                                     @error('bulanan_pasangan.'.$value)
@@ -119,8 +119,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-1">
-                                    {{-- <button class="" wire:click.prevent="remove2({{$key}})">Remove</button> --}}
-                                    <a wire:click.prevent="remove({{ $key }})" class="btn btn-danger"><i
+
+                                    <a wire:click.prevent="removepinjaman({{ $key }})" class="btn btn-danger"><i
                                             class="fas fa-trash"></i></a>
 
                                 </div>
@@ -145,10 +145,9 @@
                                 return false;
                             }
                             }
-                
+
                         }
                         return true;
                         }
                     </script>
                 </div>
-            

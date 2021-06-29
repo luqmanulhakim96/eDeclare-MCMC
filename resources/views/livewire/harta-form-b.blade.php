@@ -72,22 +72,25 @@
 
                         @if($showhubungan == 1)
 
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p class="required"> Nyatakan nama pemilik bersama</p>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input class="form-control bg-light" type="text"
-                                            wire:model="nama_pemilik_bersama"autocomplete="off">
-                                        @error('nama_pemilik_bersama')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
+                        <div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="required"> Nyatakan hubungan pemilik bersama</p>
                                 </div>
-                                <br>
+                                <div class="col-md-8">
+                                  <select class="custom-select bg-light" wire:model="jenis_pemilikan_bersama" wire:change="showFormJenisPemilikan(0)">
+                                      <option value="" disabled hidden>Pilih Hubungan Milikan Bersama</option>
+                                      <option value="Isteri/Suami">Isteri/Suami</option>
+                                      <option value="Lain-lain">Lain-lain</option>
+                                  </select>
+                                  @error('jenis_pemilikan_bersama')
+                                  <div class="alert alert-danger">{{ $message }}</div>
+                                  @enderror
+                                </div>
+
                             </div>
+                            <br>
+                        </div>
                         @elseif($showhubungan == 2)
 
                             <div>
@@ -107,7 +110,44 @@
                                 <br>
                             </div>
                         @endif
+                    <br>
+                    @if($showjenispemilikan == 1)
 
+                        <div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="required"> Nyatakan nama pemilik bersama</p>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control bg-light" type="text"
+                                        wire:model="nama_pemilik_bersama"autocomplete="off">
+                                    @error('nama_pemilik_bersama')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                            </div>
+                            <br>
+                        </div>
+                    @elseif($showjenispemilikan == 2)
+
+                        <div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="required"> Nyatakan lain-lain hubungan</p>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control bg-light" type="text"
+                                        wire:model="lain_lain_hubungan_bersama"autocomplete="off">
+                                    @error('lain_lain_hubungan_bersama')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                            </div>
+                            <br>
+                        </div>
+                    @endif
                     <br>
                     <div class="row">
                         <div class="col-md-4">
@@ -131,7 +171,7 @@
                             <p class="required">Tarikh Pemilikan Harta</p>
                         </div>
                         <div class="col-md-8">
-                            <input class="form-control bg-light" type="date"
+                            <input class="form-control bg-light" type="date" onkeydown="return false"
                                 wire:model="tarikh_pemilikan_harta" value="{{ old('tarikh_pemilikan_harta') }}"
                                 autocomplete="off">
                                 @error('tarikh_pemilikan_harta')
@@ -139,7 +179,7 @@
                                 @enderror
 
                         </div>
-                        <script type="text/javascript">
+                        <!-- <script type="text/javascript">
                         var today = new Date();
                          var dd = today.getDate();
                          var mm = today.getMonth()+1; //January is 0!
@@ -154,7 +194,7 @@
                          today = yyyy+'-'+mm+'-'+dd;
                          document.getElementById("tarikh_pemilikan_harta").setAttribute("max", today);
 
-                        </script>
+                        </script> -->
                     </div>
                     <br>
                     <div class="row">
@@ -360,14 +400,14 @@
                                     <p class="required">v) Tarikh ansuran pertama</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control bg-light" type="date"
+                                    <input class="form-control bg-light" type="date" onkeydown="return false"
                                     wire:model="tarikh_ansuran_pertama"
                                         value="{{ old('tarikh_ansuran_pertama') }}">
                                         @error('tarikh_ansuran_pertama')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                 </div>
-                                <script type="text/javascript">
+                                <!-- <script type="text/javascript">
                                 var today = new Date();
                                  var dd = today.getDate();
                                  var mm = today.getMonth()+1; //January is 0!
@@ -382,10 +422,11 @@
                                  today = yyyy+'-'+mm+'-'+dd;
                                  document.getElementById("tarikh_ansuran_pertama").setAttribute("max", today);
 
-                                </script>
+                                </script> -->
 
                             </div>
                             <br>
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <p class="">vi) Keterangan lain, Jika ada</p>
@@ -475,14 +516,14 @@
                                     <p class="required">v) Tarikh lupus</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control bg-light" type="date"
+                                    <input class="form-control bg-light" type="date" onkeydown="return false"
                                     wire:model="tarikh_lupus"
                                     value="{{ old('tarikh_lupus') }}">
                                     @error('tarikh_lupus')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <script type="text/javascript">
+                                <!-- <script type="text/javascript">
                                 var today = new Date();
                                  var dd = today.getDate();
                                  var mm = today.getMonth()+1; //January is 0!
@@ -497,7 +538,24 @@
                                  today = yyyy+'-'+mm+'-'+dd;
                                  document.getElementById("tarikh_lupus").setAttribute("max", today);
 
-                                </script>
+                                </script> -->
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="">vi) Keterangan lain, Jika ada</p>
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input class="form-control bg-light" type="text"
+                                    wire:model="keterangan_lain"
+                                        value="{{ old('keterangan_lain') }}" autocomplete="off">
+
+                                        @error('keterangan_lain')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+
+                                </div>
+
                             </div>
                         </div>
                     @elseif($showbelian == 3)

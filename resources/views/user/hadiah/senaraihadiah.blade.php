@@ -38,6 +38,7 @@
                                     <th class="all"><p>Hubungan Pemberi</p></th>
                                     <th class="all"><p class="all">Lampiran Hadiah</p></th>
                                     <th class="all"><p>Status Penerimaan Hadiah</p></th>
+                                    <th class="all"><p>Ulasan</p></th>
                                     <th class="all"><p>Catatan</p></th>
                                     <th class="all"><p>Tindakan</p></th>
                                 </tr>
@@ -96,6 +97,9 @@
                                      @elseif($data ->status == "Sedang Dikemaskini")
                                      <span class="badge badge-warning badge-pill">Permohonan Kemaskini Diluluskan</span>
                                      @endif
+                                  </td>
+                                  <td>
+                                    <a href="{{route('user.hadiah.ulasanpageGift', $data->id)}}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                   </td>
                                   <td>
                                     @if($data ->status == "Sedang Diproses")

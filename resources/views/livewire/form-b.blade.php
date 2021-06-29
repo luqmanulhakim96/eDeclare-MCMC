@@ -88,7 +88,7 @@
             </div>
             @if($maklumat_pasangan == null)
             @else
-                @livewire('form-b-keterangan-mengenai-keluarga')
+                @include('livewire.form-b-keterangan-mengenai-keluarga')
             @endif
             <div class="row">
                 <div class="col-12 mt-4">
@@ -185,7 +185,7 @@
 
                                 </div>
                             </div>
-                            @livewire('form-b-pendapatan-bulanan')
+                            @include('livewire.form-b-pendapatan-bulanan')
                         </div>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
 
 
             {{-- Soalan 4 --}}
-            @livewire('form-b-keterangan-mengenai-harta')
+            @include('livewire.form-b-keterangan-mengenai-harta')
 
             {{-- Soalan 5 --}}
             <div class="row">
@@ -238,11 +238,12 @@
                                 <div class="col-md-3">
                                     <p>i) Jumlah Pinjaman Perumahan</p>
                                 </div>
-                                <div class="col-md-2">
-
-                                    <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pegawai"
+                                <div class="col-md-2" style="text-align:center;">
+                                    <input class="form-control bg-light" type="hidden" id="pinjaman_perumahan_pegawai"
                                     onkeypress="return isNumberKey(event,this)"
-                                    wire:model="pinjaman_perumahan_pegawai" value="0" readonly>
+                                    wire:model="pinjaman_perumahan_pegawai"
+                                    value="0" readonly>
+                                    {{ $pinjaman_perumahan_pegawai }}
 
                                     <!-- <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('pinjaman_perumahan_pegawai') }}"> -->
                                     @error('pinjaman_perumahan_pegawai')
@@ -250,36 +251,36 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="text-align:center;">
 
-                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pegawai"
+                                    <input class="form-control bg-light" type="hidden" id="bulanan_perumahan_pegawai"
                                     onkeypress="return isNumberKey(event,this)"
                                     wire:model="bulanan_perumahan_pegawai" value="0" readonly>
-
+                                    {{ $bulanan_perumahan_pegawai }}
                                     <!-- <input class="form-control bg-light" type="text" name="bulanan_perumahan_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_perumahan_pegawai') }}"> -->
                                     @error('bulanan_perumahan_pegawai')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="text-align:center;">
 
-                                    <input class="form-control bg-light" type="text" id="pinjaman_perumahan_pasangan"
+                                    <input class="form-control bg-light" type="hidden" id="pinjaman_perumahan_pasangan"
                                     onkeypress="return isNumberKey(event,this)"
                                     wire:model="pinjaman_perumahan_pasangan" value="0" readonly>
-
+                                    {{$pinjaman_perumahan_pasangan}}
                                     <!-- <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('pinjaman_perumahan_pasangan') }}"> -->
                                     @error('pinjaman_perumahan_pasangan')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="text-align:center;">
 
-                                    <input class="form-control bg-light" type="text" id="bulanan_perumahan_pasangan"
+                                    <input class="form-control bg-light" type="hidden" id="bulanan_perumahan_pasangan"
                                     onkeypress="return isNumberKey(event,this)"
                                     wire:model="bulanan_perumahan_pasangan" value="0" readonly>
-
+                                    {{$bulanan_perumahan_pasangan}}
                                     <!-- <input class="form-control bg-light" type="text" name="bulanan_perumahan_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_perumahan_pasangan') }}"> -->
                                     @error('bulanan_perumahan_pasangan')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -293,47 +294,48 @@
                                 <div class="col-md-3">
                                     <p>ii) Jumlah Pinjaman Kenderaan</p>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="text-align:center;">
 
-                                    <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pegawai"
+                                    <input class="form-control bg-light" type="hidden" id="pinjaman_kenderaan_pegawai"
                                     onkeypress="return isNumberKey(event,this)"
                                     wire:model="pinjaman_kenderaan_pegawai" value="0" readonly>
-
+                                    {{$pinjaman_kenderaan_pegawai}}
                                     <!-- <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('pinjaman_kenderaan_pegawai') }}"> -->
                                     @error('pinjaman_kenderaan_pegawai')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="text-align:center;">
 
-                                    <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pegawai"
+                                    <input class="form-control bg-light" type="hidden" id="bulanan_kenderaan_pegawai"
                                     onkeypress="return isNumberKey(event,this)"
                                     wire:model="bulanan_kenderaan_pegawai" value="0" readonly>
-
+                                    {{$bulanan_kenderaan_pegawai}}
                                     <!-- <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pegawai" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_kenderaan_pegawai') }}"> -->
                                     @error('bulanan_kenderaan_pegawai')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="text-align:center;">
 
-                                    <input class="form-control bg-light" type="text" id="pinjaman_kenderaan_pasangan"
+                                    <input class="form-control bg-light" type="hidden" id="pinjaman_kenderaan_pasangan"
                                     onkeypress="return isNumberKey(event,this)"
                                     wire:model="pinjaman_kenderaan_pasangan" value="0" readonly>
-
+                                    {{$pinjaman_kenderaan_pasangan}}
                                     <!-- <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('pinjaman_kenderaan_pasangan') }}"> -->
                                     @error('pinjaman_kenderaan_pasangan')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="text-align:center;">
 
-                                    <input class="form-control bg-light" type="text" id="bulanan_kenderaan_pasangan"
+                                    <input class="form-control bg-light" type="hidden" id="bulanan_kenderaan_pasangan"
                                     onkeypress="return isNumberKey(event,this)"
                                     wire:model="bulanan_kenderaan_pasangan" value="0" readonly>
+                                    {{$bulanan_kenderaan_pasangan}}
 
                                     <!-- <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pasangan" onkeypress="return onlyNumberKey(event)"  value="{{ old('bulanan_kenderaan_pasangan') }}"> -->
                                     @error('bulanan_kenderaan_pasangan')
@@ -435,7 +437,7 @@
                                 </div>
                             </div>
                             <br>
-                        @livewire('form-b-tanggungan')
+                        @include('livewire.form-b-tanggungan')
                         </div>
                     </div>
                 </div>
@@ -484,6 +486,7 @@
                         <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
                         <button type="submit" class="btn btn-danger" wire:click.prevent="store('simpan')" data-dismiss="modal">Ya</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                         </div>
                     </div>
                     </div>
@@ -500,10 +503,8 @@
                         <p align="center">Hantar maklumat perisytiharan?</p>
                         </div>
                         <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
-                        {{-- <button type="submit" class="btn btn-danger" wire:click.prevent="store('hantar')" data-dismiss="modal">Ya</button>
-                         --}}
                         <button type="submit" class="btn btn-danger" wire:click.prevent="store('hantar')" data-dismiss="modal">Ya</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                         </div>
                     </div>
                     </div>
