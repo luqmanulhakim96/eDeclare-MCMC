@@ -83,7 +83,7 @@
                       Pekerjaan Suami/Isteri
                     </td>
                     <td colspan="4">
-                    {{$maklumat_pasangan->NOKEMLOYER}}
+                    {{ $listHarta->pekerjaan_pasangan }}
                     </td>
                 </tr>
                 @endforeach

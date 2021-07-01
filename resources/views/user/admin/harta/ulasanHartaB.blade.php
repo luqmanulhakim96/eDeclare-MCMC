@@ -124,7 +124,7 @@
                                                           @if($maklumat_pasangan->NOKEMLOYER != NULL)
                                                             <input type="hidden" name="pekerjaan_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKEMLOYER}}
                                                             @else
-                                                            -
+                                                          {{ $listHarta ->pekerjaan_pasangan }}
                                                             @endif
                                                         </div>
                                                     </div>
@@ -485,7 +485,7 @@
                                                 <td>{{ $data ->hubungan_pemilik }}</td>
                                                 <td>{{ $data ->maklumat_harta }}</td>
                                                 <td>{{ $data ->tarikh_pemilikan_harta }}</td>
-                                                <td>{{ $data ->bilangan}}</td>
+                                                <td>{{ $data ->bilangan}} {{ $data ->unit_bilangan}}</td>
                                                 <td>{{ $data ->nilai_perolehan}}</td>
                                                 <td>{{ $data ->cara_perolehan}}</td>
                                                 <td>

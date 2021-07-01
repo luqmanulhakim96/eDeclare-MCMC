@@ -60,7 +60,7 @@
     } */
 
     </style>
-
+  @livewireStyles
 
 </head>
 <body class="position-relative">
@@ -694,11 +694,11 @@
         <img src="{{ asset('qbadminui/img/MCMC.png') }}" alt="bran_name" class="brand-img" style="width:50%;">
       </div>
       <div class="col-md-7" style="margin-left: -4%;">
-        <a href="" target="_Blank" ><font color="white">Copyright &copy; 2021. Malaysian Communications and Multimedia Commision.<br>All rights reserved.</font></a>
+        <a href="https://www.mcmc.gov.my/en/home" target="_Blank" ><font color="white">Copyright &copy; 2021. Malaysian Communications and Multimedia Commision.<br>All rights reserved.</font></a>
       </div>
-      <div class="col-md"><font color="white">Legal Disclaimer</font></div>
-      <div class="col-md"><font color="white">Privacy Policy</font></div>
-      <div class="col-md"><font color="white">Security Policy</font></div>
+      <div class="col-md"><a href="{{route('disclaimer')}}" target="_blank"><font color="white">Legal Disclaimer</font></a></div>
+      <div class="col-md"><a href="{{route('privacy')}}" target="_blank"><font color="white">Privacy Policy</font></a></div>
+      <div class="col-md"><a href="{{route('security')}}" target="_blank"><font color="white">Security Policy</font></a></div>
 
     </div>
     <div class="row">
@@ -726,6 +726,7 @@
     <!-- Data Table script -->
     <script type="text/javascript" src="{{ asset('qbadminui/js/vendor/DataTables/datatables.js') }}"></script>
 
+    @livewireScripts
 </body>
 </html>
 <script type="text/javascript">

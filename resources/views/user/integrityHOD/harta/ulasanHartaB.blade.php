@@ -478,7 +478,7 @@
                                                 <td>{{ $data ->hubungan_pemilik }}</td>
                                                 <td>{{ $data ->maklumat_harta }}</td>
                                                 <td>{{ $data ->tarikh_pemilikan_harta }}</td>
-                                                <td>{{ $data ->bilangan}}</td>
+                                                <td>{{ $data ->bilangan}} {{ $data ->unit_bilangan}}</td>
                                                 <td>{{ $data ->nilai_perolehan}}</td>
                                                 <td>{{ $data ->cara_perolehan}}</td>
                                               </tr>

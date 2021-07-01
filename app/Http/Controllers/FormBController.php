@@ -148,11 +148,13 @@ class FormBController extends Controller
 
   public function editformB($id){
     // $info = SenaraiHarga::find(1);
-    $draft_exist = FormB::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
+
+
+    // $draft_exist = FormB::where('user_id', auth()->user()->id)->where('status', 'Disimpan ke Draf')->first();
 
     $info = FormB::findOrFail($id);
     // dd($info);
-    $jenisHarta = JenisHarta::get();
+    // $jenisHarta = JenisHarta::get();
 
     $listDividenB = DividenB::where('formbs_id', $info->id) ->get();
       // dd($listDividenB[0]->dividen_1);
@@ -163,23 +165,39 @@ class FormBController extends Controller
 
     // $username =Auth::user()->username;
     // $username =User::where('id', $info->user_id)->first();
-    $username =auth()->user();
+    // $username =auth()->user();
 
 
-    $staffinfo = UserExistingStaffInfo::where('USERNAME', $username->username)->get();
-    $user = UserExistingStaffInfo::where('USERNAME', $username->username)->get('STAFFNO');
+    // $staffinfo = UserExistingStaffInfo::where('USERNAME', $username->username)->get();
+    // $user = UserExistingStaffInfo::where('USERNAME', $username->username)->get('STAFFNO');
 
     foreach ($user as $keluarga) {
 
-      $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
-      $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
-      $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
-      $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
-      }
+    // //data dari form latest
+    // $userid = Auth::user()->id;
+    // $data_user = FormB::where('user_id', $userid) ->get();
 
-    $hartaB =HartaB::where('formbs_id',$info->id) ->get();
-    // dd($hartaB);
+    //   $last_data_formb = null;
+    //   $dividen_user= null;
+    //   $pinjaman_user= null;
+    //   $maklumat_pasangan = null;
+    //   $maklumat_anak = null;
 
+    // // $username =Auth::user()->username;
+    // // $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+    // // $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+
+    // // foreach ($user as $keluarga) {
+
+    // //   $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+    // //   $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+    // //   $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+    // //   $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+    // //   }
+
+    // $hartaB =HartaB::where('formbs_id',$info->id) ->get();
+    // // dd($hartaB);
+    $id_formb = $id;
 
 
     return view('user.harta.FormB.editformB-latest', compact('info','maklumat_pasangan','maklumat_anak','listDividenB','listPinjamanB','count_div','count_pinjaman','jenisHarta','hartaB','staffinfo','draft_exist'));
@@ -258,6 +276,8 @@ public function add(array $data){
         'alamat_tempat_bertugas' => $data['alamat_tempat_bertugas'],
         'jabatan' => $staffinfo->OLEVEL4NAME,
         'gaji' => $data['gaji'],
+
+
         'gaji_pasangan' => $data['gaji_pasangan'],
         'jumlah_imbuhan' => $data['jumlah_imbuhan'],
         'jumlah_imbuhan_pasangan' => $data['jumlah_imbuhan_pasangan'],

@@ -133,9 +133,9 @@
                                                                   <p align="center">Pengesahan untuk memberi akses kemaskini lampiran? B</p>
                                                                   </div>
                                                                   <div class="modal-footer">
-                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                  <button type="submit" class="btn btn-primary" name="edit">Ya</button>
-                                                                  <button type="submit" class="btn btn-primary" name="takedit">Tidak</button>
+                                                                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+                                                                  <button type="submit" class="btn btn-danger" name="edit">Ya</button>
+                                                                  <button type="submit" class="btn btn-secondary" name="takedit">Tidak</button>
                                                                   </div>
                                                               </div>
                                                             </form>

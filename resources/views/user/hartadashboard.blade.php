@@ -8,7 +8,15 @@
                        <!-- basic light table card -->
                        <div class="card rounded-lg" >
                            <div class="card-body">
-                               <div class="card-title">Senarai Sejarah Perisytiharan Harta</div>
+                             @if($jenisform == "formb")
+                              <div class="card-title">Senarai Perisytiharan Harta</div>
+                             @elseif($jenisform == "formc")
+                              <div class="card-title">Senarai Pelupusan Harta</div>
+                              @elseif($jenisform == "formd")
+                               <div class="card-title">Senarai Perisytiharan Syarikat</div>
+                               @elseif($jenisform == "formg")
+                                <div class="card-title">Senarai Perisytiharan Saham</div>
+                            @endif
                                <!-- Description -->
                                <!-- <p class="text-muted">Due to the widespread use of tables across third-party widgets like calendars and date pickers, we’ve designed our tables to be opt-in. Just add the base class <code>.table</code> to any <code>table tag </code>, then extend with custom styles or our various included modifier classes.</p> -->
                                <!-- Table -->
@@ -92,7 +100,7 @@
                                              </td>
                                              <td>
                                                @if($role == "1")
-                                               @if($data ->getTable() == "formbs")                                               
+                                               @if($data ->getTable() == "formbs")
                                                  @if($data ->status == "Sedang Diproses")
                                                  <a href="{{route('user.admin.harta.ulasanHartaB',$data-> id)}}" class="btn btn-primary" >Ulasan</a>
                                                  @elseif($data ->status == "Menunggu Kebenaran Kemaskini")

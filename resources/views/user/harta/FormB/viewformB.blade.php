@@ -128,9 +128,9 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                           @if($maklumat_pasangan->NOKEMLOYER != NULL)
-                                                            <input type="hidden" name="pekerjaan_pasangan" value="{{$maklumat_pasangan->NOKNAME}}">{{$maklumat_pasangan->NOKEMLOYER}}
+                                                            {{$maklumat_pasangan->NOKEMLOYER}}
                                                             @else
-                                                            -
+                                                            {{$listHarta ->pekerjaan_pasangan}}
                                                             @endif
                                                         </div>
                                                     </div>

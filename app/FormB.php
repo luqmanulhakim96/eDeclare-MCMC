@@ -28,7 +28,7 @@ class FormB extends Model implements Auditable
       'institusi_pinjaman', 'tempoh_bayar_balik', 'ansuran_bulanan', 'tarikh_ansuran_pertama',
       'jenis_harta_pelupusan', 'alamat_asset', 'no_pendaftaran', 'harga_jualan',
       'tarikh_lupus','user_id','status','nama_admin','no_admin','ulasan_admin','nama_hod','no_hod','ulasan_hod',
-      'nama_hodiv','no_hodiv','ulasan_hodiv','jabatan','no_staff'
+      'nama_hodiv','no_hodiv','ulasan_hodiv','jabatan','no_staff','pekerjaan_pasangan'
     ];
 
     public static function getTableName()

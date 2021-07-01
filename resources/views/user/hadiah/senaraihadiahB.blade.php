@@ -38,6 +38,7 @@
                                   <th class="all" width="30%"><p>Hubungan Pemberi</p></th>
                                   <th class="all" width="70%"><p class="all">Lampiran Hadiah</p></th>
                                   <th class="all" width="30%"><p>Status Penerimaan Hadiah</p></th>
+                                  <th class="all"><p>Ulasan</p></th>
                                   <th class="all" width="30%"><p>Catatan</p></th>
                                   <th class="all" width="30%"><p>Tindakan</p></th>
                                 </tr>
@@ -85,8 +86,11 @@
                                      @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
                                      <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
                                      @elseif($data ->status == "Sedang Dikemaskini")
-                                     <span class="badge badge-warning badge-pill">{{ $data ->status }}</span>
+                                     <span class="badge badge-warning badge-pill">Permohonan Kemaskini Diluluskan</span>
                                      @endif
+                                  </td>
+                                  <td>
+                                    <a href="{{route('user.hadiah.ulasanpageGiftB', $data->id)}}" class="btn btn-success mr-1"><i class="fa fa-eye"></i></a>
                                   </td>
                                   <td>
                                   @if($data ->status == "Sedang Diproses")
@@ -94,7 +98,7 @@
                                   @elseif($data ->status == "Menunggu Kebenaran Kemaskini")
                                   {{ $data ->status }}
                                   @elseif($data ->status == "Sedang Dikemaskini")
-                                  {{ $data ->status }}
+                                  Permohonan Kemaskini Diluluskan
                                   @elseif($data ->status == "Proses ke Ketua Jabatan Integriti")
                                   {{ $data ->status }}
                                   @elseif($data ->status == "Proses ke Ketua Bahagian")
@@ -128,7 +132,27 @@
                                     @elseif($data ->status == "Tidak Lengkap")
                                      <a href="{{ route('user.hadiah.editgiftB', $data->id) }}" class="btn btn-success mr-1"><i class="fas fa-pencil-alt"></i></a>
                                     @elseif($data ->status == "Sedang Diproses")
-                                        <a href="{{ route('statuseditgiftB.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a>
+                                    <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#save{{$data->id}}" >Permohonan Mengemaskini</button>
+                                    <div class="modal fade" id="save{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            <p align="center">Adakah anda ingin membuat permohonan mengemaskini lampiran?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <a href="{{ route('statuseditgiftB.update',$data->id)}}" class="btn btn-danger">Ya</a>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                        <!-- <a href="{{ route('statuseditgiftB.update',$data->id)}}" class="btn btn-success mr-1">Permohonan Mengemaskini</a> -->
                                     @else
                                       <a class="btn btn-light mr-1" disabled ><i class="fas fa-pencil-alt"></i></a>
                                     @endif
