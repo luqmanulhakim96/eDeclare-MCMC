@@ -70,9 +70,72 @@ class FormB extends Component
         $this->show[] = 0;
 
     }
+    public function validatorform(){
+      $username =Auth::user()->username;
+
+      $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+
+      if($maklumat_pasangan_check->isEmpty()){
+        $this->validate([
+          'pekerjaan_pasangan' => 'nullable|string',
+          'gaji_pasangan' => 'nullable|numeric',
+          'jumlah_imbuhan' => 'nullable|numeric',
+          'jumlah_imbuhan_pasangan' => 'nullable|numeric',
+          'sewa' => 'nullable|numeric',
+          'sewa_pasangan' => 'nullable|numeric',
+
+          'pinjaman_perumahan_pegawai' => 'nullable|numeric',
+          'bulanan_perumahan_pegawai' => 'nullable|numeric',
+          'pinjaman_perumahan_pasangan' => 'nullable|numeric',
+          'bulanan_perumahan_pasangan' => 'nullable|numeric',
+          'pinjaman_kenderaan_pegawai' => 'nullable|numeric',
+          'bulanan_kenderaan_pegawai' => 'nullable|numeric',
+          'pinjaman_kenderaan_pasangan' => 'nullable|numeric',
+          'bulanan_kenderaan_pasangan' => 'nullable|numeric',
+          'jumlah_cukai_pegawai' => 'nullable|numeric',
+          'bulanan_cukai_pegawai' => 'nullable|numeric',
+          'jumlah_cukai_pasangan' => 'nullable|numeric',
+          'bulanan_cukai_pasangan' => 'nullable|numeric',
+          'jumlah_koperasi_pegawai' => 'nullable|numeric',
+          'bulanan_koperasi_pegawai' => 'nullable|numeric',
+          'jumlah_koperasi_pasangan' => 'nullable|numeric',
+          'bulanan_koperasi_pasangan' => 'nullable|numeric',
+          'pengakuan' => 'required',
+        ]);
+      }else{
+        $this->validate([
+          'pekerjaan_pasangan' => 'required|string',
+          'gaji_pasangan' => 'nullable|numeric',
+          'jumlah_imbuhan' => 'nullable|numeric',
+          'jumlah_imbuhan_pasangan' => 'nullable|numeric',
+          'sewa' => 'nullable|numeric',
+          'sewa_pasangan' => 'nullable|numeric',
+
+          'pinjaman_perumahan_pegawai' => 'nullable|numeric',
+          'bulanan_perumahan_pegawai' => 'nullable|numeric',
+          'pinjaman_perumahan_pasangan' => 'nullable|numeric',
+          'bulanan_perumahan_pasangan' => 'nullable|numeric',
+          'pinjaman_kenderaan_pegawai' => 'nullable|numeric',
+          'bulanan_kenderaan_pegawai' => 'nullable|numeric',
+          'pinjaman_kenderaan_pasangan' => 'nullable|numeric',
+          'bulanan_kenderaan_pasangan' => 'nullable|numeric',
+          'jumlah_cukai_pegawai' => 'nullable|numeric',
+          'bulanan_cukai_pegawai' => 'nullable|numeric',
+          'jumlah_cukai_pasangan' => 'nullable|numeric',
+          'bulanan_cukai_pasangan' => 'nullable|numeric',
+          'jumlah_koperasi_pegawai' => 'nullable|numeric',
+          'bulanan_koperasi_pegawai' => 'nullable|numeric',
+          'jumlah_koperasi_pasangan' => 'nullable|numeric',
+          'bulanan_koperasi_pasangan' => 'nullable|numeric',
+          'pengakuan' => 'required',
+        ]);
+      }
+
+    }
 
     protected $rules = [
 
+        'pekerjaan_pasangan' => 'required|string',
         'gaji_pasangan' => 'nullable|numeric',
         'jumlah_imbuhan' => 'nullable|numeric',
         'jumlah_imbuhan_pasangan' => 'nullable|numeric',
@@ -236,8 +299,8 @@ class FormB extends Component
        for ($key=0; $key < $counter ; $key++) {
         DividenB::create([
             'dividen_1' => $this->dividen_1[$key],
-            'dividen_1_pegawai' => $this->dividen_1_pegawai[$key],
-            'dividen_1_pasangan' => $this->dividen_pasangan[$key],
+            'dividen_1_pegawai' => $this->dividen_1_pegawai[$key] ?? 0,
+            'dividen_1_pasangan' => $this->dividen_pasangan[$key] ?? 0,
             'formbs_id' => $this->formbid_created,
         ]);
       }
@@ -277,10 +340,10 @@ class FormB extends Component
         for ($key=0; $key < $counter; $key++) {
             PinjamanB::create ([
                 'lain_lain_pinjaman' => $this->lain_lain_pinjaman[$key],
-                'pinjaman_pegawai' => $this->pinjaman_pegawai[$key],
-                'bulanan_pegawai' => $this->bulanan_pegawai[$key],
-                'pinjaman_pasangan' => $this->pinjaman_pasangan[$key],
-                'bulanan_pasangan' => $this->bulanan_pasangan[$key],
+                'pinjaman_pegawai' => $this->pinjaman_pegawai[$key]?? 0,
+                'bulanan_pegawai' => $this->bulanan_pegawai[$key]?? 0,
+                'pinjaman_pasangan' => $this->pinjaman_pasangan[$key]?? 0,
+                'bulanan_pasangan' => $this->bulanan_pasangan[$key]?? 0,
                 'formbs_id' =>$this->formbid_created,
             ]);
         }
@@ -520,7 +583,7 @@ class FormB extends Component
                   $this-> validatorharta($i);
             }
 
-            $this->validate();
+            $this->validatorform();
 
             $this->simpan($action);
         }
@@ -534,7 +597,7 @@ class FormB extends Component
     {
       // dd($this->pekerjaan_pasangan);
         if ($action == 'hantar') {
-          $this->validate();
+          $this->validatorform();
             $status ="Sedang Diproses";
         }else{
             $status ="Disimpan ke Draf";

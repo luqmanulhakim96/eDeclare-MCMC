@@ -72,14 +72,15 @@
                           </div>
                       </div>
                   </div>
-                  <div class="row">
-                    <div class="mt-4 col-12">
-                         <div class="rounded-lg card">
-                             <div class="card-body">
+
 
                                   <!-- keluarga -->
                                   @if($maklumat_pasangan== null)
                                   @else
+                                  <div class="row">
+                                    <div class="mt-4 col-12">
+                                         <div class="rounded-lg card">
+                                             <div class="card-body">
                                   @foreach($maklumat_pasangan as $maklumat_pasangan)
                                   <div class="row">
                                     <div class="col-md-4">
@@ -122,7 +123,9 @@
                                           <div class="form-group">
 
                                               <input type="text" class="form-control bg-light" wire:model="pekerjaan_pasangan" placeholder="Pekerjaan Pasangan">
-
+                                              @error('pekerjaan_pasangan')
+                                              <div class="alert alert-danger">{{ $message }}</div>
+                                              @enderror
 
                                           </div>
                                       </div>
@@ -193,11 +196,12 @@
                                       </div>
                                       <hr>
                                       @endforeach
-                                      @endif
                                     </div>
                               </div>
                           </div>
                       </div>
+                      @endif
+
                       <div class="row">
                         <div class="mt-4 col-12">
                              <div class="rounded-lg card">

@@ -120,7 +120,27 @@ class EditFormB extends Component
     }
 
 
+    public function validatorform(){
+      $username =Auth::user()->username;
+
+      $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+
+      if($maklumat_pasangan_check->isEmpty()){
+        $this->validate([
+          'pekerjaan_pasangan' => 'nullable|string',
+          'pengakuan' => 'required',
+        ]);
+      }else{
+        $this->validate([
+          'pekerjaan_pasangan' => 'required|string',
+          'pengakuan' => 'required',
+        ]);
+      }
+
+    }
+
     protected $rules = [
+      'pekerjaan_pasangan' => 'required|string',
       'pengakuan' => 'required',
     ];
 
@@ -182,14 +202,30 @@ class EditFormB extends Component
         $username =Auth::user()->username;
         $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
         $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+        $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+        $maklumat_anak_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
 
-        foreach ($user as $keluarga) {
-
-          $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
-          $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
-          $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
-          $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+        if($maklumat_pasangan_check->isEmpty()){
+          $maklumat_pasangan = null;
+        }
+        else{
+          foreach ($user as $keluarga) {
+            $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
           }
+        }
+
+        if($maklumat_anak_check->isEmpty()){
+          $maklumat_anak = null;
+        }
+        else{
+          foreach ($user as $keluarga) {
+
+            // $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+            $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
+            $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
+            $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+            }
+        }
         $this->idForm = $info->id;
         $hartaB = HartaB::where('formbs_id', $info->id)->get();
         // dd($hartaB);
@@ -527,7 +563,7 @@ class EditFormB extends Component
     {
         $formb = FormB::find($this->id_formb);
         if ($action == 'hantar') {
-          $this->validate();
+          $this->validatorform();
           $status = "Sedang Diproses";
         }else {
 

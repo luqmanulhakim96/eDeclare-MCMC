@@ -3,11 +3,17 @@
 
         <head>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-          <style media="screen">
+          <!-- <style media="print">
             @media print {
               .pagebreak { page-break-after: always; }
+
             }
-          </style>
+          </style> -->
+          <!-- <style media="print">
+            .footer{
+              display: none !important;
+            }
+          </style> -->
         </head>
            <!--Page Body part -->
            <div class="page-body p-4 text-dark">
@@ -23,7 +29,7 @@
                    <div class="row">
                    <div class="col-md-10"></div>
                      <div class="col-md-2" align="right">
-                       <a class="btn btn-primary btn-icon m-2" href="{{ route('user.harta.formBprint', $listHarta->id) }}"><i class="fas fa-print"></i>Cetak</a>
+                       <a class="btn btn-primary btn-icon m-2" onclick="window.print()" ><i class="fas fa-print"></i>Cetak</a>
                      </div>
                    </div>
                       <div class="card rounded-lg">
