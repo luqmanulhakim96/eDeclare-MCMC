@@ -54,6 +54,9 @@
                                     @else
                                         <input type="text" class="form-control bg-light" wire:model="pekerjaan_pasangan" placeholder="Pekerjaan Pasangan">
                                     @endif
+                                    @error('pekerjaan_pasangan')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

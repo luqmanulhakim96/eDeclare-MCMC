@@ -11,7 +11,7 @@
                    <div class="row">
                    <div class="col-md-10"></div>
                      <div class="col-md-2" align="right">
-                       <a class="btn btn-primary btn-icon m-2" href="{{ route('user.harta.formGprint', $listHarta->id) }}"><i class="fas fa-print"></i>Cetak</a>
+                       <a class="btn btn-primary btn-icon m-2" onclick="window.print()"><i class="fas fa-print"></i>Cetak</a>
                      </div>
                    </div>
                       <div class="card rounded-lg">

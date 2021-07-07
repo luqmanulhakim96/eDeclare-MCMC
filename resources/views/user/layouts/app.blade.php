@@ -35,6 +35,7 @@
     color: red;
     }
 
+
     /* ul:hover {background: yellow;} */
     li:hover a {background:#f5d94c; color: black !important;}
     ul li ul li :hover a{background:#fee35e;color: black !important;}
@@ -49,6 +50,7 @@
       display: block;
     }
 
+
     /* a {
     color: white;
     text-decoration: none !important;
@@ -59,6 +61,13 @@
 
     } */
 
+    </style>
+    <style media="print">
+    @media print {
+      .footer{
+        display: none !important;
+      }
+    }
     </style>
   @livewireStyles
 
@@ -689,7 +698,7 @@
   </div>
   <!-- Footer section -->
   <br><br>
-  <footer style='padding-left: 20%;'>
+  <footer class="footer" style='padding-left: 20%;'>
     <div class="row" style="padding-top:1%;">
       <div class="col-md-1">
         <img src="{{ asset('qbadminui/img/MCMC.png') }}" alt="bran_name" class="brand-img" style="width:50%;">
