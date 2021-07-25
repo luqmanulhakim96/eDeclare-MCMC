@@ -1,5 +1,5 @@
 <div>
-    
+
                     <!--LAIN2 PINJAMAN -->
 
                     <div class="row">
@@ -78,7 +78,7 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-    
+
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" type="text" wire:model="pinjaman_pegawai.{{ $key }}"
                                         onkeypress="return isNumberKey(event,this)"
@@ -88,7 +88,7 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-    
+
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" type="text" wire:model="bulanan_pegawai.{{ $key }}"
                                         value="bulanan_pegawai.0"
@@ -98,7 +98,7 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-    
+
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" type="text" wire:model="pinjaman_pasangan.{{ $key }}"
                                         value="pinjaman_pasangan.0"
@@ -108,7 +108,7 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-    
+
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" type="text" wire:model="bulanan_pasangan.{{ $key }}"
                                         value="bulanan_pasangan.{{ $key }}"
@@ -118,14 +118,14 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-    
+
                                 <div class="col-md-1">
-                                    {{-- <button class="" wire:click.prevent="remove2({{$key}})">Remove</button> --}}
-                                    <a wire:click.prevent="removePinjamanExist({{ $key }})" class="btn btn-danger"><i
+
+                                    <a wire:click.prevent="removePinjamanExist({{ $value->id }} , {{ $key }})" class="btn btn-danger"><i
                                             class="fas fa-trash"></i></a>
 
                                 </div>
-    
+
                             </div>
                         </div>
                         <br>
@@ -155,7 +155,7 @@
 
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" type="text"
-                                        wire:model="bulanan_pegawai.{{ $value }}" 
+                                        wire:model="bulanan_pegawai.{{ $value }}"
                                         onkeypress="return isNumberKey(event,this)"{{-- onkeypress="return onlyNumberKey(event)" --}}
                                         autocomplete="off">
                                     @error('bulanan_pegawai.'.$value)
@@ -175,19 +175,20 @@
 
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" type="text"
-                                        wire:model="bulanan_pasangan.{{ $value }}" 
+                                        wire:model="bulanan_pasangan.{{ $value }}"
                                         onkeypress="return isNumberKey(event,this)"{{-- onkeypress="return onlyNumberKey(event)" --}}
                                         autocomplete="off">
                                     @error('bulanan_pasangan.'.$value)
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                @if($loop->last)
                                 <div class="col-md-1">
-                                    {{-- <button class="" wire:click.prevent="remove2({{$key}})">Remove</button> --}}
                                     <a wire:click.prevent="remove({{ $key }})" class="btn btn-danger"><i
                                             class="fas fa-trash"></i></a>
 
                                 </div>
+                                @endif
                             </div>
                             <br>
                     @endforeach
@@ -209,10 +210,9 @@
                                 return false;
                             }
                             }
-                
+
                         }
                         return true;
                         }
                     </script>
                 </div>
-            

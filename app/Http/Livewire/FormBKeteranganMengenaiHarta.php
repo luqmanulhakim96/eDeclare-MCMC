@@ -13,7 +13,7 @@ class FormBKeteranganMengenaiHarta extends Component
     public $jenis_harta, $pemilik_harta, $hubungan_pemilik, $maklumat_harta, $tarikh_pemilikan_harta, $bilangan, $nilai_perolehan,
     $cara_perolehan, $nama_pemilikan_asal, $cara_belian, $lain_lain, $jumlah_pinjaman, $institusi_pinjaman, $tempoh_bayar_balik,
     $ansuran_bulanan, $tarikh_ansuran_pertama, $jenis_harta_pelupusan, $alamat_asset, $no_pendaftaran, $harga_jualan, $tarikh_lupus,
-    $tunai,$keterangan_lain,$nama_pemilik_bersama,$unit_bilangan,$lain_lain_hubungan;
+    $tunai,$sumber_tunai,$keterangan_lain,$nama_pemilik_bersama,$unit_bilangan,$lain_lain_hubungan;
     public $show = [];
     public $showbelian = [];
     public $showhubungan = [];
@@ -288,6 +288,7 @@ class FormBKeteranganMengenaiHarta extends Component
                 'cara_belian' => $this->cara_belian[$key] ?? null,
                 'lain_lain' => $this->lain_lain[$key] ?? null,
                 'tunai' => $this->tunai[$key] ?? null,
+                'sumber_tunai' => $this->sumber_tunai[$key] ?? null,
                 'jumlah_pinjaman' => $this->jumlah_pinjaman[$key] ?? null,
                 'institusi_pinjaman' => $this->institusi_pinjaman[$key] ?? null,
                 'tempoh_bayar_balik' => $this->tempoh_bayar_balik[$key] ?? null,

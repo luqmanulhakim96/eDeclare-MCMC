@@ -574,6 +574,19 @@
 
                         </div>
                         <br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="required"> Nyatakan sumber kewangan</p>
+                            </div>
+                            <div class="col-md-8">
+                                <input class="form-control bg-light" type="text"
+                                    wire:model="sumber_tunai.0" value="{{ old('sumber_tunai') }}" autocomplete="off">
+                                    @error('sumber_tunai.0')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                            </div>
+
+                        </div>
                     </div>
                     @endif
 
@@ -1154,6 +1167,19 @@
 
                                 </div>
                                 <br>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="required"> Nyatakan sumber kewangan</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control bg-light" type="text"
+                                            wire:model="sumber_tunai.{{ $value }}" autocomplete="off">
+                                            @error('sumber_tunai.{{ $value }}')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                    </div>
+
+                                </div>
                             </div>
 
                         @endif

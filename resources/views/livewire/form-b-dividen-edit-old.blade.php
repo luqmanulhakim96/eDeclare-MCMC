@@ -86,9 +86,9 @@
 
 
                     <div class="col-md-1">
-                        <a wire:click.prevent="removedividenExist({{ $key }})" class="btn btn-danger"><i
+                        <a wire:click.prevent="removedividenExist({{ $value->id }} , {{ $key }})" class="btn btn-danger"><i
                                 class="fas fa-trash"></i></a>
-                        {{-- <i class="fa fa-trash"  wire:click.prevent="remove({{$key}})"></i> --}}
+
                     </div>
 
 
@@ -97,8 +97,6 @@
             <br>
         @endif
     @endforeach
-    <br>
-
     <div id="dividen_field">
         @foreach ($inputsdividen as $key => $value)
             <div class="row">
@@ -133,7 +131,6 @@
                 <div class="col-md-1">
                     <a wire:click.prevent="removedividen({{ $key }})" class="btn btn-danger"><i
                             class="fas fa-trash"></i></a>
-                    {{-- <i class="fa fa-trash"  wire:click.prevent="remove({{$key}})"></i> --}}
                 </div>
 
             </div>

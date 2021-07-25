@@ -235,7 +235,7 @@
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="gaji_pasangan" placeholder="Gaji Pasangan" value="{{ old('gaji_pasangan')}}"> -->
-                                            {{ $listHarta ->gaji_pasangan }}
+                                            {{ number_format((float)$listHarta ->gaji_pasangan,2,'.','') }}
                                         </div>
                                       </div>
                                     </br>
@@ -247,12 +247,12 @@
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div align="center">
                                                 <!-- <input class="form-control bg-light" type="text" name="jumlah_imbuhan" placeholder="Imbuhan Pegawai" value="{{ old('jumlah_imbuhan')}}"> -->
-                                                {{ $listHarta ->jumlah_imbuhan }}
+                                                {{ number_format((float)$listHarta ->jumlah_imbuhan,2,'.','') }}
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="jumlah_imbuhan_pasangan" placeholder="Imbuhan Pasangan" value="{{ old('jumlah_imbuhan_pasangan')}}"> -->
-                                            {{ $listHarta ->jumlah_imbuhan_pasangan }}
+                                            {{ number_format((float)$listHarta ->jumlah_imbuhan_pasangan,2,'.','') }}
                                         </div>
                                       </div>
                                       <br>
@@ -264,12 +264,12 @@
                                         <div class="col-md-4 mt-2 mt-md-0">
                                             <div align="center">
                                                 <!-- <input class="form-control bg-light" type="text" name="sewa" placeholder="Sewa Pegawai" value="{{ old('sewa')}}"> -->
-                                                {{ $listHarta ->sewa }}
+                                                {{ number_format((float)$listHarta ->sewa,2,'.','') }}
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="sewa_pasangan" placeholder="Sewa Pasangan" value="{{ old('sewa_pasangan')}}"> -->
-                                            {{ $listHarta ->sewa_pasangan }}
+                                            {{ number_format((float)$listHarta ->sewa_pasangan,2,'.','') }}
                                         </div>
                                       </div>
                                       <!-- dividen -->
@@ -289,12 +289,12 @@
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
 
                                                 <!-- <input class="form-control bg-light" type="text" name="dividen_1_pegawai[]" placeholder="Dividen Pegawai" value="{{ old('dividen_1_pegawai[]')}}"> -->
-                                                {{ $data ->dividen_1_pegawai }}
+                                                {{ number_format((float)$data ->dividen_1_pegawai,2,'.','') }}
 
                                         </div>
                                         <div class="col-md-4 mt-2 mt-md-0" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="dividen_1_pasangan[]" placeholder="Dividen Pasangan" value="{{ old('dividen_1_pasangan[]')}}"> -->
-                                                {{ $data ->dividen_1_pasangan }}
+                                                {{ number_format((float)$data ->dividen_1_pasangan,2,'.','') }}
                                         </div>
                                       </div>
                                     <br>
@@ -341,19 +341,19 @@
                                         </div>
                                         <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pegawai" value="{{ old('pinjaman_perumahan_pegawai')}}"> -->
-                                          {{ $listHarta ->pinjaman_perumahan_pegawai }}
+                                          {{ number_format((float)$listHarta ->pinjaman_perumahan_pegawai,2,'.','') }}
                                         </div>
                                         <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="bulanan_perumahan_pegawai" value="{{ old('bulanan_perumahan_pegawai')}}"> -->
-                                          {{ $listHarta ->bulanan_perumahan_pegawai }}
+                                          {{ number_format((float)$listHarta ->bulanan_perumahan_pegawai,2,'.','') }}
                                         </div>
                                           <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="pinjaman_perumahan_pasangan" value="{{ old('pinjaman_perumahan_pasangan')}}"> -->
-                                            {{ $listHarta ->pinjaman_perumahan_pasangan }}
+                                            {{ number_format((float)$listHarta ->pinjaman_perumahan_pasangan,2,'.','') }}
                                           </div>
                                           <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="bulanan_perumahan_pasangan" value="{{ old('bulanan_perumahan_pasangan')}}"> -->
-                                            {{ $listHarta ->bulanan_perumahan_pasangan }}
+                                            {{ number_format((float)$listHarta ->bulanan_perumahan_pasangan,2,'.','') }}
                                         </div>
                                       </div>
                                       <br>
@@ -364,19 +364,19 @@
                                         </div>
                                         <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pegawai" value="{{ old('pinjaman_kenderaan_pegawai')}}"> -->
-                                          {{ $listHarta ->pinjaman_kenderaan_pegawai }}
+                                          {{ number_format((float)$listHarta ->pinjaman_kenderaan_pegawai,2,'.','') }}
                                         </div>
                                         <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pegawai" value="{{ old('bulanan_kenderaan_pegawai')}}"> -->
-                                          {{ $listHarta ->bulanan_kenderaan_pegawai }}
+                                          {{ number_format((float)$listHarta ->bulanan_kenderaan_pegawai,2,'.','') }}
                                         </div>
                                           <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="pinjaman_kenderaan_pasangan" value="{{ old('pinjaman_kenderaan_pasangan')}}"> -->
-                                            {{ $listHarta ->pinjaman_kenderaan_pasangan }}
+                                            {{ number_format((float)$listHarta ->pinjaman_kenderaan_pasangan,2,'.','') }}
                                           </div>
                                           <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="bulanan_kenderaan_pasangan" value="{{ old('bulanan_kenderaan_pasangan')}}"> -->
-                                            {{ $listHarta ->bulanan_kenderaan_pasangan }}
+                                            {{ number_format((float)$listHarta ->bulanan_kenderaan_pasangan,2,'.','') }}
                                         </div>
                                       </div>
                                       <br>
@@ -387,19 +387,19 @@
                                         </div>
                                         <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="jumlah_cukai_pegawai" value="{{ old('jumlah_cukai_pegawai')}}"> -->
-                                          {{ $listHarta ->jumlah_cukai_pegawai }}
+                                          {{ number_format((float)$listHarta ->jumlah_cukai_pegawai,2,'.','') }}
                                         </div>
                                         <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="bulanan_cukai_pegawai" value="{{ old('bulanan_cukai_pegawai')}}"> -->
-                                          {{ $listHarta ->bulanan_cukai_pegawai }}
+                                          <!-- {{ $listHarta ->bulanan_cukai_pegawai }} -->
                                         </div>
                                           <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="jumlah_cukai_pasangan" value="{{ old('jumlah_cukai_pasangan')}}"> -->
-                                            {{ $listHarta ->jumlah_cukai_pasangan }}
+                                            {{ number_format((float)$listHarta ->jumlah_cukai_pasangan,2,'.','') }}
                                           </div>
                                           <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="bulanan_cukai_pasangan" value="{{ old('bulanan_cukai_pasangan')}}"> -->
-                                            {{ $listHarta ->bulanan_cukai_pasangan }}
+                                            <!-- {{ $listHarta ->bulanan_cukai_pasangan }} -->
                                         </div>
                                       </div>
                                       <br>
@@ -410,19 +410,19 @@
                                         </div>
                                         <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="jumlah_koperasi_pegawai" value="{{ old('jumlah_koperasi_pegawai')}}"> -->
-                                          {{ $listHarta ->jumlah_koperasi_pegawai }}
+                                          {{ number_format((float)$listHarta ->jumlah_koperasi_pegawai,2,'.','') }}
                                         </div>
                                         <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="bulanan_koperasi_pegawai" value="{{ old('bulanan_koperasi_pegawai')}}"> -->
-                                          {{ $listHarta ->bulanan_koperasi_pegawai }}
+                                          {{ number_format((float)$listHarta ->bulanan_koperasi_pegawai,2,'.','') }}
                                         </div>
                                           <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="jumlah_koperasi_pasangan" value="{{ old('jumlah_koperasi_pasangan')}}"> -->
-                                            {{ $listHarta ->jumlah_koperasi_pasangan }}
+                                            {{ number_format((float)$listHarta ->jumlah_koperasi_pasangan,2,'.','') }}
                                           </div>
                                           <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="bulanan_koperasi_pasangan" value="{{ old('bulanan_koperasi_pasangan')}}"> -->
-                                            {{ $listHarta ->bulanan_koperasi_pasangan }}
+                                            {{ number_format((float)$listHarta ->bulanan_koperasi_pasangan,2,'.','') }}
                                         </div>
                                       </div>
                                       <br>
@@ -440,19 +440,19 @@
                                         </div>
                                         <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="pinjaman_pegawai[]" value="{{ old('pinjaman_pegawai[]')}}"> -->
-                                          {{ $datas ->pinjaman_pegawai }}
+                                          {{ number_format((float)$datas ->pinjaman_pegawai,2,'.','') }}
                                         </div>
                                         <div class="col-md-2" align="center">
                                           <!-- <input class="form-control bg-light" type="text" name="bulanan_pegawai[]" value="{{ old('bulanan_pegawai[]')}}"> -->
-                                          {{ $datas ->bulanan_pegawai }}
+                                          {{ number_format((float)$datas ->bulanan_pegawai,2,'.','') }}
                                         </div>
                                           <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="pinjaman_pasangan[]" value="{{ old('pinjaman_pasangan[]')}}"> -->
-                                            {{ $datas ->pinjaman_pasangan }}
+                                            {{ number_format((float)$datas ->pinjaman_pasangan,2,'.','') }}
                                           </div>
                                           <div class="col-md-2" align="center">
                                             <!-- <input class="form-control bg-light" type="text" name="bulanan_pasangan[]" value="{{ old('bulanan_pasangan[]')}}"> -->
-                                            {{ $datas ->bulanan_pasangan }}
+                                            {{ number_format((float)$datas ->bulanan_pasangan,2,'.','') }}
                                         </div>
 
                                       </div>
@@ -496,7 +496,7 @@
                                                   @if($data->cara_perolehan == "Dipusakai"|| $data->cara_perolehan == "Dihadiahkan")
                                                   Dari Siapa Harta Diperolehi :{{ $data ->nama_pemilikan_asal }}
                                                   @elseif($data->cara_perolehan == "Lain-lain")
-                                                  Nyatakan lain lain : {{ $data ->lain_lain }}
+                                                  Nyatakan lain lain : {{ $data->lain_lain }}
                                                   @endif
 
                                                 </td>
@@ -569,6 +569,7 @@
                                                         <td>
 
                                                           i)	Nilai Belian Harta : <b>{{ $data ->tunai }}</b><br>
+                                                          ii)	Sumber Kewangan : <b>{{ $data ->sumber_tunai }}</b><br>
 
 
                                                         </td>
