@@ -56,6 +56,7 @@ class FormBController extends Controller
     $jenisHarta = JenisHarta::get();
     //data gaji user (latest)
     $username =Auth::user()->username;
+    // dd($username);
     $staffinfo= null;
     // $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
     // dd($staffinfo);

@@ -69,18 +69,14 @@
                                       </div>
                                   </div>
                                 </div>
-                          </div>
-                      </div>
-                  </div>
+                              </div>
+                              <br>
 
 
                                   <!-- keluarga -->
-                                  @if($maklumat_pasangan== null)
-                                  @else
-                                  <div class="row">
-                                    <div class="mt-4 col-12">
-                                         <div class="rounded-lg card">
-                                             <div class="card-body">
+                            @if($maklumat_pasangan != null)
+                             <div class="rounded-lg card">
+                                 <div class="card-body">
                                   @foreach($maklumat_pasangan as $maklumat_pasangan)
                                   <div class="row">
                                     <div class="col-md-4">
@@ -198,12 +194,13 @@
                                       @endforeach
                                     </div>
                               </div>
-                          </div>
-                      </div>
+                              <br>
+                          <!-- </div>
+                      </div> -->
                       @endif
 
-                      <div class="row">
-                        <div class="mt-4 col-12">
+                      <!-- <div class="row">
+                        <div class="mt-4 col-12"> -->
                              <div class="rounded-lg card">
                                  <div class="card-body">
                                     <!-- pendapatan bulanan-->
@@ -284,8 +281,8 @@
 
                             </div>
                           </div>
-                        </div>
-                    </div>
+                        <!-- </div>
+                    </div> -->
                     <div id="harta_container">
                       @include('livewire.harta-form-b')
                     </div>
@@ -460,7 +457,7 @@
                          <div class="alert alert-danger">{{ $message }}</div>
                      @enderror
                       <div class="col-md-2">
-                        <input class="form-control bg-light" type="text"onkeypress="return isNumberKey(event,this)" wire:model="bulanan_cukai_pegawai" value="{{ $info->bulanan_cukai_pegawai}}">
+                        <!-- <input class="form-control bg-light" type="text"onkeypress="return isNumberKey(event,this)" wire:model="bulanan_cukai_pegawai" value="{{ $info->bulanan_cukai_pegawai}}"> -->
                       </div>
                       @error('bulanan_cukai_pegawai')
                          <div class="alert alert-danger">{{ $message }}</div>
@@ -472,7 +469,7 @@
                            <div class="alert alert-danger">{{ $message }}</div>
                        @enderror
                         <div class="col-md-2">
-                          <input class="form-control bg-light" type="text"onkeypress="return isNumberKey(event,this)" wire:model="bulanan_cukai_pasangan" value="{{ $info->bulanan_cukai_pasangan}}">
+                          <!-- <input class="form-control bg-light" type="text"onkeypress="return isNumberKey(event,this)" wire:model="bulanan_cukai_pasangan" value="{{ $info->bulanan_cukai_pasangan}}"> -->
                       </div>
                       @error('bulanan_cukai_pasangan')
                          <div class="alert alert-danger">{{ $message }}</div>
@@ -631,8 +628,12 @@
 </script>
 
 </div>
+
+</div>
 <br>
 <br>
 <br>
 <br>
+</div>
+
 </div>

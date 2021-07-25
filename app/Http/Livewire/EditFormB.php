@@ -26,7 +26,7 @@ class EditFormB extends Component
     public $jenis_harta, $pemilik_harta, $hubungan_pemilik, $maklumat_harta, $tarikh_pemilikan_harta, $bilangan, $nilai_perolehan,
         $cara_perolehan, $nama_pemilikan_asal, $cara_belian, $lain_lain, $jumlah_pinjaman, $institusi_pinjaman, $tempoh_bayar_balik,
         $ansuran_bulanan, $tarikh_ansuran_pertama, $jenis_harta_pelupusan, $alamat_asset, $no_pendaftaran, $harga_jualan, $tarikh_lupus,
-        $tunai, $keterangan_lain, $nama_pemilik_bersama, $unit_bilangan, $lain_lain_hubungan;
+        $tunai,$sumber_tunai, $keterangan_lain, $nama_pemilik_bersama, $unit_bilangan, $lain_lain_hubungan;
     public $gaji_pasangan,$sewa,$sewa_pasangan,$jumlah_imbuhan,$jumlah_imbuhan_pasangan,$pinjaman_perumahan_pegawai,$bulanan_perumahan_pegawai,
         $pinjaman_perumahan_pasangan,$bulanan_perumahan_pasangan,$pinjaman_kenderaan_pegawai,$bulanan_kenderaan_pegawai,$pinjaman_kenderaan_pasangan,
         $bulanan_kenderaan_pasangan,$jumlah_cukai_pegawai,$jumlah_cukai_pasangan,$bulanan_cukai_pegawai,$bulanan_cukai_pasangan,$jumlah_koperasi_pegawai,$bulanan_koperasi_pegawai,
@@ -77,6 +77,10 @@ class EditFormB extends Component
         $j = $j + 1;
         $this->j = $j;
         array_push($this->inputsdividen, $j);
+
+        $this->dividen_1[$this->j] = '';
+        $this->dividen_pasangan[$this->j] = 0;
+        $this->dividen_1_pegawai[$this->j] = 0;
     }
 
     public function removedividen($j)
@@ -84,15 +88,12 @@ class EditFormB extends Component
         unset($this->inputsdividen[$j]);
     }
 
-    public function removedividenExist($j)
+    public function removedividenExist($j, $key)
     {
-        foreach ($this->listDividenB as $key => $data){
-            if($key == $j){
-                DividenB::where('id', $this->listDividenB[$key]->id)->delete();
-                $this->render();
-                $this->loadData();
-            }
-        }
+        DividenB::findOrFail($j)->delete();
+        unset($this->inputsdividen[$key]);
+        $this->render();
+        $this->loadData();
     }
 
     public function addform($i)
@@ -101,38 +102,116 @@ class EditFormB extends Component
         $i = $i + 1;
         $this->i = $i;
         array_push($this->inputs, $i);
+        // dd($this->i);
+        $this->lain_lain_pinjaman[$this->i] = '';
+        $this->pinjaman_pegawai[$this->i] = 0;
+        $this->bulanan_pegawai[$this->i] = 0;
+        $this->pinjaman_pasangan[$this->i] = 0;
+        $this->bulanan_pasangan[$this->i] = 0;
     }
 
     public function remove($i)
     {
-        unset($this->inputs[$i]);
+      // $i = $i + 1;
+      // $i = $i - 1;
+      // $this->i = $i;
+      unset($this->inputs[$i]);
     }
 
-    public function removePinjamanExist($i)
+    public function removePinjamanExist($i, $key)
     {
-        foreach ($this->listPinjamanB as $key => $data){
-            if($key == $i){
-                PinjamanB::where('id', $this->listPinjamanB[$key]->id)->delete();
-                $this->render();
-                $this->loadData();
-            }
-        }
+        // dd($i);
+        $pinjaman = PinjamanB::findOrFail($i)->delete();
+        unset($this->inputs[$key]);
+        $this->render();
+        $this->loadData();
     }
 
+    public function validatordrafform(){
+        $this->validate([
+          'gaji_pasangan' => 'nullable|numeric',
+          'jumlah_imbuhan' => 'nullable|numeric',
+          'jumlah_imbuhan_pasangan' => 'nullable|numeric',
+          'sewa' => 'nullable|numeric',
+          'sewa_pasangan' =>'nullable|numeric',
+          'pinjaman_perumahan_pegawai' => 'nullable|numeric',
+          'bulanan_perumahan_pegawai' => 'nullable|numeric',
+          'pinjaman_perumahan_pasangan' => 'nullable|numeric',
+          'bulanan_perumahan_pasangan' => 'nullable|numeric',
+          'pinjaman_kenderaan_pegawai' => 'nullable|numeric',
+          'bulanan_kenderaan_pegawai' => 'nullable|numeric',
+          'pinjaman_kenderaan_pasangan' => 'nullable|numeric',
+          'bulanan_kenderaan_pasangan' => 'nullable|numeric',
+          'jumlah_cukai_pegawai' => 'nullable|numeric',
+          // 'bulanan_cukai_pegawai' => 'nullable|numeric',
+          'jumlah_cukai_pasangan' => 'nullable|numeric',
+          // 'bulanan_cukai_pasangan' => 'nullable|numeric',
+          'jumlah_koperasi_pegawai' => 'nullable|numeric',
+          'bulanan_koperasi_pegawai' => 'nullable|numeric',
+          'jumlah_koperasi_pasangan' => 'nullable|numeric',
+          'bulanan_koperasi_pasangan' => 'nullable|numeric',
+        ]);
+      }
 
     public function validatorform(){
       $username =Auth::user()->username;
 
-      $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+      // $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+      $user_check = UserExistingStaffInfo::where('USERNAME', $username) ->first('STAFFNO');
+
+      $maklumat_pasangan_check = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO', $user_check->STAFFNO) ->get();
+
 
       if($maklumat_pasangan_check->isEmpty()){
         $this->validate([
           'pekerjaan_pasangan' => 'nullable|string',
+          'gaji_pasangan' => 'nullable|numeric',
+          'jumlah_imbuhan' => 'nullable|numeric',
+          'jumlah_imbuhan_pasangan' => 'nullable|numeric',
+          'sewa' => 'nullable|numeric',
+          'sewa_pasangan' =>'nullable|numeric',
+          'pinjaman_perumahan_pegawai' => 'nullable|numeric',
+          'bulanan_perumahan_pegawai' => 'nullable|numeric',
+          'pinjaman_perumahan_pasangan' => 'nullable|numeric',
+          'bulanan_perumahan_pasangan' => 'nullable|numeric',
+          'pinjaman_kenderaan_pegawai' => 'nullable|numeric',
+          'bulanan_kenderaan_pegawai' => 'nullable|numeric',
+          'pinjaman_kenderaan_pasangan' => 'nullable|numeric',
+          'bulanan_kenderaan_pasangan' => 'nullable|numeric',
+          'jumlah_cukai_pegawai' => 'nullable|numeric',
+          // 'bulanan_cukai_pegawai' => 'nullable|numeric',
+          'jumlah_cukai_pasangan' => 'nullable|numeric',
+          // 'bulanan_cukai_pasangan' => 'nullable|numeric',
+          'jumlah_koperasi_pegawai' => 'nullable|numeric',
+          'bulanan_koperasi_pegawai' => 'nullable|numeric',
+          'jumlah_koperasi_pasangan' => 'nullable|numeric',
+          'bulanan_koperasi_pasangan' => 'nullable|numeric',
           'pengakuan' => 'required',
         ]);
       }else{
         $this->validate([
           'pekerjaan_pasangan' => 'required|string',
+          'gaji_pasangan' => 'nullable|numeric',
+          'jumlah_imbuhan' => 'nullable|numeric',
+          'jumlah_imbuhan_pasangan' => 'nullable|numeric',
+          'sewa' => 'nullable|numeric',
+          'sewa_pasangan' =>'nullable|numeric',
+          'pinjaman_perumahan_pegawai' => 'nullable|numeric',
+          'bulanan_perumahan_pegawai' => 'nullable|numeric',
+          'pinjaman_perumahan_pasangan' => 'nullable|numeric',
+          'bulanan_perumahan_pasangan' => 'nullable|numeric',
+          'pinjaman_kenderaan_pegawai' => 'nullable|numeric',
+          'bulanan_kenderaan_pegawai' => 'nullable|numeric',
+          'pinjaman_kenderaan_pasangan' => 'nullable|numeric',
+          'bulanan_kenderaan_pasangan' => 'nullable|numeric',
+          'jumlah_cukai_pegawai' => 'nullable|numeric',
+          // 'bulanan_cukai_pegawai' => 'nullable|numeric',
+          'jumlah_cukai_pasangan' => 'nullable|numeric',
+          // 'bulanan_cukai_pasangan' => 'nullable|numeric',
+          'jumlah_koperasi_pegawai' => 'nullable|numeric',
+          'bulanan_koperasi_pegawai' => 'nullable|numeric',
+          'jumlah_koperasi_pasangan' => 'nullable|numeric',
+          'bulanan_koperasi_pasangan' => 'nullable|numeric',
           'pengakuan' => 'required',
         ]);
       }
@@ -161,6 +240,7 @@ class EditFormB extends Component
         'cara_belian' => 'nullable|required_if:cara_perolehan,Dibeli|string',
         'lain_lain' => 'nullable|required_if:cara_perolehan,Lain-lain|string',
         'tunai' => 'nullable|required_if:cara_belian,Tunai|numeric',
+        'sumber_tunai' => 'nullable|required_if:cara_belian,Tunai|string',
         'jumlah_pinjaman' => 'nullable|required_if:cara_belian,Pinjaman|numeric',
         'institusi_pinjaman' => 'nullable|required_if:cara_belian,Pinjaman|string',
         'tempoh_bayar_balik' => 'nullable|required_if:cara_belian,Pinjaman|string',
@@ -201,9 +281,17 @@ class EditFormB extends Component
 
         $username =Auth::user()->username;
         $staffinfo = UserExistingStaffInfo::where('USERNAME', $username)->get();
+        // $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+        // $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+        // $maklumat_anak_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+        $user_check = UserExistingStaffInfo::where('USERNAME', $username) ->first('STAFFNO');
         $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
-        $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
-        $maklumat_anak_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
+
+        // dd($user->STAFFNO);
+        $maklumat_pasangan_check = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO', $user_check->STAFFNO) ->get();
+        // dd($maklumat_pasangan_check);
+        $maklumat_anak_check = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->orwhere('RELATIONSHIP','D')->where('STAFFNO', $user_check->STAFFNO) ->get();
+
 
         if($maklumat_pasangan_check->isEmpty()){
           $maklumat_pasangan = null;
@@ -233,40 +321,35 @@ class EditFormB extends Component
         return view('livewire.edit-form-b', compact('info', 'maklumat_pasangan', 'maklumat_anak', 'listDividenBs', 'listPinjamanBs', 'count_div', 'count_pinjaman', 'jenisHarta', 'hartaB', 'staffinfo'));
     }
 
-    // public function loadDatas()
-    // {
-    //   dd('test');
-    // }
 
     public function loadData(){
       // dd($this->id_formb);
         $info = FormB::findOrFail($this->id_formb);
         // dd($info);
         $this->pekerjaan_pasangan = $info->pekerjaan_pasangan;
-        $this->gaji_pasangan = $info->gaji_pasangan;
-        $this->jumlah_imbuhan= $info->jumlah_imbuhan;
-        $this->jumlah_imbuhan_pasangan = $info->jumlah_imbuhan_pasangan;
-        $this->sewa = $info->sewa;
-        $this->sewa_pasangan = $info->sewa_pasangan;
+        $this->gaji_pasangan = number_format((float)$info->gaji_pasangan,2,'.','');
+        $this->jumlah_imbuhan= number_format((float)$info->jumlah_imbuhan,2,'.','');
+        $this->jumlah_imbuhan_pasangan = number_format((float)$info->jumlah_imbuhan_pasangan,2,'.','');
+        $this->sewa = number_format((float)$info->sewa,2,'.','');
+        $this->sewa_pasangan = number_format((float)$info->sewa_pasangan,2,'.','');
 
+        $this->pinjaman_perumahan_pegawai = number_format((float)$info->pinjaman_perumahan_pegawai,2,'.','');
+        $this->bulanan_perumahan_pegawai = number_format((float)$info->bulanan_perumahan_pegawai,2,'.','');
+        $this->pinjaman_perumahan_pasangan = number_format((float)$info->pinjaman_perumahan_pasangan,2,'.','');
+        $this->bulanan_perumahan_pasangan = number_format((float)$info->bulanan_perumahan_pasangan,2,'.','');
+        $this->pinjaman_kenderaan_pegawai = number_format((float)$info->pinjaman_kenderaan_pegawai,2,'.','');
+        $this->bulanan_kenderaan_pegawai = number_format((float)$info->bulanan_kenderaan_pegawai,2,'.','');
+        $this->pinjaman_kenderaan_pasangan = number_format((float)$info->pinjaman_kenderaan_pasangan,2,'.','');
+        $this->bulanan_kenderaan_pasangan = number_format((float)$info->bulanan_kenderaan_pasangan,2,'.','');
 
-        $this->pinjaman_perumahan_pegawai = $info->pinjaman_perumahan_pegawai;
-        $this->bulanan_perumahan_pegawai = $info->bulanan_perumahan_pegawai;
-        $this->pinjaman_perumahan_pasangan = $info->pinjaman_perumahan_pasangan;
-        $this->bulanan_perumahan_pasangan = $info->bulanan_perumahan_pasangan;
-        $this->pinjaman_kenderaan_pegawai = $info->pinjaman_kenderaan_pegawai;
-        $this->bulanan_kenderaan_pegawai = $info->bulanan_kenderaan_pegawai;
-        $this->pinjaman_kenderaan_pasangan = $info->pinjaman_kenderaan_pasangan;
-        $this->bulanan_kenderaan_pasangan = $info->bulanan_kenderaan_pasangan;
-
-        $this->jumlah_cukai_pegawai = $info->jumlah_cukai_pegawai;
-        $this->jumlah_cukai_pasangan = $info->jumlah_cukai_pasangan;
-        $this->bulanan_cukai_pegawai = $info->bulanan_cukai_pegawai;
-        $this->bulanan_cukai_pasangan = $info->bulanan_cukai_pasangan;
-        $this->jumlah_koperasi_pegawai = $info->jumlah_koperasi_pegawai;
-        $this->bulanan_koperasi_pegawai = $info->bulanan_koperasi_pegawai;
-        $this->jumlah_koperasi_pasangan = $info->jumlah_koperasi_pasangan;
-        $this->bulanan_koperasi_pasangan = $info->bulanan_koperasi_pasangan;
+        $this->jumlah_cukai_pegawai = number_format((float)$info->jumlah_cukai_pegawai,2,'.','');
+        $this->jumlah_cukai_pasangan = number_format((float)$info->jumlah_cukai_pasangan,2,'.','');
+        // $this->bulanan_cukai_pegawai = $info->bulanan_cukai_pegawai;
+        // $this->bulanan_cukai_pasangan = $info->bulanan_cukai_pasangan;
+        $this->jumlah_koperasi_pegawai = number_format((float)$info->jumlah_koperasi_pegawai,2,'.','');
+        $this->bulanan_koperasi_pegawai = number_format((float)$info->bulanan_koperasi_pegawai,2,'.','');
+        $this->jumlah_koperasi_pasangan = number_format((float)$info->jumlah_koperasi_pasangan,2,'.','');
+        $this->bulanan_koperasi_pasangan = number_format((float)$info->bulanan_koperasi_pasangan,2,'.','');
 
         $this->listDividenB = DividenB::where('formbs_id', $info->id)->get();
         $this->j = 0;
@@ -275,8 +358,8 @@ class EditFormB extends Component
             // dd($this->j);
             $j = $this->j;
             $this->dividen_1[$j] = $data->dividen_1;
-            $this->dividen_1_pegawai[$j] = $data->dividen_1_pegawai;
-            $this->dividen_pasangan[$j] = $data->dividen_1_pasangan;
+            $this->dividen_1_pegawai[$j] = number_format((float)$data->dividen_1_pegawai,2,'.','');
+            $this->dividen_pasangan[$j] = number_format((float)$data->dividen_1_pasangan,2,'.','');
             // // dd($data);
             $j = $j + 1;
             $this->j = $j;
@@ -287,16 +370,19 @@ class EditFormB extends Component
 
 
         $this->listPinjamanB = PinjamanB::where('formbs_id', $info->id)->get();
+        // dd($this->listPinjamanB);
         $this->i = 0;
         foreach ($this->listPinjamanB as $data){
-            // dd($this->j);
+            // dd($this->i);
             $i = $this->i;
+            // dd($this->i);
+
             $this->lain_lain_pinjaman[$i] = $data->lain_lain_pinjaman;
-            $this->pinjaman_pegawai[$i] = $data->pinjaman_pegawai;
-            $this->bulanan_pegawai[$i] = $data->bulanan_pegawai;
-            $this->pinjaman_pasangan[$i] = $data->bulanan_pegawai;
-            $this->bulanan_pasangan[$i] = $data->bulanan_pegawai;
-            // // dd($data);
+            $this->pinjaman_pegawai[$i] = number_format((float)$data->pinjaman_pegawai,2,'.','');
+            $this->bulanan_pegawai[$i] = number_format((float)$data->bulanan_pegawai,2,'.','');
+            $this->pinjaman_pasangan[$i] = number_format((float)$data->pinjaman_pasangan,2,'.','');
+            $this->bulanan_pasangan[$i] = number_format((float)$data->bulanan_pasangan,2,'.','');
+            // dd($data);
             $i = $i + 1;
             $this->i = $i;
         }
@@ -306,12 +392,13 @@ class EditFormB extends Component
         }
     }
 
+
     public function editharta($id)
     {
 
         // $this->showharta = 1;
         $harta = HartaB::findOrFail($id);
-        // dd($harta->nama_pemilik_bersama);
+        // dd($harta);
         $this->harta_id = $harta->id;
         $this->jenis_harta = $harta->jenis_harta;
         $this->pemilik_harta = $harta->pemilik_harta;
@@ -338,6 +425,8 @@ class EditFormB extends Component
         $this->no_pendaftaran = $harta->no_pendaftaran;
         $this->harga_jualan = $harta->harga_jualan;
         $this->tarikh_lupus = $harta->tarikh_lupus;
+        $this->tunai = $harta->tunai;
+        $this->sumber_tunai = $harta->sumber_tunai;
         $this->nama_pemilik_bersama = $harta->nama_pemilik_bersama;
         $this->lain_lain_hubungan = $harta->lain_lain_hubungan;
         $this->keterangan_lain = $harta->keterangan_lain;
@@ -405,6 +494,7 @@ class EditFormB extends Component
             'cara_belian' => $this->cara_belian ?? null,
             'lain_lain' => $this->lain_lain ?? null,
             'tunai' => $this->tunai ?? null,
+            'sumber_tunai' => $this->sumber_tunai ?? null,
             'jumlah_pinjaman' => $this->jumlah_pinjaman ?? null,
             'institusi_pinjaman' => $this->institusi_pinjaman ?? null,
             'tempoh_bayar_balik' => $this->tempoh_bayar_balik ?? null,
@@ -544,6 +634,10 @@ class EditFormB extends Component
             $this->showhubungan = 2;
         } else {
             $this->showhubungan = 0;
+            $this->showjenispemilikan = 0;
+            $this->jenis_pemilikan_bersama = '';
+            $this->nama_pemilik_bersama = '';
+            $this->lain_lain_hubungan_bersama = '';
         }
     }
 
@@ -566,40 +660,80 @@ class EditFormB extends Component
           $this->validatorform();
           $status = "Sedang Diproses";
         }else {
-
+          $this->validatordrafform();
           $status = "Disimpan ke Draf";
         }
+        if (empty($this->gaji_pasangan)) {
+          $this->gaji_pasangan = null;
+        }
+        if (empty($this->jumlah_imbuhan)) {
+          $this->jumlah_imbuhan = null;
+        }
+        if (empty($this->jumlah_imbuhan_pasangan)) {
+          $this->jumlah_imbuhan_pasangan = null;
+        }
+        if (empty($this->sewa)) {
+          $this->sewa = null;
+        }
+        if (empty($this->sewa_pasangan)) {
+          $this->sewa_pasangan = null;
+        }
+        if (empty($this->jumlah_cukai_pegawai)) {
+          $this->jumlah_cukai_pegawai = null;
+        }
+        // if (empty($this->bulanan_cukai_pegawai)) {
+        //   $this->bulanan_cukai_pegawai = null;
+        // }
+        if (empty($this->jumlah_cukai_pasangan)) {
+          $this->jumlah_cukai_pasangan = null;
+        }
+        // if (empty($this->bulanan_cukai_pasangan )) {
+        //   $this->bulanan_cukai_pasangan  = null;
+        // }
+        if (empty($this->jumlah_koperasi_pegawai)) {
+          $this->jumlah_koperasi_pegawai = null;
+        }
+        if (empty($this->bulanan_koperasi_pegawai)) {
+          $this->bulanan_koperasi_pegawai = null;
+        }
+        if (empty($this->jumlah_koperasi_pasangan)) {
+          $this->jumlah_koperasi_pasangan = null;
+        }
+        if (empty($this->bulanan_koperasi_pasangan)) {
+          $this->bulanan_koperasi_pasangan = null;
+        }
+
         $formb->update([
-            'pekerjaan_pasangan' => $this->pekerjaan_pasangan,
-            'gaji_pasangan' => $this->gaji_pasangan,
-            'jumlah_imbuhan' => $this->jumlah_imbuhan,
-            'jumlah_imbuhan_pasangan' => $this->jumlah_imbuhan_pasangan,
-            'sewa' => $this->sewa,
-            'sewa_pasangan' => $this->sewa_pasangan,
-            'pinjaman_perumahan_pegawai' => $this->pinjaman_perumahan_pegawai,
-            'bulanan_perumahan_pegawai' => $this->bulanan_perumahan_pegawai,
-            'pinjaman_perumahan_pasangan' => $this->pinjaman_perumahan_pasangan,
-            'bulanan_perumahan_pasangan' => $this->bulanan_perumahan_pasangan,
-            'pinjaman_kenderaan_pegawai' => $this->pinjaman_kenderaan_pegawai,
-            'bulanan_kenderaan_pegawai' => $this->bulanan_kenderaan_pegawai,
-            'pinjaman_kenderaan_pasangan' => $this->pinjaman_kenderaan_pasangan,
-            'bulanan_kenderaan_pasangan' => $this->bulanan_kenderaan_pasangan,
-            'jumlah_cukai_pegawai' => $this->jumlah_cukai_pegawai,
-            'bulanan_cukai_pegawai' => $this->bulanan_cukai_pegawai,
-            'jumlah_cukai_pasangan' => $this->jumlah_cukai_pasangan,
-            'bulanan_cukai_pasangan' => $this->bulanan_cukai_pasangan,
-            'jumlah_koperasi_pegawai' => $this->jumlah_koperasi_pegawai,
-            'bulanan_koperasi_pegawai' => $this->bulanan_koperasi_pegawai,
-            'jumlah_koperasi_pasangan' => $this->jumlah_koperasi_pasangan,
-            'bulanan_koperasi_pasangan' => $this->bulanan_koperasi_pasangan,
+            'pekerjaan_pasangan' => $this->pekerjaan_pasangan ?? null,
+            'gaji_pasangan' => (float)$this->gaji_pasangan ?? 0,
+            'jumlah_imbuhan' => (float)$this->jumlah_imbuhan ?? 0,
+            'jumlah_imbuhan_pasangan' => (float)$this->jumlah_imbuhan_pasangan ?? 0,
+            'sewa' => (float)$this->sewa ?? 0,
+            'sewa_pasangan' => (float)$this->sewa_pasangan ?? 0,
+            'pinjaman_perumahan_pegawai' => (float)$this->pinjaman_perumahan_pegawai ?? 0,
+            'bulanan_perumahan_pegawai' => (float)$this->bulanan_perumahan_pegawai?? 0,
+            'pinjaman_perumahan_pasangan' => (float)$this->pinjaman_perumahan_pasangan?? 0,
+            'bulanan_perumahan_pasangan' => (float)$this->bulanan_perumahan_pasangan?? 0,
+            'pinjaman_kenderaan_pegawai' => (float)$this->pinjaman_kenderaan_pegawai?? 0,
+            'bulanan_kenderaan_pegawai' => (float)$this->bulanan_kenderaan_pegawai?? 0,
+            'pinjaman_kenderaan_pasangan' => (float)$this->pinjaman_kenderaan_pasangan?? 0,
+            'bulanan_kenderaan_pasangan' => (float)$this->bulanan_kenderaan_pasangan?? 0,
+            'jumlah_cukai_pegawai' => (float)$this->jumlah_cukai_pegawai?? 0,
+            // 'bulanan_cukai_pegawai' => (float)$this->bulanan_cukai_pegawai?? 0,
+            'jumlah_cukai_pasangan' => (float)$this->jumlah_cukai_pasangan?? 0,
+            // 'bulanan_cukai_pasangan' => (float)$this->bulanan_cukai_pasangan?? 0,
+            'jumlah_koperasi_pegawai' => (float)$this->jumlah_koperasi_pegawai?? 0,
+            'bulanan_koperasi_pegawai' => (float)$this->bulanan_koperasi_pegawai?? 0,
+            'jumlah_koperasi_pasangan' => (float)$this->jumlah_koperasi_pasangan?? 0,
+            'bulanan_koperasi_pasangan' => (float)$this->bulanan_koperasi_pasangan?? 0,
             'status' => $status
         ]);
 
         //panngil function storeDivivden() & storePinjaman()
         $this->storeDividen();
         $this->reset('inputsdividen');
-
         $this->storePinjaman();
+        // $this->reset('inputspinjaman');
 
 
 
@@ -644,6 +778,7 @@ class EditFormB extends Component
             'cara_belian' => $this->cara_belian,
             'lain_lain' => $this->lain_lain,
             'tunai' => $this->tunai,
+            'sumber_tunai' => $this->sumber_tunai,
             'jumlah_pinjaman' => $this->jumlah_pinjaman,
             'institusi_pinjaman' => $this->institusi_pinjaman,
             'tempoh_bayar_balik' => $this->tempoh_bayar_balik,
@@ -818,15 +953,17 @@ class EditFormB extends Component
             }
         }
 
-        if($this->dividen_1)
-            $counter = count($this->dividen_1);
+        if($this->j){
+            $counter = $this->j + 1;
+          }
         else
             $counter = 0;
+
         for ($key=0; $key < $counter ; $key++) {
             DividenB::create([
                 'dividen_1' => $this->dividen_1[$key],
-                'dividen_1_pegawai' => $this->dividen_1_pegawai[$key],
-                'dividen_1_pasangan' => $this->dividen_pasangan[$key],
+                'dividen_1_pegawai' => (float)$this->dividen_1_pegawai[$key]??0,
+                'dividen_1_pasangan' => (float)$this->dividen_pasangan[$key]??0,
                 'formbs_id' => $this->idForm,
             ]);
         }
@@ -841,18 +978,20 @@ class EditFormB extends Component
             }
         }
 
-        if($this->lain_lain_pinjaman)
-            $counter = count($this->lain_lain_pinjaman);
+        if($this->i){
+            $counter = $this->i + 1;
+          }
         else
             $counter = 0;
 
         for ($key=0; $key < $counter; $key++) {
+
             PinjamanB::create ([
                 'lain_lain_pinjaman' => $this->lain_lain_pinjaman[$key],
-                'pinjaman_pegawai' => $this->pinjaman_pegawai[$key],
-                'bulanan_pegawai' => $this->bulanan_pegawai[$key],
-                'pinjaman_pasangan' => $this->pinjaman_pasangan[$key],
-                'bulanan_pasangan' => $this->bulanan_pasangan[$key],
+                'pinjaman_pegawai' => (float)$this->pinjaman_pegawai[$key] ?? 0,
+                'bulanan_pegawai' => (float)$this->bulanan_pegawai[$key] ?? 0,
+                'pinjaman_pasangan' => (float)$this->pinjaman_pasangan[$key] ?? 0,
+                'bulanan_pasangan' => (float)$this->bulanan_pasangan[$key] ?? 0,
                 'formbs_id' =>$this->idForm,
             ]);
         }

@@ -167,7 +167,7 @@
                                 <div class="col-md-4 mt-2 mt-md-0">
 
                                     <input class="form-control bg-light" onkeypress="return isNumberKey(event,this)" type="text"
-                                    wire:model="sewa" placeholder="Sewa Pegawai" value="{{ old('sewa') }}" autocomplete="off">
+                                    wire:model="sewa" placeholder="Sewa Pegawai" autocomplete="off">
                                     @error('sewa')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -352,8 +352,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" type="text" wire:model="jumlah_cukai_pegawai"
-                                    onkeypress="return isNumberKey(event,this)"
-                                         value="{{ old('jumlah_cukai_pegawai') }}"
+                                    onkeypress="return isNumberKey(event,this)" value="0"
                                         autocomplete="off">
                                     @error('jumlah_cukai_pegawai')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -361,19 +360,17 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" wire:model="bulanan_cukai_pegawai"
-                                    onkeypress="return isNumberKey(event,this)"
-                                         value="{{ old('bulanan_cukai_pegawai') }}"
+                                    <!-- <input class="form-control bg-light" type="text" wire:model="bulanan_cukai_pegawai"
+                                    onkeypress="return isNumberKey(event,this)" value="0"
                                         autocomplete="off">
                                     @error('bulanan_cukai_pegawai')
                                         <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                    @enderror -->
                                 </div>
 
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" type="text" wire:model="jumlah_cukai_pasangan"
-                                    onkeypress="return isNumberKey(event,this)"
-                                         value="{{ old('jumlah_cukai_pasangan') }}"
+                                    onkeypress="return isNumberKey(event,this)" value="0"
                                         autocomplete="off">
                                     @error('jumlah_cukai_pasangan')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -381,13 +378,12 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <input class="form-control bg-light" type="text" wire:model="bulanan_cukai_pasangan"
-                                    onkeypress="return isNumberKey(event,this)"
-                                         value="{{ old('bulanan_cukai_pasangan') }}"
+                                    <!-- <input class="form-control bg-light" type="text" wire:model="bulanan_cukai_pasangan"
+                                    onkeypress="return isNumberKey(event,this)" value="0"
                                         autocomplete="off">
                                     @error('bulanan_cukai_pasangan')
                                         <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                    @enderror -->
                                 </div>
 
                             </div>
@@ -399,7 +395,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" wire:model="jumlah_koperasi_pegawai"
-                                        value="{{ old('jumlah_koperasi_pegawai') }}" onkeypress="return isNumberKey(event,this)"
+                                        value="0" onkeypress="return isNumberKey(event,this)"
                                         id="jumlah_koperasi_pegawai" autocomplete="off">
                                     @error('jumlah_koperasi_pegawai')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -409,7 +405,7 @@
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" wire:model="bulanan_koperasi_pegawai"
                                         onkeypress="return isNumberKey(event,this)"
-                                        value="{{ old('bulanan_koperasi_pegawai') }}" id="bulanan_koperasi_pegawai"
+                                        value="0" id="bulanan_koperasi_pegawai"
                                         autocomplete="off">
                                     @error('bulanan_koperasi_pegawai')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -419,7 +415,7 @@
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" wire:model="jumlah_koperasi_pasangan"
                                         onkeypress="return isNumberKey(event,this)"
-                                        value="{{ old('jumlah_koperasi_pasangan') }}" id="jumlah_koperasi_pasangan"
+                                        value="0" id="jumlah_koperasi_pasangan"
                                         autocomplete="off">
                                     @error('jumlah_koperasi_pasangan')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -429,7 +425,7 @@
                                 <div class="col-md-2">
                                     <input class="form-control bg-light" wire:model="bulanan_koperasi_pasangan"
                                         onkeypress="return isNumberKey(event,this)"
-                                        value="{{ old('bulanan_koperasi_pasangan') }}" id="bulanan_koperasi_pasangan"
+                                        value="0" id="bulanan_koperasi_pasangan"
                                         autocomplete="off">
                                     @error('bulanan_koperasi_pasangan')
                                         <div class="alert alert-danger">{{ $message }}</div>
