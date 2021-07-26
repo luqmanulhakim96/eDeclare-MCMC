@@ -78,9 +78,9 @@ class EditFormB extends Component
         $this->j = $j;
         array_push($this->inputsdividen, $j);
 
-        $this->dividen_1[$this->j] = '';
-        $this->dividen_pasangan[$this->j] = 0;
-        $this->dividen_1_pegawai[$this->j] = 0;
+        $this->dividen_1[$this->j] = null;
+        $this->dividen_pasangan[$this->j] = null;
+        $this->dividen_1_pegawai[$this->j] = null;
     }
 
     public function removedividen($j)
@@ -103,18 +103,15 @@ class EditFormB extends Component
         $this->i = $i;
         array_push($this->inputs, $i);
         // dd($this->i);
-        $this->lain_lain_pinjaman[$this->i] = '';
-        $this->pinjaman_pegawai[$this->i] = 0;
-        $this->bulanan_pegawai[$this->i] = 0;
-        $this->pinjaman_pasangan[$this->i] = 0;
-        $this->bulanan_pasangan[$this->i] = 0;
+        $this->lain_lain_pinjaman[$this->i] = null;
+        $this->pinjaman_pegawai[$this->i] = null;
+        $this->bulanan_pegawai[$this->i] = null;
+        $this->pinjaman_pasangan[$this->i] = null;
+        $this->bulanan_pasangan[$this->i] = null;
     }
 
     public function remove($i)
     {
-      // $i = $i + 1;
-      // $i = $i - 1;
-      // $this->i = $i;
       unset($this->inputs[$i]);
     }
 
@@ -126,7 +123,24 @@ class EditFormB extends Component
         $this->render();
         $this->loadData();
     }
+    public function validatordividen($i){
+      $this->validate([
+      'dividen_1.'.$i => 'required_with:dividen_1_pegawai.'.$i.'|| required_with:dividen_pasangan.'.$i.'|string',
+      'dividen_1_pegawai.'.$i => 'nullable|numeric',
+      'dividen_pasangan.'.$i => 'nullable|numeric',
+      ]);
 
+    }
+    public function validatorpinjaman($j){
+          $this->validate([
+
+          'lain_lain_pinjaman.'.$j => 'required_with:pinjaman_pegawai.'.$j.'||required_with:bulanan_pegawai.'.$j.'||required_with:pinjaman_pasangan.'.$j.'||required_with:bulanan_pasangan.'.$j.'|string',
+          'pinjaman_pegawai.'.$j => 'nullable|numeric',
+          'bulanan_pegawai.'.$j => 'nullable|numeric',
+          'pinjaman_pasangan.'.$j => 'nullable|numeric',
+          'bulanan_pasangan.'.$j => 'nullable|numeric',
+          ]);
+        }
     public function validatordrafform(){
         $this->validate([
           'gaji_pasangan' => 'nullable|numeric',
@@ -158,11 +172,26 @@ class EditFormB extends Component
 
       // $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
       $user_check = UserExistingStaffInfo::where('USERNAME', $username) ->first('STAFFNO');
+      $user = UserExistingStaffInfo::where('USERNAME', $username) ->get();
 
       $maklumat_pasangan_check = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO', $user_check->STAFFNO) ->get();
 
-
       if($maklumat_pasangan_check->isEmpty()){
+              $maklumat_pasangan = null;
+            }
+      else{
+        foreach ($user as $keluarga) {
+          // dd($keluarga);
+          if($keluarga->STAFFMARTIALSTATUS != "DIVORCED"){
+            $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          }
+          else
+          $maklumat_pasangan = null;
+          }
+      }
+// dd($maklumat_pasangan);
+
+      if($maklumat_pasangan == null){
         $this->validate([
           'pekerjaan_pasangan' => 'nullable|string',
           'gaji_pasangan' => 'nullable|numeric',
@@ -285,22 +314,31 @@ class EditFormB extends Component
         // $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
         // $maklumat_anak_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
         $user_check = UserExistingStaffInfo::where('USERNAME', $username) ->first('STAFFNO');
-        $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+        $user = UserExistingStaffInfo::where('USERNAME', $username) ->get();
 
         // dd($user->STAFFNO);
         $maklumat_pasangan_check = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO', $user_check->STAFFNO) ->get();
         // dd($maklumat_pasangan_check);
-        $maklumat_anak_check = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->orwhere('RELATIONSHIP','D')->where('STAFFNO', $user_check->STAFFNO) ->get();
-
+        // $maklumat_anak_check = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->orwhere('RELATIONSHIP','D')->where('STAFFNO', $user_check->STAFFNO) ->get();
+        $anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO', $user_check->STAFFNO) ->get();
+        $anak_perempuan = UserExistingStaffNextofKin::where('RELATIONSHIP','D')->where('STAFFNO', $user_check->STAFFNO) ->get();
+        $maklumat_anak_check = $anak_lelaki->mergeRecursive($anak_perempuan);
 
         if($maklumat_pasangan_check->isEmpty()){
           $maklumat_pasangan = null;
         }
         else{
           foreach ($user as $keluarga) {
-            $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+            // dd($keluarga);
+            if($keluarga->STAFFMARTIALSTATUS != "DIVORCED"){
+              $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+            }
+            else
+            $maklumat_pasangan = null;
+
+            }
           }
-        }
+
 
         if($maklumat_anak_check->isEmpty()){
           $maklumat_anak = null;
@@ -311,7 +349,7 @@ class EditFormB extends Component
             // $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
             $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
             $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
-            $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+            $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan)->sortBy('ICNEW');
             }
         }
         $this->idForm = $info->id;
@@ -874,16 +912,16 @@ class EditFormB extends Component
     {
         $this->jenis_harta = null;
         $this->pemilik_harta = null;
-        $this->hubungan_pemilik = null;
+        $this->hubungan_pemilik = '';
         $this->nama_pemilik_bersama = null;
         $this->lain_lain_hubungan = null;
         $this->maklumat_harta = null;
         $this->tarikh_pemilikan_harta = null;
         $this->bilangan = null;
         $this->nilai_perolehan = null;
-        $this->cara_perolehan = null;
+        $this->cara_perolehan = '';
         $this->nama_pemilikan_asal = null;
-        $this->cara_belian = null;
+        $this->cara_belian = '';
         $this->lain_lain = null;
         $this->jumlah_pinjaman = null;
         $this->institusi_pinjaman = null;
@@ -901,7 +939,7 @@ class EditFormB extends Component
         $this->unit_bilangan = null;
         $this->showhubungan = 0;
         $this->showjenispemilikan = 0;
-        $this->show = 1;
+        $this->show = 0;
         $this->showbelian = 0;
     }
     public function deleteharta($id)
@@ -945,6 +983,7 @@ class EditFormB extends Component
     }
 
     public function storeDividen(){
+        // dd($this->dividen_1[0]);
         $dividen = DividenB::where('formbs_id', $this->idForm)->get();
         if ($dividen) {
             foreach($dividen as $data){
@@ -956,12 +995,35 @@ class EditFormB extends Component
         if($this->j){
             $counter = $this->j + 1;
           }
-        else
-            $counter = 0;
+        elseif($this->dividen_1){
+          $counter = count($this->dividen_1);
+        }
+        else{
+          $counter = 0;
+        }
 
+        // for ($j=0; $j <= $this->j; $j++) {
+        //       $this-> validatordividen($j);
+        // }
         for ($key=0; $key < $counter ; $key++) {
-            DividenB::create([
-                'dividen_1' => $this->dividen_1[$key],
+          // dd($this->dividen_1[$key]);
+          if (empty($this->dividen_1[$key])) {
+            $this->dividen_1[$key] = null;
+          }
+          // dd($this->dividen_1_pegawai[3]);
+          if (empty($this->dividen_1_pegawai[$key])) {
+            $this->dividen_1_pegawai[$key] = 0;
+          }
+          if (empty($this->dividen_pasangan[$key])) {
+            $this->dividen_pasangan[$key] = 0;
+          }
+          $this->validate([
+            'dividen_1.'.$key => 'required_with:dividen_1_pegawai.'.$key.'|| required_with:dividen_pasangan.'.$key.'|string',
+            'dividen_1_pegawai.'.$key => 'nullable|numeric',
+            'dividen_pasangan.'.$key => 'nullable|numeric',
+          ]);
+            $b = DividenB::create([
+                'dividen_1' => $this->dividen_1[$key] ?? null,
                 'dividen_1_pegawai' => (float)$this->dividen_1_pegawai[$key]??0,
                 'dividen_1_pasangan' => (float)$this->dividen_pasangan[$key]??0,
                 'formbs_id' => $this->idForm,
@@ -981,10 +1043,43 @@ class EditFormB extends Component
         if($this->i){
             $counter = $this->i + 1;
           }
-        else
-            $counter = 0;
+        elseif ($this->lain_lain_pinjaman) {
+            $counter = count($this->lain_lain_pinjaman);
+        }
+        else{
+          $counter = 0;
+        }
+
+
+        // for ($i=0; $i <= $this->i; $i++) {
+        //       $this-> validatorpinjaman($i);
+        // }
 
         for ($key=0; $key < $counter; $key++) {
+          if (empty($this->lain_lain_pinjaman[$key])) {
+            $this->lain_lain_pinjaman[$key] = null;
+          }
+          if (empty($this->pinjaman_pegawai[$key])) {
+            $this->pinjaman_pegawai[$key] = 0;
+          }
+          if (empty($this->bulanan_pegawai[$key])) {
+            $this->bulanan_pegawai[$key] = 0;
+          }
+          if (empty($this->pinjaman_pasangan[$key])) {
+            $this->pinjaman_pasangan[$key] = 0;
+          }
+          if (empty($this->bulanan_pasangan[$key])) {
+            $this->bulanan_pasangan[$key] = 0;
+          }
+
+          $this->validate([
+
+          'lain_lain_pinjaman.'.$key => 'required_with:pinjaman_pegawai.'.$key.'||required_with:bulanan_pegawai.'.$key.'||required_with:pinjaman_pasangan.'.$key.'||required_with:bulanan_pasangan.'.$key.'|string',
+          'pinjaman_pegawai.'.$key => 'nullable|numeric',
+          'bulanan_pegawai.'.$key => 'nullable|numeric',
+          'pinjaman_pasangan.'.$key => 'nullable|numeric',
+          'bulanan_pasangan.'.$key => 'nullable|numeric',
+          ]);
 
             PinjamanB::create ([
                 'lain_lain_pinjaman' => $this->lain_lain_pinjaman[$key],

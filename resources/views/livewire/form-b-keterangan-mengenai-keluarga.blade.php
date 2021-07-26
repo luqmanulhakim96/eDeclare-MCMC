@@ -3,15 +3,12 @@
         <div class="col-12 mt-4">
             <div class="card rounded-lg">
                 <div class="card-body">
-
-                    <!-- keluarga -->
                     <div class="row">
                         <div class="col-md-4">
                             <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
                         </div>
                     </div>
-                    @if ($maklumat_pasangan == null)
-                    @else
+                    @if ($maklumat_pasangan != null)
                     @foreach ($maklumat_pasangan as $maklumat_pasangan)
                         <div class="row">
                             <div class="col-md-4">
@@ -64,8 +61,7 @@
                     @endforeach
                     @endif
 
-                    @if ($maklumat_anak == null)
-                    @else
+                    @if ($maklumat_anak != null)
                         @foreach ($maklumat_anak as $maklumat_anak)
                             <div class="row">
                                 <div class="col-md-4">

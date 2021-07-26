@@ -615,28 +615,48 @@ return view('user.hadiah.ulasanpageGiftB', compact('ulasanAdmin','ulasanHod','ul
 
     $hartaB =HartaB::where('formbs_id',$listHarta->id) ->get();
 
+    $username = auth()->user()->username;
+    $user_check = UserExistingStaffInfo::where('USERNAME', $username) ->first('STAFFNO');
+    $user = UserExistingStaffInfo::where('USERNAME', $username) ->get();
 
-    $user = UserExistingStaffInfo::where('STAFFNO', $listHarta->no_staff) ->get('STAFFNO');
-    // dd($user);
+    // dd($user->STAFFNO);
+    $maklumat_pasangan_check = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO', $user_check->STAFFNO) ->get();
+    // dd($maklumat_pasangan_check);
+    // $maklumat_anak_check = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->orwhere('RELATIONSHIP','D')->where('STAFFNO', $user_check->STAFFNO) ->get();
+    $anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO', $user_check->STAFFNO) ->get();
+    $anak_perempuan = UserExistingStaffNextofKin::where('RELATIONSHIP','D')->where('STAFFNO', $user_check->STAFFNO) ->get();
+    $maklumat_anak_check = $anak_lelaki->mergeRecursive($anak_perempuan);
 
-    foreach ($user as $keluarga) {
+    if($maklumat_pasangan_check->isEmpty()){
+      $maklumat_pasangan = null;
+    }
+    else{
+      foreach ($user as $keluarga) {
+        // dd($keluarga);
+        if($keluarga->STAFFMARTIALSTATUS != "DIVORCED"){
+          $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        }
+        else
+        $maklumat_pasangan = null;
 
-        $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+        }
+      }
+
+
+    if($maklumat_anak_check->isEmpty()){
+      $maklumat_anak = null;
+    }
+    else{
+      foreach ($user as $keluarga) {
+
+        // $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
         $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
         $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
-        $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+        $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan)->sortBy('ICNEW');
         }
-
-    if($maklumat_pasangan->isEmpty()){
-      $maklumat_pasangan = null;
-      // dd('test');
-      // return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan'));
     }
 
-    if ($maklumat_anak->isEmpty()) {
-      $maklumat_anak = null;
-      // return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_pasangan'));
-    }
+    // dd($maklumat_pasangan);
     return view('user.harta.FormB.viewformB', compact('listHarta','listDividenB','listPinjamanB','hartaB','maklumat_anak','maklumat_pasangan'));
 
 }

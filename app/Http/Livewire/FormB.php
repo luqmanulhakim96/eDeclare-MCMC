@@ -89,7 +89,7 @@ class FormB extends Component
 
       // $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
       $user_check = UserExistingStaffInfo::where('USERNAME', $username) ->first('STAFFNO');
-      
+
       $maklumat_pasangan_check = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO', $user_check->STAFFNO) ->get();
 
       if($maklumat_pasangan_check->isEmpty()){
@@ -206,19 +206,28 @@ class FormB extends Component
         $this->no_staff = $data->STAFFNO;
       }
       $user_check = UserExistingStaffInfo::where('USERNAME', $username) ->first('STAFFNO');
-      $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
+      $user = UserExistingStaffInfo::where('USERNAME', $username) ->get();
 
       // dd($user->STAFFNO);
       $maklumat_pasangan_check = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO', $user_check->STAFFNO) ->get();
-      $maklumat_anak_check = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->orwhere('RELATIONSHIP','D')->where('STAFFNO', $user_check->STAFFNO) ->get();
+      $anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO', $user_check->STAFFNO)->get();
+      $anak_perempuan = UserExistingStaffNextofKin::where('RELATIONSHIP','D')->where('STAFFNO', $user_check->STAFFNO)->get();
+      $maklumat_anak_check = $anak_lelaki->mergeRecursive($anak_perempuan);
+      // dd($maklumat_anak_check);
 
       if($maklumat_pasangan_check->isEmpty()){
         $maklumat_pasangan = null;
       }
       else{
         foreach ($user as $keluarga) {
-          $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
-        }
+          // dd($keluarga);
+          if($keluarga->STAFFMARTIALSTATUS != "DIVORCED"){
+            $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
+          }
+          else
+          $maklumat_pasangan = null;
+
+          }
       }
 
       if($maklumat_anak_check->isEmpty()){
@@ -230,9 +239,10 @@ class FormB extends Component
           // $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
           $maklumat_anak_lelaki = UserExistingStaffNextofKin::where('RELATIONSHIP','S')->where('STAFFNO',$keluarga->STAFFNO)->get();
           $maklumat_anak_perempuan = UserExistingStaffNextofKin::where('STAFFNO',$keluarga->STAFFNO)->where('RELATIONSHIP','D')->get();
-          $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan);
+          $maklumat_anak = $maklumat_anak_lelaki->mergeRecursive($maklumat_anak_perempuan)->sortBy('ICNEW');
           }
       }
+      // dd($maklumat_anak);
         return view('livewire.form-b', compact('jenisHarta', 'staffinfo', 'maklumat_pasangan', 'maklumat_anak'));
     }
 
@@ -269,23 +279,6 @@ class FormB extends Component
             $this->bulanan_koperasi_pasangan = number_format((float)$data_user->bulanan_koperasi_pasangan,2,'.','') ?? null;
         }
 
-        $username =Auth::user()->username;
-        $user = UserExistingStaffInfo::where('USERNAME', $username) ->get('STAFFNO');
-        $maklumat_pasangan_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
-        $maklumat_anak_check = UserExistingStaffInfo::where('USERNAME', $username) ->get();
-
-        if($maklumat_pasangan_check->isEmpty()){
-          $maklumat_pasangan = null;
-        }
-        else{
-          foreach ($user as $keluarga) {
-            $maklumat_pasangan = UserExistingStaffNextofKin::where('RELATIONSHIP','SP')->where('STAFFNO',$keluarga->STAFFNO)->get();
-          }
-          // dd($maklumat_pasangan);
-          foreach ($maklumat_pasangan as $data) {
-            $this->pekerjaan_pasangan = $data->NOKEMLOYER;
-          }
-        }
 
     }
 
@@ -303,11 +296,11 @@ class FormB extends Component
 
     public function validatordividen($i){
       $this->validate([
-
-      'dividen_1.'.$i => 'nullable|string',
+      'dividen_1.'.$i => 'required_with:dividen_1_pegawai.'.$i.'|| required_with:dividen_pasangan.'.$i.'|string',
       'dividen_1_pegawai.'.$i => 'nullable|numeric',
       'dividen_pasangan.'.$i => 'nullable|numeric',
       ]);
+
     }
 
     public function storedividen()
@@ -318,8 +311,17 @@ class FormB extends Component
             $counter = 0;
 
        for ($key=0; $key < $counter ; $key++) {
+         if (empty($this->dividen_1[$key])) {
+           $this->dividen_1[$key] = null;
+         }
+         if (empty($this->dividen_1_pegawai[$key])) {
+           $this->dividen_1_pegawai[$key] = 0;
+         }
+         if (empty($this->dividen_pasangan[$key])) {
+           $this->dividen_pasangan[$key] = 0;
+         }
         DividenB::create([
-            'dividen_1' => $this->dividen_1[$key],
+            'dividen_1' => $this->dividen_1[$key] ?? 'Tiada',
             'dividen_1_pegawai' => $this->dividen_1_pegawai[$key] ?? 0,
             'dividen_1_pasangan' => $this->dividen_pasangan[$key] ?? 0,
             'formbs_id' => $this->formbid_created,
@@ -343,7 +345,7 @@ class FormB extends Component
     public function validatorpinjaman($j){
       $this->validate([
 
-      'lain_lain_pinjaman.'.$j => 'nullable|string',
+      'lain_lain_pinjaman.'.$j => 'required_with:pinjaman_pegawai.'.$j.'||required_with:bulanan_pegawai.'.$j.'||required_with:pinjaman_pasangan.'.$j.'||required_with:bulanan_pasangan.'.$j.'|string',
       'pinjaman_pegawai.'.$j => 'nullable|numeric',
       'bulanan_pegawai.'.$j => 'nullable|numeric',
       'pinjaman_pasangan.'.$j => 'nullable|numeric',
@@ -359,8 +361,25 @@ class FormB extends Component
             $counter = 0;
 
         for ($key=0; $key < $counter; $key++) {
+
+          if (empty($this->lain_lain_pinjaman[$key])) {
+            $this->lain_lain_pinjaman[$key] = null;
+          }
+          if (empty($this->pinjaman_pegawai[$key])) {
+            $this->pinjaman_pegawai[$key] = 0;
+          }
+          if (empty($this->bulanan_pegawai[$key])) {
+            $this->bulanan_pegawai[$key] = 0;
+          }
+          if (empty($this->pinjaman_pasangan[$key])) {
+            $this->pinjaman_pasangan[$key] = 0;
+          }
+          if (empty($this->bulanan_pasangan[$key])) {
+            $this->bulanan_pasangan[$key] = 0;
+          }
+
             PinjamanB::create ([
-                'lain_lain_pinjaman' => $this->lain_lain_pinjaman[$key],
+                'lain_lain_pinjaman' => $this->lain_lain_pinjaman[$key]?? 'Tiada',
                 'pinjaman_pegawai' => $this->pinjaman_pegawai[$key]?? 0,
                 'bulanan_pegawai' => $this->bulanan_pegawai[$key]?? 0,
                 'pinjaman_pasangan' => $this->pinjaman_pasangan[$key]?? 0,

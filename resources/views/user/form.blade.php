@@ -73,13 +73,14 @@
                   </div>
                   <div class="modal-footer">
                     @if($status_form->status == 'Sedang Diproses' || $status_form->status == 'Sedang Dikemaskini' || $status_form->status == 'Tidak Lengkap')
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                     <a href="{{route('user.harta.FormB.senaraihartaB')}}" class="btn btn-danger" name="publish">Ya</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                     @elseif($status_form->status == 'Menunggu Kebenaran Kemaskini')
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     @elseif($status_form->status == 'Disimpan ke Draf')
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                     <a href="{{route('user.harta.senaraidraft')}}" class="btn btn-danger" name="publish">Ya</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+
                     @endif
                   </div>
               </div>

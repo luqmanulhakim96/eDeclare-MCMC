@@ -74,15 +74,19 @@
 
 
                                   <!-- keluarga -->
+                      @if($maklumat_pasangan == null && $maklumat_anak == null)
+                      @else
+                      <div class="rounded-lg card">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
+                              </div>
+                            </div>
                             @if($maklumat_pasangan != null)
-                             <div class="rounded-lg card">
-                                 <div class="card-body">
+
                                   @foreach($maklumat_pasangan as $maklumat_pasangan)
-                                  <div class="row">
-                                    <div class="col-md-4">
-                                      <p><b>2.KETERANGAN MENGENAI KELUARGA</b></p>
-                                    </div>
-                                  </div>
+
                                   <div class="row">
                                       <div class="col-md-4">
                                           <p>Nama Suami / Isteri</p>
@@ -130,7 +134,7 @@
                                     @endforeach
                                     @endif
 
-                                    @if($maklumat_anak== null)
+                                    @if($maklumat_anak == null)
                                     @else
                                     @foreach($maklumat_anak as $maklumat_anak)
                                     <div class="row">
@@ -192,11 +196,13 @@
                                       </div>
                                       <hr>
                                       @endforeach
+                                      @endif
                                     </div>
                               </div>
                               <br>
                           <!-- </div>
                       </div> -->
+
                       @endif
 
                       <!-- <div class="row">
