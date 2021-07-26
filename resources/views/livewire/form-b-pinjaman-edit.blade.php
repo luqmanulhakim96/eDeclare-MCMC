@@ -182,13 +182,11 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                @if($loop->last)
                                 <div class="col-md-1">
                                     <a wire:click.prevent="remove({{ $key }})" class="btn btn-danger"><i
                                             class="fas fa-trash"></i></a>
 
                                 </div>
-                                @endif
                             </div>
                             <br>
                     @endforeach

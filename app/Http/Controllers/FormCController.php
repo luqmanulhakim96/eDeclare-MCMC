@@ -147,25 +147,26 @@ public function add(array $data){
 }
 protected function validatorpublish(array $data)
 {
+  // dd('masuk');
   return Validator::make($data, [
 
-    'jenis_harta_lupus_' => ['array'],
-    'jenis_harta_lupus_.*' => ['required', 'string'],
-    'pemilik_harta_pelupusan_' => ['array'],
-    'pemilik_harta_pelupusan_.*' => ['required', 'string'],
-    'hubungan_pemilik_pelupusan_' =>['array'],
-    'hubungan_pemilik_pelupusan_.*' =>['required', 'string'],
-    'no_pendaftaran_harta_' =>['array'],
-    'no_pendaftaran_harta_.*' =>['required', 'string'],
-    'tarikh_pemilikan_' =>['array'],
-    'tarikh_pemilikan_.*' =>['required', 'date'],
-    'tarikh_pelupusan_' => ['array'],
-    'tarikh_pelupusan_.*' => ['required', 'date'],
-    'cara_pelupusan_' => ['array'],
-    'cara_pelupusan_.*' => ['required', 'string'],
-    'nilai_pelupusan_' => ['array'],
-    'nilai_pelupusan_.*' => ['required', 'numeric'],
-    'pengakuan' => ['required'],
+    'jenis_harta_lupus_' => "array",
+    'jenis_harta_lupus_.*' => "required|string",
+    'pemilik_harta_pelupusan_' => "array",
+    'pemilik_harta_pelupusan_.*' => "required|string",
+    'hubungan_pemilik_pelupusan_' =>"array",
+    'hubungan_pemilik_pelupusan_.*' =>"required|string",
+    'no_pendaftaran_harta_' =>"array",
+    'no_pendaftaran_harta_.*' =>"required|string",
+    'tarikh_pemilikan_' =>"array",
+    'tarikh_pemilikan_.*' =>"required|date",
+    'tarikh_pelupusan_' => "array",
+    'tarikh_pelupusan_.*' => "required|date",
+    'cara_pelupusan_' => "array",
+    'cara_pelupusan_.*' => "required|string",
+    'nilai_pelupusan_' => "array",
+    'nilai_pelupusan_.*' => "required|numeric",
+    'pengakuan' => "required",
 
   ]);
 }
@@ -207,9 +208,9 @@ protected function validatorpublish(array $data)
   }
   else if ($request->has('publish'))
   {
-
+// dd($request->all());
     $this->validatorpublish($request->all())->validate();
-    // dd($request->all());
+
     event($formcs = $this->add($request->all()));
 
     if($request->jenis_harta_lupus_){

@@ -86,9 +86,9 @@
                     </div>
                 </div>
             </div>
-            @if($maklumat_pasangan == null)
+            @if($maklumat_pasangan == null && $maklumat_anak == null)
             @else
-                @include('livewire.form-b-keterangan-mengenai-keluarga')
+            @include('livewire.form-b-keterangan-mengenai-keluarga')
             @endif
             <div class="row">
                 <div class="col-12 mt-4">
